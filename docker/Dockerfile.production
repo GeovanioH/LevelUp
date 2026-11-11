@@ -10,7 +10,7 @@
 # ------------------------------------------------------------------------------
 FROM node:20-alpine AS base
 WORKDIR /app
-RUN apk add --no-cache libc6-compat openssl
+RUN apk add --no-cache libc6-compat openssl python3 make g++
 RUN corepack enable && corepack prepare pnpm@12.16.1 --activate
 
 # ------------------------------------------------------------------------------
@@ -48,6 +48,8 @@ RUN pnpm build
 # ------------------------------------------------------------------------------
 FROM node:20-alpine AS runner
 WORKDIR /app
+
+RUN apk add --no-cache libc6-compat openssl
 
 ENV NODE_ENV=production
 ENV PORT=3000
