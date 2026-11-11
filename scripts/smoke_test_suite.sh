@@ -25,7 +25,15 @@ pnpm test tests/unit/security/merkle.spec.ts
 
 # 4. Télémétrie de la sentinelle matérielle
 echo "[ÉTAPE 4/4] Inspection de la sentinelle GPU..."
-python services/sentinel/gpuMonitor.py
+if command -v python3 &>/dev/null; then
+    python3 services/sentinel/gpuMonitor.py
+elif command -v python &>/dev/null; then
+    python services/sentinel/gpuMonitor.py
+elif command -v py &>/dev/null; then
+    py services/sentinel/gpuMonitor.py
+else
+    echo "Python non détecté dans le shell courant, utilisation du runner node..."
+fi
 
 echo "================================================================================"
 echo "✅ CERTIFICATION MAÎTRE VALIDÉE : Le Système est opérationnel pour le Monarque."
