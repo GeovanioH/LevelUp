@@ -1120,6 +1120,165 @@ describe('Pare-Feu de Pénalité & Sécurité Système (Penalty Firewall)', () =
 
 ---
 
+## 6.5 Suite 10 : Tests du Moteur de Vision par Ordinateur & Comptage de Répétitions (`tests/unit/cv/mediapipe_counter.spec.ts`)
+
+```typescript
+import { describe, it, expect, beforeEach } from 'vitest';
+import { MediaPipeRepCounter, ExerciseState, PoseLandmark } from '../../../client/cv/MediaPipeRepCounter';
+
+describe('MediaPipeRepCounter - Tests Unitaires de Précision Cinématique', () => {
+  let counter: MediaPipeRepCounter;
+
+  beforeEach(() => {
+    counter = new MediaPipeRepCounter(75, 160);
+  });
+
+  const createMockFrame = (elbowAngleDeg: number, visibility: number = 0.95): PoseLandmark[] => {
+    // Calcul de coordonnées géométriques simulant l'angle coude exact
+    const rad = (elbowAngleDeg * Math.PI) / 180.0;
+    const shoulder: PoseLandmark = { x: 0.5, y: 0.2, z: 0.0, visibility };
+    const elbow: PoseLandmark = { x: 0.5, y: 0.5, z: 0.0, visibility };
+    const wrist: PoseLandmark = { 
+      x: 0.5 + 0.3 * Math.sin(rad), 
+      y: 0.5 + 0.3 * Math.cos(rad), 
+      z: 0.0, 
+      visibility 
+    };
+
+    const landmarks: PoseLandmark[] = new Array(33).fill({ x: 0, y: 0, z: 0, visibility: 0 });
+    landmarks[11] = shoulder;
+    landmarks[13] = elbow;
+    landmarks[15] = wrist;
+    return landmarks;
+  };
+
+  it('devrait initialiser le compteur à 0 répétition à l'état START', () => {
+    expect(counter.getReps()).toBe(0);
+  });
+
+  it('devrait rejeter les images si la visibilité des repères est inférieure au seuil de confiance de 70%', () => {
+    const lowConfFrame = createMockFrame(60, 0.40);
+    const result = counter.processFrame(lowConfFrame);
+    expect(result.reps).toBe(0);
+  });
+
+  it('devrait incrémenter une répétition complète après un cycle descente stricte <= 75° et remontée >= 160°', () => {
+    // 1. Position haute initiale (bras tendus 165°)
+    counter.processFrame(createMockFrame(165));
+    // 2. Descente (120°)
+    counter.processFrame(createMockFrame(120));
+    // 3. Pic de contraction basse (70° <= 75°)
+    const bottom = counter.processFrame(createMockFrame(70));
+    expect(bottom.state).toBe(ExerciseState.PEAK_CONTRACTION);
+    // 4. Remontée (130°)
+    counter.processFrame(createMockFrame(130));
+    // 5. Verrouillage haut complet (162° >= 160°)
+    const completed = counter.processFrame(createMockFrame(162));
+    expect(completed.reps).toBe(1);
+    expect(completed.state).toBe(ExerciseState.REP_COMPLETED);
+  });
+
+  it('ne devrait PAS compter une demi-répétition non descendue sous 75° (anti-triche)', () => {
+    counter.processFrame(createMockFrame(165));
+    counter.processFrame(createMockFrame(95)); // Descente incomplète (95° > 75°)
+    counter.processFrame(createMockFrame(165));
+    expect(counter.getReps()).toBe(0);
+  });
+});
+```
+
+---
+
+## 6.6 Suite 11 : Tests du Moteur Neurobiologique de Vitalité (Borbély & Boksem) (`tests/unit/engine/vitality_engine.spec.ts`)
+
+```typescript
+import { describe, it, expect } from 'vitest';
+import { NeurobiologicalVitalityEngine } from '../../../services/NeurobiologicalVitalityEngine';
+
+describe('NeurobiologicalVitalityEngine - Décroissance Lente & Bilan Psychologique', () => {
+  it('devrait maintenir un niveau HP >= 80% après 16 heures de veille active (Modèle de Borbély)', () => {
+    const hpAfter16h = NeurobiologicalVitalityEngine.calculateHp(16, 22);
+    expect(hpAfter16h).toBeGreaterThanOrEqual(80);
+  });
+
+  it('ne devrait JAMAIS faire descendre les HP en dessous de 60% en journée normale', () => {
+    for (let hours = 0; hours <= 20; hours++) {
+      const hp = NeurobiologicalVitalityEngine.calculateHp(hours, (8 + hours) % 24);
+      expect(hp).toBeGreaterThanOrEqual(60);
+    }
+  });
+
+  it('devrait restaurer +10 MP lors de la complétion d'une quête (Pulse Dopaminergique)', () => {
+    const initialMp = 80;
+    const restored = NeurobiologicalVitalityEngine.applyDopamineReward(initialMp, 'DAILY');
+    expect(restored).toBe(90);
+  });
+
+  it('ne devrait jamais renvoyer de message évoquant la fatigue ou la faiblesse', () => {
+    const statusText = NeurobiologicalVitalityEngine.getPsychologicalStatusText(65, 60);
+    expect(statusText).not.toMatch(/fatigué|épuisé|faible|repos/i);
+    expect(statusText).toMatch(/DÉTERMINATION D'ACIER|VIGILANCE ACTIVE/i);
+  });
+});
+```
+
+---
+
+## 6.7 Suite 12 : Tests du Moteur de Score Harmonique Global & Invariants de Rang (`tests/unit/engine/harmonic_rank.spec.ts`)
+
+```typescript
+import { describe, it, expect } from 'vitest';
+import { HarmonicRankEngine, BaseScores, RealWorldAchievements } from '../../../services/HarmonicRankEngine';
+
+describe('HarmonicRankEngine - Moyenne Harmonique & Ancrage Réel des Rangs', () => {
+  const balancedScores: BaseScores = {
+    acad: 600, ai_eng: 650, cyber: 550, exp: 500, lng: 700, fin: 400, str: 600, dis: 600
+  };
+
+  it('devrait sanctionner sévèrement le délaissement d'une seule base via la moyenne harmonique', () => {
+    const neglectedScores: BaseScores = { ...balancedScores, str: 10 }; // STR délaissée
+    const globalBalanced = HarmonicRankEngine.calculateGlobalScore(balancedScores);
+    const globalNeglected = HarmonicRankEngine.calculateGlobalScore(neglectedScores);
+    
+    expect(globalNeglected).toBeLessThan(globalBalanced * 0.40); // Chute de plus de 60%
+  });
+
+  it('ne doit JAMAIS attribuer le Rang B à un joueur sans victoire en hackathon (Invariant Réel Inviolable)', () => {
+    const globalLevel = 55; // Niveau 55 suffisant théoriquement pour Rang B
+    const withoutHackathon: RealWorldAchievements = {
+      hackathonsWon: 0, // Pas de hackathon gagné
+      cambridgeCertificationLevel: 'C1',
+      classRankPercentile: 0.05,
+      calisthenicsRoutinesMastered: true,
+      productionSaasUsers: 10,
+      netWorthOrSponsorshipEur: 0
+    };
+
+    const rank = HarmonicRankEngine.determineRank(globalLevel, withoutHackathon);
+    expect(rank).not.toBe('B');
+    expect(rank).toBe('C'); // Reste plafonné au Rang C
+  });
+
+  it('devrait attribuer le Rang B si le joueur a un hackathon gagné, C1 Cambridge et calisthénie maîtrisée', () => {
+    const globalLevel = 50;
+    const withHackathon: RealWorldAchievements = {
+      hackathonsWon: 1,
+      cambridgeCertificationLevel: 'C1',
+      classRankPercentile: 0.08,
+      calisthenicsRoutinesMastered: true,
+      productionSaasUsers: 0,
+      netWorthOrSponsorshipEur: 0
+    };
+
+    const rank = HarmonicRankEngine.determineRank(globalLevel, withHackathon);
+    expect(rank).toBe('B');
+  });
+});
+```
+
+---
+
+
 ## 7. Les Mocks & Fixtures Complètes de Test
 
 Le Système embarque un jeu complet de fixtures JSON pour exécuter l'ensemble de la pyramide de test sans aucune dépendance réseau :

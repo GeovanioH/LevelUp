@@ -203,7 +203,132 @@ export function createAudioVisualizer(stream: MediaStream, canvas: HTMLCanvasEle
 
 ---
 
-### 2.2 Daemon Discord Gateway (Discord.js v14)
+#### 2.1.3 Moteur de Vision par Ordinateur Intégré (MediaPipe Pose WebAssembly)
+
+Pour valider objectivement les quêtes physiques de calisthénie sans dépendre de saisies manuelles faillibles, le Web HUD PWA intègre le modèle d'inférence de pose **MediaPipe Pose** (Google Research) compilé en WebAssembly et accéléré par WebGPU/WebGL :
+
+```mermaid
+flowchart LR
+    Webcam["Flux Webcam / Caméra Mobile (60 FPS)"] --> VideoFrame["Capture VideoFrame API"]
+    VideoFrame --> WASM["Inférence MediaPipe Pose (WebAssembly / WebGPU)"]
+    WASM --> Landmarks["33 Coordonnées Cartésiennes 3D (x, y, z, visibilité)"]
+    Landmarks --> AngleCalc["Calcul Trigonométrique d'Angles Articulaires"]
+    AngleCalc --> FSM["Machine à États Finis (Hystérésis Rep Counter)"]
+    FSM --> AudioCue["Bip Sonore Web Audio API (Validation Répétition)"]
+    FSM --> LocalDB["Synchronisation Dexie.js (IndexedDB)"]
+```
+
+#### Formulation Mathématique de la Cinématique Articulaire :
+Pour chaque articulation cible (coude pour les pompes, genou pour les squats/inchworms, hanche pour les relevés de jambes), l'angle $\theta$ entre trois points anatomiques $A, B, C$ (où $B$ est l'articulation charnière) est calculé par le produit scalaire normalisé dans l'espace tridimensionnel :
+
+$$\mathbf{u} = \mathbf{P}_A - \mathbf{P}_B = \begin{pmatrix} x_A - x_B \\ y_A - y_B \\ z_A - z_B \end{pmatrix}, \quad \mathbf{v} = \mathbf{P}_C - \mathbf{P}_B = \begin{pmatrix} x_C - x_B \\ y_C - y_B \\ z_C - z_B \end{pmatrix}$$
+
+$$\theta = \arccos \left( \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\|_2 \|\mathbf{v}\|_2} \right) \times \frac{180^\circ}{\pi}$$
+
+#### Matrice des Articulations Cibles par Exercice :
+* **Pompes Classiques, Déclinées, Diamant, Larges, Pike :** Points $11$ (Épaule gauche), $13$ (Coude gauche), $15$ (Poignet gauche) et points $12, 14, 16$ (côté droit).
+  * *Critère d'amplitude valide :* Descente : $\theta_{\text{coude}} \le 75^\circ$. Remontée : $\theta_{\text{coude}} \ge 160^\circ$.
+* **Squats profonds :** Points $23$ (Hanche), $25$ (Genou), $27$ (Cheville).
+  * *Critère d'amplitude valide :* Descente : $\theta_{\text{genou}} \le 85^\circ$. Remontée : $\theta_{\text{genou}} \ge 165^\circ$.
+* **Relevés de Jambes & V-Ups :** Angle d'élévation du tronc et des membres inférieurs par rapport au plan horizontal sol.
+
+#### Implémentation TypeScript du Compteur de Répétitions (`client/cv/MediaPipeRepCounter.ts`) :
+
+```typescript
+export interface PoseLandmark {
+  x: number;
+  y: number;
+  z: number;
+  visibility?: number;
+}
+
+export enum ExerciseState {
+  START = 'START',
+  DESCENDING = 'DESCENDING',
+  PEAK_CONTRACTION = 'PEAK_CONTRACTION',
+  ASCENDING = 'ASCENDING',
+  REP_COMPLETED = 'REP_COMPLETED'
+}
+
+export class MediaPipeRepCounter {
+  private currentState: ExerciseState = ExerciseState.START;
+  private repCount: number = 0;
+  private minAngleThreshold: number;
+  private maxAngleThreshold: number;
+  private minConfidence: number = 0.70;
+
+  constructor(minAngle: number = 75, maxAngle: number = 160) {
+    this.minAngleThreshold = minAngle;
+    this.maxAngleThreshold = maxAngle;
+  }
+
+  public calculateAngle(a: PoseLandmark, b: PoseLandmark, c: PoseLandmark): number {
+    const radians = Math.atan2(c.y - b.y, c.x - b.x) - Math.atan2(a.y - b.y, a.x - b.x);
+    let angle = Math.abs((radians * 180.0) / Math.PI);
+    if (angle > 180.0) {
+      angle = 360.0 - angle;
+    }
+    return angle;
+  }
+
+  public processFrame(landmarks: PoseLandmark[]): { reps: number; currentAngle: number; state: ExerciseState } {
+    // Indices MediaPipe Pose : 11 (épaule G), 13 (coude G), 15 (poignet G)
+    const shoulder = landmarks[11];
+    const elbow = landmarks[13];
+    const wrist = landmarks[15];
+
+    if (!shoulder || !elbow || !wrist || 
+        (shoulder.visibility && shoulder.visibility < this.minConfidence) ||
+        (elbow.visibility && elbow.visibility < this.minConfidence)) {
+      return { reps: this.repCount, currentAngle: 0, state: this.currentState };
+    }
+
+    const currentAngle = this.calculateAngle(shoulder, elbow, wrist);
+
+    // Machine à états finis avec hystérésis anti-faux positifs
+    switch (this.currentState) {
+      case ExerciseState.START:
+      case ExerciseState.ASCENDING:
+      case ExerciseState.REP_COMPLETED:
+        if (currentAngle < this.maxAngleThreshold - 15) {
+          this.currentState = ExerciseState.DESCENDING;
+        }
+        break;
+
+      case ExerciseState.DESCENDING:
+        if (currentAngle <= this.minAngleThreshold) {
+          this.currentState = ExerciseState.PEAK_CONTRACTION;
+        }
+        break;
+
+      case ExerciseState.PEAK_CONTRACTION:
+        if (currentAngle > this.minAngleThreshold + 15) {
+          this.currentState = ExerciseState.ASCENDING;
+        }
+        break;
+    }
+
+    if (this.currentState === ExerciseState.ASCENDING && currentAngle >= this.maxAngleThreshold) {
+      this.repCount++;
+      this.currentState = ExerciseState.REP_COMPLETED;
+    }
+
+    return { reps: this.repCount, currentAngle, state: this.currentState };
+  }
+
+  public getReps(): number {
+    return this.repCount;
+  }
+
+  public reset(): void {
+    this.repCount = 0;
+    this.currentState = ExerciseState.START;
+  }
+}
+```
+
+
+## 2.2 Daemon Discord Gateway (Discord.js v14)
 Le bot Discord assure la continuité opérationnelle hors poste de travail. Il permet au joueur d'interagir avec le Système depuis son smartphone lors de ses déplacements, séances sportives ou révisions.
 
 #### 2.2.1 Architecture & Règles de Résilience
@@ -530,6 +655,71 @@ function Disable-PenaltyLock {
 ```
 
 ---
+
+### 2.7.2 Intégration de l'API NextDNS & Pare-Feu Hybride Anti-Distraction
+
+Pour garantir l'inviolabilité du Deep Work et l'exécution stricte des quêtes de pénalité, LevelUp pilote dynamiquement la configuration DNS au niveau du routeur et du système d'exploitation via l'API REST officielle de NextDNS :
+
+```mermaid
+flowchart TD
+    Architect["IA Architecte / Daemon de Pénalité"] -->|Déclencheur Pénalité / Début Deep Work| PenaltyService["PenaltyFirewallService.ts"]
+    PenaltyService -->|POST /profiles/{id}/denylist| NextDNS["API NextDNS Cloud (Profil Sécurisé)"]
+    PenaltyService -->|Écriture Directe Admin| HostsFile["Fichier C:\Windows\System32\drivers\etc\hosts"]
+    PenaltyService -->|PowerShell WFP Netsh| WindowsFirewall["Windows Filtering Platform (Blocage IPs)"]
+    NextDNS -->|Blocage Résolution DNS Instantané| ClientDevices["PC Bureau + Smartphone Chasseur"]
+```
+
+#### Implémentation du Client NextDNS (`services/NextDnsBlockerService.ts`) :
+
+```typescript
+import axios from 'axios';
+import { Logger } from '../utils/logger';
+
+export class NextDnsBlockerService {
+  private static readonly API_BASE = 'https://api.nextdns.io';
+  private apiKey: string;
+  private profileId: string;
+
+  constructor() {
+    this.apiKey = process.env.NEXTDNS_API_KEY || '';
+    this.profileId = process.env.NEXTDNS_PROFILE_ID || '';
+  }
+
+  public async blockEntertainmentDomains(domains: string[]): Promise<boolean> {
+    try {
+      for (const domain of domains) {
+        await axios.post(
+          `${NextDnsBlockerService.API_BASE}/profiles/${this.profileId}/denylist`,
+          { id: domain, active: true },
+          { headers: { 'X-Api-Key': this.apiKey, 'Content-Type': 'application/json' } }
+        );
+        Logger.info(`[NextDNS] Domaine bloqué avec succès : ${domain}`);
+      }
+      return true;
+    } catch (error: any) {
+      Logger.error(`[NextDNS] Échec du blocage des domaines : ${error.message}`);
+      return false;
+    }
+  }
+
+  public async unblockEntertainmentDomains(domains: string[]): Promise<boolean> {
+    try {
+      for (const domain of domains) {
+        await axios.delete(
+          `${NextDnsBlockerService.API_BASE}/profiles/${this.profileId}/denylist/${domain}`,
+          { headers: { 'X-Api-Key': this.apiKey } }
+        );
+        Logger.info(`[NextDNS] Domaine débloqué : ${domain}`);
+      }
+      return true;
+    } catch (error: any) {
+      Logger.error(`[NextDNS] Échec du déblocage : ${error.message}`);
+      return false;
+    }
+  }
+}
+```
+
 
 ## 3. Gestionnaire Asynchrone & Topologie BullMQ / Redis
 
@@ -2141,6 +2331,227 @@ Ce mécanisme garantit une relation causale stricte (*happened-before*) pour tou
 
 
 ---
+
+## 31. Modélisation Neurobiologique Réelle de la Vitalité & Concentration (`services/NeurobiologicalVitalityEngine.ts`)
+
+Pour respecter l'injonction absolue de ne jamais présenter le joueur comme diminué ou fatigué, le moteur d'estimation de la vitalité implémente fidèlement les modèles validés de la neurophysiologie :
+
+```mermaid
+flowchart TD
+    subgraph Processus_Homéostatique["Processus S (Homéostasie Sommeil / Adénosine)"]
+        WakeTime["Temps d'Éveil Continu (Heures)"] --> BorbelyCurve["Cinétique Exponentielle (tau = 18.2h)"]
+        BorbelyCurve --> HPValue["HP Biologiques (> 80% en journée normale)"]
+    end
+    subgraph Processus_Circadien["Processus C (Pacemaker Suprachiasmatique)"]
+        TimeOfDay["Heure Circadienne (24h)"] --> SineModulator["Modulation Oscillation C(t)"]
+        SineModulator --> HPValue
+    end
+    subgraph Contrôle_Cognitif["Focus Cognitif & Dopamine (Gandevia & Boksem)"]
+        WorkDuration["Bloc Deep Work"] --> LogDecay["Décroissance Logarithmique Douce"]
+        QuestCompleted["Validation Quête / Résolution Bug"] --> DopamineSurge["Pulse Dopaminergique (+10 MP)"]
+        LogDecay --> MPValue["Jauge MP Focus (75% - 100%)"]
+        DopamineSurge --> MPValue
+    end
+```
+
+### 31.1 Formulation Mathématique Neurobiologique Rigoureuse :
+
+1. **Pression d'Adénosine d'Éveil ($S(t)$) :**
+   $$S(t) = 1 - (1 - S_0) e^{-\frac{t}{\tau_w}}, \quad \tau_w = 18.2\text{ h}, \quad S_0 = 0.08$$
+2. **Modulateur Circadien ($C(t)$) :**
+   $$C(t) = 1.0 + 0.05 \times \cos \left( \frac{2\pi (t - 14)}{24} \right)$$
+3. **Résilience Biologique Souveraine ($HP(t)$) :**
+   $$HP(t) = \max \left( 60, \left\lfloor 100 \times (1 - 0.25 \times S(t)) \times C(t) \right\rfloor \right)$$
+4. **Acuité Cognitive & Focus ($MP(t)$) :**
+   $$\Delta MP_{\text{consommé}} = 8.5 \times \ln \left( 1 + \frac{t_{\text{work}}}{45} \right)$$
+   $$MP(t) = \min \left( 100, \max \left( 50, MP(t - 1) - \Delta MP_{\text{consommé}} + \sum \Delta MP_{\text{dopamine}} \right) \right)$$
+
+### 31.2 Implémentation TypeScript (`services/NeurobiologicalVitalityEngine.ts`) :
+
+```typescript
+export interface VitalityState {
+  hp: number; // 60 - 100 (Résilience Biologique Souveraine)
+  mp: number; // 50 - 100 (Focus & Acuité Cognitive)
+  statusTitle: string; // Ex: 'VITALITÉ INDOMPTABLE', 'FOCUS ABSOLU'
+  hoursAwake: number;
+}
+
+export class NeurobiologicalVitalityEngine {
+  private static readonly TAU_W_HOURS = 18.2; // Constante de temps homéostatique d'éveil
+  private static readonly S0_RESIDUAL = 0.08; // Pression résiduelle matinale
+
+  public static calculateHp(hoursAwake: number, currentHourOfDay: number): number {
+    // 1. Processus S de Borbély
+    const processS = 1.0 - (1.0 - this.S0_RESIDUAL) * Math.exp(-hoursAwake / this.TAU_W_HOURS);
+    
+    // 2. Processus C Circadien (Pic d'alerte vers 14h)
+    const processC = 1.0 + 0.05 * Math.cos((2.0 * Math.PI * (currentHourOfDay - 14)) / 24.0);
+    
+    // 3. Calcul de la vitalité biologique souveraine (plancher garanti à 60%)
+    const rawHp = 100.0 * (1.0 - 0.25 * processS) * processC;
+    return Math.max(60, Math.min(100, Math.floor(rawHp)));
+  }
+
+  public static calculateMpConsumption(workBlockMinutes: number): number {
+    // Décroissance logarithmique douce selon Boksem & Tops
+    return 8.5 * Math.log(1.0 + workBlockMinutes / 45.0);
+  }
+
+  public static applyDopamineReward(currentMp: number, questType: 'DAILY' | 'BOSS' | 'ALGO'): number {
+    let boost = 10;
+    if (questType === 'BOSS') boost = 25;
+    if (questType === 'ALGO') boost = 15;
+    return Math.min(100, currentMp + boost);
+  }
+
+  public static getPsychologicalStatusText(hp: number, mp: number): string {
+    if (hp >= 90 && mp >= 90) return 'VITALITÉ MAXIMALE & FOCUS SOUVERAIN';
+    if (hp >= 80) return 'RÉSILIENCE INÉBRANLABLE & CLARTÉ OPÉRATIONNELLE';
+    return 'DÉTERMINATION D'ACIER & VIGILANCE ACTIVE';
+  }
+}
+```
+
+---
+
+## 32. Moteur de Score Harmonique Global & Hiérarchie Réelle des Rangs (`services/HarmonicRankEngine.ts`)
+
+Pour éliminer l'aberration de joueurs artificiellement "sur-nivelés" tout en restant incompétents dans les faits, LevelUp sépare formellement le **Score de Base** ($S_b$), le **Niveau de Base** ($L_b$) et le **Score Global** ($S_{\text{global}}$) calculé par moyenne harmonique pondérée :
+
+```mermaid
+flowchart TD
+    subgraph Les_8_Bases["Scores Individuels des 8 Bases (0 à 1000)"]
+        S_ACAD["S_ACAD (Excellence Académique)"]
+        S_AI["S_AI_ENG (Code IA & Hackathons)"]
+        S_CYBER["S_CYBER (Cybersécurité)"]
+        S_EXP["S_EXP (Éloquence & Réseautage)"]
+        S_LNG["S_LNG (Anglais Cambridge)"]
+        S_FIN["S_FIN (Finances & Bourses)"]
+        S_STR["S_STR (Calisthénie & Force)"]
+        S_DIS["S_DIS (Discipline & Focus)"]
+    end
+
+    Les_8_Bases --> HarmonicMean["Moyenne Harmonique Pondérée (S_global)"]
+    HarmonicMean --> GlobalLvl["Niveau Global (1 - 100)"]
+    GlobalLvl --> RankCheck["Évaluation des Invariants Réels (Hackathons, C1/C2, Major)"]
+    RankCheck --> FinalRank["Attribution du Rang Officiel (E, D, C, B, A, S, Monarque)"]
+```
+
+### 32.1 Formulation Mathématique de la Moyenne Harmonique Pondérée :
+
+$$S_{\text{global}} = \frac{\sum_{b=1}^{8} w_b}{\sum_{b=1}^{8} \frac{w_b}{S_b + \epsilon}}$$
+
+Avec $\sum_{b=1}^8 w_b = 1.0$ et pondérations équilibrées ($w_{\text{ACAD}} = 0.15, w_{\text{AI\_ENG}} = 0.20, w_{\text{CYBER}} = 0.10, w_{\text{EXP}} = 0.10, w_{\text{LNG}} = 0.15, w_{\text{FIN}} = 0.05, w_{\text{STR}} = 0.15, w_{\text{DIS}} = 0.10$).
+
+### 32.2 Implémentation TypeScript (`services/HarmonicRankEngine.ts`) :
+
+```typescript
+export interface BaseScores {
+  acad: number;
+  ai_eng: number;
+  cyber: number;
+  exp: number;
+  lng: number;
+  fin: number;
+  str: number;
+  dis: number;
+}
+
+export interface RealWorldAchievements {
+  hackathonsWon: number;
+  cambridgeCertificationLevel: 'NONE' | 'B2' | 'C1' | 'C2';
+  classRankPercentile: number; // Ex: 0.05 = Top 5%
+  calisthenicsRoutinesMastered: boolean;
+  productionSaasUsers: number;
+  netWorthOrSponsorshipEur: number;
+}
+
+export type HunterRank = 'E' | 'D' | 'C' | 'B' | 'A' | 'S' | 'MONARCH';
+
+export class HarmonicRankEngine {
+  private static readonly WEIGHTS = {
+    acad: 0.15,
+    ai_eng: 0.20,
+    cyber: 0.10,
+    exp: 0.10,
+    lng: 0.15,
+    fin: 0.05,
+    str: 0.15,
+    dis: 0.10
+  };
+
+  public static calculateBaseLevel(baseScore: number): number {
+    return Math.min(100, Math.floor(Math.sqrt(Math.max(0, baseScore) / 1000.0) * 100));
+  }
+
+  public static calculateGlobalScore(scores: BaseScores): number {
+    const epsilon = 0.01;
+    let invertedWeightedSum = 0;
+    let totalWeight = 0;
+
+    for (const [key, weight] of Object.entries(this.WEIGHTS)) {
+      const score = (scores as any)[key] || 0;
+      invertedWeightedSum += weight / (score + epsilon);
+      totalWeight += weight;
+    }
+
+    return totalWeight / invertedWeightedSum;
+  }
+
+  public static calculateGlobalLevel(globalScore: number): number {
+    return Math.min(100, Math.floor(Math.sqrt(Math.max(0, globalScore) / 1000.0) * 100));
+  }
+
+  public static determineRank(globalLevel: number, real: RealWorldAchievements): HunterRank {
+    // Vérification des invariants réels indispensables par palier de rang
+    if (globalLevel >= 96 &&
+        real.hackathonsWon >= 3 &&
+        real.cambridgeCertificationLevel === 'C2' &&
+        real.classRankPercentile <= 0.01 &&
+        real.calisthenicsRoutinesMastered &&
+        real.netWorthOrSponsorshipEur >= 100000) {
+      return 'MONARCH';
+    }
+
+    if (globalLevel >= 86 &&
+        real.hackathonsWon >= 2 &&
+        (real.cambridgeCertificationLevel === 'C1' || real.cambridgeCertificationLevel === 'C2') &&
+        real.classRankPercentile <= 0.03 &&
+        real.calisthenicsRoutinesMastered) {
+      return 'S';
+    }
+
+    if (globalLevel >= 66 &&
+        real.hackathonsWon >= 1 &&
+        (real.cambridgeCertificationLevel === 'C1' || real.cambridgeCertificationLevel === 'C2') &&
+        real.classRankPercentile <= 0.10 &&
+        real.productionSaasUsers >= 50) {
+      return 'A';
+    }
+
+    // Invariant Rang B : Un Chasseur Rang B qui n'a gagné aucun hackathon n'existe pas !
+    if (globalLevel >= 46 &&
+        real.hackathonsWon >= 1 &&
+        (real.cambridgeCertificationLevel === 'C1' || real.cambridgeCertificationLevel === 'C2') &&
+        real.calisthenicsRoutinesMastered) {
+      return 'B';
+    }
+
+    if (globalLevel >= 26) {
+      return 'C';
+    }
+
+    if (globalLevel >= 11) {
+      return 'D';
+    }
+
+    return 'E';
+  }
+}
+```
+
+---
+
 
 ## 30. Approbation d'Ingénierie & Signature d'Architecture
 

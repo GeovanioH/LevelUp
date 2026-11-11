@@ -2041,6 +2041,34 @@ Le Système d'exploitation LevelUp ("The System") est officiellement validé pou
 
 ---
 
+## 42. Sécurité Biométrique, Confidentialité de la Vision par Ordinateur & Intégrité NextDNS
+
+### 42.1 Traitement Vidéo Étanche 100% Client (Air-Gapped Computer Vision)
+Pour préserver rigoureusement l'intimité corporelle d'Huriel durant ses sessions d'entraînement au poids du corps :
+1. **Zéro Transmission Réseau :** Les flux vidéo capturés par la webcam ou la caméra mobile ne sont jamais téléversés vers un serveur externe, ni même vers le backend Fastify local. L'inférence MediaPipe Pose s'exécute exclusivement en mémoire volatile via WebAssembly / WebGPU dans le thread Web Worker du navigateur.
+2. **Élimination Immédiate des Trames :** Chaque trame vidéo `VideoFrame` est immédiatement libérée de la mémoire graphique (VRAM) dès l'extraction des 33 coordonnées squelettiques relatives ($x, y, z$). Aucune image fixe ou vidéo n'est écrite sur le disque dur.
+3. **Protection Anti-Rejeu Vidéo (Anti-Cheat) :** Pour empêcher la validation frauduleuse d'une quête physique par injection d'un fichier vidéo préenregistré (loop vidéo), le moteur analyse l'entropie spectrale des micro-mouvements posturaux (bruit physiologique naturel de 2-4 Hz) et applique un HMAC-SHA256 horodaté sur la séquence d'angles articulaires transmise au backend.
+
+### 42.4 Isolation des Tokens d'Intégration Externe (Cambridge, Duolingo, DataCamp)
+* **Stockage Sécurisé des Jetons de Session :** Les identifiants et tokens utilisés pour synchroniser le streak Duolingo ou récupérer les certificats DataCamp ne sont jamais exposés au frontend. Ils sont stockés dans la table chiffrée `external_integration_configs`.
+* **Principe du Moindre Privilège :** Aucun token d'intégration ne dispose de droits d'écriture sur les plateformes tierces ; les adaptateurs fonctionnent exclusivement en mode lecture / vérification d'attestations.
+* **Rotation Automatique & Audit d'Accès :** Tout appel vers une API tierce génère un log d'audit interne horodaté consigné dans la chaîne cryptographique Merkle.
+
+
+### 42.3 Protocole d'Attestation d'Intégrité de la Preuve Sportive
+Pour formaliser la transmission de la preuve de répétitions physiques entre le client WebAssembly et le serveur Fastify :
+1. **Signature HMAC du Payload Cinématique :** Chaque paquet de validation de répétitions `/api/v1/cv/validate-rep` est signé numériquement par une clé éphémère de session négociée lors du démarrage de la routine.
+2. **Vérification de la Cadence Cardiorespiratoire Plausible :** L'intervalle de temps entre deux répétitions successives doit respecter une fenêtre biomécanique réaliste (ex: $\Delta t \ge 1.1\text{ s}$ pour les pompes, $\Delta t \ge 1.8\text{ s}$ pour les burpees). Tout intervalle suspect $\Delta t < 0.6\text{ s}$ est automatiquement rejeté comme tentative d'émulation synthétique.
+3. **Journalisation Immuable dans Merkle Audit Logs :** Chaque session de calisthénie complétée est hachée et insérée dans la table `audit_logs` avec son score de confiance cinématique, garantissant l'authenticité absolue de l'historique physique du joueur.
+
+
+### 42.2 Sécurisation de l'API NextDNS & Verrouillage Pare-Feu
+1. **Chiffrement Enveloppe de la Clé API NextDNS :** La clé API maîtresse NextDNS permettant d'ordonner le blocage des domaines de divertissement est chiffrée au repos via la clé maîtresse AES-256-GCM et déchiffrée uniquement en mémoire pour la durée de l'appel HTTP.
+2. **Watchdog de Déverrouillage d'Urgence :** Pour prévenir tout isolement numérique perpétuel en cas de crash applicatif pendant une pénalité, un service de secours Windows (`PenaltySafetyWatchdog.ps1`) avec un TTL strict de 24 heures dispose des droits d'administration pour réinitialiser le fichier `hosts` et désactiver les listes noires NextDNS.
+
+---
+
+
 ## 41. Registre d'Émargement des Contrôles de Sécurité & Signoff Formel
 
 Chaque domaine d'exigence de sécurité a été vérifié et audité conformément aux standards ISO/IEC 27001 et OWASP ASVS 4.0.3 :

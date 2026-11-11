@@ -197,6 +197,85 @@ enum BaseStatCode {
   DIS
 }
 
+// --- NOUVEAUX MODÈLES DE GESTION CALISTHÉNIE, VISION PAR ORDINATEUR & RÉUSSITE RÉELLE ---
+
+model WorkoutRoutine {
+  id          String        @id @default(uuid()) @db.Uuid
+  code        String        @unique @db.VarChar(50) // 'BACK_SHOULDERS_17', 'ARMS_6_FAILURE', 'ABS_CORE_5', 'LEGS_MOBILITY'
+  title       String        @db.VarChar(100)
+  targetGroup String        @db.VarChar(50) // 'BACK_SHOULDERS', 'ARMS_TRICEPS', 'CORE_ABS', 'LEGS'
+  description String        @db.Text
+  totalSteps  Int           @default(0)
+  steps       WorkoutStep[]
+  logs        WorkoutExecutionLog[]
+  createdAt   DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("workout_routines")
+}
+
+model WorkoutStep {
+  id              String         @id @default(uuid()) @db.Uuid
+  routineId       String         @map("routine_id") @db.Uuid
+  stepNumber      Int            @map("step_number")
+  exerciseName    String         @map("exercise_name") @db.VarChar(100)
+  exerciseType    String         @map("exercise_type") @db.VarChar(20) // 'REPETITIONS', 'DURATION_SECONDS'
+  targetReps      Int?           @map("target_reps")
+  durationSeconds Int?           @map("duration_seconds")
+  targetAngleMin  Float?         @map("target_angle_min") // Angle d'inflexion coude/genou (ex: 75°)
+  targetAngleMax  Float?         @map("target_angle_max") // Angle de verrouillage (ex: 160°)
+  keyJointPoints  Int[]          @map("key_joint_points") // Indices MediaPipe Pose [11, 13, 15]
+  routine         WorkoutRoutine @relation(fields: [routineId], references: [id], onDelete: Cascade)
+
+  @@unique([routineId, stepNumber])
+  @@map("workout_steps")
+}
+
+model WorkoutExecutionLog {
+  id              String         @id @default(uuid()) @db.Uuid
+  playerId        String         @map("player_id") @db.Uuid
+  routineId       String         @map("routine_id") @db.Uuid
+  startedAt       DateTime       @default(now()) @map("started_at") @db.Timestamptz(6)
+  completedAt     DateTime?      @map("completed_at") @db.Timestamptz(6)
+  totalRepsLogged Int            @default(0) @map("total_reps_logged")
+  cvAccuracyScore Float          @default(0.0) @map("cv_accuracy_score") // % de conformité cinématique MediaPipe
+  completedStrict Boolean        @default(false) @map("completed_strict")
+  routine         WorkoutRoutine @relation(fields: [routineId], references: [id])
+  player          Player         @relation(fields: [playerId], references: [id])
+
+  @@map("workout_execution_logs")
+}
+
+model RealWorldAchievement {
+  id                       String   @id @default(uuid()) @db.Uuid
+  playerId                 String   @unique @map("player_id") @db.Uuid
+  hackathonsWonCount       Int      @default(0) @map("hackathons_won_count") // Obligatoire >= 1 pour Rang B
+  cambridgeEnglishLevel    String   @default("NONE") @map("cambridge_english_level") @db.VarChar(10) // 'B2', 'C1', 'C2'
+  classRankPercentile      Float    @default(0.50) @map("class_rank_percentile") // 0.05 = Top 5%
+  calisthenicsMastered     Boolean  @default(false) @map("calisthenics_mastered")
+  productionSaasActiveUsers Int     @default(0) @map("production_saas_active_users")
+  netWorthOrSponsorshipEur Float    @default(0.0) @map("net_worth_or_sponsorship_eur")
+  updatedAt                DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+  player                   Player   @relation(fields: [playerId], references: [id])
+
+  @@map("real_world_achievements")
+}
+
+model ExternalIntegrationConfig {
+  id              String   @id @default(uuid()) @db.Uuid
+  playerId        String   @map("player_id") @db.Uuid
+  serviceName     String   @map("service_name") @db.VarChar(50) // 'NEXTDNS', 'DUOLINGO', 'CAMBRIDGE', 'DATACAMP', 'DISCORD'
+  apiKeyEncrypted String?  @map("api_key_encrypted") @db.Text
+  profileId       String?  @map("profile_id") @db.VarChar(100)
+  externalUserId  String?  @map("external_user_id") @db.VarChar(100)
+  syncStatus      String   @default("ACTIVE") @map("sync_status") @db.VarChar(20)
+  lastSyncedAt    DateTime? @map("last_synced_at") @db.Timestamptz(6)
+  player          Player   @relation(fields: [playerId], references: [id])
+
+  @@unique([playerId, serviceName])
+  @@map("external_integration_configs")
+}
+
+
 enum QuestType {
   DAILY
   EMERGENCY
@@ -1187,6 +1266,69 @@ Ce dictionnaire analyse chaque colonne des 9 tables physiques avec son type de s
 
 
 ---
+
+### 6.11 Table `workout_routines` & `workout_steps` (Programmes de Calisthénie d'Huriel)
+* `workout_routines` stocke les métadonnées des routines (Dos & Épaules en 17 étapes, Bras à l'échec en 6 variantes, Abdos en 5 exercices, Jambes).
+* `workout_steps` définit chaque étape avec son mode de comptage (`REPETITIONS` vs `DURATION_SECONDS`), ses seuils d'angle MediaPipe (`target_angle_min` ex: 75°, `target_angle_max` ex: 160°) et les articulations cibles (`key_joint_points` [11, 13, 15] pour les pompes).
+
+### 6.12 Table `real_world_achievements` (Invariants Réels des Rangs de Chasseur)
+* Stocke les preuves et réalisations incontestables dans le monde réel (nombre de hackathons gagnés, niveau officiel Cambridge C1/C2, percentile de rang dans la promo, nombre d'utilisateurs en production, patrimoine / bourses en euros).
+* Empêche formellement tout joueur de gravir les rangs B, A, S et Monarque s'il ne remplit pas les conditions réelles (ex: Hackathons gagnés >= 1 pour le Rang B).
+
+### 6.13 Table `external_integration_configs` (Services Tiers Connectés)
+* Configure l'accès chiffré aux API de NextDNS (blocage dynamique des divertissements), Duolingo (maintien du streak de langues), DataCamp (progression des parcours IA via GitHub Student Pack) et Discord (Snowflake ID immuable).
+
+```sql
+-- DDL pour les routines de calisthénie et validation cinématique
+CREATE TABLE workout_routines (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    code VARCHAR(50) UNIQUE NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    target_group VARCHAR(50) NOT NULL,
+    description TEXT,
+    total_steps INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMPTZ(6) NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE workout_steps (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    routine_id UUID NOT NULL REFERENCES workout_routines(id) ON DELETE CASCADE,
+    step_number INT NOT NULL,
+    exercise_name VARCHAR(100) NOT NULL,
+    exercise_type VARCHAR(20) NOT NULL, -- 'REPETITIONS', 'DURATION_SECONDS'
+    target_reps INT,
+    duration_seconds INT,
+    target_angle_min DOUBLE PRECISION,
+    target_angle_max DOUBLE PRECISION,
+    key_joint_points INT[],
+    UNIQUE(routine_id, step_number)
+);
+
+CREATE TABLE real_world_achievements (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    player_id UUID UNIQUE NOT NULL REFERENCES players(id) ON DELETE CASCADE,
+    hackathons_won_count INT NOT NULL DEFAULT 0,
+    cambridge_english_level VARCHAR(10) NOT NULL DEFAULT 'NONE',
+    class_rank_percentile DOUBLE PRECISION NOT NULL DEFAULT 0.50,
+    calisthenics_mastered BOOLEAN NOT NULL DEFAULT FALSE,
+    production_saas_active_users INT NOT NULL DEFAULT 0,
+    net_worth_or_sponsorship_eur DOUBLE PRECISION NOT NULL DEFAULT 0.0,
+    updated_at TIMESTAMPTZ(6) NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE external_integration_configs (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    player_id UUID NOT NULL REFERENCES players(id) ON DELETE CASCADE,
+    service_name VARCHAR(50) NOT NULL,
+    api_key_encrypted TEXT,
+    profile_id VARCHAR(100),
+    external_user_id VARCHAR(100),
+    sync_status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',
+    last_synced_at TIMESTAMPTZ(6),
+    UNIQUE(player_id, service_name)
+);
+```
+
 
 ## 7. Stratégie de Partitionnement PostgreSQL & Plans d'Exécution SQL
 

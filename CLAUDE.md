@@ -82,6 +82,21 @@ Les mécanismes de sanction ne sont ni négociables ni désactivables par un sim
 
 ---
 
+### Axiome 8 : Ancrage Réel Absolu des Rangs & Élimination de l'Anomalie "Bloqué par Quête de Rang"
+* **Loi du Réel Inviolable :** Le Système refuse formellement l'illusion du "grind" artificiel. Un joueur de Rang B qui n'a jamais remporté de hackathon, qui ne maîtrise pas l'anglais C1 Cambridge ou qui ne valide pas les routines complètes de calisthénie **ne peut pas exister**.
+* **Moyenne Harmonique des 8 Bases :** Le score global $S_{\text{global}}$ est calculé par la moyenne harmonique pondérée des scores $S_b \in [0, 1000]$. Toute base négligée pénalise violemment le niveau global $L_{\text{global}}$.
+* **Élimination des Verrous Artificiels :** Il n'existe pas de joueur artificiellement propulsé au niveau 25 puis bloqué arbitrairement par une épreuve de rang disproportionnée. L'élévation de niveau est le fruit d'une compétence éprouvée dans les 8 bases, rendant le passage de rang naturel et mérité.
+
+### Axiome 9 : Physiologie Souveraine & Bannissement Dogmatique de la Faiblesse
+* **Posture Mentale d'Élite :** Le Système ne doit **JAMAIS** faire penser au joueur qu'il est fatigué, usé ou paresseux. Aucun texte défaitiste n'est toléré dans l'application. Les jauges HP et MP traduisent la "Résilience Biologique Souveraine" et le "Focus Cognitif Indomptable".
+* **Modélisation Neurobiologique Validée :** L'épuisement métabolique est calculé via le modèle à deux processus de Peter Borbély (constante de temps homéostatique $\tau_w = 18.2\text{ heures}$), maintenant la jauge HP au-dessus de $80\%$ pendant toute la journée active ($t \le 16\text{ h}$).
+* **Routines Calisthéniques Exactes d'Huriel :** Le système intègre obligatoirement les 4 splits au poids du corps avec validation par vision par ordinateur MediaPipe Pose :
+  1. *Dos & Épaules (17 étapes chronométrées et répétitions).*
+  2. *Bras & Triceps Calisthenics (@giovanni_fiderio : 6 variantes en 3 séries à l'échec postural strict).*
+  3. *Abdos & Core d'Acier (@lou4n.ldlm : V-Up 3x10, Mountain Climber 3x30s, Relevé de jambes 3x12, Gainage classique 2x1m30, Gainage latéral 2x45s/côté).*
+  4. *Jambes & Mobilité athlétique.*
+
+
 ## 2. Topologie du Monorepo & Règles d'Importation Inter-Packages
 
 Le monorepo *LevelUp* est structuré de manière rigide. Chaque package possède un rôle circonscrit et des frontières d'importation étanches pour prévenir toute dépendance cyclique ou couplage accidentel.
@@ -2109,6 +2124,23 @@ async function rotateMasterKey(oldKeyHex: string, newKeyHex: string) {
 
 
 ---
+
+## 29. Directives pour le Moteur de Vision par Ordinateur & Services Externes
+
+### 29.1 Architecture du Compteur de Répétitions MediaPipe Pose (WebAssembly)
+* Le pipeline de vision par ordinateur opère 100% côté client dans le navigateur ou la PWA via MediaPipe Pose (WebAssembly + WebGPU).
+* Les 33 repères anatomiques sont traités frame par frame à 60 FPS.
+* L'angle articulaire $\theta$ est calculé par le produit scalaire des vecteurs $\mathbf{u}$ et $\mathbf{v}$ reliant l'épaule, le coude et le poignet (ou hanche, genou, cheville).
+* Une répétition est comptée uniquement après validation d'un cycle complet : descente sous le seuil d'inflexion ($\le 75^\circ$) puis extension complète ($\ge 160^\circ$).
+
+### 29.2 Cartographie des Connecteurs de Services Tiers
+* **NextDNS API :** Pilotage du blocage dynamique des domaines de distraction durant les blocs de Deep Work et pénalités (`POST /profiles/{id}/denylist`).
+* **Cambridge English Free Tests :** Évaluation périodique objective du niveau linguistique réel (C1/C2).
+* **Duolingo API :** Synchronisation quotidienne du streak de maintien en langues.
+* **DataCamp via GitHub Student Developer Pack :** Validation des cours et certifications d'élite en IA / Data Science.
+* **Discord.js v14 :** Hub mobile du Chasseur avec streaming audio UDP et commandes slash en temps réel.
+* **Deerflow & Google Alerts RSS :** Veille automatisée des bourses mondiales et hackathons Devpost.
+
 
 ## 28. Tableau d'Homologation des Dépendances & Versions Stables Autorisées
 

@@ -46,6 +46,13 @@ flowchart LR
 
 ---
 
+### 1.4 Intégration Stratégique V1.0 des Modules Clés (Calisthénie & Services Tiers)
+1. **Module de Vision par Ordinateur (MediaPipe Pose WASM) :** Déploiement du compteur de répétitions temps réel pour les 17 exercices de la routine Dos & Épaules, les 6 variantes à l'échec de la routine Bras (@giovanni_fiderio) et les 5 étapes du circuit Abdos (@lou4n.ldlm).
+2. **Pare-Feu Anti-Distraction Hybride :** Pilotage automatisé de l'API NextDNS Cloud et des règles de filtrage local Windows Filtering Platform pour sanctuariser les sessions Deep Work.
+3. **Moteur d'Évaluation Linguistique & Assiduité :** Intégration des examens blancs officiels gratuits Cambridge English C1/C2 et synchronisation du streak Duolingo pour consolider la base `LNG`.
+4. **Radar de Financements & Compétitions :** Automatisation du scraping des bourses d'excellence (Deerflow) et veille continue des hackathons d'IA sur Devpost pour garantir les conditions réelles d'ascension au Rang B et au Rang A.
+
+
 ## 2. Blueprint d'Ingénierie V1.0 : « Le Système Éveillé » (Socle Opérationnel Initial)
 
 ### 2.1 Objectifs Stratégiques V1.0
@@ -484,11 +491,13 @@ Le Cerveau Numrique de *LevelUp* indexe des milliers de fiches Markdown et synth
 
 Le rseau est dfini par un graphe non orient pondr $G = (V, E, W)$ o $V$ est l'ensemble des fiches Markdown ($|V| = N$), $E$ l'ensemble des artes dduites des wikilinks `[[slug]]` et des hyperliens conceptuels, et $W_{ij} \in [0, 1]$ le poids d'interconnexion combinant connectivit syntaxique et proximit smantique :
 
-$$W_{ij} = lpha \cdot \mathbb{I}_{(\exists (i,j) \in E)} + (1 - lpha) \cdot \max\left(0, rac{\mathbf{e}_i \cdot \mathbf{e}_j}{\|\mathbf{e}_i\|_2 \|\mathbf{e}_j\|_2}ight)$$
+$$W_{ij} = lpha \cdot \mathbb{I}_{(\exists (i,j) \in E)} + (1 - lpha) \cdot \max\left(0, rac{\mathbf{e}_i \cdot \mathbf{e}_j}{\|\mathbf{e}_i\|_2 \|\mathbf{e}_j\|_2}
+ight)$$
 
 Avec $lpha = 0.65$ (pondration privilgiant les liens explicites du joueur) et $\mathbf{e}_i, \mathbf{e}_j \in \mathbb{R}^{768}$ les vecteurs d'embedding normaliss. La modularit $Q$ d'une partition en communauts $\mathcal{C} = \{c_1, c_2, \dots, c_k\}$ est mesure par l'quation :
 
-$$Q = rac{1}{2m} \sum_{i,j=1}^{N} \left[ W_{ij} - rac{k_i k_j}{2m} ight] \delta(c_i, c_j)$$
+$$Q = rac{1}{2m} \sum_{i,j=1}^{N} \left[ W_{ij} - rac{k_i k_j}{2m} 
+ight] \delta(c_i, c_j)$$
 
 O :
 - $m = rac{1}{2} \sum_{i,j} W_{ij}$ reprsente la masse totale des liaisons du graphe de connaissances.
@@ -498,7 +507,12 @@ O :
 
 L'algorithme de Louvain s'excute en deux phases itratives jusqu' convergence locale :
 1. **Optimisation locale de la modularit :** Pour chaque nud $i$, on value le gain de modularit $\Delta Q$ obtenu en dplaant $i$ de sa communaut actuelle $C$ vers la communaut voisine $C'$ :
-   $$\Delta Q(i 	o C') = \left[ rac{\sum_{	ext{in}} + 2 k_{i, 	ext{in}}}{2m} - \left( rac{\sum_{	ext{tot}} + k_i}{2m} ight)^2 ight] - \left[ rac{\sum_{	ext{in}}}{2m} - \left( rac{\sum_{	ext{tot}}}{2m} ight)^2 - \left( rac{k_i}{2m} ight)^2 ight]$$
+   $$\Delta Q(i 	o C') = \left[ rac{\sum_{	ext{in}} + 2 k_{i, 	ext{in}}}{2m} - \left( rac{\sum_{	ext{tot}} + k_i}{2m} 
+ight)^2 
+ight] - \left[ rac{\sum_{	ext{in}}}{2m} - \left( rac{\sum_{	ext{tot}}}{2m} 
+ight)^2 - \left( rac{k_i}{2m} 
+ight)^2 
+ight]$$
    O $\sum_{	ext{in}}$ est la somme des poids internes  $C'$, $\sum_{	ext{tot}}$ la somme des degrs des nuds de $C'$, et $k_{i, 	ext{in}}$ la somme des poids reliant $i$ aux nuds de $C'$. Le dplacement maximisant $\Delta Q > 0$ est excut.
 2. **Agrgation du rseau :** Les nuds d'une mme communaut sont fusionns en un mta-nud, les poids internes devenant des boucles rflexives et les liens inter-communauts tant somms. Le processus est ritr jusqu' ce qu'aucun dplacement n'amliore $Q$ au-del d'un seuil $\epsilon = 10^{-6}$.
 
@@ -508,8 +522,11 @@ Une fois les communauts identifies, les embeddings de 768 dimensions sont projet
 
 $$C_{	ext{UMAP}} = \sum_{i 
 eq j} \left[ \mu_{ij} \log\left( rac{\mu_{ij}}{
-u_{ij}} ight) + (1 - \mu_{ij}) \log\left( rac{1 - \mu_{ij}}{1 - 
-u_{ij}} ight) ight]$$
+u_{ij}} 
+ight) + (1 - \mu_{ij}) \log\left( rac{1 - \mu_{ij}}{1 - 
+u_{ij}} 
+ight) 
+ight]$$
 
 O $\mu_{ij}$ est l'appartenance floue dans l'espace source dfinie par un noyau laplacien adapt aux distances locales $d(\mathbf{e}_i, \mathbf{e}_j) = 1 - \cos(\mathbf{e}_i, \mathbf{e}_j)$, et $
 u_{ij} = (1 + a \|\mathbf{y}_i - \mathbf{y}_j\|_2^{2b})^{-1}$ avec $a = 1.5769$ et $b = 0.8951$ dans l'espace cible tridimensionnel.
@@ -663,7 +680,9 @@ Dans la vision V2.0 de *LevelUp*, la vitalit mentale ($MP$) et la discipline ($D
 
 L'analyse spectrale est ralise en fentre glissante de 2 secondes (500 chantillons avec recouvrement de 75 %) par fentrage de Hann :
 
-$$w(n) = 0.5 \left( 1 - \cos\left( rac{2\pi n}{N - 1} ight) ight), \quad n \in [0, N-1]$$
+$$w(n) = 0.5 \left( 1 - \cos\left( rac{2\pi n}{N - 1} 
+ight) 
+ight), \quad n \in [0, N-1]$$
 
 La densit spectrale de puissance $S_{xx}(f)$ est calcule par transforme de Fourier discrte :
 
@@ -853,7 +872,8 @@ Le handshake cryptographique adopte le pattern **Noise_XX_25519_ChaChaPoly_BLAKE
 
 ### 11.2 Rconciliation Sans Conflit via Automerge 2.0 (CRDTs Op-Based)
 
-Toutes les mutations opres sur les qutes, les notes Markdown du Cerveau Numrique et les stats de joueur sont traduites en graphes acycliques orients de modifications (Change Graphs) conformes aux spcifications d'Automerge 2.0. Chaque opration $O = \langle 	ext{id}, 	ext{action}, 	ext{obj}, 	ext{key}, 	ext{val}, 	ext{pred} angle$ maintient un lien dterministe avec ses prdcesseurs causals.
+Toutes les mutations opres sur les qutes, les notes Markdown du Cerveau Numrique et les stats de joueur sont traduites en graphes acycliques orients de modifications (Change Graphs) conformes aux spcifications d'Automerge 2.0. Chaque opration $O = \langle 	ext{id}, 	ext{action}, 	ext{obj}, 	ext{key}, 	ext{val}, 	ext{pred} 
+angle$ maintient un lien dterministe avec ses prdcesseurs causals.
 
 ```typescript
 // packages/sync-mesh/src/MeshPeerNode.ts
@@ -1655,26 +1675,19 @@ Chaque dimanche  20h00, le Systme bascule en mode de synthse hebdomadaire :
 - **Rvision Spaced Repetition SM-2 :** Calcul de la file d'attente des cartes conceptuelles et fiches Obsidian ncessitant une rexposition mnmonique.
 - **Gnration du Programme d'Entranement Intensif :** Le planificateur circadien propose l'agenda dtaill du lundi au dimanche suivant, incluant les plages de cours universitaires, les crneaux d'alternance, les blocs de Deep Work et les sessions de sport.
 
-### 19.4 Table d'Ascension des Rangs & Privilges du Chasseur
+### 19.4 Table d'Ascension des 7 Rangs de Chasseur Réels & Privilèges Système
 
-| Rang Solo Leveling | Seuil XP Cumule | Quête d'Ascension Imprative | Titre Honorifique Dbloqu | Privilges Confrs par le Systme |
+LevelUp élimine définitivement les pseudo-blocages artificiels de type "Bloqué par quête de rang". Le niveau global $L_{\text{global}}$ découle directement du score global calculé par moyenne harmonique pondérée des 8 bases ($S_b \in [0, 1000]$). Chaque rang sanctionne l'accomplissement d'invariants réels indiscutables dans le monde physique :
+
+| Rang Solo Leveling | Niveaux Globaux | Titre Solo Leveling | Invariants Réels Indiscutables (DoD Physique & Réel) | Privilèges Conférés par le Système |
 |:---|:---|:---|:---|:---|
-| **Rang F** | $0\text{ XP}$ | Aucune (Rang initial de l'veil) | *L'Inconnu veill* | Accs au HUD de base, Discord Bot et Quêtes Quotidiennes. |
-| **Rang E** | $2\,500\text{ XP}$ | 7 jours conscutifs de compltion physique sans faute. | *L'Adepte de la Volont* | Dblocage du Second Brain Markdown et de la recherche plein texte. |
-| **Rang D** | $7\,500\text{ XP}$ | 1re note d'locution $\ge 16/20$ attribue par l'Architecte. | *Le Disciple Disciplin* | Dblocage de la Boutique des Ombres et des Cristaux de rcompense. |
-| **Rang C** | $17\,500\text{ XP}$| Rsolution de 25 machines sur TryHackMe / HackTheBox. | *Le Sentinelle du Savoir* | Dblocage du Scraper Deerflow et de l'ingestion automatique de bourses. |
-| **Rang B** | $35\,000\text{ XP}$| Validation d'un projet MVP full-stack complet dploy. | *L'Ingnieur d'Ombre* | Accs au Mode Monk Spcial et aux Donjons Alatoires haute intensit. |
-| **Rang A** | $70\,000\text{ XP}$| Podium Top 3 dans un hackathon international d'IA. | *Le Matre de la Foudre* | Dblocage de la synthse vocale fluide Gemini Live 3.8 en continu. |
-| **Rang S** | $140\,000\text{ XP}$| Certification internationale Cambridge C1/C2 ou quivalent d'lite.| *L'Archimage de l'Intellect* | Intgration de la tlmtrie crbrale EEG OpenBCI et dtection focus. |
-| **Rang Nation** | $280\,000\text{ XP}$| Obtention du Master IA avec mention d'lite & publication technique.| *Le Souverain des Armes* | Dploiement des sous-agents autonomes de l'Arme des Ombres (Igris, Beru). |
-| **Rang Monarque** | $500\,000\text{ XP}$| Cration d'une entit entrepreneuriale IA autosuffisante et souveraine.| **LE MONARQUE DES OMBRES** | Matrise totale du Systme, autonomie financire et intellectuelle suprme. |
-
-```
-========================================================================================
-    FIN ABSOLUE DU DOCUMENT 09-ROADMAP.MD - LEVELUP ("THE SYSTEM")
-========================================================================================
-```
-
+| **Rang E** | **1 — 10** | *L'Éveil du Novice* | Initialisation de l'environnement, 7 jours de quêtes quotidiennes parfaits, mise en place du Second Brain Markdown. | Accès au Web HUD de base, journalisation vocale Whisper, génération des quêtes quotidiennes. |
+| **Rang D** | **11 — 25** | *L'Apprenti Discipliné* | $S_{\text{ACAD}} \ge 250$, 1ère room TryHackMe résolue sans aide, 30 pompes strictes, évaluation Cambridge C1 initiale. | Déverrouillage des quêtes d'urgence, accès aux salons d'études Discord, Boutique des Ombres palier 1. |
+| **Rang C** | **26 — 45** | *L'Opérateur Confirmé* | Top 20% de promo universitaire, MVP Fullstack fonctionnel déployé en 48h, 10 tractions strictes, streak Duolingo 30j. | Déverrouillage des Donjons Instantanés d'examens, automatisation des alarmes BullMQ. |
+| **Rang B** | **46 — 65** | *L'Expert Compétiteur* | **Au moins 1 Hackathon majeur remporté (Devpost / MLH / Corporate)**, certification **Cambridge C1 Advanced**, maîtrise des routines Dos/Épaules, Bras et Abdos par caméra, Top 10% promo. *Un Chasseur Rang B sans victoire en hackathon n'existe pas.* | Accès aux Sprints Commando Monk Mode, contrôle dynamique du pare-feu NextDNS, boutique palier 2. |
+| **Rang A** | **66 — 85** | *Le Maître & Leader Industriel* | **Multiples victoires en hackathons (>= 2)**, Major de promo ou Top 3, niveau **Cambridge C2**, SaaS déployé avec vrais utilisateurs actifs, condition physique d'athlète. | Mode Commando sans restriction, création de quêtes personnalisées de haut rang, accès prioritaire Architecte IA. |
+| **Rang S** | **86 — 95** | *Le Souverain National* | Sommité nationale de l'ingénierie IA, grand champion international d'algorithmes, major de promo indiscuté, indépendance financière / bourses d'élite. | Déverrouillage du Raid de l'Île de Jeju, gestion des investissements matériels lourds (serveurs GPU dédiés). |
+| **MONARQUE**| **96 — 100**| **LE MONARQUE DES OMBRES** | **Légende mondiale de l'IA**, multimillionnaire, physique de statue grecque forgé par la calisthénie, conférencier d'élite bilingue, autorité absolue. | Maîtrise souveraine du Système, shader WebGL des Flammes d'Ombre permanentes, omnipotence opérationnelle. |
 
 ---
 

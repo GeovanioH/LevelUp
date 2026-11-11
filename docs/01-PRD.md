@@ -32,10 +32,51 @@ Inspiré de l'architecture du "Système" de l'anime *Solo Leveling*, **LevelUp**
 Le Système ne négocie pas, ne tolère pas la médiocrité, mais récompense chaque gramme d'effort par une montée en puissance quantifiable et visible.
 
 ### 1.3 Principes Directeurs Inviolables
-1. **Zéro Réinvention Artificielle (Principe du Réel) :** Le Système ne crée pas de mini-jeux ni de faux tests de niveau. Il oriente vers les standards mondiaux reconnus et gratuits : tests Cambridge English, certifications GitHub Student Developer Pack, challenges TryHackMe, cours MIT/Harvard, plateformes de hackathons Devpost.
-2. **Mesure Absolue & Traçabilité :** Tout gain d'XP doit être étayé par une preuve tangible (enregistrement vocal transcrit, lien de commit GitHub, rapport de room TryHackMe, relevé de notes, logs d'entraînement).
-3. **Omniprésence Silencieuse :** Le Système communique là où se trouve l'utilisateur : sur son bureau via le HUD Web holographique, sur son téléphone et ses écouteurs via le Bot Discord et la transcription vocale.
-4. **Second Brain Unifié :** La mémoire de l'utilisateur n'est pas dispersée. Toutes les connaissances acquises sont indexées dans un cerveau numérique Markdown natif intégré au Système.
+
+1. **Zéro Réinvention Artificielle (Principe du Réel) :** Le Système ne crée pas de mini-jeux ni de faux tests de niveau. Il s'ancre exclusivement sur les standards mondiaux reconnus et gratuits : tests officiels Cambridge English, certifications GitHub Student Developer Pack, challenges TryHackMe / PortSwigger, cours MIT / Stanford / Harvard, compétitions de hackathons Devpost / MLH.
+2. **Mesure Absolue & Traçabilité :** Tout gain d'XP et de score doit être étayé par une preuve tangible irréfutable (enregistrement vocal transcrit, lien de commit et pull request GitHub, rapport de room TryHackMe, relevé de notes officiel, flux vidéo analysé par vision par ordinateur).
+3. **Omniprésence Silencieuse :** Le Système communique là où se trouve l'utilisateur : sur son bureau via la PWA React haute performance, sur son smartphone et ses écouteurs via le Bot Discord (Discord.js v14) et le pipeline d'inférence vocale locale.
+4. **Second Brain Unifié :** La mémoire de l'utilisateur n'est jamais dispersée. Toutes les connaissances académiques, techniques et stratégiques acquises sont indexées dans un coffre-fort numérique Markdown natif (`vault/`) intégré au Système.
+
+### 1.4 Ancrage Réel Absolu des Niveaux et Rangs (Élimination du Virtuel Fantasmé)
+
+Dans la plupart des systèmes de gamification conventionnels, un utilisateur peut accumuler de l'expérience en cochant des micro-tâches répétitives sans que sa réalité physique, intellectuelle ou financière ne change d'un iota. **LevelUp rejette viscéralement cette illusion.**
+
+* **Loi Fondamentale du Monarque :** Le niveau et le rang atteints dans le Système doivent être le miroir exact, fidèle et indiscutable de la réussite du joueur dans le monde réel. Si un utilisateur atteint le Rang S ou le rang de Monarque, il **doit être** dans la vie réelle un ingénieur en intelligence artificielle de renommée mondiale, financièrement libre ou riche, athlète au corps sculpté et puissant, orateur éloquent et bilingue parfait.
+* **Non-Existence des Profils Déséquilibrés :** Un "Chasseur de Rang B" qui n'a jamais remporté le moindre hackathon d'envergure, qui ne s'exprime pas couramment en anglais ou qui est incapable d'enchaîner une routine complète de calisthénie **n'existe pas** dans le Système.
+* **Élimination de la Notion de "Bloqué par Quête de Rang" :** Dans l'ancienne conception, un joueur pouvait accumuler artificiellement des niveaux (passer par exemple du niveau 1 au niveau 25) tout en se retrouvant bloqué devant une quête de rang disproportionnée qu'il était incapable d'accomplir. Cette aberration est définitivement supprimée. Dans LevelUp, le niveau global et le rang sont strictement couplés aux accomplissements fondateurs des 8 bases : **il est impossible d'atteindre le niveau requis pour un rang sans avoir déjà validé les compétences de base indispensables.**
+
+### 1.5 Nomenclature Mathématique : Score de Base ($S_b$), Niveau de Base ($L_b$) et Score Global ($S_{\text{global}}$)
+
+Pour éliminer toute ambiguïté de calcul et forcer un développement holistique sans faille, le Système établit une distinction rigoureuse entre **Score** et **Niveau** :
+
+1. **Par Base Fondamentale ($b \in \{1, \dots, 8\}$) :**
+   * **Score de Base ($S_b$) :** Chaque base dispose d'un score continu $S_b \in [0, 1000]$, alimenté par l'accomplissement des nœuds de compétences, des quêtes quotidiennes spécialisées et des preuves réelles vérifiées.
+   * **Niveau de Base ($L_b$) :** Le niveau dans une base donnée est calculé de manière quadratique à partir du score de cette base :
+     $$L_b = \min \left( 100, \left\lfloor \sqrt{\frac{S_b}{1000}} \times 100 \right\rfloor \right)$$
+
+2. **Agrégation du Score Global ($S_{\text{global}}$) via Moyenne Harmonique Pondérée :**
+   Une moyenne arithmétique standard permettrait à un joueur d'ignorer complètement la puissance physique (`STR`) ou l'anglais (`LNG`) tout en gonflant artificiellement son score en code (`AI_ENG`). Pour interdire cette négligence, le Système calcule le **Score Global** par une moyenne harmonique pondérée :
+   $$S_{\text{global}} = \frac{\sum_{b=1}^{8} w_b}{\sum_{b=1}^{8} \frac{w_b}{S_b + \epsilon}}$$
+   Où $w_b$ est le poids relatif attribué à la base $b$ ($\sum w_b = 1.0$) et $\epsilon = 0.01$ empêche la division par zéro. Dans une moyenne harmonique, la valeur minimale domine le résultat : si le joueur néglige une seule base ($S_b \to 0$), son Score Global s'effondre, rendant tout passage au rang supérieur impossible.
+
+3. **Niveau Global du Chasseur ($L_{\text{global}}$) :**
+   Le Niveau Global du joueur (affiché sur le HUD holographique) est directement dérivé du Score Global :
+   $$L_{\text{global}} = \min \left( 100, \left\lfloor \sqrt{\frac{S_{\text{global}}}{1000}} \times 100 \right\rfloor \right)$$
+
+### 1.6 Écosystème des Services & Applications Externes Référencés
+
+Le Système ne cherche pas à recréer des outils là où des références mondiales d'élite existent gratuitement :
+
+| Domaine Opérationnel | Service Externe Référencé | Rôle & Modalité d'Intégration dans LevelUp |
+| :--- | :--- | :--- |
+| **Veille Technologique & Bourses** | **Deerflow AI & Google Alerts RSS** | Surveillance automatisée des bourses d'études mondiales (Eiffel, Fulbright, Erasmus Mundus) et alertes hackathons Devpost via flux RSS et scraping headless Playwright. |
+| **Maîtrise Linguistique** | **Cambridge English Free Tests** | Tests gratuits officiels Cambridge English (C1 Advanced & C2 Proficiency) pour la certification et le calibrage périodique du niveau réel d'anglais. |
+| **Pratique Quotidienne des Langues** | **Duolingo API & Anki** | Maintien du streak journalier de langues et répétition espacée algorithmique (SM-2) du vocabulaire technique et académique en IA et cybersécurité. |
+| **Certifications Techniques Gratuites** | **DataCamp (GitHub Student Pack)** | Exploitation complète des accès premium gratuits DataCamp, freeCodeCamp, CS50 Harvard et DeepLearning.AI pour valider les nœuds `AI_ENG`. |
+| **Interface HUD Mobile & Vocale** | **Discord Bot (Discord.js v14)** | Terminal déporté du Chasseur : commandes slash, journalisation vocale par streaming UDP, alertes de quêtes et suivi du Deep Work en canal vocal dédié. |
+| **Validation Sportive par Vision** | **MediaPipe Pose & OpenCV** | Analyse cinématique par caméra en temps réel (angles articulaires coude/épaule/genou) pour compter objectivement chaque répétition de calisthénie sans triche possible. |
+| **Pare-Feu Anti-Distraction & Pénalités** | **NextDNS API & Pare-feu Local** | Blocage dynamique au niveau DNS et réseau (NextDNS, Pi-hole, Windows Filtering Platform / Hosts) des domaines récréatifs lors des sessions Deep Work et pénalités. |
 
 ---
 
@@ -219,25 +260,106 @@ mindmap
 
 ### BASE 7 : `STR` — Puissance Physique & Condition Athlétique (15 Nœuds)
 
+La base `STR` refuse les programmes génériques déconnectés des contraintes réelles. Elle intègre au cœur de son moteur d'entraînement les programmes complets au poids du corps et de calisthénie développés pour Huriel, avec un suivi rigoureux par répétitions, séries et chronomètre :
+
+```mermaid
+flowchart TD
+    subgraph Routine_Dos_Epaules["Routine 1 : Dos & Épaules (17 Étapes Chronométrées)"]
+        D1["Jumping Jacks (00:30)"] --> D2["Hyperextension x14"]
+        D2 --> D3["Pike Push Ups x14"]
+        D3 --> D4["Reverse Push-Ups x12"]
+        D4 --> D5["Inchworms x16"]
+        D5 --> D6["Side-Lying Stretch G (00:30)"]
+        D6 --> D7["Side-Lying Stretch D (00:30)"]
+        D7 --> D8["Hyperextension x12"]
+        D8 --> D9["Pike Push Ups x12"]
+        D9 --> D10["Reverse Push-Ups x10"]
+        D10 --> D11["Inchworms x14"]
+        D11 --> D12["Cat Cow Pose (00:35)"]
+        D12 --> D13["Supine Push Up x14"]
+        D13 --> D14["Floor Y Raises x14"]
+        D14 --> D15["Supine Push Up x13"]
+        D15 --> D16["Reverse Snow Angels x12"]
+        D16 --> D17["Child's Pose (00:30)"]
+    end
+
+    subgraph Routine_Bras["Routine 2 : Bras & Triceps Calisthenics (@giovanni_fiderio)"]
+        B1["Push-Ups Classiques (3 séries à l'échec)"]
+        B2["Decline Push-Ups pieds surélevés (3 séries à l'échec)"]
+        B3["Diamond Push-Ups mains losange (3 séries à l'échec)"]
+        B4["Pike Push-Ups deltoïdes/triceps (3 séries à l'échec)"]
+        B5["Wide Push-Ups prise large (3 séries à l'échec)"]
+        B6["Tricep Cross Extensions au sol (3 séries à l'échec)"]
+    end
+
+    subgraph Routine_Abdos["Routine 3 : Abdos & Core d'Acier (@lou4n.ldlm)"]
+        A1["V-Up : 3 x 10 répétitions"]
+        A2["Mountain Climber : 3 x 30 secondes"]
+        A3["Relevé de jambes au sol : 3 x 12 répétitions"]
+        A4["Gainage classique : 2 x 1m30"]
+        A5["Gainage latéral : 2 x 45s chaque côté"]
+    end
+```
+
+#### Programme Détaillé 1 : Dos et Épaules à la Maison (17 Étapes Structurées)
+1. **Jumping Jacks :** 00:30 — Activation cardiovasculaire et préparation thermique des articulations scapulaires.
+2. **Hyperextension au sol :** x14 répétitions — Renforcement des érecteurs du rachis et de la zone lombaire.
+3. **Pike Push Ups :** x14 répétitions — Sollicitation ciblée des deltoïdes antérieurs et des trapèzes.
+4. **Reverse Push-Ups :** x12 répétitions — Rétraction scapulaire active et recrutement des rhomboïdes.
+5. **Inchworms :** x16 répétitions — Mobilisation dynamique de la chaîne postérieure et force d'appui des épaules.
+6. **Side-Lying Floor Stretch Left :** 00:30 — Décompression du grand dorsal gauche et mobilité thoracique.
+7. **Side-Lying Floor Stretch Right :** 00:30 — Décompression du grand dorsal droit et symétrie posturale.
+8. **Hyperextension au sol :** x12 répétitions — Consolidation de l'endurance des muscles posturaux du dos.
+9. **Pike Push Ups :** x12 répétitions — Maintien de l'intensité sur la poussée verticale inversée.
+10. **Reverse Push-Ups :** x10 répétitions — Rétraction maximale sous fatigue neuromusculaire.
+11. **Inchworms :** x14 répétitions — Travail du gainage dynamique et étirement des ischio-jambiers.
+12. **Cat Cow Pose :** 00:35 (version révisée) — Mobilisation segmentaire de la colonne vertébrale.
+13. **Supine Push Up (Floor Retractions) :** x14 répétitions — Activation pure du grand dorsal et des trapèzes moyens.
+14. **Floor Y Raises :** x14 répétitions — Isolation des trapèzes inférieurs pour corriger l'enroulement d'épaules.
+15. **Supine Push Up :** x13 répétitions — Poussée dorsale contre le sol pour un recrutement profond.
+16. **Reverse Snow Angels :** x12 répétitions — Endurance de force scapulaire et ouverture pectorale.
+17. **Child's Pose :** 00:30 — Retour au calme, élongation vertébrale et relaxation parasympathique.
+
+#### Programme Détaillé 2 : Bras & Triceps Calisthenics à la Maison (TikTok @giovanni_fiderio)
+Protocole à haute intensité axé sur l'hypertrophie des bras et l'endurance de force au poids du corps, exécuté en 3 séries poussées à l'échec postural strict pour chaque mouvement :
+1. **Push-Ups Classiques :** 3 séries à l'échec — Fondement de la poussée horizontale, activation pectoraux-triceps.
+2. **Decline Push-Ups (Pieds Surélevés) :** 3 séries à l'échec — Déplacement du centre de gravité vers le haut du corps, accentuation sur le chef latéral du triceps et le faisceau claviculaire.
+3. **Diamond Push-Ups (Mains en Losange) :** 3 séries à l'échec — Rapprochement des mains induisant une adduction scapulaire et un recrutement massif des trois chefs du triceps.
+4. **Pike Push-Ups :** 3 séries à l'échec — Poussée verticale au poids du corps ciblant les faisceaux antérieurs/latéraux des deltoïdes et le triceps brachial.
+5. **Wide Push-Ups (Prise Large) :** 3 séries à l'échec — Étirement accentué du grand pectoral et stabilisation des coudes.
+6. **Tricep Cross Extensions au Sol :** 3 séries à l'échec — Mouvement d'isolation calisthénique extrême plaçant les avant-bras en appui pour une extension de coude en chaîne fermée.
+
+#### Programme Détaillé 3 : Abdos & Core d'Acier à la Maison (TikTok @lou4n.ldlm)
+Circuit complet de renforcement de la sangle abdominale combinant travail dynamique sous-ombilical, antéro-postérieur et maintien isométrique :
+1. **V-Up :** 3 séries de 10 répétitions — Fermeture simultanée buste-jambes pour le recrutement combiné du grand droit et des fléchisseurs de hanche.
+2. **Mountain Climber :** 3 séries de 30 secondes — Gainage dynamique à haute fréquence cardiaque, stabilisation pelvienne et endurance du tronc.
+3. **Relevé de Jambes au Sol (Leg Raises) :** 3 séries de 12 répétitions — Isolation prioritaire de la portion basse du grand droit sans cambrure lombaire.
+4. **Gainage Classique (Plank) :** 2 séries de 1 minute 30 secondes — Renforcement du muscle transverse, amélioration de la stabilité axiale et maintien d'un ventre plat et gainé.
+5. **Gainage Latéral (Side Plank) :** 2 séries de 45 secondes de chaque côté — Ciblage rigoureux des muscles obliques internes et externes et stabilisation latérale du bassin.
+
+#### Programme Détaillé 4 : Jambes & Mobilité Athlétique
+1. **Squats au Poids du Corps :** 4 séries de 25 répétitions strictes (flexion à 90° minimale).
+2. **Fentes Sautées Explosives :** 3 séries de 12 répétitions par jambe pour la puissance unilatérale.
+3. **Chaise Isométrique contre Mur (Wall Sit) :** 3 séries de 60 secondes pour l'endurance des quadriceps.
+4. **Calf Raises Unilatérales :** 4 séries de 20 répétitions pour le triceps sural et la cheville.
+
 | ID Nœud | Intitulé de la Compétence | Description & Programme Réel | Ressources Gratuites Associées | Preuve de Validation (DoD) | XP Gain |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **STR-01** | *Maîtrise Technique des Pompes (Push-Ups)* | Exécution de 30 répétitions strictes au poids du corps : torse touchant le sol, verrouillage complet en haut. | Guides de callisthénie / Biomécanique | Enregistrement vidéo de la série de 30 répétitions parfaites | `+100 XP` |
-| **STR-02** | *Puissance de Tirage : Tractions Strictes (Pull-Ups)* | Réalisation de 10 tractions en pronation sans balancement ni à-coups des jambes (dead-hang complet). | Méthodes d'entraînement dos | Vidéo d'une série de 10 tractions strictes validée | `+180 XP` |
-| **STR-03** | *Dips sur Barres Parallèles* | 15 répétitions complètes de dips : descente à 90 degrés des coudes, remontée avec verrouillage triceps. | Exercices de poussée pectoraux/triceps | Vidéo d'une série de 15 dips stricts validée | `+150 XP` |
-| **STR-04** | *Ceinture Abdominale d'Acier (Gainage)* | Maintien d'un gainage planche parfait pendant 3 minutes consécutives sans cambrure des lombaires. | Exercices de stabilité du tronc | Chronomètre filmé de 3 minutes de gainage continu | `+150 XP` |
-| **STR-05** | *Développement du Dos en V (Largeur & Épaisseur)* | Programme spécial dos : tractions lestées, tirage horizontal et rowing bûcheron pour une posture souveraine. | Protocoles de musculation du dos | Progression mesurée des charges sur 6 semaines consécutives | `+200 XP` |
-| **STR-06** | *Développement des Bras (Biceps & Triceps)* | Travail d'isolation rigoureux : curls à la barre et extensions triceps pour combler les points faibles. | Biomécanique des bras | Mesure du tour de bras et progression de force documentée | `+150 XP` |
-| **STR-07** | *Force Explosive du Bas du Corps (Squats)* | Réalisation d'une série de 50 squats profonds au poids du corps sans rupture de rythme. | Entraînement bas du corps | Série de 50 squats continus validée | `+120 XP` |
-| **STR-08** | *Tractions Lestées (+15 kg)* | Exécution de 5 tractions strictes avec une charge additionnelle de 15 kg attachée à la ceinture. | Entraînement de force maximale | Vidéo validée avec pesée de la charge et exécution propre | `+250 XP` |
-| **STR-09** | *Endurance Cardiovasculaire (Course 5 km)* | Course continue de 5 kilomètres courue en moins de 25 minutes sans s'arrêter. | Données d'application GPS de course (Strava) | Trace GPS avec temps inférieur à 25:00 | `+200 XP` |
-| **STR-10** | *Mobilité Articulaire & Prévention des Douleurs de Bureau* | Routine quotidienne de 15 minutes d'étirements des fléchisseurs de hanches, ouverture thoracique et cou. | Protocoles de kinésithérapie posturale | 21 jours consécutifs de routine de mobilité validés | `+150 XP` |
-| **STR-11** | *Le Défi des 100 Pompes de Solo Leveling* | Complétion de 100 pompes réparties en un minimum de séries au cours d'une seule session d'entraînement. | Entraînement emblématique Sung Jin-Woo | Log de la séance avec détail des répétitions par série | `+200 XP` |
-| **STR-12** | *Régularité Physique Inébranlable (4 Séances/Semaine)* | Tenue stricte de 4 entraînements intenses par semaine pendant 2 mois consécutifs sans aucune séance manquée. | Journal d'entraînement LevelUp | 8 semaines consécutives avec 4 séances hebdomadaires tracées | `+400 XP` |
-| **STR-13** | *Tractions Lestées Supérieures (+25 kg)* | Exécution de 3 répétitions de tractions strictes lestées avec une charge de 25 kg. | Callisthénie lourde avancée | Vidéo de preuve avec pesée et verrouillage strict | `+350 XP` |
+| **STR-01** | *Routine Dos & Épaules Complète (17 Ex)* | Exécution stricte de la routine complète des 17 exercices sans interruption non programmée. | Protocole interne LevelUp / CV Camera | Enregistrement caméra analysé ou validation temps réel | `+250 XP` |
+| **STR-02** | *Routine Bras Calisthenics à l'Échec* | Réalisation des 6 variantes de pompes (3 séries à l'échec postural strict) selon le split @giovanni_fiderio. | Protocole vidéo Giovanni Fiderio | Log des répétitions à l'échec par série et par exercice | `+250 XP` |
+| **STR-03** | *Routine Abdos & Core d'Acier* | Accomplissement du circuit @lou4n.ldlm : V-Up (3x10), Mountain Climber (3x30s), Relevé jambes (3x12), Gainage (2x1m30), Latéral (2x45s/côté). | Protocole vidéo Louan LDLM | Validation chronométrique et répétitions sans rupture | `+200 XP` |
+| **STR-04** | *Validation Automatisée par Vision par Ordinateur* | Session complète d'entraînement filmée et comptée automatiquement via MediaPipe Pose (WebAssembly). | Moteur CV interne LevelUp | Rapport cinématique d'angles articulaires avec $\ge 90\%$ de conformité | `+300 XP` |
+| **STR-05** | *Maîtrise Technique des Pompes (Push-Ups)* | Exécution de 30 répétitions strictes au poids du corps : torse à 5 cm du sol, extension complète. | Biomécanique de calisthénie | Analyse vidéo MediaPipe validant l'amplitude (angle coude $\le 75^\circ \to \ge 160^\circ$) | `+100 XP` |
+| **STR-06** | *Puissance de Tirage : Tractions Strictes (Pull-Ups)* | Réalisation de 10 tractions en pronation sans balancement des jambes (dead-hang complet). | Méthodes d'entraînement dos | Vidéo d'une série de 10 tractions strictes validée | `+180 XP` |
+| **STR-07** | *Dips sur Barres Parallèles* | 15 répétitions complètes de dips : descente à 90 degrés des coudes, remontée avec verrouillage triceps. | Exercices de poussée pectoraux/triceps | Vidéo d'une série de 15 dips stricts validée | `+150 XP` |
+| **STR-08** | *Ceinture Abdominale d'Acier (Gainage Continu)* | Maintien d'un gainage planche parfait pendant 3 minutes consécutives sans cambrure des lombaires. | Exercices de stabilité du tronc | Chronomètre filmé de 3 minutes de gainage continu | `+150 XP` |
+| **STR-09** | *Force Explosive du Bas du Corps (Squats)* | Réalisation d'une série de 50 squats profonds au poids du corps sans rupture de rythme. | Entraînement bas du corps | Série de 50 squats continus validée par MediaPipe | `+120 XP` |
+| **STR-10** | *Tractions Lestées (+15 kg)* | Exécution de 5 tractions strictes avec une charge additionnelle de 15 kg attachée à la ceinture. | Entraînement de force maximale | Vidéo validée avec pesée de la charge et exécution propre | `+250 XP` |
+| **STR-11** | *Endurance Cardiovasculaire (Course 5 km)* | Course continue de 5 kilomètres courue en moins de 25 minutes sans s'arrêter. | Données d'application GPS de course (Strava) | Trace GPS avec temps inférieur à 25:00 | `+200 XP` |
+| **STR-12** | *Le Défi des 100 Pompes de Solo Leveling* | Complétion de 100 pompes réparties en un minimum de séries au cours d'une seule session d'entraînement. | Entraînement emblématique Sung Jin-Woo | Log de la séance avec détail des répétitions par série | `+200 XP` |
+| **STR-13** | *Régularité Physique Inébranlable (4 Séances/Semaine)* | Tenue stricte de 4 entraînements intenses par semaine pendant 2 mois consécutifs sans aucune séance manquée. | Journal d'entraînement LevelUp | 8 semaines consécutives avec 4 séances hebdomadaires tracées | `+400 XP` |
 | **STR-14** | *Endurance de Fond (Course 10 km)* | Course de 10 kilomètres achevée en moins de 55 minutes en maintenant une allure constante. | Traceur GPS de running | Capture de la trace GPS certifiant 10 km en $< 55\text{ min}$ | `+300 XP` |
 | **STR-15** | *Condition Physique d'Athlète Complet* | Validation conjointe : 15 tractions strictes + 50 pompes d'affilée + 5 km en $< 23\text{ min}$ + Mobilité parfaite. | Batterie complète de tests physiques | Épreuve physique complète filmée et certifiée | `+800 XP` |
-
----
 
 ### BASE 8 : `DIS` — Discipline, Volonté & Résilience Mentale (15 Nœuds)
 
@@ -381,22 +503,77 @@ Les Boss représentent les grands projets et jalons décisifs de la vie réelle.
 
 ---
 
-### 3.4 Catalogue des Quêtes de Changement de Classe (`MONK_MODE_SPRINTS` — 10 Protocoles Commando)
+### 3.4 Hiérarchie des Rangs du Chasseur & Épreuves Fondatrices Commando
 
-Ces journées sont programmées (comme le jeudi commando façon Sung Jin-Woo) et imposent un verrouillage strict de la journée heure par heure :
+Dans LevelUp, le rang ne s'achète pas et ne se débloque pas par une simple accumulation de temps passé. Il matérialise l'autorité, la réputation, la puissance physique et l'excellence académique et professionnelle réelles de l'utilisateur.
 
-* **QC-01 :** *Le Jeudi Commando Originel (Sung Jin-Woo Edition)* — 06h00 Réveil & Musculation lourde $\rightarrow$ 08h30-11h30 Mathématiques & Algorithmes $\rightarrow$ 12h30-15h30 Cybersécurité TryHackMe $\rightarrow$ 16h00-18h30 Code MVP IA $\rightarrow$ 19h00 Lecture & Dictée vocale. Récompense : `+600 XP All Stats`.
-* **QC-02 :** *Le Sprint de l'Architecte Logiciel* — Journée dédiée à 100 % à la conception et au code d'une infrastructure complexe (3 blocs de 3 heures de programmation pure sans pause récréative). Récompense : `+700 XP AI_ENG / +300 XP DIS`.
-* **QC-03 :** *La Journée Blanche des Révisions Universitaires* — 8 heures nettes d'exercices d'annales d'examens réparties en 4 sessions de 2 heures, entrecoupées de marches sans écran. Récompense : `+800 XP ACAD / +200 XP DIS`.
-* **QC-04 :** *Le Marathon Cyber Gladiator* — 8 heures d'immersion totale sur TryHackMe / HackTheBox pour franchir un palier de classement mondial. Récompense : `+800 XP CYBER`.
-* **QC-05 :** *L'Immersion Anglaise Intégrale (24h)* — Interdiction absolue de prononcer, lire ou écrire un seul mot en français pendant toute la journée du lever au coucher. Récompense : `+500 XP LNG / +300 XP DIS`.
-* **QC-06 :** *La Forge Physique & Mentale* — Deux entraînements physiques intenses dans la journée (force le matin, endurance l'après-midi) couplés à 4 heures de travail intellectuel dense. Récompense : `+500 XP STR / +300 XP DIS`.
-* **QC-07 :** *Le Sprint Bourses & Opportunités* — Analyse exhaustive de toutes les bourses mondiales sur Deerflow et finalisation de 3 dossiers de candidature complets en 1 journée. Récompense : `+600 XP FIN / +300 XP ACAD`.
-* **QC-08 :** *La Journée Zéro-Dopamine (Reset Mental)* — Zéro écran récréatif, jeûne intermittent, travail sur papier et livres physiques, marche silencieuse, coucher à 21h30. Récompense : `+600 XP DIS / +100 HP Vitalité`.
-* **QC-09 :** *Le Hackathon Commando Solo (36h)* — Session intensive de développement solitaire pour concevoir et déployer un MVP complet du samedi matin au dimanche soir. Récompense : `+1200 XP AI_ENG`.
-* **QC-10 :** *L'Ordre Suprême du Système* — Journée commando décidée inopinément par l'Architecte en cas de baisse de régime constatée sur les jours précédents pour rétablir instantanément le cap d'excellence. Récompense : `+800 XP All Stats`.
+```mermaid
+flowchart LR
+    E["Rang E (Novice)<br>Lvl 1 - 10"] --> D["Rang D (Apprenti)<br>Lvl 11 - 25"]
+    D --> C["Rang C (Opérateur Confirmé)<br>Lvl 26 - 45"]
+    C --> B["Rang B (Expert & Hackathon Winner)<br>Lvl 46 - 65"]
+    B --> A["Rang A (Maître / Leader Industriel)<br>Lvl 66 - 85"]
+    A --> S["Rang S (National Sovereign)<br>Lvl 86 - 95"]
+    S --> Monarch["Monarque des Ombres<br>Lvl 96 - 100"]
+```
 
----
+#### Critères Réels Indiscutables par Palier de Rang :
+
+1. **Rang E : L'Éveil du Novice ($L_{\text{global}} \in [1, 10]$)**
+   * *Statut Réel :* Étudiant en IA débutant son parcours, structurant ses journées et découvrant la rigueur de la programmation et du sport.
+   * *Exigences Clés :* Mise en place du Second Brain Markdown, respect des 4 premières quêtes quotidiennes sur 7 jours consécutifs, complétion de la routine d'échauffement physique.
+
+2. **Rang D : L'Apprenti Discipliné ($L_{\text{global}} \in [11, 25]$)**
+   * *Statut Réel :* Étudiant rigoureux obtenant des notes solides en mathématiques et algorithmique, capable de prototyper des scripts Python fonctionnels.
+   * *Exigences Clés :* Score de base $S_{\text{ACAD}} \ge 250$, première room TryHackMe Medium résolue sans aide, validation de 30 pompes strictes d'affilée, score Cambridge C1 initial évalué.
+
+3. **Rang C : L'Opérateur Confirmé ($L_{\text{global}} \in [26, 45]$)**
+   * *Statut Réel :* Développeur autonome capable de concevoir une architecture logicielle complète, premier quart de sa promotion universitaire, endurance physique démontrée.
+   * *Exigences Clés :* Déploiement d'un MVP fullstack fonctionnel (React + FastAPI/Node), top 20% de promo validé, 10 tractions strictes, 5 km de course en $< 25\text{ min}$, maintien d'un streak Duolingo/Anki de 30 jours.
+
+4. **Rang B : L'Expert Compétiteur ($L_{\text{global}} \in [46, 65]$)**
+   * *Statut Réel :* **Vainqueur de Hackathon reconnu.** Un Chasseur de Rang B sans victoire en compétition de code n'existe pas dans le Système.
+   * *Exigences Clés Obligatoires (Invariants) :*
+     * **Victoire ou Podium Officiel en Hackathon :** Au moins un hackathon majeur remporté ou podium (Devpost, MLH, Hackathon inter-écoles national ou corporate).
+     * **Certification Linguistique Reconnue :** Certification Cambridge English C1 Advanced (ou équivalent officiel C1) validée.
+     * **Condition Physique de Calisthénie :** Exécution sans faute de la Routine Dos & Épaules (17 exercices) et de la Routine Bras à l'échec (6 exercices x 3 séries) validées par Computer Vision.
+     * **Rang Académique :** Maintien ferme dans le Top 10% de sa promotion en ingénierie de l'IA.
+
+5. **Rang A : Le Maître & Leader Industriel ($L_{\text{global}} \in [66, 85]$)**
+   * *Statut Réel :* Major de promotion ou Top 3 incontesté, vainqueur de multiples hackathons internationaux, créateur d'outils d'IA utilisés par de véritables tiers.
+   * *Exigences Clés Obligatoires :*
+     * Multiples podiums de hackathons (au moins 2 premières places).
+     * MVP ou SaaS en production avec utilisateurs actifs réguliers et métriques réelles.
+     * Niveau Cambridge C2 Proficiency attesté.
+     * Physique athlétique d'élite : 15 tractions strictes, routine d'abdos complète enchaînée, 10 km en $< 50\text{ min}$.
+     * Bourse d'excellence ou alternance d'élite décrochée via la veille Deerflow.
+
+6. **Rang S : Le Souverain National ($L_{\text{global}} \in [86, 95]$)**
+   * *Statut Réel :* Figure montante reconnue à l'échelle nationale dans l'écosystème de l'Intelligence Artificielle et de la recherche appliquée.
+   * *Exigences Clés Obligatoires :*
+     * Major de promotion indiscuté de son école d'ingénieurs.
+     * Grand vainqueur de compétitions d'IA internationales (ex: Kaggle Gold/Silver, Devpost Global Champion).
+     * Indépendance financière relative (revenus de conseil, SaaS, ou bourse de recherche doctorale prestigieuse).
+     * Maîtrise physique suprême (force relative calisthénique de haut niveau, masse grasse athlétique $< 12\%$).
+
+7. **Monarque des Ombres : La Légende Vivante Mondiale ($L_{\text{global}} \in [96, 100]$)**
+   * *Statut Réel :* Génie mondial de l'IA, riche, célèbre, physique de statue grecque, orateur influent invité aux conférences mondiales.
+   * *Exigences Clés :* Fondateur ou CTO d'une entreprise tech valorisée à plusieurs millions, liberté financière absolue, contributions open-source majeures à l'infrastructure mondiale de l'IA, maîtrise oratoire bilingue sans accent, condition physique olympique.
+
+#### Les 10 Protocoles Commando d'Élévation (`MONK_MODE_SPRINTS`) :
+
+Ces journées sont programmées (comme le jeudi commando façon Sung Jin-Woo) pour accélérer le développement holistique et synchroniser les scores des 8 bases :
+
+* **QC-01 :** *Le Jeudi Commando Originel (Sung Jin-Woo Edition)* — 06h00 Réveil & Routine Dos/Épaules 17 exercices $\rightarrow$ 08h30-11h30 Mathématiques & Optimisation $\rightarrow$ 12h30-15h30 Cybersécurité TryHackMe $\rightarrow$ 16h00-18h30 Architecture IA & Code MVP $\rightarrow$ 19h00 Lecture technique anglaise. Récompense : `+600 XP All Bases`.
+* **QC-02 :** *Le Sprint de l'Architecte Logiciel* — Conception et déploiement d'un MVP complet en 3 blocs de 3 heures de programmation pure sans pause récréative. Récompense : `+700 XP AI_ENG / +300 XP DIS`.
+* **QC-03 :** *La Journée Blanche des Révisions Universitaires* — 8 heures nettes d'exercices d'annales d'examens en 4 sessions de 2 heures, validées avec note $\ge 16/20$. Récompense : `+800 XP ACAD / +200 XP DIS`.
+* **QC-04 :** *Le Marathon Cyber Gladiator* — 8 heures d'immersion totale sur TryHackMe / PortSwigger pour franchir un palier de classement. Récompense : `+800 XP CYBER`.
+* **QC-05 :** *L'Immersion Anglaise Intégrale (24h)* — Interdiction absolue de prononcer, lire ou écrire un seul mot en français durant 24h ; passage d'un test Cambridge C1/C2 complet. Récompense : `+500 XP LNG / +300 XP DIS`.
+* **QC-06 :** *La Forge Physique Calisthénique* — Enchaînement de la Routine Dos & Épaules le matin et de la Routine Bras & Abdos l'après-midi, couplées à 4h d'ingénierie. Récompense : `+500 XP STR / +300 XP DIS`.
+* **QC-07 :** *Le Sprint Bourses & Opportunités* — Analyse de toutes les opportunités mondiales via Deerflow / Google Alerts et dépôt de 3 dossiers parfaits. Récompense : `+600 XP FIN / +300 XP ACAD`.
+* **QC-08 :** *Le Reset Dopaminergique Monastique* — Zéro écran récréatif, lecture papier, marche silencieuse, alimentation saine, coucher à 21h30. Récompense : `+600 XP DIS / Vitalité Souveraine`.
+* **QC-09 :** *Le Hackathon Commando Solo (36h)* — Développement solitaire intensif pour livrer un MVP d'IA fonctionnel du vendredi soir au dimanche matin. Récompense : `+1200 XP AI_ENG`.
+* **QC-10 :** *L'Ordre Suprême du Système* — Ajustement stratégique inopiné déclenché par l'Architecte pour combler la base la plus faible constatée par la moyenne harmonique. Récompense : `+800 XP Base Minimale`.
 
 ### 3.5 Catalogue des Quêtes de Pénalité (`PENALTY_QUESTS` — 10 Protocoles de Sanction)
 
@@ -438,40 +615,76 @@ L'Agent Architecte résidant dans Antigravity n'est pas un complaisant distribut
 
 ## 5. Modèle Mathématique Avancé, Économie des Récompenses & Calibrage Dynamique
 
-### 5.1 Algorithme de Calibrage Dynamique de la Fatigue (Jauges HP & MP)
+### 5.1 Calibrage Dynamique de la Vitalité & Concentration : Modélisation Neurobiologique Réelle (Jauges HP & MP)
 
-Le Système modélise la vitalité de l'utilisateur par un système d'équations différentielles discrètes :
+#### 5.1.1 Posture Psychologique Inviolable : Bannissement de la Notion de Faiblesse
+Dans l'univers de *Solo Leveling*, le Système ne traite jamais le Chasseur comme un être paresseux, usé ou victime de la fatigue. La fatigue perçue est avant tout un verrou psychologique et mental que la discipline transcende.
+
+* **Règle UI / UX Absolue :** Les jauges HP et MP ne doivent **JAMAIS** faire penser à l'utilisateur qu'il est épuisé, fatigué ou amoindri. Aucun message alarmiste ou défaitiste (ex: *"Vous êtes épuisé, allez vous reposer"*) n'est toléré sur le HUD.
+* **Sémantique Souveraine :** 
+  * La jauge **HP** représente la **Résilience Biologique Souveraine** (homéostasie cellulaire, récupération métabolique).
+  * La jauge **MP** représente le **Focus & l'Acuité Cognitive** (capacité de concentration exécutive du cortex préfrontal).
+* **Décroissance Lente et Résiliente :** L'épuisement de ces deux valeurs est volontairement calibré pour être **extrêmement lent**, fondé sur les modèles scientifiques de neurobiologie humaine. Même après une longue journée de 16 heures d'éveil, le joueur maintient un niveau de vitalité et de focus élevé, affirmant sa posture de force mentale.
 
 ```mermaid
 flowchart LR
-    Sommeil["Durée Sommeil (Heures) & Qualité"] -->|Algorithme Régénération| HP["Jauge HP (Santé Biologique)"]
-    DeepWork["Sessions Deep Work (Minutes)"] -->|Consommation| MP["Jauge MP (Focus Mental)"]
-    Pauses["Marches & Pauses Silencieuses"] -->|Régénération| MP
-    Stress["Échecs & Retards"] -->|Pression| HP
+    subgraph Modele_Process_S_Borbely["Processus S (Homéostasie Sommeil / Adénosine)"]
+        S1["Accumulation Adénosine Lente (tau = 18.2h)"] --> HP["Jauge HP (Résilience Biologique)"]
+    end
+    subgraph Modele_Boksem_Gandevia["Contrôle Exécutif Dopaminergique & Fatigue Centrale"]
+        D1["Effort Cognitif Préfrontal"] --> MP["Jauge MP (Focus & Acuité)"]
+        Q1["Validation Quête (Pulse Phasique Dopamine)"] -->|Restauration Immédiate| MP
+    end
 ```
 
-#### Équation de Régénération de la Jauge HP (Sommeil Matinal) :
-La régénération des HP au réveil ($HP_{\text{réveil}}$) dépend de la durée du sommeil en heures ($H$) et d'un coefficient qualitatif $Q \in [0.5, 1.2]$ évalué au réveil :
+#### 5.1.2 Modélisation Mathématique de la Jauge HP : Modèle à Deux Processus de Borbély
 
-$$HP_{\text{réveil}} = \min \left( 100, \left\lfloor 100 \times \left( \frac{H}{8.0} \right)^{1.3} \times Q \right\rfloor \right)$$
+La vitalité humaine ne chute pas de manière linéaire ou précipitée. Selon le modèle scientifique de référence de Peter Borbély (1982, révisé 2016), la dynamique de la propension au sommeil et de la pression métabolique repose sur le **Processus Homéostatique S** et le **Processus Circadien C** :
 
-* Si le joueur dort 8 heures avec une qualité optimale ($Q=1.0$) : $HP = 100$.
-* Si le joueur dort 5 heures ($H=5.0, Q=0.9$) : $HP = \lfloor 100 \times (0.625)^{1.3} \times 0.9 \rfloor = 48\text{ HP}$ (État : *Fatigue Prononcée* $\rightarrow$ L'Architecte allège immédiatement le volume des quêtes physiques de la journée et priorise la récupération).
+1. **Cinétique de la Pression d'Adénosine Durant l'Éveil ($S(t)$) :**
+   L'accumulation d'adénosine dans le prosencéphale basal suit une fonction exponentielle asymptotique très lente avec une constante de temps d'éveil $\tau_w \approx 18.2\text{ heures}$ :
+   $$S(t) = 1 - (1 - S_0) e^{-\frac{t}{\tau_w}}$$
+   Où $t$ est le temps écoulé en heures depuis le réveil et $S_0 \in [0.05, 0.15]$ est la pression résiduelle au réveil.
 
-#### Équation de Consommation & Régénération de la Jauge MP (Focus Mental) :
-Chaque minute de Deep Work consécutif consomme des points de concentration selon une fonction quadratique traduisant la baisse progressive de vigilance :
+2. **Équation de la Jauge HP (Résilience Biologique Souveraine) :**
+   La jauge HP reflète la fraction de capacité métabolique non entravée par la pression homéostatique :
+   $$HP(t) = \max \left( 60, \left\lfloor 100 \times \left( 1 - 0.25 \times S(t) \right) \times C(t) \right\rfloor \right)$$
+   Où $C(t) \in [0.95, 1.05]$ est le modulateur circadien sinusoïdal synchronisé sur le rythme biologique de 24 heures :
+   $$C(t) = 1.0 + 0.05 \times \cos \left( \frac{2\pi (t - 14)}{24} \right)$$
+   
+   * **Conséquence Pratique Réelle :** 
+     * Au réveil ($t = 0$) après 7h30 de sommeil réparateur : $S(0) \approx 0.08 \implies HP = 100\%$.
+     * Après 8 heures de travail et d'entraînement intense ($t = 8$) : $S(8) = 1 - 0.92 e^{-8/18.2} \approx 0.407 \implies HP \approx 91\%$.
+     * Après 16 heures de veille active ($t = 16$) : $S(16) \approx 0.618 \implies HP \approx 84\%$.
+     * **La jauge HP ne descend jamais en dessous de 60% en journée normale**, confirmant au joueur que son organisme conserve une réserve de puissance athlétique inébranlable.
 
-$$\Delta MP_{\text{consommé}}(t) = \alpha \times \left( \frac{t}{60} \right)^{1.4}$$
+3. **Recharge Nocturne (Processus S de Récupération Sommeil) :**
+   Pendant le sommeil de durée $H$ (en heures), la dégradation de l'adénosine et la restauration cellulaire s'opèrent avec une constante de clairance $\tau_s \approx 4.2\text{ heures}$ :
+   $$S_{\text{réveil}} = S_{\text{coucher}} \times e^{-\frac{H}{\tau_s}}$$
+   Une nuit de 7 à 8 heures garantit une restauration quasi-totale de la jauge HP à $100\%$.
 
-Où $t$ est la durée du bloc en minutes et $\alpha = 15$. Une session de 90 minutes de concentration pure consomme :
+#### 5.1.3 Modélisation Mathématique de la Jauge MP : Fatigue Centrale de Gandevia & Modèle Dopaminergique de Boksem
 
-$$\Delta MP = 15 \times (1.5)^{1.4} \approx 26.5\text{ MP}$$
+La capacité de concentration et de résolution de problèmes complexes (Deep Work, algorithmique, hackathons) est modélisée selon les découvertes de Gandevia (2001) sur la fatigue centrale et de Boksem et Tops (2008) sur le coût cognitif dopaminergique :
 
-La régénération naturelle par une pause de marche sans écran de $M$ minutes obéit à :
+1. **Activation Volontaire Maximale de Gandevia ($VA$) :**
+   Le système nerveux central préserve son intégrité d'activation $VA > 92\%$ tant que le rythme respiratoire et la posture sont maintenus :
+   $$VA(t) = \left( 1 - \frac{T_{\text{stim}}}{T_{\max}} \right) \times 100\%$$
 
-$$\Delta MP_{\text{recharge}}(M) = \min \left( MP_{\max} - MP_{\text{actuel}}, \lfloor 1.2 \times M \rfloor \right)$$
+2. **Équation de Décroissance Lente du Focus Mental (Jauge MP) :**
+   Chaque bloc de travail intellectuel ininterrompu de durée $t_{\text{work}}$ (en minutes) consomme du MP selon une fonction amortie par l'habitude de travail :
+   $$\Delta MP_{\text{consommé}} = \beta \times \ln \left( 1 + \frac{t_{\text{work}}}{45} \right)$$
+   Avec $\beta \approx 8.5$. 
+   * Une session de **90 minutes de Deep Work pur** ne consomme que :
+     $$\Delta MP = 8.5 \times \ln(1 + 2.0) = 8.5 \times \ln(3.0) \approx 9.34\text{ MP}$$
+   * Sur un réservoir total de $MP_{\max} = 100$, le joueur passe de $100$ à $\approx 91\text{ MP}$, démontrant une remarquable endurance cognitive.
 
----
+3. **Le Phénomène de Restauration Dopaminergique Immédiate :**
+   Selon le modèle neurobiologique de Boksem, l'anticipation et la validation d'un objectif libèrent un pulse phasique de dopamine au niveau du striatum ventral et du cortex cingulaire antérieur, effaçant le coût de l'effort :
+   * Chaque **Quête Validée** restaure instantanément $+10\text{ MP}$.
+   * Chaque **Problème Algorithmique Résolu** ou **Commit Poussé** restaure $+5\text{ MP}$.
+   * Une marche active en extérieur sans écran de 15 minutes restaure $+15\text{ MP}$.
+   * La jauge MP reste ainsi solidement positionnée entre $75\%$ et $100\%$ tout au long de la journée pour un joueur discipliné et actif.
 
 ### 5.2 L'Économie des Récompenses : L'Inventaire & La Boutique des Ombres (`Shadow Shop`)
 

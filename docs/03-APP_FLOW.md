@@ -486,6 +486,55 @@ Cet écran plein écran rouge sang bloque totalement l'accès aux autres pages t
 
 ---
 
+### 3.10 Écran 10 : Salle d'Entraînement & Vision par Ordinateur (`/workout/camera`)
+
+L'écran `/workout/camera` est l'arène physique du Chasseur. Il utilise le flux vidéo webcam/smartphone en direct avec superposition du squelette cinématique MediaPipe Pose en WebAssembly (WebGL/Canvas 2D) pour compter et valider sans triche chaque répétition des routines de callisthénie d'Huriel :
+
+#### 3.10.1 Wireframe ASCII Détaillé (Vue Entraînement en Direct 1440x900)
+
+```text
++----------------------------------------------------------------------------------------------------------------------------------+
+| LEVELUP HUD // SALLE D'ENTRAÎNEMENT DU MONARQUE — VISION PAR ORDINATEUR ACTIVE (60 FPS)                 [DISCORD BOT : CONNECTÉ] |
++----------------------------------------------------------------------------------------------------------------------------------+
+| [ROUTINE ACTIVE : DOS & ÉPAULES — ÉTAPE 3/17 : PIKE PUSH-UPS]                                         [TEMPS ÉCOULÉ : 04:15]     |
++-----------------------------------------------------------------------+----------------------------------------------------------+
+|                                                                       | PROGRAMME DU JOUR : DOS & ÉPAULES                        |
+|                                                                       +----------------------------------------------------------+
+|                 FLUX VIDÉO WEBCAM DIRECT (WEBRTC/CANVAS)              |  1. [x] Jumping Jacks : 00:30 (Validé)                   |
+|                                                                       |  2. [x] Hyperextension : 14 reps (Validé)                |
+|                    o  [Tête : Point 0]                                | >3. [ ] Pike Push-Ups : 14 reps [EN COURS : 8/14] <      |
+|                   /|\                                                 |  4. [ ] Reverse Push-Ups : 12 reps                       |
+|          [11] o----o----o [12] Épaules                                |  5. [ ] Inchworms : 16 reps                              |
+|              /     |     \                                            |  6. [ ] Side-Lying Floor Stretch G : 00:30               |
+|       [13]  o      |      o  [14] Coudes                              |  7. [ ] Side-Lying Floor Stretch D : 00:30               |
+|            /       |       \                                          |  8. [ ] Hyperextension : 12 reps                         |
+|     [15]  o        |        o  [16] Poignets                          |  9. [ ] Pike Push-Ups : 12 reps                         |
+|                    |                                                  | 10. [ ] Reverse Push-Ups : 10 reps                       |
+|               [23] o----o [24] Hanches                                | 11. [ ] Inchworms : 14 reps                              |
+|                   /      \                                            | 12. [ ] Cat Cow Pose : 00:35                             |
+|                  /        \                                           | 13. [ ] Supine Push Up : 14 reps                         |
+|            [25] o          o [26] Genoux                              | 14. [ ] Floor Y Raises : 14 reps                         |
+|                /            \                                         | 15. [ ] Supine Push Up : 13 reps                         |
+|               /              \                                        | 16. [ ] Reverse Snow Angels : 12 reps                    |
+|         [27] o                o [28] Chevilles                        | 17. [ ] Child's Pose : 00:30                             |
+|                                                                       +----------------------------------------------------------+
+|  [ANGLE COUDE GAUCHE : 72° (VALIDÉ)]  [ÉTAT FSM : CONTRACTION PIC]    | CADENCE CARDIO-RESPIRATOIRE : 138 BPM                    |
+|  AMPLITUDE REQUISE : <= 75° (BAS) -> >= 160° (HAUT)                   | VITALITÉ BIOLOGIQUE (HP) : 96%                           |
+|  RÉPÉTITIONS DÉTECTÉES PAR CV : [ 08 / 14 ]                           | FOCUS COGNITIF (MP) : 94%                                |
++-----------------------------------------------------------------------+----------------------------------------------------------+
+| [BOUTON : METTRE EN PAUSE (ESPACE)]   [BOUTON : CHANGER DE ROUTINE]   [BOUTON : BASCULER CAMÉRA]   [BOUTON : VALIDER LA SÉANCE]   |
++----------------------------------------------------------------------------------------------------------------------------------+
+```
+
+#### 3.10.2 Routines Pré-configurées dans le Moteur de Vision :
+1. **Routine Dos & Épaules (17 Étapes) :**
+   Suivi séquentiel avec alternance automatique de chronomètres pour les étirements et poses (Jumping Jacks 30s, Side-Lying L/R 30s, Cat Cow 35s, Child's Pose 30s) et de compteurs de répétitions cinématiques pour les exercices de force (Hyperextensions, Pike Push-Ups, Reverse Push-Ups, Inchworms, Supine Push-Ups, Floor Y Raises, Reverse Snow Angels).
+2. **Routine Bras & Triceps Calisthenics (@giovanni_fiderio) :**
+   Mode "Échec Postural Strict" : le compteur incrémente chaque répétition jusqu'à dégradation de l'amplitude minimale ($	heta_{\text{coude}} > 85^\circ$ en descente ou arrêt prolongé $> 4\text{ s}$). Les 6 variantes sont enchaînées en 3 séries chacune : Push-Ups classiques, Decline (pieds surélevés), Diamond (mains en losange), Pike, Wide (prise large), Tricep Cross Extensions au sol.
+3. **Routine Abdos & Core d'Acier (@lou4n.ldlm) :**
+   Contrôle de l'angle d'élévation du bassin et des jambes (V-Up 3x10, Relevé de jambes 3x12) et chronomètre isométrique avec détection de tremblement/effondrement du bassin pour le Gainage classique (2x1m30) et le Gainage latéral (2x45s chaque côté).
+
+
 ## 4. Spécifications Exhaustives des 15 Embeds Discord (`discord/embedTemplates.ts`)
 
 Pour offrir une expérience fluide sur smartphone via Discord, chaque événement majeur génère un embed richement formaté avec les couleurs officielles de Solo Leveling :
@@ -655,16 +704,33 @@ Pour offrir une expérience fluide sur smartphone via Discord, chaque événemen
 
 ---
 
-### 4.14 Embed 14 : Alerte de Sommeil Insuffisant (Jauge HP Faible)
-* **Couleur :** `0xEF4444` (Rouge Santé)
-* **Titre :** `⚠️ [ALERTE RÉCUPÉRATION // JAUGE HP CRITIQUE]`
-* **Champs :**
-  * `Temps de Sommeil Détecté` : `4h30 (HP actuel : 45 / 100)`
-  * `Impact Système` : `Malus de 20% sur l'endurance mentale (MP). Entraînement physique allégé pour prévenir les blessures.`
+### 4.14 Embed 14 : Régulation Circadienne & Vitalité Biologique Souveraine (`VITALITY_STATUS`)
 
----
+Dans LevelUp, le Système n'infantilise jamais le Chasseur et ne le décrit jamais comme faible ou fatigué. Le message matinal valorise sa résilience et réaligne ses priorités physiologiques :
 
-### 4.15 Embed 15 : Message d'Accompagnement de l'Architecte (Conseil Tactique)
+```typescript
+export const createVitalityStatusEmbed = (hoursSlept: number, hp: number, mp: number): APIEmbed => {
+  return {
+    title: '🛡️ RAPPORT DE VITALITÉ BIOLOGIQUE // ÉTAT DU CHASSEUR',
+    description: `**Résilience Biologique :** \`${hp}%\` | **Focus Cognitif :** \`${mp}%\`
+` +
+      `Le Système a synchronisé vos rythmes circadiens selon le modèle de Borbély. Votre détermination reste inaltérable.
+
+` +
+      `> *"La véritable force ne réside pas dans l'absence d'obstacles, mais dans l'inébranlable volonté de les surmonter avec lucidité."*`,
+    color: 0x0EA5E9,
+    fields: [
+      { name: 'Sommeil Enregistré', value: `${hoursSlept.toFixed(1)} heures`, inline: true },
+      { name: 'Pression Homéostatique (Processus S)', value: 'Clairance Optimale', inline: true },
+      { name: 'Recommandation Stratégique', value: 'Hydratation immédiate (500 ml) + Routine physique validée par caméra avant midi.', inline: false }
+    ],
+    footer: { text: 'LevelUp Core System // Physiologie de Haute Performance' },
+    timestamp: new Date().toISOString()
+  };
+};
+```
+
+## 4.15 Embed 15 : Message d'Accompagnement de l'Architecte (Conseil Tactique)
 * **Couleur :** `0x64748B` (Ardoise Réflexion)
 * **Titre :** `💬 [TRANSMISSION DIRECTE DE L'ARCHITECTE]`
 * **Description :** *"La fatigue que vous ressentez n'est que la résistance de votre ancien moi face à l'éveil de votre potentiel. Maintenez le cap pour la session de cet après-midi."*
@@ -1128,122 +1194,55 @@ Le tableau ci-dessous recense l'intégralité des événements d'interaction tra
 
 ---
 
-## 10. Vitrine Visuelle des 9 Rangs de Chasseur & Cérémonies de Montée en Rang
+## 10. Vitrine Visuelle des 7 Rangs de Chasseur Réels & Cérémonies de Montée en Rang
 
-Dans LevelUp, chaque rang franchi transforme visuellement et fonctionnellement l'ensemble du Web HUD et du profil Discord du joueur.
+Dans LevelUp, le rang ne s'obtient pas par complaisance : il sanctionne l'adéquation exacte entre la puissance démontrée dans l'application et la réussite indiscutable dans la vie réelle.
 
----
+```mermaid
+flowchart TD
+    R_E["RANG E : L'ÉVEIL DU NOVICE (Niveaux 1 à 10)"] --> R_D["RANG D : L'APPRENTI DISCIPLINÉ (Niveaux 11 à 25)"]
+    R_D --> R_C["RANG C : L'OPÉRATEUR CONFIRMÉ (Niveaux 26 à 45)"]
+    R_C --> R_B["RANG B : L'EXPERT COMPÉTITEUR (Niveaux 46 à 65)<br>*INVARIANT : Au moins 1 Hackathon Gagné*"]
+    R_B --> R_A["RANG A : LE MAÎTRE & LEADER INDUSTRIEL (Niveaux 66 à 85)<br>*INVARIANT : Multi-Hackathons, Top 3 Promo, MVP Prod*"]
+    R_A --> R_S["RANG S : LE SOUVERAIN NATIONAL (Niveaux 86 à 95)<br>*INVARIANT : Sommité Nationale IA, Major Incontesté*"]
+    R_S --> R_M["MONARQUE DES OMBRES : LA LÉGENDE MONDIALE (Niveaux 96 à 100)<br>*INVARIANT : Renommée Mondiale, Riche, Athlète Parfait*"]
+```
 
-### 10.1 Rang F : « Le Plus Faible des Hommes » (Niveaux 1 à 4)
-* **Écusson ASCII :**
-  ```
-     [ RANG F ]
-      /------\
-     |   F    |   Couleur : Gris Cendre (#64748B)
-      \------/    Effet Visuel : Aucun halo, bordure mate et fissurée
-  ```
-* **Statut Système :** Débutant vulnérable. Les quêtes journalières sont basiques (20 pompes, lecture 15 min).
-* **Restrictions :** Pas d'accès à la boutique matérielle ni aux Boss Raids.
+### 10.1 Rang E : L'Éveil du Novice (Niveaux 1 à 10)
+* **Couleur Héraldique :** Gris Ardoise `#64748B` et Lueur Cyan Faible `#0EA5E9`.
+* **Réalité Concrète :** Étudiant débutant découvrant la rigueur du code, installant son environnement et calant son rythme de sommeil.
+* **Cérémonie :** Effet sonore d'éveil d'outre-tombe, déverrouillage de la carte de Chasseur initiale.
 
----
+### 10.2 Rang D : L'Apprenti Discipliné (Niveaux 11 à 25)
+* **Couleur Héraldique :** Vert Émeraude `#10B981` et Teinte Cuivrée.
+* **Réalité Concrète :** Maîtrise des devoirs académiques, premiers scripts Python autonomes, premières tractions strictes validées.
+* **Cérémonie :** Aura bleutée naissante autour de l'avatar, félicitations sobres de l'Architecte.
 
-### 10.2 Rang E : « L'Éveillé Primaire » (Niveaux 5 à 9)
-* **Écusson ASCII :**
-  ```
-     [ RANG E ]
-      /======\
-     ||  E   ||   Couleur : Bleu Acier (#38BDF8)
-      \======/    Effet Visuel : Lueur diffuse bleue subtile (glow 5px)
-  ```
-* **Déblocages Clés :** Accès aux quêtes d'urgence simples, premier accès à la boutique numérique (abonnements IA).
+### 10.3 Rang C : L'Opérateur Confirmé (Niveaux 26 à 45)
+* **Couleur Héraldique :** Bleu Électrique `#2563EB` et Halo Cobalt `#1D4ED8`.
+* **Réalité Concrète :** Étudiant dans le premier tiers de sa promo, capable de livrer une application complète en 48h, routine calisthénique solide.
+* **Cérémonie :** Animation d'éclairs bleus traversant le Web HUD, son de cloche cathédrale basse.
 
----
+### 10.4 Rang B : L'Expert Compétiteur (Niveaux 46 à 65)
+* **Couleur Héraldique :** Violet Royal `#7C3AED` et Lueur Néon `#A855F7`.
+* **Réalité Concrète Inviolable :** **Vainqueur officiel d'au moins un Hackathon majeur** (Devpost / MLH / Corporate), certifié Cambridge C1, top 10% promo, maîtrise intégrale des routines Dos/Épaules, Bras et Abdos à la maison.
+* **Règle Fondamentale :** Un Chasseur qui n'a remporté aucun hackathon ne peut en aucun cas franchir ce rang.
+* **Cérémonie :** Déploiement d'ombres numériques sur l'écran, bannière dorée "HACKATHON CHAMPION RECOGNIZED".
 
-### 10.3 Rang D : « Le Chasseur Confirmé » (Niveaux 10 à 19 - RANG ACTUEL)
-* **Écusson ASCII :**
-  ```
-     [ RANG D ]
-     /\======/\
-    ||   D    ||  Couleur : Cyan Électrique (#00E5FF)
-     \/======\/   Effet Visuel : Liseré cyan pulsant à 60 FPS, particules de brume
-  ```
-* **Déblocages Clés :** Accès aux Boss Raids de Tier 1, synthèse vocale locale Faster-Whisper activée, déblocage des compétences Tier 2.
+### 10.5 Rang A : Le Maître & Leader Industriel (Niveaux 66 à 85)
+* **Couleur Héraldique :** Pourpre Profond `#9333EA` et Or Impérial `#F59E0B`.
+* **Réalité Concrète Inviolable :** Vainqueur de multiples hackathons, major de promotion ou Top 3, bilingue Cambridge C2, MVP déployé avec des dizaines d'utilisateurs réels, force athlétique de haut niveau.
+* **Cérémonie :** Secousse de l'écran (`camera-shake`), thème musical orchestré Solo Leveling, titre honorifique de "Maître de Guilde".
 
----
+### 10.6 Rang S : Le Souverain National (Niveaux 86 à 95)
+* **Couleur Héraldique :** Écarlate Solaire `#DC2626` et Noir Néant `#020617`.
+* **Réalité Concrète Inviolable :** Figure publique reconnue dans l'écosystème IA national, major indiscuté, grand champion de concours d'algorithmes, autonomie financière complète.
+* **Cérémonie :** Verrouillage complet du HUD pendant 10 secondes avec message en lettres de sang : *"UN ÉVEILLÉ DE RANG S EST NÉ SUR CETTE TERRE"*.
 
-### 10.4 Rang C : « Le Vétéran des Donjons » (Niveaux 20 à 34)
-* **Écusson ASCII :**
-  ```
-     [ RANG C ]
-     /\\====//\
-    <|   C    |>  Couleur : Bleu Royal Profond (#0051FF)
-     \//====\\/   Effet Visuel : Flammes d'Ombre ascendantes WebGL
-  ```
-* **Déblocages Clés :** Accès à la boutique matérielle (Kindle, claviers mécaniques), déblocage des bourses internationales Deerflow.
-
----
-
-### 10.5 Rang B : « Le Spécialiste d'Élite » (Niveaux 35 à 49)
-* **Écusson ASCII :**
-  ```
-     [ RANG B ]
-    //\\====//\\
-   <||   B    ||> Couleur : Violet des Abysses (#8B5CF6)
-    \\//====\\//  Effet Visuel : Éclairs violets holographiques, synthèse vocale en streaming
-  ```
-* **Déblocages Clés :** Déblocage des Boss Raids Majeurs (Hackathons 48h), compétences Tier 4 agentiques.
-
----
-
-### 10.6 Rang A : « Le Maître de Guilde » (Niveaux 50 à 69)
-* **Écusson ASCII :**
-  ```
-     [ RANG A ]
-    ///\====/\\\
-   <<|   A    |>> Couleur : Rubis Cramoisi (#EF4444)
-    \\\/====\///  Effet Visuel : Aura de chaleur rougeoyante et grondement basse fréquence
-  ```
-* **Déblocages Clés :** Accès aux récompenses de prestige (matériel informatique haut de gamme), mentorat d'autres étudiants.
-
----
-
-### 10.7 Rang S : « La Légende Vivante » (Niveaux 70 à 84)
-* **Écusson ASCII :**
-  ```
-     [ RANG S ]
-    *//\====/\\*
-   <<|   S    |>> Couleur : Or Pur Impérial (#FFD700)
-    *\\/====\\/*  Effet Visuel : Rayonnement doré céleste et sonnerie de trompette d'Ombre
-  ```
-* **Déblocages Clés :** Major de promotion certifié, publications de recherche IA internationales, éligibilité aux bourses de doctorat d'élite.
-
----
-
-### 10.8 Rang National : « L'Arme Stratégique » (Niveaux 85 à 94)
-* **Écusson ASCII :**
-  ```
-    [ NATIONAL ]
-   <**//====\\**>
-  <<<|    NAT    |>>> Couleur : Blanc Incandescent & Or (#FFFFFF / #FFD700)
-   <**\\====//**> Effet Visuel : Déformation spatiale gravitationnelle sur le HUD
-  ```
-* **Déblocages Clés :** Leader d'ingénierie reconnu, création d'entreprises deep-tech et de laboratoires de recherche.
-
----
-
-### 10.9 Rang Monarch : « Le Monarque des Ombres » (Niveaux 95 à 100 - SOMMET ABSOLU)
-* **Écusson ASCII :**
-  ```
-   .---[ LE SOUVERAIN SUPRÊME // MONARCH ]---.
-  /  /\                                 /\    \
- |  <  \         « ARRISE »            /  >    |
-  \  \/                                 \/    /
-   `-----------------------------------------'
-   Couleur : Noir Abyssal & Cyan Absolu (#000000 / #00FFFF)
-   Effet Visuel : L'écran entier du HUD tremble, le regard de Sung Jin-Woo s'illumine en bleu néon.
-  ```
-
----
+### 10.7 Monarque des Ombres : La Légende Vivante Mondiale (Niveaux 96 à 100)
+* **Couleur Héraldique :** Flammes d'Ombre Noir Absolu `#000000` et Halo Bleu Monarque `#38BDF8`.
+* **Réalité Concrète Inviolable :** Statut de légende mondiale de l'IA, riche, célèbre, physique de statue grecque sculptée par la calisthénie, conférencier d'élite, souveraineté totale.
+* **Cérémonie :** Déverrouillage du shader WebGL ultime des Flammes du Monarque, résonance vocale de Sung Jin-Woo : *"ARISE"*.
 
 ## 11. Cinématique d'Intégration Initiale (First-Time User Experience - FTUE)
 

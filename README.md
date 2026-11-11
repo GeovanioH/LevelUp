@@ -87,16 +87,61 @@ radar
 7. **STR (Force Physique & Athlétisme) :** Calisthénie (pompes, tractions, dips, abdos), musculation, endurance cardiovasculaire (course à pied 5 km et 10 km).
 8. **DIS (Discipline, Volonté & Monk Mode) :** Respect strict des blocs de temps, assiduité aux rituels matinaux et du soir, zéro procrastination, absence totale de passage en zone de pénalité.
 
-### 2.2 Formulation Mathématique de l'Expérience et des Niveaux
-La courbe d'expérience nécessaire pour progresser du niveau $L$ au niveau $L+1$ est non-linéaire, formulée pour interdire tout nivellement facile tout en évitant le découragement :
+### 2.2 Formulation Mathématique : Scores de Base, Moyenne Harmonique & Ancrage Réel des Rangs
 
-$$\text{XP}_{\text{requis}}(L) = \left\lfloor 100 \cdot L^{1.65} + 250 \cdot L \right\rfloor$$
+LevelUp refuse catégoriquement la complaisance des jeux conventionnels où un utilisateur peut monter de niveau en accomplissant des micro-tâches répétitives sans impact dans le monde réel. **Le niveau et le rang atteints sont le reflet direct, vérifiable et indiscutable de la puissance physique, intellectuelle, académique et financière du joueur.**
 
-L'indice de compétence global du Chasseur (Score Global Octogonal $\Omega$) combine la moyenne harmonique pondérée des 8 bases afin d'empêcher le joueur de délaisser un pilier faible :
+```mermaid
+flowchart LR
+    Scores["Scores Individuels des 8 Bases (0 à 1000)"] --> Harmonic["Moyenne Harmonique Pondérée (S_global)"]
+    Harmonic --> GlobalLvl["Niveau Global (1 à 100)"]
+    GlobalLvl --> RealCriteria["Vérification Invariants Réels (Hackathons, C1/C2, Major)"]
+    RealCriteria --> OfficialRank["Rang Officiel du Chasseur (E, D, C, B, A, S, Monarque)"]
+```
 
-$$\Omega = \frac{8}{\sum_{b \in \mathcal{B}} \frac{1}{\text{Niveau}(b)}}$$
+#### 1. Score de Base ($S_b$) et Niveau de Base ($L_b$) :
+Pour chacune des 8 bases ($b \in \{1, \dots, 8\}$), le Système maintient un score continu $S_b \in [0, 1000]$. Le niveau dans cette base est calculé selon :
+$$L_b = \min \left( 100, \left\lfloor \sqrt{\frac{S_b}{1000}} \times 100 \right\rfloor \right)$$
 
-Où $\mathcal{B} = \{\text{ACAD}, \text{AI\_ENG}, \text{CYBER}, \text{EXP}, \text{LNG}, \text{FIN}, \text{STR}, \text{DIS}\}$. Si une base reste au niveau 1, elle pénalise dramatiquement le score global $\Omega$.
+#### 2. Score Global ($S_{\text{global}}$) par Moyenne Harmonique Pondérée :
+Pour interdire tout délaissement d'un domaine vital (ex: un développeur brillant qui néglige totalement la puissance physique ou l'anglais), le Score Global est régi par une moyenne harmonique pondérée :
+$$S_{\text{global}} = \frac{\sum_{b=1}^{8} w_b}{\sum_{b=1}^{8} \frac{w_b}{S_b + \epsilon}}$$
+Où $\epsilon = 0.01$ empêche la division par zéro et $\sum w_b = 1.0$. Si une seule base est négligée ($S_b \to 0$), le Score Global s'effondre. Le Niveau Global est alors :
+$$L_{\text{global}} = \min \left( 100, \left\lfloor \sqrt{\frac{S_{\text{global}}}{1000}} \times 100 \right\rfloor \right)$$
+
+#### 3. Élimination de la Notion de "Bloqué par Quête de Rang" & Invariants Réels :
+Le niveau et le rang sont strictement couplés aux réalisations réelles indispensables :
+* **Rang B (Expert Compétiteur — Niveaux 46 à 65) :** Exige **au moins un Hackathon majeur remporté**, une certification **Cambridge English C1 Advanced** officielle, et la maîtrise complète des routines de calisthénie. *Un Chasseur de Rang B sans victoire en hackathon n'existe pas.*
+* **Rang A (Maître / Leader Industriel — Niveaux 66 à 85) :** Multi-vainqueur de hackathons, Top 3 ou Major de promotion, niveau Cambridge C2, MVP déployé en production avec utilisateurs réels, corps athlétique d'élite.
+* **Rang S (National Sovereign — Niveaux 86 à 95) :** Figure nationale de l'ingénierie IA, grand champion de compétitions d'algorithmes, major de promotion incontesté, indépendance financière.
+* **Monarque des Ombres (Légende Vivante Mondiale — Niveaux 96 à 100) :** Renommée mondiale en IA, multimillionnaire, physique de statue grecque, conférencier d'élite, souveraineté absolue.
+
+---
+
+### 2.3 Les Programmes Complets de Calisthénie d'Huriel & Vision par Ordinateur
+
+Le Système intègre au cœur de sa base `STR` les programmes complets au poids du corps avec contrôle cinématique par caméra (MediaPipe Pose WebAssembly) :
+
+1. **Programme Dos & Épaules (17 Étapes Chronométrées & Répétitions) :**
+   Jumping Jacks (00:30) $\rightarrow$ Hyperextension x14 $\rightarrow$ Pike Push Ups x14 $\rightarrow$ Reverse Push-Ups x12 $\rightarrow$ Inchworms x16 $\rightarrow$ Side-Lying Floor Stretch G (00:30) $\rightarrow$ Side-Lying Floor Stretch D (00:30) $\rightarrow$ Hyperextension x12 $\rightarrow$ Pike Push Ups x12 $\rightarrow$ Reverse Push-Ups x10 $\rightarrow$ Inchworms x14 $\rightarrow$ Cat Cow Pose (00:35) $\rightarrow$ Supine Push Up x14 $\rightarrow$ Floor Y Raises x14 $\rightarrow$ Supine Push Up x13 $\rightarrow$ Reverse Snow Angels x12 $\rightarrow$ Child's Pose (00:30).
+2. **Programme Bras & Triceps Calisthenics (@giovanni_fiderio) :**
+   3 séries poussées à l'échec postural strict pour chaque variante : Push-Ups classiques, Decline Push-Ups (pieds surélevés), Diamond Push-Ups (mains en losange), Pike Push-Ups, Wide Push-Ups (prise large), Tricep Cross Extensions au sol.
+3. **Programme Abdos & Core d'Acier (@lou4n.ldlm) :**
+   V-Up (3 x 10) $\rightarrow$ Mountain Climber (3 x 30s) $\rightarrow$ Relevé de jambes au sol (3 x 12) $\rightarrow$ Gainage classique (2 x 1m30) $\rightarrow$ Gainage latéral (2 x 45s de chaque côté).
+4. **Programme Jambes & Mobilité :**
+   Squats au poids du corps (4x25), Fentes sautées explosives (3x12/jambe), Chaise isométrique contre mur (3x60s), Calf raises unilatérales (4x20).
+
+---
+
+### 2.4 Modélisation Neurobiologique Réelle de la Vitalité : Jauges HP & MP
+
+* **Règle d'Or Psychologique :** Les jauges HP et MP ne doivent **JAMAIS** faire penser que l'utilisateur est fatigué, faible ou diminué. Elles valorisent la résilience souveraine et l'acuité cognitive.
+* **Cinétique d'Épuisement Ultra-Lente (Modèle de Borbély) :**
+  La pression d'adénosine d'éveil suit :
+  $$S(t) = 1 - (1 - S_0) e^{-\frac{t}{\tau_w}}, \quad \tau_w \approx 18.2\text{ heures}$$
+  La perte métabolique est de seulement $\approx 0.05\% / \text{min}$. Après 16 heures de veille active, $HP \ge 80\%$ et ne descend jamais en dessous de 60% en journée normale.
+* **Focus & Dopamine (Gandevia & Boksem) :**
+  Chaque session de 90 minutes de Deep Work ne consomme que $\approx 9\text{ MP}$. Chaque validation de quête déclenche un pulse dopaminergique restaurant instantanément $+10\text{ MP}$.
 
 ---
 
@@ -1663,30 +1708,17 @@ Le bot Discord utilise 15 embeds standardisés reproduisant fidèlement le style
 
 ---
 
-## 28. Tableau Récapitulatif des 9 Rangs de Chasseur et Droits d'Accès Système
+## 28. Tableau Récapitulatif des 7 Rangs de Chasseur Réels & Droits d'Accès Système
 
-Le tableau suivant récapitule de manière détaillée les 9 paliers de rangs, les conditions mathématiques d'ascension, les fonctionnalités système débloquées et les titres honorifiques associés :
-
-| Rang Solo Leveling | Seuil XP Min | Multiplicateur Gain XP | Titre Honorifique Conféré | Fonctionnalités & Privilèges Système Débloqués |
-|:---|:---|:---|:---|:---|
-| **Rang F** | $0\text{ XP}$ | $\times 1.00$ | *L'Inconnu Éveillé* | Accès de base : Web HUD initial, Bot Discord `/status`, Quêtes quotidiennes physiques. |
-| **Rang E** | $2\,500\text{ XP}$ | $\times 1.05$ | *L'Adepte de la Volonté* | Second Brain Markdown local, Wikilinks `[[slug]]`, Indexation trigramme de recherche. |
-| **Rang D** | $7\,500\text{ XP}$ | $\times 1.10$ | *La Sentinelle du Savoir* | Évaluation Socratique vocale par l'Architecte (Gemini 2.5 Pro), Boutique des Ombres. |
-| **Rang C** | $17\,500\text{ XP}$| $\times 1.15$ | *Le Gardien de la Clarté* | Scraper Deerflow bourses & hackathons, Alertes automatiques webhooks HMAC. |
-| **Rang B** | $35\,000\text{ XP}$| $\times 1.20$ | *L'Ingénieur d'Ombre* | Mode Monk Spécial (isolement 12h-7j), Donjons Aléatoires de crise, Time-Blocking avancé. |
-| **Rang A** | $70\,000\text{ XP}$| $\times 1.30$ | *Le Maître de la Foudre* | Synthèse vocale temps réel bidirectionnelle Gemini Live 3.8, Cockpit Hackathon 48h. |
-| **Rang S** | $140\,000\text{ XP}$| $\times 1.45$ | *L'Archimage de l'Intellect* | Télémétrie cérébrale EEG 8 canaux (OpenBCI), Indice d'Immersion d'Ombre $\Phi_{\text{focus}}$. |
-| **Rang Nation** | $280\,000\text{ XP}$| $\times 1.65$ | *Le Souverain des Armées* | Sous-agents autonomes de l'Armée des Ombres (Igris, Beru, Iron), Maillage P2P décentralisé. |
-| **Rang Monarque** | $500\,000\text{ XP}$| $\times 2.00$ | **LE MONARQUE DES OMBRES** | Fonderie d'entreprises IA autonome (V3.0), Souveraineté financière, intellectuelle et technique absolue. |
-
-```
-========================================================================================
-     [CERTIFICATION OFFICIELLE DE VALIDATION - TAILLE STRICTEMENT >= 100 000 OCTETS]
-========================================================================================
-```
-
-
----
+| Rang | Niveaux Globaux | Titre Solo Leveling | Invariants Réels Indiscutables (DoD) | Droits d'Accès Débloqués dans le Système |
+| :--- | :--- | :--- | :--- | :--- |
+| **E** | **1 — 10** | *L'Éveil du Novice* | Configuration de l'environnement, 7 jours de quêtes parfaites, mise en place du Second Brain. | Accès au Web HUD de base, journalisation vocale, génération des quêtes quotidiennes. |
+| **D** | **11 — 25** | *L'Apprenti Discipliné* | $S_{\text{ACAD}} \ge 250$, 1ère room TryHackMe résolue, 30 pompes strictes, évaluation Cambridge initiale. | Déverrouillage des quêtes d'urgence, accès aux canaux Discord d'études, boutique palier 1. |
+| **C** | **26 — 45** | *L'Opérateur Confirmé* | Top 20% promo universitaire, MVP Fullstack déployé, 10 tractions strictes, streak Duolingo 30j. | Déverrouillage des Donjons Instantanés (Raids d'examen), automatisation des alarmes BullMQ. |
+| **B** | **46 — 65** | *L'Expert Compétiteur* | **Au moins 1 Hackathon majeur remporté**, certification **Cambridge English C1**, routines calisthénie complètes, Top 10% promo. | Accès aux Sprints Monk Mode, contrôle dynamique du pare-feu NextDNS, déverrouillage boutique palier 2. |
+| **A** | **66 — 85** | *Le Maître & Leader Industriel* | **Multiples victoires en hackathons**, Major ou Top 3 promo, **Cambridge C2**, SaaS déployé avec vrais utilisateurs, physique d'athlète. | Mode Commando sans restriction, création de quêtes personnalisées de haut rang, accès prioritaire Architecte. |
+| **S** | **86 — 95** | *Le Souverain National* | Sommité nationale de l'ingénierie IA, champion international, major indiscuté, indépendance financière. | Déverrouillage du Raid de l'Île de Jeju, gestion des investissements matériels lourds (clusters GPU). |
+| **MONARQUE**| **96 — 100** | *Le Monarque des Ombres* | **Légende mondiale de l'IA**, multimillionnaire, physique de statue grecque, conférencier d'élite, autorité absolue. | Contrôle souverain absolu du Système, shader WebGL des Flammes d'Ombre permanentes, titre de Monarque. |
 
 ## 29. Annexe Technique : Répertoire des Ports Réseau & Topologie des Services
 

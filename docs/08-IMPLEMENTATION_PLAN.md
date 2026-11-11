@@ -2034,6 +2034,173 @@ export const AudioVisualizerCanvas: React.FC<AudioVisualizerCanvasProps> = ({ st
 
 ---
 
+## 18.4 Blueprint 14 : Composant Caméra & Vision par Ordinateur MediaPipe (`apps/web/components/WorkoutCameraViewer.tsx`)
+
+```tsx
+import React, { useRef, useEffect, useState } from 'react';
+import { MediaPipeRepCounter, ExerciseState } from '../cv/MediaPipeRepCounter';
+
+interface WorkoutCameraViewerProps {
+  routineTitle: string;
+  exerciseName: string;
+  targetReps: number;
+  minAngle: number;
+  maxAngle: number;
+  onExerciseComplete: (reps: number) => void;
+}
+
+export const WorkoutCameraViewer: React.FC<WorkoutCameraViewerProps> = ({
+  routineTitle,
+  exerciseName,
+  targetReps,
+  minAngle,
+  maxAngle,
+  onExerciseComplete
+}) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [repCount, setRepCount] = useState<number>(0);
+  const [currentAngle, setCurrentAngle] = useState<number>(0);
+  const [fsmState, setFsmState] = useState<ExerciseState>(ExerciseState.START);
+  const counterRef = useRef<MediaPipeRepCounter>(new MediaPipeRepCounter(minAngle, maxAngle));
+
+  useEffect(() => {
+    let animationFrameId: number;
+    async function setupCamera() {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { width: 1280, height: 720, facingMode: 'user' },
+        audio: false
+      });
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        await videoRef.current.play();
+      }
+    }
+    setupCamera();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      if (videoRef.current && videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject as MediaStream;
+        stream.getTracks().forEach(t => t.stop());
+      }
+    };
+  }, []);
+
+  const handleFrame = (landmarks: any[]) => {
+    const result = counterRef.current.processFrame(landmarks);
+    setRepCount(result.reps);
+    setCurrentAngle(Math.round(result.currentAngle));
+    setFsmState(result.state);
+
+    if (result.reps >= targetReps) {
+      onExerciseComplete(result.reps);
+    }
+  };
+
+  return (
+    <div className="relative w-full h-[600px] bg-black rounded-lg border-2 border-cyan-500/40 overflow-hidden">
+      <video ref={videoRef} className="absolute inset-0 w-full h-full object-cover transform -scale-x-100" playsInline muted />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+      
+      {/* Overlay HUD Holographique */}
+      <div className="absolute top-4 left-4 bg-slate-950/80 backdrop-blur border border-cyan-500/50 p-4 rounded text-cyan-400 font-mono">
+        <div className="text-xs uppercase tracking-widest text-slate-400">{routineTitle}</div>
+        <div className="text-xl font-bold text-white mt-1">{exerciseName}</div>
+        <div className="mt-3 flex items-baseline gap-2">
+          <span className="text-4xl font-extrabold text-cyan-400">{repCount}</span>
+          <span className="text-slate-400">/ {targetReps} REPS</span>
+        </div>
+      </div>
+
+      <div className="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur border border-cyan-500/50 p-4 rounded text-right font-mono">
+        <div className="text-xs text-slate-400">ANGLE ARTICULAIRE CIBLE</div>
+        <div className="text-2xl font-bold text-cyan-300">{currentAngle}°</div>
+        <div className="text-xs text-amber-400 mt-1 uppercase">ÉTAT : {fsmState}</div>
+      </div>
+    </div>
+  );
+};
+```
+
+---
+
+## 18.5 Blueprint 15 : Moteur de Score Harmonique Global (`packages/contracts/src/math/harmonicRankEngine.ts`)
+
+```typescript
+export interface BaseScores {
+  acad: number;
+  ai_eng: number;
+  cyber: number;
+  exp: number;
+  lng: number;
+  fin: number;
+  str: number;
+  dis: number;
+}
+
+export interface RealWorldCriteria {
+  hackathonsWon: number;
+  cambridgeCertificate: 'NONE' | 'B2' | 'C1' | 'C2';
+  classPercentile: number;
+  calisthenicsMastered: boolean;
+}
+
+export class HarmonicRankEngine {
+  private static readonly WEIGHTS: Record<keyof BaseScores, number> = {
+    acad: 0.15,
+    ai_eng: 0.20,
+    cyber: 0.10,
+    exp: 0.10,
+    lng: 0.15,
+    fin: 0.05,
+    str: 0.15,
+    dis: 0.10
+  };
+
+  public static calculateGlobalScore(scores: BaseScores): number {
+    const epsilon = 0.01;
+    let sumInverted = 0;
+    let sumWeights = 0;
+
+    for (const [key, weight] of Object.entries(this.WEIGHTS)) {
+      const score = scores[key as keyof BaseScores] || 0;
+      sumInverted += weight / (score + epsilon);
+      sumWeights += weight;
+    }
+
+    return sumWeights / sumInverted;
+  }
+
+  public static calculateGlobalLevel(globalScore: number): number {
+    return Math.min(100, Math.floor(Math.sqrt(Math.max(0, globalScore) / 1000.0) * 100));
+  }
+
+  public static determineRank(globalLevel: number, criteria: RealWorldCriteria): string {
+    if (globalLevel >= 96 && criteria.hackathonsWon >= 3 && criteria.cambridgeCertificate === 'C2' && criteria.calisthenicsMastered) {
+      return 'MONARCH';
+    }
+    if (globalLevel >= 86 && criteria.hackathonsWon >= 2 && (criteria.cambridgeCertificate === 'C1' || criteria.cambridgeCertificate === 'C2') && criteria.calisthenicsMastered) {
+      return 'S';
+    }
+    if (globalLevel >= 66 && criteria.hackathonsWon >= 1 && (criteria.cambridgeCertificate === 'C1' || criteria.cambridgeCertificate === 'C2') && criteria.classPercentile <= 0.10) {
+      return 'A';
+    }
+    // Rang B : Obligation stricte d'au moins 1 Hackathon gagné et Cambridge C1
+    if (globalLevel >= 46 && criteria.hackathonsWon >= 1 && (criteria.cambridgeCertificate === 'C1' || criteria.cambridgeCertificate === 'C2') && criteria.calisthenicsMastered) {
+      return 'B';
+    }
+    if (globalLevel >= 26) return 'C';
+    if (globalLevel >= 11) return 'D';
+    return 'E';
+  }
+}
+```
+
+---
+
+
 ## 19. Blueprints Dockerfile Multi-Stage de Production
 
 Les conteneurs de production utilisent la technique de compilation en étapes multiples (*multi-stage build*) pour minimiser l'empreinte disque et interdire la présence de compilateurs dans l'image finale :

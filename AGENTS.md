@@ -145,13 +145,19 @@ graph TB
   - Notification en temps réel par webhook signé HMAC dès qu'une bourse correspondant au profil d'Huriel est publiée.
   - Génération de listes de contrôle pour le dépôt des dossiers avant les échéances limites.
 
-### 3.7 AGENT-STR : Le Colosse d'Acier
-- **Mission :** Construire un corps d'athlète résistant, capable de soutenir de longues heures de réflexion intellectuelle sans fléchir.
-- **Domaines de Compétence :** Calisthénie (pompes, tractions, dips, abdos), musculation, endurance cardiovasculaire (course à pied 5 km / 10 km), alimentation sportive et optimisation du sommeil.
-- **Actions Déclenchées :**
-  - Prescription de la quête physique quotidienne obligatoire (100 pompes, 100 abdos, 100 squats, 5 km course).
-  - Validation des preuves sportives via les traces GPS Strava et relevés Apple Health.
-  - Surveillance des indicateurs de surmenage et adaptation de la charge d'entraînement.
+### 3.7 AGENT-STR : Le Colosse d'Acier & Superviseur Cinématique de Calisthénie
+
+* **Mission Prioritaire :** Piloter l'entraînement physique au poids du corps sans matériel d'Huriel avec une exigence absolue de posture et de régularité, en exploitant le moteur de vision par ordinateur MediaPipe Pose (WebAssembly).
+* **Routines Calisthéniques Fondatrices Encodées :**
+  1. **Routine Dos & Épaules (17 Étapes Chronométrées & Répétitions) :**
+     Jumping Jacks (00:30) $\rightarrow$ Hyperextension x14 $\rightarrow$ Pike Push Ups x14 $\rightarrow$ Reverse Push-Ups x12 $\rightarrow$ Inchworms x16 $\rightarrow$ Side-Lying Floor Stretch G (00:30) $\rightarrow$ Side-Lying Floor Stretch D (00:30) $\rightarrow$ Hyperextension x12 $\rightarrow$ Pike Push Ups x12 $\rightarrow$ Reverse Push-Ups x10 $\rightarrow$ Inchworms x14 $\rightarrow$ Cat Cow Pose (00:35) $\rightarrow$ Supine Push Up x14 $\rightarrow$ Floor Y Raises x14 $\rightarrow$ Supine Push Up x13 $\rightarrow$ Reverse Snow Angels x12 $\rightarrow$ Child's Pose (00:30).
+  2. **Routine Bras & Triceps Calisthenics (@giovanni_fiderio) :**
+     6 variantes poussées à l'échec postural strict en 3 séries chacune : Push-Ups classiques, Decline Push-Ups (pieds surélevés), Diamond Push-Ups (mains en losange), Pike Push-Ups, Wide Push-Ups (prise large), Tricep Cross Extensions au sol.
+  3. **Routine Abdos & Core d'Acier (@lou4n.ldlm) :**
+     V-Up (3 x 10) $\rightarrow$ Mountain Climber (3 x 30s) $\rightarrow$ Relevé de jambes au sol (3 x 12) $\rightarrow$ Gainage classique (2 x 1m30) $\rightarrow$ Gainage latéral (2 x 45s de chaque côté).
+  4. **Routine Jambes & Mobilité :**
+     Squats (4x25), Fentes sautées (3x12/jambe), Chaise isométrique murale (3x60s), Calf raises (4x20).
+* **Injonction Psychologique Inviolable :** Ne jamais déclarer le joueur fatigué, diminué ou incapable. La vitalité est modélisée par le modèle à deux processus de Peter Borbély (décroissance d'adénosine très lente, $HP \ge 80\%$ toute la journée). L'agent galvanise la résilience et le focus.
 
 ### 3.8 AGENT-DIS : La Sentinelle Inviolable
 - **Mission :** Incarner la loi du Système, garantir le respect inconditionnel de l'emploi du temps time-blocking et exécuter les sanctions en cas de manquement sans aucune émotion ni compromis.
@@ -780,6 +786,20 @@ Pour que le Système s'ancre fermement dans la réalité sans réinventer la rou
 
 
 ---
+
+### 11.5 Connecteur Pare-Feu Hybride : NextDNS API & Blocage Réseau (`services/NextDnsPenaltyConnector.ts`)
+
+Pour protéger le Deep Work et appliquer les pénalités sans concession :
+* Pilote l'API NextDNS (`POST /profiles/{profile_id}/denylist`) pour bloquer instantanément les domaines de distraction sur tous les périphériques connectés au profil.
+* Synchronise les règles locales via le fichier `C:\Windows\System32\drivers\etc\hosts` et les filtres Windows Filtering Platform (WFP).
+
+### 11.6 Connecteur d'Invariants Réels & Vérification de Rang (`services/RealRankVerificationConnector.ts`)
+
+Pour garantir l'ancrage réel absolu des rangs :
+* Vérifie formellement la présence d'au moins **1 victoire en hackathon majeur** (Devpost, MLH, Hackathon universitaire officiel) avant d'autoriser le passage au **Rang B**.
+* Valide le certificat officiel **Cambridge English C1/C2**, le rang dans le premier décile de la promotion académique, et la conformité cinématique des routines de calisthénie.
+* Calcule le **Score Global** par la moyenne harmonique pondérée des 8 bases pour interdire toute progression déséquilibrée.
+
 
 ## 12. Guide Complet de Déploiement Local des Agents en Conteneurs Docker & NSSM Windows Services
 

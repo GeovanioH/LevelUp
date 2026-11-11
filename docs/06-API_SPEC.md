@@ -1841,6 +1841,146 @@ Récupère le delta de toutes les entités modifiées sur le serveur depuis le d
 
 ---
 
+### 3.13 Routines de Calisthénie & Vision par Ordinateur (CV Engine)
+
+#### 3.13.1 `GET /workouts/routines`
+Récupère le catalogue complet des routines d'entraînement maison d'Huriel avec l'ensemble des étapes, chronomètres et angles articulaires requis pour l'inférence MediaPipe.
+
+* **Méthode :** `GET`
+* **Route :** `/workouts/routines`
+* **En-têtes requis :** `Authorization: Bearer <TOKEN>`
+* **Réponse 200 OK :**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "code": "BACK_SHOULDERS_17",
+      "title": "Routine Dos & Épaules à la Maison",
+      "targetGroup": "BACK_SHOULDERS",
+      "totalSteps": 17,
+      "steps": [
+        { "stepNumber": 1, "exerciseName": "Jumping Jacks", "exerciseType": "DURATION_SECONDS", "durationSeconds": 30 },
+        { "stepNumber": 2, "exerciseName": "Hyperextension", "exerciseType": "REPETITIONS", "targetReps": 14 },
+        { "stepNumber": 3, "exerciseName": "Pike Push Ups", "exerciseType": "REPETITIONS", "targetReps": 14, "targetAngleMin": 75.0, "targetAngleMax": 160.0, "keyJointPoints": [11, 13, 15] },
+        { "stepNumber": 4, "exerciseName": "Reverse Push-Ups", "exerciseType": "REPETITIONS", "targetReps": 12 },
+        { "stepNumber": 5, "exerciseName": "Inchworms", "exerciseType": "REPETITIONS", "targetReps": 16 },
+        { "stepNumber": 6, "exerciseName": "Side-Lying Floor Stretch Left", "exerciseType": "DURATION_SECONDS", "durationSeconds": 30 },
+        { "stepNumber": 7, "exerciseName": "Side-Lying Floor Stretch Right", "exerciseType": "DURATION_SECONDS", "durationSeconds": 30 },
+        { "stepNumber": 8, "exerciseName": "Hyperextension", "exerciseType": "REPETITIONS", "targetReps": 12 },
+        { "stepNumber": 9, "exerciseName": "Pike Push Ups", "exerciseType": "REPETITIONS", "targetReps": 12, "targetAngleMin": 75.0, "targetAngleMax": 160.0, "keyJointPoints": [11, 13, 15] },
+        { "stepNumber": 10, "exerciseName": "Reverse Push-Ups", "exerciseType": "REPETITIONS", "targetReps": 10 },
+        { "stepNumber": 11, "exerciseName": "Inchworms", "exerciseType": "REPETITIONS", "targetReps": 14 },
+        { "stepNumber": 12, "exerciseName": "Cat Cow Pose", "exerciseType": "DURATION_SECONDS", "durationSeconds": 35 },
+        { "stepNumber": 13, "exerciseName": "Supine Push Up", "exerciseType": "REPETITIONS", "targetReps": 14 },
+        { "stepNumber": 14, "exerciseName": "Floor Y Raises", "exerciseType": "REPETITIONS", "targetReps": 14 },
+        { "stepNumber": 15, "exerciseName": "Supine Push Up", "exerciseType": "REPETITIONS", "targetReps": 13 },
+        { "stepNumber": 16, "exerciseName": "Reverse Snow Angels", "exerciseType": "REPETITIONS", "targetReps": 12 },
+        { "stepNumber": 17, "exerciseName": "Child's Pose", "exerciseType": "DURATION_SECONDS", "durationSeconds": 30 }
+      ]
+    },
+    {
+      "code": "ARMS_6_FAILURE",
+      "title": "Routine Bras & Triceps Calisthenics (@giovanni_fiderio)",
+      "targetGroup": "ARMS_TRICEPS",
+      "totalSteps": 6,
+      "description": "3 séries à l'échec postural pour chaque exercice : Push-Ups, Decline, Diamond, Pike, Wide, Tricep Cross Extensions"
+    },
+    {
+      "code": "ABS_CORE_5",
+      "title": "Routine Abdos & Core d'Acier (@lou4n.ldlm)",
+      "targetGroup": "CORE_ABS",
+      "totalSteps": 5,
+      "description": "V-Up (3x10), Mountain Climber (3x30s), Relevé de jambes (3x12), Gainage classique (2x1m30), Gainage latéral (2x45s/côté)"
+    }
+  ]
+}
+```
+
+#### 3.13.2 `POST /cv/validate-rep`
+Valide une répétition physique transmise par le frontend avec télémétrie des repères squelettiques.
+
+* **Méthode :** `POST`
+* **Route :** `/cv/validate-rep`
+* **Corps de la requête :**
+```json
+{
+  "routineCode": "BACK_SHOULDERS_17",
+  "stepNumber": 3,
+  "exerciseName": "Pike Push Ups",
+  "inflectionAngleMeasured": 71.4,
+  "extensionAngleMeasured": 164.2,
+  "confidenceScore": 0.94,
+  "repsCompleted": 8
+}
+```
+* **Réponse 200 OK :**
+```json
+{
+  "success": true,
+  "data": {
+    "repValid": true,
+    "currentTotalReps": 8,
+    "targetReps": 14,
+    "soundTrigger": "REP_CHIRP",
+    "isStepFinished": false
+  }
+}
+```
+
+### 3.14 Écosystème des Services Tiers & Invariants de Rangs Réels
+
+#### 3.14.1 `POST /integrations/nextdns/toggle`
+Active ou désactive instantanément le profil de restriction DNS récréatif via l'API NextDNS.
+
+* **Méthode :** `POST`
+* **Route :** `/integrations/nextdns/toggle`
+* **Corps de la requête :**
+```json
+{
+  "mode": "STRICT_BLOCK", // ou 'NORMAL'
+  "reason": "DEEP_WORK_SESSION", // ou 'PENALTY_ZONE'
+  "durationMinutes": 90
+}
+```
+* **Réponse 200 OK :**
+```json
+{
+  "success": true,
+  "data": {
+    "profileId": "nxt_monarch_sec",
+    "blockedDomainsCount": 42,
+    "expiresAt": "2026-11-11T18:00:00.000Z"
+  }
+}
+```
+
+#### 3.14.2 `GET /player/rank-eligibility`
+Évalue en temps réel si les accomplissements réels du joueur satisfont aux exigences strictes du rang supérieur.
+
+* **Méthode :** `GET`
+* **Route :** `/player/rank-eligibility`
+* **Réponse 200 OK :**
+```json
+{
+  "success": true,
+  "data": {
+    "currentRank": "C",
+    "targetRank": "B",
+    "globalLevel": 48,
+    "requirementsMet": {
+      "levelRequirement": { "required": 46, "actual": 48, "passed": true },
+      "hackathonWinRequirement": { "required": 1, "actual": 1, "passed": true, "proof": "Devpost AI Global Hackathon 2026 - 1st Prize" },
+      "cambridgeLevelRequirement": { "required": "C1", "actual": "C1", "passed": true, "proof": "Cambridge English C1 Advanced Certificate #CAM-88910" },
+      "calisthenicsRequirement": { "required": true, "actual": true, "passed": true, "proof": "17-ex Back & 6-ex Arm splits verified by CV" },
+      "classRankRequirement": { "required": "Top 10%", "actual": "Top 4%", "passed": true }
+    },
+    "eligibleForRankUp": true
+  }
+}
+```
+
+
 ## 4. Spécification Approfondie du Protocole WebSocket (`wss://api.levelup.local/ws/v1`)
 
 Le canal WebSocket assure la diffusion instantanée (latence < 25 ms) de tous les événements télémétriques entre le serveur central, le HUD Web dynamique et le bot Discord.
