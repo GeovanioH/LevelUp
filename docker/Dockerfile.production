@@ -43,13 +43,17 @@ RUN pnpm --filter @levelup/database db:generate
 # Build monorepo packages
 RUN pnpm build
 
+# Prune devDependencies to keep strictly production runtime dependencies
+RUN pnpm prune --prod
+
 # ------------------------------------------------------------------------------
 # Stage 3: Production Hardened Non-Root Runner
 # ------------------------------------------------------------------------------
 FROM node:20-alpine AS runner
 WORKDIR /app
 
-RUN apk add --no-cache libc6-compat openssl
+RUN apk add --no-cache libc6-compat openssl && \
+    rm -rf /usr/local/lib/node_modules/npm /root/.npm /root/.cache
 
 ENV NODE_ENV=production
 ENV PORT=3000
