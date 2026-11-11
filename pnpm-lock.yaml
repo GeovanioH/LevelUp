@@ -207,15 +207,24 @@ settings:
 importers:
   .:
     devDependencies:
+      "@types/ioredis":
+        specifier: ^5.0.0
+        version: 5.0.0(supports-color@7.2.0)
       "@types/pg":
         specifier: ^8.23.1
         version: 8.23.1
+      argon2:
+        specifier: ^0.45.2
+        version: 0.45.2
       eslint:
         specifier: ^9.21.0
         version: 9.39.5(supports-color@7.2.0)
       husky:
         specifier: ^9.1.7
         version: 9.1.7
+      ioredis:
+        specifier: ^6.0.0
+        version: 6.0.0(supports-color@7.2.0)
       lint-staged:
         specifier: ^15.4.3
         version: 15.5.2(supports-color@7.2.0)
@@ -225,6 +234,9 @@ importers:
       prettier:
         specifier: ^3.5.2
         version: 3.9.10
+      redlock:
+        specifier: 5.0.0-beta.2
+        version: 5.0.0-beta.2
       tsx:
         specifier: ^4.19.3
         version: 4.23.15
@@ -239,6 +251,35 @@ importers:
         version: 8.72.2(eslint@9.39.5(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3)
       vitest:
         specifier: ^3.0.7
+        version: 3.2.7(@types/node@26.6.6)(supports-color@7.2.0)(tsx@4.23.15)(yaml@2.9.1)
+      zod:
+        specifier: ^4.6.7
+        version: 4.6.7
+
+  packages/contracts:
+    dependencies:
+      zod:
+        specifier: ^3.24.2
+        version: 3.25.76
+    devDependencies:
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.7
+        version: 3.2.7(@types/node@26.6.6)(supports-color@7.2.0)(tsx@4.23.15)(yaml@2.9.1)
+
+  packages/crypto:
+    dependencies:
+      argon2:
+        specifier: ^0.45.2
+        version: 0.45.2
+    devDependencies:
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.7
         version: 3.2.7(@types/node@26.6.6)(supports-color@7.2.0)(tsx@4.23.15)(yaml@2.9.1)
 
   packages/database:
@@ -261,6 +302,12 @@ importers:
         version: 5.9.3
 
 packages:
+  "@epic-web/invariant@1.0.0":
+    resolution:
+      {
+        integrity: sha512-lrTPqgvfFQtR/eY/qkIzp98OGdNJu0m5ji3q/nJI8v3SXkRKEnWiOxMmbvcSoAIzv/cGiuvRy57k4suKQSAdwA==,
+      }
+
   "@esbuild/aix-ppc64@0.28.2":
     resolution:
       {
@@ -595,11 +642,24 @@ packages:
       }
     engines: { node: ">=18.18" }
 
+  "@ioredis/commands@2.0.0":
+    resolution:
+      {
+        integrity: sha512-vrx0AE/T0h7cRZwfo1M39Cr+ZhZrkf0V8mQN75wucKCxCLD9l/VX6no3gFvrLqD1IlG/1LtzWovqEw3t0Vr9zg==,
+      }
+
   "@jridgewell/sourcemap-codec@1.6.0":
     resolution:
       {
         integrity: sha512-T7jf+5zgsZHwNJ4lvQ7/aezbyk0nNX+zJVWpmHA7VYsEx7a7qr5Rg5IbtJFqkgze5Y2sruq1RUY8Q837Od7iFw==,
       }
+
+  "@phc/format@1.0.0":
+    resolution:
+      {
+        integrity: sha512-m7X9U6BG2+J+R1lSOdCiITLLrxm+cWlNI3HUFA92oLO77ObGNzaKdh8pMLqdZcshtkKuV84olNNXDfMc4FezBQ==,
+      }
+    engines: { node: ">=10" }
 
   "@prisma/client@5.22.0":
     resolution:
@@ -930,6 +990,13 @@ packages:
         integrity: sha512-lTyOMnOcmRBzdCv6/4zUZCrEhV0xrqQiUZBZtVcbmLHBXKLnN8q89v/wKRF/Q0HbwVsqbIG3o5HDoFl9sduM+g==,
       }
 
+  "@types/ioredis@5.0.0":
+    resolution:
+      {
+        integrity: sha512-zJbJ3FVE17CNl5KXzdeSPtdltc4tMT3TzC6fxQS0sQngkbFZ6h+0uTafsRqu+eSLIugf6Yb0Ea0SUuRr42Nk9g==,
+      }
+    deprecated: This is a stub types definition. ioredis provides its own type definitions, so you do not need this installed.
+
   "@types/json-schema@7.0.15":
     resolution:
       {
@@ -1137,6 +1204,13 @@ packages:
       }
     engines: { node: ">=12" }
 
+  argon2@0.45.2:
+    resolution:
+      {
+        integrity: sha512-41gOiSQBpQf+7H7HyLZbUqRZxrNk5ps39TsJKILjWuOyAOialUkztuIVL/Y/l+n5iSA2C4/jFg3FUYso/cX7TA==,
+      }
+    engines: { node: ">=16.17.0" }
+
   argparse@2.0.1:
     resolution:
       {
@@ -1239,6 +1313,13 @@ packages:
       }
     engines: { node: ">=18" }
 
+  cluster-key-slot@1.1.1:
+    resolution:
+      {
+        integrity: sha512-rwHwUfXL40Chm1r08yrhU3qpUvdVlgkKNeyeGPOxnW8/SyVDvgRaed/Uz54AqWNaTCAThlj6QAs3TZcKI0xDEw==,
+      }
+    engines: { node: ">=0.10.0" }
+
   color-convert@2.0.1:
     resolution:
       {
@@ -1271,6 +1352,14 @@ packages:
         integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==,
       }
 
+  cross-env@10.1.0:
+    resolution:
+      {
+        integrity: sha512-GsYosgnACZTADcmEyJctkJIoqAhHjttw7RsFrVoJNXbsWWqaq6Ym+7kZjq6mS45O0jij6vtiReppKQEtqWy6Dw==,
+      }
+    engines: { node: ">=20" }
+    hasBin: true
+
   cross-spawn@7.0.6:
     resolution:
       {
@@ -1302,6 +1391,13 @@ packages:
       {
         integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==,
       }
+
+  denque@2.1.0:
+    resolution:
+      {
+        integrity: sha512-HVQE3AAb/pxF8fQAoiqpvg9i3evqug3hoiwakOyZAwJm+6vZehbkYXZ0l4JxS+I3QxM97v5aaRNhj8v5oBhekw==,
+      }
+    engines: { node: ">=0.10" }
 
   emoji-regex@10.6.0:
     resolution:
@@ -1590,6 +1686,13 @@ packages:
       }
     engines: { node: ">=0.8.19" }
 
+  ioredis@6.0.0:
+    resolution:
+      {
+        integrity: sha512-f+Dtubxfpf6KYFq7WVXJoOLn0bk4TJrMrN9SzeE+jrWrCWj7XX3fA6vkryafhADX+GMymRxgDJDOI33COkJc0w==,
+      }
+    engines: { node: ">=20.0.0" }
+
   is-extglob@2.1.1:
     resolution:
       {
@@ -1795,6 +1898,27 @@ packages:
       {
         integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==,
       }
+
+  node-abort-controller@3.1.1:
+    resolution:
+      {
+        integrity: sha512-AGK2yQKIjRuqnc6VkX2Xj5d+QW8xZ87pa1UK6yA6ouUyuxfHuMP6umE5QK7UmTeOAymo+Zx1Fxiuw9rVx8taHQ==,
+      }
+    deprecated: This package is no longer needed on supported Node.js versions. Node.js 16+ includes AbortController and AbortSignal as built-in globals. All Node.js versions requiring this polyfill are end-of-life. Use the built-in globals instead.
+
+  node-addon-api@8.9.2:
+    resolution:
+      {
+        integrity: sha512-VijLXbi3UACN69I0JVXJsX4tjACjNoQDgv2gTF6sx2wWEi8tkSg2eX8p5gSIFi8z2+DL3oHmY6OyKce38SDolg==,
+      }
+    engines: { node: ^18 || ^20 || >= 21 }
+
+  node-gyp-build@4.8.4:
+    resolution:
+      {
+        integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==,
+      }
+    hasBin: true
 
   npm-run-path@5.3.0:
     resolution:
@@ -2030,6 +2154,20 @@ packages:
       }
     engines: { node: ">=6" }
 
+  redis-errors@1.2.0:
+    resolution:
+      {
+        integrity: sha512-1qny3OExCf0UvUV/5wpYKf2YwPcOqXzkwKKSmKHiE6ZMQs5heeE/c8eXK+PNllPvmjgAbfnsbpkGZWy8cBpn9w==,
+      }
+    engines: { node: ">=4" }
+
+  redlock@5.0.0-beta.2:
+    resolution:
+      {
+        integrity: sha512-2RDWXg5jgRptDrB1w9O/JgSZC0j7y4SlaXnor93H/UJm/QyDiFgBKNtrh0TI6oCXqYSaSoXxFh6Sd3VtYfhRXw==,
+      }
+    engines: { node: ">=12" }
+
   resolve-from@4.0.0:
     resolution:
       {
@@ -2125,6 +2263,12 @@ packages:
     resolution:
       {
         integrity: sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==,
+      }
+
+  standard-as-callback@2.1.0:
+    resolution:
+      {
+        integrity: sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==,
       }
 
   std-env@3.10.0:
@@ -2423,7 +2567,21 @@ packages:
       }
     engines: { node: ">=10" }
 
+  zod@3.25.76:
+    resolution:
+      {
+        integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==,
+      }
+
+  zod@4.6.7:
+    resolution:
+      {
+        integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==,
+      }
+
 snapshots:
+  "@epic-web/invariant@1.0.0": {}
+
   "@esbuild/aix-ppc64@0.28.2":
     optional: true
 
@@ -2564,7 +2722,11 @@ snapshots:
 
   "@humanwhocodes/retry@0.4.3": {}
 
+  "@ioredis/commands@2.0.0": {}
+
   "@jridgewell/sourcemap-codec@1.6.0": {}
+
+  "@phc/format@1.0.0": {}
 
   "@prisma/client@5.22.0(prisma@5.22.0)":
     optionalDependencies:
@@ -2696,6 +2858,12 @@ snapshots:
   "@types/deep-eql@4.0.2": {}
 
   "@types/estree@1.0.10": {}
+
+  "@types/ioredis@5.0.0(supports-color@7.2.0)":
+    dependencies:
+      ioredis: 6.0.0(supports-color@7.2.0)
+    transitivePeerDependencies:
+      - supports-color
 
   "@types/json-schema@7.0.15": {}
 
@@ -2867,6 +3035,13 @@ snapshots:
 
   ansi-styles@6.2.3: {}
 
+  argon2@0.45.2:
+    dependencies:
+      "@phc/format": 1.0.0
+      cross-env: 10.1.0
+      node-addon-api: 8.9.2
+      node-gyp-build: 4.8.4
+
   argparse@2.0.1: {}
 
   assertion-error@2.0.1: {}
@@ -2918,6 +3093,8 @@ snapshots:
       slice-ansi: 5.0.0
       string-width: 7.2.0
 
+  cluster-key-slot@1.1.1: {}
+
   color-convert@2.0.1:
     dependencies:
       color-name: 1.1.4
@@ -2929,6 +3106,11 @@ snapshots:
   commander@13.1.0: {}
 
   concat-map@0.0.1: {}
+
+  cross-env@10.1.0:
+    dependencies:
+      "@epic-web/invariant": 1.0.0
+      cross-spawn: 7.0.6
 
   cross-spawn@7.0.6:
     dependencies:
@@ -2945,6 +3127,8 @@ snapshots:
   deep-eql@5.0.2: {}
 
   deep-is@0.1.4: {}
+
+  denque@2.1.0: {}
 
   emoji-regex@10.6.0: {}
 
@@ -3131,6 +3315,17 @@ snapshots:
 
   imurmurhash@0.1.4: {}
 
+  ioredis@6.0.0(supports-color@7.2.0):
+    dependencies:
+      "@ioredis/commands": 2.0.0
+      cluster-key-slot: 1.1.1
+      debug: 4.4.3(supports-color@7.2.0)
+      denque: 2.1.0
+      redis-errors: 1.2.0
+      standard-as-callback: 2.1.0
+    transitivePeerDependencies:
+      - supports-color
+
   is-extglob@2.1.1: {}
 
   is-fullwidth-code-point@4.0.0: {}
@@ -3240,6 +3435,12 @@ snapshots:
   nanoid@3.3.20: {}
 
   natural-compare@1.4.0: {}
+
+  node-abort-controller@3.1.1: {}
+
+  node-addon-api@8.9.2: {}
+
+  node-gyp-build@4.8.4: {}
 
   npm-run-path@5.3.0:
     dependencies:
@@ -3355,6 +3556,12 @@ snapshots:
 
   punycode@2.3.1: {}
 
+  redis-errors@1.2.0: {}
+
+  redlock@5.0.0-beta.2:
+    dependencies:
+      node-abort-controller: 3.1.1
+
   resolve-from@4.0.0: {}
 
   restore-cursor@5.1.0:
@@ -3423,6 +3630,8 @@ snapshots:
   split2@4.2.0: {}
 
   stackback@0.0.2: {}
+
+  standard-as-callback@2.1.0: {}
 
   std-env@3.10.0: {}
 
@@ -3609,3 +3818,7 @@ snapshots:
   yaml@2.9.1: {}
 
   yocto-queue@0.1.0: {}
+
+  zod@3.25.76: {}
+
+  zod@4.6.7: {}
