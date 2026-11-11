@@ -60,6 +60,57 @@ Le Système ne réinvente pas ce qui excelle déjà dans l'industrie, mais s'app
 
 ---
 
+### 1.3 Le Manifeste Canonique de la Vision du Projet : Les 10 Décisions Inviolables
+
+Pour que toute personne, ingénieur ou agent d'IA abordant ce projet comprenne instantanément et sans ambiguïté la direction absolue de *LevelUp*, les 10 règles dogmatiques suivantes font foi sur l'ensemble de la plateforme :
+
+```mermaid
+flowchart TD
+    M1["1. Ancrage Réel Absolu<br>(Monarque = Riche/Célèbre/Athlète)"] --> M2["2. Moyenne Harmonique Pondérée<br>(Zéro délaissement d'une base)"]
+    M2 --> M3["3. Fin du 'Bloqué par Quête de Rang'<br>(Couplage organique Réel/Niveau)"]
+    M3 --> M4["4. Physiologie Souveraine HP/MP<br>(Zéro affichage de fatigue - Borbély)"]
+    M4 --> M5["5. Calisthénie d'Huriel Encodée<br>(Dos 17 ex, Bras 6 ex, Abdos 5 ex)"]
+    M5 --> M6["6. Vision par Ordinateur MediaPipe<br>(Validation cinématique 75° -> 160°)"]
+    M6 --> M7["7. Second Brain Markdown Intégré<br>(Obsidian-compatible, pg_trgm)"]
+    M7 --> M8["8. Les 5 Quêtes & Jeudi Commando<br>(Daily, Emergency, Boss, Monk, Penalty)"]
+    M8 --> M9["9. Orchestration Antigravity MCP<br>(Serveur MCP dédié + SDK Python)"]
+    M9 --> M10["10. Souveraineté Économique : 0 €/mois<br>(Local-first, quotas gratuits officiels)"]
+```
+
+1. **L'Ancrage Réel Absolu & Élimination du Virtuel Fantasmé :**
+   Le niveau et le rang affichés doivent être la copie conforme de la réussite du joueur dans le monde réel. Le niveau maximal (Monarque des Ombres) n'est pas un badge cosmétique : il désigne un individu mondialement reconnu en intelligence artificielle, financièrement libre ou riche, athlète au corps sculpté par la calisthénie, orateur bilingue influent. De même, **un Chasseur de Rang B qui n'a jamais remporté de hackathon majeur n'existe pas dans le Système**.
+2. **Nomenclature : Score de Base ($S_b$), Niveau de Base ($L_b$) et Score Global ($S_{\text{global}}$) :**
+   Pour chacune des 8 bases (`ACAD`, `AI_ENG`, `CYBER`, `EXP`, `LNG`, `FIN`, `STR`, `DIS`), le joueur possède un Score de Base ($S_b \in [0, 1000]$) et un Niveau de Base ($L_b = \min(100, \lfloor \sqrt{S_b/1000} \times 100 \rfloor)$). Le Niveau Global est issu du Score Global calculé par la **moyenne harmonique pondérée** :
+   $$S_{\text{global}} = \frac{\sum_{b=1}^{8} w_b}{\sum_{b=1}^{8} \frac{w_b}{S_b + \epsilon}}$$
+   Si une seule base est négligée ($S_b \to 0$), le Score Global s'effondre. Le délaissement d'un domaine vital est mathématiquement sanctionné.
+3. **Élimination Formelle de "Bloqué par Quête de Rang" :**
+   Le Système supprime définitivement l'aberration où un joueur monte artificiellement en niveau tout en restant impuissant devant une quête de rang. La progression en niveau global est intimement liée aux preuves réelles indispensables (hackathon gagné pour Rang B, major/top 3 pour Rang A, sommité nationale pour Rang S). Le rang supérieur s'ouvre naturellement dès que le niveau harmonique est acquis et que les invariants sont prouvés.
+4. **Physiologie Souveraine des Jauges HP & MP (Bannissement de la Fatigue) :**
+   Le Système ne doit **JAMAIS** faire penser que le joueur est fatigué, diminué ou vulnérable. La fatigue perçue est un verrou mental que la discipline domine. L'interface affiche toujours "Résilience Biologique Souveraine" (HP) et "Focus Cognitif Indomptable" (MP). La décroissance est ultra-lente, modélisée selon le modèle à deux processus de Peter Borbély (homéostasie d'adénosine avec $\tau_w \approx 18.2\text{ heures}$, maintenant $HP \ge 80\%$ après 16h d'éveil actif) et le modèle dopaminergique de Boksem (+10 MP à chaque quête validée).
+5. **Programmes Complets de Calisthénie d'Huriel Encodés :**
+   La base `STR` intègre les 4 splits au poids du corps sans matériel :
+   * *Dos & Épaules (17 étapes) :* Jumping Jacks 30s, Hyperextension x14, Pike Push Ups x14, Reverse Push-Ups x12, Inchworms x16, Side-Lying Stretch G 30s, Side-Lying Stretch D 30s, Hyperextension x12, Pike Push Ups x12, Reverse Push-Ups x10, Inchworms x14, Cat Cow Pose 35s, Supine Push Up x14, Floor Y Raises x14, Supine Push Up x13, Reverse Snow Angels x12, Child's Pose 30s.
+   * *Bras & Triceps Calisthenics (@giovanni_fiderio) :* 6 variantes en 3 séries poussées à l'échec postural strict (Push-Ups classiques, Decline, Diamond, Pike, Wide, Tricep Cross Extensions au sol).
+   * *Abdos & Core d'Acier (@lou4n.ldlm) :* V-Up (3x10), Mountain Climber (3x30s), Relevé de jambes au sol (3x12), Gainage classique (2x1m30), Gainage latéral (2x45s par côté).
+   * *Jambes & Mobilité :* Squats 4x25, Fentes sautées 3x12/jambe, Chaise murale 3x60s, Calf raises 4x20.
+6. **Contrôle Cinématique par Vision par Ordinateur (MediaPipe Pose WASM) :**
+   La validation sportive s'effectue en direct par caméra avec MediaPipe Pose compilé en WebAssembly (100% local, respect de la vie privée). Une répétition n'est incrémentée que si le coude franchit le seuil de flexion $\le 75^\circ$ puis d'extension $\ge 160^\circ$ avec un score de confiance $\ge 70\%$. Zéro triche possible.
+7. **Second Brain Unifié Compatible Obsidian (`vault/`) :**
+   Toutes les connaissances (IA, maths, cybersécurité) sont stockées dans des fichiers Markdown natifs avec frontmatter YAML et backlinks `[[wikilinks]]`, indexés en miroir dans PostgreSQL (`pg_trgm`) pour une recherche instantanée et une portabilité sur plusieurs décennies.
+8. **Les 5 Types de Quêtes & Le Jeudi Commando :**
+   * *Quêtes Quotidiennes (DAILY_QUESTS) :* 4 par jour, rotation musculaire stricte.
+   * *Quêtes d'Urgence (EMERGENCY_QUESTS) :* Opportunités imminentes (4h à 24h) avec multiplicateur d'XP $\times 1.5$.
+   * *Donjons de Raid & Boss (BOSS_RAIDS) :* Examens réels, Hackathons Devpost 48h, Cambridge.
+   * *Sprints Monk Mode (MONK_MODE_SPRINTS) :* Journées commando verrouillées (façon Sung Jin-Woo) de 06h00 à 22h00 pour combler les bases faibles.
+   * *Quêtes de Pénalité (PENALTY_QUESTS) :* Déclenchées à 00h01 en cas d'échec, avec réveil forcé à 05h00 (100 pompes, 100 abdos) et verrouillage pare-feu NextDNS pendant 24h.
+9. **L'Agent Orchestrateur Antigravity ("L'Architecte") :**
+   Le cerveau central décisionnel est un agent Antigravity opérant via un serveur MCP dédié (`levelup-mcp-server`), un worker Python utilisant le SDK officiel `google-antigravity` et une file asynchrone Redis/BullMQ. Il applique une grille de notation socratique sur 20 points pour les résumés oraux et arbitre les passages de rang.
+10. **Souveraineté Économique Totale (0,00 € / mois) :**
+   Conception 100% local-first et exploitation des tiers gratuits officiels : modèles Gemini Free Tier via Google AI Studio (~20-30 requêtes/jour pour un quota gratuit de 1500/jour), Faster-Whisper local sur GPU NVIDIA, MediaPipe Pose WASM dans le navigateur, NextDNS gratuit (300k requêtes/mois), GitHub Student Developer Pack pour DataCamp et outils professionnels. Aucun abonnement payant n'est requis.
+
+---
+
+
 ## 2. Matrice des 8 Bases de Vie & Formules Mathématiques
 
 L'ascension du joueur repose sur un radar de compétence équilibré structuré autour de **8 Bases de Vie fondamentales** et de deux jauges physiologiques vitales ($HP$ et $MP$).

@@ -80,6 +80,35 @@ Le Système ne cherche pas à recréer des outils là où des références mondi
 
 ---
 
+### 1.7 Synthèse Dogmatique & Traçabilité Opérationnelle : Les 10 Décisions Inviolables du Système
+
+Le présent document PRD consigne formellement les 10 décisions architecturales et philosophiques arrêtées pour le développement et l'exploitation de *LevelUp* :
+
+1. **Loi du Réel Inviolable (Zéro Illusion Gamifiée) :** Les niveaux et les rangs sont ancrés dans le monde réel. Le statut suprême de Monarque des Ombres correspond à un ingénieur IA de renommée mondiale, financièrement souverain, athlète au corps d'élite et orateur bilingue. Un Chasseur de Rang B sans victoire officielle en hackathon ne peut pas exister.
+2. **Nomenclature par Base & Moyenne Harmonique Pondérée :** Chaque base dispose d'un Score continu ($S_b \in [0, 1000]$) et d'un Niveau de base ($L_b$). Le Score Global ($S_{\text{global}}$) est calculé par la moyenne harmonique pondérée des 8 bases :
+   $$S_{\text{global}} = \frac{\sum_{b=1}^{8} w_b}{\sum_{b=1}^{8} \frac{w_b}{S_b + \epsilon}}$$
+   Toute faiblesse ou délaissement d'une base ($S_b \to 0$) pénalise violemment le niveau global $L_{\text{global}}$.
+3. **Suppression Définitive de l'Anomalie "Bloqué par Quête de Rang" :** Le niveau global harmonique et le rang sont strictement couplés aux réalisations réelles (hackathon gagné pour Rang B, C1 Cambridge, etc.). L'élévation de rang s'opère naturellement sans goulot d'étranglement artificiel.
+4. **Physiologie Souveraine des Jauges HP & MP (Zéro Notion de Fatigue) :** L'interface bannit tout message de fatigue, d'épuisement ou de paresse. Les jauges traduisent la "Résilience Biologique Souveraine" (HP) et le "Focus Cognitif Indomptable" (MP). Décroissance lente validée par le modèle à deux processus de Peter Borbély (homéostasie d'adénosine avec $\tau_w \approx 18.2\text{ h}$, $HP \ge 80\%$ après 16h d'éveil) et le modèle dopaminergique de Boksem (+10 MP par quête validée).
+5. **Programmes Complets de Calisthénie d'Huriel Encodés :**
+   * *Dos & Épaules (17 étapes) :* Jumping Jacks 30s, Hyperextension x14, Pike Push Ups x14, Reverse Push-Ups x12, Inchworms x16, Side-Lying Stretch G 30s, Side-Lying Stretch D 30s, Hyperextension x12, Pike Push Ups x12, Reverse Push-Ups x10, Inchworms x14, Cat Cow Pose 35s, Supine Push Up x14, Floor Y Raises x14, Supine Push Up x13, Reverse Snow Angels x12, Child's Pose 30s.
+   * *Bras & Triceps Calisthenics (@giovanni_fiderio) :* 6 variantes en 3 séries poussées à l'échec postural strict (Push-Ups classiques, Decline, Diamond, Pike, Wide, Tricep Cross Extensions au sol).
+   * *Abdos & Core d'Acier (@lou4n.ldlm) :* V-Up (3x10), Mountain Climber (3x30s), Relevé de jambes au sol (3x12), Gainage classique (2x1m30), Gainage latéral (2x45s par côté).
+   * *Jambes & Mobilité :* Squats 4x25, Fentes sautées 3x12/jambe, Chaise murale 3x60s, Calf raises 4x20.
+6. **Validation Cinématique par Caméra (MediaPipe Pose WebAssembly) :** Analyse temps réel 100% locale des 33 repères squelettiques. Comptage objectif avec hystérésis (flexion coude $\le 75^\circ \to$ extension $\ge 160^\circ$ avec score de confiance $\ge 70\%$).
+7. **Second Brain Unifié Compatible Obsidian (`vault/`) :** Fiches de connaissances Markdown pures, métadonnées YAML, liens bidirectionnels `[[wikilinks]]` et recherche instantanée par trigrammes PostgreSQL (`pg_trgm`).
+8. **Ordonnancement Circadien & Les 5 Catégories de Quêtes :**
+   * *Daily Quests :* 4 quotidiennes avec rotation musculaire stricte.
+   * *Emergency Quests :* Alertes réelles opportunités (4h à 24h, XP x1.5).
+   * *Boss Raids :* Examens universitaires, Hackathons 48h Devpost, Cambridge.
+   * *Monk Mode Sprints :* Le Jeudi Commando (façon Sung Jin-Woo) de 06h00 à 22h00 pour combler les bases faibles.
+   * *Penalty Quests :* Sanction à 00h01 (réveil à 05h00, 100 pompes, 100 abdos, verrouillage NextDNS 24h).
+9. **L'Agent Orchestrateur Antigravity ("L'Architecte") :** Connecté via un serveur MCP dédié (`levelup-mcp-server`), un worker Python utilisant le SDK officiel `google-antigravity` et BullMQ. Notation socratique sur 20 points pour les résumés oraux et commandement de l'Armée des Ombres.
+10. **Modèle Économique : 100% Gratuit (0,00 € / mois) :** Architecture local-first et exploitation exclusive des quotas gratuits officiels (Gemini API Free Tier, Faster-Whisper local, MediaPipe Pose local, NextDNS gratuit, GitHub Student Pack).
+
+---
+
+
 ## 2. Décomposition Encyclopédique des 8 Bases de Vie (Les 120 Nœuds de Compétences)
 
 Chaque base dispose d'un arbre hiérarchique de compétences concrètes avec ressources réelles, critères de validation et XP associée.
