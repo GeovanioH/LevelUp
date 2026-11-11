@@ -952,6 +952,243 @@ LIMIT 5;
 
 ---
 
+### 7.3 Serveur MCP Dédié de l'Architecte (`server/mcp/LevelUpMcpServer.ts`)
+
+Pour permettre à l'Agent Antigravity d'interagir avec le Système sans risque d'injection SQL ou de corruption directe de l'état, Fastify héberge un serveur **Model Context Protocol (MCP)** conforme à la spécification standard, exposant des outils RPC fortement typés via Zod :
+
+```typescript
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { z } from 'zod';
+import { PlayerService } from '../services/PlayerService';
+import { QuestService } from '../services/QuestService';
+import { PenaltyService } from '../services/PenaltyService';
+import { SecondBrainService } from '../services/SecondBrainService';
+
+export class LevelUpMcpServer {
+  private server: McpServer;
+
+  constructor() {
+    this.server = new McpServer({
+      name: 'levelup-system-mcp',
+      version: '1.0.0'
+    });
+    this.registerTools();
+  }
+
+  private registerTools(): void {
+    // 1. Consultation de l'état du joueur et scores des 8 bases
+    this.server.tool(
+      'get_player_state',
+      'Récupère l'état complet du joueur : scores des 8 bases, niveau global harmonique, vitalité HP/MP et quêtes actives',
+      {},
+      async () => {
+        const state = await PlayerService.getGlobalState();
+        return { content: [{ type: 'text', text: JSON.stringify(state, null, 2) }] };
+      }
+    );
+
+    // 2. Attribution d'expérience et incrément de score de base
+    this.server.tool(
+      'award_base_xp',
+      'Attribue de l'XP et incrémente le score d'une base suite à une validation d'activité avec justificatif',
+      {
+        baseCode: z.enum(['ACAD', 'AI_ENG', 'CYBER', 'EXP', 'LNG', 'FIN', 'STR', 'DIS']),
+        xpAmount: z.number().int().positive().max(1500),
+        reason: z.string(),
+        proofSnippet: z.string().optional()
+      },
+      async ({ baseCode, xpAmount, reason, proofSnippet }) => {
+        const result = await PlayerService.awardXp(baseCode, xpAmount, reason, proofSnippet);
+        return { content: [{ type: 'text', text: `Attribution validée : +${xpAmount} XP sur ${baseCode}. Nouveau score : ${result.newScore}` }] };
+      }
+    );
+
+    // 3. Déploiement du pack des 4 quêtes quotidiennes
+    this.server.tool(
+      'deploy_daily_quests',
+      'Injecte les 4 quêtes quotidiennes obligatoires générées par l'Architecte pour la journée',
+      {
+        quests: z.array(z.object({
+          baseCode: z.enum(['ACAD', 'AI_ENG', 'CYBER', 'EXP', 'LNG', 'FIN', 'STR', 'DIS']),
+          title: z.string(),
+          description: z.string(),
+          xpReward: z.number().int().positive(),
+          muscleGroupTarget: z.string().optional()
+        })).length(4)
+      },
+      async ({ quests }) => {
+        const created = await QuestService.deployDailyPack(quests);
+        return { content: [{ type: 'text', text: `Pack quotidien de 4 quêtes déployé avec succès. IDs: ${created.map(q => q.id).join(', ')}` }] };
+      }
+    );
+
+    // 4. Déclenchement de la Zone de Pénalité et verrouillage NextDNS
+    this.server.tool(
+      'enforce_penalty_zone',
+      'Active la zone de pénalité, commande le pare-feu NextDNS et assigne la quête de purge matinale',
+      {
+        reason: z.string(),
+        punishmentProtocol: z.string()
+      },
+      async ({ reason, punishmentProtocol }) => {
+        await PenaltyService.activatePenaltyZone(reason, punishmentProtocol);
+        return { content: [{ type: 'text', text: 'Zone de pénalité activée. Résolution DNS récréative verrouillée pour 24h.' }] };
+      }
+    );
+
+    // 5. Lecture / Écriture sémantique dans le Second Brain Markdown
+    this.server.tool(
+      'read_second_brain_note',
+      'Recherche et lit une fiche de cours ou un write-up technique dans le coffre Markdown vault/',
+      { slugOrPath: z.string() },
+      async ({ slugOrPath }) => {
+        const note = await SecondBrainService.readNote(slugOrPath);
+        return { content: [{ type: 'text', text: note.content }] };
+      }
+    );
+  }
+
+  public async start(): Promise<void> {
+    const transport = new StdioServerTransport();
+    await this.server.connect(transport);
+  }
+}
+```
+
+### 7.4 Worker d'Orchestration Python via le SDK Antigravity (`services/architect_worker.py`)
+
+Pour traiter les flux de travail agentiques asynchrones (notation d'évaluation orale, synthèse de journée, génération de quêtes adaptatives), le worker Python officiel s'appuie sur le SDK `google-antigravity` :
+
+```python
+import asyncio
+import json
+import logging
+import os
+import redis.asyncio as aioredis
+from google.antigravity import Agent, LocalAgentConfig, CapabilitiesConfig
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+QUEUE_NAME = "levelup:architect:jobs"
+
+async def process_oral_evaluation(agent: Agent, payload: dict) -> dict:
+    subject = payload.get("subject", "Général")
+    transcript = payload.get("transcript", "")
+    target_base = payload.get("baseCode", "ACAD")
+
+    prompt = f"""
+ÉVALUATION SOCRATIQUE DE L'ARCHITECTE
+Base cible : {target_base}
+Sujet : {subject}
+
+TRANSCRIPTION ORALE REÇUE (Faster-Whisper INT8) :
+"""{transcript}"""
+
+Appliquez rigoureusement la grille d'évaluation sur 20 points :
+1. Profondeur & Exactitude (/6)
+2. Structure & Synthèse (/4)
+3. Application Pratique & Transfert Concret (/4)
+4. Originalité & Analyse Critique (/4)
+5. Précision du Vocabulaire Technique (/2)
+
+RÉPONDEZ EXCLUSIVEMENT PAR UN OBJET JSON CONFORME :
+{{
+  "scoreOutOf20": number,
+  "passed": boolean,
+  "xpAwarded": number,
+  "critique": string,
+  "keyStrengths": string[],
+  "weaknessesIdentified": string[]
+}}
+"""
+    response = await agent.chat(prompt)
+    accumulated_json = ""
+    async for token in response:
+        accumulated_json += token
+
+    return json.loads(accumulated_json)
+
+async def main():
+    r = await aioredis.from_url(REDIS_URL, decode_responses=True)
+    logging.info("[Architect Worker] Démarrage de la sentinelle agentique Antigravity...")
+
+    config = LocalAgentConfig(
+        system_instructions="""Vous êtes l'Architecte du Système dans LevelUp, régissant l'évolution d'Huriel.
+Vous êtes impartial, analytique et solennel. Vous refusez toute complaisance et récompensez l'excellence réelle.""",
+        capabilities=CapabilitiesConfig()
+    )
+
+    async with Agent(config) as architect:
+        while True:
+            # Dépilement bloquant Redis (BLPOP)
+            job = await r.blpop([QUEUE_NAME], timeout=5)
+            if not job:
+                continue
+
+            _, raw_data = job
+            payload = json.loads(raw_data)
+            job_type = payload.get("type")
+            job_id = payload.get("id")
+
+            logging.info(f"[Architect Worker] Traitement du job {job_id} ({job_type})")
+
+            try:
+                if job_type == "EVALUATE_ORAL_TRANSCRIPT":
+                    eval_result = await process_oral_evaluation(architect, payload)
+                    # Publication du résultat sur le bus Redis pour Fastify & WebSocket
+                    await r.publish(f"levelup:job_results:{job_id}", json.dumps(eval_result))
+                    logging.info(f"[Architect Worker] Job {job_id} validé avec la note {eval_result.get('scoreOutOf20')}/20")
+            except Exception as e:
+                logging.error(f"[Architect Worker] Échec du traitement du job {job_id} : {str(e)}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+### 7.5 Configuration d'Agent Antigravity dans le Workspace (`.agents/architect.yaml` & `mcp_config.json`)
+
+Le dépôt versionne sa propre configuration d'agent pour permettre à Antigravity d'interagir nativement avec l'infrastructure :
+
+```json
+// .agents/mcp_config.json
+{
+  "mcpServers": {
+    "levelup": {
+      "command": "node",
+      "args": ["dist/server/mcp/index.js"],
+      "env": {
+        "DATABASE_URL": "postgresql://levelup_admin:secure_pass@localhost:5432/levelup_prod"
+      }
+    }
+  }
+}
+```
+
+```yaml
+# .agents/architect.yaml
+name: "Architecte-System"
+role: "Orchestrateur Suprême de LevelUp"
+model: "gemini-2.5-pro"
+capabilities:
+  tools:
+    - "levelup/*"
+    - "run_command"
+    - "read_file"
+    - "write_file"
+skills:
+  - "evaluate-monologue"
+  - "generate-daily-quests"
+  - "enforce-penalty"
+rules:
+  - ".agents/rules/sovereignty.md"
+  - ".agents/rules/harmonic_balance.md"
+```
+
+---
+
+
 ## 8. Moteur de Synchronisation Hors-Ligne & Réconciliation Dexie.js
 
 L'application Web HUD est architecturée pour survivre à une perte totale de connectivité réseau (ex: travail dans les transports, sous-sol ou coupure de fibre optique).

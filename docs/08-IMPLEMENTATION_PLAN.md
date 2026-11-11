@@ -2201,6 +2201,142 @@ export class HarmonicRankEngine {
 ---
 
 
+## 18.6 Blueprint 16 : Serveur MCP Dédié de l'Architecte (`apps/web/server/mcp/LevelUpMcpServer.ts`)
+
+```typescript
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { z } from 'zod';
+import { PlayerService } from '../services/PlayerService';
+import { QuestService } from '../services/QuestService';
+import { PenaltyService } from '../services/PenaltyService';
+
+export function createLevelUpMcpServer(): McpServer {
+  const server = new McpServer({
+    name: 'levelup-system-mcp',
+    version: '1.0.0'
+  });
+
+  server.tool(
+    'get_player_state',
+    'Récupère l'état complet du joueur : scores des 8 bases, niveau global harmonique et quêtes actives',
+    {},
+    async () => {
+      const state = await PlayerService.getGlobalState();
+      return { content: [{ type: 'text', text: JSON.stringify(state, null, 2) }] };
+    }
+  );
+
+  server.tool(
+    'award_base_xp',
+    'Attribue de l'XP et incrémente le score d'une base suite à une validation d'activité avec justificatif',
+    {
+      baseCode: z.enum(['ACAD', 'AI_ENG', 'CYBER', 'EXP', 'LNG', 'FIN', 'STR', 'DIS']),
+      xpAmount: z.number().int().positive().max(1500),
+      reason: z.string(),
+      proofSnippet: z.string().optional()
+    },
+    async ({ baseCode, xpAmount, reason, proofSnippet }) => {
+      const result = await PlayerService.awardXp(baseCode, xpAmount, reason, proofSnippet);
+      return { content: [{ type: 'text', text: `Attribution validée : +${xpAmount} XP sur ${baseCode}. Nouveau score : ${result.newScore}` }] };
+    }
+  );
+
+  server.tool(
+    'deploy_daily_quests',
+    'Injecte les 4 quêtes quotidiennes obligatoires générées par l'Architecte',
+    {
+      quests: z.array(z.object({
+        baseCode: z.enum(['ACAD', 'AI_ENG', 'CYBER', 'EXP', 'LNG', 'FIN', 'STR', 'DIS']),
+        title: z.string(),
+        description: z.string(),
+        xpReward: z.number().int().positive()
+      })).length(4)
+    },
+    async ({ quests }) => {
+      const created = await QuestService.deployDailyPack(quests);
+      return { content: [{ type: 'text', text: `Pack quotidien activé (${created.length} quêtes).` }] };
+    }
+  );
+
+  server.tool(
+    'enforce_penalty_zone',
+    'Active la zone de pénalité et le blocage NextDNS suite à l'échec des quêtes',
+    { reason: z.string(), punishmentProtocol: z.string() },
+    async ({ reason, punishmentProtocol }) => {
+      await PenaltyService.activatePenaltyZone(reason, punishmentProtocol);
+      return { content: [{ type: 'text', text: 'Zone de pénalité active et pare-feu NextDNS verrouillé.' }] };
+    }
+  );
+
+  return server;
+}
+```
+
+---
+
+## 18.7 Blueprint 17 : Worker Asynchrone Python SDK Antigravity (`services/architect/architectWorker.py`)
+
+```python
+import asyncio
+import json
+import logging
+import os
+import redis.asyncio as aioredis
+from google.antigravity import Agent, LocalAgentConfig, CapabilitiesConfig
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+QUEUE_NAME = "levelup:architect:jobs"
+
+async def process_oral_evaluation(agent: Agent, payload: dict) -> dict:
+    subject = payload.get("subject", "Général")
+    transcript = payload.get("transcript", "")
+    target_base = payload.get("baseCode", "ACAD")
+
+    prompt = f"""
+ÉVALUATION SOCRATIQUE DE L'ARCHITECTE (Base : {target_base})
+Sujet : {subject}
+Transcription orale : """{transcript}"""
+
+Notez sur 20 points selon la grille stricte. Renvoyez exclusivement du JSON valide :
+{{
+  "scoreOutOf20": number,
+  "passed": boolean,
+  "xpAwarded": number,
+  "critique": string
+}}
+"""
+    response = await agent.chat(prompt)
+    raw = ""
+    async for token in response:
+        raw += token
+    return json.loads(raw)
+
+async def main():
+    r = await aioredis.from_url(REDIS_URL, decode_responses=True)
+    config = LocalAgentConfig(
+        system_instructions="Vous êtes l'Architecte du Système dans LevelUp. Impartial, analytique et rigoureux.",
+        capabilities=CapabilitiesConfig()
+    )
+    async with Agent(config) as architect:
+        logging.info("[Architect Worker] En attente de jobs BullMQ...")
+        while True:
+            job = await r.blpop([QUEUE_NAME], timeout=5)
+            if not job:
+                continue
+            _, raw_data = job
+            payload = json.loads(raw_data)
+            result = await process_oral_evaluation(architect, payload)
+            await r.publish(f"levelup:job_results:{payload['id']}", json.dumps(result))
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+---
+
+
 ## 19. Blueprints Dockerfile Multi-Stage de Production
 
 Les conteneurs de production utilisent la technique de compilation en étapes multiples (*multi-stage build*) pour minimiser l'empreinte disque et interdire la présence de compilateurs dans l'image finale :
