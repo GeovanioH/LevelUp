@@ -1913,7 +1913,7 @@ REM ============================================================================
 set NSSM_EXE="C:\tools\nssm\win64\nssm.exe"
 set NODE_EXE="C:\Program Files\nodejs\node.exe"
 set PYTHON_EXE="C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\python.exe"
-set APP_ROOT="C:\Users\ADMIN\.gemini\antigravity\scratch\LevelUp"
+set APP_ROOT="C:\Users\ADMIN\Documents\LevelUp"
 
 echo [LevelUp Installer] Enregistrement du service Fastify API Gateway...
 %NSSM_EXE% install LevelUpApiGateway %NODE_EXE% "%APP_ROOT%\server\dist\server.js"

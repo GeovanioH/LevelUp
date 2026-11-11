@@ -150,8 +150,8 @@ Cette section décrit de manière exhaustive la mise en service du système sur 
 Ouvrez un terminal PowerShell en mode Administrateur :
 ```powershell
 # Cloner le dépôt officiel dans l'espace de travail scratch
-git clone https://github.com/GeovanioH/LevelUp.git C:\Users\ADMIN\.gemini\antigravity\scratch\LevelUp
-cd C:\Users\ADMIN\.gemini\antigravity\scratch\LevelUp
+git clone https://github.com/GeovanioH/LevelUp.git C:\Users\ADMIN\Documents\LevelUp
+cd C:\Users\ADMIN\Documents\LevelUp
 
 # Vérifier la branche active
 git status

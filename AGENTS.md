@@ -792,7 +792,7 @@ Pour garantir que les agents de fond s'exécutent de façon ininterrompue sur la
 
 param (
     [string]$NodePath = (Get-Command node).Source,
-    [string]$ProjectRoot = "C:\Users\ADMIN\.gemini\antigravity\scratch\LevelUp",
+    [string]$ProjectRoot = "C:\Users\ADMIN\Documents\LevelUp",
     [string]$NssmPath = "C:\ProgramData\chocolatey\bin\nssm.exe"
 )
 
