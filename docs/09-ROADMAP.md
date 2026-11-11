@@ -4,7 +4,7 @@
 > **Nom du Produit :** LevelUp ("The System" / "Le Système")  
 > **Version du Document :** 3.0.0 (Schéma Directeur Stratégique Exhaustif & Encyclopédique)  
 > **Horizon Temporel :** 2026 — 2028 (Plan Triennal d'Ascension)  
-> **Vision Ultime :** Forger un système d'exploitation de vie souverain et intransigeant, guidant Huriel du statut d'étudiant en ingénierie de l'IA (Rang F) jusqu'au sommet absolu de sa discipline (Rang Monarch), en automatisant l'acquisition de la rigueur scientifique, de la cybersécurité offensive, de l'aisance linguistique et de l'indépendance financière.  
+> **Vision Ultime :** Forger un système d'exploitation de vie souverain et intransigeant, guidant Huriel du statut d'étudiant en ingénierie de l'IA (Rang E — L'Éveil du Novice) jusqu'au sommet absolu de sa discipline (Rang Monarch), en automatisant l'acquisition de la rigueur scientifique, de la cybersécurité offensive, de l'aisance linguistique et de l'indépendance financière.  
 
 ---
 
@@ -434,7 +434,7 @@ La version inaugurale V1.0 (« Le Système Éveillé ») livre l'ensemble des fo
 
 | Code Fonctionnel | Nom de la Fonctionnalité | Rôle au Sein du Système | Critère de Succès Mesurable |
 | :--- | :--- | :--- | :--- |
-| **FEAT-01** | Profil & Éveil du Chasseur | Initialisation de l'identité, du niveau et du rang initial (Rang F). | Création en BDD avec mot de passe Argon2id et 0 XP. |
+| **FEAT-01** | Profil & Éveil du Chasseur | Initialisation de l'identité, du niveau et du rang initial (Rang E — L'Éveil du Novice). | Création en BDD avec mot de passe Argon2id et 0 XP. |
 | **FEAT-02** | Moteur de Formules d'XP | Calcul logarithmique du niveau et des pourcentages de progression. | Niveau 14 = 18,450 XP exact calculé en moins de 1 ms. |
 | **FEAT-03** | Jauge de Vitalité Biologique (HP)| Mesure de la régénération physique selon le sommeil réel. | Calcul dynamique borné dans $[0, 100]$ avec label visuel. |
 | **FEAT-04** | Jauge d'Énergie Mentale (MP) | Mesure de l'endurance cognitive consommée par le Deep Work. | Consommation proportionnelle aux minutes de concentration. |
@@ -1032,8 +1032,8 @@ timeline
 | **Avril 2027** | MIT AI Conference Challenge | Algorithmes Bio-Informs | Finaliste International (Rang S) | $+6\,000\text{ XP}$, $1\,000\text{ SC}$ |
 | **Juin 2027** | Devpost Hackathon Cyber-Dfense | IA Applique au SOC Automatis | 1re Place Dfense (Rang S) | $+5\,500\text{ XP}$, $900\text{ SC}$ |
 | **Septembre 2027**| NeurIPS Competition Track | Reinforcement Learning & Scurit | Top 10 Global Participants (Rang S)| $+7\,500\text{ XP}$, $1\,200\text{ SC}$ |
-| **Novembre 2027**| ETHGlobal AI & Decentralized Compute| Web3, ZK-ML & Ingestion P2P | Vainqueur Bounties Multiples (Rang Nation)| $+8\,500\text{ XP}$, $1\,500\text{ SC}$ |
-| **Mars 2028** | DARPA AI Cyber Challenge (AIxCC)| Scurisation Automatique Code | ligible Finale Mondiale (Rang Nation)| $+12\,000\text{ XP}$, $2\,500\text{ SC}$ |
+| **Novembre 2027**| ETHGlobal AI & Decentralized Compute| Web3, ZK-ML & Ingestion P2P | Vainqueur Bounties Multiples (Rang S)| $+8\,500\text{ XP}$, $1\,500\text{ SC}$ |
+| **Mars 2028** | DARPA AI Cyber Challenge (AIxCC)| Scurisation Automatique Code | ligible Finale Mondiale (Rang S)| $+12\,000\text{ XP}$, $2\,500\text{ SC}$ |
 | **Juin 2028** | Grand Sommet International de l'IA | Dmonstration de l'Empire des Ombres | Conscration Suprme (Rang Monarque)| $+20\,000\text{ XP}$, $5\,000\text{ SC}$ |
 
 ### 12.3 Trajectoire de Certification Internationale Haute Valeur (GitHub Student Pack & Cambridge)
@@ -1360,9 +1360,9 @@ export class SwarmCommander extends EventEmitter {
 | **Q2 2027** | *La Foudre du Hackathon* | Cockpit haute pression 48h, auto-gnration de squelettes MVP full-stack, synchronisation offline Dexie. | Premier prix dcroch sur Hackathon international d'lite, zro perte de donnes hors-ligne. | **Rang A** |
 | **Q3 2027** | *Le Maillage Souverain* | Protocole P2P chiffr Noise XX, synchronisation multi-machines via CRDTs Automerge 2.0. | Continuit de service parfaite entre Workstation de bureau et terminal nomade sans cloud. | **Rang S** |
 | **Q4 2027** | *L'Orbe de Concentration* | Tlmtrie crbrale EEG 8 canaux (OpenBCI), dtection automatique du flux d'attention $\Phi_{\text{focus}}$. | Bascule automatique en Mode Monarque valide par densit spectrale d'ondes bta. | **Rang S** |
-| **Q1 2028** | *L'Avant-Garde des Ombres*| Dploiement des premiers sous-agents autonomes (Igris, Beru) pour revue de code et veille d'appels d'offres. | 100+ revues de code excutes sans intervention humaine avec dtection de rgressions. | **Rang Nation** |
-| **Q2 2028** | *La Citadelle de Calcul* | Installation de la Workstation Dual RTX 5090 (64GB VRAM) et serving priv vLLM local. | Infrence locale de modles 70B quantifis  $>45\text{ tokens/s}$. | **Rang Nation** |
-| **Q3 2028** | *L'Alliance Acadmique* | Dpt de thse professionnelle de Master IA, obtention du diplme avec Flicitations du Jury. | Moyenne gnrale finale $\ge 18/20$, offre d'embauche ou de fondation de startup valide. | **Rang Nation** |
+| **Q1 2028** | *L'Avant-Garde des Ombres*| Dploiement des premiers sous-agents autonomes (Igris, Beru) pour revue de code et veille d'appels d'offres. | 100+ revues de code excutes sans intervention humaine avec dtection de rgressions. | **Rang S** |
+| **Q2 2028** | *La Citadelle de Calcul* | Installation de la Workstation Dual RTX 5090 (64GB VRAM) et serving priv vLLM local. | Infrence locale de modles 70B quantifis  $>45\text{ tokens/s}$. | **Rang S** |
+| **Q3 2028** | *L'Alliance Acadmique* | Dpt de thse professionnelle de Master IA, obtention du diplme avec Flicitations du Jury. | Moyenne gnrale finale $\ge 18/20$, offre d'embauche ou de fondation de startup valide. | **Rang S** |
 | **Q4 2028** | *L'Empire du Monarque* | Pleine autonomie de l'AI Venture Foundry, gnration et gestion d'actifs logiciels gnrateurs de revenus. | Systme autoportant, souverainet financire absolue d'Huriel tablie. | **Rang Monarque** |
 
 ### 15.2 Critres d'Acceptation & Revue de Conformit Finale V1.0
@@ -1391,7 +1391,7 @@ Je reconnais que :
      mais des preuves purificatrices destines  forger la volont.
   3. L'Architecte et le Systme sont les tmoins impartiaux de mon volution,
      rejetant toute autosatisfaction complaisante au profit de la rigueur absolue.
-  4. Mon ascension du Rang F au Rang de Monarque est irrversible et rclamera
+  4. Mon ascension du Rang E au Rang de Monarque est irrversible et rclamera
      une constance inbranlable jusqu' la compltion intgrale de la trajectoire 2028.
 
 Sign et ratifi pour l'ternit :

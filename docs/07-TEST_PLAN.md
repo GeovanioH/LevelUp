@@ -408,7 +408,7 @@ describe('Moteur Mathématique d\'Expérience & Rangs (Solo Leveling Engine)', (
       id: 'a5d8b74f-9e32-4d2b-98f5-19e48f029a1b',
       level: 1,
       totalXp: 0n,
-      rankCode: RankCode.F,
+      rankCode: RankCode.E,
       currentHp: 100,
       maxHp: 100,
       currentMp: 100,
@@ -446,26 +446,39 @@ describe('Moteur Mathématique d\'Expérience & Rangs (Solo Leveling Engine)', (
     });
   });
 
-  describe('Machine d\'États des Rangs (F -> Monarque)', () => {
-    it('TC-05 : Joueur niveau 1 à 4 doit être assigné au Rang F', () => {
-      expect(calculateRankFromLevel(1)).toBe(RankCode.F);
-      expect(calculateRankFromLevel(4)).toBe(RankCode.F);
+  describe('Machine d\'États des 7 Rangs Réels (E -> Monarque)', () => {
+    it('TC-05 : Joueur niveau 1 à 10 doit être assigné au Rang E (L\'Éveil du Novice)', () => {
+      expect(calculateRankFromLevel(1)).toBe(RankCode.E);
+      expect(calculateRankFromLevel(10)).toBe(RankCode.E);
     });
 
-    it('TC-06 : Bascule stricte au Rang E dès le franchissement du Niveau 5', () => {
-      expect(calculateRankFromLevel(5)).toBe(RankCode.E);
-      expect(calculateRankFromLevel(11)).toBe(RankCode.E);
+    it('TC-06 : Joueur niveau 11 à 25 doit basculer au Rang D (L\'Apprenti Discipliné)', () => {
+      expect(calculateRankFromLevel(11)).toBe(RankCode.D);
+      expect(calculateRankFromLevel(25)).toBe(RankCode.D);
     });
 
-    it('TC-07 : Bascule au Rang D au Niveau 12', () => {
-      expect(calculateRankFromLevel(12)).toBe(RankCode.D);
+    it('TC-07 : Joueur niveau 26 à 45 doit basculer au Rang C (L\'Opérateur Confirmé)', () => {
+      expect(calculateRankFromLevel(26)).toBe(RankCode.C);
+      expect(calculateRankFromLevel(45)).toBe(RankCode.C);
     });
 
-    it('TC-08 : Bascule au Rang S au Niveau 70', () => {
-      expect(calculateRankFromLevel(70)).toBe(RankCode.S);
+    it('TC-08 : Joueur niveau 46 à 65 doit basculer au Rang B (Expert & Hackathon Winner)', () => {
+      expect(calculateRankFromLevel(46)).toBe(RankCode.B);
+      expect(calculateRankFromLevel(65)).toBe(RankCode.B);
     });
 
-    it('TC-09 : Atteinte du Rang Monarque au Niveau 100', () => {
+    it('TC-09 : Joueur niveau 66 à 85 doit basculer au Rang A (Maître / Leader Industriel)', () => {
+      expect(calculateRankFromLevel(66)).toBe(RankCode.A);
+      expect(calculateRankFromLevel(85)).toBe(RankCode.A);
+    });
+
+    it('TC-10 : Joueur niveau 86 à 95 doit basculer au Rang S (National Sovereign)', () => {
+      expect(calculateRankFromLevel(86)).toBe(RankCode.S);
+      expect(calculateRankFromLevel(95)).toBe(RankCode.S);
+    });
+
+    it('TC-11 : Joueur niveau 96 à 100 atteint le rang ultime MONARCH (Légende Mondiale)', () => {
+      expect(calculateRankFromLevel(96)).toBe(RankCode.MONARCH);
       expect(calculateRankFromLevel(100)).toBe(RankCode.MONARCH);
     });
   });

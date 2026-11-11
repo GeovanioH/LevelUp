@@ -1628,9 +1628,9 @@ Les Boss Raids sont les jalons de validation suprêmes qui jalonnent la montée 
 
 ---
 
-### 19.4 Boss Raid 4 : Le Raid de l'Île de Jeju (Jeju Island Raid — Rang National)
+### 19.4 Boss Raid 4 : Le Raid de l'Île de Jeju (Jeju Island Raid — Rang S (Souverain National))
 * **Inspiration Canonique :** L'extermination des fourmis mutantes géantes et le couronnement de Sung Jin-Woo comme plus grand chasseur mondial.
-* **Déclencheur d'Accès :** Atteinte du Niveau 85 (Rang National).
+* **Déclencheur d'Accès :** Atteinte du Niveau 86 (Rang S — Souverain National).
 * **Déroulement Visuel :**
   1. *Carte Tactique :* Vue satellite stylisée de la région avec points chauds d'opportunités professionnelles (offres de laboratoires de pointe, bourses doctorales, levées de fonds pour MVP).
   2. *Combat d'Agents :* Orchestration simultanée d'un essaim d'agents Antigravity collaborant avec le joueur pour livrer un projet d'ingénierie d'envergure industrielle.

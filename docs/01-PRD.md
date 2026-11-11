@@ -726,7 +726,7 @@ Ce mécanisme crée un pont psychologique indestructible : **le plaisir n'est pl
 2. **Cloisonnement des Clés d'API :**
    * Les interactions avec l'API Gemini et le moteur Deerflow sont strictement cantonnées aux opérations d'évaluation et de recherche technique sans divulgation de l'identité civile de l'utilisateur.
 3. **Droit à l'Oubli & Réinitialisation du Système :**
-   * Une commande administrative `/system reset --hard` permet d'effacer instantanément l'intégralité de la base de données et de réinitialiser le profil au Rang F Niveau 1 avec purge complète des tables.
+   * Une commande administrative `/system reset --hard` permet d'effacer instantanément l'intégralité de la base de données et de réinitialiser le profil au Rang E Niveau 1 (L'Éveil du Novice) avec purge complète des tables.
 
 
 ---
@@ -814,7 +814,7 @@ Cette matrice garantit qu'aucune exigence du produit ne reste orpheline : chaque
 | :--- | :--- | :--- | :--- | :--- |
 | **REQ-01** | Affichage du profil joueur avec niveau, rang et jauges HP/MP | `components/hud/StatusWindow.tsx` | `GET /api/v1/player/status` | `TC-01 à TC-09, Test 2.1` |
 | **REQ-02** | Calcul mathématique d'XP selon la loi logarithmique $100 \times \lfloor L^{1.75} \rfloor$ | `lib/engine/xpCalculator.ts` | `POST /api/v1/quests/:id/complete` | `TC-01, TC-03, TC-06, Test 1.1` |
-| **REQ-03** | Machine d'état stricte des 9 rangs (F à Monarque) | `lib/engine/rankManager.ts` | `GET /api/v1/player/status` | `TC-05, TC-14, Test 1.1` |
+| **REQ-03** | Machine d'état stricte des 7 rangs réels (E à Monarque) | `lib/engine/rankManager.ts` | `GET /api/v1/player/status` | `TC-05, TC-14, Test 1.1` |
 | **REQ-04** | Génération automatique des 4 Quêtes Quotidiennes à 06h00 UTC | `lib/workers/questWorker.ts` | `GET /api/v1/quests/today` | `TC-16, TC-19, Test 4.2` |
 | **REQ-05** | Validation de quête avec preuve (URL GitHub, audio, texte) | `services/questService.ts` | `POST /api/v1/quests/:id/complete` | `TC-17, TC-20, TC-24, Test 1.2` |
 | **REQ-06** | Transcription vocale instantanée en note Markdown via Whisper | `lib/audio/whisperService.ts` | `POST /api/v1/audio/transcribe` | `TC-51 à TC-53, Test 3.2` |

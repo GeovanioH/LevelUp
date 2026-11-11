@@ -175,14 +175,12 @@ generator client {
 }
 
 enum RankCode {
-  F
   E
   D
   C
   B
   A
   S
-  NATION
   MONARCH
 }
 
@@ -321,7 +319,7 @@ model Player {
   passwordHash     String       @map("password_hash") @db.VarChar(255)
   currentLevel     Int          @default(1) @map("current_level")
   totalXp          BigInt       @default(0) @map("total_xp")
-  rankCode         RankCode     @default(F) @map("rank_code")
+  rankCode         RankCode     @default(E) @map("rank_code")
   currentHp        Int          @default(100) @map("current_hp")
   maxHp            Int          @default(100) @map("max_hp")
   currentMp        Int          @default(100) @map("current_mp")
@@ -895,7 +893,7 @@ async function main() {
       passwordHash: '$argon2id$v=19$m=65536,t=3,p=4$dummy_seed_salt$hash_placeholder',
       currentLevel: 1,
       totalXp: 0n,
-      rankCode: RankCode.F,
+      rankCode: RankCode.E,
       currentHp: 100,
       maxHp: 100,
       currentMp: 100,

@@ -508,9 +508,9 @@ import { HunterRankEnum } from '@levelup/core-types';
 describe('RankProgressionEngine - Spécifications de Rangs', () => {
   const engine = new RankProgressionEngine();
 
-  it('GIVEN un joueur avec 0 XP, THEN son rang doit être RANK_F', () => {
+  it('GIVEN un joueur débutant avec 0 XP, THEN son rang doit être RANK_E', () => {
     const rank = engine.calculateRank(0);
-    expect(rank).toBe(HunterRankEnum.RANK_F);
+    expect(rank).toBe(HunterRankEnum.RANK_E);
   });
 
   it('GIVEN un joueur avec 7 500 XP, THEN son rang doit passer à RANK_D', () => {
@@ -1531,14 +1531,12 @@ datasource db {
 }
 
 enum HunterRank {
-  RANK_F
   RANK_E
   RANK_D
   RANK_C
   RANK_B
   RANK_A
   RANK_S
-  RANK_NATION
   MONARCH
 }
 
@@ -1577,7 +1575,7 @@ model Player {
   playerName      String      @map("player_name") @db.VarChar(50)
   level           Int         @default(1)
   currentXp       BigInt      @default(0) @map("current_xp")
-  rank            HunterRank  @default(RANK_F)
+  rank            HunterRank  @default(RANK_E)
   title           String      @default("L'Inconnu Éveillé") @db.VarChar(100)
   hpCurrent       Int         @default(100) @map("hp_current")
   hpMax           Int         @default(100) @map("hp_max")
@@ -1776,7 +1774,7 @@ Je jure solennellement :
   3. De préserver le cloisonnement souverain d'Huriel via le SingleUserGuard.
   4. De ne jamais divulguer la voix d'Huriel vers des serveurs d'écoute non souverains.
   5. De maintenir l'intégrité cryptographique des registres d'audit Merkle.
-  6. De servir fidèlement l'élévation d'Huriel du Rang F jusqu'au Trône de Monarque.
+  6. De servir fidèlement l'élévation d'Huriel du Rang E jusqu'au Trône de Monarque des Ombres.
 
 Enregistré et scellé dans la mémoire vive de l'Architecte.
 Date de signature : 11 Novembre 2026
