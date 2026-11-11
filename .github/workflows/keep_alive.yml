@@ -1,0 +1,31 @@
+name: System Sentinel — Keep Alive 24/7
+
+on:
+  schedule:
+    # Déclenchement toutes les 10 minutes pour maintenir le conteneur Render éveillé
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  heartbeat-ping:
+    name: Heartbeat Ping Anti-Sommeil
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping du Web HUD Health Endpoint
+        run: |
+          TARGET_URL="${{ secrets.RENDER_SERVICE_URL }}"
+          if [ -z "$TARGET_URL" ]; then
+            echo "ℹ️ RENDER_SERVICE_URL n'est pas encore défini dans les GitHub Secrets."
+            echo "Veuillez ajouter l'URL de votre Web Service Render (ex: https://levelup-system.onrender.com) dans Secrets."
+            exit 0
+          fi
+
+          echo "🚀 Envoi du Heartbeat Ping vers $TARGET_URL/health..."
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$TARGET_URL/health" || echo "FAILED")
+          echo "Réponse HTTP reçue : $HTTP_STATUS"
+
+          if [ "$HTTP_STATUS" = "200" ]; then
+            echo "✅ [SYSTÈME : EN LIGNE] Le conteneur Render est actif et éveillé."
+          else
+            echo "⚠️ [SYSTÈME : ALERTE] Statut non nominal ($HTTP_STATUS). Réveil forcé en cours."
+          fi

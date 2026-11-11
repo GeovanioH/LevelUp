@@ -1,0 +1,48 @@
+# ==============================================================================
+# RENDER BLUEPRINT SPECIFICATION — LEVELUP ("THE SYSTEM")
+# Plan Gratuit (0,00 € / mois - Aucune Carte de Crédit Requise)
+# ==============================================================================
+
+services:
+  - type: web
+    name: levelup-system
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: corepack enable && corepack prepare pnpm@12.16.1 --activate && pnpm install --no-frozen-lockfile && pnpm --filter @levelup/database db:generate
+    startCommand: node apps/web/server.js
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: APP_MASTER_ENCRYPTION_KEY
+        value: f7cd6ca7b0417c6e10037f32215c7fba0a105f42299ec1de6f64239601b678e9
+      - key: APP_ENCRYPTION_KEY
+        value: f7cd6ca7b0417c6e10037f32215c7fba0a105f42299ec1de6f64239601b678e9
+      - key: JWT_SECRET
+        value: super_secret_jwt_key_levelup_2026_monarch_ultra_secure
+      - key: MASTER_USERNAME
+        value: Huriel
+      - key: MASTER_USER_ID
+        value: a5d8b74f-9e32-4d2b-98f5-19e48f029a1b
+      - key: SYSTEM_MASTER_USER_ID
+        value: a5d8b74f-9e32-4d2b-98f5-19e48f029a1b
+      - key: DISCORD_BOT_TOKEN
+        sync: false
+      - key: DISCORD_CLIENT_ID
+        sync: false
+      - key: DISCORD_GUILD_ID
+        sync: false
+      - key: DISCORD_MASTER_USER_ID
+        sync: false
+      - key: NEXTDNS_PROFILE_ID
+        sync: false
+      - key: NEXTDNS_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
