@@ -1,0 +1,55 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: levelup_postgres_prod
+    restart: always
+    environment:
+      POSTGRES_DB: levelup_db
+      POSTGRES_USER: levelup_master
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-monarch_secure_pass_2026}
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U levelup_master -d levelup_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: levelup_redis_prod
+    restart: always
+    command: redis-server --maxmemory 128mb --maxmemory-policy allkeys-lru --save ""
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  levelup-app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.production
+    container_name: levelup_app_prod
+    restart: always
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://levelup_master:${DB_PASSWORD:-monarch_secure_pass_2026}@postgres:5432/levelup_db?schema=public
+      REDIS_URL: redis://redis:6379
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  postgres_prod_data:

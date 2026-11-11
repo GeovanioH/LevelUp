@@ -1,0 +1,73 @@
+# syntax=docker/dockerfile:1.4
+# ==============================================================================
+# LevelUp ("The System") - Production Multi-Stage Dockerfile
+# Target: Minimal Alpine/Non-Root hardened container (< 150MB target)
+# Reference: docs/09-ROADMAP.md Section 21.7 (Phase 6, Test 6.1)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Stage 1: Base Environment
+# ------------------------------------------------------------------------------
+FROM node:20-alpine AS base
+WORKDIR /app
+RUN apk add --no-cache libc6-compat openssl
+RUN corepack enable && corepack prepare pnpm@12.16.1 --activate
+
+# ------------------------------------------------------------------------------
+# Stage 2: Dependencies & Monorepo Build
+# ------------------------------------------------------------------------------
+FROM base AS builder
+WORKDIR /app
+
+# Copy dependency manifests
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json tsconfig.base.json ./
+COPY packages/contracts/package.json ./packages/contracts/
+COPY packages/database/package.json ./packages/database/
+COPY packages/crypto/package.json ./packages/crypto/
+COPY packages/security/package.json ./packages/security/
+COPY packages/brain/package.json ./packages/brain/
+COPY packages/scheduler/package.json ./packages/scheduler/
+COPY apps/bot/package.json ./apps/bot/
+COPY apps/web/package.json ./apps/web/
+
+# Install full dependencies
+RUN pnpm install --frozen-lockfile
+
+# Copy source tree
+COPY packages ./packages
+COPY apps ./apps
+
+# Generate Prisma client
+RUN pnpm --filter @levelup/database db:generate
+
+# Build monorepo packages
+RUN pnpm build
+
+# ------------------------------------------------------------------------------
+# Stage 3: Production Hardened Non-Root Runner
+# ------------------------------------------------------------------------------
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Security: Dedicated unprivileged system user
+RUN addgroup -g 10001 -S levelup && \
+    adduser -u 10001 -S levelup -G levelup
+
+# Copy only built assets and minimal node_modules
+COPY --from=builder --chown=levelup:levelup /app/package.json /app/pnpm-workspace.yaml ./
+COPY --from=builder --chown=levelup:levelup /app/packages ./packages
+COPY --from=builder --chown=levelup:levelup /app/apps ./apps
+COPY --from=builder --chown=levelup:levelup /app/node_modules ./node_modules
+
+# Switch to non-root
+USER levelup:levelup
+
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3000', (r) => { if (r.statusCode < 500) process.exit(0); else process.exit(1); })"
+
+CMD ["node", "apps/web/server.js"]
