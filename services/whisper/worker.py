@@ -130,6 +130,68 @@ class WhisperTranscriber:
         }
 
 
+def run_bullmq_worker(
+    redis_host: str = "127.0.0.1",
+    redis_port: int = 6379,
+    queue_name: str = "audio_transcription",
+    poll_interval: float = 0.5,
+    max_jobs: Optional[int] = None
+) -> int:
+    """
+    BullMQ worker loop for LevelUp Faster-Whisper.
+    Pulls audio transcription jobs from Redis BullMQ queue, executes faster-whisper INT8
+    inference in < 2.0s, and pushes results back to BullMQ completed set.
+    """
+    import json
+    import time
+
+    transcriber = WhisperTranscriber()
+    processed_count = 0
+
+    try:
+        import redis
+        client = redis.Redis(host=redis_host, port=redis_port, decode_responses=True)
+        client.ping()
+        print(f"[WHISPER WORKER] Connecté à Redis BullMQ ({redis_host}:{redis_port}) sur '{queue_name}'")
+    except Exception as e:
+        print(f"[WHISPER WORKER] Mode simulation locale (Redis non joignable: {e})")
+        return 0
+
+    queue_key = f"bull:{queue_name}:wait"
+    active_key = f"bull:{queue_name}:active"
+    completed_key = f"bull:{queue_name}:completed"
+
+    while max_jobs is None or processed_count < max_jobs:
+        try:
+            job_id = client.rpoplpush(queue_key, active_key)
+            if not job_id:
+                time.sleep(poll_interval)
+                continue
+
+            job_data_raw = client.hget(f"bull:{queue_name}:{job_id}", "data")
+            if job_data_raw:
+                job_data = json.loads(job_data_raw)
+                audio_path = job_data.get("audio_path", "")
+                result = transcriber.transcribe(audio_path)
+
+                client.hset(
+                    f"bull:{queue_name}:{job_id}",
+                    mapping={
+                        "returnvalue": json.dumps(result),
+                        "processedOn": int(time.time() * 1000)
+                    }
+                )
+                client.lrem(active_key, 1, job_id)
+                client.sadd(completed_key, job_id)
+                processed_count += 1
+                print(f"[WHISPER WORKER] Job {job_id} transcrit avec succès en {result.get('duration')}s")
+        except Exception as err:
+            print(f"[WHISPER WORKER] Erreur traitement job : {err}")
+            time.sleep(poll_interval)
+
+    return processed_count
+
+
 def create_app():
     """FastAPI app factory for standalone HTTP audio ingestion service."""
     try:

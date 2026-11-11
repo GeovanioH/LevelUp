@@ -117,6 +117,84 @@ export const ROUTINE_DOS_EPAULES_17_STEPS: readonly RoutineStep[] = [
   },
 ] as const;
 
+export const ROUTINE_BRAS_TRICEPS: readonly RoutineStep[] = [
+  {
+    id: "arm-01",
+    name: "Dips Calisthéniques",
+    targetReps: 15,
+    description:
+      "Triceps et faisceau inférieur pectoral (flexion coude <= 75°)",
+  },
+  {
+    id: "arm-02",
+    name: "Diamond Push-Ups",
+    targetReps: 12,
+    description:
+      "Focus chefs médial et latéral du triceps à l'échec postural strict",
+  },
+  {
+    id: "arm-03",
+    name: "Pompes Déclinées",
+    targetReps: 12,
+    description: "Pectoraux claviculaires et deltoïdes antérieurs",
+  },
+  {
+    id: "arm-04",
+    name: "Extensions Triceps au sol",
+    targetReps: 10,
+    description:
+      "Isolation triceps au poids du corps avec verrouillage scapulaire",
+  },
+  {
+    id: "arm-05",
+    name: "Gainage Triceps Isométrique",
+    targetSeconds: 30,
+    description: "Contraction isométrique maximale de finition",
+  },
+] as const;
+
+export const ROUTINE_ABDOS_ACIER: readonly RoutineStep[] = [
+  {
+    id: "abs-01",
+    name: "V-Ups Synchronisés",
+    targetReps: 15,
+    description:
+      "Élévation simultanée tronc et membres inférieurs avec verrouillage lombaire",
+  },
+  {
+    id: "abs-02",
+    name: "Mountain Climbers Rapides",
+    targetSeconds: 30,
+    description: "Gainage dynamique anti-rotation et cadence soutenue",
+  },
+  {
+    id: "abs-03",
+    name: "Relevés de Jambes au sol",
+    targetReps: 15,
+    description: "Grand droit inférieur sans cambrure lombaire",
+  },
+  {
+    id: "abs-04",
+    name: "Planche Dynamique",
+    targetSeconds: 45,
+    description: "Rétroversion pelvienne et bascule contrôlée du bassin",
+  },
+  {
+    id: "abs-05",
+    name: "Hollow Body Hold",
+    targetSeconds: 30,
+    description:
+      "Tension gymnastique pure, côtes rentrées et fessiers contractés",
+  },
+  {
+    id: "abs-06",
+    name: "Crunchs Bicyclette",
+    targetReps: 20,
+    description:
+      "Obliques internes et externes avec rotation contrôlée de la cage thoracique",
+  },
+] as const;
+
 export class RoutineSequenceEngine {
   private readonly steps: readonly RoutineStep[];
   private currentStepIndex: number = 0;
