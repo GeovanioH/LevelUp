@@ -1,0 +1,347 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum RankCode {
+  E
+  D
+  C
+  B
+  A
+  S
+  MONARCH
+}
+
+enum BaseStatCode {
+  ACAD
+  AI_ENG
+  CYBER
+  EXP
+  LNG
+  FIN
+  STR
+  DIS
+}
+
+enum QuestType {
+  DAILY
+  EMERGENCY
+  BOSS
+  JOB_CHANGE
+  PENALTY
+}
+
+enum QuestStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  FAILED
+  EXPIRED
+}
+
+enum ProofType {
+  AUDIO_SUMMARY
+  GITHUB_URL
+  SCREENSHOT
+  TEXT_LOG
+  NONE
+}
+
+enum OpportunityStatus {
+  NEW
+  TRACKED
+  APPLIED
+  WON
+  REJECTED
+}
+
+enum ShopCategory {
+  LEISURE
+  GAMING
+  TECH
+  REST
+}
+
+// 1. Player (Le Joueur Maître)
+model Player {
+  id               String       @id @default(uuid()) @db.Uuid
+  username         String       @unique @db.VarChar(50)
+  passwordHash     String       @map("password_hash") @db.VarChar(255)
+  currentLevel     Int          @default(1) @map("current_level")
+  totalXp          BigInt       @default(0) @map("total_xp")
+  rankCode         RankCode     @default(E) @map("rank_code")
+  currentHp        Int          @default(100) @map("current_hp")
+  maxHp            Int          @default(100) @map("max_hp")
+  currentMp        Int          @default(100) @map("current_mp")
+  maxMp            Int          @default(100) @map("max_mp")
+  shadowCrystals   Int          @default(0) @map("shadow_crystals")
+  currentTitle     String       @default("L'Éveillé Novice") @map("current_title") @db.VarChar(100)
+  themePreference  String       @default("DARK_MONARCH") @map("theme_preference") @db.VarChar(30)
+  discordUserId    String?      @unique @map("discord_user_id") @db.VarChar(50)
+  createdAt        DateTime     @default(now()) @map("created_at")
+  updatedAt        DateTime     @updatedAt @map("updated_at")
+
+  stats            PlayerStat[]
+  quests           Quest[]
+  timeBlocks       TimeBlock[]
+  notes            SecondBrainNote[]
+  opportunities    Opportunity[]
+  shopPurchases    ShopPurchase[]
+  auditLogs        AuditLog[]
+  workoutLogs      WorkoutExecutionLog[]
+  realWorldAchievement RealWorldAchievement?
+  externalIntegrations ExternalIntegrationConfig[]
+
+  @@map("players")
+}
+
+// 2. PlayerStat (Les 8 Bases Statistiques)
+model PlayerStat {
+  id                   String       @id @default(uuid()) @db.Uuid
+  playerId             String       @map("player_id") @db.Uuid
+  baseCode             BaseStatCode @map("base_code")
+  level                Int          @default(1)
+  currentXp            Int          @default(0) @map("current_xp")
+  nextLevelXp          Int          @default(100) @map("next_level_xp")
+  totalPointsInvested  Int          @default(0) @map("total_points_invested")
+  updatedAt            DateTime     @updatedAt @map("updated_at")
+
+  player               Player       @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  skillNodes           SkillNode[]
+
+  @@unique([playerId, baseCode])
+  @@map("player_stats")
+}
+
+// 3. SkillNode (Nœud de Compétence du DAG)
+model SkillNode {
+  id                String       @id @default(uuid()) @db.Uuid
+  statId            String       @map("stat_id") @db.Uuid
+  baseCode          BaseStatCode @map("base_code")
+  parentNodeId      String?      @map("parent_node_id") @db.Uuid
+  nodeCode          String       @unique @map("node_code") @db.VarChar(50)
+  name              String       @db.VarChar(100)
+  description       String       @db.Text
+  requiredStatLevel Int          @default(1) @map("required_stat_level")
+  isUnlocked        Boolean      @default(false) @map("is_unlocked")
+  unlockedAt        DateTime?    @map("unlocked_at")
+
+  stat              PlayerStat   @relation(fields: [statId], references: [id], onDelete: Cascade)
+  parentNode        SkillNode?   @relation("SkillHierarchy", fields: [parentNodeId], references: [id])
+  childNodes        SkillNode[]  @relation("SkillHierarchy")
+
+  @@map("skill_nodes")
+}
+
+// 4. Quest (Quêtes Solo Leveling)
+model Quest {
+  id                 String       @id @default(uuid()) @db.Uuid
+  playerId           String       @map("player_id") @db.Uuid
+  questCode          String       @unique @map("quest_code") @db.VarChar(100)
+  title              String       @db.VarChar(200)
+  description        String       @db.Text
+  questType          QuestType    @map("quest_type")
+  targetStat         BaseStatCode @map("target_stat")
+  xpReward           Int          @map("xp_reward")
+  availableAt        DateTime     @default(now()) @map("available_at")
+  expiresAt          DateTime     @map("expires_at")
+  status             QuestStatus  @default(PENDING)
+  proofType          ProofType    @default(NONE) @map("proof_type")
+  proofData          String?      @map("proof_data") @db.Text
+  architectScore     Int?         @map("architect_score")
+  architectFeedback  String?      @map("architect_feedback") @db.Text
+  completedAt        DateTime?    @map("completed_at")
+
+  player             Player       @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  transcriptions     VoiceTranscription[]
+
+  @@index([playerId, status, expiresAt])
+  @@map("quests")
+}
+
+// 5. TimeBlock (Blocs Deep Work & Planning)
+model TimeBlock {
+  id              String        @id @default(uuid()) @db.Uuid
+  playerId        String        @map("player_id") @db.Uuid
+  blockDate       DateTime      @db.Date @map("block_date")
+  startTime       String        @map("start_time") @db.VarChar(5)
+  endTime         String        @map("end_time") @db.VarChar(5)
+  title           String        @db.VarChar(150)
+  targetStat      BaseStatCode  @map("target_stat")
+  isCompleted     Boolean       @default(false) @map("is_completed")
+  alarmTriggered  Boolean       @default(false) @map("alarm_triggered")
+  createdAt       DateTime      @default(now()) @map("created_at")
+
+  player          Player        @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@index([playerId, blockDate])
+  @@map("time_blocks")
+}
+
+// 6. SecondBrainNote (Notes de Connaissance)
+model SecondBrainNote {
+  id              String        @id @default(uuid()) @db.Uuid
+  playerId        String        @map("player_id") @db.Uuid
+  title           String        @db.VarChar(200)
+  slug            String        @unique @db.VarChar(250)
+  filePath        String        @map("file_path") @db.VarChar(500)
+  markdownContent String        @map("markdown_content") @db.Text
+  relatedStat     BaseStatCode? @map("related_stat")
+  isArchived      Boolean       @default(false) @map("is_archived")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  player          Player        @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  transcriptions  VoiceTranscription[]
+
+  @@index([playerId, relatedStat])
+  @@map("second_brain_notes")
+}
+
+// 7. VoiceTranscription (Évaluation Orale & Transcriptions)
+model VoiceTranscription {
+  id                String           @id @default(uuid()) @db.Uuid
+  noteId            String?          @map("note_id") @db.Uuid
+  questId           String?          @map("quest_id") @db.Uuid
+  durationSeconds   Int              @map("duration_seconds")
+  audioFormat       String           @default("audio/webm") @map("audio_format") @db.VarChar(50)
+  rawTranscript     String           @map("raw_transcript") @db.Text
+  aiSummary         String           @map("ai_summary") @db.Text
+  aiQualityScore    Int              @map("ai_quality_score")
+  transcribedAt     DateTime         @default(now()) @map("transcribed_at")
+
+  note              SecondBrainNote? @relation(fields: [noteId], references: [id], onDelete: SetNull)
+  quest             Quest?           @relation(fields: [questId], references: [id], onDelete: SetNull)
+
+  @@map("voice_transcriptions")
+}
+
+// Calisthénie & Vision par Ordinateur
+model WorkoutRoutine {
+  id          String        @id @default(uuid()) @db.Uuid
+  code        String        @unique @db.VarChar(50)
+  title       String        @db.VarChar(100)
+  targetGroup String        @db.VarChar(50)
+  description String        @db.Text
+  totalSteps  Int           @default(0)
+  steps       WorkoutStep[]
+  logs        WorkoutExecutionLog[]
+  createdAt   DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("workout_routines")
+}
+
+model WorkoutStep {
+  id              String         @id @default(uuid()) @db.Uuid
+  routineId       String         @map("routine_id") @db.Uuid
+  stepNumber      Int            @map("step_number")
+  exerciseName    String         @map("exercise_name") @db.VarChar(100)
+  exerciseType    String         @map("exercise_type") @db.VarChar(20)
+  targetReps      Int?           @map("target_reps")
+  durationSeconds Int?           @map("duration_seconds")
+  targetAngleMin  Float?         @map("target_angle_min")
+  targetAngleMax  Float?         @map("target_angle_max")
+  keyJointPoints  Int[]          @map("key_joint_points")
+  routine         WorkoutRoutine @relation(fields: [routineId], references: [id], onDelete: Cascade)
+
+  @@unique([routineId, stepNumber])
+  @@map("workout_steps")
+}
+
+model WorkoutExecutionLog {
+  id              String         @id @default(uuid()) @db.Uuid
+  playerId        String         @map("player_id") @db.Uuid
+  routineId       String         @map("routine_id") @db.Uuid
+  startedAt       DateTime       @default(now()) @map("started_at") @db.Timestamptz(6)
+  completedAt     DateTime?      @map("completed_at") @db.Timestamptz(6)
+  totalRepsLogged Int            @default(0) @map("total_reps_logged")
+  cvAccuracyScore Float          @default(0.0) @map("cv_accuracy_score")
+  completedStrict Boolean        @default(false) @map("completed_strict")
+  routine         WorkoutRoutine @relation(fields: [routineId], references: [id])
+  player          Player         @relation(fields: [playerId], references: [id])
+
+  @@map("workout_execution_logs")
+}
+
+model RealWorldAchievement {
+  id                       String   @id @default(uuid()) @db.Uuid
+  playerId                 String   @unique @map("player_id") @db.Uuid
+  hackathonsWonCount       Int      @default(0) @map("hackathons_won_count")
+  cambridgeEnglishLevel    String   @default("NONE") @map("cambridge_english_level") @db.VarChar(10)
+  classRankPercentile      Float    @default(0.50) @map("class_rank_percentile")
+  calisthenicsMastered     Boolean  @default(false) @map("calisthenics_mastered")
+  productionSaasActiveUsers Int     @default(0) @map("production_saas_active_users")
+  netWorthOrSponsorshipEur Float    @default(0.0) @map("net_worth_or_sponsorship_eur")
+  updatedAt                DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+  player                   Player   @relation(fields: [playerId], references: [id])
+
+  @@map("real_world_achievements")
+}
+
+model ExternalIntegrationConfig {
+  id              String   @id @default(uuid()) @db.Uuid
+  playerId        String   @map("player_id") @db.Uuid
+  serviceName     String   @map("service_name") @db.VarChar(50)
+  apiKeyEncrypted String?  @map("api_key_encrypted") @db.Text
+  profileId       String?  @map("profile_id") @db.VarChar(100)
+  externalUserId  String?  @map("external_user_id") @db.VarChar(100)
+  syncStatus      String   @default("ACTIVE") @map("sync_status") @db.VarChar(20)
+  lastSyncedAt    DateTime? @map("last_synced_at") @db.Timestamptz(6)
+  player          Player   @relation(fields: [playerId], references: [id])
+
+  @@unique([playerId, serviceName])
+  @@map("external_integration_configs")
+}
+
+model Opportunity {
+  id                 String             @id @default(uuid()) @db.Uuid
+  playerId           String             @map("player_id") @db.Uuid
+  source             String             @db.VarChar(100)
+  category           String             @db.VarChar(50)
+  title              String             @db.VarChar(250)
+  slug               String             @unique @db.VarChar(300)
+  description        String             @db.Text
+  externalUrl        String             @map("external_url") @db.VarChar(1000)
+  estimatedValueEur  Int?               @map("estimated_value_eur")
+  deadline           DateTime
+  status             OpportunityStatus  @default(NEW)
+  discoveredAt       DateTime           @default(now()) @map("discovered_at")
+
+  player             Player             @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@index([playerId, status, deadline])
+  @@map("opportunities")
+}
+
+model ShopPurchase {
+  id           String        @id @default(uuid()) @db.Uuid
+  playerId     String        @map("player_id") @db.Uuid
+  itemName     String        @map("item_name") @db.VarChar(150)
+  crystalCost  Int           @map("crystal_cost")
+  category     ShopCategory
+  purchasedAt  DateTime      @default(now()) @map("purchased_at")
+
+  player       Player        @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@index([playerId, purchasedAt])
+  @@map("shop_purchases")
+}
+
+model AuditLog {
+  id           String       @id @default(uuid()) @db.Uuid
+  playerId     String       @map("player_id") @db.Uuid
+  eventType    String       @map("event_type") @db.VarChar(100)
+  eventPayload Json         @map("event_payload")
+  ipAddress    String?      @map("ip_address") @db.VarChar(50)
+  timestamp    DateTime     @default(now())
+
+  player       Player       @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@index([playerId, eventType, timestamp])
+  @@map("audit_logs")
+}

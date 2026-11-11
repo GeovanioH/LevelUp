@@ -1,0 +1,70 @@
+name: LevelUp Sovereign Quality Gate
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  qualification-pipeline:
+    name: Exécution du Cahier de Recette Industriel (Quality Gate)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: levelup_ci_db
+          POSTGRES_USER: levelup_ci
+          POSTGRES_PASSWORD: ci_secret_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Récupération du Code Source (Checkout)
+        uses: actions/checkout@v4
+
+      - name: Configuration de pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 12.16.1
+
+      - name: Configuration de l'Environnement Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Installation des Dépendances
+        run: pnpm install --frozen-lockfile
+
+      - name: Porte 1 - Analyse Statique & Typage Strict
+        run: pnpm lint && pnpm typecheck
+
+      - name: Porte 2 - Application des Migrations BDD DDL
+        env:
+          DATABASE_URL: postgresql://levelup_ci:ci_secret_password@localhost:5432/levelup_ci_db?schema=public
+        run: pnpm --filter @levelup/database db:generate
+
+      - name: Porte 3 - Exécution des Suites de Tests
+        env:
+          DATABASE_URL: postgresql://levelup_ci:ci_secret_password@localhost:5432/levelup_ci_db?schema=public
+          REDIS_URL: redis://localhost:6379
+        run: pnpm test

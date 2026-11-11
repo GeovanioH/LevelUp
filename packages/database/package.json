@@ -1,0 +1,29 @@
+{
+  "name": "@levelup/database",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Prisma Database Schema, Migrations & Seeds for LevelUp",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "prisma generate",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "prisma db seed",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.23.1",
+    "pg": "^8.23.1",
+    "prisma": "^5.22.0",
+    "typescript": "^5.7.3"
+  }
+}
