@@ -1,0 +1,64 @@
+:root {
+  /* ==========================================================================
+     THÈME SOMBRE : "MONARQUE DES OMBRES" (SOLO LEVELING HUD)
+     ========================================================================== */
+  --bg-abyss-primary: #0a0a10;           /* Fond principal noir abysse */
+  --bg-surface-hologram: rgba(10, 15, 30, 0.85); /* Panneaux translucides avec flou */
+  --bg-surface-elevated: #0c1222;        /* Cartes et fenêtres modales */
+  --border-neon-cyan: #00f0ff;           /* Liseré bleu néon holographique */
+  --border-subtle-glow: rgba(0, 240, 255, 0.25);
+  --accent-shadow-blue: #0051ff;         /* Bleu profond des compétences d'Ombre */
+  --accent-cyan-core: #00f0ff;           /* Cyan électrique des textes et mana */
+  --accent-purple-monarch: #8a2be2;      /* Violet sombre Monarque */
+  --accent-gold-rank: #ffd700;           /* Or éclatant des Rangs S / MONARCH */
+  --accent-alert-red: #ff003c;           /* Rouge sang des Quêtes Urgentes / Pénalité */
+  --text-primary: #ffffff;              /* Blanc pur haute lisibilité */
+  --text-secondary: #94a3b8;            /* Gris ardoise des libellés secondaires */
+  --text-muted: #475569;                /* Métadonnées et horodatages */
+
+  /* Jauges Vitales Holographiques */
+  --gauge-hp-fill: #10b981;              /* Vert émeraude (Résilience Biologique) */
+  --gauge-hp-low: #ef4444;               /* Rouge critique */
+  --gauge-mp-fill: #00f0ff;              /* Cyan électrique (Focus Cognitif) */
+  --gauge-mp-low: #8a2be2;               /* Violet concentration profonde */
+
+  /* Ombres & Lueurs Néon */
+  --glow-cyan-sm: 0 0 10px rgba(0, 240, 255, 0.35);
+  --glow-cyan-lg: 0 0 25px rgba(0, 240, 255, 0.65), 0 0 50px rgba(0, 81, 255, 0.35);
+  --glow-purple-monarch: 0 0 25px rgba(138, 43, 226, 0.65);
+  --glow-gold-rank: 0 0 20px rgba(255, 215, 0, 0.5);
+  --glass-backdrop-blur: blur(16px);
+}
+
+[data-theme="light-awakening"] {
+  --bg-abyss-primary: #f8fafc;
+  --bg-surface-hologram: rgba(255, 255, 255, 0.9);
+  --bg-surface-elevated: #ffffff;
+  --border-neon-cyan: #ff6b00;
+  --border-subtle-glow: rgba(255, 107, 0, 0.25);
+  --accent-shadow-blue: #ea580c;
+  --accent-cyan-core: #ff6b00;
+  --accent-purple-monarch: #9333ea;
+  --accent-gold-rank: #d97706;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+}
+
+/* Géométrie & Biseau Angulaire des Panneaux Holographiques Solo Leveling */
+.hologram-card {
+  background: var(--bg-surface-hologram);
+  backdrop-filter: var(--glass-backdrop-blur);
+  border: 1px solid var(--border-neon-cyan);
+  box-shadow: var(--glow-cyan-sm);
+  clip-path: polygon(
+    0 12px,
+    12px 0,
+    calc(100% - 12px) 0,
+    100% 12px,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    12px 100%,
+    0 calc(100% - 12px)
+  );
+}
