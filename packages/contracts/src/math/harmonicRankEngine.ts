@@ -91,6 +91,27 @@ export class HarmonicRankEngine {
   }
 
   /**
+   * Identifie la base la plus faible ou en état critique (défaillante).
+   */
+  public static identifyWeakestBase(scores: BaseScores): {
+    base: keyof BaseScores;
+    score: number;
+  } {
+    let weakestBase: keyof BaseScores = "acad";
+    let minScore = Infinity;
+
+    for (const key of Object.keys(this.WEIGHTS) as (keyof BaseScores)[]) {
+      const val = scores[key] ?? 0;
+      if (val < minScore) {
+        minScore = val;
+        weakestBase = key;
+      }
+    }
+
+    return { base: weakestBase, score: minScore };
+  }
+
+  /**
    * Calcule le niveau global à partir du score harmonique global.
    */
   public static calculateGlobalLevel(globalScore: number): number {

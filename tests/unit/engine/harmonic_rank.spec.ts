@@ -40,6 +40,29 @@ describe("HarmonicRankEngine - Moyenne Harmonique & Ancrage Réel des Rangs", ()
     expect(shBalanced).toBeGreaterThan(400);
   });
 
+  it("devrait vérifier que si 7 bases valent 800 mais que la 8ème vaut 10, Sh chute drastiquement et signale la base défaillante", () => {
+    const scores7x800: BaseScores = {
+      acad: 800,
+      ai_eng: 800,
+      cyber: 800,
+      exp: 800,
+      lng: 800,
+      fin: 800,
+      str: 800,
+      dis: 10,
+    };
+
+    const sh = HarmonicRankEngine.calculateHarmonicScoreSimple(scores7x800);
+    // 8 / (7/800 + 1/10) = 8 / (0.00875 + 0.1) = 8 / 0.10875 ≈ 73.56
+    // Chute vertigineuse de plus de 90% par rapport à 800
+    expect(sh).toBeLessThan(80);
+    expect(sh).toBeGreaterThan(70);
+
+    const failing = HarmonicRankEngine.identifyWeakestBase(scores7x800);
+    expect(failing.base).toBe("dis");
+    expect(failing.score).toBe(10);
+  });
+
   it("ne doit JAMAIS attribuer le Rang B à un joueur sans victoire en hackathon (Invariant Réel Inviolable)", () => {
     const globalLevel = 55; // Niveau 55 suffisant théoriquement pour Rang B
     const withoutHackathon: RealWorldAchievements = {
