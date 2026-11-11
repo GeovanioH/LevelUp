@@ -5,7 +5,9 @@
   "scripts": {
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "dependencies": {
     "@levelup/brain": "workspace:*",
