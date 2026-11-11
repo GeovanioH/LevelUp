@@ -396,6 +396,19 @@ importers:
         specifier: ^3.0.7
         version: 3.2.7(@types/node@26.6.6)(jsdom@31.0.0)(supports-color@7.2.0)(tsx@4.23.15)(yaml@2.9.1)
 
+  packages/security:
+    dependencies:
+      "@levelup/crypto":
+        specifier: workspace:*
+        version: link:../crypto
+    devDependencies:
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.7
+        version: 3.2.7(@types/node@26.6.6)(jsdom@31.0.0)(supports-color@7.2.0)(tsx@4.23.15)(yaml@2.9.1)
+
 packages:
   "@asamuzakjp/css-color@3.2.0":
     resolution:
