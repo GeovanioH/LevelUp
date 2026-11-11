@@ -465,7 +465,8 @@ jobs:
         run: |
           echo "Vérification que les fichiers de configuration ne contiennent pas de tokens hardcodés..."
           ! grep -rE "DISCORD_BOT_TOKEN\s*=\s*['\"][A-Za-z0-9._-]{20,}['\"]" .
-          ! grep -rE "GEMINI_API_KEY\s*=\s*['\"][A-Za-z0-9_-]{30,}['\"]" .
+          # Vérification de l'absence de toute clé API externe (architecture Antigravity souveraine)
+! grep -rE "(GEMINI_API_KEY|OPENAI_API_KEY)\s*=\s*['\"][A-Za-z0-9_-]{20,}['\"]" .
 ```
 
 ---

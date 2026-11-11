@@ -2543,7 +2543,7 @@ L'intégralité des 25 variables d'environnement nécessaires au fonctionnement 
 | `DISCORD_BOT_TOKEN` | Jeton d'authentification du bot Discord.js | `MTIzNDU2Nzg5MDEyMzQ1Njc4OQ.GaBcDe.FGHijKLMnOPqRsTuVwXyZ` | **CRITIQUE** |
 | `DISCORD_MASTER_USER_ID` | Identifiant Snowflake immuable du Monarque | `789123456789012345` | Haute |
 | `SYSTEM_MASTER_USER_ID` | UUID primaire du joueur dans PostgreSQL | `a5d8b74f-9e32-4d2b-98f5-19e48f029a1b` | Haute |
-| `GEMINI_API_KEY` | Clé API pour Antigravity / Gemini 2.5 Pro | `AIzaSyB1c2D3E4F5G6H7I8J9K0L1M2N3O4P5Q6` | **CRITIQUE** |
+| `ANTIGRAVITY_SIDECAR` | Sidecars Antigravity planifiés (`sidecar.json`) | `~/.gemini/config/sidecars/levelup-*/` | **CRITIQUE** |
 | `DEERFLOW_WEBHOOK_SECRET` | Clé secrète de signature HMAC-SHA256 | `8f9b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b` | **CRITIQUE** |
 | `VAULT_ROOT_PATH` | Répertoire absolu du coffre Markdown Obsidian | `C:\Users\ADMIN\Documents\ObsidianVault` | Haute |
 | `WHISPER_INFERENCE_URL` | Endpoint du microservice Faster-Whisper | `http://127.0.0.1:5000/transcribe` | Protégée |

@@ -74,7 +74,7 @@ flowchart TD
     M6 --> M7["7. Second Brain Markdown Intégré<br>(Obsidian-compatible, pg_trgm)"]
     M7 --> M8["8. Les 5 Quêtes & Jeudi Commando<br>(Daily, Emergency, Boss, Monk, Penalty)"]
     M8 --> M9["9. Orchestration Antigravity MCP<br>(Serveur MCP dédié + SDK Python)"]
-    M9 --> M10["10. Souveraineté Économique : 0 €/mois<br>(Local-first, quotas gratuits officiels)"]
+    M9 --> M10["10. Souveraineté & Autonomie Totale : 0 €/mois<br>(Antigravity Automations & Skills, local-first)"]
 ```
 
 1. **L'Ancrage Réel Absolu & Élimination du Virtuel Fantasmé :**
@@ -105,8 +105,8 @@ flowchart TD
    * *Quêtes de Pénalité (PENALTY_QUESTS) :* Déclenchées à 00h01 en cas d'échec, avec réveil forcé à 05h00 (100 pompes, 100 abdos) et verrouillage pare-feu NextDNS pendant 24h.
 9. **L'Agent Orchestrateur Antigravity ("L'Architecte") :**
    Le cerveau central décisionnel est un agent Antigravity opérant via un serveur MCP dédié (`levelup-mcp-server`), un worker Python utilisant le SDK officiel `google-antigravity` et une file asynchrone Redis/BullMQ. Il applique une grille de notation socratique sur 20 points pour les résumés oraux et arbitre les passages de rang.
-10. **Souveraineté Économique Totale (0,00 € / mois) :**
-   Conception 100% local-first et exploitation des tiers gratuits officiels : modèles Gemini Free Tier via Google AI Studio (~20-30 requêtes/jour pour un quota gratuit de 1500/jour), Faster-Whisper local sur GPU NVIDIA, MediaPipe Pose WASM dans le navigateur, NextDNS gratuit (300k requêtes/mois), GitHub Student Developer Pack pour DataCamp et outils professionnels. Aucun abonnement payant n'est requis.
+10. **Souveraineté Économique & Autonomie Totale (0,00 € / mois) :**
+   Conception 100% souveraine et local-first, sans aucune dépendance à une clé API externe payante ou quota Google AI Studio : l'ensemble de l'intelligence cognitive, de la planification des quêtes, du briefing matinal et des débriefings oraux est propulsé nativement par **Google Antigravity** via son système d'**Automatisations planifiées (`sidecars`)** et de **Personnalisations (`.agents/skills/levelup-architect`)**. Antigravity initialise lui-même les conversations de briefing et d'évaluation sur planning régulier (06h00 et 21h30). Faster-Whisper s'exécute en local, MediaPipe Pose tourne en WebAssembly client, NextDNS est gratuit (300k requêtes/mois). Aucun abonnement payant n'est requis.
 
 ---
 
@@ -410,10 +410,12 @@ DEERFLOW_WEBHOOK_SECRET="deerflow-hmac-sha256-secret-key-verification-level-up"
 # ------------------------------------------------------------------------------
 # 4. INTELLIGENCE ARTIFICIELLE (GEMINI API 2.5 PRO & EMBEDDINGS)
 # ------------------------------------------------------------------------------
-# Clé API Google Gemini Developer Studio
-GEMINI_API_KEY="AIzaSyYourActualGoogleGeminiApiKeyGoesHere"
-GEMINI_SOCRATIC_MODEL="gemini-2.5-pro"
-GEMINI_EMBEDDING_MODEL="text-embedding-004"
+# Orchestrateur IA Souverain Antigravity (Zero API Key Externe)
+# Le système exploite nativement les Automatisations et Customizations d'Antigravity
+ANTIGRAVITY_WORKSPACE_PATH="C:/Users/ADMIN/Documents/LevelUp"
+ANTIGRAVITY_SKILL_NAME="levelup-architect"
+ANTIGRAVITY_CRON_MORNING="CRON_TZ=Africa/Porto-Novo 0 6 * * *"
+ANTIGRAVITY_CRON_EVENING="CRON_TZ=Africa/Porto-Novo 30 21 * * *"
 
 # ------------------------------------------------------------------------------
 # 5. MICROSERVICE DE RECONNAISSANCE VOCALE (FASTER-WHISPER)

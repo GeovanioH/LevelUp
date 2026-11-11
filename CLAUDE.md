@@ -763,8 +763,8 @@ Tout agent IA intervenant sur le projet est sous le coup d'une interdiction abso
 - ✅ **OBLIGATOIRE :** `import { randomUUID } from 'node:crypto'; const id = randomUUID();`
 
 ### Anti-Pattern 15 : Divulgation de Secrets dans les Fichiers de Logs
-- ❌ **INTERDIT :** `logger.info({ apiKey: process.env.GEMINI_API_KEY }, 'Clé chargée');`
-- ✅ **OBLIGATOIRE :** `logger.info({ keyConfigured: Boolean(process.env.GEMINI_API_KEY) }, 'Clé IA initialisée');`
+- ❌ **INTERDIT :** `logger.info({ apiKey: process.env.NEXTDNS_API_KEY }, 'Clé NextDNS chargée');`
+- ✅ **OBLIGATOIRE :** `logger.info({ keyConfigured: Boolean(process.env.NEXTDNS_API_KEY) }, 'Clé NextDNS initialisée');`
 
 ### Anti-Pattern 16 : Injection de Markdown Non Assaini (Vulnérabilité XSS)
 - ❌ **INTERDIT :** `<div dangerouslySetInnerHTML={{ __html: rawMarkdownContent }} />`
@@ -2080,7 +2080,7 @@ Pour garantir que l'environnement d'exécution de *LevelUp* ne souffre d'aucune 
 | `JWT_SECRET` | HMAC-SHA512 (64 octets) | Tous les 90 jours | Déconnexion automatique des sessions Web HUD et régénération des tokens. |
 | `DEERFLOW_WEBHOOK_SECRET` | HMAC-SHA256 (32 octets) | Tous les 180 jours | Mise à jour simultanée dans le démon Playwright et l'API Fastify. |
 | `SYSTEM_MASTER_ENCRYPTION_KEY` | AES-256 (32 octets CSPRNG)| Annuelle (ou sur suspicion de compromission) | Re-chiffrement complet des colonnes chiffrées de la base PostgreSQL via script dédié. |
-| `GEMINI_API_KEY` | Chaîne Google Cloud (39 chars)| Selon cycle Google Cloud | Aucun impact sur les données locales ; bascule immédiate sur la nouvelle clé. |
+| `ANTIGRAVITY_SIDECAR` | JSON Sidecar Antigravity | Statique / Permanent | Démarre les conversations de briefing ; modifiable dans ~/.gemini/config/sidecars | la nouvelle clé. |
 | `DISCORD_BOT_TOKEN` | Token Bot Discord v14 | Annuelle | Régénération sur le Discord Developer Portal et redémarrage du processus bot. |
 
 ### 27.2 Script de Re-chiffrement des Données lors de la Rotation (`scripts/rotate_encryption_key.ts`)

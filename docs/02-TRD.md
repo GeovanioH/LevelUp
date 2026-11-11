@@ -1189,6 +1189,57 @@ rules:
 ---
 
 
+### 7.6 Intégration Native des Automatisations Antigravity (Sidecars Planifiés & AgentAPI)
+
+Conformément à l'exigence fondamentale de souveraineté et d'absence totale d'API externe payante (ou quota Google AI Studio), LevelUp n'utilise pas de client HTTP externe pour interroger l'IA. C'est **Google Antigravity lui-même** qui agit comme moteur d'exécution et d'orchestration à travers son mécanisme officiel de **Sidecars d'automatisation planifiée** (`"builtin": "schedule"`).
+
+#### 1. Architecture des Automatisations Planifiées (Sidecars)
+Les automatisations sont enregistrées dans le répertoire de configuration local d'Antigravity (`~/.gemini/config/sidecars/`) :
+- **Briefing Matinal & Distribution des Quêtes (`levelup-morning-briefing/sidecar.json`) :**
+  - Déclenchement automatique chaque matin à 06h00 (heure locale `Africa/Porto-Novo` / UTC+1) via l'exécutable système `agentapi new-conversation`.
+  - Ouvre une conversation fraîche dans le client Antigravity avec le titre `LevelUp // L'Architecte - Briefing Matinal & Quêtes`.
+  - Assigne les 3 quêtes journalières obligatoires (Physique, Intellectuelle, Technique/Focus) plus la quête optionnelle héroïque.
+- **Bilan Vespéral & Évaluation Orale (`levelup-evening-debrief/sidecar.json`) :**
+  - Déclenchement automatique chaque soir à 21h30 (heure locale).
+  - Ouvre une conversation d'évaluation interactive : interrogatoire oral sur 20 points (Cambridge C1/C2 ou synthèse technique), audit NextDNS (vérification de 0 infraction), calcul de l'XP et recalcul du Score Harmonique $S_H$.
+
+```json
+{
+  "builtin": "schedule",
+  "args": [
+    "CRON_TZ=Africa/Porto-Novo 0 6 * * *",
+    "agentapi",
+    "new-conversation",
+    "--model=pro",
+    "--title=LevelUp // L'Architecte - Briefing Matinal & Quêtes",
+    "--",
+    "Tu es L'Architecte souverain du Système LevelUp (Solo Leveling IRL)..."
+  ],
+  "restart_policy": "always",
+  "display_name": "LevelUp // L'Architecte - Briefing Matinal & Quêtes",
+  "agent_permissions": {
+    "workspace_uris": ["file:///C:/Users/ADMIN/Documents/LevelUp"],
+    "access_grants": [
+      "command(git status)",
+      "command(git log)",
+      "read_file(C:/Users/ADMIN/Documents/LevelUp)",
+      "write_file(C:/Users/ADMIN/Documents/LevelUp)"
+    ]
+  }
+}
+```
+
+#### 2. Système de Personnalisation Souverain (`skills/levelup-architect` & `GEMINI.md`)
+Pour conférer à l'agent Antigravity toutes les règles de conduite, barèmes et données du Système sans dépendance externe :
+- **Compétence Globale & Locale (`SKILL.md`) :** Enregistrée dans `~/.gemini/config/skills/levelup-architect/SKILL.md` et dans `.agents/skills/levelup-architect/SKILL.md`. Elle définit la personnalité de l'Architecte, les routines calisthéniques (17 étapes dos/épaules, abdos TikTok, bras), la formule du Score Harmonique et la grille d'évaluation orale sur 20 points.
+- **Règle de Workspace (`GEMINI.md`) :** Placée à la racine du projet, elle est injectée automatiquement dans toute conversation Antigravity ouverte dans `C:/Users/ADMIN/Documents/LevelUp`.
+- **Avantages Clés :**
+  - Coût financier strict : **0,00 € / mois**.
+  - Zéro fuite de données vers des APIs tierces : tout reste confiné au workspace local.
+  - Résilience totale en cas de coupure Internet : les sessions fonctionnent localement dans l'environnement Antigravity.
+
+---
+
 ## 8. Moteur de Synchronisation Hors-Ligne & Réconciliation Dexie.js
 
 L'application Web HUD est architecturée pour survivre à une perte totale de connectivité réseau (ex: travail dans les transports, sous-sol ou coupure de fibre optique).

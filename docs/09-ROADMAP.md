@@ -282,7 +282,8 @@ export class GeminiLiveAssistantBridge {
   private ws: WebSocket | null = null;
 
   public async startLiveSession(apiKey: string, onAudioChunkReceived: (pcmBytes: Buffer) => void): Promise<void> {
-    const url = `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${apiKey}`;
+    // Pont vocal souverain via session interactive Antigravity (AgentAPI)
+const antigravitySessionCmd = `agentapi new-conversation --title="LevelUp // L'Architecte - Voice Session" --model=pro`;
     this.ws = new WebSocket(url);
 
     this.ws.onopen = () => {
@@ -700,9 +701,9 @@ $$\Phi_{	ext{focus}}(t) = rac{\int_{13}^{30} S_{xx}(f) \, df}{\int_{4}^{8} S_{x
 
 Si $\Phi_{	ext{focus}}(t) \ge 1.85$ pendant plus de 25 minutes conscutives, le Systme dclenche automatiquement l'tat **"Zone du Monarque"** (+20% de gains d'XP et accumulation de Cristaux d'Ombres double). Si $\Phi_{	ext{focus}}(t) < 0.45$ pendant 10 minutes lors d'un bloc de Deep Work, le bot Discord notifie immdiatement une alerte de ralignement postural et un exercice de respiration pranomique (Box Breathing 4-4-4-4).
 
-### 10.2 Pont Vocal Bidirectionnel Temps Rel Gemini Live API (`services/GeminiLiveBridge.ts`)
+### 10.2 Pont Vocal Bidirectionnel & Évaluation Orale Native Antigravity (`services/AntigravityLiveBridge.ts`)
 
-Le pont vocal bidirectionnel permet au joueur d'interagir par la voix de faon fluide, sans appuyer sur un bouton (Push-to-Talk) ni attendre de latence de batching. La connexion s'tablit via WebSocket bidirectionnel direct scuris `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent`.
+Le pont vocal et d'évaluation s'exécute nativement via les sessions conversationnelles interactives d'Antigravity (`agentapi new-conversation --title="LevelUp // Débriefing Vocal Souverain"`). Cette intégration locale élimine toute dépendance réseau distante et assure une évaluation orale sans latence avec confidentialité absolue.
 
 ```typescript
 // apps/api/src/services/GeminiLiveBridge.ts
@@ -730,7 +731,8 @@ export class GeminiLiveBridge extends EventEmitter {
   }
 
   public async connect(): Promise<void> {
-    const url = `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${this.apiKey}`;
+    // Session interactive Antigravity native : communication locale sans clé API externe distante
+const antigravityBridge = 'agentapi new-conversation --title="LevelUp // Débriefing Vocal Souverain"';
     
     return new Promise((resolve, reject) => {
       this.ws = new WebSocket(url);
