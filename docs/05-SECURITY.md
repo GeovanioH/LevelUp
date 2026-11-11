@@ -1,55 +1,136 @@
-# Sécurité, Authentification & Conformité — LevelUp
+# Spécifications de Sécurité, Cryptographie & Conformité — LevelUp
 
-> **Nom du Projet :** LevelUp ("The System")  
-> **Version :** 1.0.0  
-
----
-
-## 1. Modèle de Menaces & Invariants de Sécurité
-
-LevelUp centralise des informations intimes et stratégiques : notes d'études, bourses financières, faiblesses physiques et organisationnelles, clés d'API sensibles (Discord, Gemini, Deerflow). La sécurité doit être sans concession.
-
-### Invariants Non-Négociables :
-1. **Zéro Secret au Client :** Ni le bot token Discord, ni les clés API Gemini ou Deerflow ne sont transmis au navigateur web. Tout transite par le backend sécurisé.
-2. **Chiffrement au Repos (AES-256-GCM) :** Les tokens d'intégration externe et les configurations sensibles stockés en base sont chiffrés avec un sel unique de 96 bits.
-3. **Signature des Webhooks (HMAC SHA-256) :** Les requêtes en provenance de Discord ou de Deerflow sont systématiquement authentifiées via signature cryptographique.
-4. **Validation Stricte aux Frontières :** 100 % des entrées de l'API sont validées avec Zod ou Pydantic (rejet immédiat de tout payload corrompu ou inattendu).
+> **Document ID :** SEC-LVLUP-005  
+> **Nom du Produit :** LevelUp ("The System")  
+> **Version du Document :** 2.0.0 (Spécification de Durcissement Exhaustive)  
+> **Statut :** Validé pour Implémentation  
+> **Auteur :** Lead Cybersecurity Architect & Principal Engineer AI  
 
 ---
 
-## 2. Authentification & Gestion des Sessions
+## 1. Modèle de Menaces (Méthodologie STRIDE)
+
+LevelUp héberge la vie personnelle, académique, stratégique et financière de l'utilisateur. Chaque catégorie de risque du modèle STRIDE a fait l'objet d'une contre-mesure technique inviolable :
+
+| Menace (STRIDE) | Risque Spécifique à LevelUp | Contre-Mesure Technique Implémentée |
+| :--- | :--- | :--- |
+| **Spoofing (Usurpation)** | Un tiers s'authentifie sur le Web HUD ou forge des interactions Discord pour manipuler le Système. | Hachage de mot de passe **Argon2id**, sessions par cookies `HttpOnly; Secure; SameSite=Strict`, et garde-fou strict **Single-User Guard** vérifiant l'ID Discord du propriétaire (`DISCORD_MASTER_USER_ID`). |
+| **Tampering (Altération)** | Falsification des points d'XP, injection d'un faux niveau ou modification non autorisée des quêtes. | Validation stricte des schémas via Zod aux frontières de l'API. Calculs de rangs et d'XP exécutés **exclusivement côté serveur** dans des transactions PostgreSQL atomiques. |
+| **Repudiation (Répudiation)** | Contestation d'une action ou d'une validation de quête sans trace vérifiable. | Table `audit_logs` immuable consignant chaque événement système majeur (complétion de quête, modification de profil, appel d'évaluation IA) avec horodatage UTC et IP. |
+| **Information Disclosure (Fuite)** | Fuite des notes privées du Second Brain, des jetons API (Gemini/Discord) ou des finances. | Chiffrement au repos via **AES-256-GCM** des secrets stockés en base. Zéro variable d'environnement sensible transmise au navigateur client. |
+| **Denial of Service (Déni)** | Surcharge du planificateur ou de l'API audio par envoi de fichiers géants ou requêtes en rafale. | Rate-limiting distribué via Redis (Token Bucket), limitation stricte de la taille des requêtes multipart à 25 Mo et timeout sur les inférences IA. |
+| **Elevation of Privilege (Élévation)** | Un payload forgé tente de forcer le champ `rank_code: "MONARCH"`. | Le schéma Zod d'entrée exclut formellement les champs d'état (`rank_code`, `total_xp`, `current_level`). Ces champs sont en lecture seule pour le client. |
+
+---
+
+## 2. Architecture Cryptographique & Chiffrement au Repos
 
 ```mermaid
 flowchart TD
-    UserClient["Client Web / Mobile"] -->|Login HTTPS| AuthEndpoint["/api/auth/login"]
-    AuthEndpoint -->|Vérification Argon2id| DB[(PostgreSQL)]
-    AuthEndpoint -->|Création Session| Cookie["Cookie HttpOnly, Secure, SameSite=Strict"]
-    Cookie --> UserClient
-    
-    DiscordUser["Utilisateur Discord"] -->|Interaction Slash Command| DiscordBot["Bot LevelUp"]
-    DiscordBot -->|Vérification Discord ID propriétaire| BotAuthGuard{"ID Discord == Master ID ?"}
-    BotAuthGuard -->|Oui| ExecCmd["Exécution Commande Système"]
-    BotAuthGuard -->|Non| RejectCmd["Refus Immédiat 403"]
+    subgraph KeyManagement ["Gestion des Clés"]
+        MasterKey["Clé Maîtresse d'Application (APP_ENCRYPTION_KEY)<br>256 bits Hexadécimaux dans .env sécurisé"]
+        KDF["Dérivation de Sous-Clés (HKDF SHA-256)"]
+        MasterKey --> KDF
+    end
+
+    subgraph DataEncryption ["Chiffrement Enveloppe (AES-256-GCM)"]
+        Plaintext["Donnée Sensible en Clair<br>(Tokens API externes, Configurations privées)"]
+        IV["Vecteur d'Initialisation (IV)<br>96 bits Aléatoires cryptographiques (CSPRNG)"]
+        
+        KDF --> AES["Chiffreur AES-GCM"]
+        Plaintext --> AES
+        IV --> AES
+        
+        AES --> Ciphertext["Texte Chiffré"]
+        AES --> AuthTag["Tag d'Authentification (128 bits)"]
+    end
+
+    subgraph Storage ["Persistance BDD"]
+        PayloadFinal["Format Stocké : IV:Ciphertext:AuthTag (Hex)"]
+        Ciphertext --> PayloadFinal
+        AuthTag --> PayloadFinal
+        IV --> PayloadFinal
+        PayloadFinal --> DB[(PostgreSQL)]
+    end
 ```
 
-* **Accès Web :** Authentification par mot de passe avec hachage **Argon2id**. Session gérée via cookies `HttpOnly`, `Secure` et `SameSite=Strict` avec token JWT de courte durée (1 heure) et rotation de Refresh Token.
-* **Accès Discord (Single-User Lock) :** Le bot n'exécute aucune action si l'ID Discord de l'émetteur ne correspond pas rigoureusement à l'ID du propriétaire du Système configuré dans les variables d'environnement (`DISCORD_MASTER_USER_ID`).
+### 2.1 Spécification d'Implémentation AES-256-GCM
+* **Module :** `lib/crypto/encryption.ts`.
+* **Algorithme :** `aes-256-gcm` (Chiffrement Authentifié avec Données Associées - AEAD).
+* **Vecteur d'Initialisation (IV) :** 12 octets (96 bits) générés de manière cryptographiquement sécurisée à chaque chiffrement via `crypto.randomBytes(12)`. Réutilisation d'un même IV formellement interdite.
+* **Tag d'Authentification :** 16 octets (128 bits) assurant que le texte chiffré n'a subi aucune altération malveillante.
+* **Format Sérialisé :** `iv_hex:ciphertext_hex:tag_hex`.
+
+### 2.2 Hachage des Identifiants (Argon2id)
+* **Algorithme :** Argon2id (recommandation officielle ANSSI / OWASP).
+* **Paramètres de Dérivation :**
+  * `memoryCost` : 65 536 Ko (64 Mo de mémoire vive imposée par tentative).
+  * `timeCost` : 3 itérations.
+  * `parallelism` : 4 threads concurrents.
+  * `hashLength` : 32 octets.
 
 ---
 
-## 3. Sécurité des Données du Cerveau Numérique
+## 3. Sécurité du Bot Discord (Single-User Guard)
 
-* **Sanitisation Markdown :** Tout contenu rendu dans l'interface est nettoyé via `DOMPurify` pour empêcher toute tentative de Cross-Site Scripting (XSS) stocké dans les notes.
-* **Isolation du Système de Fichiers :** Lors de l'écriture ou de la lecture des fichiers Markdown locaux, les chemins d'accès (*slugs*) sont validés contre toute attaque par traversée de répertoires (*Directory Traversal* `../`).
+Pour interdire toute exploitation malveillante ou injection de commandes par des utilisateurs tiers d'un serveur Discord partagé, le bot intègre un intercepteur de sécurité en couche zéro :
+
+```typescript
+// lib/discord/guards/singleUserGuard.ts
+import { Interaction } from 'discord.js';
+
+export function assertMasterUser(interaction: Interaction): boolean {
+  const masterId = process.env.DISCORD_MASTER_USER_ID;
+  
+  if (!masterId || interaction.user.id !== masterId) {
+    if (interaction.isRepliable()) {
+      interaction.reply({
+        content: "⛔ **Accès Refusé :** Vous n'êtes pas le Monarque reconnu par ce Système.",
+        ephemeral: true // Message visible exclusivement par l'émetteur rejeté
+      });
+    }
+    console.warn(`[SECURITY ALERT] Tentative d'accès non autorisée de l'ID Discord : ${interaction.user.id}`);
+    return false;
+  }
+  return true;
+}
+```
 
 ---
 
-## 4. Matrice des Secrets & Variables d'Environnement
+## 4. Sécurité du Cerveau Numérique (XSS & Path Traversal)
 
-| Variable | Rôle | Niveau de Risque | Chiffrement |
-| :--- | :--- | :--- | :--- |
-| `DISCORD_BOT_TOKEN` | Jeton d'authentification du bot Discord | Critique | Chiffré au repos |
-| `GEMINI_API_KEY` | Clé pour l'Architecte IA & Transcription | Élevé | Chiffré au repos |
-| `DEERFLOW_API_TOKEN` | Jeton d'accès aux flux de recherche | Élevé | Chiffré au repos |
-| `DATABASE_URL` | Chaîne de connexion PostgreSQL | Critique | Variable d'environnement serveur |
-| `APP_ENCRYPTION_KEY` | Clé maîtresse AES-256-GCM (32 bytes hex) | Suprême | Secret machine non versionné |
+### 4.1 Prévention du Cross-Site Scripting (XSS) Stocké
+Le Cerveau Numérique interprète du Markdown riche (incluant des tables et du LaTeX). Tout HTML généré passe obligatoirement au crible d'un parseur assaini avec `DOMPurify` :
+
+```typescript
+// lib/markdown/sanitizer.ts
+import DOMPurify from 'isomorphic-dompurify';
+
+export function sanitizeMarkdownHtml(rawHtml: string): string {
+  return DOMPurify.sanitize(rawHtml, {
+    ALLOWED_TAGS: [
+      'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'b', 'i', 'strong', 'em',
+      'ul', 'ol', 'li', 'code', 'pre', 'blockquote', 'table', 'thead', 'tbody',
+      'tr', 'th', 'td', 'a', 'span', 'hr'
+    ],
+    ALLOWED_ATTR: ['href', 'target', 'rel', 'class'],
+    FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'form', 'input'],
+    FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover']
+  });
+}
+```
+
+### 4.2 Prévention de la Traversée de Répertoire (*Path Traversal*)
+Lors de l'écriture ou de la lecture d'une note Markdown sur le disque local :
+1. Les caractères réservés et séquences relatives (`..`, `/`, `\`) sont systématiquement éliminés des slugs.
+2. La résolution du chemin canonique (`path.resolve`) vérifie que le chemin final se trouve obligatoirement confiné à l'intérieur du répertoire racine configuré (`STORAGE_NOTES_ROOT`).
+
+---
+
+## 5. Mécanisme de Sanction Réseau (Invariants de Sécurité du Pare-feu Local)
+
+Le script de restriction locale (option V1.5 pour la zone de pénalité) applique des règles strictes de sécurité système :
+1. **Zéro Altération Permanente :** Le script effectue une sauvegarde horodatée du fichier `hosts` système (`/etc/hosts` ou `C:\Windows\System32\drivers\etc\hosts`) avant toute modification.
+2. **Durée de Vie Bornée (*TTL Safety Lock*) :** Toute restriction appliquée s'accompagne d'une tâche cron de déblocage automatique après un délai maximal de 24 heures pour prévenir tout blocage définitif en cas de plantage du démon.
+3. **Périmètre Strict :** Seuls les domaines de distraction ciblés (`tiktok.com`, `instagram.com`, `twitter.com`, `youtube.com`) sont redirigés vers `127.0.0.1`. Les accès éducatifs, universitaires, GitHub et Discord restent sanctuarisés et inaltérables.
