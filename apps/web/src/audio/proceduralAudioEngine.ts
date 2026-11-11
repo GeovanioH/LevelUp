@@ -5,15 +5,21 @@
 export class ProceduralAudioEngine {
   private ctx: AudioContext | null = null;
 
-  private getAudioContext(): AudioContext {
+  private getAudioContext(): AudioContext | null {
     if (!this.ctx) {
       const AudioCtx =
-        window.AudioContext ||
-        (window as unknown as { webkitAudioContext: typeof AudioContext })
-          .webkitAudioContext;
-      this.ctx = new AudioCtx();
+        (typeof window !== "undefined" &&
+          (window.AudioContext ||
+            (window as unknown as { webkitAudioContext: typeof AudioContext })
+              .webkitAudioContext)) ||
+        (typeof globalThis !== "undefined" &&
+          (globalThis as unknown as { AudioContext?: typeof AudioContext })
+            .AudioContext);
+      if (AudioCtx) {
+        this.ctx = new AudioCtx();
+      }
     }
-    if (this.ctx.state === "suspended") {
+    if (this.ctx && this.ctx.state === "suspended") {
       this.ctx.resume();
     }
     return this.ctx;
@@ -25,6 +31,7 @@ export class ProceduralAudioEngine {
   public playSystemNotification(): void {
     try {
       const ctx = this.getAudioContext();
+      if (!ctx) return;
       const now = ctx.currentTime;
 
       const osc = ctx.createOscillator();
@@ -47,12 +54,17 @@ export class ProceduralAudioEngine {
     }
   }
 
+  public playNotificationChime(): void {
+    this.playSystemNotification();
+  }
+
   /**
    * Fanfare procédurale de montée de niveau en Do Majeur (Do - Mi - Sol - Do aigu).
    */
   public playLevelUpFanfare(): void {
     try {
       const ctx = this.getAudioContext();
+      if (!ctx) return;
       const now = ctx.currentTime;
 
       // Fréquences C4, E4, G4, C5 (Do Majeur triomphal)
@@ -86,6 +98,7 @@ export class ProceduralAudioEngine {
   public playPenaltyAlarm(): void {
     try {
       const ctx = this.getAudioContext();
+      if (!ctx) return;
       const now = ctx.currentTime;
 
       const osc = ctx.createOscillator();
