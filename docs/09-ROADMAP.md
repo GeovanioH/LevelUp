@@ -1717,9 +1717,468 @@ Pour garantir une comprhension univoque entre le Joueur, les ingnieurs de mainte
 | **SM-2** | *SuperMemo 2* | Algorithme de rptition espace calculant les intervalles optimaux de rexposition mnmotechnique. |
 | **MILP** | *Mixed-Integer Linear Program* | Moteur d'optimisation mathmatique orchestrant la rpartition des quêtes dans la journe du joueur. |
 
+
+
+---
+
+## 21. Feuille de Route d'Exécution Opérationnelle : Les Prompts Détaillés & Suites de Tests par Phase (Phases 0 à 6) & Tests Globaux
+
+> **Statut de Référence :** Guide Maître d'Orchestration Agentique & Pair-Programming  
+> **Méthodologie Imposée :** *Zero Code Before Test Specification* & *Strict Sequential Gating*  
+> **Règle d'Usage :** Pour chaque phase de développement, l'opérateur (ou le sous-agent) copie-colle le **Prompt Maître d'Exécution**, implémente le code dans le monorepo, puis exécute rigoureusement la **Batterie de Tests de Phase**. Aucune phase $N+1$ ne peut être initiée tant que 100 % des tests de la phase $N$ ne sont pas au vert.
+
+```mermaid
+flowchart TD
+    subgraph ExecutionPipeline ["Pipeline d'Exécution Séquentiel par Phase"]
+        direction TB
+        P0["Phase 0 : Socle Monorepo & Infra"] --> T0["Tests Phase 0 (0.1 à 0.4)"]
+        T0 --> P1["Phase 1 : Moteur Math & Crypto"]
+        P1 --> T1["Tests Phase 1 (1.1 à 1.4)"]
+        T1 --> P2["Phase 2 : HUD Web Holographique"]
+        P2 --> T2["Tests Phase 2 (2.1 à 2.4)"]
+        T2 --> P3["Phase 3 : Audio, MediaPipe & Brain"]
+        P3 --> T3["Tests Phase 3 (3.1 à 3.4)"]
+        T3 --> P4["Phase 4 : Planner & Bot Discord"]
+        P4 --> T4["Tests Phase 4 (4.1 à 4.4)"]
+        T4 --> P5["Phase 5 : IA Locale, Bourses & NextDNS"]
+        P5 --> T5["Tests Phase 5 (5.1 à 5.4)"]
+        T5 --> P6["Phase 6 : Durcissement & Déploiement"]
+        P6 --> T6["Tests Phase 6 (6.1 à 6.4)"]
+        T6 --> TG["Tests Globaux & Smoke Test E2E Final"]
+    end
+```
+
+---
+
+### 21.1 Phase 0 : Socle Technique, Monorepo & Infrastructure
+
+#### A. Périmètre & Objectifs
+Mettre en place la racine du monorepo pnpm v9+ avec Turborepo, la configuration TypeScript 5.x la plus stricte, la conteneurisation Docker (PostgreSQL 16 avec extensions `pg_trgm`/`uuid-ossp` et Redis 7), l'initialisation du schéma Prisma avec les seeds des 120 compétences et des 8 bases de vie, et le pipeline CI/CD GitHub Actions avec hooks de pre-commit Husky.
+
+#### B. Prompt Maître d'Exécution (Phase 0)
+```markdown
+Tu es L'Architecte et l'ingénieur pair-programming en chef du projet LevelUp ("The System").
+Ta mission est d'implémenter l'intégralité de la PHASE 0 : Socle Technique, Monorepo & Infrastructure, dans C:\Users\ADMIN\Documents\LevelUp.
+
+Contraintes Strictes :
+1. Monorepo pnpm v9+ géré par Turborepo (`turbo.json`).
+2. Configuration TypeScript 5.x ultra-stricte (`tsconfig.base.json` : `strict: true`, `noImplicitAny: true`, `exactOptionalPropertyTypes: true`).
+3. Base de données PostgreSQL 16 + Redis 7 conteneurisées dans `docker-compose.yml` avec sondes de santé (`healthcheck`) robustes.
+4. Schéma Prisma dans `packages/database/prisma/schema.prisma` conforme à docs/04-BACKEND_SCHEMA.md (7 tables maîtresses : players, player_stats, skill_nodes, quests, time_blocks, second_brain_notes, voice_transcriptions).
+5. Script de seed dans `packages/database/prisma/seed.ts` insérant exactement les 120 compétences canoniques et le profil du joueur Huriel avec les 8 bases (ACAD, AI_ENG, CYBER, EXP, LNG, FIN, STR, DIS).
+6. Hooks Husky pre-commit exécutant `pnpm lint` et `pnpm typecheck`.
+
+Livrables à Générer :
+- `package.json` (Root avec workspaces : "apps/*", "packages/*", "services/*")
+- `pnpm-workspace.yaml`
+- `turbo.json`
+- `tsconfig.base.json`
+- `docker-compose.yml` et `.env.example`
+- `packages/database/package.json`, `packages/database/prisma/schema.prisma`, `packages/database/prisma/seed.ts`
+- `.github/workflows/quality_gate.yml`
+- `.husky/pre-commit` et configuration `lint-staged`
+
+Exécute la configuration pas-à-pas, lance les commandes d'installation, applique les migrations, et assure-toi que le monorepo compile sans la moindre erreur ni avertissement.
+```
+
+#### C. Batterie de Tests de Validation (Phase 0)
+Pour valider et clôturer la Phase 0, exécute les 4 mini-tests suivants :
+1. **Test 0.1 (Hygiène & Typage Strict) :**
+   ```bash
+   pnpm install --frozen-lockfile
+   pnpm lint && pnpm typecheck
+   ```
+   *DoD :* Code retour `0`, 0 erreur, 0 avertissement, aucun `any` non justifié.
+2. **Test 0.2 (Healthchecks Docker Postgres & Redis) :**
+   ```bash
+   docker compose down -v
+   docker compose up -d
+   docker compose exec postgres pg_isready -U levelup_master -d levelup_db
+   docker compose exec redis redis-cli ping
+   ```
+   *DoD :* Postgres renvoie `accepting connections`, Redis renvoie `PONG`.
+3. **Test 0.3 (Migration Prisma & Seed 120 Compétences) :**
+   ```bash
+   cd packages/database
+   pnpm prisma migrate dev --name init_schema
+   pnpm prisma db seed
+   pnpm tsx -e "import { PrismaClient } from '@prisma/client'; const p = new PrismaClient(); p.skillNode.count().then(c => console.log('SKILL_COUNT:', c));"
+   ```
+   *DoD :* Affichage exact `SKILL_COUNT: 120`.
+4. **Test 0.4 (Hook Pre-Commit Husky) :**
+   ```bash
+   git commit --allow-empty -m "test: verify pre-commit hook"
+   ```
+   *DoD :* Déclenchement automatique et succès du hook lint/typecheck.
+
+---
+
+### 21.2 Phase 1 : Moteur Mathématique d'XP, Domaines & Cryptographie
+
+#### A. Périmètre & Objectifs
+Implémenter le cœur logique et mathématique dans `packages/contracts` et `packages/crypto` : la formule de niveau $	ext{XP}(L) = 100 	imes \lfloor L^{1.75} floor$, le calcul du Score Harmonique global $S_H = rac{8}{\sum_{b=1}^8 rac{1}{\max(S_b, 1)}}$, le moteur biophysique de vitalité (jauge HP selon Borbély avec $	au_w pprox 18.2	ext{ h}$, jauge MP selon Gandevia avec $+10	ext{ MP}$ à chaque validation), et le module de chiffrement AES-256-GCM + Argon2id pour la protection des tokens NextDNS et des données locales.
+
+#### B. Prompt Maître d'Exécution (Phase 1)
+```markdown
+Tu es L'Architecte et l'ingénieur pair-programming du Système LevelUp.
+Ta mission est d'implémenter la PHASE 1 : Moteur Mathématique, Domaines & Cryptographie.
+
+Invariants Mathématiques & Biophysiques :
+1. Calcul d'XP : `calculateNextLevelXp(level: number): number = 100 * Math.floor(Math.pow(level, 1.75))`.
+2. Score Harmonique des 8 bases : $S_H = rac{8}{\sum_{b=1}^8 rac{1}{\max(S_b, 1)}}$. Interdiction formelle de score virtuel ; si une base tombe vers 0, le score global s'effondre.
+3. Échelle des 7 Rangs Réels : E (1-10), D (11-25), C (26-45), B (46-65, hackathon obligatoire), A (66-85), S (86-95), MONARCH (96-100).
+4. Physiologie Souveraine HP/Mana : Modèle Borbély garantissant $HP \ge 80\%$ après 16h d'éveil actif. Aucune mention de fatigue permise ; statuts valorisants "Résilience Biologique Souveraine" et "Focus Cognitif Indomptable".
+5. Cryptographie : Module `packages/crypto` avec chiffrement enveloppe AES-256-GCM (IV aléatoire 12 octets, authTag 16 octets), dérivation PBKDF2/Argon2id, et SingleUserGuard.
+
+Livrables à Générer :
+- `packages/contracts/src/math/xpFormulas.ts`
+- `packages/contracts/src/math/harmonicRankEngine.ts`
+- `packages/contracts/src/math/vitalityEngine.ts`
+- `packages/contracts/src/schemas/*.ts` (Schémas Zod pour Player, Stats, Quests, Exercises)
+- `packages/crypto/src/aesGcm.ts`
+- `packages/crypto/src/hasher.ts`
+- `tests/unit/engine/xp_calculator.spec.ts`
+- `tests/unit/engine/harmonic_rank.spec.ts`
+- `tests/unit/engine/vitality_engine.spec.ts`
+- `tests/unit/crypto/aes_gcm.spec.ts`
+
+Règle Red-Green-Refactor : Écris d'abord les tests Vitest correspondants dans `tests/unit/`, vérifie qu'ils échouent rouge, puis écris le code métier jusqu'à obtenir 100 % de succès vert.
+```
+
+#### C. Batterie de Tests de Validation (Phase 1)
+Exécute la suite Vitest dédiée au moteur mathématique et à la cryptographie :
+1. **Test 1.1 (Paliers d'XP & Invariants de Progression) :**
+   ```bash
+   pnpm --filter @levelup/contracts test tests/unit/engine/xp_calculator.spec.ts
+   ```
+   *DoD :* $	ext{XP}(1)=100$, $	ext{XP}(5)=348$, $	ext{XP}(14)=1750$, rejet absolu des valeurs négatives via exception typée.
+2. **Test 1.2 (Score Harmonique & Règle Anti-Asymétrie) :**
+   ```bash
+   pnpm --filter @levelup/contracts test tests/unit/engine/harmonic_rank.spec.ts
+   ```
+   *DoD :* Vérification que si 7 bases valent 800 mais que la 8ème vaut 10, $S_H$ chute drastiquement et signale la base défaillante.
+3. **Test 1.3 (Moteur de Vitalité Borbély & Gandevia) :**
+   ```bash
+   pnpm --filter @levelup/contracts test tests/unit/engine/vitality_engine.spec.ts
+   ```
+   *DoD :* $HP \ge 80\%$ à $t = 16	ext{ h}$, pulse de $+10	ext{ MP}$ sur résolution de quête, aucune valeur textuelle négative.
+4. **Test 1.4 (Chiffrement AES-256-GCM & Intégrité AuthTag) :**
+   ```bash
+   pnpm --filter @levelup/crypto test tests/unit/crypto/aes_gcm.spec.ts
+   ```
+   *DoD :* Chiffrement/déchiffrement conforme, altération d'un seul bit de l'authTag lève immédiatement une exception d'intégrité.
+
+---
+
+### 21.3 Phase 2 : HUD Web Holographique Solo Leveling (React 19 + Dexie.js)
+
+#### A. Périmètre & Objectifs
+Développer l'application front-end Progressive Web App (PWA) dans `apps/web` en utilisant React 19, Vite, TailwindCSS, Dexie.js (IndexedDB local-first pour une résilience totale sans connexion), WebGL shaders (flammes d'ombre néon et particules de mana), et Web Audio API (fanfares procédurales Do Majeur).
+
+#### B. Prompt Maître d'Exécution (Phase 2)
+```markdown
+Tu es L'Architecte et l'ingénieur frontend de LevelUp ("The System").
+Ta mission est d'implémenter la PHASE 2 : HUD Web Holographique Solo Leveling (PWA React 19).
+
+Directives Visuelles & Ergonomiques :
+1. Thème Solo Leveling strict : Fond noir abysse `#0A0A10`, bleu néon mana `#00F0FF`, violet sombre Monarque `#8A2BE2`, bordures dorées de rang `#FFD700`.
+2. Jauges Vitales Holographiques : Jauge HP et Jauge MP animées avec lueur néon et affichage des statuts souverains ("Résilience Biologique Souveraine", "Focus Cognitif Indomptable").
+3. Carte d'Identité du Chasseur : Titre de rang actuel, niveau global harmonique $L_{	ext{global}}$, badge de rang canonique (E à MONARCH).
+4. Radar Octogonal des 8 Bases : Graphique interactif (SVG / Canvas) affichant l'équilibre des 8 piliers (ACAD, AI_ENG, CYBER, EXP, LNG, FIN, STR, DIS).
+5. Visualiseur DAG de l'Arbre des 120 Compétences : Graphe interactif zoomable/pannable avec nœuds déverrouillés, en cours ou verrouillés.
+6. Local-First Offline avec Dexie.js : Stockage complet des stats et quêtes dans IndexedDB, synchronisation bidirectionnelle fluide en arrière-plan.
+7. Moteur Sonore Web Audio API : Bruitages procéduraux de notification système et fanfare de montée de niveau en Do Majeur.
+
+Livrables à Générer dans `apps/web` :
+- `src/components/VitalGauges.tsx`
+- `src/components/PlayerIdCard.tsx`
+- `src/components/OctagonalRadar.tsx`
+- `src/components/SkillTreeDagViewer.tsx`
+- `src/components/DailyQuestsModal.tsx`
+- `src/db/levelupDexie.ts` (IndexedDB schema)
+- `src/audio/proceduralAudioEngine.ts`
+- Tests unitaires et de composants React (`tests/unit/ui/*.spec.tsx`)
+
+Assure-toi que les composants s'affichent avec fluidité (> 60 FPS) sans saccade de rendu.
+```
+
+#### C. Batterie de Tests de Validation (Phase 2)
+1. **Test 2.1 (Rendu & Assertions des Composants HUD) :**
+   ```bash
+   pnpm --filter @levelup/web test tests/unit/ui/vital_gauges.spec.tsx
+   ```
+   *DoD :* Les jauges HP et MP s'affichent avec leurs dégradés néon et les étiquettes textuelles exactes.
+2. **Test 2.2 (Arbre DAG des 120 Compétences) :**
+   ```bash
+   pnpm --filter @levelup/web test tests/unit/ui/skill_dag.spec.tsx
+   ```
+   *DoD :* 120 nœuds instanciés, arêtes de dépendances valides, pas de cycle bloquant.
+3. **Test 2.3 (Persistance & Résilience Hors-Ligne Dexie.js) :**
+   ```bash
+   pnpm --filter @levelup/web test tests/unit/db/dexie_offline.spec.ts
+   ```
+   *DoD :* Écriture locale immédiate dans IndexedDB sans connexion réseau, lecture instantanée.
+4. **Test 2.4 (Synthétiseur Web Audio API) :**
+   ```bash
+   pnpm --filter @levelup/web test tests/unit/audio/audio_engine.spec.ts
+   ```
+   *DoD :* Initialisation de l'AudioContext sans crash, déclenchement des oscillateurs sur fréquence fondamentale 523.25 Hz (Do5).
+
+---
+
+### 21.4 Phase 3 : Pipeline Audio, Vision par Ordinateur (MediaPipe) & Cerveau Numérique
+
+#### A. Périmètre & Objectifs
+Implémenter le moteur de vision par ordinateur client (MediaPipe Pose WASM) pour le comptage automatique et anti-triche des répétitions calisthéniques (les 4 routines maison d'Huriel, dont les 17 étapes Dos/Épaules avec angles $\le 75^\circ$ et $\ge 160^\circ$), le worker asynchrone Faster-Whisper CUDA INT8 pour la transcription vocale, et le moteur de répétition espacée SM-2 pour le Second Brain.
+
+#### B. Prompt Maître d'Exécution (Phase 3)
+```markdown
+Tu es L'Architecte et l'ingénieur IA/Vision de LevelUp ("The System").
+Ta mission est d'implémenter la PHASE 3 : Pipeline Audio, Vision par Ordinateur & Cerveau Numérique.
+
+Spécifications du Moteur Cinématique (MediaPipe Pose WASM) :
+1. Intégration de `@mediapipe/pose` dans `apps/web/src/features/cv/WorkoutCameraViewer.tsx`.
+2. Calcul trigonométrique des angles articulaires en temps réel :
+   - Angle du coude : $ec{u} = 	ext{Épaule} - 	ext{Coude}$, $ec{v} = 	ext{Poignet} - 	ext{Coude}$, $	heta = rccos\left(rac{ec{u} \cdot ec{v}}{\|ec{u}\| \|ec{v}\|}ight)$.
+   - Règle Anti-Triche : Flexion validée si $	heta \le 75^\circ$, extension complète si $	heta \ge 160^\circ$.
+   - Machine à états finis des répétitions : `IDLE` -> `REP_DOWN` -> `REP_UP` -> `REP_COUNTED`.
+3. Routines Encodées Strictes :
+   - Routine Dos & Épaules (17 étapes avec compteurs temps/reps : Jumping Jacks, Hyperextensions x14, Pike Push-Ups x14, Reverse Push-Ups x12, Inchworms x16, Stretches, Cat-Cow, Supine, Y-Raises, Snow Angels, Child's Pose).
+   - Routine Bras & Triceps (variantes à l'échec postural strict).
+   - Routine Abdos d'Acier (V-Ups, Mountain Climbers, Relevés, Gainages).
+
+Spécifications Audio & Second Brain :
+4. Worker Python Faster-Whisper INT8 (`services/whisper/worker.py`) écoutant sur Redis BullMQ, transcrivant l'audio Opus/WebM en moins de 2 secondes.
+5. Algorithme de répétition espacée SM-2 dans `packages/brain/src/sm2.ts` (facteur d'aisance $EF$, intervalles de révision $I(n)$).
+
+Livrables à Générer :
+- `apps/web/src/features/cv/poseMath.ts`
+- `apps/web/src/features/cv/useExerciseCounter.ts`
+- `apps/web/src/features/cv/WorkoutCameraViewer.tsx`
+- `packages/brain/src/sm2.ts`
+- `services/whisper/worker.py`
+- Tests unitaires `tests/unit/cv/mediapipe_counter.spec.ts` et `tests/unit/brain/sm2.spec.ts`
+```
+
+#### C. Batterie de Tests de Validation (Phase 3)
+1. **Test 3.1 (Cinématique Angulaire & Machine à États MediaPipe) :**
+   ```bash
+   pnpm test tests/unit/cv/mediapipe_counter.spec.ts
+   ```
+   *DoD :* Répétition validée si et seulement si coude passe sous $75^\circ$ puis remonte au-dessus de $160^\circ$. Rejet strict des demi-répétitions.
+2. **Test 3.2 (Transition Séquentielle des 17 Étapes Dos & Épaules) :**
+   ```bash
+   pnpm test tests/unit/cv/routine_sequence.spec.ts
+   ```
+   *DoD :* Enchaînement chronologique sans saut d'étape, validation de chaque exercice au quota défini.
+3. **Test 3.3 (Worker Faster-Whisper CUDA INT8) :**
+   ```bash
+   python -m unittest services/whisper/test_worker.py
+   ```
+   *DoD :* Transcription d'un fichier audio test de 10s en moins de 1.8s avec Word Error Rate (WER) $< 5\%$.
+4. **Test 3.4 (Moteur SM-2 & Calcul des Intervalles) :**
+   ```bash
+   pnpm test tests/unit/brain/sm2.spec.ts
+   ```
+   *DoD :* Facteur d'aisance et intervalles conformes aux équations mathématiques de Wozniak.
+
+---
+
+### 21.5 Phase 4 : Planificateur Temporel & Bot Discord (Discord.js v14)
+
+#### A. Périmètre & Objectifs
+Construire le moteur d'ordonnancement circadien Time-Blocking (résolution des conflits d'agenda par optimisation linéaire), et déployer le bot Discord mobile 24/7 (`apps/bot`) utilisant Discord.js v14, intégrant les commandes slash de statut, de validation de quête, les 15 embeds holographiques et le streaming vocal UDP en direct.
+
+#### B. Prompt Maître d'Exécution (Phase 4)
+```markdown
+Tu es L'Architecte et l'ingénieur backend/Discord de LevelUp ("The System").
+Ta mission est d'implémenter la PHASE 4 : Planificateur Temporel & Bot Discord (Discord.js v14).
+
+Spécifications du Planificateur :
+1. Moteur de Time-Blocking dans `packages/scheduler/src/timeBlocking.ts` : gestion des créneaux fixes (cours fac, sommeil 23h-07h), détection des chevauchements d'horaires et génération dynamique des blocs de Deep Work.
+
+Spécifications du Bot Discord :
+2. Daemon Discord.js v14 dans `apps/bot` :
+   - Connexion Gateway 24/7 avec reconnexion exponentielle.
+   - Commandes Slash : `/status` (affiche le HUD du Chasseur avec jauges HP/MP et niveau), `/valider [quete_id]` (validation manuelle de quête avec preuve), `/stats` (graphique des 8 bases).
+   - Formatage holographique des 15 embeds Discord avec bordures de couleur selon le rang.
+   - Récepteur audio vocal UDP pour permettre à Huriel d'enregistrer ses bilans oraux directement dans un salon vocal privé.
+
+Livrables à Générer :
+- `packages/scheduler/src/timeBlocking.ts`
+- `apps/bot/src/index.ts`
+- `apps/bot/src/commands/status.ts`
+- `apps/bot/src/commands/valider.ts`
+- `apps/bot/src/embeds/holographicEmbeds.ts`
+- `apps/bot/src/voice/discordVoiceReceiver.ts`
+- Tests unitaires `tests/unit/bot/*.spec.ts` et `tests/unit/scheduler/*.spec.ts`
+```
+
+#### C. Batterie de Tests de Validation (Phase 4)
+1. **Test 4.1 (Détection des Chevauchements d'Agenda) :**
+   ```bash
+   pnpm test tests/unit/scheduler/time_blocking.spec.ts
+   ```
+   *DoD :* Détection immédiate d'un conflit de créneau et replanification sans écraser les blocs sanctuarisés (sommeil, sport).
+2. **Test 4.2 (Commandes Slash Discord via Mock Gateway) :**
+   ```bash
+   pnpm --filter @levelup/bot test tests/unit/bot/commands.spec.ts
+   ```
+   *DoD :* `/status` renvoie l'embed formaté avec les scores exacts en moins de 250ms.
+3. **Test 4.3 (Streaming Vocal UDP & Ingestion Audio) :**
+   ```bash
+   pnpm --filter @levelup/bot test tests/unit/bot/voice_udp.spec.ts
+   ```
+   *DoD :* Paquets audio RTP/Opus décodés et transmis dans le buffer sans perte de trames.
+
+---
+
+### 21.6 Phase 5 : Couche IA Locale, Scraping des Bourses & Sentinelle NextDNS
+
+#### A. Périmètre & Objectifs
+Connecter le système au monde extérieur : interfaçage avec l'API Cloud de NextDNS (`POST /profiles/{id}/denylist`) pour activer le pare-feu anti-distraction en Deep Work et lors des pénalités nocturnes, scraper headless Playwright pour la veille automatique des bourses d'excellence et hackathons (Deerflow AI & Google Alerts RSS), et implémenter la grille d'évaluation orale sur 20 points de l'Architecte.
+
+#### B. Prompt Maître d'Exécution (Phase 5)
+```markdown
+Tu es L'Architecte et l'ingénieur DevSecOps/IA de LevelUp ("The System").
+Ta mission est d'implémenter la PHASE 5 : Couche IA Locale, Scraping des Bourses & Sentinelle NextDNS.
+
+Spécifications Sentinelle NextDNS :
+1. Client API NextDNS dans `packages/security/src/nextdnsClient.ts` :
+   - Mise en denylist instantanée des domaines toxiques (TikTok, Instagram, YouTube, X, Reddit) lors du démarrage d'une session Deep Work ou à 22h00/00h01 en cas de quête quotidienne non validée.
+   - Chiffrement AES-256-GCM de la clé d'API NextDNS au repos.
+
+Spécifications Veille Bourses & Hackathons :
+2. Scraper Playwright headless dans `services/deerflow/scraper.ts` :
+   - Cron matinal à 05h00 pour aspirer les flux RSS Google Alerts et les plateformes Devpost/MLH.
+   - Extraction structurée (titre, dotation, date limite, critères d'éligibilité) et insertion dans la table `opportunities`.
+
+Spécifications Grille d'Évaluation Orale (20 Points) :
+3. Évaluateur socratique dans `packages/contracts/src/evaluation/oralGrader.ts` :
+   - 4 axes de 5 points : Précision Conceptuelle (/5), Fluidité (/5), Rigueur Synthèse (/5), Défense (/5).
+
+Livrables à Générer :
+- `packages/security/src/nextdnsClient.ts`
+- `services/deerflow/scraper.ts`
+- `packages/contracts/src/evaluation/oralGrader.ts`
+- Tests unitaires `tests/unit/security/nextdns.spec.ts` et `tests/unit/ai/oral_grader.spec.ts`
+```
+
+#### C. Batterie de Tests de Validation (Phase 5)
+1. **Test 5.1 (Sentinelle NextDNS API & Blocage) :**
+   ```bash
+   pnpm test tests/unit/security/nextdns.spec.ts
+   ```
+   *DoD :* Envoi réussi du payload d'interdiction vers l'API NextDNS mockée, levée d'erreur si la clé est altérée.
+2. **Test 5.2 (Scraping & Normalisation des Bourses Deerflow) :**
+   ```bash
+   pnpm test tests/unit/ai/scraper.spec.ts
+   ```
+   *DoD :* Extraction valide de 10 opportunités types avec typage Zod strict.
+3. **Test 5.3 (Grille de Notation Orale 20 Points) :**
+   ```bash
+   pnpm test tests/unit/ai/oral_grader.spec.ts
+   ```
+   *DoD :* Attribution stricte des notes sans complaisance, respect des 4 critères de 5 points, rejet des prompt injections.
+
+---
+
+### 21.7 Phase 6 : Durcissement, Monitoring, CI/CD & Déploiement Final
+
+#### A. Périmètre & Objectifs
+Finaliser l'infrastructure industrielle : conteneurisation multi-stage de production (`Dockerfile.production`), intégration de la sentinelle matérielle GPU/NVML, pipeline GitHub Actions complet (`quality_gate.yml`), audit de sécurité ASVS, intégrité Merkle Tree de l'audit log, et scripts d'exploitation d'urgence.
+
+#### B. Prompt Maître d'Exécution (Phase 6)
+```markdown
+Tu es L'Architecte et l'ingénieur d'infrastructure de LevelUp ("The System").
+Ta mission est d'implémenter la PHASE 6 : Durcissement, Monitoring, CI/CD & Déploiement Final.
+
+Spécifications de Production :
+1. Dockerfile Multi-Stage optimisé : Build non-root sous Alpine/Distroless, taille d'image minimale (< 150 Mo pour le frontend/backend).
+2. Sentinelle Matérielle GPU/NVML dans `services/sentinel/gpuMonitor.py` : Surveillance des températures VRAM et allocation CUDA pour le worker Whisper.
+3. Pipeline CI/CD GitHub Actions dans `.github/workflows/quality_gate.yml` :
+   - Étape 1 : Linting & Typechecking stricts.
+   - Étape 2 : Exécution de 100 % des suites Vitest.
+   - Étape 3 : Scan de vulnérabilités Trivy / Snyk (0 faille critique ou haute tolérée).
+   - Étape 4 : Audit d'intégrité de la documentation (vérification que les 12 fichiers restent >= 100 000 octets).
+4. Journal d'Audit Cryptographique : Chaînage par arbre de Merkle de chaque gain d'XP et changement de rang pour empêcher toute falsification locale.
+
+Livrables à Générer :
+- `docker/Dockerfile.production`
+- `.github/workflows/quality_gate.yml`
+- `services/sentinel/gpuMonitor.py`
+- `packages/crypto/src/merkleAudit.ts`
+- `scripts/verify_doc_sizes.ts`
+- Tests unitaires `tests/unit/security/merkle.spec.ts`
+```
+
+#### C. Batterie de Tests de Validation (Phase 6)
+1. **Test 6.1 (Build Docker Multi-Stage & Scan Vulnérabilités) :**
+   ```bash
+   docker build -t levelup:production -f docker/Dockerfile.production .
+   trivy image --severity HIGH,CRITICAL levelup:production
+   ```
+   *DoD :* Build réussi, taille < 200 Mo, 0 vulnérabilité critique.
+2. **Test 6.2 (Chaînage Cryptographique Merkle Audit) :**
+   ```bash
+   pnpm test tests/unit/security/merkle.spec.ts
+   ```
+   *DoD :* Toute modification d'un événement passé invalide la racine de Merkle immédiatement.
+3. **Test 6.3 (Vérification d'Intégrité Documentaire >= 100 Ko) :**
+   ```bash
+   pnpm tsx scripts/verify_doc_sizes.ts
+   ```
+   *DoD :* Les 12 fichiers de documentation affichent tous une taille strictement supérieure à 100 000 octets.
+
+---
+
+### 21.8 Suite de Tests Globaux du Projet & Certification Suprême
+
+Une fois les 7 phases (0 à 6) accomplies au vert, le Système doit subir l'épreuve de **Certification Globale de Bout en Bout** avant d'être déclaré opérationnel pour le Monarque :
+
+```mermaid
+flowchart LR
+    A["Smoke Test E2E<br>(Scénario de Vie Réel)"] --> B["Tir de Charge K6<br>(100 VU / Latence < 50ms)"]
+    B --> C["Audit Sécurité ASVS<br>(0 Faille Détectée)"]
+    C --> D["Audit Documentaire<br>(12 Fichiers >= 100 Ko)"]
+    D --> E["CERTIFICATION DU SYSTÈME :<br>STATUT MAÎTRE VALIDÉ"]
+```
+
+#### 1. Le Smoke Test Global End-to-End (`scripts/smoke_test_suite.sh`)
+Exécute le scénario complet d'une journée type du Chasseur :
+```bash
+./scripts/smoke_test_suite.sh
+```
+*Séquence Validée Automatiquement :*
+1. Initialisation du joueur Huriel (Rang E, Niveau 1).
+2. Attribution du pack de quêtes matinales à 06h00.
+3. Déclenchement de la caméra MediaPipe : validation de 14 Pike Push-Ups stricts.
+4. Lancement d'un bloc de Deep Work : NextDNS active le blocage des réseaux sociaux.
+5. Ingestion d'un enregistrement audio : transcription Whisper et notation orale socratique (18/20).
+6. Calcul du Score Harmonique $S_H$ : mise à jour instantanée des jauges HP/MP.
+7. Validation du passage au niveau supérieur sans blocage passif.
+
+#### 2. Tir de Charge & Résilience K6 (`tests/load/k6_stress_test.js`)
+```bash
+k6 run tests/load/k6_stress_test.js
+```
+*Critères d'Acceptation :*
+- 100 utilisateurs virtuels concurrents pendant 5 minutes.
+- Taux d'erreur HTTP $< 0.01\%$.
+- Temps de réponse $p95 < 35	ext{ ms}$, $p99 < 50	ext{ ms}$.
+
+#### 3. Protocole de Certification Finale & Signoff
+Le Système est officiellement verrouillé et prêt pour l'ascension réelle du Monarque lorsque la commande suivante affiche un tableau 100 % vert :
+```bash
+pnpm turbo run test && pnpm turbo run lint && pnpm tsx scripts/verify_phase_gates.ts
+```
+
+---
+
 ```
 ========================================================================================
-                      FIN FINALE DU SCHMA DIRECTEUR V1.0 - V3.0
-                           TAILLE CERTIFIE >= 100 000 OCTETS
+                      FIN FINALE DU SCHÉMA DIRECTEUR V1.0 - V3.0
+                 SECTION 21 OPÉRATIONNELLE : PROMPTS & TESTS PAR PHASE
+                           TAILLE CERTIFIÉE >= 100 000 OCTETS
 ========================================================================================
 ```
