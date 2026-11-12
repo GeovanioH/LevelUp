@@ -312,27 +312,108 @@ const DEFAULT_STATE = {
   ],
   notes: [
     {
-      id: "note-attention-multi-tetes",
+      id: "note-readme",
+      folder: "00_Synthese_Souveraine",
+      base: "DIS",
+      title: "README - Coffre de Connaissances du Monarque",
+      tags: ["hub", "architecture", "second-brain", "solo-leveling"],
+      updatedAt: "2026-11-12T08:00:00Z",
+      content: `# README - Coffre de Connaissances du Monarque
+
+Bienvenue dans le graphe de connaissances central du Système LevelUp (Obsidian Vault). Ce coffre modélise les connexions cognitives entre l'Ingénierie IA, la Cybersécurité, les Mathématiques fondamentales et la Biomécanique.
+
+## Piliers Connectés du Système :
+- **Ingénierie IA & Accélération :** [[FlashAttention-2 & Optimisation Mémoire]] et [[Triton Custom Kernels & CUDA]].
+- **Infrastructure GPU :** [[Hiérarchies Mémoire GPU & VRAM HBM]].
+- **Cybersécurité Offensive :** [[Exploitation de Buffer Overflow x86]] et [[Élévation de Privilèges Linux]].
+- **Fondations Mathématiques :** [[Décomposition en Valeurs Singulières (SVD)]].
+- **Biomécanique & Sport :** [[Cinématique Push-Ups & MediaPipe]] et [[Modèle de Fatigue de Gandevia]].
+- **Rhétorique & Anglais :** [[Lexique Socratique Cambridge C1]].`
+    },
+    {
+      id: "note-flashattention",
+      folder: "01_Ingenierie_IA",
       base: "AI_ENG",
-      title: "Mécanismes d'Attention Multi-Têtes & FlashAttention-2",
-      tags: ["deep-learning", "transformers", "cuda", "nlp"],
-      updatedAt: "2026-11-12T04:20:00Z",
-      content: `# Mécanismes d'Attention Multi-Têtes & FlashAttention-2
+      title: "FlashAttention-2 & Optimisation Mémoire",
+      tags: ["deep-learning", "transformers", "cuda", "vllm"],
+      updatedAt: "2026-11-12T07:30:00Z",
+      content: `# FlashAttention-2 & Optimisation Mémoire
 
 L'attention par produit scalaire mise à l'échelle (*Scaled Dot-Product Attention*) s'écrit de façon canonique :
 
 $$\\text{Attention}(Q, K, V) = \\text{softmax}\\left(\\frac{QK^T}{\\sqrt{d_k}}\\right) V$$
 
-## Optimisation Matérielle FlashAttention-2 :
-1. Évite les transferts mémoire redondants entre la mémoire HBM et la SRAM du GPU NVIDIA.
-2. Utilise le *Tiling* pour calculer le softmax de manière incrémentale en bloc.
-3. Liens sémantiques vers [[gpu-memory-hierarchies]] et [[triton-custom-kernels]].`,
+## Architecture & Tiling
+FlashAttention-2 résout le goulet d'étranglement mémoire en maintenant les états intermédiaires dans la SRAM ultra-rapide du GPU au lieu de faire des allers-retours coûteux vers la mémoire HBM.
+
+### Liens sémantiques :
+- Implémenté via [[Triton Custom Kernels & CUDA]]
+- Optimise les transferts dans [[Hiérarchies Mémoire GPU & VRAM HBM]]
+- Utilisé pour le PagedAttention dans [[vLLM & KV Cache Paging]]
+- Relie les projections orthogonales de [[Décomposition en Valeurs Singulières (SVD)]]`
+    },
+    {
+      id: "note-triton-kernels",
+      folder: "01_Ingenierie_IA",
+      base: "AI_ENG",
+      title: "Triton Custom Kernels & CUDA",
+      tags: ["triton", "cuda", "gpu", "compiler"],
+      updatedAt: "2026-11-12T06:15:00Z",
+      content: `# Triton Custom Kernels & CUDA
+
+OpenAI Triton permet d'écrire des kernels GPU hautement performants directement en Python sans les complexités de synchronisation manuelle des threads CUDA en C++.
+
+## Concept Clé : Les Blocs de Tensors
+\`\`\`python
+@triton.jit
+def _fused_attention_kernel(Q, K, V, sm_scale, Out, BLOCK_M: tl.constexpr):
+    # Bloc SRAM partitionné
+    offsets = tl.arange(0, BLOCK_M)
+\`\`\`
+
+### Liens sémantiques :
+- Requis par [[FlashAttention-2 & Optimisation Mémoire]]
+- Exploite directement les [[Hiérarchies Mémoire GPU & VRAM HBM]]`
+    },
+    {
+      id: "note-gpu-memory",
+      folder: "01_Ingenierie_IA",
+      base: "AI_ENG",
+      title: "Hiérarchies Mémoire GPU & VRAM HBM",
+      tags: ["hardware", "vram", "gpu", "hbm"],
+      updatedAt: "2026-11-11T20:00:00Z",
+      content: `# Hiérarchies Mémoire GPU & VRAM HBM
+
+La latence et la bande passante sur architecture NVIDIA Ampere / Hopper / Ada :
+1. **Registres & SRAM L1 :** ~19 To/s, latence < 10 ns.
+2. **Cache L2 :** ~3-5 To/s, latence ~30 ns.
+3. **Mémoire Globale HBM3 / GDDR6X :** ~1-3 To/s, latence ~200-400 ns.
+
+### Liens sémantiques :
+- Fondement matériel de [[FlashAttention-2 & Optimisation Mémoire]]
+- Contrainte majeure pour [[vLLM & KV Cache Paging]]`
+    },
+    {
+      id: "note-vllm-paging",
+      folder: "01_Ingenierie_IA",
+      base: "AI_ENG",
+      title: "vLLM & KV Cache Paging",
+      tags: ["vllm", "inference", "throughput", "paged-attention"],
+      updatedAt: "2026-11-11T16:00:00Z",
+      content: `# vLLM & KV Cache Paging
+
+L'algorithme PagedAttention s'inspire de la mémoire virtuelle des systèmes d'exploitation pour partitionner le cache des clés et valeurs (KV) en pages non contiguës en mémoire physique.
+
+### Liens sémantiques :
+- Réduit la fragmentation mémoire de [[Hiérarchies Mémoire GPU & VRAM HBM]]
+- Accélère l'attention définie dans [[FlashAttention-2 & Optimisation Mémoire]]`
     },
     {
       id: "note-algebre-svd-ia",
+      folder: "03_Mathematiques",
       base: "ACAD",
-      title: "Décomposition en Valeurs Singulières (SVD) & Réduction PCA",
-      tags: ["mathematiques", "algebre-lineaire", "svd", "pca"],
+      title: "Décomposition en Valeurs Singulières (SVD)",
+      tags: ["mathematiques", "algebre", "svd", "pca"],
       updatedAt: "2026-11-11T18:30:00Z",
       content: `# Décomposition en Valeurs Singulières (SVD)
 
@@ -340,18 +421,91 @@ Toute matrice réelle $A \\in \\mathbb{R}^{m \\times n}$ admet la factorisation 
 
 $$A = U \\Sigma V^T$$
 
-Où $U$ et $V$ sont orthogonales et $\\Sigma$ est diagonale contenant les valeurs singulières classées par ordre décroissant : $\\sigma_1 \\ge \\sigma_2 \\ge \\dots \\ge \\sigma_r > 0$.`,
+Où $U$ et $V$ sont des matrices orthogonales et $\\Sigma$ est une matrice diagonale contenant les valeurs singulières :
+
+$$\\sigma_1 \\ge \\sigma_2 \\ge \\dots \\ge \\sigma_r > 0$$
+
+### Liens sémantiques :
+- Base mathématique de la compression LoRA pour [[FlashAttention-2 & Optimisation Mémoire]]
+- Référencé dans [[README - Coffre de Connaissances du Monarque]]`
     },
     {
       id: "note-tryhackme-buffer-overflow",
+      folder: "02_Cybersecurite",
       base: "CYBER",
-      title: "Exploitation de Buffer Overflow x86 & Contournement ASLR",
-      tags: ["cyber", "pentest", "exploit", "gdb"],
+      title: "Exploitation de Buffer Overflow x86",
+      tags: ["cyber", "buffer-overflow", "gdb", "aslr"],
       updatedAt: "2026-11-10T22:15:00Z",
       content: `# Exploitation de Buffer Overflow x86
 
-Recherche de l'offset exact avec pattern_create et pattern_offset dans GDB PEDA. Écrasement du registre EIP pour rediriger l'exécution vers le NOP Sled et le shellcode.`,
+Recherche du décalage exact avec \`pattern_create\` et \`pattern_offset\` dans GDB PEDA. Écrasement du registre EIP pour rediriger le pointeur d'instruction vers un NOP Sled et le shellcode injecté.
+
+### Liens sémantiques :
+- Complément indispensable pour [[Élévation de Privilèges Linux]]
+- Infiltration liée à [[README - Coffre de Connaissances du Monarque]]`
     },
+    {
+      id: "note-linux-privesc",
+      folder: "02_Cybersecurite",
+      base: "CYBER",
+      title: "Élévation de Privilèges Linux",
+      tags: ["linux", "privesc", "root", "suid"],
+      updatedAt: "2026-11-10T21:00:00Z",
+      content: `# Élévation de Privilèges Linux
+
+Techniques d'audit local : binaires SUID mal configurés (\`find / -perm -4000\`), cron jobs vulnérables, capabilités Linux (\`getcap\`) et exploitation de failles de kernel (Dirty Pipe).
+
+### Liens sémantiques :
+- Seconde phase après [[Exploitation de Buffer Overflow x86]]`
+    },
+    {
+      id: "note-mediapipe-pushups",
+      folder: "04_Calisthenie_Biomecanique",
+      base: "STR",
+      title: "Cinématique Push-Ups & MediaPipe",
+      tags: ["mediapipe", "biomecanique", "computer-vision", "calisthenics"],
+      updatedAt: "2026-11-10T14:00:00Z",
+      content: `# Cinématique Push-Ups & MediaPipe
+
+Suivi en temps réel de 33 points squelettiques via Computer Vision.
+- Angle du coude en flexion : $\\theta \\le 75^\\circ$
+- Angle du coude en extension : $\\theta \\ge 160^\\circ$
+
+### Liens sémantiques :
+- Corrélé avec la gestion de fatigue dans [[Modèle de Fatigue de Gandevia]]
+- Présent dans [[README - Coffre de Connaissances du Monarque]]`
+    },
+    {
+      id: "note-fatigue-gandevia",
+      folder: "04_Calisthenie_Biomecanique",
+      base: "STR",
+      title: "Modèle de Fatigue de Gandevia",
+      tags: ["physiologie", "fatigue", "gandevia", "recuperation"],
+      updatedAt: "2026-11-09T18:00:00Z",
+      content: `# Modèle de Fatigue de Gandevia
+
+Distinction scientifique entre fatigue centrale (diminution de la commande motrice volontaire par le SNC) et fatigue périphérique (altération contractile neuromusculaire).
+
+### Liens sémantiques :
+- Régule les séries strictes de [[Cinématique Push-Ups & MediaPipe]]`
+    },
+    {
+      id: "note-cambridge-c1",
+      folder: "05_Anglais_Cambridge",
+      base: "LNG",
+      title: "Lexique Socratique Cambridge C1",
+      tags: ["cambridge", "english", "c1", "socratic"],
+      updatedAt: "2026-11-09T12:00:00Z",
+      content: `# Lexique Socratique Cambridge C1
+
+Structures rhétoriques formelles indispensables pour l'évaluation orale à 20 points de l'Architecte :
+- *"Notwithstanding the aforementioned constraints..."*
+- *"It is imperative to substantiate this hypothesis with empirical benchmarks..."*
+- *"The quintessential dilemma resides in..."*
+
+### Liens sémantiques :
+- Référencé dans [[README - Coffre de Connaissances du Monarque]]`
+    }
   ],
   opportunities: [
     {
@@ -964,6 +1118,393 @@ function renderFullApplication(initialTab = "dashboard") {
     .form-input:focus {
       box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
     }
+
+    /* =========================================================================
+       OBSIDIAN SECOND BRAIN & FORCE-DIRECTED GRAPH STYLES
+       ========================================================================= */
+    .obsidian-vault-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .obsidian-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding: 14px 20px;
+      background: rgba(3, 14, 38, 0.85);
+      border: 1px solid var(--glass-inner-border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 20px rgba(0, 20, 60, 0.4);
+    }
+
+    .obsidian-view-mode-tabs {
+      display: flex;
+      background: rgba(1, 6, 20, 0.8);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+      gap: 4px;
+    }
+
+    .obsidian-mode-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .obsidian-mode-btn:hover {
+      color: var(--text-white);
+      background: rgba(0, 240, 255, 0.1);
+    }
+    .obsidian-mode-btn.active {
+      color: #020c24;
+      background: var(--neon-cyan);
+      box-shadow: 0 0 14px rgba(0, 240, 255, 0.6);
+      font-weight: 800;
+    }
+
+    .obsidian-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 18px;
+      min-height: 640px;
+    }
+
+    @media (max-width: 900px) {
+      .obsidian-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .obsidian-explorer {
+      background: rgba(2, 10, 30, 0.88);
+      border: 1px solid var(--glass-inner-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow-y: auto;
+      max-height: 720px;
+    }
+
+    .obsidian-explorer-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: var(--neon-cyan);
+      font-weight: 800;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+      padding-bottom: 8px;
+    }
+
+    .obsidian-folder {
+      margin-bottom: 8px;
+    }
+
+    .obsidian-folder-header {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s ease;
+    }
+    .obsidian-folder-header:hover {
+      background: rgba(0, 240, 255, 0.08);
+    }
+
+    .obsidian-file-list {
+      margin-left: 14px;
+      padding-left: 8px;
+      border-left: 1px solid rgba(56, 189, 248, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 4px;
+    }
+
+    .obsidian-file-item {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text-secondary);
+      padding: 5px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .obsidian-file-item:hover {
+      color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.12);
+      transform: translateX(2px);
+    }
+    .obsidian-file-item.active {
+      color: #ffffff;
+      background: rgba(0, 81, 255, 0.35);
+      border-left: 2px solid var(--neon-cyan);
+      font-weight: 600;
+    }
+
+    .obsidian-main-stage {
+      position: relative;
+      background: rgba(2, 8, 24, 0.92);
+      border: 1px solid var(--glass-inner-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      min-height: 640px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Graph Canvas View */
+    .obsidian-graph-canvas-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 620px;
+      flex: 1;
+    }
+
+    #obsidian-graph-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+    #obsidian-graph-canvas:active {
+      cursor: grabbing;
+    }
+
+    .obsidian-graph-controls {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .graph-ctrl-btn {
+      width: 32px;
+      height: 32px;
+      background: rgba(4, 18, 48, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: var(--neon-cyan);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 10, 30, 0.5);
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .graph-ctrl-btn:hover {
+      background: var(--neon-cyan);
+      color: #010614;
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.7);
+    }
+
+    .obsidian-graph-legend {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(4, 18, 48, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+    .legend-item { display: flex; align-items: center; gap: 5px; }
+    .legend-dot { width: 9px; height: 9px; border-radius: 50%; }
+
+    /* Note Reader / Editor View */
+    .obsidian-reader-pane {
+      display: none;
+      flex-direction: column;
+      padding: 28px;
+      height: 100%;
+      overflow-y: auto;
+    }
+    .obsidian-reader-pane.active { display: flex; }
+
+    .obsidian-note-header {
+      border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+      padding-bottom: 18px;
+      margin-bottom: 22px;
+    }
+
+    .obsidian-breadcrumb {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--neon-cyan);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .obsidian-note-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--text-white);
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .obsidian-note-body {
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.8;
+      color: #cbd5e1;
+    }
+
+    .obsidian-note-body h1 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--text-white);
+      margin: 18px 0 10px 0;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+      padding-bottom: 6px;
+    }
+
+    .obsidian-note-body h2 {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--neon-cyan);
+      margin: 16px 0 8px 0;
+    }
+
+    .obsidian-note-body h3 {
+      font-size: 15px;
+      color: var(--transcendent-green);
+      margin: 12px 0 6px 0;
+    }
+
+    .katex-display-box {
+      background: rgba(3, 14, 38, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin: 16px 0;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 15px;
+      color: var(--neon-cyan);
+      box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.08);
+      overflow-x: auto;
+    }
+
+    .wikilink-pill {
+      background: rgba(0, 81, 255, 0.25);
+      border: 1px solid var(--neon-cyan);
+      color: var(--neon-cyan);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      margin: 0 2px;
+    }
+    .wikilink-pill:hover {
+      background: var(--neon-cyan);
+      color: #010614;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.7);
+    }
+
+    .obsidian-backlinks-panel {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px dashed rgba(56, 189, 248, 0.25);
+    }
+
+    .obsidian-backlinks-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--imperial-gold);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .backlink-card {
+      background: rgba(3, 12, 32, 0.7);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .backlink-card:hover {
+      border-color: var(--neon-cyan);
+      background: rgba(0, 81, 255, 0.15);
+      transform: translateX(4px);
+    }
+
+    /* Split View Container */
+    .obsidian-split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100%;
+      min-height: 620px;
+    }
+    .obsidian-split-left {
+      border-right: 1px solid var(--glass-inner-border);
+      overflow-y: auto;
+      padding: 24px;
+    }
+    .obsidian-split-right {
+      position: relative;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
@@ -1445,46 +1986,188 @@ function renderFullApplication(initialTab = "dashboard") {
 
 
     <!-- =====================================================================
-         SCREEN 5 : SECOND BRAIN MARKDOWN VAULT (WORKING EDITOR & PERSISTENCE)
+         SCREEN 5 : OBSIDIAN SECOND BRAIN VAULT & INTERACTIVE KNOWLEDGE GRAPH
          ===================================================================== -->
     <div id="view-notes" class="view-panel ${initialTab === "notes" ? "active" : ""}">
-      <div class="glass-card spotlight-card" style="padding: 26px; margin-bottom: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+      <div class="glass-card spotlight-card" style="padding: 22px; margin-bottom: 24px;">
+        
+        <!-- Vault Header & Toolbar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 14px;">
           <div>
-            <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display);">
-              CERVEAU NUMÉRIQUE & COFFRE MARKDOWN (SECOND BRAIN)
+            <div style="font-size: 11px; letter-spacing: 2px; color: var(--monarch-purple); font-family: var(--font-mono); font-weight: bold; margin-bottom: 4px;">
+              OBSIDIAN VAULT // RÉSEAU NEURAL COGNITIF DU MONARQUE
+            </div>
+            <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display); line-height: 1;">
+              CERVEAU NUMÉRIQUE & COFFRE OBSIDIAN
             </h2>
-            <p style="font-size: 13px; color: var(--text-secondary);">Notes interconnectées, liens sémantiques bi-directionnels et formules KaTeX.</p>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">
+              Graphe de force interactif, liens bi-directionnels [[wikilinks]], arborescence de dossiers et formules KaTeX.
+            </p>
           </div>
-          <button class="btn-cyber" onclick="openCreateNoteModal()">+ NOUVELLE NOTE</button>
+          
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <div class="obsidian-view-mode-tabs">
+              <button class="obsidian-mode-btn active" id="btn-mode-graph" onclick="setObsidianMode('graph')">
+                <span>🕸️</span> GRAPHE OBSIDIAN
+              </button>
+              <button class="obsidian-mode-btn" id="btn-mode-reader" onclick="setObsidianMode('reader')">
+                <span>📝</span> LECTEUR & ÉDITEUR
+              </button>
+              <button class="obsidian-mode-btn" id="btn-mode-split" onclick="setObsidianMode('split')">
+                <span>⚡</span> SPLIT VIEW
+              </button>
+              <button class="obsidian-mode-btn" id="btn-mode-cards" onclick="setObsidianMode('cards')">
+                <span>🗂️</span> CARTES
+              </button>
+            </div>
+            <button class="btn-cyber" onclick="openCreateNoteModal()">+ NOUVELLE NOTE</button>
+          </div>
         </div>
 
-        <div style="margin-bottom: 20px;">
-          <input type="text" id="notes-search-input" oninput="filterNotes(this.value)" placeholder="🔍 Rechercher dans le coffre (ex: FlashAttention, SVD, Buffer Overflow)..." class="form-input">
+        <!-- Search Bar & Vault Stats -->
+        <div style="display: flex; gap: 14px; margin-bottom: 18px; align-items: center; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 260px;">
+            <input type="text" id="notes-search-input" oninput="filterObsidianNotes(this.value)" placeholder="🔍 Rechercher dans le coffre Obsidian (ex: FlashAttention, SVD, Triton, MediaPipe)..." class="form-input">
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <span class="radar-ping-badge" style="border-color: rgba(168, 85, 247, 0.4); color: var(--monarch-purple);">
+              📚 <span id="vault-notes-count">${SYSTEM_STATE.notes.length}</span> NOTES
+            </span>
+            <span class="radar-ping-badge">
+              🔗 <span id="vault-links-count">28</span> LIENS SÉMANTIQUES
+            </span>
+            <span class="radar-ping-badge" style="border-color: rgba(0, 255, 102, 0.4); color: var(--transcendent-green);">
+              🏷️ 24 TAGS
+            </span>
+          </div>
         </div>
 
-        <div class="grid-2col" id="notes-grid-container">
-          ${SYSTEM_STATE.notes
-            .map(
-              (n) => `
-            <div class="glass-card spotlight-card note-card-item" id="note-card-${n.id}" style="padding: 22px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <span class="radar-ping-badge">${n.base}</span>
-                <div style="display: flex; gap: 8px; align-items: center;">
-                  <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">${n.updatedAt.split("T")[0]}</span>
-                  <button onclick="deleteNote('${n.id}')" style="background: none; border: none; color: var(--alert-crimson); cursor: pointer; font-size: 14px;">🗑</button>
-                </div>
+        <!-- Obsidian 3-Pane Layout -->
+        <div class="obsidian-layout" id="obsidian-main-layout">
+          
+          <!-- Left Pane: File Tree Explorer -->
+          <div class="obsidian-explorer">
+            <div class="obsidian-explorer-title">
+              <span>EXPLORATEUR OBSIDIAN</span>
+              <span style="font-size: 10px; color: var(--text-muted); cursor: pointer;" onclick="refreshObsidianGraph()" title="Recharger le graphe">🔄 REFRESH</span>
+            </div>
+            <div id="obsidian-folder-tree">
+              <!-- Dynamically populated folder tree -->
+            </div>
+          </div>
+
+          <!-- Main Stage: Graph View, Reader View, Split View, or Cards View -->
+          <div class="obsidian-main-stage" id="obsidian-stage-container">
+            
+            <!-- 1. GRAPH VIEW STAGE -->
+            <div class="obsidian-graph-canvas-wrap" id="stage-graph">
+              <canvas id="obsidian-graph-canvas"></canvas>
+              
+              <!-- Floating Graph Controls -->
+              <div class="obsidian-graph-controls">
+                <button class="graph-ctrl-btn" onclick="zoomObsidianGraph(1.2)" title="Zoom Avant">+</button>
+                <button class="graph-ctrl-btn" onclick="zoomObsidianGraph(0.8)" title="Zoom Arrière">-</button>
+                <button class="graph-ctrl-btn" onclick="recenterObsidianGraph()" title="Recentrer le Graphe">🎯</button>
+                <button class="graph-ctrl-btn" onclick="restartObsidianPhysics()" title="Relancer la Physique">🔄</button>
               </div>
-              <h3 style="font-size: 17px; font-weight: bold; margin-bottom: 12px; color: var(--text-white);">${n.title}</h3>
-              <div style="background: rgba(2, 8, 24, 0.7); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: var(--radius-sm); padding: 14px; font-size: 12px; font-family: var(--font-mono); color: var(--text-secondary); line-height: 1.5; white-space: pre-wrap; margin-bottom: 14px;">${n.content}</div>
-              <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-                ${n.tags.map((t) => `<span style="background: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); font-size: 11px; font-family: var(--font-mono); padding: 3px 8px; border-radius: 4px;">#${t}</span>`).join("")}
+
+              <!-- Domain Color Legend -->
+              <div class="obsidian-graph-legend">
+                <div class="legend-item"><span class="legend-dot" style="background: #a855f7;"></span> Hub Monarque</div>
+                <div class="legend-item"><span class="legend-dot" style="background: #00f0ff;"></span> Ingénierie IA</div>
+                <div class="legend-item"><span class="legend-dot" style="background: #ff003c;"></span> Cybersécurité</div>
+                <div class="legend-item"><span class="legend-dot" style="background: #ffd700;"></span> Mathématiques</div>
+                <div class="legend-item"><span class="legend-dot" style="background: #00ff66;"></span> Biomécanique</div>
+                <div class="legend-item"><span class="legend-dot" style="background: #38bdf8;"></span> Anglais C1</div>
               </div>
             </div>
-          `,
-            )
-            .join("")}
+
+            <!-- 2. NOTE READER & EDITOR STAGE -->
+            <div class="obsidian-reader-pane" id="stage-reader">
+              <div class="obsidian-note-header">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                  <div class="obsidian-breadcrumb" id="reader-breadcrumb">
+                    <span>📁 00_Synthese_Souveraine</span> / <span>README.md</span>
+                  </div>
+                  <div style="display: flex; gap: 8px;">
+                    <button class="btn-cyber" id="btn-edit-note-toggle" style="padding: 4px 10px; font-size: 11px;" onclick="toggleNoteEditMode()">
+                      ✏️ MODIFIER
+                    </button>
+                    <button class="btn-cyber btn-gold" id="btn-save-note" style="padding: 4px 10px; font-size: 11px; display: none;" onclick="saveCurrentNoteEdit()">
+                      💾 ENREGISTRER
+                    </button>
+                  </div>
+                </div>
+                <h1 class="obsidian-note-title" id="reader-note-title">README - Coffre de Connaissances du Monarque</h1>
+                <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                  <span class="radar-ping-badge" id="reader-note-base">DIS</span>
+                  <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);" id="reader-note-date">Modifié le 2026-11-12</span>
+                  <span class="radar-ping-badge" style="border-color: rgba(0, 240, 255, 0.4); color: var(--neon-cyan);" id="reader-backlinks-count">🔗 6 MENTIONS LIÉES</span>
+                </div>
+              </div>
+
+              <!-- Note Content Body (Markdown & KaTeX rendered) -->
+              <div class="obsidian-note-body" id="reader-note-body">
+                <!-- Rendered Markdown with KaTeX formulas and Wikilinks -->
+              </div>
+
+              <!-- Raw Markdown Edit Textarea (Hidden by default) -->
+              <div id="reader-edit-container" style="display: none; margin-top: 14px;">
+                <textarea id="reader-edit-textarea" class="form-input" rows="18" style="font-family: var(--font-mono); font-size: 13px; line-height: 1.6;"></textarea>
+              </div>
+
+              <!-- Backlinks Panel ("Mentions liées") -->
+              <div class="obsidian-backlinks-panel">
+                <div class="obsidian-backlinks-title">
+                  <span>🔗 MENTIONS LIÉES (BACKLINKS OBSIDIAN)</span>
+                </div>
+                <div id="reader-backlinks-list">
+                  <!-- Dynamically populated backlinks cards -->
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. SPLIT VIEW STAGE (Reader on Left + Mini Graph on Right) -->
+            <div id="stage-split" style="display: none; height: 100%;">
+              <div class="obsidian-split-grid">
+                <div class="obsidian-split-left" id="split-reader-pane">
+                  <!-- Mirrored Reader Content -->
+                </div>
+                <div class="obsidian-split-right">
+                  <canvas id="obsidian-split-graph-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. CARDS VIEW STAGE (Backwards compatibility) -->
+            <div id="stage-cards" style="display: none; padding: 20px; overflow-y: auto; max-height: 700px;">
+              <div class="grid-2col" id="notes-grid-container">
+                ${SYSTEM_STATE.notes
+                  .map(
+                    (n) => `
+                  <div class="glass-card spotlight-card note-card-item" id="note-card-${n.id}" style="padding: 22px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                      <span class="radar-ping-badge">${n.base}</span>
+                      <div style="display: flex; gap: 8px; align-items: center;">
+                        <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">${n.updatedAt.split("T")[0]}</span>
+                        <button onclick="deleteNote('${n.id}')" style="background: none; border: none; color: var(--alert-crimson); cursor: pointer; font-size: 14px;">🗑</button>
+                      </div>
+                    </div>
+                    <h3 style="font-size: 17px; font-weight: bold; margin-bottom: 12px; color: var(--text-white); cursor: pointer;" onclick="openObsidianNote('${n.id}'); setObsidianMode('reader');">${n.title}</h3>
+                    <div style="background: rgba(2, 8, 24, 0.7); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: var(--radius-sm); padding: 14px; font-size: 12px; font-family: var(--font-mono); color: var(--text-secondary); line-height: 1.5; white-space: pre-wrap; margin-bottom: 14px;">${n.content}</div>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                      ${n.tags.map((t) => `<span style="background: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); font-size: 11px; font-family: var(--font-mono); padding: 3px 8px; border-radius: 4px;">#${t}</span>`).join("")}
+                    </div>
+                  </div>
+                `,
+                  )
+                  .join("")}
+              </div>
+            </div>
+
+          </div>
         </div>
+
       </div>
     </div>
 
@@ -1922,6 +2605,12 @@ function renderFullApplication(initialTab = "dashboard") {
           t.classList.add('active');
         }
       });
+      if (viewId === 'notes') {
+        setTimeout(() => {
+          if (typeof initObsidianVault === 'function' && !obsidianInitialized) initObsidianVault();
+          if (typeof resizeCanvas === 'function') resizeCanvas('obsidian-graph-canvas');
+        }, 50);
+      }
       window.history.pushState({}, '', '/' + (viewId === 'dashboard' ? '' : viewId));
     }
 
@@ -1998,6 +2687,7 @@ function renderFullApplication(initialTab = "dashboard") {
       }
       saveState();
       updateXpUI();
+    if (typeof initObsidianVault === "function") initObsidianVault();
     }
 
     function updateXpUI() {
@@ -2202,8 +2892,791 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     // =========================================================================
-    // SCREEN 5 : SECOND BRAIN WORKING NOTES VAULT
+    // SCREEN 5 : OBSIDIAN SECOND BRAIN VAULT & INTERACTIVE KNOWLEDGE GRAPH
     // =========================================================================
+    let currentObsidianMode = 'graph';
+    let activeObsidianNoteId = 'note-readme';
+    let obsidianGraphNodes = [];
+    let obsidianGraphEdges = [];
+    let obsidianSearchFilter = '';
+    let graphPanX = 0;
+    let graphPanY = 0;
+    let graphZoom = 1.0;
+    let isDraggingGraph = false;
+    let isPanningGraph = false;
+    let draggedNode = null;
+    let hoveredNode = null;
+    let mouseStartPos = { x: 0, y: 0 };
+    let graphAnimId = null;
+    let graphPhysicsRunning = true;
+    let obsidianInitialized = false;
+
+    const DOMAIN_COLOR_MAP = {
+      'DIS': '#a855f7',
+      'AI_ENG': '#00f0ff',
+      'SEC': '#ff003c',
+      'ACAD': '#ffd700',
+      'SPORT': '#00ff66',
+      'ENG': '#38bdf8'
+    };
+
+    function initObsidianVault() {
+      buildGraphFromNotes();
+      renderObsidianFolderTree();
+
+      const initial = (state.notes || []).find(n => n.id === activeObsidianNoteId) || (state.notes || [])[0];
+      if (initial) {
+        openObsidianNote(initial.id, false);
+      }
+
+      setupGraphCanvas();
+      setupSplitGraphCanvas();
+      obsidianInitialized = true;
+    }
+
+    function buildGraphFromNotes() {
+      const notes = state.notes || [];
+      obsidianGraphNodes = [];
+      obsidianGraphEdges = [];
+
+      const countEl = document.getElementById('vault-notes-count');
+      if (countEl) countEl.textContent = notes.length;
+
+      // Position nodes in radial layout around hub
+      const angleStep = (2 * Math.PI) / Math.max(1, notes.length - 1);
+      let nonHubIndex = 0;
+
+      notes.forEach((note) => {
+        const isHub = note.id === 'note-readme';
+        let x = 0;
+        let y = 0;
+        if (!isHub) {
+          const r = 180 + (nonHubIndex % 3) * 60;
+          const theta = nonHubIndex * angleStep;
+          x = r * Math.cos(theta) + (Math.random() * 20 - 10);
+          y = r * Math.sin(theta) + (Math.random() * 20 - 10);
+          nonHubIndex++;
+        }
+
+        const domainColor = DOMAIN_COLOR_MAP[note.base] || '#94a3b8';
+        obsidianGraphNodes.push({
+          id: note.id,
+          title: note.title,
+          base: note.base,
+          folder: note.folder || '00_Synthese_Souveraine',
+          isHub: isHub,
+          x: x,
+          y: y,
+          vx: 0,
+          vy: 0,
+          radius: isHub ? 15 : 7,
+          color: isHub ? '#a855f7' : domainColor,
+          degree: 0
+        });
+      });
+
+      // Extract wikilinks from content to build edges [[target]]
+      const linkRegex = /\[\[(.*?)\]\]/g;
+      notes.forEach((note) => {
+        let match;
+        const text = note.content || '';
+        while ((match = linkRegex.exec(text)) !== null) {
+          const targetTitle = match[1].trim();
+          const targetNode = obsidianGraphNodes.find(n => 
+            n.title.toLowerCase() === targetTitle.toLowerCase() ||
+            n.id.toLowerCase() === targetTitle.toLowerCase() ||
+            n.title.toLowerCase().includes(targetTitle.toLowerCase())
+          );
+          if (targetNode && targetNode.id !== note.id) {
+            const exists = obsidianGraphEdges.some(e => 
+              (e.source === note.id && e.target === targetNode.id) ||
+              (e.source === targetNode.id && e.target === note.id)
+            );
+            if (!exists) {
+              obsidianGraphEdges.push({
+                source: note.id,
+                target: targetNode.id
+              });
+              const srcNode = obsidianGraphNodes.find(n => n.id === note.id);
+              if (srcNode) srcNode.degree++;
+              targetNode.degree++;
+            }
+          }
+        }
+      });
+
+      // Adjust node radii by degree
+      obsidianGraphNodes.forEach(node => {
+        if (!node.isHub) {
+          node.radius = Math.min(13, 6 + node.degree * 1.5);
+        }
+      });
+
+      const linksCountEl = document.getElementById('vault-links-count');
+      if (linksCountEl) linksCountEl.textContent = obsidianGraphEdges.length;
+    }
+
+    function renderObsidianFolderTree() {
+      const container = document.getElementById('obsidian-folder-tree');
+      if (!container) return;
+
+      const notes = state.notes || [];
+      const folders = {};
+
+      notes.forEach(note => {
+        const f = note.folder || '00_Synthese_Souveraine';
+        if (!folders[f]) folders[f] = [];
+        folders[f].push(note);
+      });
+
+      const folderKeys = Object.keys(folders).sort();
+      let html = '';
+
+      folderKeys.forEach(fKey => {
+        const folderNotes = folders[fKey];
+        const isMatched = obsidianSearchFilter ? folderNotes.some(n => n.title.toLowerCase().includes(obsidianSearchFilter)) : true;
+        if (obsidianSearchFilter && !isMatched) return;
+
+        html += \`
+          <div class="obsidian-folder" style="margin-bottom: 8px;">
+            <div class="obsidian-folder-header" style="display: flex; align-items: center; gap: 6px; padding: 5px 8px; border-radius: 4px; color: var(--text-secondary); font-size: 11px; font-family: var(--font-mono); font-weight: bold; background: rgba(2, 8, 24, 0.4); cursor: pointer;" onclick="this.nextElementSibling.classList.toggle('hidden')">
+              <span>📁</span>
+              <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">\${fKey}</span>
+              <span style="font-size: 10px; color: var(--text-muted); background: rgba(56, 189, 248, 0.1); padding: 1px 5px; border-radius: 3px;">\${folderNotes.length}</span>
+            </div>
+            <div class="obsidian-folder-files" style="padding-left: 14px; margin-top: 4px; display: flex; flex-direction: column; gap: 2px;">
+              \${folderNotes.map(n => {
+                const isActive = n.id === activeObsidianNoteId;
+                const matches = obsidianSearchFilter ? n.title.toLowerCase().includes(obsidianSearchFilter) : true;
+                if (!matches) return '';
+                return \`
+                  <div class="obsidian-file-item \${isActive ? 'active' : ''}" 
+                       id="file-tree-item-\${n.id}"
+                       onclick="openObsidianNote('\\\${n.id}'); if (currentObsidianMode === 'graph') setObsidianMode('reader');"
+                       style="display: flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: \${isActive ? 'var(--neon-cyan)' : 'var(--text-secondary)'}; cursor: pointer; background: \${isActive ? 'rgba(0, 240, 255, 0.12)' : 'transparent'}; border-left: \${isActive ? '2px solid var(--neon-cyan)' : '2px solid transparent'};">
+                    <span style="font-size: 11px;">📄</span>
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">\${n.title}</span>
+                  </div>
+                \`;
+              }).join('')}
+            </div>
+          </div>
+        \`;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function openObsidianNote(noteId, switchMode = false) {
+      const note = (state.notes || []).find(n => n.id === noteId);
+      if (!note) return;
+
+      activeObsidianNoteId = noteId;
+
+      document.querySelectorAll('.obsidian-file-item').forEach(el => {
+        el.classList.remove('active');
+        el.style.background = 'transparent';
+        el.style.borderLeft = '2px solid transparent';
+        el.style.color = 'var(--text-secondary)';
+      });
+      const activeTreeItem = document.getElementById('file-tree-item-' + noteId);
+      if (activeTreeItem) {
+        activeTreeItem.classList.add('active');
+        activeTreeItem.style.background = 'rgba(0, 240, 255, 0.12)';
+        activeTreeItem.style.borderLeft = '2px solid var(--neon-cyan)';
+        activeTreeItem.style.color = 'var(--neon-cyan)';
+      }
+
+      const breadcrumb = document.getElementById('reader-breadcrumb');
+      if (breadcrumb) breadcrumb.innerHTML = \`<span>📁 \${note.folder || '00_Synthese_Souveraine'}</span> / <span>\${note.title}.md</span>\`;
+
+      const titleEl = document.getElementById('reader-note-title');
+      if (titleEl) titleEl.textContent = note.title;
+
+      const baseEl = document.getElementById('reader-note-base');
+      if (baseEl) {
+        baseEl.textContent = note.base;
+        baseEl.style.borderColor = DOMAIN_COLOR_MAP[note.base] || '#94a3b8';
+        baseEl.style.color = DOMAIN_COLOR_MAP[note.base] || '#94a3b8';
+      }
+
+      const dateEl = document.getElementById('reader-note-date');
+      if (dateEl) dateEl.textContent = 'Modifié le ' + (note.updatedAt ? note.updatedAt.split('T')[0] : '2026-11-12');
+
+      const bodyEl = document.getElementById('reader-note-body');
+      if (bodyEl) {
+        bodyEl.innerHTML = renderMarkdownContent(note.content || '');
+      }
+
+      const textarea = document.getElementById('reader-edit-textarea');
+      if (textarea) textarea.value = note.content || '';
+
+      renderBacklinks(note);
+
+      const splitLeft = document.getElementById('split-reader-pane');
+      if (splitLeft) {
+        splitLeft.innerHTML = \`
+          <div style="padding: 16px;">
+            <div style="font-size: 10px; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 4px;">\${note.folder || '00_Synthese_Souveraine'}</div>
+            <h2 style="font-size: 18px; font-weight: bold; color: var(--text-white); margin-bottom: 12px;">\${note.title}</h2>
+            <div>\${renderMarkdownContent(note.content || '')}</div>
+          </div>
+        \`;
+      }
+
+      if (switchMode && currentObsidianMode !== 'reader' && currentObsidianMode !== 'split') {
+        setObsidianMode('reader');
+      }
+    }
+
+    function openNoteByTitle(rawTitle) {
+      if (!rawTitle) return;
+      const clean = rawTitle.replace(/\[\[|\]\]/g, '').trim().toLowerCase();
+      const target = (state.notes || []).find(n => 
+        n.title.toLowerCase() === clean ||
+        n.title.toLowerCase().includes(clean) ||
+        clean.includes(n.title.toLowerCase()) ||
+        n.id.toLowerCase() === clean
+      );
+
+      if (target) {
+        openObsidianNote(target.id, true);
+        showSysNotification("🔗 [LIEN SÉMANTIQUE SUIVI]", "Navigation vers la note <strong>" + target.title + "</strong>.");
+      } else {
+        showSysNotification("[NOTE NON TROUVÉE]", "La note liée <i>[[" + rawTitle + "]]</i> n'existe pas encore dans le coffre.");
+      }
+    }
+
+    function renderMarkdownContent(raw) {
+      if (!raw) return '';
+
+      const displayFormulas = [];
+      let processed = raw.replace(/\$\$([\s\S]*?)\$\$/g, (match, formula) => {
+        const id = 'KATEX_DISPLAY_' + displayFormulas.length;
+        displayFormulas.push(formula.trim());
+        return id;
+      });
+
+      const inlineFormulas = [];
+      processed = processed.replace(/\$([^$\n]+)\$/g, (match, formula) => {
+        const id = 'KATEX_INLINE_' + inlineFormulas.length;
+        inlineFormulas.push(formula.trim());
+        return id;
+      });
+
+      let html = processed
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+      html = html.replace(/\`\`\`([a-z]*)\n([\s\S]*?)\`\`\`/g, (m, lang, code) => {
+        return \`<pre style="background: rgba(2, 8, 24, 0.95); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 6px; padding: 14px; font-family: var(--font-mono); font-size: 12px; color: #a5f3fc; overflow-x: auto; margin: 14px 0; line-height: 1.6;"><code>\${code.trim()}</code></pre>\`;
+      });
+
+      html = html.replace(/^### (.*$)/gim, '<h3 style="font-size: 15px; font-weight: bold; color: var(--neon-cyan); margin: 18px 0 8px 0; font-family: var(--font-display);">$1</h3>');
+      html = html.replace(/^## (.*$)/gim, '<h2 style="font-size: 18px; font-weight: bold; color: var(--text-white); margin: 22px 0 10px 0; border-bottom: 1px solid rgba(56, 189, 248, 0.2); padding-bottom: 6px; font-family: var(--font-display);">$1</h2>');
+      html = html.replace(/^# (.*$)/gim, '<h1 style="font-size: 22px; font-weight: 900; color: var(--imperial-gold); margin: 26px 0 12px 0; font-family: var(--font-display);">$1</h1>');
+
+      html = html.replace(/\*\*(.*?)\*\*/g, '<strong style="color: var(--text-white);">$1</strong>');
+      html = html.replace(/\*(.*?)\*/g, '<em style="color: #cbd5e1;">$1</em>');
+
+      html = html.replace(/\[\[(.*?)\]\]/g, (m, linkText) => {
+        return \`<span class="wikilink-pill" onclick="openNoteByTitle('\\\${linkText}')" title="Ouvrir la note liée [[ \\\${linkText} ]]">🔗 [[\\\${linkText}]]</span>\`;
+      });
+
+      html = html.replace(/(^|\s)#([a-zA-Z0-9_-]+)/g, '$1<span style="background: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); font-size: 11px; font-family: var(--font-mono); padding: 2px 7px; border-radius: 4px; margin-right: 4px;">#$2</span>');
+
+      html = html.replace(/^\s*-\s+(.*$)/gim, '<li style="margin-left: 20px; list-style-type: square; color: var(--text-secondary); margin-bottom: 6px;">$1</li>');
+      html = html.replace(/^\s*(\d+)\.\s+(.*$)/gim, '<li style="margin-left: 20px; list-style-type: decimal; color: var(--text-secondary); margin-bottom: 6px;">$2</li>');
+
+      html = html.replace(/\n/g, '<br>');
+
+      displayFormulas.forEach((formula, idx) => {
+        const token = 'KATEX_DISPLAY_' + idx;
+        const boxHtml = \`
+          <div class="katex-display-box">
+            <span class="katex-formula-tag">FORMULE KATEX</span>
+            <div style="font-family: 'KaTeX_Math', 'JetBrains Mono', serif; font-size: 15px; color: #f1f5f9; letter-spacing: 0.5px;">
+              \${formula}
+            </div>
+          </div>
+        \`;
+        html = html.replace(token, boxHtml);
+      });
+
+      inlineFormulas.forEach((formula, idx) => {
+        const token = 'KATEX_INLINE_' + idx;
+        const inlineHtml = \`<code style="background: rgba(168, 85, 247, 0.15); color: #c084fc; padding: 2px 6px; border-radius: 4px; font-family: 'KaTeX_Math', monospace; font-size: 12px; border: 1px solid rgba(168, 85, 247, 0.3);">\${formula}</code>\`;
+        html = html.replace(token, inlineHtml);
+      });
+
+      return html;
+    }
+
+    function renderBacklinks(activeNote) {
+      const listEl = document.getElementById('reader-backlinks-list');
+      const countBadge = document.getElementById('reader-backlinks-count');
+      if (!listEl) return;
+
+      const notes = state.notes || [];
+      const backlinks = [];
+
+      notes.forEach(note => {
+        if (note.id === activeNote.id) return;
+        const needle = activeNote.title.toLowerCase();
+        const contentLower = (note.content || '').toLowerCase();
+        if (contentLower.includes('[[' + needle + ']]') || contentLower.includes(needle)) {
+          const idx = contentLower.indexOf(needle);
+          const start = Math.max(0, idx - 40);
+          const end = Math.min(note.content.length, idx + needle.length + 50);
+          const excerpt = (start > 0 ? '...' : '') + note.content.substring(start, end).replace(/\n/g, ' ') + (end < note.content.length ? '...' : '');
+
+          backlinks.push({
+            note: note,
+            excerpt: excerpt
+          });
+        }
+      });
+
+      if (countBadge) countBadge.textContent = '🔗 ' + backlinks.length + ' MENTIONS LIÉES';
+
+      if (backlinks.length === 0) {
+        listEl.innerHTML = '<div style="font-size: 12px; color: var(--text-muted); font-style: italic; padding: 10px;">Aucune mention entrante détectée dans le coffre pour cette note.</div>';
+        return;
+      }
+
+      listEl.innerHTML = backlinks.map(b => \`
+        <div class="backlink-card" onclick="openObsidianNote('\\\${b.note.id}')" title="Cliquer pour ouvrir la note source">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: bold; color: var(--text-white); font-size: 13px;">📄 \${b.note.title}</span>
+            <span class="radar-ping-badge" style="font-size: 9px; padding: 2px 6px;">\${b.note.base}</span>
+          </div>
+          <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); line-height: 1.4;">\${b.excerpt}</div>
+        </div>
+      \`).join('');
+    }
+
+    function toggleNoteEditMode() {
+      const bodyEl = document.getElementById('reader-note-body');
+      const editContainer = document.getElementById('reader-edit-container');
+      const btnEdit = document.getElementById('btn-edit-note-toggle');
+      const btnSave = document.getElementById('btn-save-note');
+
+      if (!bodyEl || !editContainer) return;
+
+      const isEditing = editContainer.style.display !== 'none';
+
+      if (isEditing) {
+        editContainer.style.display = 'none';
+        bodyEl.style.display = 'block';
+        if (btnEdit) btnEdit.textContent = '✏️ MODIFIER';
+        if (btnSave) btnSave.style.display = 'none';
+      } else {
+        editContainer.style.display = 'block';
+        bodyEl.style.display = 'none';
+        if (btnEdit) btnEdit.textContent = '❌ ANNULER';
+        if (btnSave) btnSave.style.display = 'inline-block';
+      }
+    }
+
+    function saveCurrentNoteEdit() {
+      const textarea = document.getElementById('reader-edit-textarea');
+      if (!textarea) return;
+
+      const note = (state.notes || []).find(n => n.id === activeObsidianNoteId);
+      if (!note) return;
+
+      note.content = textarea.value;
+      note.updatedAt = new Date().toISOString();
+      saveState();
+
+      buildGraphFromNotes();
+      openObsidianNote(note.id, false);
+      toggleNoteEditMode();
+
+      showSysNotification(
+        "🧠 [NOTE SAUVEGARDÉE]",
+        "La note <strong>" + note.title + "</strong> a été synchronisée dans le coffre Obsidian."
+      );
+    }
+
+    function setObsidianMode(mode) {
+      currentObsidianMode = mode;
+
+      const btnGraph = document.getElementById('btn-mode-graph');
+      const btnReader = document.getElementById('btn-mode-reader');
+      const btnSplit = document.getElementById('btn-mode-split');
+      const btnCards = document.getElementById('btn-mode-cards');
+
+      [btnGraph, btnReader, btnSplit, btnCards].forEach(b => {
+        if (b) b.classList.remove('active');
+      });
+
+      const stageGraph = document.getElementById('stage-graph');
+      const stageReader = document.getElementById('stage-reader');
+      const stageSplit = document.getElementById('stage-split');
+      const stageCards = document.getElementById('stage-cards');
+
+      if (stageGraph) stageGraph.style.display = 'none';
+      if (stageReader) stageReader.style.display = 'none';
+      if (stageSplit) stageSplit.style.display = 'none';
+      if (stageCards) stageCards.style.display = 'none';
+
+      if (mode === 'graph') {
+        if (btnGraph) btnGraph.classList.add('active');
+        if (stageGraph) stageGraph.style.display = 'block';
+        resizeCanvas('obsidian-graph-canvas');
+      } else if (mode === 'reader') {
+        if (btnReader) btnReader.classList.add('active');
+        if (stageReader) stageReader.style.display = 'block';
+      } else if (mode === 'split') {
+        if (btnSplit) btnSplit.classList.add('active');
+        if (stageSplit) stageSplit.style.display = 'block';
+        const note = (state.notes || []).find(n => n.id === activeObsidianNoteId) || (state.notes || [])[0];
+        if (note) openObsidianNote(note.id, false);
+        resizeCanvas('obsidian-split-graph-canvas');
+      } else if (mode === 'cards') {
+        if (btnCards) btnCards.classList.add('active');
+        if (stageCards) stageCards.style.display = 'block';
+      }
+    }
+
+    // Force-Directed Graph Engine
+    function setupGraphCanvas() {
+      const canvas = document.getElementById('obsidian-graph-canvas');
+      if (!canvas) return;
+
+      resizeCanvas('obsidian-graph-canvas');
+      window.addEventListener('resize', () => {
+        resizeCanvas('obsidian-graph-canvas');
+        resizeCanvas('obsidian-split-graph-canvas');
+      });
+
+      canvas.addEventListener('mousedown', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        mouseStartPos = { x: mx, y: my };
+
+        const clicked = getNodeAtScreenPos(canvas, mx, my);
+        if (clicked) {
+          draggedNode = clicked;
+          isDraggingGraph = true;
+          isPanningGraph = false;
+        } else {
+          draggedNode = null;
+          isDraggingGraph = false;
+          isPanningGraph = true;
+        }
+      });
+
+      canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+
+        if (isDraggingGraph && draggedNode) {
+          const cx = canvas.width / 2;
+          const cy = canvas.height / 2;
+          draggedNode.x = (mx - cx) / graphZoom - graphPanX;
+          draggedNode.y = (my - cy) / graphZoom - graphPanY;
+          draggedNode.vx = 0;
+          draggedNode.vy = 0;
+        } else if (isPanningGraph) {
+          const dx = mx - mouseStartPos.x;
+          const dy = my - mouseStartPos.y;
+          graphPanX += dx / graphZoom;
+          graphPanY += dy / graphZoom;
+          mouseStartPos = { x: mx, y: my };
+        } else {
+          hoveredNode = getNodeAtScreenPos(canvas, mx, my);
+          canvas.style.cursor = hoveredNode ? 'pointer' : 'default';
+        }
+      });
+
+      canvas.addEventListener('mouseup', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        const dist = Math.hypot(mx - mouseStartPos.x, my - mouseStartPos.y);
+
+        if (dist < 6 && draggedNode) {
+          openObsidianNote(draggedNode.id, false);
+          showSysNotification("📄 [NOTE OBSIDIAN SÉLECTIONNÉE]", "Focus engagé sur <strong>" + draggedNode.title + "</strong>.");
+        }
+
+        isDraggingGraph = false;
+        isPanningGraph = false;
+        draggedNode = null;
+      });
+
+      canvas.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const factor = e.deltaY < 0 ? 1.1 : 0.9;
+        zoomObsidianGraph(factor);
+      });
+
+      if (!graphAnimId) {
+        startGraphAnimation();
+      }
+    }
+
+    function setupSplitGraphCanvas() {
+      const splitCanvas = document.getElementById('obsidian-split-graph-canvas');
+      if (!splitCanvas) return;
+      resizeCanvas('obsidian-split-graph-canvas');
+    }
+
+    function resizeCanvas(canvasId) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas || !canvas.parentElement) return;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+      }
+    }
+
+    function getNodeAtScreenPos(canvas, sx, sy) {
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+
+      for (let i = obsidianGraphNodes.length - 1; i >= 0; i--) {
+        const node = obsidianGraphNodes[i];
+        const screenX = cx + (node.x + graphPanX) * graphZoom;
+        const screenY = cy + (node.y + graphPanY) * graphZoom;
+        const hitRadius = (node.radius * graphZoom) + 6;
+        const dist = Math.hypot(sx - screenX, sy - screenY);
+        if (dist <= hitRadius) {
+          return node;
+        }
+      }
+      return null;
+    }
+
+    function updateGraphPhysics() {
+      if (!graphPhysicsRunning) return;
+
+      const nodes = obsidianGraphNodes;
+      const edges = obsidianGraphEdges;
+
+      const kRep = 3200;
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const n1 = nodes[i];
+          const n2 = nodes[j];
+          const dx = n2.x - n1.x;
+          const dy = n2.y - n1.y;
+          const distSq = dx * dx + dy * dy + 100;
+          const dist = Math.sqrt(distSq);
+          const force = kRep / distSq;
+          const fx = (dx / dist) * force;
+          const fy = (dy / dist) * force;
+
+          if (n1 !== draggedNode) {
+            n1.vx -= fx;
+            n1.vy -= fy;
+          }
+          if (n2 !== draggedNode) {
+            n2.vx += fx;
+            n2.vy += fy;
+          }
+        }
+      }
+
+      const kSpring = 0.007;
+      const restLen = 110;
+      edges.forEach(edge => {
+        const src = nodes.find(n => n.id === edge.source);
+        const tgt = nodes.find(n => n.id === edge.target);
+        if (!src || !tgt) return;
+
+        const dx = tgt.x - src.x;
+        const dy = tgt.y - src.y;
+        const dist = Math.hypot(dx, dy) || 1;
+        const delta = dist - restLen;
+        const force = delta * kSpring;
+        const fx = (dx / dist) * force;
+        const fy = (dy / dist) * force;
+
+        if (src !== draggedNode) {
+          src.vx += fx;
+          src.vy += fy;
+        }
+        if (tgt !== draggedNode) {
+          tgt.vx -= fx;
+          tgt.vy -= fy;
+        }
+      });
+
+      const kGrav = 0.0008;
+      nodes.forEach(node => {
+        if (node === draggedNode) return;
+        node.vx -= node.x * kGrav;
+        node.vy -= node.y * kGrav;
+
+        node.vx *= 0.88;
+        node.vy *= 0.88;
+
+        node.x += node.vx;
+        node.y += node.vy;
+      });
+    }
+
+    function renderCanvasScene(canvas, isMini = false) {
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const w = canvas.width;
+      const h = canvas.height;
+      const cx = w / 2;
+      const cy = h / 2;
+
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.04)';
+      ctx.lineWidth = 1;
+      const gridSize = 40 * graphZoom;
+      const startX = (cx + graphPanX * graphZoom) % gridSize;
+      const startY = (cy + graphPanY * graphZoom) % gridSize;
+
+      for (let x = startX; x < w; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, h);
+        ctx.stroke();
+      }
+      for (let y = startY; y < h; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
+
+      obsidianGraphEdges.forEach(edge => {
+        const src = obsidianGraphNodes.find(n => n.id === edge.source);
+        const tgt = obsidianGraphNodes.find(n => n.id === edge.target);
+        if (!src || !tgt) return;
+
+        const x1 = cx + (src.x + graphPanX) * graphZoom;
+        const y1 = cy + (src.y + graphPanY) * graphZoom;
+        const x2 = cx + (tgt.x + graphPanX) * graphZoom;
+        const y2 = cy + (tgt.y + graphPanY) * graphZoom;
+
+        const isHighlighted = (hoveredNode && (hoveredNode.id === src.id || hoveredNode.id === tgt.id)) ||
+                              (activeObsidianNoteId && (activeObsidianNoteId === src.id || activeObsidianNoteId === tgt.id));
+
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+
+        if (isHighlighted) {
+          ctx.strokeStyle = 'rgba(168, 85, 247, 0.75)';
+          ctx.lineWidth = 2 * graphZoom;
+          ctx.shadowColor = '#a855f7';
+          ctx.shadowBlur = 8;
+        } else {
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.16)';
+          ctx.lineWidth = 1 * graphZoom;
+          ctx.shadowBlur = 0;
+        }
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+      });
+
+      obsidianGraphNodes.forEach(node => {
+        const sx = cx + (node.x + graphPanX) * graphZoom;
+        const sy = cy + (node.y + graphPanY) * graphZoom;
+        const r = node.radius * graphZoom;
+        const isActive = node.id === activeObsidianNoteId;
+        const isHovered = hoveredNode && hoveredNode.id === node.id;
+        const matchesSearch = obsidianSearchFilter ? node.title.toLowerCase().includes(obsidianSearchFilter) : false;
+
+        if (isActive || isHovered || matchesSearch) {
+          ctx.beginPath();
+          ctx.arc(sx, sy, r + 5 * graphZoom, 0, Math.PI * 2);
+          ctx.strokeStyle = isActive ? 'rgba(0, 240, 255, 0.8)' : (matchesSearch ? 'rgba(255, 215, 0, 0.9)' : 'rgba(168, 85, 247, 0.8)');
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        }
+
+        ctx.beginPath();
+        ctx.arc(sx, sy, r, 0, Math.PI * 2);
+        ctx.fillStyle = node.color;
+        ctx.shadowColor = node.color;
+        ctx.shadowBlur = (isActive || isHovered) ? 14 : 4;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        ctx.lineWidth = isActive ? 2 : 1;
+        ctx.strokeStyle = isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.4)';
+        ctx.stroke();
+
+        const showLabel = !isMini && (graphZoom > 0.65 || node.isHub || isHovered || isActive || matchesSearch);
+        if (showLabel) {
+          ctx.font = \`\${node.isHub ? 'bold 12px' : '10px'} 'JetBrains Mono', monospace\`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+
+          ctx.fillStyle = 'rgba(2, 8, 24, 0.85)';
+          ctx.fillText(node.title, sx + 1, sy + r + 5);
+
+          ctx.fillStyle = isActive ? 'var(--neon-cyan)' : (node.isHub ? '#d8b4fe' : '#e2e8f0');
+          ctx.fillText(node.title, sx, sy + r + 4);
+        }
+      });
+    }
+
+    function startGraphAnimation() {
+      function loop() {
+        updateGraphPhysics();
+
+        if (currentObsidianMode === 'graph') {
+          const canvas = document.getElementById('obsidian-graph-canvas');
+          if (canvas) renderCanvasScene(canvas, false);
+        } else if (currentObsidianMode === 'split') {
+          const splitCanvas = document.getElementById('obsidian-split-graph-canvas');
+          if (splitCanvas) renderCanvasScene(splitCanvas, true);
+        }
+
+        graphAnimId = requestAnimationFrame(loop);
+      }
+      graphAnimId = requestAnimationFrame(loop);
+    }
+
+    function zoomObsidianGraph(factor) {
+      graphZoom = Math.max(0.35, Math.min(3.0, graphZoom * factor));
+    }
+
+    function recenterObsidianGraph() {
+      graphPanX = 0;
+      graphPanY = 0;
+      graphZoom = 1.0;
+    }
+
+    function restartObsidianPhysics() {
+      graphPhysicsRunning = true;
+      obsidianGraphNodes.forEach(node => {
+        node.vx = (Math.random() - 0.5) * 8;
+        node.vy = (Math.random() - 0.5) * 8;
+      });
+      showSysNotification("🔄 [PHYSIQUE RELANCÉE]", "Forces de répulsion et de rappel réinitialisées.");
+    }
+
+    function refreshObsidianGraph() {
+      buildGraphFromNotes();
+      renderObsidianFolderTree();
+      restartObsidianPhysics();
+    }
+
+    function filterObsidianNotes(term) {
+      obsidianSearchFilter = (term || '').trim().toLowerCase();
+      renderObsidianFolderTree();
+      filterNotes(term);
+    }
+
+    // Modal and CRUD Functions
     function openCreateNoteModal() {
       document.getElementById('note-modal').classList.add('open');
     }
@@ -2222,9 +3695,19 @@ function renderFullApplication(initialTab = "dashboard") {
         return;
       }
 
+      const folderMap = {
+        'DIS': '00_Synthese_Souveraine',
+        'AI_ENG': '01_Ingenierie_IA',
+        'SEC': '02_Cybersecurite',
+        'ACAD': '03_Mathematiques',
+        'SPORT': '04_Calisthenie_Biomecanique',
+        'ENG': '05_Anglais_Cambridge'
+      };
+
       const newNote = {
         id: 'note-' + Date.now(),
         base: base,
+        folder: folderMap[base] || '00_Synthese_Souveraine',
         title: title,
         tags: tags.length ? tags : ['savoir', 'second-brain'],
         updatedAt: new Date().toISOString(),
@@ -2234,7 +3717,10 @@ function renderFullApplication(initialTab = "dashboard") {
       state.notes.unshift(newNote);
       saveState();
 
-      // Render new card in grid
+      buildGraphFromNotes();
+      renderObsidianFolderTree();
+      openObsidianNote(newNote.id, false);
+
       const grid = document.getElementById('notes-grid-container');
       if (grid) {
         const div = document.createElement('div');
@@ -2246,10 +3732,10 @@ function renderFullApplication(initialTab = "dashboard") {
             <span class="radar-ping-badge">\${newNote.base}</span>
             <div style="display: flex; gap: 8px; align-items: center;">
               <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); font-weight: bold;">À L'INSTANT</span>
-              <button onclick="deleteNote('\${newNote.id}')" style="background: none; border: none; color: var(--alert-crimson); cursor: pointer; font-size: 14px;">🗑</button>
+              <button onclick="deleteNote('\\\${newNote.id}')" style="background: none; border: none; color: var(--alert-crimson); cursor: pointer; font-size: 14px;">🗑</button>
             </div>
           </div>
-          <h3 style="font-size: 17px; font-weight: bold; margin-bottom: 12px; color: var(--text-white);">\${newNote.title}</h3>
+          <h3 style="font-size: 17px; font-weight: bold; margin-bottom: 12px; color: var(--text-white); cursor: pointer;" onclick="openObsidianNote('\\\${newNote.id}'); setObsidianMode('reader');">\${newNote.title}</h3>
           <div style="background: rgba(2, 8, 24, 0.7); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: var(--radius-sm); padding: 14px; font-size: 12px; font-family: var(--font-mono); color: var(--text-secondary); line-height: 1.5; white-space: pre-wrap; margin-bottom: 14px;">\${newNote.content}</div>
           <div style="display: flex; gap: 6px; flex-wrap: wrap;">
             \${newNote.tags.map(t => \`<span style="background: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); font-size: 11px; font-family: var(--font-mono); padding: 3px 8px; border-radius: 4px;">#\${t}</span>\`).join('')}
@@ -2271,11 +3757,13 @@ function renderFullApplication(initialTab = "dashboard") {
       saveState();
       const el = document.getElementById('note-card-' + id);
       if (el) el.remove();
+      buildGraphFromNotes();
+      renderObsidianFolderTree();
       showSysNotification("[NOTE RETIRÉE]", "Note supprimée du coffre local.");
     }
 
     function filterNotes(term) {
-      const q = term.toLowerCase();
+      const q = (term || '').toLowerCase();
       document.querySelectorAll('.note-card-item').forEach(c => {
         if (c.textContent.toLowerCase().includes(q)) {
           c.style.display = 'block';
@@ -2284,6 +3772,7 @@ function renderFullApplication(initialTab = "dashboard") {
         }
       });
     }
+
 
     // =========================================================================
     // SCREEN 6 : REAL AUDIO CAPTURE & SOCRATIC AI GRADER
