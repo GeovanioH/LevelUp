@@ -972,14 +972,6 @@ function renderFullApplication(initialTab = "dashboard") {
     <div class="brand-wrap">
       <div class="brand-logo">
         <span class="shiny-text">LEVELUP</span>
-        <span style="font-size: 13px; color: var(--neon-cyan); letter-spacing: 2px;">// THE SYSTEM</span>
-      </div>
-      <div class="radar-ping-badge">
-        <div class="ping-circle">
-          <span class="ping-wave"></span>
-          <span class="ping-dot"></span>
-        </div>
-        <span>SYSTEM ONLINE</span>
       </div>
     </div>
 
