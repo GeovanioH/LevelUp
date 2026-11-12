@@ -1505,6 +1505,146 @@ function renderFullApplication(initialTab = "dashboard") {
       position: relative;
       height: 100%;
     }
+
+    /* =========================================================================
+       REACTBITS CIRCULAR CAROUSEL 3D (CYLINDER PRESET FOR QUESTS)
+       ========================================================================= */
+    .quests-carousel-container {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(ellipse at center, rgba(14, 165, 233, 0.08) 0%, rgba(2, 8, 24, 0.95) 75%);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      box-shadow: inset 0 0 60px rgba(2, 8, 24, 0.9), 0 0 30px rgba(0, 240, 255, 0.1);
+      margin-bottom: 24px;
+    }
+
+    .circular-carousel {
+      --cc-fade: #020818;
+      --cc-radius: 14px;
+      --cc-inner: 0.4;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      outline: none;
+      touch-action: pan-y;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .circular-carousel[data-axis='x'] {
+      touch-action: pan-x;
+    }
+
+    .circular-carousel[data-draggable] {
+      cursor: grab;
+    }
+
+    .circular-carousel[data-dragging] {
+      cursor: grabbing;
+    }
+
+    .circular-carousel:focus-visible {
+      box-shadow: inset 0 0 0 2px rgba(0, 240, 255, 0.55);
+    }
+
+    .circular-carousel__view {
+      position: absolute;
+      inset: 0;
+    }
+
+    .circular-carousel__stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      transition: opacity 0.45s ease;
+      transform-style: preserve-3d;
+    }
+
+    .circular-carousel__camera,
+    .circular-carousel__ring,
+    .circular-carousel__card {
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
+    }
+
+    .circular-carousel__camera {
+      position: relative;
+    }
+
+    .circular-carousel__ring,
+    .circular-carousel__card {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .quest-3d-card {
+      position: absolute;
+      left: -130px;
+      top: -190px;
+      width: 260px;
+      height: 380px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(8, 20, 48, 0.95), rgba(2, 8, 24, 0.98));
+      border: 1.5px solid rgba(0, 240, 255, 0.4);
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.25), inset 0 0 20px rgba(0, 240, 255, 0.08);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .quest-3d-card:hover {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.5), inset 0 0 30px rgba(0, 240, 255, 0.15);
+    }
+
+    .quest-3d-card.active-quest-focus {
+      border-color: var(--imperial-gold);
+      box-shadow: 0 0 45px rgba(255, 215, 0, 0.55), inset 0 0 30px rgba(255, 215, 0, 0.2);
+    }
+
+    .quest-3d-card.quest-emergency {
+      border-color: var(--alert-crimson);
+      box-shadow: 0 0 35px rgba(255, 0, 60, 0.5), inset 0 0 25px rgba(255, 0, 60, 0.15);
+      background: linear-gradient(135deg, rgba(38, 4, 14, 0.95), rgba(12, 1, 4, 0.98));
+    }
+
+    .quest-3d-depth-shade {
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      background: #020818;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .quest-carousel-controls {
+      position: absolute;
+      bottom: 18px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      z-index: 30;
+      pointer-events: auto;
+    }
   </style>
 </head>
 <body>
@@ -1854,7 +1994,7 @@ function renderFullApplication(initialTab = "dashboard") {
 
 
     <!-- =====================================================================
-         SCREEN 3 : JOURNAL DES QUÊTES & ALERTES SYSTÈME
+         SCREEN 3 : JOURNAL DES QUÊTES & ALERTES SYSTÈME (3D CIRCULAR CAROUSEL)
          ===================================================================== -->
     <div id="view-quests" class="view-panel ${initialTab === "quests" ? "active" : ""}">
       <!-- Emergency Quest Alert Box (Real Countdown) -->
@@ -1891,42 +2031,84 @@ function renderFullApplication(initialTab = "dashboard") {
         </div>
       </div>
 
-      <!-- Add Custom Quest Form Trigger -->
-      <div style="display: flex; justify-content: flex-end; margin-bottom: 16px;">
+      <!-- Quests Mode Switcher & Create Button -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 14px;">
+        <div class="obsidian-view-mode-tabs">
+          <button class="obsidian-mode-btn active" id="btn-quest-mode-carousel" onclick="setQuestsViewMode('carousel')">
+            <span>🌀</span> CYLINDRE 3D (CIRCULAR CAROUSEL)
+          </button>
+          <button class="obsidian-mode-btn" id="btn-quest-mode-grid" onclick="setQuestsViewMode('grid')">
+            <span>📋</span> GRILLE COMPLÈTE
+          </button>
+        </div>
         <button class="btn-cyber" onclick="openCreateQuestModal()">+ CRÉER UNE NOUVELLE QUÊTE</button>
       </div>
 
-      <!-- Quests Grid -->
-      <div class="glass-card spotlight-card" style="padding: 26px;">
-        <h3 class="shiny-text" style="font-size: 22px; font-weight: 900; font-family: var(--font-display); margin-bottom: 18px;">
-          JOURNAL DES QUÊTES OBLIGATOIRES ACTIVES
-        </h3>
-        <div class="grid-2col" id="quests-page-grid">
-          ${SYSTEM_STATE.quests
-            .map(
-              (q) => `
-            <div class="glass-card spotlight-card" id="qlist-${q.id}" style="padding: 20px; background: rgba(3, 14, 38, 0.75);">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <span class="radar-ping-badge">${q.base} // ${q.type}</span>
-                <span style="font-size: 12px; color: var(--imperial-gold); font-family: var(--font-mono);">+${q.xp} XP</span>
-              </div>
-              <h4 style="font-size: 16px; font-weight: bold; margin-bottom: 8px; color: var(--text-white);">${q.title}</h4>
-              <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.4;">${q.description}</p>
-              <div id="qlist-action-${q.id}">
-                ${
-                  q.completed
-                    ? `<div style="font-size: 12px; color: var(--transcendent-green); font-weight: bold;">ACCOMPLIE ✓ (PREUVE VÉRIFIÉE)</div>`
-                    : `<button class="btn-cyber" onclick="openProofModal('${q.id}', '${q.title.replace(/'/g, "\\'")}', ${q.xp}, ${q.crystals})">SOUMETTRE LA PREUVE</button>`
-                }
+      <!-- 1. 3D CIRCULAR CAROUSEL SECTION -->
+      <div id="quests-carousel-section" class="quests-carousel-container">
+        <div style="position: absolute; top: 18px; left: 24px; z-index: 25; pointer-events: none;">
+          <div style="font-size: 11px; letter-spacing: 2px; color: var(--neon-cyan); font-family: var(--font-mono); font-weight: bold;">
+            REACTBITS // 3D CYLINDRICAL QUEST CAROUSEL
+          </div>
+          <div style="font-size: 13px; color: var(--text-secondary); margin-top: 2px;">
+            Glissez horizontalement pour faire pivoter le cylindre. Cliquez sur une carte pour la verrouiller.
+          </div>
+        </div>
+
+        <div class="circular-carousel" id="quest-circular-carousel" data-axis="y" data-shape="cylinder" data-draggable>
+          <div class="circular-carousel__view">
+            <div class="circular-carousel__stage" id="quest-carousel-stage">
+              <div class="circular-carousel__camera" id="quest-carousel-camera">
+                <div class="circular-carousel__ring" id="quest-carousel-ring">
+                  <!-- Dynamically populated 3D quest cards -->
+                </div>
               </div>
             </div>
-          `,
-            )
-            .join("")}
+          </div>
+        </div>
+
+        <div class="quest-carousel-controls">
+          <button class="btn-cyber" style="padding: 6px 14px; font-size: 12px;" onclick="stepQuestCarousel(-1)">◀ PRÉCÉDENT</button>
+          <button class="btn-cyber btn-gold" id="btn-quest-carousel-play" style="padding: 6px 14px; font-size: 12px;" onclick="toggleQuestCarouselDrift()">⏯ PAUSE</button>
+          <button class="btn-cyber" style="padding: 6px 14px; font-size: 12px;" onclick="stepQuestCarousel(1)">SUIVANT ▶</button>
+          <span class="radar-ping-badge" id="quest-carousel-active-badge" style="font-size: 11px; padding: 4px 10px;">
+            QUÊTE 1 / ${SYSTEM_STATE.quests.length}
+          </span>
+        </div>
+      </div>
+
+      <!-- 2. TRADITIONAL GRID SECTION -->
+      <div id="quests-page-grid-section" style="display: none;">
+        <div class="glass-card spotlight-card" style="padding: 26px;">
+          <h3 class="shiny-text" style="font-size: 22px; font-weight: 900; font-family: var(--font-display); margin-bottom: 18px;">
+            JOURNAL DES QUÊTES OBLIGATOIRES ACTIVES
+          </h3>
+          <div class="grid-2col" id="quests-page-grid">
+            ${SYSTEM_STATE.quests
+              .map(
+                (q) => `
+              <div class="glass-card spotlight-card" id="qlist-${q.id}" style="padding: 20px; background: rgba(3, 14, 38, 0.75);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <span class="radar-ping-badge">${q.base} // ${q.type}</span>
+                  <span style="font-size: 12px; color: var(--imperial-gold); font-family: var(--font-mono);">+${q.xp} XP</span>
+                </div>
+                <h4 style="font-size: 16px; font-weight: bold; margin-bottom: 8px; color: var(--text-white);">${q.title}</h4>
+                <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.4;">${q.description}</p>
+                <div id="qlist-action-${q.id}">
+                  ${
+                    q.completed
+                      ? `<div style="font-size: 12px; color: var(--transcendent-green); font-weight: bold;">ACCOMPLIE ✓ (PREUVE VÉRIFIÉE)</div>`
+                      : `<button class="btn-cyber" onclick="openProofModal('${q.id}', '${q.title.replace(/'/g, "\\'")}', ${q.xp}, ${q.crystals})">SOUMETTRE LA PREUVE</button>`
+                  }
+                </div>
+              </div>
+            `,
+              )
+              .join("")}
+          </div>
         </div>
       </div>
     </div>
-
 
     <!-- =====================================================================
          SCREEN 4 : TIME-BLOCKING CIRCADIEN (WITH REAL COMPLETION & TIMERS)
@@ -2762,7 +2944,337 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     // =========================================================================
-    // SCREEN 3 : QUESTS PROOF MODAL & SUBMISSION
+    // =========================================================================
+    // SCREEN 3 : REACTBITS 3D CIRCULAR CAROUSEL & PROOF SUBMISSION
+    // =========================================================================
+    let currentQuestsViewMode = 'carousel';
+    let questCarouselAngle = 0;
+    let questCarouselVelocity = 0;
+    let questCarouselTarget = null;
+    let questCarouselDrift = true;
+    let questCarouselSpeed = 12; // deg per sec
+    let questCarouselDirection = -1; // drift left
+    let questCarouselActiveIndex = 0;
+    let isDraggingQuestCarousel = false;
+    let questPointerStart = { x: 0, y: 0, angle: 0, time: 0 };
+    let questPointerCurrent = { x: 0, y: 0 };
+    let questPointerSamples = [];
+    let questYaw = 0;
+    let questPitch = 0;
+    let questCarouselAnimId = null;
+    let questCarouselInitialized = false;
+
+    const QUEST_CARD_WIDTH = 260;
+    const QUEST_CARD_HEIGHT = 380;
+    const QUEST_GAP = 35;
+    const QUEST_TILT = -5;
+    const QUEST_PERSPECTIVE = 2500;
+
+    function setQuestsViewMode(mode) {
+      currentQuestsViewMode = mode;
+      const btnCarousel = document.getElementById('btn-quest-mode-carousel');
+      const btnGrid = document.getElementById('btn-quest-mode-grid');
+      const secCarousel = document.getElementById('quests-carousel-section');
+      const secGrid = document.getElementById('quests-page-grid-section');
+
+      if (mode === 'carousel') {
+        if (btnCarousel) btnCarousel.classList.add('active');
+        if (btnGrid) btnGrid.classList.remove('active');
+        if (secCarousel) secCarousel.style.display = 'block';
+        if (secGrid) secGrid.style.display = 'none';
+        if (!questCarouselInitialized) initQuestCircularCarousel();
+      } else {
+        if (btnCarousel) btnCarousel.classList.remove('active');
+        if (btnGrid) btnGrid.classList.add('active');
+        if (secCarousel) secCarousel.style.display = 'none';
+        if (secGrid) secGrid.style.display = 'block';
+      }
+    }
+
+    function initQuestCircularCarousel() {
+      const ring = document.getElementById('quest-carousel-ring');
+      const stage = document.getElementById('quest-carousel-stage');
+      const root = document.getElementById('quest-circular-carousel');
+      if (!ring || !stage || !root) return;
+
+      stage.style.perspective = QUEST_PERSPECTIVE + 'px';
+
+      const quests = state.quests || [];
+      const count = quests.length;
+      if (count === 0) return;
+
+      const step = 360 / count;
+      const pitch = QUEST_CARD_WIDTH + QUEST_GAP;
+      const chord = pitch / (2 * Math.sin(Math.PI / count));
+      const arc = (count * pitch) / (2 * Math.PI);
+      const radius = Math.max(chord + (arc - chord) * 1.0, 380);
+
+      // Populate Cards
+      ring.innerHTML = '';
+      quests.forEach((q, index) => {
+        const isEmergency = q.id === 'q-emergency-auth-bypass';
+        const isFit = q.id === 'q-daily-fit-1' || q.base === 'STR';
+        
+        const card = document.createElement('div');
+        card.className = 'circular-carousel__card';
+        card.setAttribute('data-quest-index', index);
+
+        card.innerHTML = \`
+          <div class="quest-3d-card \${isEmergency ? 'quest-emergency' : ''}" 
+               id="quest-card-3d-\${q.id}"
+               onclick="handleQuest3DCardClick(\${index}, '\${q.id}')">
+            
+            <!-- Top HUD Badge -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span class="radar-ping-badge" style="font-size: 10px; padding: 2px 7px; \${isEmergency ? 'border-color: rgba(255,0,60,0.6); color: var(--alert-crimson);' : ''}">
+                \${q.base} // \${q.type || 'DAILY'}
+              </span>
+              <span style="font-size: 11px; font-family: var(--font-mono); color: var(--imperial-gold); font-weight: bold;">
+                +\${q.xp} XP
+              </span>
+            </div>
+
+            <!-- Solo Leveling Quest Header -->
+            <div style="border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 10px;">
+              <div style="font-size: 11px; letter-spacing: 2px; color: \${isEmergency ? 'var(--alert-crimson)' : 'var(--neon-cyan)'}; font-family: var(--font-mono); font-weight: 900; display: flex; align-items: center; gap: 6px;">
+                <span>ℹ️</span> <span>QUEST INFO</span>
+              </div>
+              <div style="font-size: 14px; font-weight: bold; color: var(--text-white); margin-top: 4px; line-height: 1.3;">
+                \${q.title}
+              </div>
+            </div>
+
+            <!-- Solo Leveling Objective Details -->
+            <div style="flex: 1; background: rgba(2, 8, 24, 0.7); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 8px; padding: 10px; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); line-height: 1.5; margin-bottom: 10px; overflow: hidden;">
+              \${isFit ? \`
+                <div style="color: var(--neon-cyan); font-weight: bold; margin-bottom: 4px; border-bottom: 1px dashed rgba(0,240,255,0.3); padding-bottom: 2px;">GOAL :</div>
+                <div>• Push-ups : [14/100]</div>
+                <div>• Sit-ups : [0/100]</div>
+                <div>• Squats : [0/100]</div>
+                <div>• Running : [0/10km]</div>
+                <div style="color: var(--alert-crimson); font-size: 9px; margin-top: 4px;">WARNING: Failure triggers Penalty Zone.</div>
+              \` : \`
+                <div>\${q.description}</div>
+              \`}
+            </div>
+
+            <!-- Bottom Action & Rewards -->
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 11px; font-family: var(--font-mono);">
+                <span style="color: var(--transcendent-green);">+500 XP</span>
+                <span style="color: var(--imperial-gold);">+100 💎</span>
+              </div>
+              <button class="btn-cyber \${isEmergency ? 'btn-red' : ''}" 
+                      style="width: 100%; padding: 8px 12px; font-size: 11px;" 
+                      onclick="event.stopPropagation(); openProofModal('\\\${q.id}', '\\\${q.title.replace(/'/g, "\\\\'")}', \\\${q.xp}, \\\${q.crystals});">
+                \${q.completed ? 'ACCOMPLIE ✓' : 'SOUMETTRE PREUVE'}
+              </button>
+            </div>
+
+            <div class="quest-3d-depth-shade" id="quest-depth-shade-\${q.id}"></div>
+          </div>
+        \`;
+
+        ring.appendChild(card);
+      });
+
+      // Pointer Drag Events
+      root.addEventListener('pointerdown', (e) => {
+        isDraggingQuestCarousel = true;
+        questCarouselTarget = null;
+        questPointerStart = {
+          x: e.clientX,
+          y: e.clientY,
+          angle: questCarouselAngle,
+          time: performance.now()
+        };
+        questPointerSamples = [{ time: performance.now(), angle: questCarouselAngle }];
+        root.setAttribute('data-dragging', '');
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        const rect = root.getBoundingClientRect();
+        questPointerCurrent.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        questPointerCurrent.y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+
+        if (isDraggingQuestCarousel) {
+          const deltaX = e.clientX - questPointerStart.x;
+          const perPixel = 180 / (Math.PI * radius);
+          questCarouselAngle = questPointerStart.angle + deltaX * perPixel;
+          const now = performance.now();
+          questPointerSamples.push({ time: now, angle: questCarouselAngle });
+          while (questPointerSamples.length > 2 && now - questPointerSamples[0].time > 110) {
+            questPointerSamples.shift();
+          }
+        }
+      });
+
+      window.addEventListener('pointerup', () => {
+        if (!isDraggingQuestCarousel) return;
+        isDraggingQuestCarousel = false;
+        root.removeAttribute('data-dragging');
+
+        if (questPointerSamples.length >= 2) {
+          const first = questPointerSamples[0];
+          const last = questPointerSamples[questPointerSamples.length - 1];
+          const span = (last.time - first.time) / 1000;
+          if (span > 0.008) {
+            const v = (last.angle - first.angle) / span;
+            questCarouselVelocity = Math.max(-1200, Math.min(1200, v));
+            // Set snap target
+            const tau = 0.18 + 0.6 * 1.5;
+            const pred = questCarouselAngle + questCarouselVelocity * tau * 0.55;
+            questCarouselTarget = Math.round(pred / step) * step;
+          }
+        } else {
+          questCarouselTarget = Math.round(questCarouselAngle / step) * step;
+        }
+      });
+
+      // Mouse Wheel Delta
+      root.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaX) > 5 || Math.abs(e.deltaY) > 5) {
+          e.preventDefault();
+          const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+          questCarouselAngle -= d * 0.15;
+          questCarouselTarget = Math.round(questCarouselAngle / step) * step;
+        }
+      }, { passive: false });
+
+      // Start Animation Loop
+      if (!questCarouselAnimId) {
+        startQuestCarouselLoop();
+      }
+
+      questCarouselInitialized = true;
+    }
+
+    function handleQuest3DCardClick(index, questId) {
+      focusQuestCarouselCard(index);
+      showSysNotification(
+        "⚡ [QUÊTE SÉLECTIONNÉE DANS LE CYLINDRE 3D]",
+        "Focus établi sur la quête. Cliquez sur 'SOUMETTRE PREUVE' pour valider votre accomplissement."
+      );
+    }
+
+    function focusQuestCarouselCard(index) {
+      const quests = state.quests || [];
+      const step = 360 / Math.max(1, quests.length);
+      let target = -index * step;
+      target += 360 * Math.round((questCarouselAngle - target) / 360);
+      questCarouselTarget = target;
+    }
+
+    function stepQuestCarousel(dir) {
+      const quests = state.quests || [];
+      const step = 360 / Math.max(1, quests.length);
+      const base = questCarouselTarget ?? Math.round(questCarouselAngle / step) * step;
+      questCarouselTarget = base - dir * step;
+    }
+
+    function toggleQuestCarouselDrift() {
+      questCarouselDrift = !questCarouselDrift;
+      const btn = document.getElementById('btn-quest-carousel-play');
+      if (btn) btn.textContent = questCarouselDrift ? '⏯ PAUSE' : '▶ DÉFILER';
+      showSysNotification(
+        "[CYLINDRE 3D]",
+        questCarouselDrift ? "Rotation cinétique continue réactivée." : "Rotation automatique en pause."
+      );
+    }
+
+    function startQuestCarouselLoop() {
+      let lastTime = performance.now();
+
+      function loop(now) {
+        const dt = Math.min((now - lastTime) / 1000, 0.05);
+        lastTime = now;
+
+        const quests = state.quests || [];
+        const count = quests.length;
+
+        if (count > 0 && currentQuestsViewMode === 'carousel') {
+          const step = 360 / count;
+          const pitch = QUEST_CARD_WIDTH + QUEST_GAP;
+          const chord = pitch / (2 * Math.sin(Math.PI / count));
+          const arc = (count * pitch) / (2 * Math.PI);
+          const radius = Math.max(chord + (arc - chord) * 1.0, 380);
+
+          // Physics updates
+          if (isDraggingQuestCarousel) {
+            // Dragged manually
+          } else if (questCarouselTarget !== null) {
+            // Spring snap
+            const SPRING = 118;
+            const damping = 2 * Math.sqrt(SPRING);
+            const accel = SPRING * (questCarouselTarget - questCarouselAngle) - damping * questCarouselVelocity;
+            questCarouselVelocity += accel * dt;
+            questCarouselAngle += questCarouselVelocity * dt;
+            if (Math.abs(questCarouselTarget - questCarouselAngle) < 0.01 && Math.abs(questCarouselVelocity) < 0.05) {
+              questCarouselAngle = questCarouselTarget;
+              questCarouselVelocity = 0;
+              questCarouselTarget = null;
+            }
+          } else if (questCarouselDrift) {
+            // Drift
+            const cruise = questCarouselSpeed * questCarouselDirection;
+            const tau = 0.18 + 0.6 * 1.5;
+            questCarouselVelocity += (cruise - questCarouselVelocity) * (1 - Math.exp(-dt / tau));
+            questCarouselAngle += questCarouselVelocity * dt;
+          }
+
+          // Parallax tilt
+          const aimYaw = questPointerCurrent.x * 0.3 * 9;
+          const aimPitch = -questPointerCurrent.y * 0.3 * 6;
+          questYaw += (aimYaw - questYaw) * 0.1;
+          questPitch += (aimPitch - questPitch) * 0.1;
+
+          // Camera & Ring DOM updates
+          const camera = document.getElementById('quest-carousel-camera');
+          const ring = document.getElementById('quest-carousel-ring');
+
+          if (camera && ring) {
+            camera.style.transform = \`translate3d(0, 0, \${-radius}px) rotateX(\${QUEST_TILT + questPitch}deg) rotateY(\${questYaw}deg)\`;
+            ring.style.transform = \`rotateY(\${questCarouselAngle}deg)\`;
+
+            const cards = ring.querySelectorAll('.circular-carousel__card');
+            cards.forEach((cardEl, idx) => {
+              const base = idx * step;
+              cardEl.style.transform = \`rotateY(\${base}deg) translateZ(\${radius}px)\`;
+
+              // Calculate front-facing cosine for depth fade
+              const world = ((((base + questCarouselAngle + 180) % 360) + 360) % 360) - 180;
+              const facing = Math.cos((world * Math.PI) / 180);
+              const fade = 0.6 * Math.pow((1 - facing) / 2, 1.25);
+
+              const shade = cardEl.querySelector('.quest-3d-depth-shade');
+              if (shade) shade.style.opacity = fade.toFixed(3);
+
+              const cardBox = cardEl.querySelector('.quest-3d-card');
+              if (cardBox) {
+                if (Math.abs(world) < (step / 2)) {
+                  cardBox.classList.add('active-quest-focus');
+                } else {
+                  cardBox.classList.remove('active-quest-focus');
+                }
+              }
+            });
+
+            // Update Active Quest Badge
+            const activeIdx = ((Math.round(-questCarouselAngle / step) % count) + count) % count;
+            if (activeIdx !== questCarouselActiveIndex) {
+              questCarouselActiveIndex = activeIdx;
+              const badge = document.getElementById('quest-carousel-active-badge');
+              if (badge) badge.textContent = \`QUÊTE \${activeIdx + 1} / \${count}\`;
+            }
+          }
+        }
+
+        questCarouselAnimId = requestAnimationFrame(loop);
+      }
+
+      questCarouselAnimId = requestAnimationFrame(loop);
+    }
+
     // =========================================================================
     let activeQuestId = null;
     let activeQuestTitle = "";

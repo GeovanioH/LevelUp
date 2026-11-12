@@ -3,5 +3,7 @@ export * from "./components/PlayerIdCard";
 export * from "./components/OctagonalRadar";
 export * from "./components/SkillTreeDagViewer";
 export * from "./components/DailyQuestsModal";
+export * from "./components/CircularCarousel";
+export * from "./components/QuestsCircularCarousel";
 export * from "./db/levelupDexie";
 export * from "./audio/proceduralAudioEngine";
