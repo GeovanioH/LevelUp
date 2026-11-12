@@ -11,6 +11,44 @@ const url = require("url");
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
 
+// Solo Leveling Sovereign Monarch Logo SVG
+const MONARCH_LOGO_SVG = `<svg class="monarch-crest-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="crestCyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F0FF" />
+      <stop offset="50%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0051FF" />
+    </linearGradient>
+    <linearGradient id="crestCoreGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#00F0FF" />
+    </linearGradient>
+    <filter id="cyanGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Outer Hexagonal/Angular Shield Frame -->
+  <polygon points="50,4 88,24 88,72 50,96 12,72 12,24" stroke="#00F0FF" stroke-width="2" fill="rgba(4, 18, 48, 0.85)" stroke-linejoin="round" opacity="0.9" />
+  <polygon points="50,10 82,28 82,68 50,88 18,68 18,28" stroke="rgba(56, 189, 248, 0.4)" stroke-width="1" fill="none" />
+  <!-- Winged Monarch Daggers / Crown Spikes -->
+  <path d="M 22 32 L 38 22 L 44 44 L 34 52 L 22 42 Z" fill="url(#crestCyanGrad)" stroke="#00F0FF" stroke-width="1.5" />
+  <path d="M 78 32 L 78 42 L 66 52 L 56 44 L 62 22 Z" fill="url(#crestCyanGrad)" stroke="#00F0FF" stroke-width="1.5" />
+  <path d="M 50 12 L 58 40 L 50 56 L 42 40 Z" fill="url(#crestCyanGrad)" stroke="#FFFFFF" stroke-width="1.5" />
+  <!-- Lower Chevron Ribs -->
+  <path d="M 32 62 L 50 78 L 68 62 L 64 68 L 50 82 L 36 68 Z" fill="#00F0FF" opacity="0.8" />
+  <path d="M 38 72 L 50 82 L 62 72 L 58 76 L 50 84 L 42 76 Z" fill="#0051FF" opacity="0.9" />
+  <!-- Central Mana Diamond Core -->
+  <polygon points="50,38 60,50 50,62 40,50" fill="url(#crestCoreGrad)" stroke="#FFFFFF" stroke-width="1.5" filter="url(#cyanGlow)" />
+  <circle cx="50" cy="50" r="2.5" fill="#FFFFFF" />
+  <circle cx="50" cy="12" r="1.5" fill="#FFFFFF" />
+  <circle cx="22" cy="32" r="1.5" fill="#00F0FF" />
+  <circle cx="78" cy="32" r="1.5" fill="#00F0FF" />
+</svg>`;
+
 // Default System State Template
 const DEFAULT_STATE = {
   player: {
@@ -451,6 +489,7 @@ function renderFullApplication(initialTab = "dashboard") {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LevelUp — The System (HUD Solo Leveling)</title>
+  <link rel="icon" type="image/svg+xml" href="/logo-monarch.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Rajdhani:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -755,11 +794,49 @@ function renderFullApplication(initialTab = "dashboard") {
       align-items: center;
     }
 
+    .brand-logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+    }
+    .brand-logo-wrap:hover {
+      transform: translateY(-1px) scale(1.02);
+    }
+    .monarch-crest-svg {
+      width: 36px;
+      height: 36px;
+      filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.75));
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    .brand-logo-wrap:hover .monarch-crest-svg {
+      filter: drop-shadow(0 0 16px rgba(0, 240, 255, 1)) drop-shadow(0 0 26px rgba(0, 81, 255, 0.7));
+      transform: rotate(2deg);
+    }
+    .brand-text-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     .brand-logo {
       font-family: var(--font-display);
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 900;
       letter-spacing: 3px;
+      line-height: 1;
+    }
+    .brand-subtext {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: var(--neon-cyan);
+      opacity: 0.85;
+      margin-top: 3px;
+      line-height: 1;
     }
 
     .nav-bar {
@@ -896,8 +973,14 @@ function renderFullApplication(initialTab = "dashboard") {
   <!-- MASTER TOP HEADER -->
   <header class="master-header">
     <div class="brand-wrap">
-      <div class="brand-logo">
-        <span class="shiny-text">LEVELUP</span>
+      <div class="brand-logo-wrap" onclick="switchView('dashboard')" title="LevelUp — Système du Monarque (Dashboard)">
+        ${MONARCH_LOGO_SVG}
+        <div class="brand-text-block">
+          <div class="brand-logo">
+            <span class="shiny-text">LEVELUP</span>
+          </div>
+          <span class="brand-subtext">THE MONARCH SYSTEM</span>
+        </div>
       </div>
     </div>
 
@@ -2633,6 +2716,20 @@ const server = http.createServer((req, res) => {
         version: "3.3.0",
       }),
     );
+    return;
+  }
+
+  // Favicon & Monarch Logo SVG Assets
+  if (
+    pathname === "/logo-monarch.svg" ||
+    pathname === "/favicon.svg" ||
+    pathname === "/favicon.ico"
+  ) {
+    res.writeHead(200, {
+      "Content-Type": "image/svg+xml; charset=utf-8",
+      "Cache-Control": "public, max-age=86400",
+    });
+    res.end(MONARCH_LOGO_SVG);
     return;
   }
 
