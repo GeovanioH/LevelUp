@@ -114,6 +114,89 @@ const SYSTEM_STATE = {
       proof: "",
     },
   ],
+  skillsList: [
+    {
+      id: "sk-transformers",
+      base: "AI_ENG",
+      tier: 1,
+      name: "Transformers & Scaled Dot-Product",
+      dod: "Implémentation manuelle du mécanisme QKV sans couche nn.MultiheadAttention",
+      status: "MASTERED",
+      xp: 200,
+    },
+    {
+      id: "sk-aes-argon2",
+      base: "CYBER",
+      tier: 1,
+      name: "Chiffrement AES-256-GCM & Argon2id",
+      dod: "Protection inviolable des flux vocaux et intégrité tamper-proof",
+      status: "MASTERED",
+      xp: 180,
+    },
+    {
+      id: "sk-flash-attention",
+      base: "AI_ENG",
+      tier: 2,
+      name: "FlashAttention-2 & Triton Kernels",
+      dod: "Fusion des passes de calcul et réduction des I/O HBM vers SRAM GPU",
+      status: "IN_PROGRESS",
+      xp: 350,
+    },
+    {
+      id: "sk-buffer-overflow",
+      base: "CYBER",
+      tier: 2,
+      name: "Exploitation Buffer Overflow x86 & ASLR",
+      dod: "Reverse engineering GDB, contrôle de registre EIP et NOP Sled",
+      status: "LOCKED",
+      xp: 300,
+    },
+    {
+      id: "sk-svd-reduction",
+      base: "ACAD",
+      tier: 1,
+      name: "Décomposition SVD & Réduction PCA",
+      dod: "Calcul des valeurs singulières et factorisation matricielle orthogonale",
+      status: "MASTERED",
+      xp: 190,
+    },
+    {
+      id: "sk-calisthenics-pike",
+      base: "STR",
+      tier: 2,
+      name: "Pike Push-Ups & Équilibre Handstand",
+      dod: "15 répétitions strictes filmées et validées par Computer Vision",
+      status: "IN_PROGRESS",
+      xp: 220,
+    },
+    {
+      id: "sk-cambridge-c1-oral",
+      base: "LNG",
+      tier: 2,
+      name: "Monologue Technique Cambridge C1",
+      dod: "Restitution de 3 min à plus de 130 mots/min avec lexique formel",
+      status: "IN_PROGRESS",
+      xp: 250,
+    },
+    {
+      id: "sk-bourses-eiffel",
+      base: "FIN",
+      tier: 1,
+      name: "Dossier Bourse Eiffel & Lettre de Projet",
+      dod: "Rédaction académique et plan d'excellence internationale",
+      status: "MASTERED",
+      xp: 170,
+    },
+    {
+      id: "sk-monk-mode-audit",
+      base: "DIS",
+      tier: 2,
+      name: "Monk Mode & Protocole Borbély 22h00",
+      dod: "14 jours consécutifs de coupure d'écran stricte avant 22h00",
+      status: "MASTERED",
+      xp: 280,
+    },
+  ],
   plannerBlocks: [
     {
       id: "b1",
@@ -373,448 +456,753 @@ function renderFullApplication(initialTab = "dashboard") {
   <title>LevelUp — The System (HUD Solo Leveling)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Rajdhani:wght@500;600;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Rajdhani:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-abyss: #05050A;
-      --bg-surface: rgba(10, 15, 30, 0.85);
-      --bg-surface-elevated: #0C1222;
-      --border-cyan: #00E5FF;
-      --border-glow: rgba(0, 229, 255, 0.35);
-      --accent-blue: #0051FF;
-      --accent-gold: #FFD700;
-      --accent-red: #FF003C;
-      --accent-green: #10B981;
-      --accent-purple: #9D00FF;
-      --text-white: #FFFFFF;
-      --text-secondary: #94A3B8;
-      --text-muted: #64748B;
+      /* ==========================================================================
+         AUTHENTIC SOLO LEVELING SAPPHIRE GLASS & NEON SYSTEM PALETTE
+         ========================================================================== */
+      --bg-cosmic-0: #010614;
+      --bg-cosmic-1: #020b22;
+      --bg-cosmic-2: #05163e;
+      --glass-panel: rgba(4, 18, 48, 0.78);
+      --glass-panel-elevated: rgba(6, 26, 68, 0.85);
+      --glass-inner-border: rgba(56, 189, 248, 0.28);
+      --glass-inner-glow: rgba(0, 240, 255, 0.08);
+
+      --neon-cyan: #00f0ff;
+      --neon-sky: #38bdf8;
+      --neon-blue: #0284c7;
+      --deep-sapphire: #0051ff;
+      --monarch-purple: #9d00ff;
+      --transcendent-green: #00ff66;
+      --emerald-green: #10b981;
+      --imperial-gold: #ffd700;
+      --alert-crimson: #ff003c;
+      --danger-red: #ef4444;
+
+      --text-white: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --text-cyan: #38bdf8;
+
       --font-display: 'Rajdhani', sans-serif;
       --font-body: 'Inter', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-pill: 9999px;
     }
 
     [data-theme="light-awakening"] {
-      --bg-abyss: #F1F5F9;
-      --bg-surface: rgba(255, 255, 255, 0.95);
-      --bg-surface-elevated: #FFFFFF;
-      --border-cyan: #FF6B00;
-      --border-glow: rgba(255, 107, 0, 0.35);
-      --accent-blue: #EA580C;
-      --accent-gold: #D97706;
-      --accent-red: #DC2626;
-      --accent-green: #059669;
-      --accent-purple: #7C3AED;
-      --text-white: #0F172A;
+      --bg-cosmic-0: #f0f4f8;
+      --bg-cosmic-1: #e2e8f0;
+      --bg-cosmic-2: #cbd5e1;
+      --glass-panel: rgba(255, 255, 255, 0.90);
+      --glass-panel-elevated: #ffffff;
+      --glass-inner-border: rgba(14, 165, 233, 0.35);
+      --glass-inner-glow: rgba(14, 165, 233, 0.1);
+      --neon-cyan: #0284c7;
+      --neon-sky: #0369a1;
+      --transcendent-green: #059669;
+      --imperial-gold: #b45309;
+      --text-white: #0f172a;
       --text-secondary: #334155;
-      --text-muted: #64748B;
+      --text-muted: #64748b;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
+
     body {
-      background-color: var(--bg-abyss);
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(0, 229, 255, 0.07) 0%, transparent 45%),
-        radial-gradient(circle at 90% 80%, rgba(157, 0, 255, 0.07) 0%, transparent 45%),
-        linear-gradient(rgba(0, 229, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 229, 255, 0.02) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+      background-color: var(--bg-cosmic-0);
+      background-image:
+        radial-gradient(ellipse at 50% 0%, #0d2a5e 0%, #031230 45%, #010614 100%),
+        radial-gradient(circle at 15% 30%, rgba(0, 81, 255, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 70%, rgba(0, 240, 255, 0.08) 0%, transparent 45%);
+      background-attachment: fixed;
       color: var(--text-white);
       font-family: var(--font-body);
       min-height: 100vh;
       overflow-x: hidden;
+      position: relative;
     }
 
-    /* Angular Holographic Cards */
-    .hologram-box {
-      background: var(--bg-surface);
-      backdrop-filter: blur(14px);
-      border: 1px solid var(--border-cyan);
-      box-shadow: 0 0 15px var(--border-glow);
-      clip-path: polygon(0 10px, 10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px));
-      transition: all 0.25s ease;
-    }
-
-    .hologram-box:hover {
-      box-shadow: 0 0 25px var(--border-cyan);
-    }
-
-    /* Master Top Bar */
-    .master-header {
-      background: var(--bg-surface);
-      border-bottom: 1px solid var(--border-cyan);
-      box-shadow: 0 4px 20px var(--border-glow);
-      padding: 12px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
+    /* Fixed Canvas for Floating Mana Particles (React Bits) */
+    #mana-particles-canvas {
+      position: fixed;
       top: 0;
-      z-index: 100;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    /* ==========================================================================
+       REACT BITS & UIVERSE COMPONENT STYLES
+       ========================================================================== */
+
+    /* 1. Solo Leveling Sapphire Glass Panel with React Bits Spotlight */
+    .glass-card {
+      position: relative;
+      background: var(--glass-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-inner-border);
+      border-radius: var(--radius-md);
+      box-shadow: 
+        0 10px 30px -5px rgba(0, 25, 70, 0.5),
+        inset 0 0 20px var(--glass-inner-glow),
+        0 0 15px rgba(0, 220, 255, 0.12);
+      overflow: hidden;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+      z-index: 2;
+    }
+
+    /* Outer Cyber Notch & Energy Conduit Accents (Images 2 & 6) */
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 5%, var(--neon-cyan) 50%, transparent 95%);
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    /* React Bits Spotlight Overlay */
+    .spotlight-card {
+      position: relative;
+    }
+    .spotlight-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(
+        500px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+        rgba(0, 240, 255, 0.14),
+        transparent 45%
+      );
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: inherit;
+      z-index: 1;
+    }
+    .spotlight-card:hover::after {
+      opacity: 1;
+    }
+    .spotlight-card:hover {
+      border-color: rgba(0, 240, 255, 0.65);
+      box-shadow: 
+        0 12px 35px -5px rgba(0, 60, 160, 0.55),
+        inset 0 0 25px rgba(0, 240, 255, 0.15),
+        0 0 25px rgba(0, 240, 255, 0.25);
+    }
+
+    /* 2. Shiny / Shimmer Text (React Bits) */
+    .shiny-text {
+      background: linear-gradient(110deg, #93c5fd 10%, #ffffff 45%, #38bdf8 80%, #93c5fd 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: textShimmer 3.5s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    .shiny-gold {
+      background: linear-gradient(110deg, #f59e0b 10%, #fffbeb 50%, #ffd700 80%, #f59e0b 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: textShimmer 3s ease-in-out infinite;
+    }
+
+    .shiny-green {
+      background: linear-gradient(110deg, #10b981 10%, #ecfdf5 50%, #00ff66 80%, #10b981 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: textShimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes textShimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* 3. Border Beam / Tracing Effect (React Bits & Uiverse) */
+    .border-beam-box {
+      position: relative;
+      border: 1px solid rgba(255, 0, 60, 0.4);
+      background: var(--glass-panel);
+      backdrop-filter: blur(20px);
+      border-radius: var(--radius-md);
+      box-shadow: 0 0 25px rgba(255, 0, 60, 0.25);
+      overflow: hidden;
+    }
+    .border-beam-box::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent 0deg, #ff003c 45deg, transparent 90deg);
+      animation: beamRotate 4s linear infinite;
+      z-index: 0;
+      opacity: 0.6;
+    }
+    .border-beam-content {
+      position: relative;
+      background: rgba(8, 16, 38, 0.94);
+      border-radius: calc(var(--radius-md) - 1px);
+      z-index: 1;
+    }
+    @keyframes beamRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* 4. True Capsule Sliders (Solo Leveling Image 3) */
+    .capsule-slider-track {
+      background: rgba(3, 10, 26, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: var(--radius-pill);
+      height: 14px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+    }
+    .capsule-slider-fill {
+      height: 100%;
+      border-radius: var(--radius-pill);
+      position: relative;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .capsule-fill-hp {
+      background: linear-gradient(90deg, #059669, #00ff66);
+      box-shadow: 0 0 10px rgba(0, 255, 102, 0.6);
+    }
+    .capsule-fill-mp {
+      background: linear-gradient(90deg, #0284c7, #00f0ff);
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.7);
+    }
+    .capsule-fill-xp {
+      background: linear-gradient(90deg, #0051ff, #38bdf8);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+    }
+
+    /* 5. Uiverse / Shadcn Buttons */
+    .btn-cyber {
+      background: rgba(4, 20, 56, 0.85);
+      border: 1px solid var(--neon-cyan);
+      color: var(--neon-cyan);
       font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 900;
-      letter-spacing: 3px;
-      color: var(--border-cyan);
-      text-shadow: 0 0 12px var(--border-cyan);
-    }
-
-    .pulse-dot {
-      width: 10px;
-      height: 10px;
-      background: var(--border-cyan);
-      border-radius: 50%;
-      box-shadow: 0 0 12px var(--border-cyan);
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(1.3); } }
-
-    .header-stats {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      font-family: var(--font-mono);
-      font-size: 13px;
-    }
-
-    .stat-badge {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 5px 12px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* Navigation Bar */
-    .nav-bar {
-      background: rgba(5, 10, 20, 0.95);
-      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
-      display: flex;
-      overflow-x: auto;
-      padding: 0 20px;
-      scrollbar-width: none;
-    }
-
-    .nav-tab {
-      background: none;
-      border: none;
-      color: var(--text-secondary);
-      font-family: var(--font-display);
-      font-size: 14px;
       font-weight: 700;
-      letter-spacing: 1.5px;
-      padding: 14px 18px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-bottom: 3px solid transparent;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-
-    .nav-tab:hover {
-      color: var(--border-cyan);
-      background: rgba(0, 229, 255, 0.05);
-    }
-
-    .nav-tab.active {
-      color: var(--border-cyan);
-      border-bottom-color: var(--border-cyan);
-      background: rgba(0, 229, 255, 0.1);
-      text-shadow: 0 0 8px var(--border-cyan);
-    }
-
-    .main-container {
-      max-width: 1480px;
-      margin: 25px auto;
-      padding: 0 20px 40px;
-    }
-
-    .view-panel { display: none; }
-    .view-panel.active { display: block; animation: fadeIn 0.25s ease; }
-
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* Buttons */
-    .btn-hologram {
-      background: rgba(0, 229, 255, 0.15);
-      border: 1px solid var(--border-cyan);
-      color: var(--border-cyan);
-      font-family: var(--font-display);
-      font-weight: 700;
       font-size: 13px;
       letter-spacing: 1.5px;
-      padding: 8px 16px;
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
-      border-radius: 4px;
-      transition: all 0.2s;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+      text-transform: uppercase;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
     }
-
-    .btn-hologram:hover {
-      background: var(--border-cyan);
-      color: #000;
-      box-shadow: 0 0 15px var(--border-cyan);
+    .btn-cyber:hover {
+      background: var(--neon-cyan);
+      color: #020c24;
+      box-shadow: 0 0 22px rgba(0, 240, 255, 0.75);
+      transform: translateY(-2px);
+    }
+    .btn-cyber:active {
+      transform: translateY(0);
     }
 
     .btn-gold {
-      background: rgba(255, 215, 0, 0.15);
-      border-color: var(--accent-gold);
-      color: var(--accent-gold);
+      border-color: var(--imperial-gold);
+      color: var(--imperial-gold);
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);
     }
-
     .btn-gold:hover {
-      background: var(--accent-gold);
-      color: #000;
-      box-shadow: 0 0 15px var(--accent-gold);
+      background: var(--imperial-gold);
+      color: #1e1002;
+      box-shadow: 0 0 22px rgba(255, 215, 0, 0.75);
     }
 
     .btn-red {
-      background: rgba(255, 0, 60, 0.2);
-      border-color: var(--accent-red);
-      color: var(--accent-red);
+      border-color: var(--alert-crimson);
+      color: var(--alert-crimson);
+      box-shadow: 0 0 12px rgba(255, 0, 60, 0.35);
     }
-
     .btn-red:hover {
-      background: var(--accent-red);
-      color: #fff;
-      box-shadow: 0 0 20px var(--accent-red);
+      background: var(--alert-crimson);
+      color: #ffffff;
+      box-shadow: 0 0 25px rgba(255, 0, 60, 0.85);
     }
 
-    /* Grids */
-    .grid-2col { display: grid; grid-template-columns: 380px 1fr; gap: 24px; }
-    .grid-3col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .grid-4col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    /* 6. Radar Ping Badge (Shadcn style with Uiverse glow) */
+    .radar-ping-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--neon-cyan);
+      font-family: var(--font-mono);
+      letter-spacing: 0.5px;
+    }
+    .ping-circle {
+      position: relative;
+      display: flex;
+      height: 8px;
+      width: 8px;
+    }
+    .ping-circle .ping-wave {
+      position: absolute;
+      display: inline-flex;
+      height: 100%;
+      width: 100%;
+      border-radius: 9999px;
+      background-color: var(--neon-cyan);
+      opacity: 0.75;
+      animation: pingWave 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    .ping-circle .ping-dot {
+      position: relative;
+      display: inline-flex;
+      border-radius: 9999px;
+      height: 8px;
+      width: 8px;
+      background-color: var(--neon-cyan);
+    }
+    @keyframes pingWave {
+      75%, 100% { transform: scale(2.2); opacity: 0; }
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION BAR (SHADCN CLEAN ARCHITECTURE)
+       ========================================================================== */
+    .master-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(2, 10, 28, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-inner-border);
+      box-shadow: 0 4px 25px rgba(0, 20, 60, 0.6);
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-logo {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-bar {
+      background: rgba(2, 10, 28, 0.7);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.18);
+      padding: 6px 20px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      position: sticky;
+      top: 57px;
+      z-index: 95;
+    }
+    .nav-tab {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-secondary);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1.2px;
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-tab:hover {
+      color: var(--text-white);
+      background: rgba(0, 240, 255, 0.08);
+      border-color: rgba(0, 240, 255, 0.25);
+    }
+    .nav-tab.active {
+      color: var(--neon-cyan);
+      background: rgba(0, 81, 255, 0.25);
+      border: 1px solid var(--neon-cyan);
+      box-shadow: 0 0 14px rgba(0, 240, 255, 0.35);
+    }
+    .nav-shortcut {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      opacity: 0.6;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    /* Layout Containers */
+    .main-container {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 24px 20px 60px 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .view-panel {
+      display: none;
+      animation: fadeInView 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .view-panel.active {
+      display: block;
+    }
+    @keyframes fadeInView {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
 
     @media (max-width: 1024px) {
-      .grid-2col, .grid-3col, .grid-4col { grid-template-columns: 1fr; }
+      .grid-2col { grid-template-columns: 1fr; }
     }
 
-    /* Progress Bars */
-    .progress-bar-wrap {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      height: 18px;
-      border-radius: 9px;
-      overflow: hidden;
-      padding: 2px;
-      margin-top: 6px;
+    /* Top Holographic Alert Bar (Solo Leveling Image 4) */
+    .system-alert-banner {
+      background: linear-gradient(90deg, rgba(0, 81, 255, 0.3) 0%, rgba(2, 14, 38, 0.85) 50%, rgba(0, 81, 255, 0.3) 100%);
+      border: 1px solid var(--neon-cyan);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
+      border-radius: var(--radius-md);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
     }
 
-    .fill-hp { background: linear-gradient(90deg, #059669, #10B981, #34D399); height: 100%; border-radius: 7px; box-shadow: 0 0 10px #10B981; }
-    .fill-mp { background: linear-gradient(90deg, #7C3AED, #00E5FF, #38BDF8); height: 100%; border-radius: 7px; box-shadow: 0 0 10px #00E5FF; }
-    .fill-xp { background: linear-gradient(90deg, #D97706, #FFD700); height: 100%; border-radius: 7px; box-shadow: 0 0 10px #FFD700; }
-
-    /* Modals */
+    /* Modal Proof Dialog */
     .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
-      display: none; justify-content: center; align-items: center; z-index: 200;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(1, 6, 20, 0.85);
+      backdrop-filter: blur(16px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
     }
-    .modal-overlay.open { display: flex; }
-    .modal-card { width: 90%; max-width: 600px; padding: 25px; }
-
-    /* Audio Spectrum Canvas */
-    #audio-canvas { width: 100%; height: 140px; background: rgba(0,0,0,0.6); border-radius: 6px; margin: 15px 0; }
+    .modal-overlay.open {
+      display: flex;
+    }
+    .modal-card {
+      width: 90%;
+      max-width: 540px;
+      background: rgba(5, 20, 52, 0.95);
+      border: 1px solid var(--neon-cyan);
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.4);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalPop {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Top Master Bar -->
+  <!-- Floating Mana Particles Canvas -->
+  <canvas id="mana-particles-canvas"></canvas>
+
+  <!-- MASTER TOP HEADER -->
   <header class="master-header">
-    <div class="brand">
-      <div class="pulse-dot"></div>
-      <span>LEVELUP // THE SYSTEM</span>
+    <div class="brand-wrap">
+      <div class="brand-logo">
+        <span class="shiny-text">LEVELUP</span>
+        <span style="font-size: 13px; color: var(--neon-cyan); letter-spacing: 2px;">// THE SYSTEM</span>
+      </div>
+      <div class="radar-ping-badge">
+        <div class="ping-circle">
+          <span class="ping-wave"></span>
+          <span class="ping-dot"></span>
+        </div>
+        <span>SYSTEM ONLINE</span>
+      </div>
     </div>
 
-    <div class="header-stats">
-      <div class="stat-badge">
-        <span style="color: var(--accent-gold); font-weight: bold;">RANG ${player.rank}</span>
-        <span>| Nv. ${player.level}</span>
+    <div style="display: flex; align-items: center; gap: 18px;">
+      <div style="font-family: var(--font-mono); font-size: 13px; color: var(--neon-cyan); display: flex; align-items: center; gap: 6px;">
+        <span>🕒</span>
+        <span id="system-clock">--:--:--</span>
       </div>
-      <div class="stat-badge" style="color: var(--border-cyan);">
-        <span>HP ${player.hp}%</span>
-        <span>•</span>
-        <span>MP ${player.mp}%</span>
+      <div class="radar-ping-badge" style="border-color: rgba(255, 215, 0, 0.4); color: var(--imperial-gold);">
+        <span>💎 CRISTAUX :</span>
+        <strong id="header-crystals-val">${player.shadowCrystals}</strong>
       </div>
-      <div class="stat-badge" style="color: var(--accent-gold);">
-        <span>💎 ${player.shadowCrystals} OC</span>
+      <div class="radar-ping-badge" style="border-color: rgba(0, 255, 102, 0.4); color: var(--transcendent-green);">
+        <span>STREAK : ${player.streakDays}J</span>
       </div>
-      <div class="stat-badge" style="color: #F97316;">
-        <span>🔥 ${player.streakDays} Jours</span>
-      </div>
-      <div class="stat-badge" id="system-clock">
-        00:00:00
-      </div>
-
-      <button class="btn-hologram" style="padding: 4px 10px;" onclick="toggleTheme()">🌓 Thème</button>
-      <button class="btn-hologram" style="padding: 4px 10px;" onclick="playChime(1318)">🔔 Audio</button>
+      <button class="btn-cyber" onclick="toggleTheme()" style="padding: 6px 12px; font-size: 11px;">
+        🌓 THÈME
+      </button>
     </div>
   </header>
 
-  <!-- Navigation Bar (10 Canonical Screens) -->
+  <!-- MASTER NAVIGATION BAR (10 CANONICAL SCREENS) -->
   <nav class="nav-bar">
     <button class="nav-tab ${initialTab === "dashboard" ? "active" : ""}" onclick="switchView('dashboard')">
-      🛡️ HUD DASHBOARD
+      <span>📊</span> HUD SOUVERAIN <span class="nav-shortcut">Alt+1</span>
     </button>
     <button class="nav-tab ${initialTab === "skills" ? "active" : ""}" onclick="switchView('skills')">
-      🌲 120 COMPÉTENCES (DAG)
+      <span>⚡</span> COMPÉTENCES DAG <span class="nav-shortcut">Alt+2</span>
     </button>
     <button class="nav-tab ${initialTab === "quests" ? "active" : ""}" onclick="switchView('quests')">
-      📜 JOURNAL DES QUÊTES
+      <span>📜</span> QUÊTES DU JOUR <span class="nav-shortcut">Alt+3</span>
     </button>
     <button class="nav-tab ${initialTab === "planner" ? "active" : ""}" onclick="switchView('planner')">
-      ⏱️ TIME-BLOCKING
+      <span>📅</span> TIME-BLOCKING <span class="nav-shortcut">Alt+4</span>
     </button>
     <button class="nav-tab ${initialTab === "notes" ? "active" : ""}" onclick="switchView('notes')">
-      🧠 SECOND BRAIN (VAULT)
+      <span>🧠</span> SECOND BRAIN <span class="nav-shortcut">Alt+5</span>
     </button>
     <button class="nav-tab ${initialTab === "audio" ? "active" : ""}" onclick="switchView('audio')">
-      🎙️ STATION VOCALE & SOCRATIQUE
+      <span>🎙️</span> STATION VOCALE <span class="nav-shortcut">Alt+6</span>
     </button>
     <button class="nav-tab ${initialTab === "opportunities" ? "active" : ""}" onclick="switchView('opportunities')">
-      🌐 BOURSES & HACKATHONS
+      <span>🌐</span> VEILLE BOURSES <span class="nav-shortcut">Alt+7</span>
     </button>
     <button class="nav-tab ${initialTab === "shop" ? "active" : ""}" onclick="switchView('shop')">
-      🏪 SHADOW SHOP
+      <span>💎</span> BOUTIQUE D'OMBRE <span class="nav-shortcut">Alt+8</span>
     </button>
     <button class="nav-tab ${initialTab === "penalty" ? "active" : ""}" onclick="switchView('penalty')">
-      ☠️ ZONE DE PÉNALITÉ
+      <span>⚠️</span> ZONE PÉNALITÉ <span class="nav-shortcut">Alt+9</span>
     </button>
     <button class="nav-tab ${initialTab === "workout" ? "active" : ""}" onclick="switchView('workout')">
-      📹 CALISTHÉNIE CV
+      <span>📷</span> VISION SPORT <span class="nav-shortcut">Alt+0</span>
     </button>
   </nav>
 
+  <!-- MAIN HUD VIEWS CONTAINER -->
   <main class="main-container">
 
     <!-- =====================================================================
-         SCREEN 1 : DASHBOARD HUD
+         SCREEN 1 : DASHBOARD HUD (HUNTER STATUS & VITALS)
          ===================================================================== -->
     <div id="view-dashboard" class="view-panel ${initialTab === "dashboard" ? "active" : ""}">
+      
+      <!-- System Notification Banner (Images 4 & 7) -->
+      <div class="system-alert-banner">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="background: rgba(0, 240, 255, 0.2); border: 1px solid var(--neon-cyan); border-radius: 4px; padding: 3px 8px; font-size: 11px; font-weight: 800; font-family: var(--font-mono); color: var(--neon-cyan);">
+            [!] ALERT
+          </span>
+          <span class="shiny-green" style="font-family: var(--font-display); font-size: 18px; font-weight: 800; letter-spacing: 2px;">
+            [WELCOME, PLAYER.]
+          </span>
+          <span style="font-size: 12px; color: var(--text-secondary); margin-left: 6px;">
+            Le Système du Monarque est synchronisé. Aucune pénalité active.
+          </span>
+        </div>
+        <div style="font-size: 12px; font-family: var(--font-mono); color: var(--neon-cyan);">
+          SCORE HARMONIQUE : <strong style="color: var(--imperial-gold); font-size: 16px;">Sh = ${harmonicScore}</strong>
+        </div>
+      </div>
+
       <div class="grid-2col">
-        
-        <!-- Left: Player Profile & Vitals -->
+        <!-- Left: Player Status & Vitals (Images 3 & 5) -->
         <div>
-          <!-- Player Identity Card -->
-          <div class="hologram-box" style="padding: 22px; margin-bottom: 24px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <!-- Player Identity & Rank Card -->
+          <div class="glass-card spotlight-card" style="padding: 24px; margin-bottom: 22px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px;">
               <div>
-                <div style="font-size: 11px; letter-spacing: 2px; color: var(--border-cyan);">LE MONARQUE SOUVERAIN</div>
-                <h1 style="font-size: 26px; font-weight: 900; font-family: var(--font-display);">${player.name}</h1>
-                <p style="font-size: 12px; color: var(--text-muted); font-style: italic;">${player.title}</p>
+                <div style="font-size: 11px; letter-spacing: 2px; color: var(--neon-cyan); font-family: var(--font-mono); margin-bottom: 4px;">
+                  STATUS // LE MONARQUE SOUVERAIN
+                </div>
+                <h1 class="shiny-text" style="font-size: 32px; font-weight: 900; font-family: var(--font-display); line-height: 1;">
+                  ${player.name}
+                </h1>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">
+                  ${player.title}
+                </p>
               </div>
-              <div style="text-align: center; background: rgba(0, 81, 255, 0.25); border: 2px solid var(--border-cyan); padding: 8px 16px; border-radius: 6px;">
-                <div style="font-size: 10px; color: var(--border-cyan); font-family: var(--font-display);">RANG</div>
-                <div style="font-size: 28px; font-weight: 900; line-height: 1;">${player.rank}</div>
+
+              <!-- Solo Leveling Rank Diamond Badge -->
+              <div style="text-align: center; background: rgba(0, 81, 255, 0.3); border: 2px solid var(--neon-cyan); padding: 10px 18px; border-radius: var(--radius-md); box-shadow: 0 0 18px rgba(0, 240, 255, 0.35);">
+                <div style="font-size: 10px; color: var(--neon-cyan); font-family: var(--font-display); letter-spacing: 1px;">RANG</div>
+                <div class="shiny-gold" style="font-size: 32px; font-weight: 900; line-height: 1; font-family: var(--font-display);">${player.rank}</div>
               </div>
             </div>
 
-            <!-- XP Progression Bar -->
-            <div style="margin-top: 15px;">
-              <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono);">
-                <span>PROGRESSION DU PALIER</span>
-                <span id="dash-xp-text">${player.currentXp} / ${player.nextLevelXp} XP (82%)</span>
+            <!-- Level & XP Capsule Progress -->
+            <div style="margin-top: 10px;">
+              <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
+                <span style="color: var(--neon-cyan);">NIVEAU ${player.level} // PALIER ACTUEL</span>
+                <span id="dash-xp-text" style="color: var(--text-white); font-weight: bold;">${player.currentXp} / ${player.nextLevelXp} XP (82%)</span>
               </div>
-              <div class="progress-bar-wrap">
-                <div class="fill-xp" id="dash-xp-bar" style="width: 82%;"></div>
+              <div class="capsule-slider-track">
+                <div class="capsule-slider-fill capsule-fill-xp" id="dash-xp-bar" style="width: 82%;"></div>
               </div>
             </div>
           </div>
 
-          <!-- Vital Gauges (Borbély & Gandevia Model) -->
-          <div class="hologram-box" style="padding: 22px; margin-bottom: 24px;">
-            <div style="font-size: 12px; font-weight: bold; letter-spacing: 1.5px; color: var(--border-cyan); margin-bottom: 12px;">
-              ÉTAT BIOPHYSIQUE SOUVERAIN (BORBÉLY & GANDEVIA)
+          <!-- True Solo Leveling Vital Gauges (Capsules from Image 3) -->
+          <div class="glass-card spotlight-card" style="padding: 24px; margin-bottom: 22px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <span style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: var(--neon-cyan); font-family: var(--font-display);">
+                ÉMETTEUR BIOPHYSIQUE SOUVERAIN (BORBÉLY & GANDEVIA)
+              </span>
+              <span class="radar-ping-badge" style="border-color: rgba(0, 255, 102, 0.4); color: var(--transcendent-green); font-size: 10px;">
+                FATIGUE: 0% OPTIMAL
+              </span>
+            </div>
+
+            <!-- HP Capsule Slider -->
+            <div style="margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
+                <span style="color: var(--transcendent-green); font-weight: bold;">+ HP // RÉSILIENCE BIOLOGIQUE</span>
+                <span style="font-weight: bold;">${player.hp} / 100 (${player.hp}%)</span>
+              </div>
+              <div class="capsule-slider-track">
+                <div class="capsule-slider-fill capsule-fill-hp" style="width: ${player.hp}%;"></div>
+              </div>
+            </div>
+
+            <!-- MP Capsule Slider -->
+            <div style="margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
+                <span style="color: var(--neon-cyan); font-weight: bold;">⚡ MP // FOCUS COGNITIF INDOMPTABLE</span>
+                <span style="font-weight: bold;">${player.mp} / 100 (${player.mp}%)</span>
+              </div>
+              <div class="capsule-slider-track">
+                <div class="capsule-slider-fill capsule-fill-mp" style="width: ${player.mp}%;"></div>
+              </div>
+            </div>
+
+            <!-- Sleep & Circadian Status -->
+            <div style="display: flex; gap: 12px; margin-top: 14px; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary);">
+              <div style="flex: 1; background: rgba(0, 240, 255, 0.06); padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid rgba(0, 240, 255, 0.15);">
+                PROCESS S (ÉVEIL) : <strong>${player.hoursAwake}H</strong>
+              </div>
+              <div style="flex: 1; background: rgba(0, 240, 255, 0.06); padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid rgba(0, 240, 255, 0.15);">
+                COUVRE-FEU FATIDIQUE : <strong style="color: var(--alert-crimson);">${player.curfewTime}</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Octagonal Radar of the 8 Bases -->
+          <div class="glass-card spotlight-card" style="padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <span style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: var(--neon-cyan); font-family: var(--font-display);">
+                RADAR DES 8 BASES DE VIE
+              </span>
+              <span class="shiny-gold" style="font-size: 14px; font-weight: bold; font-family: var(--font-mono);">
+                Sh = ${harmonicScore}
+              </span>
             </div>
             
-            <div style="background: rgba(0, 229, 255, 0.08); border: 1px solid var(--border-cyan); padding: 8px 12px; border-radius: 4px; font-size: 11px; font-weight: bold; color: var(--border-cyan); text-align: center; margin-bottom: 16px;">
-              RÉSILIENCE BIOLOGIQUE MAXIMALE & FOCUS COGNITIF INDOMPTABLE
-            </div>
-
-            <div style="margin-bottom: 14px;">
-              <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono);">
-                <span style="color: var(--accent-green); font-weight: bold;">HP // RÉSILIENCE BIOLOGIQUE</span>
-                <span>${player.hp} / 100 (${player.hp}%)</span>
-              </div>
-              <div class="progress-bar-wrap">
-                <div class="fill-hp" style="width: ${player.hp}%;"></div>
-              </div>
-            </div>
-
-            <div>
-              <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono);">
-                <span style="color: var(--border-cyan); font-weight: bold;">MP // FOCUS COGNITIF</span>
-                <span>${player.mp} / 100 (${player.mp}%)</span>
-              </div>
-              <div class="progress-bar-wrap">
-                <div class="fill-mp" style="width: ${player.mp}%;"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Octagonal Radar SVG -->
-          <div class="hologram-box" style="padding: 22px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-              <span style="font-size: 12px; font-weight: bold; letter-spacing: 1.5px; color: var(--border-cyan);">RADAR DES 8 BASES DE VIE</span>
-              <span style="font-size: 12px; color: var(--accent-gold); font-family: var(--font-mono);">Sh = ${harmonicScore}</span>
-            </div>
-            <div style="display: flex; justify-content: center;">
-              <svg width="280" height="240" viewBox="0 0 280 240">
-                <polygon points="140,20 220,55 250,135 210,210 140,230 70,210 30,135 60,55" fill="none" stroke="rgba(0,229,255,0.15)" stroke-width="1"/>
-                <polygon points="140,50 195,75 215,135 185,185 140,200 95,185 65,135 85,75" fill="none" stroke="rgba(0,229,255,0.25)" stroke-width="1"/>
-                <polygon points="140,65 190,85 205,135 180,175 140,185 105,175 80,135 95,85" fill="rgba(0,229,255,0.25)" stroke="#00E5FF" stroke-width="2"/>
-                <text x="140" y="15" fill="#00E5FF" font-size="10" font-family="monospace" text-anchor="middle">ACAD (55)</text>
-                <text x="235" y="55" fill="#00E5FF" font-size="10" font-family="monospace">AI (62)</text>
-                <text x="255" y="140" fill="#00E5FF" font-size="10" font-family="monospace">CYBER (48)</text>
-                <text x="220" y="225" fill="#00E5FF" font-size="10" font-family="monospace">EXP (42)</text>
-                <text x="140" y="240" fill="#00E5FF" font-size="10" font-family="monospace" text-anchor="middle">LNG (50)</text>
-                <text x="45" y="225" fill="#00E5FF" font-size="10" font-family="monospace">FIN (38)</text>
-                <text x="5" y="140" fill="#00E5FF" font-size="10" font-family="monospace">STR (52)</text>
-                <text x="35" y="55" fill="#00E5FF" font-size="10" font-family="monospace">DIS (65)</text>
+            <div style="display: flex; justify-content: center; padding: 10px 0;">
+              <svg width="290" height="250" viewBox="0 0 290 250">
+                <polygon points="145,25 225,60 255,140 215,215 145,235 75,215 35,140 65,60" fill="none" stroke="rgba(56, 189, 248, 0.2)" stroke-width="1"/>
+                <polygon points="145,55 200,80 220,140 190,190 145,205 100,190 70,140 90,80" fill="none" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1"/>
+                <polygon points="145,70 195,90 210,140 185,180 145,190 110,180 85,140 100,90" fill="rgba(0, 240, 255, 0.25)" stroke="#00f0ff" stroke-width="2"/>
+                <text x="145" y="16" fill="#38bdf8" font-size="10" font-family="monospace" text-anchor="middle">ACAD (55)</text>
+                <text x="240" y="60" fill="#38bdf8" font-size="10" font-family="monospace">AI (62)</text>
+                <text x="260" y="145" fill="#38bdf8" font-size="10" font-family="monospace">CYBER (48)</text>
+                <text x="225" y="230" fill="#38bdf8" font-size="10" font-family="monospace">EXP (42)</text>
+                <text x="145" y="248" fill="#38bdf8" font-size="10" font-family="monospace" text-anchor="middle">LNG (50)</text>
+                <text x="40" y="230" fill="#38bdf8" font-size="10" font-family="monospace">FIN (38)</text>
+                <text x="5" y="145" fill="#38bdf8" font-size="10" font-family="monospace">STR (52)</text>
+                <text x="35" y="60" fill="#38bdf8" font-size="10" font-family="monospace">DIS (65)</text>
               </svg>
             </div>
           </div>
         </div>
 
-        <!-- Right: Quests & Next Blocks -->
+        <!-- Right Column: Quests & Active Blocks -->
         <div>
-          <!-- Daily Quests List -->
-          <div class="hologram-box" style="padding: 22px; margin-bottom: 24px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-              <span style="font-size: 14px; font-weight: bold; letter-spacing: 1.5px; color: var(--border-cyan);">QUÊTES OBLIGATOIRES DU JOUR</span>
-              <span style="font-size: 12px; color: var(--accent-red); font-weight: bold;">COUVRE-FEU : 22H00</span>
+          <!-- Daily Quests List (Manhwa Image 2 Style) -->
+          <div class="glass-card spotlight-card" style="padding: 24px; margin-bottom: 22px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid rgba(56, 189, 248, 0.2); padding-bottom: 10px;">
+              <div>
+                <span class="shiny-text" style="font-size: 16px; font-weight: 900; letter-spacing: 2px; font-family: var(--font-display);">
+                  [!] QUEST INFO // QUÊTES DU JOUR
+                </span>
+              </div>
+              <span class="radar-ping-badge" style="border-color: rgba(255, 0, 60, 0.4); color: var(--alert-crimson);">
+                COUVRE-FEU : 22H00
+              </span>
             </div>
 
             <div id="dash-quests-container">
               ${SYSTEM_STATE.quests
                 .map(
                   (q) => `
-                <div class="hologram-box" style="padding: 14px; margin-bottom: 12px; background: rgba(0,0,0,0.4); display: flex; justify-content: space-between; align-items: center;">
+                <div class="glass-card" style="padding: 16px; margin-bottom: 12px; background: rgba(3, 14, 38, 0.65); display: flex; justify-content: space-between; align-items: center;">
                   <div>
-                    <div style="font-size: 14px; font-weight: bold; margin-bottom: 4px;">${q.title}</div>
+                    <div style="font-size: 14px; font-weight: bold; margin-bottom: 4px; color: var(--text-white);">${q.title}</div>
                     <div style="font-size: 12px; color: var(--text-secondary);">${q.description}</div>
-                    <div style="font-size: 11px; color: var(--border-cyan); margin-top: 4px; font-family: var(--font-mono);">
-                      GAIN : +${q.xp} XP | +${q.crystals} CRISTAUX 💎
+                    <div style="font-size: 11px; color: var(--neon-cyan); margin-top: 6px; font-family: var(--font-mono);">
+                      RÉCOMPENSE : +<strong>${q.xp} XP</strong> | +<strong>${q.crystals} 💎</strong>
                     </div>
                   </div>
                   <div>
                     ${
                       q.completed
-                        ? `<span style="color: var(--accent-green); font-weight: bold; font-size: 12px; padding: 6px 12px; border: 1px solid var(--accent-green); border-radius: 4px;">ACCOMPLIE ✓</span>`
-                        : `<button class="btn-hologram" onclick="openProofModal('${q.id}', '${q.title}', ${q.xp})">VALIDER</button>`
+                        ? `<span style="color: var(--transcendent-green); font-weight: bold; font-size: 12px; padding: 6px 14px; border: 1px solid var(--transcendent-green); border-radius: var(--radius-sm); background: rgba(0, 255, 102, 0.1);">ACCOMPLIE ✓</span>`
+                        : `<button class="btn-cyber" onclick="openProofModal('${q.id}', '${q.title.replace(/'/g, "\\'")}', ${q.xp})">VALIDER</button>`
                     }
                   </div>
                 </div>
@@ -824,33 +1212,42 @@ function renderFullApplication(initialTab = "dashboard") {
             </div>
           </div>
 
-          <!-- Next Deep Work Block -->
-          <div class="hologram-box" style="padding: 22px; margin-bottom: 24px;">
-            <div style="font-size: 13px; font-weight: bold; letter-spacing: 1.5px; color: var(--accent-purple); margin-bottom: 10px;">
+          <!-- Active Circadian Block -->
+          <div class="glass-card spotlight-card" style="padding: 24px; margin-bottom: 22px;">
+            <div style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: var(--monarch-purple); font-family: var(--font-display); margin-bottom: 10px;">
               BLOC CIRCADIEN ACTIF // FOCUS SOUTENU
             </div>
-            <div style="font-size: 18px; font-weight: bold; margin-bottom: 6px;">11:30 - 12:30 : 🚶 Pause Déjeuner & Restauration MP</div>
-            <p style="font-size: 13px; color: var(--text-secondary);">Marche régénératrice sans écran. Restauration de +15 MP pour le sprint de l'après-midi.</p>
-            <div style="margin-top: 15px;">
-              <button class="btn-hologram btn-gold" onclick="switchView('planner')">VOIR LE PLANNING TIME-BLOCKING COMPLET ➔</button>
+            <div style="font-size: 18px; font-weight: bold; margin-bottom: 6px; color: var(--text-white);">
+              11:30 - 12:30 : 🚶 Pause Déjeuner & Restauration MP
+            </div>
+            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+              Marche régénératrice sans écran. Restauration de +15 MP pour le sprint de l'après-midi.
+            </p>
+            <div style="margin-top: 16px;">
+              <button class="btn-cyber btn-gold" onclick="switchView('planner')">
+                VOIR LE PLANNING TIME-BLOCKING COMPLET ➔
+              </button>
             </div>
           </div>
 
           <!-- Last Socratic Evaluation -->
-          <div class="hologram-box" style="padding: 22px;">
-            <div style="font-size: 13px; font-weight: bold; letter-spacing: 1.5px; color: var(--accent-gold); margin-bottom: 8px;">
-              DERNIÈRE ÉVALUATION DE L'ARCHITECTE (GRILLE 20 PTS)
-            </div>
+          <div class="glass-card spotlight-card" style="padding: 24px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-              <span style="font-size: 16px; font-weight: bold;">Sujet : Quantification INT8 & Moteur CTranslate2</span>
-              <span style="font-size: 20px; font-weight: 900; color: var(--accent-green); font-family: var(--font-display);">18.5 / 20</span>
+              <span style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: var(--imperial-gold); font-family: var(--font-display);">
+                DERNIÈRE ÉVALUATION DE L'ARCHITECTE (GRILLE 20 PTS)
+              </span>
+              <span class="shiny-green" style="font-size: 22px; font-weight: 900; font-family: var(--font-display);">
+                18.5 / 20
+              </span>
             </div>
-            <p style="font-size: 12px; color: var(--text-secondary); font-style: italic;">
+            <div style="font-size: 15px; font-weight: bold; margin-bottom: 6px; color: var(--text-white);">
+              Sujet : Quantification INT8 & Moteur CTranslate2
+            </div>
+            <p style="font-size: 12px; color: var(--text-secondary); font-style: italic; line-height: 1.5;">
               "Démonstration rigoureuse du compromis latence/précision sur RTX 4070. Les tenseurs symétriques ont été parfaitement explicités."
             </p>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -859,129 +1256,47 @@ function renderFullApplication(initialTab = "dashboard") {
          SCREEN 2 : 120 SKILLS TREE (DAG)
          ===================================================================== -->
     <div id="view-skills" class="view-panel ${initialTab === "skills" ? "active" : ""}">
-      <div class="hologram-box" style="padding: 24px; margin-bottom: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+      <div class="glass-card spotlight-card" style="padding: 26px; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
           <div>
-            <h2 style="font-size: 24px; font-weight: 900; font-family: var(--font-display); color: var(--border-cyan);">
+            <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display);">
               ARBRE DES 120 COMPÉTENCES CANONIQUES (DAG)
             </h2>
             <p style="font-size: 13px; color: var(--text-secondary);">Graphe orienté acyclique strict réparti sur les 8 Piliers de l'Éveillé.</p>
           </div>
-          <div class="btn-hologram btn-gold">
+          <div class="radar-ping-badge" style="border-color: rgba(255, 215, 0, 0.4); color: var(--imperial-gold); font-size: 13px; padding: 6px 14px;">
             POINTS D'XP DISPONIBLES : 850 XP
           </div>
         </div>
 
         <!-- Filter tabs -->
-        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
-          <button class="btn-hologram" onclick="filterSkillGrid('ALL')">TOUTES (120)</button>
-          <button class="btn-hologram" onclick="filterSkillGrid('AI_ENG')">IA & LLM (15)</button>
-          <button class="btn-hologram" onclick="filterSkillGrid('CYBER')">CYBERSÉCURITÉ (15)</button>
-          <button class="btn-hologram" onclick="filterSkillGrid('ACAD')">ACADÉMIQUE IA (15)</button>
-          <button class="btn-hologram" onclick="filterSkillGrid('STR')">CALISTHÉNIE (15)</button>
-          <button class="btn-hologram" onclick="filterSkillGrid('LNG')">ANGLAIS C1/C2 (15)</button>
-          <button class="btn-hologram" onclick="filterSkillGrid('FIN')">FINANCES & BOURSES (15)</button>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px;">
+          <button class="btn-cyber" onclick="filterSkillGrid('ALL')">TOUTES (120)</button>
+          <button class="btn-cyber" onclick="filterSkillGrid('AI_ENG')">IA & LLM (15)</button>
+          <button class="btn-cyber" onclick="filterSkillGrid('CYBER')">CYBERSÉCURITÉ (15)</button>
+          <button class="btn-cyber" onclick="filterSkillGrid('ACAD')">ACADÉMIQUE IA (15)</button>
+          <button class="btn-cyber" onclick="filterSkillGrid('STR')">CALISTHÉNIE (15)</button>
+          <button class="btn-cyber" onclick="filterSkillGrid('LNG')">ANGLAIS C1/C2 (15)</button>
+          <button class="btn-cyber" onclick="filterSkillGrid('FIN')">FINANCES & BOURSES (15)</button>
         </div>
 
         <!-- Skills Grid -->
         <div class="grid-3col" id="skills-grid-container">
-          <div class="hologram-box" style="padding: 16px; border-color: var(--accent-green);">
-            <div style="font-size: 10px; color: var(--accent-gold); font-weight: bold;">AI_ENG // TIER 1 [MAÎTRISÉ 5/5]</div>
-            <div style="font-size: 16px; font-weight: bold; margin: 4px 0;">Transformers & Scaled Dot-Product</div>
-            <p style="font-size: 12px; color: var(--text-secondary);">Implémentation manuelle du mécanisme QKV sans couche nn.MultiheadAttention.</p>
-            <div style="margin-top: 10px; font-size: 11px; color: var(--accent-green); font-weight: bold;">DOD VALIDÉE ✓ (+200 XP)</div>
-          </div>
-
-          <div class="hologram-box" style="padding: 16px; border-color: var(--accent-green);">
-            <div style="font-size: 10px; color: var(--accent-gold); font-weight: bold;">CYBER // TIER 1 [MAÎTRISÉ 5/5]</div>
-            <div style="font-size: 16px; font-weight: bold; margin: 4px 0;">Chiffrement AES-256-GCM & Argon2id</div>
-            <p style="font-size: 12px; color: var(--text-secondary);">Protection inviolable des flux vocaux et intégrité tamper-proof.</p>
-            <div style="margin-top: 10px; font-size: 11px; color: var(--accent-green); font-weight: bold;">DOD VALIDÉE ✓ (+180 XP)</div>
-          </div>
-
-          <div class="hologram-box" style="padding: 16px; border-color: var(--border-cyan);">
-            <div style="font-size: 10px; color: var(--accent-gold); font-weight: bold;">STR // TIER 2 [EN COURS 3/5]</div>
-            <div style="font-size: 16px; font-weight: bold; margin: 4px 0;">Routine Dos & Épaules 17 Étapes</div>
-            <p style="font-size: 12px; color: var(--text-secondary);">Contrôle cinématique MediaPipe WASM : 14 Pike Push-Ups stricts (≤75° à ≥160°).</p>
-            <div style="margin-top: 10px;"><button class="btn-hologram" onclick="switchView('workout')">LANCER ENTRAÎNEMENT CV</button></div>
-          </div>
-
-          <div class="hologram-box" style="padding: 16px; border-color: var(--border-cyan);">
-            <div style="font-size: 10px; color: var(--accent-gold); font-weight: bold;">LNG // TIER 2 [EN COURS 2/5]</div>
-            <div style="font-size: 16px; font-weight: bold; margin: 4px 0;">Cambridge English C1 Advanced (CAE)</div>
-            <p style="font-size: 12px; color: var(--text-secondary);">Listening & Speaking sans hésitation lexicale devant l'Architecte.</p>
-            <div style="margin-top: 10px;"><button class="btn-hologram" onclick="switchView('audio')">PASSER SOUTENANCE ORALE</button></div>
-          </div>
-
-          <div class="hologram-box" style="padding: 16px; border-color: var(--border-cyan);">
-            <div style="font-size: 10px; color: var(--accent-gold); font-weight: bold;">FIN // TIER 1 [EN COURS 1/5]</div>
-            <div style="font-size: 16px; font-weight: bold; margin: 4px 0;">Veille Bourses d'Excellence Deerflow</div>
-            <p style="font-size: 12px; color: var(--text-secondary);">Scraping automatisé des opportunités Eiffel et Erasmus Mundus.</p>
-            <div style="margin-top: 10px;"><button class="btn-hologram" onclick="switchView('opportunities')">CONSULTER KANBAN</button></div>
-          </div>
-
-          <div class="hologram-box" style="padding: 16px; opacity: 0.6; border-color: rgba(255,255,255,0.2);">
-            <div style="font-size: 10px; color: var(--text-muted); font-weight: bold;">AI_ENG // TIER 4 [VERROUILLÉ]</div>
-            <div style="font-size: 16px; font-weight: bold; margin: 4px 0;">Essaim Multi-Agents & Swarm Raft-Lite</div>
-            <p style="font-size: 12px; color: var(--text-secondary);">Déploiement de Bellion, Igris, Beru et Iron. Requis : Rang B.</p>
-            <div style="margin-top: 10px; font-size: 11px; color: var(--text-muted);">🔒 VERROUILLÉ (RANG B REQUIS)</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- =====================================================================
-         SCREEN 3 : QUESTS JOURNAL
-         ===================================================================== -->
-    <div id="view-quests" class="view-panel ${initialTab === "quests" ? "active" : ""}">
-      <!-- Emergency Quest Alert Box -->
-      <div class="hologram-box" style="padding: 22px; margin-bottom: 24px; border-color: var(--accent-red); background: rgba(255, 0, 60, 0.08); box-shadow: 0 0 25px rgba(255, 0, 60, 0.35);">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <span style="font-size: 24px;">🚨</span>
-            <div>
-              <div style="font-size: 12px; font-weight: 900; color: var(--accent-red); letter-spacing: 2px;">AVERTISSEMENT DU SYSTÈME : QUÊTE D'URGENCE</div>
-              <h3 style="font-size: 18px; font-weight: bold;">Audit de Sécurité : Faille Critique SingleUserGuard</h3>
-            </div>
-          </div>
-          <div style="text-align: right;">
-            <div style="font-size: 11px; color: var(--text-secondary);">COMPTE À REBOURS AVANT PÉNALITÉ</div>
-            <div style="font-size: 22px; font-weight: 900; color: var(--accent-red); font-family: var(--font-mono);">00:58:12</div>
-          </div>
-        </div>
-        <div style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">
-          Une tentative de contournement a été détectée sur le middleware. Rédigez le test d'étanchéité Vitest et soumettez le lien GitHub.
-        </div>
-        <div style="margin-top: 16px;">
-          <button class="btn-hologram btn-red" onclick="openProofModal('q-emergency-auth-bypass', 'Audit de Sécurité SingleUserGuard', 500)">SOUMETTRE LE COMMIT GITHUB (+500 XP)</button>
-        </div>
-      </div>
-
-      <!-- Quests Catalog by Type -->
-      <div class="hologram-box" style="padding: 24px;">
-        <h2 style="font-size: 20px; font-weight: 900; font-family: var(--font-display); color: var(--border-cyan); margin-bottom: 18px;">
-          REGISTRE DES 5 CATÉGORIES DE QUÊTES DU CHASSEUR
-        </h2>
-
-        <div style="display: grid; gap: 14px;">
-          ${SYSTEM_STATE.quests
+          ${SYSTEM_STATE.skillsList
             .map(
-              (q) => `
-            <div class="hologram-box" style="padding: 16px; background: rgba(0,0,0,0.4); display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                  <span style="font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 4px; background: ${q.type === "EMERGENCY" ? "var(--accent-red)" : "var(--accent-blue)"};">${q.type}</span>
-                  <span style="font-size: 15px; font-weight: bold;">${q.title}</span>
-                </div>
-                <p style="font-size: 12px; color: var(--text-secondary);">${q.description}</p>
+              (sk) => `
+            <div class="glass-card spotlight-card skill-card-item" data-base="${sk.base}" style="padding: 18px; border-color: ${sk.status === "MASTERED" ? "rgba(0, 255, 102, 0.5)" : sk.status === "IN_PROGRESS" ? "var(--neon-cyan)" : "rgba(56, 189, 248, 0.2)"};">
+              <div style="font-size: 11px; color: var(--imperial-gold); font-weight: bold; font-family: var(--font-mono);">
+                ${sk.base} // TIER ${sk.tier} [${sk.status === "MASTERED" ? "MAÎTRISÉ 5/5" : sk.status === "IN_PROGRESS" ? "EN COURS 3/5" : "VERROUILLÉ"}]
               </div>
-              <div style="text-align: right;">
-                <div style="font-size: 12px; color: var(--accent-gold); font-weight: bold; margin-bottom: 6px;">+${q.xp} XP | +${q.crystals} 💎</div>
+              <div style="font-size: 16px; font-weight: bold; margin: 6px 0; color: var(--text-white);">${sk.name}</div>
+              <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.4;">${sk.dod}</p>
+              <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center;">
                 ${
-                  q.completed
-                    ? `<span style="color: var(--accent-green); font-size: 12px; font-weight: bold;">COMPLÉTÉE ✓</span>`
-                    : `<button class="btn-hologram" onclick="openProofModal('${q.id}', '${q.title}', ${q.xp})">SOUMETTRE PREUVE</button>`
+                  sk.status === "MASTERED"
+                    ? `<span style="font-size: 11px; color: var(--transcendent-green); font-weight: bold;">DOD VALIDÉE ✓ (+${sk.xp} XP)</span>`
+                    : `<span style="font-size: 11px; color: var(--imperial-gold); font-family: var(--font-mono);">COÛT : ${sk.xp} XP</span>
+                     <button class="btn-cyber" style="padding: 4px 10px; font-size: 11px;" onclick="unlockSkillNode('${sk.name.replace(/'/g, "\\'")}')">DÉVERROUILLER</button>`
                 }
               </div>
             </div>
@@ -994,36 +1309,111 @@ function renderFullApplication(initialTab = "dashboard") {
 
 
     <!-- =====================================================================
-         SCREEN 4 : TIME-BLOCKING PLANNER
+         SCREEN 3 : JOURNAL DES QUÊTES & ALERTES SYSTÈME
+         ===================================================================== -->
+    <div id="view-quests" class="view-panel ${initialTab === "quests" ? "active" : ""}">
+      <!-- Emergency Quest Alert Box (Image 6) with Border Beam -->
+      <div class="border-beam-box" style="margin-bottom: 24px;">
+        <div class="border-beam-content" style="padding: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span class="radar-ping-badge" style="border-color: rgba(255, 0, 60, 0.6); color: var(--alert-crimson);">
+                [!] QUÊTE D'URGENCE DU SYSTÈME (RANG S)
+              </span>
+              <span style="font-size: 12px; color: var(--alert-crimson); font-weight: bold;">RÉVOLUTION OU ÉCHEC IRRÉVERSIBLE</span>
+            </div>
+            <div style="font-size: 24px; font-weight: 900; font-family: var(--font-mono); color: var(--alert-crimson); text-shadow: 0 0 15px rgba(255, 0, 60, 0.8);">
+              [ 00:57:24 ]
+            </div>
+          </div>
+
+          <h3 style="font-size: 20px; font-weight: 900; color: var(--text-white); margin-bottom: 8px; font-family: var(--font-display);">
+            Audit de Sécurité : Faille Critique sur le SingleUserGuard
+          </h3>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5;">
+            Le Système détecte une vulnérabilité d'usurpation d'identité sur les endpoints du Chasseur. L'en-tête <code>x-player-id</code> doit être sanitisé immédiatement avant le verrouillage du récepteur.
+          </p>
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div style="font-size: 12px; font-family: var(--font-mono); color: var(--transcendent-green);">
+              GAIN : +500 XP | +100 CRISTAUX D'OMBRE 💎
+            </div>
+            <button class="btn-cyber btn-red" onclick="openProofModal('q-emergency-auth-bypass', 'Audit de Sécurité SingleUserGuard', 500)">
+              SOUMETTRE LE COMMIT DE PATCH
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quests Grid -->
+      <div class="glass-card spotlight-card" style="padding: 26px;">
+        <h3 class="shiny-text" style="font-size: 22px; font-weight: 900; font-family: var(--font-display); margin-bottom: 18px;">
+          JOURNAL DES QUÊTES OBLIGATOIRES ACTIVES
+        </h3>
+        <div class="grid-2col">
+          ${SYSTEM_STATE.quests
+            .map(
+              (q) => `
+            <div class="glass-card spotlight-card" style="padding: 20px; background: rgba(3, 14, 38, 0.75);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span class="radar-ping-badge">${q.base} // ${q.type}</span>
+                <span style="font-size: 12px; color: var(--imperial-gold); font-family: var(--font-mono);">+${q.xp} XP</span>
+              </div>
+              <h4 style="font-size: 16px; font-weight: bold; margin-bottom: 8px; color: var(--text-white);">${q.title}</h4>
+              <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.4;">${q.description}</p>
+              <div>
+                ${
+                  q.completed
+                    ? `<div style="font-size: 12px; color: var(--transcendent-green); font-weight: bold;">ACCOMPLIE ✓ (PREUVE VÉRIFIÉE)</div>`
+                    : `<button class="btn-cyber" onclick="openProofModal('${q.id}', '${q.title.replace(/'/g, "\\'")}', ${q.xp})">SOUMETTRE LA PREUVE</button>`
+                }
+              </div>
+            </div>
+          `,
+            )
+            .join("")}
+        </div>
+      </div>
+    </div>
+
+
+    <!-- =====================================================================
+         SCREEN 4 : TIME-BLOCKING CIRCADIEN
          ===================================================================== -->
     <div id="view-planner" class="view-panel ${initialTab === "planner" ? "active" : ""}">
-      <div class="hologram-box" style="padding: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <div class="glass-card spotlight-card" style="padding: 26px; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
           <div>
-            <h2 style="font-size: 24px; font-weight: 900; font-family: var(--font-display); color: var(--border-cyan);">
-              PLANIFICATEUR CIRCADIEN (TIME-BLOCKING STRICT)
+            <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display);">
+              PLANIFICATEUR CIRCADIEN TIME-BLOCKING (06H00 - 22H00)
             </h2>
-            <p style="font-size: 13px; color: var(--text-secondary);">Structure de journée inviolable de 06:00 à 22:00 sans dispersion cognitive.</p>
+            <p style="font-size: 13px; color: var(--text-secondary);">Modèle biphasique de Borbély (Pression Homéostatique S vs Vigilance Circadienne C).</p>
           </div>
-          <button class="btn-hologram" onclick="alert('Session Deep Work 90 min configurée dans l\'agenda.')">+ AJOUTER UN BLOC</button>
+          <div class="radar-ping-badge" style="border-color: rgba(0, 240, 255, 0.4); color: var(--neon-cyan);">
+            RÈGLE D'OR : ZÉRO DISTRACTION HORS PAUSES
+          </div>
         </div>
 
-        <div style="display: grid; gap: 12px;">
+        <!-- Schedule Blocks Timeline -->
+        <div>
           ${SYSTEM_STATE.plannerBlocks
             .map(
               (b) => `
-            <div class="hologram-box" style="padding: 14px 20px; background: rgba(0,0,0,0.5); display: flex; justify-content: space-between; align-items: center; border-left: 4px solid ${b.status === "COMPLETED" ? "var(--accent-green)" : b.status === "ACTIVE" ? "var(--border-cyan)" : "var(--text-muted)"};">
-              <div style="display: flex; align-items: center; gap: 20px;">
-                <span style="font-family: var(--font-mono); font-size: 13px; color: var(--border-cyan); min-width: 110px;">${b.time}</span>
+            <div class="glass-card spotlight-card" style="padding: 16px 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; ${b.status === "ACTIVE" ? "border-color: var(--neon-cyan); box-shadow: 0 0 20px rgba(0,240,255,0.4);" : ""}">
+              <div style="display: flex; align-items: center; gap: 16px;">
+                <div style="font-size: 14px; font-family: var(--font-mono); color: var(--neon-cyan); min-width: 110px;">
+                  ${b.time}
+                </div>
                 <div>
-                  <div style="font-size: 15px; font-weight: bold;">${b.title}</div>
-                  <div style="font-size: 11px; color: var(--text-muted);">Pilier : \`${b.base}\` | Type : ${b.type}</div>
+                  <div style="font-size: 15px; font-weight: bold; color: var(--text-white);">${b.title}</div>
+                  <div style="font-size: 11px; color: var(--text-secondary); font-family: var(--font-mono); margin-top: 3px;">
+                    PILIER : ${b.base} | TYPE : ${b.type}
+                  </div>
                 </div>
               </div>
               <div>
-                <span style="font-size: 11px; font-weight: bold; padding: 4px 10px; border-radius: 4px; ${b.status === "COMPLETED" ? "color: var(--accent-green); border: 1px solid var(--accent-green);" : b.status === "ACTIVE" ? "color: var(--border-cyan); border: 1px solid var(--border-cyan); background: rgba(0,229,255,0.1);" : "color: var(--text-muted); border: 1px solid var(--text-muted);"}">
-                  ${b.status}
-                </span>
+                ${b.status === "COMPLETED" ? `<span style="color: var(--transcendent-green); font-size: 12px; font-weight: bold;">VALIDÉ ✓</span>` : ""}
+                ${b.status === "ACTIVE" ? `<span class="radar-ping-badge" style="color: var(--neon-cyan);">EN COURS ⚡</span>` : ""}
+                ${b.status === "UPCOMING" ? `<span style="color: var(--text-muted); font-size: 12px; font-family: var(--font-mono);">À VENIR</span>` : ""}
               </div>
             </div>
           `,
@@ -1038,121 +1428,84 @@ function renderFullApplication(initialTab = "dashboard") {
          SCREEN 5 : SECOND BRAIN MARKDOWN VAULT
          ===================================================================== -->
     <div id="view-notes" class="view-panel ${initialTab === "notes" ? "active" : ""}">
-      <div class="hologram-box" style="padding: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <div class="glass-card spotlight-card" style="padding: 26px; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
           <div>
-            <h2 style="font-size: 24px; font-weight: 900; font-family: var(--font-display); color: var(--border-cyan);">
-              CERVEAU NUMÉRIQUE // SECOND BRAIN (VAULT MARKDOWN)
+            <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display);">
+              CERVEAU NUMÉRIQUE & COFFRE MARKDOWN (SECOND BRAIN)
             </h2>
-            <p style="font-size: 13px; color: var(--text-secondary);">Coffre-fort de connaissances synchronisé Obsidian, indexation pg_trgm et KaTeX.</p>
+            <p style="font-size: 13px; color: var(--text-secondary);">Notes interconnectées, liens sémantiques bi-directionnels et formules KaTeX.</p>
           </div>
-          <button class="btn-hologram" onclick="alert('Nouvelle note initialisée dans /vault/AI_ENG/')">+ NOUVELLE NOTE</button>
+          <button class="btn-cyber" onclick="alert('Nouvelle note initialisée dans le coffre local.')">+ NOUVELLE NOTE</button>
+        </div>
+
+        <!-- Notes Search & Tags -->
+        <div style="margin-bottom: 20px;">
+          <input type="text" id="notes-search" placeholder="🔍 Rechercher dans le coffre (ex: FlashAttention, SVD, Buffer Overflow)..." style="width: 100%; background: rgba(3, 12, 34, 0.85); border: 1px solid var(--glass-inner-border); color: #fff; padding: 12px 16px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 13px; outline: none;">
         </div>
 
         <div class="grid-2col">
-          <!-- Left: Vault Tree & Notes List -->
-          <div>
-            <div style="font-size: 12px; font-weight: bold; color: var(--border-cyan); margin-bottom: 10px;">ARBORESCENCE DU VAULT</div>
-            <div style="display: grid; gap: 8px;">
-              ${SYSTEM_STATE.notes
-                .map(
-                  (n) => `
-                <div class="hologram-box" style="padding: 12px; cursor: pointer; background: rgba(0,0,0,0.5);" onclick="loadNote('${n.id}')">
-                  <div style="font-size: 10px; color: var(--accent-gold); font-family: var(--font-mono);">${n.base} // [[${n.tags.join(", ")}]]</div>
-                  <div style="font-size: 13px; font-weight: bold; margin-top: 2px;">${n.title}</div>
-                </div>
-              `,
-                )
-                .join("")}
+          ${SYSTEM_STATE.notes
+            .map(
+              (n) => `
+            <div class="glass-card spotlight-card" style="padding: 22px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span class="radar-ping-badge">${n.base}</span>
+                <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">${n.updatedAt.split("T")[0]}</span>
+              </div>
+              <h3 style="font-size: 17px; font-weight: bold; margin-bottom: 12px; color: var(--text-white);">${n.title}</h3>
+              <div style="background: rgba(2, 8, 24, 0.7); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: var(--radius-sm); padding: 14px; font-size: 12px; font-family: var(--font-mono); color: var(--text-secondary); line-height: 1.5; white-space: pre-wrap; margin-bottom: 14px;">${n.content}</div>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                ${n.tags.map((t) => `<span style="background: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); font-size: 11px; font-family: var(--font-mono); padding: 3px 8px; border-radius: 4px;">#${t}</span>`).join("")}
+              </div>
             </div>
-          </div>
-
-          <!-- Right: Note Editor & Markdown Viewer -->
-          <div class="hologram-box" style="padding: 20px; background: rgba(5,10,20,0.9);">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,229,255,0.2); padding-bottom: 10px; margin-bottom: 15px;">
-              <span id="note-title-display" style="font-size: 16px; font-weight: bold; color: var(--border-cyan);">
-                ${SYSTEM_STATE.notes[0].title}
-              </span>
-              <button class="btn-hologram" onclick="saveNote()">💾 SAUVEGARDER</button>
-            </div>
-            
-            <textarea id="note-editor-content" style="width: 100%; height: 280px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; color: #fff; font-family: var(--font-mono); font-size: 12px; padding: 12px; line-height: 1.6; resize: vertical;">${SYSTEM_STATE.notes[0].content}</textarea>
-
-            <div style="margin-top: 15px; font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between;">
-              <span>Tags : #transformers #cuda #deep-learning</span>
-              <span style="color: var(--accent-green);">✓ Synchronisé avec Obsidian & PostgreSQL</span>
-            </div>
-          </div>
+          `,
+            )
+            .join("")}
         </div>
       </div>
     </div>
 
 
     <!-- =====================================================================
-         SCREEN 6 : AUDIO HUB & SOCRATIC EVALUATION
+         SCREEN 6 : STATION VOCALE & ÉVALUATION SOCRATIQUE (FFT CANVAS)
          ===================================================================== -->
     <div id="view-audio" class="view-panel ${initialTab === "audio" ? "active" : ""}">
-      <div class="hologram-box" style="padding: 24px;">
-        <h2 style="font-size: 24px; font-weight: 900; font-family: var(--font-display); color: var(--border-cyan); margin-bottom: 8px;">
-          STATION VOCALE & ÉVALUATION SOCRATIQUE DE L'ARCHITECTE
-        </h2>
-        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
-          Microphone Yeti Pro connecté. Enregistrement direct analysé par Faster-Whisper CUDA INT8 et noté sur la grille de 20 points.
-        </p>
-
-        <div class="grid-2col">
-          <!-- Left: Audio Controller & Spectrum Canvas -->
+      <div class="glass-card spotlight-card" style="padding: 26px; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
           <div>
-            <div style="margin-bottom: 12px;">
-              <label style="font-size: 12px; color: var(--border-cyan); display: block; margin-bottom: 4px;">DISCIPLINE ÉVALUÉE :</label>
-              <select id="eval-subject-select" style="width: 100%; background: #0A0F1E; border: 1px solid var(--border-cyan); color: #fff; padding: 10px; border-radius: 4px; font-family: var(--font-body);">
-                <option value="AI_ENG">Intelligence Artificielle & Deep Learning (AI_ENG)</option>
-                <option value="CYBER">Cybersécurité Offensive & Pentest (CYBER)</option>
-                <option value="LNG">Anglais C1/C2 Cambridge Oral (LNG)</option>
-                <option value="ACAD">Mathématiques & Algèbre Linéaire (ACAD)</option>
-              </select>
-            </div>
-
-            <canvas id="audio-canvas"></canvas>
-
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
-              <button class="btn-hologram" id="record-btn" onclick="toggleAudioRecording()">🎙️ DÉMARRER ENREGISTREMENT</button>
-              <span id="record-timer" style="font-family: var(--font-mono); font-size: 16px; color: var(--accent-red);">00:00 / 03:00</span>
-              <button class="btn-hologram btn-gold" onclick="submitAudioEvaluation()">SOUMETTRE À L'ARCHITECTE</button>
-            </div>
+            <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display);">
+              STATION VOCALE & ÉVALUATION SOCRATIQUE
+            </h2>
+            <p style="font-size: 13px; color: var(--text-secondary);">Capture audio temps réel, analyse spectrale FFT et notation sur la grille 20 points de l'Architecte.</p>
           </div>
+          <button class="btn-cyber" id="record-toggle-btn" onclick="toggleAudioRecording()">🎙️ DÉMARRER ENREGISTREMENT</button>
+        </div>
 
-          <!-- Right: Evaluation Report Card -->
-          <div class="hologram-box" style="padding: 20px; background: rgba(5,10,20,0.85);" id="eval-result-card">
-            <div style="font-size: 12px; font-weight: bold; letter-spacing: 1.5px; color: var(--accent-gold); margin-bottom: 6px;">
-              RAPPORT DE SOUTENANCE OFFICIEL
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-              <span style="font-size: 18px; font-weight: bold;">Note de Synthèse Socratique :</span>
-              <span style="font-size: 28px; font-weight: 900; color: var(--accent-green); font-family: var(--font-display);">18.5 / 20</span>
-            </div>
+        <!-- FFT Audio Spectrum Canvas Simulation -->
+        <div class="glass-card" style="padding: 16px; margin-bottom: 22px; background: rgba(2, 8, 24, 0.85); text-align: center;">
+          <div style="font-size: 11px; color: var(--neon-cyan); font-family: var(--font-mono); margin-bottom: 8px;">
+            SPECTRE FRÉQUENTIEL FFT TEMPS RÉEL (64 BANDES // WEBAUDIO API)
+          </div>
+          <canvas id="audio-canvas" style="width: 100%; height: 140px; border-radius: var(--radius-sm);"></canvas>
+        </div>
 
-            <div style="display: grid; gap: 8px; font-size: 12px; margin-bottom: 14px;">
-              <div style="display: flex; justify-content: space-between;">
-                <span>• Exactitude & Précision des Démonstrations :</span>
-                <strong style="color: var(--border-cyan);">5.5 / 6.0</strong>
-              </div>
-              <div style="display: flex; justify-content: space-between;">
-                <span>• Richesse Lexicale & Terminologie Spécialisée :</span>
-                <strong style="color: var(--border-cyan);">4.8 / 5.0</strong>
-              </div>
-              <div style="display: flex; justify-content: space-between;">
-                <span>• Clarté Rhétorique & Transition Logique :</span>
-                <strong style="color: var(--border-cyan);">4.2 / 5.0</strong>
-              </div>
-              <div style="display: flex; justify-content: space-between;">
-                <span>• Implication Pratique & Ingénierie Réelle :</span>
-                <strong style="color: var(--border-cyan);">4.0 / 4.0</strong>
-              </div>
+        <!-- Socratic Oral Defense Rubric -->
+        <div class="glass-card spotlight-card" style="padding: 22px;">
+          <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 14px; color: var(--neon-cyan); font-family: var(--font-display);">
+            GRILLE D'ÉVALUATION ORALE SOCRATIQUE (20 POINTS)
+          </h3>
+          <div class="grid-2col">
+            <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
+              <div>🔹 <strong>Précision Conceptuelle & Mathématique :</strong> 6 / 6 pts</div>
+              <div>🔹 <strong>Rigueur du Raisonnement & Falsifiabilité :</strong> 5 / 5 pts</div>
+              <div>🔹 <strong>Clarté d'Élocution & Débit Cambridge C1 :</strong> 4.5 / 5 pts</div>
+              <div>🔹 <strong>Pertinence des Exemples & Benchmarks :</strong> 3 / 4 pts</div>
             </div>
-
-            <div style="background: rgba(0,0,0,0.4); border-left: 3px solid var(--accent-gold); padding: 10px; font-size: 12px; color: var(--text-secondary); font-style: italic;">
-              "Démonstration fluide et sans hésitation conceptuelle. Les repères matriciels sont irréprochables. Continuez à appliquer ce niveau de rigueur pour l'épreuve de Rang C."
+            <div style="text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+              <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">NOTE GLOBALE ESTIMÉE</div>
+              <div class="shiny-green" style="font-size: 48px; font-weight: 900; font-family: var(--font-display); line-height: 1;">18.5 / 20</div>
+              <div style="font-size: 12px; color: var(--transcendent-green); font-weight: bold; margin-top: 6px;">COMPÉTENCE VALIDÉE PAR L'ARCHITECTE ✓</div>
             </div>
           </div>
         </div>
@@ -1161,137 +1514,79 @@ function renderFullApplication(initialTab = "dashboard") {
 
 
     <!-- =====================================================================
-         SCREEN 7 : OPPORTUNITIES & DEERFLOW KANBAN
+         SCREEN 7 : VEILLE BOURSES & HACKATHONS DEERFLOW
          ===================================================================== -->
     <div id="view-opportunities" class="view-panel ${initialTab === "opportunities" ? "active" : ""}">
-      <div class="hologram-box" style="padding: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <div class="glass-card spotlight-card" style="padding: 26px; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
           <div>
-            <h2 style="font-size: 24px; font-weight: 900; font-family: var(--font-display); color: var(--border-cyan);">
-              VEILLE BOURSES & HACKATHONS (DEERFLOW AI)
+            <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display);">
+              VEILLE BOURSES & HACKATHONS (KANBAN DEERFLOW)
             </h2>
-            <p style="font-size: 13px; color: var(--text-secondary);">Scraper Playwright actif sur Campus France, Devpost et plateformes universitaires.</p>
+            <p style="font-size: 13px; color: var(--text-secondary);">Agrégation automatisée Campus France, Devpost et bourses d'excellence IA.</p>
           </div>
-          <div class="btn-hologram btn-gold">
-            VALEUR TOTALE POURSUIVIE : 48 000 €
+          <button class="btn-cyber" onclick="alert('Scraping Deerflow déclenché. 4 nouvelles opportunités trouvées.')">🔄 SCRAPER NOUVELLES OPPORTUNITÉS</button>
+        </div>
+
+        <div class="grid-3col">
+          ${SYSTEM_STATE.opportunities
+            .map(
+              (o) => `
+            <div class="glass-card spotlight-card" style="padding: 20px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span class="radar-ping-badge">${o.type}</span>
+                <span style="font-size: 12px; color: var(--imperial-gold); font-family: var(--font-mono); font-weight: bold;">MATCH : ${o.matchScore}%</span>
+              </div>
+              <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 8px; color: var(--text-white);">${o.title}</h3>
+              <div style="font-size: 12px; color: var(--neon-cyan); font-family: var(--font-mono); margin-bottom: 6px;">${o.amount}</div>
+              <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 16px;">Portail : ${o.portal} | Date limite : ${o.deadline}</div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 11px; color: var(--transcendent-green); font-weight: bold; background: rgba(0, 255, 102, 0.1); padding: 4px 8px; border-radius: 4px;">${o.status}</span>
+                <a href="${o.url}" target="_blank" class="btn-cyber" style="padding: 5px 12px; font-size: 11px; text-decoration: none;">POSTULER ↗</a>
+              </div>
+            </div>
+          `,
+            )
+            .join("")}
+        </div>
+      </div>
+    </div>
+
+
+    <!-- =====================================================================
+         SCREEN 8 : LA BOUTIQUE DES OMBRES (SHADOW SHOP)
+         ===================================================================== -->
+    <div id="view-shop" class="view-panel ${initialTab === "shop" ? "active" : ""}">
+      <div class="glass-card spotlight-card" style="padding: 26px; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display);">
+              LA BOUTIQUE DES OMBRES (SHADOW SHOP)
+            </h2>
+            <p style="font-size: 13px; color: var(--text-secondary);">Convertissez vos Cristaux d'Ombre durement acquis en récompenses matérielles et logicielles.</p>
+          </div>
+          <div class="radar-ping-badge" style="border-color: rgba(255, 215, 0, 0.5); color: var(--imperial-gold); font-size: 14px; padding: 8px 16px;">
+            💎 SOLDE ACTUEL : <strong id="shop-balance-display">${player.shadowCrystals}</strong> CRISTAUX
           </div>
         </div>
 
         <div class="grid-3col">
-          <!-- Column 1: Detected -->
-          <div class="hologram-box" style="padding: 16px; background: rgba(0,0,0,0.4);">
-            <div style="font-size: 13px; font-weight: bold; color: var(--border-cyan); margin-bottom: 12px; border-bottom: 1px solid rgba(0,229,255,0.2); padding-bottom: 6px;">
-              NOUVELLES DÉTECTÉES (${SYSTEM_STATE.opportunities.filter((o) => o.status === "NOUVELLE").length})
-            </div>
-            ${SYSTEM_STATE.opportunities
-              .filter((o) => o.status === "NOUVELLE")
-              .map(
-                (o) => `
-              <div class="hologram-box" style="padding: 12px; margin-bottom: 10px; background: rgba(10,15,30,0.7);">
-                <span style="font-size: 9px; padding: 2px 6px; background: var(--accent-blue); border-radius: 3px;">${o.type}</span>
-                <div style="font-size: 14px; font-weight: bold; margin: 4px 0;">${o.title}</div>
-                <div style="font-size: 12px; color: var(--accent-gold); font-weight: bold;">Dotation : ${o.amount}</div>
-                <div style="font-size: 11px; color: var(--text-muted);">Échéance : ${o.deadline}</div>
-                <div style="margin-top: 10px;"><a href="${o.url}" target="_blank" class="btn-hologram" style="padding: 4px 10px; font-size: 10px; text-decoration: none;">POSTULER ↗</a></div>
-              </div>
-            `,
-              )
-              .join("")}
-          </div>
-
-          <!-- Column 2: In Progress -->
-          <div class="hologram-box" style="padding: 16px; background: rgba(0,0,0,0.4);">
-            <div style="font-size: 13px; font-weight: bold; color: var(--accent-gold); margin-bottom: 12px; border-bottom: 1px solid rgba(255,215,0,0.2); padding-bottom: 6px;">
-              DOSSIERS EN COURS (${SYSTEM_STATE.opportunities.filter((o) => o.status === "EN_COURS").length})
-            </div>
-            ${SYSTEM_STATE.opportunities
-              .filter((o) => o.status === "EN_COURS")
-              .map(
-                (o) => `
-              <div class="hologram-box" style="padding: 12px; margin-bottom: 10px; background: rgba(10,15,30,0.7);">
-                <span style="font-size: 9px; padding: 2px 6px; background: var(--accent-gold); color: #000; font-weight: bold; border-radius: 3px;">${o.type}</span>
-                <div style="font-size: 14px; font-weight: bold; margin: 4px 0;">${o.title}</div>
-                <div style="font-size: 12px; color: var(--accent-gold); font-weight: bold;">Prix : ${o.amount}</div>
-                <div style="font-size: 11px; color: var(--text-muted);">Échéance : ${o.deadline}</div>
-                <div style="margin-top: 10px;"><button class="btn-hologram" style="padding: 4px 10px; font-size: 10px;" onclick="switchView('planner')">VOIR BLOCS DÉDIÉS</button></div>
-              </div>
-            `,
-              )
-              .join("")}
-          </div>
-
-          <!-- Column 3: Submitted -->
-          <div class="hologram-box" style="padding: 16px; background: rgba(0,0,0,0.4);">
-            <div style="font-size: 13px; font-weight: bold; color: var(--accent-green); margin-bottom: 12px; border-bottom: 1px solid rgba(16,185,129,0.2); padding-bottom: 6px;">
-              CANDIDATURES SOUMISES (${SYSTEM_STATE.opportunities.filter((o) => o.status === "SOUMIS").length})
-            </div>
-            ${SYSTEM_STATE.opportunities
-              .filter((o) => o.status === "SOUMIS")
-              .map(
-                (o) => `
-              <div class="hologram-box" style="padding: 12px; margin-bottom: 10px; background: rgba(10,15,30,0.7);">
-                <span style="font-size: 9px; padding: 2px 6px; background: var(--accent-green); border-radius: 3px;">${o.type}</span>
-                <div style="font-size: 14px; font-weight: bold; margin: 4px 0;">${o.title}</div>
-                <div style="font-size: 12px; color: var(--accent-green); font-weight: bold;">Statut : Dossier Confirmé</div>
-                <div style="font-size: 11px; color: var(--text-muted);">Résultat attendu : Fin Décembre 2026</div>
-              </div>
-            `,
-              )
-              .join("")}
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- =====================================================================
-         SCREEN 8 : SHADOW SHOP
-         ===================================================================== -->
-    <div id="view-shop" class="view-panel ${initialTab === "shop" ? "active" : ""}">
-      <div class="hologram-box" style="padding: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-          <div>
-            <h2 style="font-size: 24px; font-weight: 900; font-family: var(--font-display); color: var(--border-cyan);">
-              LA BOUTIQUE DES OMBRES // SHADOW SHOP
-            </h2>
-            <p style="font-size: 13px; color: var(--text-secondary);">Convertissez vos Cristaux d'Ombres en équipement matériel et récompenses de prestige.</p>
-          </div>
-          <div class="btn-hologram btn-gold" style="font-size: 16px;">
-            💎 SOLDE : <span id="shop-balance-display">${player.shadowCrystals}</span> CRISTAUX D'OMBRES
-          </div>
-        </div>
-
-        <div class="grid-3col" style="margin-bottom: 24px;">
           ${SYSTEM_STATE.shopItems
             .map(
               (item) => `
-            <div class="hologram-box" style="padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="glass-card spotlight-card" style="padding: 22px; display: flex; flex-direction: column; justify-content: space-between;">
               <div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                  <span style="font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 4px; background: var(--accent-purple);">${item.category}</span>
-                  <span style="font-size: 11px; color: var(--border-cyan); font-weight: bold;">RANG ${item.rank} REQUIS</span>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <span class="radar-ping-badge">${item.category}</span>
+                  <span class="shiny-gold" style="font-size: 14px; font-weight: bold; font-family: var(--font-mono);">RANG ${item.rank}</span>
                 </div>
-                <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 6px;">${item.name}</h3>
-                <p style="font-size: 12px; color: var(--text-secondary);">${item.desc}</p>
+                <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 8px; color: var(--text-white);">${item.name}</h3>
+                <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.4; margin-bottom: 16px;">${item.desc}</p>
               </div>
-              <div style="margin-top: 18px; display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 16px; font-weight: 900; color: var(--accent-gold); font-family: var(--font-mono);">💎 ${item.cost} OC</span>
-                <button class="btn-hologram" onclick="buyShopItem('${item.id}', '${item.name}', ${item.cost})">DÉBLOQUER</button>
+              <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(56, 189, 248, 0.15); padding-top: 14px;">
+                <span style="font-size: 15px; font-weight: 900; color: var(--imperial-gold); font-family: var(--font-mono);">${item.cost} 💎</span>
+                <button class="btn-cyber btn-gold" onclick="buyShopItem('${item.id}', '${item.name.replace(/'/g, "\\'")}', ${item.cost})">ACHETER</button>
               </div>
-            </div>
-          `,
-            )
-            .join("")}
-        </div>
-
-        <div class="hologram-box" style="padding: 16px;">
-          <div style="font-size: 12px; font-weight: bold; color: var(--border-cyan); margin-bottom: 10px;">HISTORIQUE DES TRANSACTIONS</div>
-          ${SYSTEM_STATE.recentOrders
-            .map(
-              (o) => `
-            <div style="display: flex; justify-content: space-between; font-size: 12px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
-              <span>${o.date} — ${o.name} (-${o.cost} 💎)</span>
-              <span style="color: var(--accent-green); font-family: var(--font-mono);">${o.code}</span>
             </div>
           `,
             )
@@ -1302,37 +1597,54 @@ function renderFullApplication(initialTab = "dashboard") {
 
 
     <!-- =====================================================================
-         SCREEN 9 : PENALTY ZONE
+         SCREEN 9 : ZONE DE PÉNALITÉ & VERROUILLAGE RÉSEAU INVIOLABLE
          ===================================================================== -->
     <div id="view-penalty" class="view-panel ${initialTab === "penalty" ? "active" : ""}">
-      <div class="hologram-box" style="padding: 30px; border-color: var(--accent-red); background: rgba(255, 0, 60, 0.06); box-shadow: 0 0 35px rgba(255, 0, 60, 0.4);">
-        <div style="text-align: center; margin-bottom: 25px;">
-          <div style="font-size: 40px; margin-bottom: 8px;">☠️</div>
-          <h1 style="font-size: 32px; font-weight: 900; font-family: var(--font-display); color: var(--accent-red); letter-spacing: 3px;">
-            ZONE DE PÉNALITÉ // DISPOSITIF DE SURVIE INVIOLABLE
-          </h1>
-          <p style="font-size: 14px; color: var(--text-secondary); max-width: 700px; margin: 0 auto;">
-            Protection anti-procrastination active. Pare-feu réseau NextDNS et blocage hosts engagés.
-          </p>
-        </div>
-
-        <div class="grid-2col" style="margin-bottom: 25px;">
-          <div class="hologram-box" style="padding: 20px; background: rgba(0,0,0,0.6);">
-            <div style="font-size: 13px; font-weight: bold; color: var(--accent-red); margin-bottom: 10px;">DOMAINS BLOQUÉS PAR LE PARE-FEU WFP</div>
-            <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.8; list-style-position: inside;">
-              ${SYSTEM_STATE.penalty.blockedDomains.map((d) => `<li><code>${d}</code></li>`).join("")}
-            </ul>
+      <div class="border-beam-box" style="margin-bottom: 24px;">
+        <div class="border-beam-content" style="padding: 26px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span class="radar-ping-badge" style="border-color: rgba(255, 0, 60, 0.5); color: var(--alert-crimson);">
+                ⚠️ ZONE DE PÉNALITÉ INVIOLABLE
+              </span>
+              <span style="font-size: 13px; color: var(--transcendent-green); font-weight: bold;">
+                STATUT : CHASSEUR EN RÈGLE (AUCUN BLOCAGE ACTIF)
+              </span>
+            </div>
+            <button class="btn-cyber btn-red" onclick="alert('Simulation protocole de pénalité : NextDNS appliqué.')">TESTER SIMULATION PÉNALITÉ</button>
           </div>
 
-          <div class="hologram-box" style="padding: 20px; background: rgba(0,0,0,0.6);">
-            <div style="font-size: 13px; font-weight: bold; color: var(--accent-gold); margin-bottom: 10px;">ÉPREUVES DE RACHAT POUR PURGER LA PÉNALITÉ</div>
-            <div style="font-size: 13px; margin-bottom: 10px;">
-              <strong>Option A :</strong> ${SYSTEM_STATE.penalty.redemptionOptionA}
+          <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px;">
+            En cas d'échec d'une quête journalière obligatoire à 22h00, le Système déclenche un verrouillage DNS automatique via NextDNS CLI sur tous les terminaux enregistrés.
+          </p>
+
+          <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 12px; color: var(--alert-crimson); font-family: var(--font-display);">
+            DOMAINES SOUMIS AU BLACKOUT AUTOMATIQUE :
+          </h3>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px;">
+            ${SYSTEM_STATE.penalty.blockedDomains
+              .map(
+                (d) => `
+              <span style="background: rgba(255, 0, 60, 0.12); border: 1px solid rgba(255, 0, 60, 0.4); color: var(--alert-crimson); font-size: 12px; font-family: var(--font-mono); padding: 5px 12px; border-radius: var(--radius-sm);">
+                🔒 ${d}
+              </span>
+            `,
+              )
+              .join("")}
+          </div>
+
+          <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 12px; color: var(--transcendent-green); font-family: var(--font-display);">
+            ÉPREUVES DE RÉDEMPTION POUR LEVER LE BLOCAGE :
+          </h3>
+          <div class="grid-2col">
+            <div class="glass-card" style="padding: 16px; border-color: rgba(0, 255, 102, 0.3);">
+              <div style="font-size: 13px; font-weight: bold; color: var(--text-white); margin-bottom: 6px;">OPTION A : CALISTHÉNIE MILITAIRE</div>
+              <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.4;">${SYSTEM_STATE.penalty.redemptionOptionA}</p>
             </div>
-            <div style="font-size: 13px; margin-bottom: 15px;">
-              <strong>Option B :</strong> ${SYSTEM_STATE.penalty.redemptionOptionB}
+            <div class="glass-card" style="padding: 16px; border-color: rgba(0, 255, 102, 0.3);">
+              <div style="font-size: 13px; font-weight: bold; color: var(--text-white); margin-bottom: 6px;">OPTION B : COURSE NOCTURNE GPS</div>
+              <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.4;">${SYSTEM_STATE.penalty.redemptionOptionB}</p>
             </div>
-            <button class="btn-hologram btn-red" onclick="alert('Preuve de rachat soumise à l\'Architecte. Levée du pare-feu après vérification.')">SOUMETTRE PREUVE DE SURVIE</button>
           </div>
         </div>
       </div>
@@ -1340,51 +1652,58 @@ function renderFullApplication(initialTab = "dashboard") {
 
 
     <!-- =====================================================================
-         SCREEN 10 : WORKOUT CAMERA ARENA (CALISTHÉNIE CV)
+         SCREEN 10 : SALLE D'ENTRAÎNEMENT & VISION PAR ORDINATEUR
          ===================================================================== -->
     <div id="view-workout" class="view-panel ${initialTab === "workout" ? "active" : ""}">
-      <div class="hologram-box" style="padding: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <div class="glass-card spotlight-card" style="padding: 26px; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
           <div>
-            <h2 style="font-size: 24px; font-weight: 900; font-family: var(--font-display); color: var(--border-cyan);">
-              SALLE D'ENTRAÎNEMENT DU MONARQUE // VISION PAR ORDINATEUR (60 FPS)
+            <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display);">
+              SALLE D'ENTRAÎNEMENT & VISION PAR ORDINATEUR (MEDIAPIPE)
             </h2>
             <p style="font-size: 13px; color: var(--text-secondary);">Analyse cinématique des 33 repères squelettiques MediaPipe Pose WebAssembly.</p>
           </div>
-          <button class="btn-hologram" id="cam-toggle-btn" onclick="toggleCamera()">📹 ACTIVER CAMÉRA</button>
+          <button class="btn-cyber" id="cam-toggle-btn" onclick="toggleCamera()">📷 ACTIVER CAMÉRA</button>
         </div>
 
         <div class="grid-2col">
           <!-- Video Screen & Canvas Overlay -->
-          <div class="hologram-box" style="padding: 10px; background: #000; min-height: 380px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;">
-            <video id="webcam-video" style="display: none; width: 100%; border-radius: 6px;" autoplay playsinline></video>
-            <div id="cam-placeholder" style="text-align: center; color: var(--text-muted);">
-              <div style="font-size: 40px; margin-bottom: 10px;">📷</div>
-              <div>Cliquez sur "Activer Caméra" pour démarrer le tracking cinématique</div>
-              <div style="font-size: 11px; margin-top: 5px; color: var(--border-cyan);">Seuil de validation : Flexion coude &le; 75&deg; &rarr; Extension &ge; 160&deg;</div>
+          <div class="glass-card" style="padding: 12px; background: rgba(1, 6, 18, 0.95); min-height: 380px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;">
+            <video id="webcam-video" style="display: none; width: 100%; border-radius: var(--radius-sm);" autoplay playsinline></video>
+            <div id="cam-placeholder" style="text-align: center; color: var(--text-muted); padding: 40px 20px;">
+              <div style="font-size: 48px; margin-bottom: 12px;">📷</div>
+              <div style="font-size: 15px; color: var(--text-white); font-weight: bold; margin-bottom: 6px;">Tracking Cinématique MediaPipe Prêt</div>
+              <div style="font-size: 12px; color: var(--text-secondary);">Cliquez sur "Activer Caméra" pour démarrer l'estimation de pose en temps réel.</div>
+              <div style="font-size: 11px; margin-top: 10px; color: var(--neon-cyan); font-family: var(--font-mono);">
+                Seuil strict de répétition : Flexion coude ≤ 75° ➔ Extension ≥ 160°
+              </div>
             </div>
           </div>
 
           <!-- Routine Details & Reps Counter -->
           <div>
-            <div class="hologram-box" style="padding: 20px; margin-bottom: 15px;">
-              <div style="font-size: 11px; color: var(--accent-gold); font-weight: bold;">ROUTINE SÉLECTIONNÉE</div>
-              <h3 style="font-size: 18px; font-weight: bold; margin: 4px 0;">Routine Dos & Épaules (17 Étapes)</h3>
+            <div class="glass-card spotlight-card" style="padding: 22px; margin-bottom: 18px;">
+              <div style="font-size: 11px; color: var(--imperial-gold); font-weight: bold; font-family: var(--font-mono);">ROUTINE SÉLECTIONNÉE</div>
+              <h3 style="font-size: 18px; font-weight: bold; margin: 4px 0; color: var(--text-white);">Routine Dos & Épaules (17 Étapes)</h3>
               <p style="font-size: 12px; color: var(--text-secondary);">Étape 3/17 : Pike Push-Ups stricts (focus deltoïdes)</p>
             </div>
 
             <!-- Big Reps Counter -->
-            <div class="hologram-box" style="padding: 24px; text-align: center; margin-bottom: 15px;">
-              <div style="font-size: 12px; letter-spacing: 2px; color: var(--border-cyan);">RÉPÉTITIONS STRICTES COMPTABILISÉES</div>
-              <div id="workout-rep-count" style="font-size: 64px; font-weight: 900; font-family: var(--font-display); color: var(--accent-green); line-height: 1.1;">
+            <div class="glass-card spotlight-card" style="padding: 26px; text-align: center; margin-bottom: 18px;">
+              <div style="font-size: 12px; letter-spacing: 2px; color: var(--neon-cyan); font-family: var(--font-display);">
+                RÉPÉTITIONS STRICTES COMPTABILISÉES
+              </div>
+              <div id="workout-rep-count" class="shiny-green" style="font-size: 72px; font-weight: 900; font-family: var(--font-display); line-height: 1.1; margin: 8px 0;">
                 14 / 14
               </div>
-              <div style="font-size: 12px; color: var(--accent-green); font-weight: bold;">POSTURE STRICTE VALIDÉE ✓</div>
+              <div style="font-size: 13px; color: var(--transcendent-green); font-weight: bold;">
+                POSTURE STRICTE VALIDÉE ✓
+              </div>
             </div>
 
-            <div style="display: flex; gap: 10px;">
-              <button class="btn-hologram" style="flex: 1;" onclick="addManualRep()">+ 1 RÉPÉTITION (TEST)</button>
-              <button class="btn-hologram btn-gold" style="flex: 1;" onclick="validateWorkoutSet()">VALIDER LA SÉRIE</button>
+            <div style="display: flex; gap: 12px;">
+              <button class="btn-cyber" style="flex: 1;" onclick="addManualRep()">+ 1 RÉPÉTITION (TEST)</button>
+              <button class="btn-cyber btn-gold" style="flex: 1;" onclick="validateWorkoutSet()">VALIDER LA SÉRIE</button>
             </div>
           </div>
         </div>
@@ -1395,21 +1714,21 @@ function renderFullApplication(initialTab = "dashboard") {
 
   <!-- Proof Submission Modal -->
   <div id="proof-modal" class="modal-overlay">
-    <div class="hologram-box modal-card">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <h3 id="modal-quest-title" style="font-size: 18px; font-weight: bold; color: var(--border-cyan);">SOUMISSION DE PREUVE DE QUÊTE</h3>
-        <button onclick="closeProofModal()" style="background: none; border: none; color: #fff; font-size: 20px; cursor: pointer;">✕</button>
+    <div class="modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 id="modal-quest-title" class="shiny-text" style="font-size: 18px; font-weight: bold;">SOUMISSION DE PREUVE DE QUÊTE</h3>
+        <button onclick="closeProofModal()" style="background: none; border: none; color: #fff; font-size: 22px; cursor: pointer;">✕</button>
       </div>
-      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 15px;">
-        Règle d'or : Toute attribution d'expérience exige une preuve réelle et indiscutable (Lien Commit GitHub, Trace Strava GPS, Relevé de notes).
+      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 18px; line-height: 1.5;">
+        Règle d'or : Toute attribution d'expérience exige une preuve réelle et indiscutable (Lien Commit GitHub, Trace Strava GPS, Relevé officiel).
       </p>
-      <div style="margin-bottom: 15px;">
-        <label style="font-size: 12px; color: var(--border-cyan); display: block; margin-bottom: 6px;">LIEN OU RAPPORT DE PREUVE :</label>
-        <input type="text" id="proof-input" placeholder="https://github.com/GeovanioH/LevelUp/commit/..." style="width: 100%; background: #0A0F1E; border: 1px solid var(--border-cyan); color: #fff; padding: 10px; border-radius: 4px; font-family: var(--font-mono); font-size: 13px;">
+      <div style="margin-bottom: 18px;">
+        <label style="font-size: 12px; color: var(--neon-cyan); display: block; margin-bottom: 8px; font-family: var(--font-mono);">LIEN OU RAPPORT DE PREUVE :</label>
+        <input type="text" id="proof-input" placeholder="https://github.com/GeovanioH/LevelUp/commit/..." style="width: 100%; background: rgba(3, 12, 34, 0.9); border: 1px solid var(--neon-cyan); color: #fff; padding: 12px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 13px; outline: none;">
       </div>
-      <div style="display: flex; justify-content: flex-end; gap: 10px;">
-        <button class="btn-hologram" onclick="closeProofModal()">ANNULER</button>
-        <button class="btn-hologram btn-gold" onclick="submitQuestProof()">VALIDER AU NOM DU SYSTÈME</button>
+      <div style="display: flex; justify-content: flex-end; gap: 12px;">
+        <button class="btn-cyber" onclick="closeProofModal()">ANNULER</button>
+        <button class="btn-cyber btn-gold" onclick="submitQuestProof()">VALIDER AU NOM DU SYSTÈME</button>
       </div>
     </div>
   </div>
@@ -1460,7 +1779,9 @@ function renderFullApplication(initialTab = "dashboard") {
 
       const tabs = document.querySelectorAll('.nav-tab');
       tabs.forEach(t => {
-        if (t.getAttribute('onclick')?.includes(viewId)) t.classList.add('active');
+        if (t.getAttribute('onclick') && t.getAttribute('onclick').includes(viewId)) {
+          t.classList.add('active');
+        }
       });
 
       // Update URL without reload
@@ -1511,28 +1832,132 @@ function renderFullApplication(initialTab = "dashboard") {
       if (xpEl) xpEl.textContent = "18650 / 22500 XP (83%)";
     }
 
-    // Audio Visualizer Canvas Simulation
-    const canvas = document.getElementById('audio-canvas');
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      canvas.width = canvas.parentElement.clientWidth || 500;
-      canvas.height = 140;
+    // Skills Filter
+    function filterSkillGrid(category) {
+      playChime(440);
+      const cards = document.querySelectorAll('.skill-card-item');
+      cards.forEach(c => {
+        if (category === 'ALL' || c.getAttribute('data-base') === category) {
+          c.style.display = 'block';
+        } else {
+          c.style.display = 'none';
+        }
+      });
+    }
+
+    function unlockSkillNode(name) {
+      playChime(880);
+      alert("Compétence déverrouillée au nom du Système : " + name + " ! -350 XP consommés.");
+    }
+
+    // Audio Visualizer Canvas Simulation (Screen 6)
+    const audioCanvas = document.getElementById('audio-canvas');
+    if (audioCanvas) {
+      const ctx = audioCanvas.getContext('2d');
+      audioCanvas.width = audioCanvas.parentElement.clientWidth || 500;
+      audioCanvas.height = 140;
 
       function drawSpectrum() {
         if (!ctx) return;
-        ctx.fillStyle = 'rgba(5, 10, 20, 0.4)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(2, 8, 24, 0.4)';
+        ctx.fillRect(0, 0, audioCanvas.width, audioCanvas.height);
 
-        const bars = 48;
-        const barWidth = (canvas.width / bars) - 2;
+        const bars = 56;
+        const barWidth = (audioCanvas.width / bars) - 2;
         for (let i = 0; i < bars; i++) {
-          const h = Math.sin(Date.now() * 0.005 + i * 0.3) * 40 + 50 + Math.random() * 20;
-          ctx.fillStyle = i % 2 === 0 ? '#00E5FF' : '#9D00FF';
-          ctx.fillRect(i * (barWidth + 2), canvas.height - h, barWidth, h);
+          const h = Math.sin(Date.now() * 0.005 + i * 0.25) * 45 + 50 + Math.random() * 20;
+          ctx.fillStyle = i % 2 === 0 ? '#00f0ff' : '#0284c7';
+          ctx.fillRect(i * (barWidth + 2), audioCanvas.height - h, barWidth, h);
         }
         requestAnimationFrame(drawSpectrum);
       }
       drawSpectrum();
+    }
+
+    function toggleAudioRecording() {
+      playChime(523);
+      const btn = document.getElementById('record-toggle-btn');
+      if (btn.textContent.includes('DÉMARRER')) {
+        btn.textContent = '⏹ ARRÊTER & NOTER (ARCHITECTE)';
+        btn.classList.add('btn-red');
+      } else {
+        btn.textContent = '🎙️ DÉMARRER ENREGISTREMENT';
+        btn.classList.remove('btn-red');
+        playChime(1046);
+        alert('Évaluation Socratique terminée : Note 18.5/20 accordée par The Architect AI !');
+      }
+    }
+
+    // Floating Mana Particles Simulation (React Bits)
+    const bgCanvas = document.getElementById('mana-particles-canvas');
+    if (bgCanvas) {
+      const bgCtx = bgCanvas.getContext('2d');
+      let pWidth = bgCanvas.width = window.innerWidth;
+      let pHeight = bgCanvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        pWidth = bgCanvas.width = window.innerWidth;
+        pHeight = bgCanvas.height = window.innerHeight;
+      });
+
+      const particles = [];
+      for (let i = 0; i < 45; i++) {
+        particles.push({
+          x: Math.random() * pWidth,
+          y: Math.random() * pHeight,
+          radius: Math.random() * 1.8 + 0.5,
+          speedY: Math.random() * 0.6 + 0.2,
+          speedX: (Math.random() - 0.5) * 0.3,
+          alpha: Math.random() * 0.6 + 0.2
+        });
+      }
+
+      function renderMana() {
+        if (!bgCtx) return;
+        bgCtx.clearRect(0, 0, pWidth, pHeight);
+        for (let p of particles) {
+          p.y -= p.speedY;
+          p.x += p.speedX;
+          if (p.y < 0) {
+            p.y = pHeight;
+            p.x = Math.random() * pWidth;
+          }
+          bgCtx.beginPath();
+          bgCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          bgCtx.fillStyle = 'rgba(0, 240, 255, ' + p.alpha + ')';
+          bgCtx.shadowBlur = 8;
+          bgCtx.shadowColor = '#00f0ff';
+          bgCtx.fill();
+        }
+        requestAnimationFrame(renderMana);
+      }
+      renderMana();
+    }
+
+    // React Bits Spotlight Card Dynamic Tracking
+    document.addEventListener('mousemove', (e) => {
+      document.querySelectorAll('.spotlight-card').forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', x + 'px');
+        card.style.setProperty('--mouse-y', y + 'px');
+      });
+    });
+
+    // Notes Filter
+    const notesInput = document.getElementById('notes-search');
+    if (notesInput) {
+      notesInput.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        document.querySelectorAll('#view-notes .glass-card.spotlight-card').forEach(c => {
+          if (c.textContent.toLowerCase().includes(term)) {
+            c.style.display = 'block';
+          } else {
+            c.style.display = 'none';
+          }
+        });
+      });
     }
 
     // Shop Item Purchase
@@ -1541,6 +1966,8 @@ function renderFullApplication(initialTab = "dashboard") {
       alert("Article débloqué : " + name + " (-" + cost + " 💎)\\nCode de retrait : LVL-SHADOW-" + Date.now().toString(36).toUpperCase());
       const bal = document.getElementById('shop-balance-display');
       if (bal) bal.textContent = Math.max(0, parseInt(bal.textContent) - cost);
+      const headBal = document.getElementById('header-crystals-val');
+      if (headBal) headBal.textContent = Math.max(0, parseInt(headBal.textContent) - cost);
     }
 
     // Workout Rep Counter
@@ -1556,6 +1983,28 @@ function renderFullApplication(initialTab = "dashboard") {
     function validateWorkoutSet() {
       playChime(1046);
       alert("Série de calisthénie validée par le Système ! +120 XP STR attribués.");
+    }
+
+    // Toggle Camera Simulator
+    function toggleCamera() {
+      playChime(523);
+      const video = document.getElementById('webcam-video');
+      const placeholder = document.getElementById('cam-placeholder');
+      const btn = document.getElementById('cam-toggle-btn');
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then((stream) => {
+            if (video) {
+              video.srcObject = stream;
+              video.style.display = 'block';
+              if (placeholder) placeholder.style.display = 'none';
+              if (btn) btn.textContent = '⏹ DÉSACTIVER CAMÉRA';
+            }
+          })
+          .catch(() => {
+            alert('Caméra physique non détectée ou permission refusée. Mode simulation cinématique actif.');
+          });
+      }
     }
 
     // Keyboard Shortcuts (Alt+1 to Alt+0)
@@ -1609,7 +2058,7 @@ const server = http.createServer((req, res) => {
       JSON.stringify({
         status: "HEALTHY",
         uptime: process.uptime(),
-        version: "3.0.0",
+        version: "3.2.0",
       }),
     );
     return;
@@ -1679,13 +2128,24 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Fallback to Dashboard SPA
-  res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-  res.end(renderFullApplication("dashboard"));
-});
-
-server.listen(PORT, "0.0.0.0", () => {
-  console.log(
-    `[LEVELUP // THE SYSTEM] Master Multi-Page Web Platform active sur http://localhost:${PORT}`,
+  // Fallback 404
+  res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
+  res.end(
+    '<h1>404 - Protocole Système Non Trouvé</h1><p><a href="/">Retour au HUD Souverain</a></p>',
   );
 });
+
+if (require.main === module) {
+  server.listen(PORT, "0.0.0.0", () => {
+    console.log(
+      `[LevelUp System HUD v3.2.0] Listening on http://0.0.0.0:${PORT}`,
+    );
+  });
+}
+
+module.exports = {
+  server,
+  SYSTEM_STATE,
+  getHarmonicScore,
+  renderFullApplication,
+};
