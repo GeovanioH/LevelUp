@@ -15,9 +15,7 @@ jobs:
         run: |
           TARGET_URL="${{ secrets.RENDER_SERVICE_URL }}"
           if [ -z "$TARGET_URL" ]; then
-            echo "ℹ️ RENDER_SERVICE_URL n'est pas encore défini dans les GitHub Secrets."
-            echo "Veuillez ajouter l'URL de votre Web Service Render (ex: https://levelup-system.onrender.com) dans Secrets."
-            exit 0
+            TARGET_URL="https://levelup-system.onrender.com"
           fi
 
           echo "🚀 Envoi du Heartbeat Ping vers $TARGET_URL/health..."
