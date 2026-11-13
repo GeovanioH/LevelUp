@@ -3484,10 +3484,10 @@ function renderFullApplication(initialTab = "dashboard") {
   <!-- SYSTEM INTRO INITIALIZATION VIDEO (CLEAN FULLSCREEN) & ALERT TRANSITION -->
   <div id="system-intro-overlay" class="system-intro-overlay" onclick="handleIntroOverlayClick()" title="Cliquer pour passer">
     <video id="system-intro-video" class="system-intro-video" playsinline muted autoplay preload="auto">
-      <source src="/intro.mp4?v=4s_v5_landscape" type="video/mp4">
+      <source src="/intro.mp4?v=8s_v1_landscape" type="video/mp4">
     </video>
     <div id="system-intro-alert-wrapper" class="system-intro-alert-wrapper">
-      <img id="system-intro-alert-img" class="system-intro-alert-img" src="/intro-alert.jpg?v=4s_v5" alt="[WELCOME, PLAYER.] System Alert" />
+      <img id="system-intro-alert-img" class="system-intro-alert-img" src="/intro-alert.jpg?v=8s_v1" alt="[WELCOME, PLAYER.] System Alert" />
       <div class="system-intro-alert-hint">[ INITIALISATION DU SYSTÈME EN COURS... CLIQUEZ POUR ENTRER ]</div>
     </div>
   </div>
@@ -7774,17 +7774,17 @@ function renderFullApplication(initialTab = "dashboard") {
       video.setAttribute('muted', '');
       video.setAttribute('playsinline', '');
 
-      // 1. ABSOLUTE FAIL-SAFE: At exactly 4.0 seconds (4000ms), force video disappearance!
+      // 1. ABSOLUTE FAIL-SAFE: At exactly 8.0 seconds (8000ms), force video disappearance!
       if (introForceTimer) clearTimeout(introForceTimer);
       introForceTimer = setTimeout(() => {
         showIntroAlertScreen();
-      }, 4000);
+      }, 8000);
 
-      // 2. High-Frequency Poller (every 40ms) to detect when video finishes (currentTime >= 3.6s or ended)
+      // 2. High-Frequency Poller (every 40ms) to detect when video finishes (currentTime >= 7.6s or ended)
       if (introPlaybackPoller) clearInterval(introPlaybackPoller);
       introPlaybackPoller = setInterval(() => {
         if (!video) return;
-        if (video.currentTime >= 3.6 || video.ended || (video.duration && video.currentTime >= video.duration - 0.2)) {
+        if (video.currentTime >= 7.6 || video.ended || (video.duration && video.currentTime >= video.duration - 0.2)) {
           showIntroAlertScreen();
         }
       }, 40);
@@ -7792,7 +7792,7 @@ function renderFullApplication(initialTab = "dashboard") {
       // 3. Native event listeners
       video.addEventListener('ended', showIntroAlertScreen);
       video.addEventListener('timeupdate', () => {
-        if (video.currentTime >= 3.6 || (video.duration && video.currentTime >= video.duration - 0.2)) {
+        if (video.currentTime >= 7.6 || (video.duration && video.currentTime >= video.duration - 0.2)) {
           showIntroAlertScreen();
         }
       });
@@ -7878,11 +7878,11 @@ function renderFullApplication(initialTab = "dashboard") {
 
         introForceTimer = setTimeout(() => {
           showIntroAlertScreen();
-        }, 4000);
+        }, 8000);
 
         introPlaybackPoller = setInterval(() => {
           if (!video) return;
-          if (video.currentTime >= 3.6 || video.ended || (video.duration && video.currentTime >= video.duration - 0.2)) {
+          if (video.currentTime >= 7.6 || video.ended || (video.duration && video.currentTime >= video.duration - 0.2)) {
             showIntroAlertScreen();
           }
         }, 40);
