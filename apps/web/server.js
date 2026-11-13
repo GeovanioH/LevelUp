@@ -1309,70 +1309,6 @@ function renderFullApplication(initialTab = "dashboard") {
       color: #0f172a;
     }
 
-    /* HEADER NAV LINKS (PRISMVEIL STYLE: • Editor Presets Gallery Pricing) */
-    .header-nav-links {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .header-nav-item.active {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: #ffffff;
-      font-family: var(--font-display, sans-serif);
-      font-weight: 700;
-      font-size: 13.5px;
-      letter-spacing: 0.2px;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-    [data-theme="light-awakening"] .header-nav-item.active {
-      color: #0f172a;
-    }
-
-    .header-nav-dot {
-      font-size: 16px;
-      line-height: 1;
-      color: #ffffff;
-      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
-    }
-    [data-theme="light-awakening"] .header-nav-dot {
-      color: #7c3aed;
-      filter: drop-shadow(0 0 6px rgba(124, 58, 237, 0.6));
-    }
-
-    .header-nav-link {
-      background: none;
-      border: none;
-      padding: 0;
-      margin: 0;
-      color: rgba(255, 255, 255, 0.6);
-      font-family: var(--font-display, sans-serif);
-      font-size: 13.5px;
-      font-weight: 500;
-      letter-spacing: 0.2px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: color 0.2s ease, transform 0.2s ease;
-      outline: none;
-    }
-    .header-nav-link:hover {
-      color: #ffffff;
-      transform: translateY(-1px);
-    }
-    .header-nav-link.active {
-      color: #ffffff;
-      font-weight: 700;
-    }
-    [data-theme="light-awakening"] .header-nav-link {
-      color: rgba(15, 23, 42, 0.6);
-    }
-    [data-theme="light-awakening"] .header-nav-link:hover {
-      color: #0f172a;
-    }
-
     /* RIGHT CLUSTER */
     .header-right-cluster {
       display: flex;
@@ -1486,11 +1422,6 @@ function renderFullApplication(initialTab = "dashboard") {
       box-shadow: 0 4px 16px rgba(15, 23, 42, 0.35);
     }
 
-    @media (max-width: 1250px) {
-      .header-nav-link {
-        display: none;
-      }
-    }
     @media (max-width: 900px) {
       .header-stat-item {
         display: none;
@@ -2659,18 +2590,6 @@ function renderFullApplication(initialTab = "dashboard") {
           ${MONARCH_LOGO_SVG}
           <span class="brand-title">LEVELUP</span>
         </div>
-        
-        <nav class="header-nav-links" aria-label="Navigation Header">
-          <div class="header-nav-item active" id="active-view-indicator" onclick="switchView('dashboard')" title="Section Active">
-            <span class="header-nav-dot">•</span>
-            <span class="header-nav-text" id="active-view-label">HUD Souverain</span>
-          </div>
-          <button class="header-nav-link" onclick="switchView('skills')">Compétences</button>
-          <button class="header-nav-link" onclick="switchView('quests')">Quêtes</button>
-          <button class="header-nav-link" onclick="switchView('planner')">Time-Blocking</button>
-          <button class="header-nav-link" onclick="switchView('notes')">Second Brain</button>
-          <button class="header-nav-link" onclick="switchView('opportunities')">Veille</button>
-        </nav>
       </div>
 
       <div class="header-right-cluster">
@@ -4327,20 +4246,6 @@ function renderFullApplication(initialTab = "dashboard") {
         penalty: 'Zone Pénalité',
         workout: 'Vision Sport'
       };
-      const label = document.getElementById('active-view-label');
-      const indicator = document.getElementById('active-view-indicator');
-      if (label && viewFriendlyNames[viewId]) {
-        label.textContent = viewFriendlyNames[viewId];
-      } else if (indicator && viewFriendlyNames[viewId]) {
-        indicator.innerHTML = '<span class="header-nav-dot">•</span> ' + viewFriendlyNames[viewId];
-      }
-      document.querySelectorAll('.header-nav-link').forEach(link => {
-        if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(viewId)) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
-        }
-      });
 
       if (viewId === 'notes') {
         setTimeout(() => {
