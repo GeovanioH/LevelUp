@@ -3771,14 +3771,14 @@ function renderFullApplication(initialTab = "dashboard") {
                 <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">psychology_alt</span> DERNIÈRE ÉVALUATION DE L'ARCHITECTE (GRILLE 20 PTS)
               </span>
               <span class="shiny-green" id="dash-oral-score" style="font-size: 22px; font-weight: 900; font-family: var(--font-display);">
-                18.5 / 20
+                -- / 20
               </span>
             </div>
             <div style="font-size: 15px; font-weight: bold; margin-bottom: 6px; color: var(--text-white);" id="dash-oral-topic">
-              Sujet : Quantification INT8 & Moteur CTranslate2
+              Sujet : En attente du premier monologue socratique
             </div>
             <p style="font-size: 12px; color: var(--text-secondary); font-style: italic; line-height: 1.5;" id="dash-oral-feedback">
-              "Démonstration rigoureuse du compromis latence/précision sur RTX 4070. Les tenseurs symétriques ont été parfaitement explicités."
+              "Exécutez votre première restitution orale dans la Station Vocale pour obtenir une notation socratique sur 20 points de l'Architecte."
             </p>
           </div>
 
@@ -3965,15 +3965,15 @@ function renderFullApplication(initialTab = "dashboard") {
           <div>
             <div style="display: flex; align-items: center; gap: 8px;">
               <span style="font-size: 10.5px; font-family: var(--font-mono); color: var(--primary); letter-spacing: 1.5px; text-transform: uppercase;">[SYSTEM NOTIFICATION]</span>
-              <span class="radar-ping-badge" style="border-color: rgba(69,223,164,0.4); color: var(--tertiary-fixed); font-size: 10px;">RANG D — STANDARD</span>
+              <span class="radar-ping-badge" style="border-color: rgba(69,223,164,0.4); color: var(--tertiary-fixed); font-size: 10px;">RANG E — ÉVEIL INITIAL</span>
             </div>
             <h3 style="font-size: 18px; font-weight: 800; color: var(--primary); font-family: var(--font-display); margin-top: 4px;">
               [Daily Quest: Strength Training has arrived.]
             </h3>
           </div>
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span class="telemetric-chip" style="color: var(--tertiary); font-weight: 700;">18 JOURS CONSÉCUTIFS</span>
-            <span class="radar-ping-badge" style="border-color: rgba(69,223,164,0.4); color: var(--tertiary-fixed);">+18% BUFF</span>
+            <span class="telemetric-chip" style="color: var(--tertiary); font-weight: 700;">0 JOUR CONSÉCUTIF</span>
+            <span class="radar-ping-badge" style="border-color: rgba(69,223,164,0.4); color: var(--tertiary-fixed);">0% BUFF</span>
           </div>
         </div>
 
@@ -3981,37 +3981,37 @@ function renderFullApplication(initialTab = "dashboard") {
           <div style="background: var(--surface-container); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle);">
             <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
               <span style="color: var(--text-white); font-weight: 600;">1. Pompes (Push-ups)</span>
-              <span style="color: var(--tertiary-fixed); font-weight: 700;">[100 / 100] ✓</span>
+              <span style="color: var(--primary); font-weight: 700;">[0 / 100] (0%)</span>
             </div>
             <div class="capsule-slider-track" style="height: 6px;">
-              <div class="capsule-slider-fill capsule-fill-hp" style="width: 100%;"></div>
+              <div class="capsule-slider-fill capsule-fill-hp" style="width: 0%;"></div>
             </div>
           </div>
           <div style="background: var(--surface-container); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle);">
             <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
               <span style="color: var(--text-white); font-weight: 600;">2. Abdominaux (Sit-ups)</span>
-              <span style="color: var(--primary); font-weight: 700;">[80 / 100] (80%)</span>
+              <span style="color: var(--primary); font-weight: 700;">[0 / 100] (0%)</span>
             </div>
             <div class="capsule-slider-track" style="height: 6px;">
-              <div class="capsule-slider-fill capsule-fill-mp" style="width: 80%;"></div>
+              <div class="capsule-slider-fill capsule-fill-mp" style="width: 0%;"></div>
             </div>
           </div>
           <div style="background: var(--surface-container); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle);">
             <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
               <span style="color: var(--text-white); font-weight: 600;">3. Squats</span>
-              <span style="color: var(--tertiary-fixed); font-weight: 700;">[100 / 100] ✓</span>
+              <span style="color: var(--primary); font-weight: 700;">[0 / 100] (0%)</span>
             </div>
             <div class="capsule-slider-track" style="height: 6px;">
-              <div class="capsule-slider-fill capsule-fill-hp" style="width: 100%;"></div>
+              <div class="capsule-slider-fill capsule-fill-hp" style="width: 0%;"></div>
             </div>
           </div>
           <div style="background: var(--surface-container); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle);">
             <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
               <span style="color: var(--text-white); font-weight: 600;">4. Course (Running)</span>
-              <span style="color: var(--primary); font-weight: 700;">[7.8 / 10.0 km] (78%)</span>
+              <span style="color: var(--primary); font-weight: 700;">[0.0 / 10.0 km] (0%)</span>
             </div>
             <div class="capsule-slider-track" style="height: 6px;">
-              <div class="capsule-slider-fill capsule-fill-mp" style="width: 78%;"></div>
+              <div class="capsule-slider-fill capsule-fill-mp" style="width: 0%;"></div>
             </div>
           </div>
         </div>
@@ -4432,15 +4432,15 @@ function renderFullApplication(initialTab = "dashboard") {
           </h3>
           <div class="grid-2col">
             <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.8;">
-              <div>🔹 <strong>Précision Conceptuelle & Mathématique :</strong> <span id="crit-concept" style="color: var(--neon-cyan); font-weight: bold;">6 / 6 pts</span></div>
-              <div>🔹 <strong>Rigueur du Raisonnement & Falsifiabilité :</strong> <span id="crit-rigor" style="color: var(--neon-cyan); font-weight: bold;">5 / 5 pts</span></div>
-              <div>🔹 <strong>Clarté d'Élocution & Débit Cambridge C1 :</strong> <span id="crit-delivery" style="color: var(--neon-cyan); font-weight: bold;">4.5 / 5 pts</span></div>
-              <div>🔹 <strong>Pertinence des Exemples & Benchmarks :</strong> <span id="crit-examples" style="color: var(--neon-cyan); font-weight: bold;">3 / 4 pts</span></div>
+              <div>🔹 <strong>Précision Conceptuelle & Mathématique :</strong> <span id="crit-concept" style="color: var(--neon-cyan); font-weight: bold;">-- / 6 pts</span></div>
+              <div>🔹 <strong>Rigueur du Raisonnement & Falsifiabilité :</strong> <span id="crit-rigor" style="color: var(--neon-cyan); font-weight: bold;">-- / 5 pts</span></div>
+              <div>🔹 <strong>Clarté d'Élocution & Débit Cambridge C1 :</strong> <span id="crit-delivery" style="color: var(--neon-cyan); font-weight: bold;">-- / 5 pts</span></div>
+              <div>🔹 <strong>Pertinence des Exemples & Benchmarks :</strong> <span id="crit-examples" style="color: var(--neon-cyan); font-weight: bold;">-- / 4 pts</span></div>
             </div>
             <div style="text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;">
               <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">NOTE GLOBALE ATTRIBUÉE</div>
-              <div class="shiny-green" id="rubric-total-score" style="font-size: 48px; font-weight: 900; font-family: var(--font-display); line-height: 1;">18.5 / 20</div>
-              <div style="font-size: 12px; color: var(--transcendent-green); font-weight: bold; margin-top: 6px;" id="rubric-decision-label">COMPÉTENCE VALIDÉE PAR L'ARCHITECTE ✓</div>
+              <div class="shiny-green" id="rubric-total-score" style="font-size: 48px; font-weight: 900; font-family: var(--font-display); line-height: 1;">-- / 20</div>
+              <div style="font-size: 12px; color: var(--text-secondary); font-weight: bold; margin-top: 6px;" id="rubric-decision-label">EN ATTENTE D'ÉVALUATION ORALE</div>
             </div>
           </div>
         </div>
@@ -4775,10 +4775,10 @@ function renderFullApplication(initialTab = "dashboard") {
                 RÉPÉTITIONS STRICTES COMPTABILISÉES
               </div>
               <div id="workout-rep-count" class="shiny-green" style="font-size: 72px; font-weight: 900; font-family: var(--font-display); line-height: 1.1; margin: 8px 0;">
-                14 / 14
+                0 / 14
               </div>
-              <div style="font-size: 13px; color: var(--transcendent-green); font-weight: bold;" id="workout-posture-badge">
-                POSTURE STRICTE VALIDÉE ✓
+              <div style="font-size: 13px; color: var(--text-secondary); font-weight: bold;" id="workout-posture-badge">
+                EN ATTENTE DU FLUX VIDÉO / DÉTECTION POSTURALE
               </div>
             </div>
 
@@ -4924,12 +4924,10 @@ function renderFullApplication(initialTab = "dashboard") {
 
   <script>
     // System Local Storage Keys
-    const STORAGE_KEY = 'LEVELUP_SYSTEM_STATE_V5_DAY0_PRISTINE';
-    try { localStorage.removeItem('LEVELUP_SYSTEM_STATE_V4_PRISTINE'); } catch(e) {}
-      try { localStorage.removeItem('LEVELUP_SYSTEM_STATE_V4_PRISTINE'); } catch(e) {}
-
-    // State Synchronization & Legacy Data Purge
+    const STORAGE_KEY = 'LEVELUP_SYSTEM_STATE_V6_PRISTINE_AWAKENING';
     try {
+      localStorage.removeItem('LEVELUP_SYSTEM_STATE_V5_DAY0_PRISTINE');
+      localStorage.removeItem('LEVELUP_SYSTEM_STATE_V4_PRISTINE');
       localStorage.removeItem('LEVELUP_SYSTEM_STATE_V3');
       localStorage.removeItem('LEVELUP_SYSTEM_STATE_V2');
       localStorage.removeItem('LEVELUP_SYSTEM_STATE_V1');
@@ -5623,19 +5621,19 @@ function renderFullApplication(initialTab = "dashboard") {
                   <div class="quest-fit-meters">
                     <div class="fit-meter-row">
                       <span>• Pompes militaires</span>
-                      <span class="fit-count">100 / 100 ✓</span>
+                      <span class="fit-count">0 / 100</span>
                     </div>
                     <div class="fit-meter-row">
                       <span>• Abdos d'acier</span>
-                      <span class="fit-count">80 / 100</span>
+                      <span class="fit-count">0 / 100</span>
                     </div>
                     <div class="fit-meter-row">
                       <span>• Squats explosifs</span>
-                      <span class="fit-count">100 / 100 ✓</span>
+                      <span class="fit-count">0 / 100</span>
                     </div>
                     <div class="fit-meter-row">
                       <span>• Course à pied</span>
-                      <span class="fit-count">7.8 / 10 km</span>
+                      <span class="fit-count">0.0 / 10 km</span>
                     </div>
                   </div>
                 \` : \`
@@ -7476,12 +7474,20 @@ function renderFullApplication(initialTab = "dashboard") {
     // =========================================================================
     // SCREEN 10 : WORKOUT WEBCAM & REPETITION COUNTER
     // =========================================================================
-    let workoutReps = 14;
+    let workoutReps = 0;
     function addManualRep() {
       workoutReps++;
       playChime(587);
       const el = document.getElementById('workout-rep-count');
       if (el) el.textContent = workoutReps + " / 14";
+      const badge = document.getElementById('workout-posture-badge');
+      if (badge && workoutReps >= 14) {
+        badge.textContent = "POSTURE STRICTE VALIDÉE ✓";
+        badge.style.color = "var(--transcendent-green)";
+      } else if (badge) {
+        badge.textContent = "SÉRIE EN COURS (" + workoutReps + " / 14)";
+        badge.style.color = "var(--neon-cyan)";
+      }
     }
 
     function validateWorkoutSet() {
