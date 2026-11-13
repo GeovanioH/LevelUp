@@ -1445,6 +1445,23 @@ function renderFullApplication(initialTab = "dashboard") {
         inset 0 -1.5px 3px 0 rgba(124, 58, 237, 0.12) !important;
     }
 
+    /* INTERSTICE BLANC ENTRE LE HEADER ET LE RESTE DU SITE (MODE SOMBRE) */
+    .header-main-interstice {
+      height: 22px;
+      margin: 2px 18px 10px 18px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.45), 0 2px 10px rgba(255, 255, 255, 0.25);
+      position: relative;
+      z-index: 5;
+      flex-shrink: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="light-awakening"] .header-main-interstice {
+      display: none;
+    }
+
     .header-left-cluster {
       display: flex;
       align-items: center;
@@ -2106,6 +2123,10 @@ function renderFullApplication(initialTab = "dashboard") {
       .master-header {
         flex-wrap: wrap;
         padding: 10px 16px;
+      }
+      .header-main-interstice {
+        margin: 2px 8px 8px 8px;
+        height: 16px;
       }
       .bottom-nav-bar.nav-bar,
       .top-tab-bar.nav-bar {
@@ -3441,6 +3462,9 @@ function renderFullApplication(initialTab = "dashboard") {
         </button>
       </div>
     </header>
+
+    <!-- INTERSTICE BLANC EN MODE SOMBRE ENTRE LE HEADER ET LE RESTE DU SITE -->
+    <div class="header-main-interstice" aria-hidden="true"></div>
 
     <!-- MAIN APP AREA (WORKSPACE CONTAINER) -->
     <div class="app-main-area">
