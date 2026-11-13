@@ -939,6 +939,13 @@ function renderFullApplication(initialTab = "dashboard") {
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html {
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
     .cyber-grid {
       background-image:
         linear-gradient(to right, rgba(152, 140, 160, 0.05) 1px, transparent 1px),
@@ -963,11 +970,41 @@ function renderFullApplication(initialTab = "dashboard") {
       color: var(--text-white);
       font-family: var(--font-body);
       min-height: 100vh;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      display: block;
       transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+      width: 8px;
+    }
+    html::-webkit-scrollbar-track,
+    body::-webkit-scrollbar-track {
+      background: rgba(15, 9, 38, 0.5);
+    }
+    html::-webkit-scrollbar-thumb,
+    body::-webkit-scrollbar-thumb {
+      background: rgba(168, 85, 247, 0.45);
+      border-radius: 8px;
+    }
+    html::-webkit-scrollbar-thumb:hover,
+    body::-webkit-scrollbar-thumb:hover {
+      background: rgba(192, 132, 252, 0.75);
+    }
+
+    [data-theme="light-awakening"] html::-webkit-scrollbar-track,
+    [data-theme="light-awakening"] body::-webkit-scrollbar-track {
+      background: rgba(245, 243, 255, 0.65);
+    }
+    [data-theme="light-awakening"] html::-webkit-scrollbar-thumb,
+    [data-theme="light-awakening"] body::-webkit-scrollbar-thumb {
+      background: rgba(124, 58, 237, 0.4);
+    }
+    [data-theme="light-awakening"] html::-webkit-scrollbar-thumb:hover,
+    [data-theme="light-awakening"] body::-webkit-scrollbar-thumb:hover {
+      background: rgba(124, 58, 237, 0.75);
     }
 
     [data-theme="light-awakening"] body {
@@ -1216,8 +1253,9 @@ function renderFullApplication(initialTab = "dashboard") {
     .app-layout {
       display: flex;
       flex-direction: column;
-      height: calc(100vh - 28px);
-      max-height: calc(100vh - 28px);
+      min-height: calc(100vh - 28px);
+      height: auto;
+      max-height: none;
       width: calc(100vw - 32px);
       max-width: 1780px;
       margin: 14px auto;
@@ -1226,7 +1264,7 @@ function renderFullApplication(initialTab = "dashboard") {
       border: 1px solid var(--glass-inner-border);
       border-radius: 18px;
       box-shadow: 0 16px 48px -10px rgba(7, 3, 20, 0.8), 0 0 35px -5px rgba(168, 85, 247, 0.28);
-      overflow: hidden;
+      overflow: visible;
       z-index: 10;
     }
 
@@ -1238,7 +1276,8 @@ function renderFullApplication(initialTab = "dashboard") {
 
     /* TOP MASTER HEADER (PRISMVEIL FLOATING CAPSULE STYLE) */
     .master-header {
-      position: relative;
+      position: sticky;
+      top: 12px;
       z-index: 100;
       flex-shrink: 0;
       margin: 12px 18px 8px 18px;
@@ -1435,8 +1474,8 @@ function renderFullApplication(initialTab = "dashboard") {
     /* FLOATING BOTTOM NAV BAR DOCK (TRUE VISIONOS FROSTED GLASSMORPHISM) */
     .bottom-nav-bar.nav-bar,
     .top-tab-bar.nav-bar {
-      position: absolute;
-      bottom: 16px;
+      position: fixed !important;
+      bottom: 16px !important;
       left: 0;
       right: 0;
       width: 100%;
@@ -1659,40 +1698,21 @@ function renderFullApplication(initialTab = "dashboard") {
     .app-main-area {
       flex: 1;
       min-height: 0;
-      height: 100%;
       min-width: 0;
+      width: 100%;
       margin-left: 0;
       display: flex;
       flex-direction: column;
       position: relative;
       z-index: 2;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-
-    .app-main-area::-webkit-scrollbar {
-      width: 6px;
-    }
-    .app-main-area::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .app-main-area::-webkit-scrollbar-thumb {
-      background: rgba(168, 85, 247, 0.35);
-      border-radius: 6px;
-    }
-    .app-main-area::-webkit-scrollbar-thumb:hover {
-      background: rgba(192, 132, 252, 0.6);
-    }
-
-    [data-theme="light-awakening"] .app-main-area::-webkit-scrollbar-thumb {
-      background: rgba(124, 58, 237, 0.35);
+      overflow: visible;
     }
 
     .main-container {
       max-width: 1680px;
       width: 100%;
       margin: 0 auto;
-      padding: 20px 24px 105px 24px;
+      padding: 20px 24px 130px 24px;
       position: relative;
       z-index: 2;
     }
@@ -4701,13 +4721,15 @@ function renderFullApplication(initialTab = "dashboard") {
         }
       });
 
-      // Mouse Wheel Delta
+      // Mouse Wheel Delta: only prevent default for horizontal scroll or Shift+wheel so page vertical scroll remains fluid
       root.addEventListener('wheel', (e) => {
-        if (Math.abs(e.deltaX) > 5 || Math.abs(e.deltaY) > 5) {
-          e.preventDefault();
-          const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-          questCarouselAngle -= d * 0.15;
-          questCarouselTarget = Math.round(questCarouselAngle / step) * step;
+        if (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+          if (Math.abs(e.deltaX) > 3 || Math.abs(e.deltaY) > 3) {
+            e.preventDefault();
+            const d = e.shiftKey ? e.deltaY : e.deltaX;
+            questCarouselAngle -= d * 0.15;
+            questCarouselTarget = Math.round(questCarouselAngle / step) * step;
+          }
         }
       }, { passive: false });
 
@@ -4991,13 +5013,15 @@ function renderFullApplication(initialTab = "dashboard") {
         }
       });
 
-      // Mouse Wheel Delta
+      // Mouse Wheel Delta: only prevent default for horizontal scroll or Shift+wheel so page vertical scroll remains fluid
       root.addEventListener('wheel', (e) => {
-        if (Math.abs(e.deltaX) > 5 || Math.abs(e.deltaY) > 5) {
-          e.preventDefault();
-          const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-          oppCarouselAngle -= d * 0.15;
-          oppCarouselTarget = Math.round(oppCarouselAngle / step) * step;
+        if (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+          if (Math.abs(e.deltaX) > 3 || Math.abs(e.deltaY) > 3) {
+            e.preventDefault();
+            const d = e.shiftKey ? e.deltaY : e.deltaX;
+            oppCarouselAngle -= d * 0.15;
+            oppCarouselTarget = Math.round(oppCarouselAngle / step) * step;
+          }
         }
       }, { passive: false });
 
