@@ -54,13 +54,13 @@ const DEFAULT_STATE = {
   player: {
     id: "a5d8b74f-9e32-4d2b-98f5-19e48f029a1b",
     name: "Huriel",
-    title: "Wolf Assassin (Le Chasseur Souverain)",
-    level: 14,
-    rank: "D",
+    title: "Initié (Rang E)",
+    level: 1,
+    rank: "E",
     currentXp: 0,
-    nextLevelXp: 22500,
+    nextLevelXp: 1000,
     availableSkillXp: 0,
-    shadowCrystals: 820,
+    shadowCrystals: 0,
     streakDays: 0,
     hp: 100,
     maxHp: 100,
@@ -69,26 +69,26 @@ const DEFAULT_STATE = {
     hoursAwake: 0.0,
     curfewTime: "22:00",
     attributes: {
-      str: 50,
-      agi: 35,
-      per: 29,
-      vit: 27,
-      int: 27,
+      str: 10,
+      agi: 10,
+      per: 10,
+      vit: 10,
+      int: 10,
       remainingPoints: 0,
     },
     bases: {
-      acad: { name: "Excellence Académique (ACAD)", score: 55, level: 15 },
+      acad: { name: "Excellence Académique (ACAD)", score: 10, level: 1 },
       ai_eng: {
         name: "Ingénierie IA & Hackathons (AI_ENG)",
-        score: 62,
-        level: 16,
+        score: 10,
+        level: 1,
       },
-      cyber: { name: "Cybersécurité Offensive (CYBER)", score: 48, level: 12 },
-      exp: { name: "Éloquence & Réseautage (EXP)", score: 42, level: 11 },
-      lng: { name: "Anglais C1/C2 Cambridge (LNG)", score: 50, level: 13 },
-      fin: { name: "Bourses & Finances (FIN)", score: 38, level: 10 },
-      str: { name: "Calisthénie & Force (STR)", score: 52, level: 14 },
-      dis: { name: "Discipline & Monk Mode (DIS)", score: 65, level: 17 },
+      cyber: { name: "Cybersécurité Offensive (CYBER)", score: 10, level: 1 },
+      exp: { name: "Éloquence & Réseautage (EXP)", score: 10, level: 1 },
+      lng: { name: "Anglais C1/C2 Cambridge (LNG)", score: 10, level: 1 },
+      fin: { name: "Bourses & Finances (FIN)", score: 10, level: 1 },
+      str: { name: "Calisthénie & Force (STR)", score: 10, level: 1 },
+      dis: { name: "Discipline & Monk Mode (DIS)", score: 10, level: 1 },
     },
   },
   quests: [
@@ -170,7 +170,7 @@ const DEFAULT_STATE = {
       tier: 1,
       name: "Transformers & Scaled Dot-Product",
       dod: "Implémentation manuelle du mécanisme QKV sans couche nn.MultiheadAttention",
-      status: "MASTERED",
+      status: "LOCKED",
       xp: 200,
     },
     {
@@ -179,7 +179,7 @@ const DEFAULT_STATE = {
       tier: 1,
       name: "Chiffrement AES-256-GCM & Argon2id",
       dod: "Protection inviolable des flux vocaux et intégrité tamper-proof",
-      status: "MASTERED",
+      status: "LOCKED",
       xp: 180,
     },
     {
@@ -188,7 +188,7 @@ const DEFAULT_STATE = {
       tier: 2,
       name: "FlashAttention-2 & Triton Kernels",
       dod: "Fusion des passes de calcul et réduction des I/O HBM vers SRAM GPU",
-      status: "IN_PROGRESS",
+      status: "LOCKED",
       xp: 350,
     },
     {
@@ -206,7 +206,7 @@ const DEFAULT_STATE = {
       tier: 1,
       name: "Décomposition SVD & Réduction PCA",
       dod: "Calcul des valeurs singulières et factorisation matricielle orthogonale",
-      status: "MASTERED",
+      status: "LOCKED",
       xp: 190,
     },
     {
@@ -215,7 +215,7 @@ const DEFAULT_STATE = {
       tier: 2,
       name: "Pike Push-Ups & Équilibre Handstand",
       dod: "15 répétitions strictes filmées et validées par Computer Vision",
-      status: "IN_PROGRESS",
+      status: "LOCKED",
       xp: 220,
     },
     {
@@ -224,7 +224,7 @@ const DEFAULT_STATE = {
       tier: 2,
       name: "Monologue Technique Cambridge C1",
       dod: "Restitution de 3 min à plus de 130 mots/min avec lexique formel",
-      status: "IN_PROGRESS",
+      status: "LOCKED",
       xp: 250,
     },
     {
@@ -233,7 +233,7 @@ const DEFAULT_STATE = {
       tier: 1,
       name: "Dossier Bourse Eiffel & Lettre de Projet",
       dod: "Rédaction académique et plan d'excellence internationale",
-      status: "MASTERED",
+      status: "LOCKED",
       xp: 170,
     },
     {
@@ -242,7 +242,7 @@ const DEFAULT_STATE = {
       tier: 2,
       name: "Monk Mode & Protocole Borbély 22h00",
       dod: "14 jours consécutifs de coupure d'écran stricte avant 22h00",
-      status: "MASTERED",
+      status: "LOCKED",
       xp: 280,
     },
   ],
@@ -694,6 +694,25 @@ const NAV_ICONS = {
   penalty: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
   workout: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
 };
+
+
+function getRadarPolygonPoints(bases) {
+  const baseKeys = ["acad", "ai_eng", "cyber", "exp", "lng", "fin", "str", "dis"];
+  const centerX = 145;
+  const centerY = 135;
+  const maxRadius = 95;
+  const minRadius = 15;
+  
+  const points = baseKeys.map((key, i) => {
+    const score = bases && bases[key] ? bases[key].score : 10;
+    const r = minRadius + (Math.max(0, Math.min(100, score)) / 100) * (maxRadius - minRadius);
+    const angle = i * (Math.PI / 4) - Math.PI / 2;
+    const x = Math.round(centerX + r * Math.cos(angle));
+    const y = Math.round(centerY + r * Math.sin(angle));
+    return `${x},${y}`;
+  });
+  return points.join(" ");
+}
 
 function renderFullApplication(initialTab = "dashboard") {
   const player = SYSTEM_STATE.player;
@@ -2890,18 +2909,18 @@ function renderFullApplication(initialTab = "dashboard") {
                     ${player.name}
                   </h1>
                   <p id="dash-player-title" style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">
-                    TITRE : <strong style="color: var(--primary);">"Wolf Assassin"</strong> // Le Chasseur Souverain
+                    TITRE : <strong style="color: var(--primary);">${player.title}</strong>
                   </p>
                   <div style="font-size: 10.5px; color: var(--text-muted); font-family: var(--font-mono); margin-top: 2px;">
-                    GUID: 0x7E3-SHADOW-MNRCH-S9 • CLASSE: Shadow Ruler
+                    GUID: 0x7E3-SHADOW-MNRCH-S9 • CLASSE: ${player.level > 10 ? "Shadow Ruler" : "Chasseur Novice (Rang E)"}
                   </div>
                 </div>
               </div>
 
               <div style="text-align: right; background: var(--surface-container-low); border: 1px solid var(--glass-inner-border-subtle); padding: 10px 16px; border-radius: 8px;">
                 <div style="font-size: 10px; color: var(--text-secondary); font-family: var(--font-mono); letter-spacing: 1.5px; text-transform: uppercase;">Palier Actuel</div>
-                <div style="font-size: 26px; font-weight: 900; line-height: 1; font-family: var(--font-display); color: var(--primary-fixed);" id="dash-level-label">LVL ${player.level}</div>
-                <div style="font-size: 10px; color: var(--tertiary-fixed); font-family: var(--font-mono); font-weight: 700; margin-top: 2px;">ÉVEIL NOVICE</div>
+                <div style="font-size: 26px; font-weight: 900; line-height: 1; font-family: var(--font-display); color: var(--primary-fixed);" id="dash-level-label">NIVEAU ${player.level} // PALIER ACTUEL</div>
+                <div style="font-size: 10px; color: var(--tertiary-fixed); font-family: var(--font-mono); font-weight: 700; margin-top: 2px;">${player.level === 1 ? "ÉVEIL INITIAL" : "ÉVEIL NOVICE"}</div>
               </div>
             </div>
 
@@ -2911,10 +2930,10 @@ function renderFullApplication(initialTab = "dashboard") {
                 <span style="color: var(--primary); display: flex; align-items: center; gap: 4px;">
                   <span class="material-symbols-outlined" style="font-size: 14px;">auto_mode</span> Progression d'Ascension
                 </span>
-                <span id="dash-xp-text" style="color: var(--text-white); font-weight: bold;">${player.currentXp} / ${player.nextLevelXp} XP (82%)</span>
+                <span id="dash-xp-text" style="color: var(--text-white); font-weight: bold;">${player.currentXp} / ${player.nextLevelXp} XP (${Math.round((player.currentXp / Math.max(1, player.nextLevelXp)) * 100)}%)</span>
               </div>
               <div class="capsule-slider-track">
-                <div class="capsule-slider-fill capsule-fill-xp" id="dash-xp-bar" style="width: 82%;"></div>
+                <div class="capsule-slider-fill capsule-fill-xp" id="dash-xp-bar" style="width: ${Math.round((player.currentXp / Math.max(1, player.nextLevelXp)) * 100)}%;"></div>
               </div>
             </div>
 
@@ -2931,35 +2950,35 @@ function renderFullApplication(initialTab = "dashboard") {
               <div class="stat-row">
                 <span style="display: flex; align-items: center; gap: 6px;"><strong style="color: var(--primary);">STR</strong> Force Brute</span>
                 <div style="display: flex; align-items: center; gap: 10px;">
-                  <strong id="stat-val-str" style="color: var(--text-white); font-size: 15px;">${player.attributes ? player.attributes.str : 50}</strong>
+                  <strong id="stat-val-str" style="color: var(--text-white); font-size: 15px;">${player.attributes ? player.attributes.str : 10}</strong>
                   <button class="stat-increment-btn" onclick="allocateStatPoint('str')" title="Incrémenter la Force">[^]</button>
                 </div>
               </div>
               <div class="stat-row">
                 <span style="display: flex; align-items: center; gap: 6px;"><strong style="color: var(--primary);">AGI</strong> Vélocité</span>
                 <div style="display: flex; align-items: center; gap: 10px;">
-                  <strong id="stat-val-agi" style="color: var(--text-white); font-size: 15px;">${player.attributes ? player.attributes.agi : 35}</strong>
+                  <strong id="stat-val-agi" style="color: var(--text-white); font-size: 15px;">${player.attributes ? player.attributes.agi : 10}</strong>
                   <button class="stat-increment-btn" onclick="allocateStatPoint('agi')" title="Incrémenter l'Agilité">[^]</button>
                 </div>
               </div>
               <div class="stat-row">
                 <span style="display: flex; align-items: center; gap: 6px;"><strong style="color: var(--primary);">PER</strong> Perception</span>
                 <div style="display: flex; align-items: center; gap: 10px;">
-                  <strong id="stat-val-per" style="color: var(--text-white); font-size: 15px;">${player.attributes ? player.attributes.per : 29}</strong>
+                  <strong id="stat-val-per" style="color: var(--text-white); font-size: 15px;">${player.attributes ? player.attributes.per : 10}</strong>
                   <button class="stat-increment-btn" onclick="allocateStatPoint('per')" title="Incrémenter la Perception">[^]</button>
                 </div>
               </div>
               <div class="stat-row">
                 <span style="display: flex; align-items: center; gap: 6px;"><strong style="color: var(--primary);">VIT</strong> Vitalité</span>
                 <div style="display: flex; align-items: center; gap: 10px;">
-                  <strong id="stat-val-vit" style="color: var(--text-white); font-size: 15px;">${player.attributes ? player.attributes.vit : 27}</strong>
+                  <strong id="stat-val-vit" style="color: var(--text-white); font-size: 15px;">${player.attributes ? player.attributes.vit : 10}</strong>
                   <button class="stat-increment-btn" onclick="allocateStatPoint('vit')" title="Incrémenter la Vitalité">[^]</button>
                 </div>
               </div>
               <div class="stat-row">
                 <span style="display: flex; align-items: center; gap: 6px;"><strong style="color: var(--primary);">INT</strong> Intelligence</span>
                 <div style="display: flex; align-items: center; gap: 10px;">
-                  <strong id="stat-val-int" style="color: var(--text-white); font-size: 15px;">${player.attributes ? player.attributes.int : 27}</strong>
+                  <strong id="stat-val-int" style="color: var(--text-white); font-size: 15px;">${player.attributes ? player.attributes.int : 10}</strong>
                   <button class="stat-increment-btn" onclick="allocateStatPoint('int')" title="Incrémenter l'Intelligence">[^]</button>
                 </div>
               </div>
@@ -3033,15 +3052,15 @@ function renderFullApplication(initialTab = "dashboard") {
               <svg width="290" height="250" viewBox="0 0 290 250" id="radar-svg-canvas">
                 <polygon points="145,25 225,60 255,140 215,215 145,235 75,215 35,140 65,60" fill="none" stroke="rgba(168, 85, 247, 0.25)" stroke-width="1"/>
                 <polygon points="145,55 200,80 220,140 190,190 145,205 100,190 70,140 90,80" fill="none" stroke="rgba(168, 85, 247, 0.35)" stroke-width="1"/>
-                <polygon id="radar-dynamic-poly" points="145,70 195,90 210,140 185,180 145,190 110,180 85,140 100,90" fill="rgba(147, 51, 234, 0.3)" stroke="var(--primary)" stroke-width="2"/>
-                <text x="145" y="16" fill="var(--primary)" font-size="10" font-family="monospace" text-anchor="middle">ACAD (55)</text>
-                <text x="240" y="60" fill="var(--text-secondary)" font-size="10" font-family="monospace">AI_ENG (62)</text>
-                <text x="260" y="145" fill="var(--text-secondary)" font-size="10" font-family="monospace">CYBER (48)</text>
-                <text x="225" y="230" fill="var(--text-secondary)" font-size="10" font-family="monospace">EXP (42)</text>
-                <text x="145" y="248" fill="var(--primary)" font-size="10" font-family="monospace" text-anchor="middle">LNG (50)</text>
-                <text x="40" y="230" fill="var(--text-secondary)" font-size="10" font-family="monospace">FIN (38)</text>
-                <text x="5" y="145" fill="var(--tertiary)" font-size="10" font-family="monospace">STR (52)</text>
-                <text x="35" y="60" fill="var(--text-secondary)" font-size="10" font-family="monospace">DIS (65)</text>
+                <polygon id="radar-dynamic-poly" points="${getRadarPolygonPoints(player.bases)}" fill="rgba(147, 51, 234, 0.3)" stroke="var(--primary)" stroke-width="2"/>
+                <text x="145" y="16" fill="var(--primary)" font-size="10" font-family="monospace" text-anchor="middle" id="radar-lbl-acad">ACAD (${player.bases.acad ? player.bases.acad.score : 10})</text>
+                <text x="240" y="60" fill="var(--text-secondary)" font-size="10" font-family="monospace" id="radar-lbl-ai_eng">AI_ENG (${player.bases.ai_eng ? player.bases.ai_eng.score : 10})</text>
+                <text x="260" y="145" fill="var(--text-secondary)" font-size="10" font-family="monospace" id="radar-lbl-cyber">CYBER (${player.bases.cyber ? player.bases.cyber.score : 10})</text>
+                <text x="225" y="230" fill="var(--text-secondary)" font-size="10" font-family="monospace" id="radar-lbl-exp">EXP (${player.bases.exp ? player.bases.exp.score : 10})</text>
+                <text x="145" y="248" fill="var(--primary)" font-size="10" font-family="monospace" text-anchor="middle" id="radar-lbl-lng">LNG (${player.bases.lng ? player.bases.lng.score : 10})</text>
+                <text x="40" y="230" fill="var(--text-secondary)" font-size="10" font-family="monospace" id="radar-lbl-fin">FIN (${player.bases.fin ? player.bases.fin.score : 10})</text>
+                <text x="5" y="145" fill="var(--tertiary)" font-size="10" font-family="monospace" id="radar-lbl-str">STR (${player.bases.str ? player.bases.str.score : 10})</text>
+                <text x="35" y="60" fill="var(--text-secondary)" font-size="10" font-family="monospace" id="radar-lbl-dis">DIS (${player.bases.dis ? player.bases.dis.score : 10})</text>
               </svg>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); border-top: 1px solid var(--glass-inner-border-subtle); padding-top: 10px; margin-top: 6px;">
@@ -4319,7 +4338,9 @@ function renderFullApplication(initialTab = "dashboard") {
 
   <script>
     // System Local Storage Keys
-    const STORAGE_KEY = 'LEVELUP_SYSTEM_STATE_V4_PRISTINE';
+    const STORAGE_KEY = 'LEVELUP_SYSTEM_STATE_V5_DAY0_PRISTINE';
+    try { localStorage.removeItem('LEVELUP_SYSTEM_STATE_V4_PRISTINE'); } catch(e) {}
+      try { localStorage.removeItem('LEVELUP_SYSTEM_STATE_V4_PRISTINE'); } catch(e) {}
 
     // State Synchronization & Legacy Data Purge
     try {
