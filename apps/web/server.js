@@ -1664,23 +1664,23 @@ function renderFullApplication(initialTab = "dashboard") {
       }
     }
 
-    /* FLOATING BOTTOM NAV BAR DOCK (TRUE VISIONOS FROSTED GLASSMORPHISM) */
+    /* FLOATING BOTTOM NAV BAR DOCK (TRUE VISIONOS FROSTED GLASSMORPHISM - FIXED TO VIEWPORT SCREEN) */
     .bottom-nav-bar.nav-bar,
     .top-tab-bar.nav-bar {
       position: fixed !important;
-      bottom: 16px !important;
-      left: 0;
-      right: 0;
-      width: 100%;
+      bottom: 20px !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100vw !important;
       background: transparent !important;
       border: none !important;
       padding: 0 16px;
       flex-shrink: 0;
-      z-index: 500;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
+      z-index: 99999 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      pointer-events: none !important;
       transition: all 0.3s ease;
     }
     .bottom-nav-bar.nav-bar::-webkit-scrollbar,
@@ -1941,9 +1941,12 @@ function renderFullApplication(initialTab = "dashboard") {
       .bottom-nav-bar.nav-bar,
       .top-tab-bar.nav-bar {
         position: fixed !important;
-        bottom: 10px !important;
+        bottom: 12px !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
         padding: 0 8px;
-        z-index: 1000;
+        z-index: 99999 !important;
       }
       .bottom-nav-dock,
       .tab-bar-track {
@@ -4260,63 +4263,63 @@ function renderFullApplication(initialTab = "dashboard") {
 
   </main>
     </div> <!-- close app-main-area -->
-
-    <!-- FLOATING BOTTOM NAV BAR DOCK (10 CANONICAL SCREENS) -->
-    <nav class="bottom-nav-bar nav-bar" aria-label="Navigation Principale">
-      <div class="bottom-nav-dock">
-        <button class="nav-tab ${initialTab === "dashboard" ? "active" : ""}" onclick="switchView('dashboard')" title="HUD Souverain" aria-label="HUD Souverain">
-          <span class="nav-tab-icon">${NAV_ICONS.dashboard}</span>
-          <span class="nav-tab-label">HUD SOUVERAIN</span>
-          <span class="nav-active-dot"></span>
-        </button>
-        <button class="nav-tab ${initialTab === "skills" ? "active" : ""}" onclick="switchView('skills')" title="Compétences DAG" aria-label="Compétences DAG">
-          <span class="nav-tab-icon">${NAV_ICONS.skills}</span>
-          <span class="nav-tab-label">COMPÉTENCES DAG</span>
-          <span class="nav-active-dot"></span>
-        </button>
-        <button class="nav-tab ${initialTab === "quests" ? "active" : ""}" onclick="switchView('quests')" title="Quêtes du Jour" aria-label="Quêtes du Jour">
-          <span class="nav-tab-icon">${NAV_ICONS.quests}</span>
-          <span class="nav-tab-label">QUÊTES DU JOUR</span>
-          <span class="nav-active-dot"></span>
-        </button>
-        <button class="nav-tab ${initialTab === "planner" ? "active" : ""}" onclick="switchView('planner')" title="Time-Blocking" aria-label="Time-Blocking">
-          <span class="nav-tab-icon">${NAV_ICONS.planner}</span>
-          <span class="nav-tab-label">TIME-BLOCKING</span>
-          <span class="nav-active-dot"></span>
-        </button>
-        <button class="nav-tab ${initialTab === "notes" ? "active" : ""}" onclick="switchView('notes')" title="Second Brain" aria-label="Second Brain">
-          <span class="nav-tab-icon">${NAV_ICONS.notes}</span>
-          <span class="nav-tab-label">SECOND BRAIN</span>
-          <span class="nav-active-dot"></span>
-        </button>
-        <button class="nav-tab ${initialTab === "audio" ? "active" : ""}" onclick="switchView('audio')" title="Station Vocale" aria-label="Station Vocale">
-          <span class="nav-tab-icon">${NAV_ICONS.audio}</span>
-          <span class="nav-tab-label">STATION VOCALE</span>
-          <span class="nav-active-dot"></span>
-        </button>
-        <button class="nav-tab ${initialTab === "opportunities" ? "active" : ""}" onclick="switchView('opportunities')" title="Veille Bourses" aria-label="Veille Bourses">
-          <span class="nav-tab-icon">${NAV_ICONS.opportunities}</span>
-          <span class="nav-tab-label">VEILLE BOURSES</span>
-          <span class="nav-active-dot"></span>
-        </button>
-        <button class="nav-tab ${initialTab === "shop" ? "active" : ""}" onclick="switchView('shop')" title="Boutique d'Ombre" aria-label="Boutique d'Ombre">
-          <span class="nav-tab-icon">${NAV_ICONS.shop}</span>
-          <span class="nav-tab-label">BOUTIQUE D'OMBRE</span>
-          <span class="nav-active-dot"></span>
-        </button>
-        <button class="nav-tab ${initialTab === "penalty" ? "active" : ""}" onclick="switchView('penalty')" title="Zone Pénalité" aria-label="Zone Pénalité">
-          <span class="nav-tab-icon">${NAV_ICONS.penalty}</span>
-          <span class="nav-tab-label">ZONE PÉNALITÉ</span>
-          <span class="nav-active-dot"></span>
-        </button>
-        <button class="nav-tab ${initialTab === "workout" ? "active" : ""}" onclick="switchView('workout')" title="Vision Sport" aria-label="Vision Sport">
-          <span class="nav-tab-icon">${NAV_ICONS.workout}</span>
-          <span class="nav-tab-label">VISION SPORT</span>
-          <span class="nav-active-dot"></span>
-        </button>
-      </div>
-    </nav>
   </div> <!-- close app-layout -->
+
+  <!-- FLOATING BOTTOM NAV BAR DOCK (10 CANONICAL SCREENS - FIXED TO SCREEN VIEWPORT) -->
+  <nav class="bottom-nav-bar nav-bar" aria-label="Navigation Principale">
+    <div class="bottom-nav-dock">
+      <button class="nav-tab ${initialTab === "dashboard" ? "active" : ""}" onclick="switchView('dashboard')" title="HUD Souverain" aria-label="HUD Souverain">
+        <span class="nav-tab-icon">${NAV_ICONS.dashboard}</span>
+        <span class="nav-tab-label">HUD SOUVERAIN</span>
+        <span class="nav-active-dot"></span>
+      </button>
+      <button class="nav-tab ${initialTab === "skills" ? "active" : ""}" onclick="switchView('skills')" title="Compétences DAG" aria-label="Compétences DAG">
+        <span class="nav-tab-icon">${NAV_ICONS.skills}</span>
+        <span class="nav-tab-label">COMPÉTENCES DAG</span>
+        <span class="nav-active-dot"></span>
+      </button>
+      <button class="nav-tab ${initialTab === "quests" ? "active" : ""}" onclick="switchView('quests')" title="Quêtes du Jour" aria-label="Quêtes du Jour">
+        <span class="nav-tab-icon">${NAV_ICONS.quests}</span>
+        <span class="nav-tab-label">QUÊTES DU JOUR</span>
+        <span class="nav-active-dot"></span>
+      </button>
+      <button class="nav-tab ${initialTab === "planner" ? "active" : ""}" onclick="switchView('planner')" title="Time-Blocking" aria-label="Time-Blocking">
+        <span class="nav-tab-icon">${NAV_ICONS.planner}</span>
+        <span class="nav-tab-label">TIME-BLOCKING</span>
+        <span class="nav-active-dot"></span>
+      </button>
+      <button class="nav-tab ${initialTab === "notes" ? "active" : ""}" onclick="switchView('notes')" title="Second Brain" aria-label="Second Brain">
+        <span class="nav-tab-icon">${NAV_ICONS.notes}</span>
+        <span class="nav-tab-label">SECOND BRAIN</span>
+        <span class="nav-active-dot"></span>
+      </button>
+      <button class="nav-tab ${initialTab === "audio" ? "active" : ""}" onclick="switchView('audio')" title="Station Vocale" aria-label="Station Vocale">
+        <span class="nav-tab-icon">${NAV_ICONS.audio}</span>
+        <span class="nav-tab-label">STATION VOCALE</span>
+        <span class="nav-active-dot"></span>
+      </button>
+      <button class="nav-tab ${initialTab === "opportunities" ? "active" : ""}" onclick="switchView('opportunities')" title="Veille Bourses" aria-label="Veille Bourses">
+        <span class="nav-tab-icon">${NAV_ICONS.opportunities}</span>
+        <span class="nav-tab-label">VEILLE BOURSES</span>
+        <span class="nav-active-dot"></span>
+      </button>
+      <button class="nav-tab ${initialTab === "shop" ? "active" : ""}" onclick="switchView('shop')" title="Boutique d'Ombre" aria-label="Boutique d'Ombre">
+        <span class="nav-tab-icon">${NAV_ICONS.shop}</span>
+        <span class="nav-tab-label">BOUTIQUE D'OMBRE</span>
+        <span class="nav-active-dot"></span>
+      </button>
+      <button class="nav-tab ${initialTab === "penalty" ? "active" : ""}" onclick="switchView('penalty')" title="Zone Pénalité" aria-label="Zone Pénalité">
+        <span class="nav-tab-icon">${NAV_ICONS.penalty}</span>
+        <span class="nav-tab-label">ZONE PÉNALITÉ</span>
+        <span class="nav-active-dot"></span>
+      </button>
+      <button class="nav-tab ${initialTab === "workout" ? "active" : ""}" onclick="switchView('workout')" title="Vision Sport" aria-label="Vision Sport">
+        <span class="nav-tab-icon">${NAV_ICONS.workout}</span>
+        <span class="nav-tab-label">VISION SPORT</span>
+        <span class="nav-active-dot"></span>
+      </button>
+    </div>
+  </nav>
 
   <!-- HOLOGRAPHIC SYSTEM NOTIFICATION MODAL (NO MORE ALERT POPUPS!) -->
   <div id="sys-modal" class="modal-overlay">
