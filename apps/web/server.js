@@ -1399,16 +1399,71 @@ function renderFullApplication(initialTab = "dashboard") {
       transition: all 0.3s ease;
       flex-shrink: 0;
     }
-    .brand-title {
-      font-family: var(--font-display, sans-serif);
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 0.6px;
-      color: #ffffff;
-      line-height: 1;
+    /* From Uiverse.io by satyamchaudharydev */
+    /* === removing default button style === */
+    .button {
+      margin: 0;
+      height: auto;
+      background: transparent;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+      outline: none;
     }
-    [data-theme="light-awakening"] .brand-title {
-      color: #0f172a;
+
+    /* button styling */
+    .button {
+      --border-right: 4px;
+      --text-stroke-color: rgba(255, 255, 255, 0.65);
+      --animation-color: #37FF8B;
+      --fs-size: 1.15rem;
+      letter-spacing: 2.5px;
+      text-decoration: none;
+      font-size: var(--fs-size);
+      font-family: var(--font-display, "Space Grotesk", "Arial", sans-serif);
+      font-weight: 900;
+      position: relative;
+      text-transform: uppercase;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--text-stroke-color);
+      display: inline-flex;
+      align-items: center;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .actual-text {
+      white-space: nowrap;
+    }
+
+    /* this is the text, when you hover on button */
+    .hover-text {
+      position: absolute;
+      box-sizing: border-box;
+      content: attr(data-text);
+      color: var(--animation-color);
+      width: 0%;
+      inset: 0;
+      border-right: var(--border-right) solid var(--animation-color);
+      overflow: hidden;
+      transition: width 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+      -webkit-text-stroke: 1px var(--animation-color);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+    }
+
+    /* hover */
+    .button:hover .hover-text,
+    .brand-logo-wrap:hover .hover-text {
+      width: 100%;
+      filter: drop-shadow(0 0 23px var(--animation-color));
+    }
+
+    /* Light mode styling for Uiverse button */
+    [data-theme="light-awakening"] .button {
+      --text-stroke-color: rgba(15, 23, 42, 0.7);
+      --animation-color: #059669;
     }
 
     /* RIGHT CLUSTER */
@@ -2931,7 +2986,10 @@ function renderFullApplication(initialTab = "dashboard") {
       <div class="header-left-cluster">
         <div class="brand-logo-wrap" onclick="switchView('dashboard')" title="LevelUp — Système du Monarque">
           ${MONARCH_LOGO_SVG}
-          <span class="brand-title">LEVELUP</span>
+          <button class="button brand-title" data-text="&nbsp;LEVELUP&nbsp;" type="button" aria-label="LevelUp">
+            <span class="actual-text">&nbsp;LEVELUP&nbsp;</span>
+            <span aria-hidden="true" class="hover-text">&nbsp;LEVELUP&nbsp;</span>
+          </button>
         </div>
       </div>
 
