@@ -582,7 +582,7 @@ Structures rhétoriques formelles indispensables pour l'évaluation orale à 20 
     },
     {
       id: "opp-mistral-hackathon",
-      title: "Mistral AI Hackathon Paris // Le Chat Agents",
+      title: "Mistral AI Hackathon Paris — Le Chat Agents",
       type: "HACKATHON",
       portal: "Station F / Mistral",
       amount: "30 000 € Cash Prize",
@@ -2960,7 +2960,7 @@ function renderFullApplication(initialTab = "dashboard") {
               <div style="display: flex; align-items: center; gap: 8px;">
                 <span class="material-symbols-outlined" style="font-size: 16px; color: var(--primary);">badge</span>
                 <span style="font-size: 11px; letter-spacing: 2px; color: var(--primary); font-family: var(--font-mono); font-weight: 800;">
-                  [!] FENÊTRE DE STATUT DU MONARQUE // ARC 04
+                  [!] FENÊTRE DE STATUT DU MONARQUE — ARC 04
                 </span>
               </div>
               <div class="solo-window-controls">
@@ -2980,7 +2980,7 @@ function renderFullApplication(initialTab = "dashboard") {
                 </div>
                 <div>
                   <div style="font-size: 11px; letter-spacing: 2px; color: var(--primary); font-family: var(--font-mono); margin-bottom: 4px;">
-                    STATUS // LE MONARQUE SOUVERAIN
+                    STATUS — LE MONARQUE SOUVERAIN
                   </div>
                   <h1 class="shiny-text" id="dash-player-name" style="font-size: 30px; font-weight: 900; font-family: var(--font-display); line-height: 1; letter-spacing: 1px;">
                     ${player.name}
@@ -2996,7 +2996,7 @@ function renderFullApplication(initialTab = "dashboard") {
 
               <div style="text-align: right; background: var(--surface-container-low); border: 1px solid var(--glass-inner-border-subtle); padding: 10px 16px; border-radius: 8px;">
                 <div style="font-size: 10px; color: var(--text-secondary); font-family: var(--font-mono); letter-spacing: 1.5px; text-transform: uppercase;">Palier Actuel</div>
-                <div style="font-size: 26px; font-weight: 900; line-height: 1; font-family: var(--font-display); color: var(--primary-fixed);" id="dash-level-label">NIVEAU ${player.level} // PALIER ACTUEL</div>
+                <div style="font-size: 26px; font-weight: 900; line-height: 1; font-family: var(--font-display); color: var(--primary-fixed);" id="dash-level-label">NIVEAU ${player.level} — PALIER ACTUEL</div>
                 <div style="font-size: 10px; color: var(--tertiary-fixed); font-family: var(--font-mono); font-weight: 700; margin-top: 2px;">${player.level === 1 ? "ÉVEIL INITIAL" : "ÉVEIL NOVICE"}</div>
               </div>
             </div>
@@ -3077,7 +3077,7 @@ function renderFullApplication(initialTab = "dashboard") {
             <div style="margin-bottom: 16px;">
               <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
                 <span style="color: var(--tertiary-fixed); font-weight: bold; display: flex; align-items: center; gap: 6px;">
-                  <span class="material-symbols-outlined" style="font-size: 15px; color: var(--tertiary);">favorite</span> + HP // RÉSILIENCE BIOLOGIQUE
+                  <span class="material-symbols-outlined" style="font-size: 15px; color: var(--tertiary);">favorite</span> + HP — RÉSILIENCE BIOLOGIQUE
                 </span>
                 <span style="font-weight: bold; color: var(--tertiary-fixed);" id="hp-value-text">${player.hp} / 100 (${player.hp}%)</span>
               </div>
@@ -3091,7 +3091,7 @@ function renderFullApplication(initialTab = "dashboard") {
             <div style="margin-bottom: 16px;">
               <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
                 <span style="color: var(--primary-fixed); font-weight: bold; display: flex; align-items: center; gap: 6px;">
-                  <span class="material-symbols-outlined" style="font-size: 15px; color: var(--primary);">bolt</span> ⚡ MP // FOCUS COGNITIF INDOMPTABLE
+                  <span class="material-symbols-outlined" style="font-size: 15px; color: var(--primary);">bolt</span> ⚡ MP — FOCUS COGNITIF INDOMPTABLE
                 </span>
                 <span style="font-weight: bold; color: var(--primary-fixed);" id="mp-value-text">${player.mp} / 100 (${player.mp}%)</span>
               </div>
@@ -3155,7 +3155,7 @@ function renderFullApplication(initialTab = "dashboard") {
               <div style="display: flex; align-items: center; gap: 8px;">
                 <span class="material-symbols-outlined" style="font-size: 18px; color: var(--primary);">assignment_turned_in</span>
                 <span class="shiny-text" style="font-size: 16px; font-weight: 900; letter-spacing: 2px; font-family: var(--font-display);">
-                  [!] QUEST INFO // QUÊTES DU JOUR
+                  [!] QUEST INFO — QUÊTES DU JOUR
                 </span>
               </div>
               <span class="radar-ping-badge" style="border-color: rgba(244, 63, 94, 0.4); color: var(--alert-crimson);">
@@ -3194,7 +3194,7 @@ function renderFullApplication(initialTab = "dashboard") {
             <div class="border-beam-content" style="padding: 16px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                 <span style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: var(--primary); font-family: var(--font-display); display: flex; align-items: center; gap: 6px;">
-                  <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">timelapse</span> SPRINT CIRCADIEN ACTIF // POMODORO 25 MIN
+                  <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">timelapse</span> SPRINT CIRCADIEN ACTIF — POMODORO 25 MIN
                 </span>
                 <span class="shiny-text" id="pomodoro-timer-display" style="font-size: 20px; font-weight: 900; font-family: var(--font-mono); color: var(--primary-fixed);">
                   25:00
@@ -3239,7 +3239,7 @@ function renderFullApplication(initialTab = "dashboard") {
           <div class="glass-card spotlight-card" style="padding: 20px; position: relative; overflow: hidden; border: 1px solid rgba(244,63,94,0.3);">
             <div style="position: absolute; right: -20px; bottom: -20px; width: 90px; height: 90px; background: rgba(147, 51, 234, 0.2); border-radius: 9999px; filter: blur(20px); pointer-events: none;"></div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-              <span style="font-size: 10.5px; font-family: var(--font-mono); color: var(--primary-fixed); letter-spacing: 1.5px; text-transform: uppercase;">PORTAIL DÉTECTÉ // DIMENSION PURGATOIRE</span>
+              <span style="font-size: 10.5px; font-family: var(--font-mono); color: var(--primary-fixed); letter-spacing: 1.5px; text-transform: uppercase;">PORTAIL DÉTECTÉ — DIMENSION PURGATOIRE</span>
               <span style="width: 8px; height: 8px; border-radius: 9999px; background: var(--alert-crimson); animation: pulse 1.5s infinite; display: inline-block;"></span>
             </div>
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
@@ -3292,7 +3292,7 @@ function renderFullApplication(initialTab = "dashboard") {
               (sk) => `
             <div class="glass-card spotlight-card skill-card-item" id="skill-card-${sk.id}" data-base="${sk.base}" style="padding: 18px; border-color: ${sk.status === "MASTERED" ? "rgba(0, 255, 102, 0.5)" : sk.status === "IN_PROGRESS" ? "var(--neon-cyan)" : "rgba(56, 189, 248, 0.2)"};">
               <div style="font-size: 11px; color: var(--imperial-gold); font-weight: bold; font-family: var(--font-mono);" id="skill-badge-${sk.id}">
-                ${sk.base} // TIER ${sk.tier} [${sk.status === "MASTERED" ? "MAÎTRISÉ 5/5" : sk.status === "IN_PROGRESS" ? "EN COURS 3/5" : "VERROUILLÉ"}]
+                ${sk.base} — TIER ${sk.tier} [${sk.status === "MASTERED" ? "MAÎTRISÉ 5/5" : sk.status === "IN_PROGRESS" ? "EN COURS 3/5" : "VERROUILLÉ"}]
               </div>
               <div style="font-size: 16px; font-weight: bold; margin: 6px 0; color: var(--text-white);">${sk.name}</div>
               <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.4;">${sk.dod}</p>
@@ -3418,7 +3418,7 @@ function renderFullApplication(initialTab = "dashboard") {
           <div>
             <div style="display: flex; align-items: center; gap: 8px;">
               <span style="font-size: 10.5px; font-family: var(--font-mono); color: var(--primary); letter-spacing: 1.5px; text-transform: uppercase;">[SYSTEM NOTIFICATION]</span>
-              <span class="radar-ping-badge" style="border-color: rgba(69,223,164,0.4); color: var(--tertiary-fixed); font-size: 10px;">RANG D // STANDARD</span>
+              <span class="radar-ping-badge" style="border-color: rgba(69,223,164,0.4); color: var(--tertiary-fixed); font-size: 10px;">RANG D — STANDARD</span>
             </div>
             <h3 style="font-size: 18px; font-weight: 800; color: var(--primary); font-family: var(--font-display); margin-top: 4px;">
               [Daily Quest: Strength Training has arrived.]
@@ -3529,7 +3529,7 @@ function renderFullApplication(initialTab = "dashboard") {
                 (q) => `
               <div class="glass-card spotlight-card" id="qlist-${q.id}" style="padding: 20px; background: var(--glass-panel);">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                  <span class="radar-ping-badge">${q.base} // ${q.type}</span>
+                  <span class="radar-ping-badge">${q.base} — ${q.type}</span>
                   <span style="font-size: 12px; color: var(--imperial-gold); font-family: var(--font-mono);">+${q.xp} XP</span>
                 </div>
                 <h4 style="font-size: 16px; font-weight: bold; margin-bottom: 8px; color: var(--text-white);">${q.title}</h4>
@@ -3700,7 +3700,7 @@ function renderFullApplication(initialTab = "dashboard") {
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 14px;">
           <div>
             <div style="font-size: 11px; letter-spacing: 2px; color: var(--monarch-purple); font-family: var(--font-mono); font-weight: bold; margin-bottom: 4px;">
-              OBSIDIAN VAULT // RÉSEAU NEURAL COGNITIF DU MONARQUE
+              OBSIDIAN VAULT — RÉSEAU NEURAL COGNITIF DU MONARQUE
             </div>
             <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display); line-height: 1;">
               CERVEAU NUMÉRIQUE & COFFRE OBSIDIAN
@@ -3896,7 +3896,7 @@ function renderFullApplication(initialTab = "dashboard") {
         <div class="glass-card" style="padding: 16px; margin-bottom: 22px; background: var(--input-bg); border: 1px solid var(--glass-inner-border); text-align: center;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <span style="font-size: 11px; color: var(--neon-cyan); font-family: var(--font-mono);">
-              SPECTRE FRÉQUENTIEL FFT TEMPS RÉEL (64 BANDES // ANALYSERNODE)
+              SPECTRE FRÉQUENTIEL FFT TEMPS RÉEL (64 BANDES — ANALYSERNODE)
             </span>
             <span id="mic-status-label" style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">
               MICRO : PRÊT
@@ -3982,7 +3982,7 @@ function renderFullApplication(initialTab = "dashboard") {
           <div style="position: absolute; top: 16px; left: 22px; z-index: 25; pointer-events: none;">
             <div style="font-size: 11px; letter-spacing: 2px; color: var(--neon-cyan); font-family: var(--font-mono); font-weight: 800; display: flex; align-items: center; gap: 8px;">
               <span>🌐</span>
-              <span>EXPLORATEUR CYLINDRIQUE 3D // VEILLE BOURSES & HACKATHONS</span>
+              <span>EXPLORATEUR CYLINDRIQUE 3D — VEILLE BOURSES & HACKATHONS</span>
             </div>
             <div style="font-size: 12.5px; color: var(--text-secondary); margin-top: 3px;">
               Glissez horizontalement pour faire pivoter le cylindre 3D • Cliquez sur une carte pour inspecter
@@ -4097,7 +4097,7 @@ function renderFullApplication(initialTab = "dashboard") {
           <div>
             <div style="display: flex; align-items: center; gap: 8px; font-size: 11px; font-family: var(--font-mono); color: var(--alert-crimson); letter-spacing: 1.5px; text-transform: uppercase;">
               <span style="width: 8px; height: 8px; border-radius: 9999px; background: var(--alert-crimson); animation: pulse 1.5s infinite; display: inline-block;"></span>
-              <span>THE SYSTEM /// DIMENSIONAL PURGATORY /// [PENALTY ZONE & REHABILITATION]</span>
+              <span>THE SYSTEM — DIMENSIONAL PURGATORY — [PENALTY ZONE & REHABILITATION]</span>
             </div>
             <div style="display: flex; align-items: center; gap: 12px; margin-top: 6px;">
               <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display); line-height: 1.1; color: var(--text-white);">
@@ -4507,16 +4507,16 @@ function renderFullApplication(initialTab = "dashboard") {
       });
 
       const viewNames = {
-        dashboard: '// HUD SOUVERAIN & STATUTS',
-        skills: '// ARBRE DES COMPÉTENCES DAG',
-        quests: '// JOURNAL DES QUÊTES DU JOUR',
-        planner: '// PLANIFICATEUR CIRCADIEN',
-        notes: '// CERVEAU NUMÉRIQUE (OBSIDIAN)',
-        audio: '// STATION VOCALE FFT & SOCRATE',
-        opportunities: '// VEILLE BOURSES & HACKATHONS',
-        shop: '// BOUTIQUE DES OMBRES',
-        penalty: '// ZONE DE PÉNALITÉ INVIOLABLE',
-        workout: '// VISION SPORT MEDIAPIPE'
+        dashboard: 'HUD SOUVERAIN & STATUTS',
+        skills: 'ARBRE DES COMPÉTENCES DAG',
+        quests: 'JOURNAL DES QUÊTES DU JOUR',
+        planner: 'PLANIFICATEUR CIRCADIEN',
+        notes: 'CERVEAU NUMÉRIQUE (OBSIDIAN)',
+        audio: 'STATION VOCALE FFT & SOCRATE',
+        opportunities: 'VEILLE BOURSES & HACKATHONS',
+        shop: 'BOUTIQUE DES OMBRES',
+        penalty: 'ZONE DE PÉNALITÉ INVIOLABLE',
+        workout: 'VISION SPORT MEDIAPIPE'
       };
       const viewFriendlyNames = {
         dashboard: 'HUD Souverain',
@@ -4742,7 +4742,7 @@ function renderFullApplication(initialTab = "dashboard") {
       const pct = Math.min(100, Math.round((state.player.currentXp / state.player.nextLevelXp) * 100));
       if (xpText) xpText.textContent = state.player.currentXp + " / " + state.player.nextLevelXp + " XP (" + pct + "%)";
       if (xpBar) xpBar.style.width = pct + "%";
-      if (levelLabel) levelLabel.textContent = "NIVEAU " + state.player.level + " // PALIER ACTUEL";
+      if (levelLabel) levelLabel.textContent = "NIVEAU " + state.player.level + " — PALIER ACTUEL";
       if (skillXp) skillXp.textContent = state.player.availableSkillXp;
     }
 
@@ -4782,7 +4782,7 @@ function renderFullApplication(initialTab = "dashboard") {
       const badge = document.getElementById('skill-badge-' + skillId);
       const action = document.getElementById('skill-action-' + skillId);
       if (card) card.style.borderColor = 'rgba(0, 255, 102, 0.5)';
-      if (badge) badge.textContent = base + " // [MAÎTRISÉ 5/5]";
+      if (badge) badge.textContent = base + " — [MAÎTRISÉ 5/5]";
       if (action) action.innerHTML = '<span style="font-size: 11px; color: var(--transcendent-green); font-weight: bold;">DOD VALIDÉE ✓ (+' + cost + ' XP)</span>';
 
       updateXpUI();
@@ -4893,7 +4893,7 @@ function renderFullApplication(initialTab = "dashboard") {
               <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,4,20,0.2) 0%, rgba(14,9,30,0.85) 100%);"></div>
               <div style="position: absolute; top: 8px; left: 8px; right: 8px; display: flex; justify-content: space-between; align-items: center;">
                 <span class="radar-ping-badge" style="font-size: 9.5px; padding: 2px 7px; \${isEmergency ? 'border-color: rgba(255,0,60,0.8); color: var(--alert-crimson); background: rgba(255,0,60,0.2);' : ''}">
-                  \${q.base} // \${q.type || 'DAILY'}
+                  \${q.base} — \${q.type || 'DAILY'}
                 </span>
                 <span style="font-size: 11px; font-family: var(--font-mono); color: var(--imperial-gold); font-weight: bold; background: rgba(0,0,0,0.6); padding: 2px 6px; border-radius: 4px;">
                   +\${q.xp} XP

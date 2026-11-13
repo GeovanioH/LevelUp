@@ -95,7 +95,7 @@ export async function handleBoutiqueCommand(
   }
 
   const embed: DiscordEmbedData = {
-    title: "🏪 [LA BOUTIQUE DES OMBRES // SHADOW SHOP]",
+    title: "🏪 [LA BOUTIQUE DES OMBRES — SHADOW SHOP]",
     description:
       "Convertissez vos Cristaux d'Ombres en outillage intellectuel, matériel d'ingénierie et prestige réel.",
     color: 0x9d00ff,

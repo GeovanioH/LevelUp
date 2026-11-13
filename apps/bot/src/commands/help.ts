@@ -73,7 +73,7 @@ export async function handleHelpCommand(interaction: RepliableInteraction) {
       },
     ],
     footer: {
-      text: "Système Solo Leveling IRL // Conçu exclusivement pour Huriel.",
+      text: "Système Solo Leveling IRL — Conçu exclusivement pour Huriel.",
     },
     timestamp: new Date().toISOString(),
   };

@@ -20,13 +20,13 @@ export interface DiscordEmbedData {
 }
 
 export const RANK_EMBED_COLORS: Record<string, number> = {
-  E: 0x9e9e9e, // Slate Gray
-  D: 0x4caf50, // Emerald Green
-  C: 0x2196f3, // Azure Blue
-  B: 0x9c27b0, // Shadow Purple
-  A: 0xff9800, // Radiant Amber
-  S: 0xffd700, // Sovereign Gold
-  MONARCH: 0x00f0ff, // Transcendent Neon Cyan
+  E: 0x9e9e9e, — Slate Gray
+  D: 0x4caf50, — Emerald Green
+  C: 0x2196f3, — Azure Blue
+  B: 0x9c27b0, — Shadow Purple
+  A: 0xff9800, — Radiant Amber
+  S: 0xffd700, — Sovereign Gold
+  MONARCH: 0x00f0ff, — Transcendent Neon Cyan
 };
 
 /**
@@ -92,7 +92,7 @@ export function createStatusHudEmbed(data: {
         inline: true,
       },
     ],
-    footer: { text: "Système Solo Leveling IRL // Huriel Sovereign OS" },
+    footer: { text: "Système Solo Leveling IRL — Huriel Sovereign OS" },
     timestamp: new Date().toISOString(),
   };
 }
