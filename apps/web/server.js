@@ -3391,39 +3391,54 @@ function renderFullApplication(initialTab = "dashboard") {
 
     .system-intro-alert-wrapper {
       display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, rgba(12, 28, 60, 0.96) 0%, rgba(2, 6, 18, 0.99) 100%);
-      padding: 24px;
+      position: absolute;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000000;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
       box-sizing: border-box;
       animation: alertOverlayFadeIn 0.3s ease-out;
     }
 
     .system-intro-alert-img {
-      max-width: min(92vw, 680px);
-      max-height: 80vh;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      border-radius: 12px;
-      box-shadow: 0 0 60px rgba(59, 130, 246, 0.7), 0 0 120px rgba(37, 99, 235, 0.4);
-      border: 1px solid rgba(96, 165, 250, 0.5);
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
       animation: alertModalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .system-intro-alert-hint {
-      margin-top: 24px;
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
       font-family: 'JetBrains Mono', 'Courier New', monospace;
       font-size: 13px;
       font-weight: 700;
       letter-spacing: 2px;
-      color: rgba(147, 197, 253, 0.85);
+      color: rgba(147, 197, 253, 0.95);
+      background: rgba(3, 7, 18, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 8px 20px;
+      border-radius: 9999px;
+      border: 1px solid rgba(96, 165, 250, 0.4);
       text-transform: uppercase;
       animation: pulseAlertHint 1.4s ease-in-out infinite;
       user-select: none;
+      pointer-events: none;
+      white-space: nowrap;
     }
 
     @keyframes alertOverlayFadeIn {
@@ -3484,10 +3499,11 @@ function renderFullApplication(initialTab = "dashboard") {
   <!-- SYSTEM INTRO INITIALIZATION VIDEO (CLEAN FULLSCREEN) & ALERT TRANSITION -->
   <div id="system-intro-overlay" class="system-intro-overlay" onclick="handleIntroOverlayClick()" title="Cliquer pour passer">
     <video id="system-intro-video" class="system-intro-video" playsinline muted autoplay preload="auto">
+      <source src="/intro.webm?v=8s_v1_webm" type="video/webm">
       <source src="/intro.mp4?v=8s_v1_landscape" type="video/mp4">
     </video>
     <div id="system-intro-alert-wrapper" class="system-intro-alert-wrapper">
-      <img id="system-intro-alert-img" class="system-intro-alert-img" src="/intro-alert.jpg?v=8s_v1" alt="[WELCOME, PLAYER.] System Alert" />
+      <img id="system-intro-alert-img" class="system-intro-alert-img" src="/intro-alert.webp?v=8s_v1_upscale" alt="[WELCOME, PLAYER.] System Alert" />
       <div class="system-intro-alert-hint">[ INITIALISATION DU SYSTÈME EN COURS... CLIQUEZ POUR ENTRER ]</div>
     </div>
   </div>
@@ -8036,6 +8052,65 @@ const server = http.createServer((req, res) => {
   }
 
   
+  // WebM Intro Video Streaming Endpoint (HTTP 206 Partial Content)
+  if (pathname === "/intro.webm" || pathname === "/assets/intro.webm") {
+    const candidatePaths = [
+      path.join(__dirname, "public", "intro.webm"),
+      path.join(__dirname, "..", "..", "apps", "web", "public", "intro.webm"),
+      path.join(__dirname, "intro.webm"),
+      path.join(process.cwd(), "apps", "web", "public", "intro.webm"),
+      path.join(process.cwd(), "public", "intro.webm"),
+    ];
+    let videoFile = null;
+    for (const p of candidatePaths) {
+      if (fs.existsSync(p)) {
+        videoFile = p;
+        break;
+      }
+    }
+
+    if (!videoFile) {
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "INTRO_WEBM_VIDEO_NOT_FOUND" }));
+      return;
+    }
+
+    const stat = fs.statSync(videoFile);
+    const fileSize = stat.size;
+    const range = req.headers.range;
+
+    if (range) {
+      const parts = range.replace(/bytes=/, "").split("-");
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+      const chunksize = end - start + 1;
+      const file = fs.createReadStream(videoFile, { start, end });
+      const head = {
+        "Content-Range": `bytes ${start}-${end}/${fileSize}`,
+        "Accept-Ranges": "bytes",
+        "Content-Length": chunksize,
+        "Content-Type": "video/webm",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
+      };
+      res.writeHead(206, head);
+      file.pipe(res);
+    } else {
+      const head = {
+        "Content-Length": fileSize,
+        "Content-Type": "video/webm",
+        "Accept-Ranges": "bytes",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
+      };
+      res.writeHead(200, head);
+      fs.createReadStream(videoFile).pipe(res);
+    }
+    return;
+  }
+
   // Intro Video Streaming Endpoint (HTTP 206 Partial Content)
   if (pathname === "/intro.mp4" || pathname === "/assets/intro.mp4") {
     const candidatePaths = [
@@ -8092,6 +8167,39 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, head);
       fs.createReadStream(videoFile).pipe(res);
     }
+    return;
+  }
+
+  // Intro Alert WebP Image Serving Endpoint
+  if (pathname === "/intro-alert.webp" || pathname === "/assets/intro-alert.webp") {
+    const candidatePaths = [
+      path.join(__dirname, "public", "intro-alert.webp"),
+      path.join(__dirname, "..", "..", "apps", "web", "public", "intro-alert.webp"),
+      path.join(__dirname, "intro-alert.webp"),
+      path.join(process.cwd(), "apps", "web", "public", "intro-alert.webp"),
+      path.join(process.cwd(), "public", "intro-alert.webp"),
+    ];
+    let imgFile = null;
+    for (const p of candidatePaths) {
+      if (fs.existsSync(p)) {
+        imgFile = p;
+        break;
+      }
+    }
+
+    if (!imgFile) {
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "INTRO_WEBP_IMAGE_NOT_FOUND" }));
+      return;
+    }
+
+    const stat = fs.statSync(imgFile);
+    res.writeHead(200, {
+      "Content-Length": stat.size,
+      "Content-Type": "image/webp",
+      "Cache-Control": "public, max-age=86400",
+    });
+    fs.createReadStream(imgFile).pipe(res);
     return;
   }
 
