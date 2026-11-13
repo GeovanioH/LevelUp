@@ -3484,10 +3484,10 @@ function renderFullApplication(initialTab = "dashboard") {
   <!-- SYSTEM INTRO INITIALIZATION VIDEO (CLEAN FULLSCREEN) & ALERT TRANSITION -->
   <div id="system-intro-overlay" class="system-intro-overlay" onclick="handleIntroOverlayClick()" title="Cliquer pour passer">
     <video id="system-intro-video" class="system-intro-video" playsinline muted autoplay preload="auto">
-      <source src="/intro.mp4" type="video/mp4">
+      <source src="/intro.mp4?v=4s_v4" type="video/mp4">
     </video>
     <div id="system-intro-alert-wrapper" class="system-intro-alert-wrapper">
-      <img id="system-intro-alert-img" class="system-intro-alert-img" src="/intro-alert.jpg" alt="[WELCOME, PLAYER.] System Alert" />
+      <img id="system-intro-alert-img" class="system-intro-alert-img" src="/intro-alert.jpg?v=4s_v4" alt="[WELCOME, PLAYER.] System Alert" />
       <div class="system-intro-alert-hint">[ INITIALISATION DU SYSTÈME EN COURS... CLIQUEZ POUR ENTRER ]</div>
     </div>
   </div>
@@ -7690,30 +7690,46 @@ function renderFullApplication(initialTab = "dashboard") {
     });
 
     
-    // CLEAN SYSTEM INTRO VIDEO & ALERT TRANSITION CONTROLLER
+    // CLEAN SYSTEM INTRO VIDEO & ALERT TRANSITION CONTROLLER (GUARANTEED 4.0s DISAPPEARANCE)
     let introDismissed = false;
     let introAlertShown = false;
     let alertAutoDismissTimer = null;
+    let introForceTimer = null;
+    let introPlaybackPoller = null;
 
     function showIntroAlertScreen() {
       if (introAlertShown || introDismissed) return;
       introAlertShown = true;
+      if (introForceTimer) {
+        clearTimeout(introForceTimer);
+        introForceTimer = null;
+      }
+      if (introPlaybackPoller) {
+        clearInterval(introPlaybackPoller);
+        introPlaybackPoller = null;
+      }
+
       const video = document.getElementById('system-intro-video');
       const alertWrapper = document.getElementById('system-intro-alert-wrapper');
       
       if (video) {
-        video.pause();
+        try { video.pause(); } catch(e) {}
         video.style.display = 'none';
+        video.style.visibility = 'hidden';
+        video.style.opacity = '0';
+        video.style.pointerEvents = 'none';
       }
       if (alertWrapper) {
         alertWrapper.style.display = 'flex';
+        alertWrapper.style.visibility = 'visible';
+        alertWrapper.style.opacity = '1';
       }
 
-      // Automatically transition to application after 2.4s (or on user click)
+      // Automatically transition to application after 2.2s (or on user click)
       if (alertAutoDismissTimer) clearTimeout(alertAutoDismissTimer);
       alertAutoDismissTimer = setTimeout(() => {
         dismissIntroOverlay();
-      }, 2400);
+      }, 2200);
     }
 
     function handleIntroOverlayClick() {
@@ -7742,32 +7758,56 @@ function renderFullApplication(initialTab = "dashboard") {
       overlay.classList.remove('dismissed');
       overlay.style.display = 'flex';
       video.style.display = 'block';
+      video.style.visibility = 'visible';
+      video.style.opacity = '1';
+      video.style.pointerEvents = 'auto';
+
       if (alertWrapper) alertWrapper.style.display = 'none';
       introDismissed = false;
       introAlertShown = false;
 
-      // Transition to alert image when the 4s video ends
-      video.addEventListener('ended', () => {
-        showIntroAlertScreen();
-      });
+      // Essential for cross-browser autoplay compliance
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
+      video.autoplay = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
 
-      // Video is 4.0s long: as currentTime reaches 3.85s (or duration - 0.15s), directly reveal the alert screen
+      // 1. ABSOLUTE FAIL-SAFE: At exactly 4.0 seconds (4000ms), force video disappearance!
+      if (introForceTimer) clearTimeout(introForceTimer);
+      introForceTimer = setTimeout(() => {
+        showIntroAlertScreen();
+      }, 4000);
+
+      // 2. High-Frequency Poller (every 40ms) to detect when video finishes (currentTime >= 3.6s or ended)
+      if (introPlaybackPoller) clearInterval(introPlaybackPoller);
+      introPlaybackPoller = setInterval(() => {
+        if (!video) return;
+        if (video.currentTime >= 3.6 || video.ended || (video.duration && video.currentTime >= video.duration - 0.2)) {
+          showIntroAlertScreen();
+        }
+      }, 40);
+
+      // 3. Native event listeners
+      video.addEventListener('ended', showIntroAlertScreen);
       video.addEventListener('timeupdate', () => {
-        if (video.currentTime >= 3.85 || (video.duration && video.currentTime >= video.duration - 0.15)) {
+        if (video.currentTime >= 3.6 || (video.duration && video.currentTime >= video.duration - 0.2)) {
           showIntroAlertScreen();
         }
       });
+      video.addEventListener('error', showIntroAlertScreen);
 
-      video.addEventListener('error', () => {
-        // Fallback: show alert screen directly if video cannot play
-        showIntroAlertScreen();
-      });
-
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // Autoplay fallback
-        });
+      // 4. Start playback
+      try {
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((err) => {
+            console.warn('[Intro] Autoplay prevented, timer will still transition:', err);
+          });
+        }
+      } catch (e) {
+        console.warn('[Intro] Video play error:', e);
       }
     }
 
@@ -7777,6 +7817,14 @@ function renderFullApplication(initialTab = "dashboard") {
       if (alertAutoDismissTimer) {
         clearTimeout(alertAutoDismissTimer);
         alertAutoDismissTimer = null;
+      }
+      if (introForceTimer) {
+        clearTimeout(introForceTimer);
+        introForceTimer = null;
+      }
+      if (introPlaybackPoller) {
+        clearInterval(introPlaybackPoller);
+        introPlaybackPoller = null;
       }
 
       const overlay = document.getElementById('system-intro-overlay');
@@ -7788,7 +7836,7 @@ function renderFullApplication(initialTab = "dashboard") {
         setTimeout(() => {
           overlay.style.display = 'none';
           if (video) {
-            video.pause();
+            try { video.pause(); } catch(e) {}
             video.currentTime = 0;
           }
           const activeView = document.querySelector('.view-panel.active');
@@ -7808,15 +7856,40 @@ function renderFullApplication(initialTab = "dashboard") {
         clearTimeout(alertAutoDismissTimer);
         alertAutoDismissTimer = null;
       }
+      if (introForceTimer) {
+        clearTimeout(introForceTimer);
+        introForceTimer = null;
+      }
+      if (introPlaybackPoller) {
+        clearInterval(introPlaybackPoller);
+        introPlaybackPoller = null;
+      }
       if (overlay && video) {
         overlay.style.display = 'flex';
         overlay.classList.remove('dismissed');
         video.style.display = 'block';
+        video.style.visibility = 'visible';
+        video.style.opacity = '1';
+        video.style.pointerEvents = 'auto';
         if (alertWrapper) alertWrapper.style.display = 'none';
         introDismissed = false;
         introAlertShown = false;
         video.currentTime = 0;
-        video.play();
+
+        introForceTimer = setTimeout(() => {
+          showIntroAlertScreen();
+        }, 4000);
+
+        introPlaybackPoller = setInterval(() => {
+          if (!video) return;
+          if (video.currentTime >= 3.6 || video.ended || (video.duration && video.currentTime >= video.duration - 0.2)) {
+            showIntroAlertScreen();
+          }
+        }, 40);
+
+        try {
+          video.play();
+        } catch(e) {}
       }
     }
 
@@ -8001,6 +8074,9 @@ const server = http.createServer((req, res) => {
         "Accept-Ranges": "bytes",
         "Content-Length": chunksize,
         "Content-Type": "video/mp4",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
       };
       res.writeHead(206, head);
       file.pipe(res);
@@ -8009,6 +8085,9 @@ const server = http.createServer((req, res) => {
         "Content-Length": fileSize,
         "Content-Type": "video/mp4",
         "Accept-Ranges": "bytes",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
       };
       res.writeHead(200, head);
       fs.createReadStream(videoFile).pipe(res);
