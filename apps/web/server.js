@@ -8,6 +8,8 @@
 
 const http = require("http");
 const url = require("url");
+const fs = require("fs");
+const path = require("path");
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
 
@@ -2783,9 +2785,84 @@ function renderFullApplication(initialTab = "dashboard") {
       pointer-events: none;
       transition: opacity 0.2s;
     }
+  
+    /* CLEAN FULLSCREEN VIDEO INTRO (NO OVERLAY TEXT) */
+    .system-intro-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 999999;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
+      overflow: hidden;
+    }
+
+    .system-intro-overlay.dismissed {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .system-intro-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000000;
+    }
+
+    .header-replay-intro-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      background: rgba(147, 51, 234, 0.15);
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      color: #c084fc;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+    }
+
+    .header-replay-intro-btn:hover {
+      background: rgba(147, 51, 234, 0.3);
+      border-color: #c084fc;
+      box-shadow: 0 0 15px rgba(192, 132, 252, 0.4);
+    }
+
+    [data-theme="light-awakening"] .header-replay-intro-btn {
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(124, 58, 237, 0.25);
+      border-top: 1px solid #ffffff;
+      color: #7c3aed;
+      box-shadow: 0 2px 6px rgba(124, 58, 237, 0.08);
+    }
+
+    [data-theme="light-awakening"] .header-replay-intro-btn:hover {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(124, 58, 237, 0.45);
+    }
+
   </style>
 </head>
 <body>
+
+  <!-- SYSTEM INTRO INITIALIZATION VIDEO (CLEAN FULLSCREEN - NO OVERLAY TEXT) -->
+  <div id="system-intro-overlay" class="system-intro-overlay" onclick="dismissIntroOverlay()" title="Cliquer pour passer">
+    <video id="system-intro-video" class="system-intro-video" playsinline muted autoplay preload="auto">
+      <source src="/intro.mp4" type="video/mp4">
+    </video>
+  </div>
+
 
   <canvas id="mana-particles-canvas"></canvas>
 
@@ -4596,7 +4673,8 @@ function renderFullApplication(initialTab = "dashboard") {
       state.player.hp = Math.min(100, state.player.hp + hpAdd);
       state.player.mp = Math.min(100, state.player.mp + mpAdd);
       saveState();
-      updateVitalsUI();
+      initSystemIntro();
+    updateVitalsUI();
       showSysNotification(
         "[RESTAURATION BIOPHYSIQUE VALIDÉE]",
         "La méditation a restauré <strong>+" + hpAdd + " HP</strong> et <strong>+" + mpAdd + " MP</strong>. Clarté mentale optimale."
@@ -6796,6 +6874,78 @@ function renderFullApplication(initialTab = "dashboard") {
       });
     });
 
+    
+    // CLEAN SYSTEM INTRO VIDEO CONTROLLER
+    let introDismissed = false;
+
+    function initSystemIntro() {
+      const overlay = document.getElementById('system-intro-overlay');
+      const video = document.getElementById('system-intro-video');
+      if (!overlay || !video) return;
+
+      const hasSeen = sessionStorage.getItem('levelup_intro_seen');
+      if (hasSeen) {
+        overlay.classList.add('dismissed');
+        overlay.style.display = 'none';
+        return;
+      }
+
+      overlay.classList.remove('dismissed');
+      overlay.style.display = 'flex';
+      introDismissed = false;
+
+      video.addEventListener('ended', () => {
+        dismissIntroOverlay();
+      });
+
+      video.addEventListener('error', () => {
+        dismissIntroOverlay();
+      });
+
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay fallback: allow user click to play or dismiss
+        });
+      }
+    }
+
+    function dismissIntroOverlay() {
+      if (introDismissed) return;
+      introDismissed = true;
+
+      const overlay = document.getElementById('system-intro-overlay');
+      const video = document.getElementById('system-intro-video');
+      sessionStorage.setItem('levelup_intro_seen', 'true');
+
+      if (overlay) {
+        overlay.classList.add('dismissed');
+        setTimeout(() => {
+          overlay.style.display = 'none';
+          if (video) video.pause();
+        }, 800);
+      }
+    }
+
+    function replayIntroVideo() {
+      sessionStorage.removeItem('levelup_intro_seen');
+      const overlay = document.getElementById('system-intro-overlay');
+      const video = document.getElementById('system-intro-video');
+      if (overlay && video) {
+        overlay.style.display = 'flex';
+        overlay.classList.remove('dismissed');
+        introDismissed = false;
+        video.currentTime = 0;
+        video.play();
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' || e.key === ' ') {
+        dismissIntroOverlay();
+      }
+    });
+
     // Keyboard Shortcuts (Alt+1 to Alt+0)
     window.addEventListener('keydown', (e) => {
       if (e.altKey) {
@@ -6921,6 +7071,60 @@ const server = http.createServer((req, res) => {
     SYSTEM_STATE = JSON.parse(JSON.stringify(DEFAULT_STATE));
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ status: "PRISTINE_RESET_SUCCESS", state: SYSTEM_STATE }));
+    return;
+  }
+
+  
+  // Intro Video Streaming Endpoint (HTTP 206 Partial Content)
+  if (pathname === "/intro.mp4" || pathname === "/assets/intro.mp4") {
+    const candidatePaths = [
+      path.join(__dirname, "public", "intro.mp4"),
+      path.join(__dirname, "..", "..", "apps", "web", "public", "intro.mp4"),
+      path.join(__dirname, "intro.mp4"),
+      path.join(process.cwd(), "apps", "web", "public", "intro.mp4"),
+      path.join(process.cwd(), "public", "intro.mp4"),
+    ];
+    let videoFile = null;
+    for (const p of candidatePaths) {
+      if (fs.existsSync(p)) {
+        videoFile = p;
+        break;
+      }
+    }
+
+    if (!videoFile) {
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "INTRO_VIDEO_NOT_FOUND" }));
+      return;
+    }
+
+    const stat = fs.statSync(videoFile);
+    const fileSize = stat.size;
+    const range = req.headers.range;
+
+    if (range) {
+      const parts = range.replace(/bytes=/, "").split("-");
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+      const chunksize = end - start + 1;
+      const file = fs.createReadStream(videoFile, { start, end });
+      const head = {
+        "Content-Range": `bytes ${start}-${end}/${fileSize}`,
+        "Accept-Ranges": "bytes",
+        "Content-Length": chunksize,
+        "Content-Type": "video/mp4",
+      };
+      res.writeHead(206, head);
+      file.pipe(res);
+    } else {
+      const head = {
+        "Content-Length": fileSize,
+        "Content-Type": "video/mp4",
+        "Accept-Ranges": "bytes",
+      };
+      res.writeHead(200, head);
+      fs.createReadStream(videoFile).pipe(res);
+    }
     return;
   }
 
