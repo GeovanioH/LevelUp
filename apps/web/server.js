@@ -1091,6 +1091,46 @@ function renderFullApplication(initialTab = "dashboard") {
         0 0 25px rgba(168, 85, 247, 0.35);
     }
 
+    /* ==========================================================================
+       PROGRESSIVE STAGGERED SCROLL-REVEAL ANIMATION (UN À UN AU SCROLL)
+       ========================================================================== */
+    .scroll-reveal-card {
+      opacity: 0;
+      transform: translateY(28px) scale(0.975);
+      filter: blur(4px);
+      transition: 
+        opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+      transition-delay: calc(var(--reveal-delay, 0) * 1ms);
+      will-change: opacity, transform, filter;
+    }
+
+    .scroll-reveal-card.is-revealed {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    .glass-card.is-revealed:hover,
+    .spotlight-card.is-revealed:hover {
+      box-shadow: var(--shadow-xl), 0 0 25px rgba(124, 58, 237, 0.15);
+      border-color: rgba(147, 51, 234, 0.35);
+      transform: translateY(-2px) scale(1.004);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-reveal-card {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        transition: none !important;
+      }
+    }
+
     .shiny-text {
       background: linear-gradient(110deg, #ffffff 15%, #c084fc 45%, #ffffff 75%, #ddd6fe 100%);
       background-size: 200% auto;
@@ -4466,6 +4506,167 @@ function renderFullApplication(initialTab = "dashboard") {
       }
     }
 
+    // ==========================================================================
+    // PROGRESSIVE STAGGERED SCROLL-REVEAL SYSTEM (UN À UN AU SCROLL)
+    // ==========================================================================
+    let cardScrollObserver = null;
+    let cardRevealQueue = [];
+    let cardRevealTimer = null;
+
+    function processCardRevealBatch() {
+      if (!cardRevealQueue.length) return;
+
+      // Sort incoming cards top-to-bottom, then left-to-right
+      cardRevealQueue.sort((a, b) => {
+        const rectA = a.getBoundingClientRect();
+        const rectB = b.getBoundingClientRect();
+        if (Math.abs(rectA.top - rectB.top) > 25) {
+          return rectA.top - rectB.top;
+        }
+        return rectA.left - rectB.left;
+      });
+
+      // Cascade cards one by one with a refined stagger ("un à un")
+      cardRevealQueue.forEach((card, index) => {
+        const staggerDelay = Math.min(index * 65, 450);
+        card.style.setProperty('--reveal-delay', staggerDelay);
+        if (cardScrollObserver) {
+          cardScrollObserver.unobserve(card);
+        }
+        requestAnimationFrame(() => {
+          card.classList.add('is-revealed');
+        });
+      });
+
+      cardRevealQueue = [];
+      cardRevealTimer = null;
+    }
+
+    function initScrollRevealCards() {
+      const cardSelectors = [
+        '.glass-card',
+        '.spotlight-card',
+        '.skill-card-item',
+        '.note-card-item',
+        '.backlink-card'
+      ];
+      
+      const elements = document.querySelectorAll(cardSelectors.join(', '));
+      const validCards = [];
+
+      elements.forEach(el => {
+        // Exclude modal dialogs and 3D rotating cylinder items
+        if (el.classList.contains('modal-card') || 
+            el.closest('.modal-overlay') || 
+            el.classList.contains('quest-3d-card') || 
+            el.classList.contains('opp-3d-card')) {
+          return;
+        }
+        
+        if (!el.classList.contains('scroll-reveal-card')) {
+          el.classList.add('scroll-reveal-card');
+        }
+        if (!el.classList.contains('is-revealed')) {
+          validCards.push(el);
+        }
+      });
+
+      if (!('IntersectionObserver' in window)) {
+        validCards.forEach(c => c.classList.add('is-revealed'));
+        return;
+      }
+
+      if (!cardScrollObserver) {
+        cardScrollObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const card = entry.target;
+              if (!card.classList.contains('is-revealed') && !cardRevealQueue.includes(card)) {
+                cardRevealQueue.push(card);
+                if (!cardRevealTimer) {
+                  cardRevealTimer = setTimeout(processCardRevealBatch, 35);
+                }
+              }
+            }
+          });
+        }, {
+          root: null,
+          rootMargin: '0px 0px -30px 0px',
+          threshold: 0.05
+        });
+      }
+
+      validCards.forEach(card => {
+        cardScrollObserver.observe(card);
+      });
+    }
+
+    function triggerActiveViewCardsReveal(viewPanelEl) {
+      if (!viewPanelEl) return;
+      const cards = Array.from(viewPanelEl.querySelectorAll('.scroll-reveal-card:not(.is-revealed)'));
+      if (!cards.length) return;
+
+      const windowHeight = window.innerHeight || 800;
+      const inView = [];
+
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        if (rect.top < windowHeight + 120 && rect.bottom > -50) {
+          inView.push(card);
+        }
+      });
+
+      if (inView.length > 0) {
+        inView.sort((a, b) => {
+          const rectA = a.getBoundingClientRect();
+          const rectB = b.getBoundingClientRect();
+          if (Math.abs(rectA.top - rectB.top) > 25) {
+            return rectA.top - rectB.top;
+          }
+          return rectA.left - rectB.left;
+        });
+
+        inView.forEach((card, idx) => {
+          const delay = Math.min(idx * 65, 450);
+          card.style.setProperty('--reveal-delay', delay);
+          if (cardScrollObserver) cardScrollObserver.unobserve(card);
+          requestAnimationFrame(() => {
+            card.classList.add('is-revealed');
+          });
+        });
+      }
+    }
+
+    function sanitizeLegacyComments() {
+      // 1. Sanitize state in-memory object
+      function sanitizeObj(obj) {
+        if (!obj) return;
+        for (const k of Object.keys(obj)) {
+          if (typeof obj[k] === 'string') {
+            if (!obj[k].includes('://')) {
+              obj[k] = obj[k].replace(/\s*\/\/\s*/g, ' — ');
+            }
+          } else if (typeof obj[k] === 'object') {
+            sanitizeObj(obj[k]);
+          }
+        }
+      }
+      if (typeof state !== 'undefined') {
+        sanitizeObj(state);
+      }
+
+      // 2. Clean DOM text nodes
+      try {
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        let node;
+        while ((node = walker.nextNode())) {
+          if (node.nodeValue && node.nodeValue.includes('//') && !node.nodeValue.includes('://')) {
+            node.nodeValue = node.nodeValue.replace(/\s*\/\/\s*/g, ' — ');
+          }
+        }
+      } catch (e) {}
+    }
+
     // View Switcher (Client Routing)
     function switchView(viewId) {
       playChime(659);
@@ -4473,7 +4674,10 @@ function renderFullApplication(initialTab = "dashboard") {
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
 
       const targetView = document.getElementById('view-' + viewId);
-      if (targetView) targetView.classList.add('active');
+      if (targetView) {
+        targetView.classList.add('active');
+        triggerActiveViewCardsReveal(targetView);
+      }
 
       const mainArea = document.querySelector('.app-main-area');
       if (mainArea) mainArea.scrollTop = 0;
@@ -6896,6 +7100,10 @@ function renderFullApplication(initialTab = "dashboard") {
             video.pause();
             video.currentTime = 0;
           }
+          const activeView = document.querySelector('.view-panel.active');
+          if (activeView) {
+            triggerActiveViewCardsReveal(activeView);
+          }
         }, 350);
       }
     }
@@ -6945,9 +7153,16 @@ function renderFullApplication(initialTab = "dashboard") {
     updateVitalsUI();
     updateXpUI();
     initSystemIntro();
+    initScrollRevealCards();
+    sanitizeLegacyComments();
+    const initialActive = document.querySelector('.view-panel.active');
+    if (initialActive) {
+      triggerActiveViewCardsReveal(initialActive);
+    }
     setTimeout(() => {
       if (typeof initOppCircularCarousel === 'function') initOppCircularCarousel();
       if (typeof initQuestCircularCarousel === 'function') initQuestCircularCarousel();
+      sanitizeLegacyComments();
     }, 100);
   </script>
 </body>
