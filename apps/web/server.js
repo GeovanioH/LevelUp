@@ -1259,7 +1259,7 @@ function renderFullApplication(initialTab = "dashboard") {
       box-shadow: 0 16px 48px -10px rgba(124, 58, 237, 0.18), 0 0 30px rgba(168, 85, 247, 0.22);
     }
 
-    /* TOP MASTER HEADER (PRISMVEIL FLOATING CAPSULE STYLE) */
+    /* TOP MASTER HEADER (TRUE VISIONOS LIQUID FROSTED GLASSMORPHISM) */
     .master-header {
       position: sticky;
       top: 12px;
@@ -1268,15 +1268,19 @@ function renderFullApplication(initialTab = "dashboard") {
       margin: 12px 18px 8px 18px;
       height: 52px;
       padding: 0 8px 0 18px;
-      background: rgba(15, 15, 20, 0.9);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      /* TRUE TRANSLUCENT FROSTED GLASS (DARK MONARCH) */
+      background: rgba(16, 12, 32, 0.44);
+      backdrop-filter: blur(28px) saturate(210%);
+      -webkit-backdrop-filter: blur(28px) saturate(210%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-top: 1px solid rgba(255, 255, 255, 0.38);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.45);
       border-radius: var(--radius-pill, 9999px);
       box-shadow: 
-        0 12px 36px -6px rgba(0, 0, 0, 0.6),
-        0 0 24px -4px rgba(168, 85, 247, 0.2),
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.18);
+        0 20px 48px -8px rgba(0, 0, 0, 0.75),
+        0 0 32px -4px rgba(168, 85, 247, 0.25),
+        inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.35);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1284,13 +1288,19 @@ function renderFullApplication(initialTab = "dashboard") {
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
+    /* TRUE TRANSLUCENT FROSTED GLASS (LIGHT AWAKENING) */
     [data-theme="light-awakening"] .master-header {
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.48);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      border-top: 1px solid rgba(255, 255, 255, 0.98);
+      border-bottom: 1px solid rgba(124, 58, 237, 0.2);
       box-shadow: 
-        0 10px 30px -6px rgba(124, 58, 237, 0.12),
-        0 0 20px rgba(168, 85, 247, 0.1),
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
+        0 16px 40px -8px rgba(124, 58, 237, 0.16),
+        0 0 26px rgba(168, 85, 247, 0.12),
+        inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.98),
+        inset 0 -1px 2px 0 rgba(124, 58, 237, 0.08);
     }
 
     .header-left-cluster {
@@ -1345,15 +1355,22 @@ function renderFullApplication(initialTab = "dashboard") {
       display: flex;
       align-items: center;
       gap: 7px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: var(--radius-pill, 9999px);
       padding: 4px 10px 4px 6px;
       font-family: var(--font-display, sans-serif);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
     [data-theme="light-awakening"] .header-player-pill {
-      background: rgba(124, 58, 237, 0.06);
-      border: 1px solid rgba(124, 58, 237, 0.15);
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      border-top: 1px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .header-player-avatar {
