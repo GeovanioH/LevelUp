@@ -2368,10 +2368,6 @@ function renderFullApplication(initialTab = "dashboard") {
       <!-- MASTER TOP HEADER -->
       <header class="master-header">
         <div style="display: flex; align-items: center; gap: 14px;">
-          <div class="sidebar-online-status" style="margin: 0; padding: 4px 10px;">
-            <span class="pulse-dot"></span>
-            <span style="font-size: 11px;">SYSTEM ONLINE</span>
-          </div>
           <div style="font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 1.5px; color: #c084fc; font-weight: 700;" id="active-view-indicator">
             // HUD SOUVERAIN & STATUTS
           </div>
