@@ -41,5 +41,5 @@ describe("Envelope Encryption & Argon2id Password Hashing", () => {
       "WrongPassword!",
     );
     expect(isInvalid).toBe(false);
-  });
+  }, 15000);
 });

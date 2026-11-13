@@ -1136,6 +1136,7 @@ function renderFullApplication(initialTab = "dashboard") {
        ========================================================================= */
     .app-layout {
       display: flex;
+      flex-direction: column;
       height: calc(100vh - 28px);
       max-height: calc(100vh - 28px);
       width: calc(100vw - 32px);
@@ -1156,69 +1157,54 @@ function renderFullApplication(initialTab = "dashboard") {
       box-shadow: 0 16px 48px -10px rgba(124, 58, 237, 0.18), 0 0 30px rgba(168, 85, 247, 0.22);
     }
 
-    /* LEFT GLASSMORPHISM SIDEBAR NAVBAR */
-    .left-sidebar-nav.nav-bar {
+    /* TOP MASTER HEADER */
+    .master-header {
       position: relative;
-      width: 275px;
-      height: 100%;
-      max-height: 100%;
+      z-index: 100;
       flex-shrink: 0;
-      background: var(--sidebar-bg);
+      background: var(--header-bg);
       backdrop-filter: blur(28px) saturate(190%);
       -webkit-backdrop-filter: blur(28px) saturate(190%);
-      border-right: var(--sidebar-border);
-      box-shadow: var(--sidebar-shadow);
+      border-bottom: 1px solid var(--glass-inner-border-subtle);
+      box-shadow: var(--glass-shadow);
+      padding: 10px 24px;
       display: flex;
-      flex-direction: column;
-      padding: 20px 16px 16px 16px;
-      z-index: 20;
-      overflow-y: auto;
-      overflow-x: hidden;
-      gap: 4px;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
       transition: background 0.3s ease, border-color 0.3s ease;
     }
 
-    .left-sidebar-nav::-webkit-scrollbar {
-      width: 5px;
-    }
-    .left-sidebar-nav::-webkit-scrollbar-thumb {
-      background: rgba(168, 85, 247, 0.4);
-      border-radius: 4px;
-    }
-    .left-sidebar-nav::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .sidebar-brand-block {
-      padding-bottom: 18px;
-      margin-bottom: 12px;
-      border-bottom: 1px solid var(--glass-inner-border-subtle);
+    .header-left-cluster {
       display: flex;
-      flex-direction: column;
-      gap: 12px;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+      flex-shrink: 1;
     }
 
     .brand-logo-wrap {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       cursor: pointer;
       text-decoration: none;
       transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       user-select: none;
+      flex-shrink: 0;
     }
     .brand-logo-wrap:hover {
       transform: translateY(-1px) scale(1.02);
     }
     .monarch-crest-svg {
-      width: 38px;
-      height: 38px;
+      width: 30px;
+      height: 30px;
       filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.85));
       transition: all 0.3s ease;
       flex-shrink: 0;
     }
     .brand-logo-wrap:hover .monarch-crest-svg {
-      filter: drop-shadow(0 0 18px rgba(192, 132, 252, 1)) drop-shadow(0 0 28px rgba(168, 85, 247, 0.8));
+      filter: drop-shadow(0 0 16px rgba(192, 132, 252, 1)) drop-shadow(0 0 24px rgba(168, 85, 247, 0.8));
       transform: rotate(2deg);
     }
     .brand-text-block {
@@ -1228,67 +1214,134 @@ function renderFullApplication(initialTab = "dashboard") {
     }
     .brand-logo {
       font-family: var(--font-display);
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 900;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       line-height: 1;
     }
     .brand-subtext {
       font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: 2px;
+      font-size: 8px;
+      letter-spacing: 1.5px;
       color: var(--neon-cyan);
       opacity: 0.9;
-      margin-top: 3px;
+      margin-top: 2px;
       line-height: 1;
     }
 
-    .sidebar-online-status {
-      display: inline-flex;
+    .header-breadcrumb {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: #c084fc;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-left: 14px;
+      border-left: 1px solid var(--glass-inner-border-subtle);
+    }
+    [data-theme="light-awakening"] .header-breadcrumb {
+      color: #7c3aed;
+    }
+
+    .header-right-cluster {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .header-player-pill {
+      display: flex;
       align-items: center;
       gap: 8px;
-      padding: 5px 10px;
+      background: var(--input-bg);
+      border: 1px solid var(--glass-inner-border-subtle);
       border-radius: var(--radius-pill);
-      background: rgba(168, 85, 247, 0.12);
-      border: 1px solid var(--glass-inner-border);
-      font-size: 10.5px;
-      font-weight: 700;
-      color: var(--text-white);
-      font-family: var(--font-mono);
-      letter-spacing: 1px;
-      width: fit-content;
+      padding: 3px 10px 3px 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
-    .sidebar-online-status .pulse-dot {
-      width: 7px;
-      height: 7px;
+    .header-player-avatar {
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      background: var(--neon-cyan);
-      box-shadow: 0 0 8px var(--neon-cyan), 0 0 14px var(--primary-violet);
-      animation: pulseGlow 2s infinite ease-in-out;
+      background: linear-gradient(135deg, var(--primary-violet), var(--royal-violet));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      box-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+      flex-shrink: 0;
     }
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.85); }
-    }
-
-    .sidebar-section-label {
-      font-family: var(--font-mono);
-      font-size: 9.5px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      color: var(--neon-cyan);
-      opacity: 0.85;
-      padding: 4px 8px;
-      margin-top: 2px;
-      margin-bottom: 4px;
-      text-transform: uppercase;
-    }
-
-    .sidebar-nav-menu {
+    .header-player-meta {
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      flex: 1;
+      line-height: 1.1;
+    }
+    .header-player-name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 11px;
+      color: var(--text-white);
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .header-player-rank {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      color: var(--neon-cyan);
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+    .header-player-sh {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 10px;
+      color: var(--imperial-gold);
+      background: rgba(251, 191, 36, 0.12);
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      padding: 2px 5px;
+      border-radius: 4px;
+      margin-left: 2px;
+      white-space: nowrap;
+    }
+
+    /* HORIZONTAL TOP TAB BAR NAVIGATION */
+    .top-tab-bar.nav-bar {
+      width: 100%;
+      background: var(--sidebar-bg);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid var(--glass-inner-border-subtle);
+      padding: 0 16px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      flex-shrink: 0;
+      z-index: 95;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      display: flex;
+      align-items: center;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .top-tab-bar.nav-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    [data-theme="light-awakening"] .top-tab-bar.nav-bar {
+      background: rgba(245, 243, 255, 0.95);
+      border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+    }
+
+    .tab-bar-track {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      min-width: max-content;
+      padding: 6px 0;
+      width: 100%;
+      justify-content: flex-start;
     }
 
     .nav-tab {
@@ -1297,117 +1350,75 @@ function renderFullApplication(initialTab = "dashboard") {
       color: var(--text-secondary);
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 1.2px;
-      padding: 9px 12px;
+      font-size: 11px;
+      letter-spacing: 0.8px;
+      padding: 6px 12px;
       border-radius: var(--radius-sm);
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 7px;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      width: 100%;
+      width: auto;
       text-align: left;
       position: relative;
+      white-space: nowrap;
     }
     .nav-tab-icon {
-      font-size: 16px;
-      width: 22px;
+      font-size: 13px;
+      width: 18px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
     .nav-tab-label {
-      flex: 1;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
     .nav-tab:hover {
       color: var(--text-white);
       background: rgba(168, 85, 247, 0.14);
       border-color: var(--glass-inner-border);
-      transform: translateX(4px);
-      box-shadow: 0 0 16px rgba(168, 85, 247, 0.2);
+      transform: translateY(-1px);
+      box-shadow: 0 0 14px rgba(168, 85, 247, 0.2);
     }
     .nav-tab.active {
       color: var(--text-white);
-      background: linear-gradient(90deg, rgba(168, 85, 247, 0.28), rgba(124, 58, 237, 0.12));
+      background: linear-gradient(180deg, rgba(168, 85, 247, 0.26), rgba(124, 58, 237, 0.12));
       border: 1px solid var(--glass-inner-border);
-      border-left: 4px solid var(--neon-cyan);
-      box-shadow: 0 0 20px rgba(168, 85, 247, 0.3), inset 0 0 12px var(--glass-inner-glow);
+      border-bottom: 3px solid var(--neon-cyan);
+      box-shadow: 0 0 18px rgba(168, 85, 247, 0.3), inset 0 0 10px var(--glass-inner-glow);
     }
     .nav-tab.active .nav-tab-icon {
       filter: drop-shadow(0 0 8px var(--neon-cyan));
     }
     .nav-shortcut {
-      font-size: 10px;
+      font-size: 8.5px;
       font-family: var(--font-mono);
       opacity: 0.75;
       background: var(--input-bg);
       border: 1px solid var(--glass-inner-border-subtle);
-      padding: 2px 5px;
-      border-radius: 4px;
+      padding: 1px 4px;
+      border-radius: 3px;
       color: var(--neon-cyan);
-      margin-left: auto;
+      margin-left: 3px;
     }
 
-    .sidebar-player-footer {
-      padding-top: 14px;
-      margin-top: auto;
-      border-top: 1px solid var(--glass-inner-border-subtle);
+    [data-theme="light-awakening"] .nav-tab:hover {
+      color: #0f172a;
+      background: rgba(124, 58, 237, 0.08);
+      border-color: rgba(124, 58, 237, 0.2);
     }
-    .sidebar-player-card {
-      background: var(--glass-panel);
-      border: 1px solid var(--glass-inner-border);
-      border-radius: var(--radius-sm);
-      padding: 10px 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    [data-theme="light-awakening"] .nav-tab.active {
+      color: #0f172a;
+      background: rgba(124, 58, 237, 0.12);
+      border: 1px solid rgba(124, 58, 237, 0.35);
+      border-bottom: 3px solid #7c3aed;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
     }
-    .sidebar-player-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary-violet), var(--royal-violet));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      box-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
-      flex-shrink: 0;
-    }
-    .sidebar-player-meta {
-      flex: 1;
-      min-width: 0;
-    }
-    .sidebar-player-name {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 13px;
-      color: var(--text-white);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .sidebar-player-rank {
-      font-family: var(--font-mono);
-      font-size: 9.5px;
-      color: var(--neon-cyan);
-    }
-    .sidebar-player-sh {
-      font-family: var(--font-mono);
-      font-weight: 800;
-      font-size: 11px;
-      color: var(--imperial-gold);
-      background: rgba(251, 191, 36, 0.12);
-      border: 1px solid rgba(251, 191, 36, 0.35);
-      padding: 3px 6px;
-      border-radius: 4px;
-      flex-shrink: 0;
+    [data-theme="light-awakening"] .nav-shortcut {
+      color: #7c3aed;
+      border-color: rgba(124, 58, 237, 0.25);
     }
 
     /* MAIN APP AREA */
@@ -1442,28 +1453,11 @@ function renderFullApplication(initialTab = "dashboard") {
       background: rgba(124, 58, 237, 0.35);
     }
 
-    .master-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      flex-shrink: 0;
-      background: var(--header-bg);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border-bottom: var(--header-border);
-      box-shadow: var(--glass-shadow);
-      padding: 12px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background 0.3s ease, border-color 0.3s ease;
-    }
-
     .main-container {
-      max-width: 1480px;
+      max-width: 1680px;
       width: 100%;
       margin: 0 auto;
-      padding: 24px 28px 60px 28px;
+      padding: 20px 24px 60px 24px;
       position: relative;
       z-index: 2;
     }
@@ -1481,27 +1475,16 @@ function renderFullApplication(initialTab = "dashboard") {
         height: auto !important;
         max-height: none !important;
         border-radius: 14px;
-        flex-direction: column;
       }
-      .left-sidebar-nav.nav-bar {
-        position: relative;
-        width: 100%;
-        height: auto !important;
-        max-height: none !important;
-        border-right: none;
-        border-bottom: var(--sidebar-border);
-        flex-direction: row;
-        overflow-x: auto;
-        padding: 10px;
+      .master-header {
+        flex-wrap: wrap;
+        padding: 10px 16px;
       }
-      .sidebar-brand-block, .sidebar-section-label, .sidebar-player-footer {
+      .top-tab-bar.nav-bar {
+        padding: 0 10px;
+      }
+      .header-breadcrumb {
         display: none;
-      }
-      .sidebar-nav-menu {
-        flex-direction: row;
-      }
-      .nav-tab {
-        width: auto;
       }
       .app-main-area {
         height: auto !important;
@@ -2270,13 +2253,12 @@ function renderFullApplication(initialTab = "dashboard") {
 
   <canvas id="mana-particles-canvas"></canvas>
 
-  <!-- APPLICATION WORKSPACE LAYOUT (LEFT GLASS SIDEBAR + MAIN AREA) -->
+  <!-- APPLICATION WORKSPACE LAYOUT (TOP MASTER HEADER + TOP TAB BAR + MAIN WORKSPACE) -->
   <div class="app-layout">
 
-    <!-- LEFT GLASSMORPHIC SIDEBAR NAVBAR (10 CANONICAL SCREENS) -->
-    <aside class="left-sidebar-nav nav-bar">
-      <!-- Brand Crest & Header -->
-      <div class="sidebar-brand-block">
+    <!-- MASTER TOP HEADER -->
+    <header class="master-header">
+      <div class="header-left-cluster">
         <div class="brand-logo-wrap" onclick="switchView('dashboard')" title="LevelUp — Système du Monarque (Dashboard)">
           ${MONARCH_LOGO_SVG}
           <div class="brand-text-block">
@@ -2286,17 +2268,42 @@ function renderFullApplication(initialTab = "dashboard") {
             <span class="brand-subtext">THE MONARCH SYSTEM</span>
           </div>
         </div>
-        <div class="sidebar-online-status">
-          <span class="pulse-dot"></span>
-          <span>SYSTEM ONLINE</span>
+        <div class="header-breadcrumb" id="active-view-indicator">
+          // HUD SOUVERAIN & STATUTS
         </div>
       </div>
 
-      <!-- Navigation Section Label -->
-      <div class="sidebar-section-label">CANONICAL SCREENS</div>
+      <div class="header-right-cluster">
+        <!-- Player Status Header Capsule -->
+        <div class="header-player-pill" title="Profil Chasseur Monarque">
+          <div class="header-player-avatar">👑</div>
+          <div class="header-player-meta">
+            <div class="header-player-name">${player.name}</div>
+            <div class="header-player-rank">RANG ${player.rank} // LVL ${player.level}</div>
+          </div>
+          <div class="header-player-sh" title="Score Harmonique Sh">Sh ${harmonicScore}</div>
+        </div>
 
-      <!-- 10 Canonical Navigation Buttons -->
-      <div class="sidebar-nav-menu">
+        <div style="font-family: var(--font-mono); font-size: 12.5px; color: var(--text-white); display: flex; align-items: center; gap: 6px; background: var(--input-bg); border: 1px solid var(--glass-inner-border-subtle); padding: 5px 12px; border-radius: var(--radius-pill);">
+          <span>🕒</span>
+          <span id="system-clock">--:--:--</span>
+        </div>
+        <div class="radar-ping-badge" style="border-color: rgba(251, 191, 36, 0.4); color: var(--imperial-gold);">
+          <span>💎 CRISTAUX :</span>
+          <strong id="header-crystals-val">${player.shadowCrystals}</strong>
+        </div>
+        <div class="radar-ping-badge" style="border-color: rgba(52, 211, 153, 0.4); color: var(--transcendent-green);">
+          <span>STREAK : <span id="header-streak-val">${player.streakDays}</span>J</span>
+        </div>
+        <button class="btn-cyber" id="theme-toggle-btn" onclick="toggleTheme()" style="padding: 6px 12px; font-size: 11px;">
+          🌓 THÈME
+        </button>
+      </div>
+    </header>
+
+    <!-- HORIZONTAL TOP TAB BAR (10 CANONICAL SCREENS) -->
+    <nav class="top-tab-bar nav-bar">
+      <div class="tab-bar-track">
         <button class="nav-tab ${initialTab === "dashboard" ? "active" : ""}" onclick="switchView('dashboard')">
           <span class="nav-tab-icon">📊</span>
           <span class="nav-tab-label">HUD SOUVERAIN</span>
@@ -2348,49 +2355,10 @@ function renderFullApplication(initialTab = "dashboard") {
           <span class="nav-shortcut">Alt+0</span>
         </button>
       </div>
+    </nav>
 
-      <!-- Player Status Footer Mini-Card -->
-      <div class="sidebar-player-footer">
-        <div class="sidebar-player-card">
-          <div class="sidebar-player-avatar">👑</div>
-          <div class="sidebar-player-meta">
-            <div class="sidebar-player-name">${player.name}</div>
-            <div class="sidebar-player-rank">RANG ${player.rank} // LVL ${player.level}</div>
-          </div>
-          <div class="sidebar-player-sh" title="Score Harmonique Sh">Sh ${harmonicScore}</div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- MAIN APP AREA (WITH TOP UTILITY BAR & WORKSPACE) -->
+    <!-- MAIN APP AREA (WORKSPACE CONTAINER) -->
     <div class="app-main-area">
-
-      <!-- MASTER TOP HEADER -->
-      <header class="master-header">
-        <div style="display: flex; align-items: center; gap: 14px;">
-          <div style="font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 1.5px; color: #c084fc; font-weight: 700;" id="active-view-indicator">
-            // HUD SOUVERAIN & STATUTS
-          </div>
-        </div>
-
-        <div style="display: flex; align-items: center; gap: 16px;">
-          <div style="font-family: var(--font-mono); font-size: 13px; color: var(--text-white); display: flex; align-items: center; gap: 6px; background: var(--input-bg); border: 1px solid var(--glass-inner-border-subtle); padding: 5px 12px; border-radius: var(--radius-pill);">
-            <span>🕒</span>
-            <span id="system-clock">--:--:--</span>
-          </div>
-          <div class="radar-ping-badge" style="border-color: rgba(251, 191, 36, 0.4); color: var(--imperial-gold);">
-            <span>💎 CRISTAUX :</span>
-            <strong id="header-crystals-val">${player.shadowCrystals}</strong>
-          </div>
-          <div class="radar-ping-badge" style="border-color: rgba(52, 211, 153, 0.4); color: var(--transcendent-green);">
-            <span>STREAK : <span id="header-streak-val">${player.streakDays}</span>J</span>
-          </div>
-          <button class="btn-cyber" id="theme-toggle-btn" onclick="toggleTheme()" style="padding: 6px 12px; font-size: 11px;">
-            🌓 THÈME
-          </button>
-        </div>
-      </header>
-
       <main class="main-container">
 
     <!-- =====================================================================
