@@ -1352,41 +1352,60 @@ function renderFullApplication(initialTab = "dashboard") {
       white-space: nowrap;
     }
 
-    /* HORIZONTAL TOP TAB BAR NAVIGATION */
+    /* FLOATING BOTTOM NAV BAR DOCK */
+    .bottom-nav-bar.nav-bar,
     .top-tab-bar.nav-bar {
       width: 100%;
-      background: var(--sidebar-bg);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border-bottom: 1px solid var(--glass-inner-border-subtle);
-      padding: 0 16px;
-      overflow-x: auto;
-      overflow-y: hidden;
+      background: linear-gradient(180deg, transparent 0%, rgba(7, 4, 20, 0.75) 35%, var(--surface-container-lowest) 100%);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border-top: 1px solid var(--glass-inner-border-subtle);
+      border-bottom: none;
+      padding: 8px 16px 12px 16px;
       flex-shrink: 0;
-      z-index: 95;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+      z-index: 100;
       display: flex;
       align-items: center;
+      justify-content: center;
       transition: background 0.3s ease, border-color 0.3s ease;
     }
+    .bottom-nav-bar.nav-bar::-webkit-scrollbar,
     .top-tab-bar.nav-bar::-webkit-scrollbar {
       display: none;
     }
 
+    [data-theme="light-awakening"] .bottom-nav-bar.nav-bar,
     [data-theme="light-awakening"] .top-tab-bar.nav-bar {
-      background: rgba(245, 243, 255, 0.95);
-      border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+      background: linear-gradient(180deg, transparent 0%, rgba(245, 243, 255, 0.85) 35%, rgba(255, 255, 255, 0.96) 100%);
+      border-top: 1px solid rgba(124, 58, 237, 0.2);
     }
 
+    .bottom-nav-dock,
     .tab-bar-track {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 5px;
-      min-width: max-content;
-      padding: 6px 0;
-      width: 100%;
-      justify-content: flex-start;
+      background: rgba(14, 9, 30, 0.85);
+      border: 1px solid var(--glass-inner-border);
+      border-radius: var(--radius-pill, 9999px);
+      padding: 5px 8px;
+      box-shadow: 0 10px 32px -4px rgba(0, 0, 0, 0.65), 0 0 24px -2px rgba(168, 85, 247, 0.28);
+      max-width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .bottom-nav-dock::-webkit-scrollbar,
+    .tab-bar-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    [data-theme="light-awakening"] .bottom-nav-dock,
+    [data-theme="light-awakening"] .tab-bar-track {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(124, 58, 237, 0.32);
+      box-shadow: 0 10px 28px -4px rgba(124, 58, 237, 0.2), 0 0 20px rgba(168, 85, 247, 0.18);
     }
 
     .nav-tab {
@@ -1396,18 +1415,19 @@ function renderFullApplication(initialTab = "dashboard") {
       font-family: var(--font-display);
       font-weight: 700;
       font-size: 11px;
-      letter-spacing: 0.8px;
-      padding: 6px 12px;
-      border-radius: var(--radius-sm);
+      letter-spacing: 0.6px;
+      padding: 7px 13px;
+      border-radius: var(--radius-pill, 9999px);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      gap: 6px;
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
       width: auto;
       text-align: left;
       position: relative;
       white-space: nowrap;
+      user-select: none;
     }
     .nav-tab-icon {
       font-size: 13px;
@@ -1416,59 +1436,72 @@ function renderFullApplication(initialTab = "dashboard") {
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      transition: transform 0.2s ease;
     }
     .nav-tab-label {
       white-space: nowrap;
     }
     .nav-tab:hover {
       color: var(--text-white);
-      background: rgba(168, 85, 247, 0.14);
-      border-color: var(--glass-inner-border);
-      transform: translateY(-1px);
-      box-shadow: 0 0 14px rgba(168, 85, 247, 0.2);
+      background: rgba(168, 85, 247, 0.16);
+      border-color: rgba(168, 85, 247, 0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(168, 85, 247, 0.25);
     }
+    .nav-tab:hover .nav-tab-icon {
+      transform: scale(1.15);
+    }
+
+    /* ACTIVE TAB: ROUNDED CAPSULE PILL HIGHLIGHT */
     .nav-tab.active {
-      color: var(--text-white);
-      background: linear-gradient(180deg, rgba(168, 85, 247, 0.26), rgba(124, 58, 237, 0.12));
-      border: 1px solid var(--glass-inner-border);
-      border-bottom: 3px solid var(--neon-cyan);
-      box-shadow: 0 0 18px rgba(168, 85, 247, 0.3), inset 0 0 10px var(--glass-inner-glow);
+      color: #ffffff;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.65), rgba(124, 58, 237, 0.88));
+      border: 1px solid rgba(192, 132, 252, 0.65);
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.55), inset 0 0 8px rgba(255, 255, 255, 0.28);
+      transform: translateY(-1px);
     }
     .nav-tab.active .nav-tab-icon {
-      filter: drop-shadow(0 0 8px var(--neon-cyan));
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.95));
+      transform: scale(1.1);
     }
     .nav-shortcut {
       font-size: 8.5px;
       font-family: var(--font-mono);
-      opacity: 0.75;
-      background: var(--input-bg);
-      border: 1px solid var(--glass-inner-border-subtle);
+      opacity: 0.8;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(192, 132, 252, 0.35);
       padding: 1px 4px;
-      border-radius: 3px;
+      border-radius: 4px;
       color: var(--neon-cyan);
-      margin-left: 3px;
+      margin-left: 2px;
+    }
+    .nav-tab.active .nav-shortcut {
+      background: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.45);
+      color: #ffffff;
     }
 
     [data-theme="light-awakening"] .nav-tab:hover {
       color: #0f172a;
-      background: rgba(124, 58, 237, 0.08);
-      border-color: rgba(124, 58, 237, 0.2);
+      background: rgba(124, 58, 237, 0.1);
+      border-color: rgba(124, 58, 237, 0.28);
     }
     [data-theme="light-awakening"] .nav-tab.active {
-      color: #0f172a;
-      background: rgba(124, 58, 237, 0.12);
-      border: 1px solid rgba(124, 58, 237, 0.35);
-      border-bottom: 3px solid #7c3aed;
-      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
+      color: #ffffff;
+      background: linear-gradient(135deg, #7c3aed, #9333ea);
+      border: 1px solid #7c3aed;
+      box-shadow: 0 4px 18px rgba(124, 58, 237, 0.45), inset 0 0 6px rgba(255, 255, 255, 0.2);
     }
-    [data-theme="light-awakening"] .nav-shortcut {
-      color: #7c3aed;
-      border-color: rgba(124, 58, 237, 0.25);
+    [data-theme="light-awakening"] .nav-tab.active .nav-shortcut {
+      background: rgba(255, 255, 255, 0.28);
+      border-color: rgba(255, 255, 255, 0.5);
+      color: #ffffff;
     }
 
     /* MAIN APP AREA */
     .app-main-area {
       flex: 1;
+      min-height: 0;
       height: 100%;
       min-width: 0;
       margin-left: 0;
@@ -1525,8 +1558,14 @@ function renderFullApplication(initialTab = "dashboard") {
         flex-wrap: wrap;
         padding: 10px 16px;
       }
+      .bottom-nav-bar.nav-bar,
       .top-tab-bar.nav-bar {
-        padding: 0 10px;
+        padding: 6px 10px;
+      }
+      .bottom-nav-dock,
+      .tab-bar-track {
+        gap: 3px;
+        padding: 4px 6px;
       }
       .header-breadcrumb {
         display: none;
@@ -2411,62 +2450,6 @@ function renderFullApplication(initialTab = "dashboard") {
         </button>
       </div>
     </header>
-
-    <!-- HORIZONTAL TOP TAB BAR (10 CANONICAL SCREENS) -->
-    <nav class="top-tab-bar nav-bar">
-      <div class="tab-bar-track">
-        <button class="nav-tab ${initialTab === "dashboard" ? "active" : ""}" onclick="switchView('dashboard')">
-          <span class="nav-tab-icon">📊</span>
-          <span class="nav-tab-label">HUD SOUVERAIN</span>
-          <span class="nav-shortcut">Alt+1</span>
-        </button>
-        <button class="nav-tab ${initialTab === "skills" ? "active" : ""}" onclick="switchView('skills')">
-          <span class="nav-tab-icon">⚡</span>
-          <span class="nav-tab-label">COMPÉTENCES DAG</span>
-          <span class="nav-shortcut">Alt+2</span>
-        </button>
-        <button class="nav-tab ${initialTab === "quests" ? "active" : ""}" onclick="switchView('quests')">
-          <span class="nav-tab-icon">📜</span>
-          <span class="nav-tab-label">QUÊTES DU JOUR</span>
-          <span class="nav-shortcut">Alt+3</span>
-        </button>
-        <button class="nav-tab ${initialTab === "planner" ? "active" : ""}" onclick="switchView('planner')">
-          <span class="nav-tab-icon">📅</span>
-          <span class="nav-tab-label">TIME-BLOCKING</span>
-          <span class="nav-shortcut">Alt+4</span>
-        </button>
-        <button class="nav-tab ${initialTab === "notes" ? "active" : ""}" onclick="switchView('notes')">
-          <span class="nav-tab-icon">🧠</span>
-          <span class="nav-tab-label">SECOND BRAIN</span>
-          <span class="nav-shortcut">Alt+5</span>
-        </button>
-        <button class="nav-tab ${initialTab === "audio" ? "active" : ""}" onclick="switchView('audio')">
-          <span class="nav-tab-icon">🎙️</span>
-          <span class="nav-tab-label">STATION VOCALE</span>
-          <span class="nav-shortcut">Alt+6</span>
-        </button>
-        <button class="nav-tab ${initialTab === "opportunities" ? "active" : ""}" onclick="switchView('opportunities')">
-          <span class="nav-tab-icon">🌐</span>
-          <span class="nav-tab-label">VEILLE BOURSES</span>
-          <span class="nav-shortcut">Alt+7</span>
-        </button>
-        <button class="nav-tab ${initialTab === "shop" ? "active" : ""}" onclick="switchView('shop')">
-          <span class="nav-tab-icon">💎</span>
-          <span class="nav-tab-label">BOUTIQUE D'OMBRE</span>
-          <span class="nav-shortcut">Alt+8</span>
-        </button>
-        <button class="nav-tab ${initialTab === "penalty" ? "active" : ""}" onclick="switchView('penalty')">
-          <span class="nav-tab-icon">⚠️</span>
-          <span class="nav-tab-label">ZONE PÉNALITÉ</span>
-          <span class="nav-shortcut">Alt+9</span>
-        </button>
-        <button class="nav-tab ${initialTab === "workout" ? "active" : ""}" onclick="switchView('workout')">
-          <span class="nav-tab-icon">📷</span>
-          <span class="nav-tab-label">VISION SPORT</span>
-          <span class="nav-shortcut">Alt+0</span>
-        </button>
-      </div>
-    </nav>
 
     <!-- MAIN APP AREA (WORKSPACE CONTAINER) -->
     <div class="app-main-area">
@@ -3854,6 +3837,62 @@ function renderFullApplication(initialTab = "dashboard") {
 
   </main>
     </div> <!-- close app-main-area -->
+
+    <!-- FLOATING BOTTOM NAV BAR DOCK (10 CANONICAL SCREENS) -->
+    <nav class="bottom-nav-bar nav-bar">
+      <div class="bottom-nav-dock">
+        <button class="nav-tab ${initialTab === "dashboard" ? "active" : ""}" onclick="switchView('dashboard')">
+          <span class="nav-tab-icon">📊</span>
+          <span class="nav-tab-label">HUD SOUVERAIN</span>
+          <span class="nav-shortcut">Alt+1</span>
+        </button>
+        <button class="nav-tab ${initialTab === "skills" ? "active" : ""}" onclick="switchView('skills')">
+          <span class="nav-tab-icon">⚡</span>
+          <span class="nav-tab-label">COMPÉTENCES DAG</span>
+          <span class="nav-shortcut">Alt+2</span>
+        </button>
+        <button class="nav-tab ${initialTab === "quests" ? "active" : ""}" onclick="switchView('quests')">
+          <span class="nav-tab-icon">📜</span>
+          <span class="nav-tab-label">QUÊTES DU JOUR</span>
+          <span class="nav-shortcut">Alt+3</span>
+        </button>
+        <button class="nav-tab ${initialTab === "planner" ? "active" : ""}" onclick="switchView('planner')">
+          <span class="nav-tab-icon">📅</span>
+          <span class="nav-tab-label">TIME-BLOCKING</span>
+          <span class="nav-shortcut">Alt+4</span>
+        </button>
+        <button class="nav-tab ${initialTab === "notes" ? "active" : ""}" onclick="switchView('notes')">
+          <span class="nav-tab-icon">🧠</span>
+          <span class="nav-tab-label">SECOND BRAIN</span>
+          <span class="nav-shortcut">Alt+5</span>
+        </button>
+        <button class="nav-tab ${initialTab === "audio" ? "active" : ""}" onclick="switchView('audio')">
+          <span class="nav-tab-icon">🎙️</span>
+          <span class="nav-tab-label">STATION VOCALE</span>
+          <span class="nav-shortcut">Alt+6</span>
+        </button>
+        <button class="nav-tab ${initialTab === "opportunities" ? "active" : ""}" onclick="switchView('opportunities')">
+          <span class="nav-tab-icon">🌐</span>
+          <span class="nav-tab-label">VEILLE BOURSES</span>
+          <span class="nav-shortcut">Alt+7</span>
+        </button>
+        <button class="nav-tab ${initialTab === "shop" ? "active" : ""}" onclick="switchView('shop')">
+          <span class="nav-tab-icon">💎</span>
+          <span class="nav-tab-label">BOUTIQUE D'OMBRE</span>
+          <span class="nav-shortcut">Alt+8</span>
+        </button>
+        <button class="nav-tab ${initialTab === "penalty" ? "active" : ""}" onclick="switchView('penalty')">
+          <span class="nav-tab-icon">⚠️</span>
+          <span class="nav-tab-label">ZONE PÉNALITÉ</span>
+          <span class="nav-shortcut">Alt+9</span>
+        </button>
+        <button class="nav-tab ${initialTab === "workout" ? "active" : ""}" onclick="switchView('workout')">
+          <span class="nav-tab-icon">📷</span>
+          <span class="nav-tab-label">VISION SPORT</span>
+          <span class="nav-shortcut">Alt+0</span>
+        </button>
+      </div>
+    </nav>
   </div> <!-- close app-layout -->
 
   <!-- HOLOGRAPHIC SYSTEM NOTIFICATION MODAL (NO MORE ALERT POPUPS!) -->
