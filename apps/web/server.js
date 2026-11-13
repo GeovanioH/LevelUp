@@ -1226,28 +1226,43 @@ function renderFullApplication(initialTab = "dashboard") {
       box-shadow: 0 16px 48px -10px rgba(124, 58, 237, 0.18), 0 0 30px rgba(168, 85, 247, 0.22);
     }
 
-    /* TOP MASTER HEADER */
+    /* TOP MASTER HEADER (PRISMVEIL FLOATING CAPSULE STYLE) */
     .master-header {
       position: relative;
       z-index: 100;
       flex-shrink: 0;
-      background: var(--header-bg);
-      backdrop-filter: blur(28px) saturate(190%);
-      -webkit-backdrop-filter: blur(28px) saturate(190%);
-      border-bottom: 1px solid var(--glass-inner-border-subtle);
-      box-shadow: var(--glass-shadow);
-      padding: 10px 24px;
+      margin: 12px 18px 8px 18px;
+      height: 52px;
+      padding: 0 8px 0 18px;
+      background: rgba(15, 15, 20, 0.9);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-pill, 9999px);
+      box-shadow: 
+        0 12px 36px -6px rgba(0, 0, 0, 0.6),
+        0 0 24px -4px rgba(168, 85, 247, 0.2),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.18);
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 16px;
-      transition: background 0.3s ease, border-color 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="light-awakening"] .master-header {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 
+        0 10px 30px -6px rgba(124, 58, 237, 0.12),
+        0 0 20px rgba(168, 85, 247, 0.1),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
     }
 
     .header-left-cluster {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 20px;
       min-width: 0;
       flex-shrink: 1;
     }
@@ -1255,7 +1270,7 @@ function renderFullApplication(initialTab = "dashboard") {
     .brand-logo-wrap {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       cursor: pointer;
       text-decoration: none;
       transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1266,114 +1281,214 @@ function renderFullApplication(initialTab = "dashboard") {
       transform: translateY(-1px) scale(1.02);
     }
     .monarch-crest-svg {
-      width: 30px;
-      height: 30px;
-      filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.85));
+      width: 22px;
+      height: 22px;
+      filter: drop-shadow(0 0 8px rgba(192, 132, 252, 0.8));
       transition: all 0.3s ease;
       flex-shrink: 0;
     }
-    .brand-logo-wrap:hover .monarch-crest-svg {
-      filter: drop-shadow(0 0 16px rgba(192, 132, 252, 1)) drop-shadow(0 0 24px rgba(168, 85, 247, 0.8));
-      transform: rotate(2deg);
+    .brand-title {
+      font-family: var(--font-display, sans-serif);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      color: #ffffff;
+      line-height: 1;
     }
-    .brand-text-block {
+    [data-theme="light-awakening"] .brand-title {
+      color: #0f172a;
+    }
+
+    /* HEADER NAV LINKS (PRISMVEIL STYLE: • Editor Presets Gallery Pricing) */
+    .header-nav-links {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .brand-logo {
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      line-height: 1;
-    }
-    .brand-subtext {
-      font-family: var(--font-mono);
-      font-size: 8px;
-      letter-spacing: 1.5px;
-      color: var(--neon-cyan);
-      opacity: 0.9;
-      margin-top: 2px;
-      line-height: 1;
+      align-items: center;
+      gap: 18px;
     }
 
-    .header-breadcrumb {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      color: #c084fc;
+    .header-nav-item.active {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #ffffff;
+      font-family: var(--font-display, sans-serif);
       font-weight: 700;
+      font-size: 13.5px;
+      letter-spacing: 0.2px;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      padding-left: 14px;
-      border-left: 1px solid var(--glass-inner-border-subtle);
+      cursor: pointer;
     }
-    [data-theme="light-awakening"] .header-breadcrumb {
-      color: #7c3aed;
+    [data-theme="light-awakening"] .header-nav-item.active {
+      color: #0f172a;
     }
 
+    .header-nav-dot {
+      font-size: 16px;
+      line-height: 1;
+      color: #ffffff;
+      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+    }
+    [data-theme="light-awakening"] .header-nav-dot {
+      color: #7c3aed;
+      filter: drop-shadow(0 0 6px rgba(124, 58, 237, 0.6));
+    }
+
+    .header-nav-link {
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.6);
+      font-family: var(--font-display, sans-serif);
+      font-size: 13.5px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.2s ease, transform 0.2s ease;
+      outline: none;
+    }
+    .header-nav-link:hover {
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .header-nav-link.active {
+      color: #ffffff;
+      font-weight: 700;
+    }
+    [data-theme="light-awakening"] .header-nav-link {
+      color: rgba(15, 23, 42, 0.6);
+    }
+    [data-theme="light-awakening"] .header-nav-link:hover {
+      color: #0f172a;
+    }
+
+    /* RIGHT CLUSTER */
     .header-right-cluster {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       flex-shrink: 0;
     }
 
     .header-player-pill {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: var(--input-bg);
-      border: 1px solid var(--glass-inner-border-subtle);
-      border-radius: var(--radius-pill);
-      padding: 3px 10px 3px 4px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      gap: 7px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-pill, 9999px);
+      padding: 4px 10px 4px 6px;
+      font-family: var(--font-display, sans-serif);
     }
+    [data-theme="light-awakening"] .header-player-pill {
+      background: rgba(124, 58, 237, 0.06);
+      border: 1px solid rgba(124, 58, 237, 0.15);
+    }
+
     .header-player-avatar {
-      width: 24px;
-      height: 24px;
+      font-size: 12px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary-violet), var(--royal-violet));
+      background: linear-gradient(135deg, #a855f7, #7c3aed);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
-      box-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
-      flex-shrink: 0;
     }
-    .header-player-meta {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-    }
+
     .header-player-name {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 11px;
-      color: var(--text-white);
-      letter-spacing: 0.5px;
-      white-space: nowrap;
+      font-weight: 700;
+      font-size: 12.5px;
+      color: #ffffff;
     }
+    [data-theme="light-awakening"] .header-player-name {
+      color: #0f172a;
+    }
+
     .header-player-rank {
-      font-family: var(--font-mono);
-      font-size: 8.5px;
-      color: var(--neon-cyan);
-      letter-spacing: 0.3px;
-      white-space: nowrap;
+      font-family: var(--font-mono, monospace);
+      font-size: 9.5px;
+      color: var(--neon-cyan, #06b6d4);
+      opacity: 0.9;
     }
     .header-player-sh {
-      font-family: var(--font-mono);
+      font-family: var(--font-mono, monospace);
       font-weight: 800;
-      font-size: 10px;
-      color: var(--imperial-gold);
+      font-size: 9.5px;
+      color: var(--imperial-gold, #fbbf24);
       background: rgba(251, 191, 36, 0.12);
-      border: 1px solid rgba(251, 191, 36, 0.35);
-      padding: 2px 5px;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      padding: 1px 4px;
       border-radius: 4px;
       margin-left: 2px;
+    }
+
+    .header-stat-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-mono, monospace);
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    [data-theme="light-awakening"] .header-stat-item {
+      color: #334155;
+    }
+    .header-stat-item strong {
+      color: var(--imperial-gold, #fbbf24);
+    }
+    .header-stat-item .stat-icon {
+      font-size: 12px;
+    }
+
+    /* HIGH-CONTRAST PILL BUTTON (PRISMVEIL [Try it free] STYLE) */
+    .header-cta-pill {
+      background: #ffffff;
+      color: #0a0a0c;
+      font-family: var(--font-display, sans-serif);
+      font-weight: 700;
+      font-size: 12.5px;
+      letter-spacing: 0.3px;
+      padding: 7px 18px;
+      border-radius: var(--radius-pill, 9999px);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       white-space: nowrap;
+      outline: none;
+    }
+    .header-cta-pill:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 4px 16px rgba(255, 255, 255, 0.35);
+    }
+    .header-cta-pill:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    [data-theme="light-awakening"] .header-cta-pill {
+      background: #0f172a;
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.2);
+    }
+    [data-theme="light-awakening"] .header-cta-pill:hover {
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.35);
+    }
+
+    @media (max-width: 1250px) {
+      .header-nav-link {
+        display: none;
+      }
+    }
+    @media (max-width: 900px) {
+      .header-stat-item {
+        display: none;
+      }
+      .master-header {
+        margin: 8px 10px 4px 10px;
+        padding: 0 6px 0 12px;
+      }
     }
 
     /* FLOATING BOTTOM NAV BAR DOCK (TRUE VISIONOS FROSTED GLASSMORPHISM) */
@@ -2559,47 +2674,54 @@ function renderFullApplication(initialTab = "dashboard") {
   <!-- APPLICATION WORKSPACE LAYOUT (TOP MASTER HEADER + TOP TAB BAR + MAIN WORKSPACE) -->
   <div class="app-layout">
 
-    <!-- MASTER TOP HEADER -->
+    <!-- MASTER TOP HEADER (PRISMVEIL FLOATING CAPSULE STYLE) -->
     <header class="master-header">
       <div class="header-left-cluster">
-        <div class="brand-logo-wrap" onclick="switchView('dashboard')" title="LevelUp — Système du Monarque (Dashboard)">
+        <div class="brand-logo-wrap" onclick="switchView('dashboard')" title="LevelUp — Système du Monarque">
           ${MONARCH_LOGO_SVG}
-          <div class="brand-text-block">
-            <div class="brand-logo">
-              <span class="shiny-text">LEVELUP</span>
-            </div>
-            <span class="brand-subtext">THE MONARCH SYSTEM</span>
+          <span class="brand-title">LEVELUP</span>
+        </div>
+        
+        <nav class="header-nav-links" aria-label="Navigation Header">
+          <div class="header-nav-item active" id="active-view-indicator" onclick="switchView('dashboard')" title="Section Active">
+            <span class="header-nav-dot">•</span>
+            <span class="header-nav-text" id="active-view-label">HUD Souverain</span>
           </div>
-        </div>
-        <div class="header-breadcrumb" id="active-view-indicator">
-          // HUD SOUVERAIN & STATUTS
-        </div>
+          <button class="header-nav-link" onclick="switchView('skills')">Compétences</button>
+          <button class="header-nav-link" onclick="switchView('quests')">Quêtes</button>
+          <button class="header-nav-link" onclick="switchView('planner')">Time-Blocking</button>
+          <button class="header-nav-link" onclick="switchView('notes')">Second Brain</button>
+          <button class="header-nav-link" onclick="switchView('opportunities')">Veille</button>
+        </nav>
       </div>
 
       <div class="header-right-cluster">
-        <!-- Player Status Header Capsule -->
+        <!-- Player Status Profile -->
         <div class="header-player-pill" title="Profil Chasseur Monarque">
-          <div class="header-player-avatar">👑</div>
-          <div class="header-player-meta">
-            <div class="header-player-name">${player.name}</div>
-            <div class="header-player-rank">RANG ${player.rank} // LVL ${player.level}</div>
-          </div>
-          <div class="header-player-sh" title="Score Harmonique Sh">Sh ${harmonicScore}</div>
+          <span class="header-player-avatar">👑</span>
+          <span class="header-player-name">${player.name}</span>
+          <span class="header-player-rank">RANG ${player.rank}·${player.level}</span>
+          <span class="header-player-sh" title="Score Harmonique Sh">Sh ${harmonicScore}</span>
         </div>
 
-        <div style="font-family: var(--font-mono); font-size: 12.5px; color: var(--text-white); display: flex; align-items: center; gap: 6px; background: var(--input-bg); border: 1px solid var(--glass-inner-border-subtle); padding: 5px 12px; border-radius: var(--radius-pill);">
-          <span>🕒</span>
+        <div class="header-stat-item" title="Horloge Système">
+          <span class="stat-icon">🕒</span>
           <span id="system-clock">--:--:--</span>
         </div>
-        <div class="radar-ping-badge" style="border-color: rgba(251, 191, 36, 0.4); color: var(--imperial-gold);">
-          <span>💎 CRISTAUX :</span>
+
+        <div class="header-stat-item" title="Cristaux d'Ombre">
+          <span class="stat-icon">💎</span>
           <strong id="header-crystals-val">${player.shadowCrystals}</strong>
         </div>
-        <div class="radar-ping-badge" style="border-color: rgba(52, 211, 153, 0.4); color: var(--transcendent-green);">
-          <span>STREAK : <span id="header-streak-val">${player.streakDays}</span>J</span>
+
+        <div class="header-stat-item" title="Série Journalière">
+          <span class="stat-icon">⚡</span>
+          <span><span id="header-streak-val">${player.streakDays}</span>J</span>
         </div>
-        <button class="btn-cyber" id="theme-toggle-btn" onclick="toggleTheme()" style="padding: 6px 12px; font-size: 11px;">
-          🌓 THÈME
+
+        <!-- High-contrast Pill Button matching [Try it free] -->
+        <button class="header-cta-pill" id="theme-toggle-btn" onclick="toggleTheme()" title="Basculer le thème">
+          ☀️ CLAIR
         </button>
       </div>
     </header>
@@ -4225,8 +4347,32 @@ function renderFullApplication(initialTab = "dashboard") {
         penalty: '// ZONE DE PÉNALITÉ INVIOLABLE',
         workout: '// VISION SPORT MEDIAPIPE'
       };
+      const viewFriendlyNames = {
+        dashboard: 'HUD Souverain',
+        skills: 'Compétences DAG',
+        quests: 'Quêtes du Jour',
+        planner: 'Time-Blocking',
+        notes: 'Second Brain',
+        audio: 'Station Vocale',
+        opportunities: 'Veille Bourses',
+        shop: 'Boutique d\'Ombre',
+        penalty: 'Zone Pénalité',
+        workout: 'Vision Sport'
+      };
+      const label = document.getElementById('active-view-label');
       const indicator = document.getElementById('active-view-indicator');
-      if (indicator && viewNames[viewId]) indicator.textContent = viewNames[viewId];
+      if (label && viewFriendlyNames[viewId]) {
+        label.textContent = viewFriendlyNames[viewId];
+      } else if (indicator && viewFriendlyNames[viewId]) {
+        indicator.innerHTML = '<span class="header-nav-dot">•</span> ' + viewFriendlyNames[viewId];
+      }
+      document.querySelectorAll('.header-nav-link').forEach(link => {
+        if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(viewId)) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
 
       if (viewId === 'notes') {
         setTimeout(() => {
