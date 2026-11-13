@@ -3484,10 +3484,10 @@ function renderFullApplication(initialTab = "dashboard") {
   <!-- SYSTEM INTRO INITIALIZATION VIDEO (CLEAN FULLSCREEN) & ALERT TRANSITION -->
   <div id="system-intro-overlay" class="system-intro-overlay" onclick="handleIntroOverlayClick()" title="Cliquer pour passer">
     <video id="system-intro-video" class="system-intro-video" playsinline muted autoplay preload="auto">
-      <source src="/intro.mp4?v=4s_v4" type="video/mp4">
+      <source src="/intro.mp4?v=4s_v5_landscape" type="video/mp4">
     </video>
     <div id="system-intro-alert-wrapper" class="system-intro-alert-wrapper">
-      <img id="system-intro-alert-img" class="system-intro-alert-img" src="/intro-alert.jpg?v=4s_v4" alt="[WELCOME, PLAYER.] System Alert" />
+      <img id="system-intro-alert-img" class="system-intro-alert-img" src="/intro-alert.jpg?v=4s_v5" alt="[WELCOME, PLAYER.] System Alert" />
       <div class="system-intro-alert-hint">[ INITIALISATION DU SYSTÈME EN COURS... CLIQUEZ POUR ENTRER ]</div>
     </div>
   </div>
