@@ -1456,14 +1456,50 @@ function renderFullApplication(initialTab = "dashboard") {
         inset 0 -1px 2px rgba(0, 0, 0, 0.25);
     }
 
-    /* Frosted Glass Track (Light Theme - Exact Image 1 Match) */
+    /* Frosted Smoked Slate Glass Track (Light Theme - High Contrast Exact Image 1 Match) */
     [data-theme="light-awakening"] .glass-switch-track {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.2) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.6);
+      background: linear-gradient(135deg, rgba(51, 65, 85, 0.90) 0%, rgba(30, 41, 59, 0.96) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.32);
       box-shadow: 
-        0 4px 16px rgba(100, 115, 140, 0.18),
-        inset 0 1px 1.5px rgba(255, 255, 255, 0.8),
-        inset 0 -1px 2px rgba(0, 0, 0, 0.06);
+        0 4px 18px rgba(15, 23, 42, 0.28),
+        0 1px 4px rgba(15, 23, 42, 0.15),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.5),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+    }
+
+    [data-theme="light-awakening"] .glass-switch-thumb {
+      background: radial-gradient(circle at 32% 28%, 
+        rgba(255, 255, 255, 0.92) 0%, 
+        rgba(255, 255, 255, 0.5) 32%, 
+        rgba(148, 163, 184, 0.28) 65%, 
+        rgba(51, 65, 85, 0.5) 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 
+        0 6px 18px rgba(15, 23, 42, 0.4),
+        0 2px 6px rgba(15, 23, 42, 0.2),
+        inset 0 2px 4px rgba(255, 255, 255, 0.98),
+        inset 0 -3px 5px rgba(0, 0, 0, 0.35),
+        inset 2px 0 4px rgba(255, 255, 255, 0.65);
+    }
+
+    [data-theme="light-awakening"] .glass-thumb-reflection {
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      border-top: 2.2px solid rgba(255, 255, 255, 0.98);
+      border-left: 2px solid rgba(255, 255, 255, 0.88);
+      border-right: 2px solid transparent;
+      border-bottom: 2px solid transparent;
+      pointer-events: none;
+      transform: rotate(-10deg);
+      filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.85));
+    }
+
+    [data-theme="light-awakening"] .glass-thumb-icon {
+      color: #ffffff;
+      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.98)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.7));
     }
 
     /* 3D Glass Sphere Knob */
@@ -1543,7 +1579,9 @@ function renderFullApplication(initialTab = "dashboard") {
 
     [data-theme="light-awakening"] .glass-switch-label {
       color: #ffffff;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
     }
 
     /* STATE A: LIGHT MODE (Knob on LEFT, Label on RIGHT - Exact Image 1 Match) */
