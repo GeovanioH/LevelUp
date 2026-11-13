@@ -1016,12 +1016,12 @@ function renderFullApplication(initialTab = "dashboard") {
     [data-theme="light-awakening"] body {
       background-color: #ede9fe;
       background-image:
-        linear-gradient(to right, rgba(124, 58, 237, 0.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(124, 58, 237, 0.06) 1px, transparent 1px),
-        radial-gradient(ellipse at 15% 15%, rgba(168, 85, 247, 0.24) 0%, transparent 45%),
-        radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.20) 0%, transparent 40%),
-        radial-gradient(circle at 50% 85%, rgba(192, 132, 252, 0.22) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 0%, #ffffff 0%, #f5f3ff 60%, #ede9fe 100%);
+        linear-gradient(to right, rgba(124, 58, 237, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(124, 58, 237, 0.08) 1px, transparent 1px),
+        radial-gradient(ellipse at 50% 0%, rgba(168, 85, 247, 0.32) 0%, rgba(245, 240, 255, 0.5) 45%, #ede9fe 100%),
+        radial-gradient(ellipse at 15% 15%, rgba(168, 85, 247, 0.28) 0%, transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.25) 0%, transparent 40%),
+        radial-gradient(circle at 50% 85%, rgba(192, 132, 252, 0.24) 0%, transparent 50%);
       background-size: 24px 24px, 24px 24px, auto, auto, auto, auto;
       color: var(--text-white);
     }
@@ -1275,11 +1275,11 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     [data-theme="light-awakening"] .app-layout {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.80) 0%, rgba(248, 246, 255, 0.88) 100%);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1.5px solid rgba(124, 58, 237, 0.28);
-      box-shadow: 0 16px 48px -10px rgba(124, 58, 237, 0.18), 0 0 30px rgba(168, 85, 247, 0.15);
+      background: linear-gradient(180deg, rgba(245, 240, 255, 0.62) 0%, rgba(255, 255, 255, 0.70) 12%, rgba(248, 246, 255, 0.82) 100%) !important;
+      backdrop-filter: blur(20px) saturate(180%) !important;
+      -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+      border: 1.5px solid rgba(124, 58, 237, 0.28) !important;
+      box-shadow: 0 16px 48px -10px rgba(124, 58, 237, 0.18), 0 0 30px rgba(168, 85, 247, 0.15) !important;
     }
 
     /* TOP MASTER HEADER (TRUE VISIONOS LIQUID FROSTED GLASSMORPHISM) */
@@ -1313,17 +1313,22 @@ function renderFullApplication(initialTab = "dashboard") {
 
     /* TRUE TRANSLUCENT FROSTED GLASS (LIGHT AWAKENING) */
     [data-theme="light-awakening"] .master-header {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(245, 240, 255, 0.68) 50%, rgba(238, 233, 254, 0.80) 100%) !important;
-      backdrop-filter: blur(32px) saturate(220%) !important;
-      -webkit-backdrop-filter: blur(32px) saturate(220%) !important;
-      border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
-      border-top: 2px solid #ffffff !important;
-      border-bottom: 1.5px solid rgba(124, 58, 237, 0.35) !important;
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.70) 0%, 
+        rgba(243, 238, 255, 0.46) 40%, 
+        rgba(237, 230, 254, 0.58) 80%, 
+        rgba(255, 255, 255, 0.72) 100%) !important;
+      backdrop-filter: blur(28px) saturate(200%) contrast(104%) !important;
+      -webkit-backdrop-filter: blur(28px) saturate(200%) contrast(104%) !important;
+      border: 1.5px solid rgba(124, 58, 237, 0.28) !important;
+      border-top: 1.5px solid rgba(255, 255, 255, 0.98) !important;
+      border-bottom: 1.5px solid rgba(109, 40, 217, 0.35) !important;
       box-shadow: 
-        0 20px 48px -8px rgba(124, 58, 237, 0.24),
-        0 6px 18px -2px rgba(15, 23, 42, 0.10),
-        inset 0 2px 3px 0 #ffffff,
-        inset 0 -2px 4px 0 rgba(124, 58, 237, 0.14) !important;
+        0 18px 40px -6px rgba(124, 58, 237, 0.22),
+        0 4px 14px -2px rgba(15, 23, 42, 0.08),
+        0 0 0 1px rgba(139, 92, 246, 0.16),
+        inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.98),
+        inset 0 -1.5px 3px 0 rgba(124, 58, 237, 0.12) !important;
     }
 
     .header-left-cluster {
@@ -1388,12 +1393,12 @@ function renderFullApplication(initialTab = "dashboard") {
       -webkit-backdrop-filter: blur(14px);
     }
     [data-theme="light-awakening"] .header-player-pill {
-      background: rgba(255, 255, 255, 0.55);
-      border: 1px solid rgba(124, 58, 237, 0.2);
-      border-top: 1px solid rgba(255, 255, 255, 0.95);
-      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.65) !important;
+      border: 1px solid rgba(124, 58, 237, 0.28) !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.98) !important;
+      box-shadow: 0 2px 10px rgba(124, 58, 237, 0.10), inset 0 1px 1px #ffffff !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
     }
 
     .header-player-avatar {
@@ -1718,17 +1723,22 @@ function renderFullApplication(initialTab = "dashboard") {
 
     [data-theme="light-awakening"] .bottom-nav-dock,
     [data-theme="light-awakening"] .tab-bar-track {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.90) 0%, rgba(245, 240, 255, 0.74) 50%, rgba(238, 233, 254, 0.84) 100%) !important;
-      backdrop-filter: blur(32px) saturate(220%) !important;
-      -webkit-backdrop-filter: blur(32px) saturate(220%) !important;
-      border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
-      border-top: 2px solid #ffffff !important;
-      border-bottom: 1.5px solid rgba(124, 58, 237, 0.38) !important;
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.70) 0%, 
+        rgba(243, 238, 255, 0.48) 40%, 
+        rgba(237, 230, 254, 0.58) 80%, 
+        rgba(255, 255, 255, 0.72) 100%) !important;
+      backdrop-filter: blur(28px) saturate(200%) contrast(104%) !important;
+      -webkit-backdrop-filter: blur(28px) saturate(200%) contrast(104%) !important;
+      border: 1.5px solid rgba(124, 58, 237, 0.28) !important;
+      border-top: 1.5px solid rgba(255, 255, 255, 0.98) !important;
+      border-bottom: 1.5px solid rgba(109, 40, 217, 0.35) !important;
       box-shadow: 
-        0 24px 54px -8px rgba(124, 58, 237, 0.30),
-        0 8px 24px -2px rgba(15, 23, 42, 0.12),
-        inset 0 2px 3px 0 #ffffff,
-        inset 0 -2px 4px 0 rgba(124, 58, 237, 0.16) !important;
+        0 24px 54px -8px rgba(124, 58, 237, 0.28),
+        0 8px 24px -2px rgba(15, 23, 42, 0.10),
+        0 0 0 1px rgba(124, 58, 237, 0.16),
+        inset 0 2px 3px 0 rgba(255, 255, 255, 0.98),
+        inset 0 -2px 4px 0 rgba(124, 58, 237, 0.12) !important;
     }
 
     /* NAV TAB : POLISHED GLASS PILL */
@@ -1864,11 +1874,13 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     [data-theme="light-awakening"] .nav-tab {
-      background: rgba(255, 255, 255, 0.60) !important;
+      background: rgba(255, 255, 255, 0.55) !important;
       border: 1px solid rgba(124, 58, 237, 0.22) !important;
-      border-top: 1px solid #ffffff !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
       color: #475569 !important;
-      box-shadow: 0 2px 6px rgba(124, 58, 237, 0.08), inset 0 1px 1px #ffffff !important;
+      box-shadow: 0 2px 6px rgba(124, 58, 237, 0.08), inset 0 1px 1.5px rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
     }
     [data-theme="light-awakening"] .nav-tab:hover {
       color: #7c3aed !important;
