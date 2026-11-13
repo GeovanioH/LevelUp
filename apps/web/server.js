@@ -5191,7 +5191,7 @@ function renderFullApplication(initialTab = "dashboard") {
         for (const k of Object.keys(obj)) {
           if (typeof obj[k] === 'string') {
             if (!obj[k].includes('://')) {
-              obj[k] = obj[k].replace(/\s*\/\/\s*/g, ' — ');
+              obj[k] = obj[k].split('//').join(' — ');
             }
           } else if (typeof obj[k] === 'object') {
             sanitizeObj(obj[k]);
@@ -5208,7 +5208,7 @@ function renderFullApplication(initialTab = "dashboard") {
         let node;
         while ((node = walker.nextNode())) {
           if (node.nodeValue && node.nodeValue.includes('//') && !node.nodeValue.includes('://')) {
-            node.nodeValue = node.nodeValue.replace(/\s*\/\/\s*/g, ' — ');
+            node.nodeValue = node.nodeValue.split('//').join(' — ');
           }
         }
       } catch (e) {}
