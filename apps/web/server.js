@@ -1626,26 +1626,7 @@ function renderFullApplication(initialTab = "dashboard") {
         margin 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .nav-shortcut {
-      max-width: 0;
-      opacity: 0;
-      overflow: hidden;
-      white-space: nowrap;
-      pointer-events: none;
-      font-size: 8.5px;
-      font-family: var(--font-mono, monospace);
-      background: rgba(0, 0, 0, 0.45);
-      border: 1px solid rgba(192, 132, 252, 0.35);
-      padding: 0;
-      border-radius: 4px;
-      color: var(--neon-cyan, #06b6d4);
-      margin-left: 0;
-      transition: 
-        max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-        opacity 0.22s cubic-bezier(0.4, 0, 0.2, 1),
-        padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-        margin 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    
 
     /* INDICATEUR LUMINEUX DISCRET SOUS L'ONGLET ACTIF */
     .nav-active-dot {
@@ -1687,12 +1668,7 @@ function renderFullApplication(initialTab = "dashboard") {
       opacity: 1;
       margin-left: 2px;
     }
-    .nav-tab:hover .nav-shortcut {
-      max-width: 50px;
-      opacity: 0.92;
-      padding: 1px 5px;
-      margin-left: 3px;
-    }
+    .nav-tab:hover 
 
     /* ONGLET ACTIF : GÉLULE DE VERRE LUMINESCENTE */
     .nav-tab.active {
@@ -1710,11 +1686,7 @@ function renderFullApplication(initialTab = "dashboard") {
       filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.95));
       transform: scale(1.08);
     }
-    .nav-tab.active .nav-shortcut {
-      background: rgba(255, 255, 255, 0.22);
-      border-color: rgba(255, 255, 255, 0.5);
-      color: #ffffff;
-    }
+    .nav-tab.active 
     .nav-tab.active:hover {
       background: linear-gradient(135deg, rgba(168, 85, 247, 0.82), rgba(124, 58, 237, 0.98));
       box-shadow: 
@@ -1740,11 +1712,7 @@ function renderFullApplication(initialTab = "dashboard") {
       border: 1px solid rgba(255, 255, 255, 0.6);
       box-shadow: 0 4px 22px rgba(124, 58, 237, 0.45);
     }
-    [data-theme="light-awakening"] .nav-tab.active .nav-shortcut {
-      background: rgba(255, 255, 255, 0.25);
-      border-color: rgba(255, 255, 255, 0.5);
-      color: #ffffff;
-    }
+    [data-theme="light-awakening"] .nav-tab.active 
 
     /* MAIN APP AREA */
     .app-main-area {
@@ -4116,64 +4084,54 @@ function renderFullApplication(initialTab = "dashboard") {
     <!-- FLOATING BOTTOM NAV BAR DOCK (10 CANONICAL SCREENS) -->
     <nav class="bottom-nav-bar nav-bar" aria-label="Navigation Principale">
       <div class="bottom-nav-dock">
-        <button class="nav-tab ${initialTab === "dashboard" ? "active" : ""}" onclick="switchView('dashboard')" title="HUD Souverain (Alt+1)" aria-label="HUD Souverain">
+        <button class="nav-tab ${initialTab === "dashboard" ? "active" : ""}" onclick="switchView('dashboard')" title="HUD Souverain" aria-label="HUD Souverain">
           <span class="nav-tab-icon">${NAV_ICONS.dashboard}</span>
           <span class="nav-tab-label">HUD SOUVERAIN</span>
-          <span class="nav-shortcut">Alt+1</span>
           <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "skills" ? "active" : ""}" onclick="switchView('skills')" title="Arbre des Compétences DAG (Alt+2)" aria-label="Compétences DAG">
+        <button class="nav-tab ${initialTab === "skills" ? "active" : ""}" onclick="switchView('skills')" title="Compétences DAG" aria-label="Compétences DAG">
           <span class="nav-tab-icon">${NAV_ICONS.skills}</span>
           <span class="nav-tab-label">COMPÉTENCES DAG</span>
-          <span class="nav-shortcut">Alt+2</span>
           <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "quests" ? "active" : ""}" onclick="switchView('quests')" title="Journal des Quêtes du Jour (Alt+3)" aria-label="Quêtes du Jour">
+        <button class="nav-tab ${initialTab === "quests" ? "active" : ""}" onclick="switchView('quests')" title="Quêtes du Jour" aria-label="Quêtes du Jour">
           <span class="nav-tab-icon">${NAV_ICONS.quests}</span>
           <span class="nav-tab-label">QUÊTES DU JOUR</span>
-          <span class="nav-shortcut">Alt+3</span>
           <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "planner" ? "active" : ""}" onclick="switchView('planner')" title="Planificateur Circadien (Alt+4)" aria-label="Time-Blocking">
+        <button class="nav-tab ${initialTab === "planner" ? "active" : ""}" onclick="switchView('planner')" title="Time-Blocking" aria-label="Time-Blocking">
           <span class="nav-tab-icon">${NAV_ICONS.planner}</span>
           <span class="nav-tab-label">TIME-BLOCKING</span>
-          <span class="nav-shortcut">Alt+4</span>
           <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "notes" ? "active" : ""}" onclick="switchView('notes')" title="Second Brain & Markdown (Alt+5)" aria-label="Second Brain">
+        <button class="nav-tab ${initialTab === "notes" ? "active" : ""}" onclick="switchView('notes')" title="Second Brain" aria-label="Second Brain">
           <span class="nav-tab-icon">${NAV_ICONS.notes}</span>
           <span class="nav-tab-label">SECOND BRAIN</span>
-          <span class="nav-shortcut">Alt+5</span>
           <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "audio" ? "active" : ""}" onclick="switchView('audio')" title="Station Vocale FFT & Socrate (Alt+6)" aria-label="Station Vocale">
+        <button class="nav-tab ${initialTab === "audio" ? "active" : ""}" onclick="switchView('audio')" title="Station Vocale" aria-label="Station Vocale">
           <span class="nav-tab-icon">${NAV_ICONS.audio}</span>
           <span class="nav-tab-label">STATION VOCALE</span>
-          <span class="nav-shortcut">Alt+6</span>
           <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "opportunities" ? "active" : ""}" onclick="switchView('opportunities')" title="Veille Bourses & Hackathons (Alt+7)" aria-label="Veille Bourses">
+        <button class="nav-tab ${initialTab === "opportunities" ? "active" : ""}" onclick="switchView('opportunities')" title="Veille Bourses" aria-label="Veille Bourses">
           <span class="nav-tab-icon">${NAV_ICONS.opportunities}</span>
           <span class="nav-tab-label">VEILLE BOURSES</span>
-          <span class="nav-shortcut">Alt+7</span>
           <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "shop" ? "active" : ""}" onclick="switchView('shop')" title="Boutique d'Ombre & Inventaire (Alt+8)" aria-label="Boutique d'Ombre">
+        <button class="nav-tab ${initialTab === "shop" ? "active" : ""}" onclick="switchView('shop')" title="Boutique d'Ombre" aria-label="Boutique d'Ombre">
           <span class="nav-tab-icon">${NAV_ICONS.shop}</span>
           <span class="nav-tab-label">BOUTIQUE D'OMBRE</span>
-          <span class="nav-shortcut">Alt+8</span>
           <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "penalty" ? "active" : ""}" onclick="switchView('penalty')" title="Zone de Pénalité Inviolable (Alt+9)" aria-label="Zone Pénalité">
+        <button class="nav-tab ${initialTab === "penalty" ? "active" : ""}" onclick="switchView('penalty')" title="Zone Pénalité" aria-label="Zone Pénalité">
           <span class="nav-tab-icon">${NAV_ICONS.penalty}</span>
           <span class="nav-tab-label">ZONE PÉNALITÉ</span>
-          <span class="nav-shortcut">Alt+9</span>
           <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "workout" ? "active" : ""}" onclick="switchView('workout')" title="Vision Sport MediaPipe (Alt+0)" aria-label="Vision Sport">
+        <button class="nav-tab ${initialTab === "workout" ? "active" : ""}" onclick="switchView('workout')" title="Vision Sport" aria-label="Vision Sport">
           <span class="nav-tab-icon">${NAV_ICONS.workout}</span>
           <span class="nav-tab-label">VISION SPORT</span>
-          <span class="nav-shortcut">Alt+0</span>
           <span class="nav-active-dot"></span>
         </button>
       </div>
