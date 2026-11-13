@@ -696,6 +696,20 @@ function getHarmonicScore(playerBases = SYSTEM_STATE.player.bases) {
 }
 
 // Render Master Application
+// CANONICAL VECTOR SVG ICONS FOR SOVEREIGN BOTTOM DOCK (NO EMOJIS)
+const NAV_ICONS = {
+  dashboard: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>`,
+  skills: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 6.5v4.5"/><path d="M12 11L6.8 17"/><path d="M12 11l5.2 6"/></svg>`,
+  quests: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/><polyline points="9 9 10 10 12 8"/></svg>`,
+  planner: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="12 14 12 17 15 17"/></svg>`,
+  notes: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A4.5 4.5 0 0 0 5 6.5C5 7.4 5.3 8.2 5.8 8.9A4.5 4.5 0 0 0 4 12.5a4.5 4.5 0 0 0 1.8 3.6C5.3 16.8 5 17.6 5 18.5A4.5 4.5 0 0 0 9.5 23c1.5 0 2.8-.7 3.5-1.8.7 1.1 2 1.8 3.5 1.8a4.5 4.5 0 0 0 4.5-4.5c0-.9-.3-1.7-.8-2.4A4.5 4.5 0 0 0 22 12.5a4.5 4.5 0 0 0-1.8-3.6c.5-.7.8-1.5.8-2.4A4.5 4.5 0 0 0 16.5 2c-1.5 0-2.8.7-3.5 1.8A4.48 4.48 0 0 0 9.5 2z"/><line x1="12" y1="4" x2="12" y2="20"/></svg>`,
+  audio: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>`,
+  opportunities: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+  shop: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20"/><path d="M10 3l-2 6 4 12 4-12-2-6"/></svg>`,
+  penalty: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+  workout: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
+};
+
 function renderFullApplication(initialTab = "dashboard") {
   const player = SYSTEM_STATE.player;
   const harmonicScore = getHarmonicScore();
@@ -1362,22 +1376,21 @@ function renderFullApplication(initialTab = "dashboard") {
       white-space: nowrap;
     }
 
-    /* FLOATING BOTTOM NAV BAR DOCK */
+    /* FLOATING BOTTOM NAV BAR DOCK (FROSTED GLASSMORPHISM) */
     .bottom-nav-bar.nav-bar,
     .top-tab-bar.nav-bar {
       width: 100%;
-      background: linear-gradient(180deg, transparent 0%, rgba(7, 4, 20, 0.75) 35%, var(--surface-container-lowest) 100%);
-      backdrop-filter: blur(28px) saturate(190%);
-      -webkit-backdrop-filter: blur(28px) saturate(190%);
-      border-top: 1px solid var(--glass-inner-border-subtle);
+      background: linear-gradient(180deg, transparent 0%, rgba(7, 4, 20, 0.5) 40%, rgba(5, 3, 14, 0.88) 100%);
+      border-top: none;
       border-bottom: none;
-      padding: 8px 16px 12px 16px;
+      padding: 6px 16px 12px 16px;
       flex-shrink: 0;
       z-index: 100;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.3s ease, border-color 0.3s ease;
+      transition: background 0.3s ease;
+      pointer-events: none;
     }
     .bottom-nav-bar.nav-bar::-webkit-scrollbar,
     .top-tab-bar.nav-bar::-webkit-scrollbar {
@@ -1386,25 +1399,33 @@ function renderFullApplication(initialTab = "dashboard") {
 
     [data-theme="light-awakening"] .bottom-nav-bar.nav-bar,
     [data-theme="light-awakening"] .top-tab-bar.nav-bar {
-      background: linear-gradient(180deg, transparent 0%, rgba(245, 243, 255, 0.85) 35%, rgba(255, 255, 255, 0.96) 100%);
-      border-top: 1px solid rgba(124, 58, 237, 0.2);
+      background: linear-gradient(180deg, transparent 0%, rgba(245, 243, 255, 0.55) 40%, rgba(255, 255, 255, 0.9) 100%);
     }
 
+    /* PURE FROSTED GLASS DOCK CAPSULE */
     .bottom-nav-dock,
     .tab-bar-track {
-      display: flex;
+      pointer-events: auto;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 5px;
-      background: rgba(14, 9, 30, 0.85);
-      border: 1px solid var(--glass-inner-border);
+      background: rgba(14, 9, 30, 0.72);
+      backdrop-filter: blur(28px) saturate(210%);
+      -webkit-backdrop-filter: blur(28px) saturate(210%);
+      border: 1px solid rgba(168, 85, 247, 0.35);
       border-radius: var(--radius-pill, 9999px);
       padding: 5px 8px;
-      box-shadow: 0 10px 32px -4px rgba(0, 0, 0, 0.65), 0 0 24px -2px rgba(168, 85, 247, 0.28);
-      max-width: 100%;
+      box-shadow: 
+        0 18px 45px -8px rgba(0, 0, 0, 0.8),
+        0 0 32px -4px rgba(168, 85, 247, 0.3),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.18),
+        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.45);
+      max-width: 98vw;
       overflow-x: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .bottom-nav-dock::-webkit-scrollbar,
     .tab-bar-track::-webkit-scrollbar {
@@ -1413,97 +1434,185 @@ function renderFullApplication(initialTab = "dashboard") {
 
     [data-theme="light-awakening"] .bottom-nav-dock,
     [data-theme="light-awakening"] .tab-bar-track {
-      background: rgba(255, 255, 255, 0.94);
-      border: 1px solid rgba(124, 58, 237, 0.32);
-      box-shadow: 0 10px 28px -4px rgba(124, 58, 237, 0.2), 0 0 20px rgba(168, 85, 247, 0.18);
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(124, 58, 237, 0.3);
+      box-shadow: 
+        0 14px 38px -6px rgba(124, 58, 237, 0.2),
+        0 0 24px rgba(168, 85, 247, 0.16),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
     }
 
+    /* NAV TAB : STRICTEMENT AUCUN TEXTE EN IDLE (SEULEMENT ICONE VECTORIELLE) */
     .nav-tab {
       background: transparent;
       border: 1px solid transparent;
-      color: var(--text-secondary);
-      font-family: var(--font-display);
+      color: var(--text-secondary, #94a3b8);
+      font-family: var(--font-display, 'Rajdhani', sans-serif);
       font-weight: 700;
       font-size: 11px;
       letter-spacing: 0.6px;
-      padding: 7px 13px;
+      height: 40px;
+      min-width: 40px;
+      padding: 0 10px;
       border-radius: var(--radius-pill, 9999px);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-      width: auto;
-      text-align: left;
+      justify-content: center;
+      gap: 0;
       position: relative;
       white-space: nowrap;
       user-select: none;
+      outline: none;
+      overflow: hidden;
+      transition: 
+        padding 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+        gap 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
     .nav-tab-icon {
-      font-size: 13px;
-      width: 18px;
+      width: 20px;
+      height: 20px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: transform 0.2s ease;
+      color: inherit;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease, filter 0.25s ease;
     }
-    .nav-tab-label {
-      white-space: nowrap;
-    }
-    .nav-tab:hover {
-      color: var(--text-white);
-      background: rgba(168, 85, 247, 0.16);
-      border-color: rgba(168, 85, 247, 0.35);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(168, 85, 247, 0.25);
-    }
-    .nav-tab:hover .nav-tab-icon {
-      transform: scale(1.15);
+    .nav-tab-icon svg {
+      width: 20px;
+      height: 20px;
+      display: block;
     }
 
-    /* ACTIVE TAB: ROUNDED CAPSULE PILL HIGHLIGHT */
+    /* AUCUN TEXTE VISIBLE HORS HOVER */
+    .nav-tab-label {
+      max-width: 0;
+      opacity: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      pointer-events: none;
+      margin-left: 0;
+      transition: 
+        max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+        margin 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-shortcut {
+      max-width: 0;
+      opacity: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      pointer-events: none;
+      font-size: 8.5px;
+      font-family: var(--font-mono, monospace);
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      padding: 0;
+      border-radius: 4px;
+      color: var(--neon-cyan, #06b6d4);
+      margin-left: 0;
+      transition: 
+        max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+        padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        margin 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* INDICATEUR LUMINEUX DISCRET SOUS L'ONGLET ACTIF */
+    .nav-active-dot {
+      position: absolute;
+      bottom: 2.5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--neon-cyan, #06b6d4);
+      box-shadow: 0 0 8px var(--neon-cyan, #06b6d4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, bottom 0.25s ease;
+    }
+    .nav-tab.active .nav-active-dot {
+      opacity: 1;
+    }
+
+    /* AU HOVER : EXPANSION HORIZONTALE EN GÉLULE + APPARITION DU TEXTE */
+    .nav-tab:hover {
+      color: var(--text-white, #ffffff);
+      background: rgba(168, 85, 247, 0.2);
+      border-color: rgba(192, 132, 252, 0.45);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.3);
+      padding: 0 14px;
+      gap: 7px;
+    }
+    .nav-tab:hover .nav-tab-icon {
+      transform: scale(1.12);
+      color: #d8b4fe;
+      filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.75));
+    }
+    .nav-tab:hover .nav-tab-label {
+      max-width: 160px;
+      opacity: 1;
+      margin-left: 2px;
+    }
+    .nav-tab:hover .nav-shortcut {
+      max-width: 50px;
+      opacity: 0.92;
+      padding: 1px 5px;
+      margin-left: 3px;
+    }
+
+    /* ONGLET ACTIF : GÉLULE DE VERRE FROSTÉE SOLO LEVELING */
     .nav-tab.active {
       color: #ffffff;
       background: linear-gradient(135deg, rgba(168, 85, 247, 0.65), rgba(124, 58, 237, 0.88));
-      border: 1px solid rgba(192, 132, 252, 0.65);
-      box-shadow: 0 0 20px rgba(168, 85, 247, 0.55), inset 0 0 8px rgba(255, 255, 255, 0.28);
+      border: 1px solid rgba(216, 180, 254, 0.7);
+      box-shadow: 
+        0 0 22px rgba(168, 85, 247, 0.6),
+        inset 0 1px 1px rgba(255, 255, 255, 0.4);
       transform: translateY(-1px);
     }
     .nav-tab.active .nav-tab-icon {
+      color: #ffffff;
       filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.95));
-      transform: scale(1.1);
-    }
-    .nav-shortcut {
-      font-size: 8.5px;
-      font-family: var(--font-mono);
-      opacity: 0.8;
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(192, 132, 252, 0.35);
-      padding: 1px 4px;
-      border-radius: 4px;
-      color: var(--neon-cyan);
-      margin-left: 2px;
+      transform: scale(1.08);
     }
     .nav-tab.active .nav-shortcut {
       background: rgba(255, 255, 255, 0.22);
-      border-color: rgba(255, 255, 255, 0.45);
+      border-color: rgba(255, 255, 255, 0.5);
       color: #ffffff;
+    }
+    .nav-tab.active:hover {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.8), rgba(124, 58, 237, 0.95));
+      box-shadow: 
+        0 0 28px rgba(168, 85, 247, 0.75),
+        inset 0 1px 1px rgba(255, 255, 255, 0.55);
     }
 
     [data-theme="light-awakening"] .nav-tab:hover {
-      color: #0f172a;
-      background: rgba(124, 58, 237, 0.1);
-      border-color: rgba(124, 58, 237, 0.28);
+      color: #4c1d95;
+      background: rgba(124, 58, 237, 0.12);
+      border-color: rgba(124, 58, 237, 0.35);
     }
     [data-theme="light-awakening"] .nav-tab.active {
       color: #ffffff;
-      background: linear-gradient(135deg, #7c3aed, #9333ea);
-      border: 1px solid #7c3aed;
-      box-shadow: 0 4px 18px rgba(124, 58, 237, 0.45), inset 0 0 6px rgba(255, 255, 255, 0.2);
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.9), rgba(109, 40, 217, 0.95));
+      border: 1px solid rgba(124, 58, 237, 0.8);
+      box-shadow: 0 4px 18px rgba(124, 58, 237, 0.4);
     }
     [data-theme="light-awakening"] .nav-tab.active .nav-shortcut {
-      background: rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.25);
       border-color: rgba(255, 255, 255, 0.5);
       color: #ffffff;
     }
@@ -3866,57 +3975,67 @@ function renderFullApplication(initialTab = "dashboard") {
     </div> <!-- close app-main-area -->
 
     <!-- FLOATING BOTTOM NAV BAR DOCK (10 CANONICAL SCREENS) -->
-    <nav class="bottom-nav-bar nav-bar">
+    <nav class="bottom-nav-bar nav-bar" aria-label="Navigation Principale">
       <div class="bottom-nav-dock">
-        <button class="nav-tab ${initialTab === "dashboard" ? "active" : ""}" onclick="switchView('dashboard')">
-          <span class="nav-tab-icon">📊</span>
+        <button class="nav-tab ${initialTab === "dashboard" ? "active" : ""}" onclick="switchView('dashboard')" title="HUD Souverain (Alt+1)" aria-label="HUD Souverain">
+          <span class="nav-tab-icon">${NAV_ICONS.dashboard}</span>
           <span class="nav-tab-label">HUD SOUVERAIN</span>
           <span class="nav-shortcut">Alt+1</span>
+          <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "skills" ? "active" : ""}" onclick="switchView('skills')">
-          <span class="nav-tab-icon">⚡</span>
+        <button class="nav-tab ${initialTab === "skills" ? "active" : ""}" onclick="switchView('skills')" title="Arbre des Compétences DAG (Alt+2)" aria-label="Compétences DAG">
+          <span class="nav-tab-icon">${NAV_ICONS.skills}</span>
           <span class="nav-tab-label">COMPÉTENCES DAG</span>
           <span class="nav-shortcut">Alt+2</span>
+          <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "quests" ? "active" : ""}" onclick="switchView('quests')">
-          <span class="nav-tab-icon">📜</span>
+        <button class="nav-tab ${initialTab === "quests" ? "active" : ""}" onclick="switchView('quests')" title="Journal des Quêtes du Jour (Alt+3)" aria-label="Quêtes du Jour">
+          <span class="nav-tab-icon">${NAV_ICONS.quests}</span>
           <span class="nav-tab-label">QUÊTES DU JOUR</span>
           <span class="nav-shortcut">Alt+3</span>
+          <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "planner" ? "active" : ""}" onclick="switchView('planner')">
-          <span class="nav-tab-icon">📅</span>
+        <button class="nav-tab ${initialTab === "planner" ? "active" : ""}" onclick="switchView('planner')" title="Planificateur Circadien (Alt+4)" aria-label="Time-Blocking">
+          <span class="nav-tab-icon">${NAV_ICONS.planner}</span>
           <span class="nav-tab-label">TIME-BLOCKING</span>
           <span class="nav-shortcut">Alt+4</span>
+          <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "notes" ? "active" : ""}" onclick="switchView('notes')">
-          <span class="nav-tab-icon">🧠</span>
+        <button class="nav-tab ${initialTab === "notes" ? "active" : ""}" onclick="switchView('notes')" title="Second Brain & Markdown (Alt+5)" aria-label="Second Brain">
+          <span class="nav-tab-icon">${NAV_ICONS.notes}</span>
           <span class="nav-tab-label">SECOND BRAIN</span>
           <span class="nav-shortcut">Alt+5</span>
+          <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "audio" ? "active" : ""}" onclick="switchView('audio')">
-          <span class="nav-tab-icon">🎙️</span>
+        <button class="nav-tab ${initialTab === "audio" ? "active" : ""}" onclick="switchView('audio')" title="Station Vocale FFT & Socrate (Alt+6)" aria-label="Station Vocale">
+          <span class="nav-tab-icon">${NAV_ICONS.audio}</span>
           <span class="nav-tab-label">STATION VOCALE</span>
           <span class="nav-shortcut">Alt+6</span>
+          <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "opportunities" ? "active" : ""}" onclick="switchView('opportunities')">
-          <span class="nav-tab-icon">🌐</span>
+        <button class="nav-tab ${initialTab === "opportunities" ? "active" : ""}" onclick="switchView('opportunities')" title="Veille Bourses & Hackathons (Alt+7)" aria-label="Veille Bourses">
+          <span class="nav-tab-icon">${NAV_ICONS.opportunities}</span>
           <span class="nav-tab-label">VEILLE BOURSES</span>
           <span class="nav-shortcut">Alt+7</span>
+          <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "shop" ? "active" : ""}" onclick="switchView('shop')">
-          <span class="nav-tab-icon">💎</span>
+        <button class="nav-tab ${initialTab === "shop" ? "active" : ""}" onclick="switchView('shop')" title="Boutique d'Ombre & Inventaire (Alt+8)" aria-label="Boutique d'Ombre">
+          <span class="nav-tab-icon">${NAV_ICONS.shop}</span>
           <span class="nav-tab-label">BOUTIQUE D'OMBRE</span>
           <span class="nav-shortcut">Alt+8</span>
+          <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "penalty" ? "active" : ""}" onclick="switchView('penalty')">
-          <span class="nav-tab-icon">⚠️</span>
+        <button class="nav-tab ${initialTab === "penalty" ? "active" : ""}" onclick="switchView('penalty')" title="Zone de Pénalité Inviolable (Alt+9)" aria-label="Zone Pénalité">
+          <span class="nav-tab-icon">${NAV_ICONS.penalty}</span>
           <span class="nav-tab-label">ZONE PÉNALITÉ</span>
           <span class="nav-shortcut">Alt+9</span>
+          <span class="nav-active-dot"></span>
         </button>
-        <button class="nav-tab ${initialTab === "workout" ? "active" : ""}" onclick="switchView('workout')">
-          <span class="nav-tab-icon">📷</span>
+        <button class="nav-tab ${initialTab === "workout" ? "active" : ""}" onclick="switchView('workout')" title="Vision Sport MediaPipe (Alt+0)" aria-label="Vision Sport">
+          <span class="nav-tab-icon">${NAV_ICONS.workout}</span>
           <span class="nav-tab-label">VISION SPORT</span>
           <span class="nav-shortcut">Alt+0</span>
+          <span class="nav-active-dot"></span>
         </button>
       </div>
     </nav>
