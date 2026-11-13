@@ -54,7 +54,7 @@ const DEFAULT_STATE = {
   player: {
     id: "a5d8b74f-9e32-4d2b-98f5-19e48f029a1b",
     name: "Huriel",
-    title: "Le Chasseur Souverain (Éveil Novice)",
+    title: "Wolf Assassin (Le Chasseur Souverain)",
     level: 14,
     rank: "D",
     currentXp: 18450,
@@ -68,6 +68,14 @@ const DEFAULT_STATE = {
     maxMp: 100,
     hoursAwake: 7.5,
     curfewTime: "22:00",
+    attributes: {
+      str: 50,
+      agi: 35,
+      per: 29,
+      vit: 27,
+      int: 27,
+      remainingPoints: 3,
+    },
     bases: {
       acad: { name: "Excellence Académique (ACAD)", score: 55, level: 15 },
       ai_eng: {
@@ -328,7 +336,7 @@ Bienvenue dans le graphe de connaissances central du Système LevelUp (Obsidian 
 - **Cybersécurité Offensive :** [[Exploitation de Buffer Overflow x86]] et [[Élévation de Privilèges Linux]].
 - **Fondations Mathématiques :** [[Décomposition en Valeurs Singulières (SVD)]].
 - **Biomécanique & Sport :** [[Cinématique Push-Ups & MediaPipe]] et [[Modèle de Fatigue de Gandevia]].
-- **Rhétorique & Anglais :** [[Lexique Socratique Cambridge C1]].`
+- **Rhétorique & Anglais :** [[Lexique Socratique Cambridge C1]].`,
     },
     {
       id: "note-flashattention",
@@ -350,7 +358,7 @@ FlashAttention-2 résout le goulet d'étranglement mémoire en maintenant les é
 - Implémenté via [[Triton Custom Kernels & CUDA]]
 - Optimise les transferts dans [[Hiérarchies Mémoire GPU & VRAM HBM]]
 - Utilisé pour le PagedAttention dans [[vLLM & KV Cache Paging]]
-- Relie les projections orthogonales de [[Décomposition en Valeurs Singulières (SVD)]]`
+- Relie les projections orthogonales de [[Décomposition en Valeurs Singulières (SVD)]]`,
     },
     {
       id: "note-triton-kernels",
@@ -373,7 +381,7 @@ def _fused_attention_kernel(Q, K, V, sm_scale, Out, BLOCK_M: tl.constexpr):
 
 ### Liens sémantiques :
 - Requis par [[FlashAttention-2 & Optimisation Mémoire]]
-- Exploite directement les [[Hiérarchies Mémoire GPU & VRAM HBM]]`
+- Exploite directement les [[Hiérarchies Mémoire GPU & VRAM HBM]]`,
     },
     {
       id: "note-gpu-memory",
@@ -391,7 +399,7 @@ La latence et la bande passante sur architecture NVIDIA Ampere / Hopper / Ada :
 
 ### Liens sémantiques :
 - Fondement matériel de [[FlashAttention-2 & Optimisation Mémoire]]
-- Contrainte majeure pour [[vLLM & KV Cache Paging]]`
+- Contrainte majeure pour [[vLLM & KV Cache Paging]]`,
     },
     {
       id: "note-vllm-paging",
@@ -406,7 +414,7 @@ L'algorithme PagedAttention s'inspire de la mémoire virtuelle des systèmes d'e
 
 ### Liens sémantiques :
 - Réduit la fragmentation mémoire de [[Hiérarchies Mémoire GPU & VRAM HBM]]
-- Accélère l'attention définie dans [[FlashAttention-2 & Optimisation Mémoire]]`
+- Accélère l'attention définie dans [[FlashAttention-2 & Optimisation Mémoire]]`,
     },
     {
       id: "note-algebre-svd-ia",
@@ -427,7 +435,7 @@ $$\\sigma_1 \\ge \\sigma_2 \\ge \\dots \\ge \\sigma_r > 0$$
 
 ### Liens sémantiques :
 - Base mathématique de la compression LoRA pour [[FlashAttention-2 & Optimisation Mémoire]]
-- Référencé dans [[README - Coffre de Connaissances du Monarque]]`
+- Référencé dans [[README - Coffre de Connaissances du Monarque]]`,
     },
     {
       id: "note-tryhackme-buffer-overflow",
@@ -442,7 +450,7 @@ Recherche du décalage exact avec \`pattern_create\` et \`pattern_offset\` dans 
 
 ### Liens sémantiques :
 - Complément indispensable pour [[Élévation de Privilèges Linux]]
-- Infiltration liée à [[README - Coffre de Connaissances du Monarque]]`
+- Infiltration liée à [[README - Coffre de Connaissances du Monarque]]`,
     },
     {
       id: "note-linux-privesc",
@@ -456,7 +464,7 @@ Recherche du décalage exact avec \`pattern_create\` et \`pattern_offset\` dans 
 Techniques d'audit local : binaires SUID mal configurés (\`find / -perm -4000\`), cron jobs vulnérables, capabilités Linux (\`getcap\`) et exploitation de failles de kernel (Dirty Pipe).
 
 ### Liens sémantiques :
-- Seconde phase après [[Exploitation de Buffer Overflow x86]]`
+- Seconde phase après [[Exploitation de Buffer Overflow x86]]`,
     },
     {
       id: "note-mediapipe-pushups",
@@ -473,7 +481,7 @@ Suivi en temps réel de 33 points squelettiques via Computer Vision.
 
 ### Liens sémantiques :
 - Corrélé avec la gestion de fatigue dans [[Modèle de Fatigue de Gandevia]]
-- Présent dans [[README - Coffre de Connaissances du Monarque]]`
+- Présent dans [[README - Coffre de Connaissances du Monarque]]`,
     },
     {
       id: "note-fatigue-gandevia",
@@ -487,7 +495,7 @@ Suivi en temps réel de 33 points squelettiques via Computer Vision.
 Distinction scientifique entre fatigue centrale (diminution de la commande motrice volontaire par le SNC) et fatigue périphérique (altération contractile neuromusculaire).
 
 ### Liens sémantiques :
-- Régule les séries strictes de [[Cinématique Push-Ups & MediaPipe]]`
+- Régule les séries strictes de [[Cinématique Push-Ups & MediaPipe]]`,
     },
     {
       id: "note-cambridge-c1",
@@ -504,8 +512,8 @@ Structures rhétoriques formelles indispensables pour l'évaluation orale à 20 
 - *"The quintessential dilemma resides in..."*
 
 ### Liens sémantiques :
-- Référencé dans [[README - Coffre de Connaissances du Monarque]]`
-    }
+- Référencé dans [[README - Coffre de Connaissances du Monarque]]`,
+    },
   ],
   opportunities: [
     {
@@ -646,19 +654,58 @@ function renderFullApplication(initialTab = "dashboard") {
   <link rel="icon" type="image/svg+xml" href="/logo-monarch.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Rajdhani:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <style>
     :root {
-      /* Sovereign Obsidian-Amethyst Dark Foundations (No flat dull black!) */
+      /* Stitch Shadow Monarch HUD Design Tokens */
+      --surface: #150f2c;
+      --surface-dim: #150f2c;
+      --surface-bright: #3b3554;
+      --surface-container-lowest: #0f0926;
+      --surface-container-low: #1d1734;
+      --surface-container: #211b39;
+      --surface-container-high: #2c2644;
+      --surface-container-highest: #36304f;
+      --on-surface: #e7deff;
+      --on-surface-variant: #cfc2d7;
+      --outline: #988ca0;
+      --outline-variant: #4d4354;
+      --surface-tint: #ddb8ff;
+      --primary: #ddb8ff;
+      --primary-container: #9333ea;
+      --on-primary-container: #f6e6ff;
+      --secondary: #ddb7ff;
+      --secondary-container: #6f00be;
+      --on-secondary-container: #d6a9ff;
+      --tertiary: #45dfa4;
+      --tertiary-container: #007a55;
+      --tertiary-fixed: #68fcbf;
+      --error: #ffb4ab;
+      --error-container: #93000a;
+
+      /* Sovereign Obsidian-Amethyst Dark Foundations */
       --bg-cosmic-0: #070414;
       --bg-cosmic-1: #0d0824;
       --bg-cosmic-2: #160d38;
       
-      /* Glassmorphism Panels (Translucent Dark Violet Crystal) */
-      --glass-panel: rgba(14, 9, 30, 0.82);
-      --glass-panel-elevated: rgba(24, 15, 52, 0.90);
+      /* Glassmorphism Panels */
+      --glass-panel: rgba(21, 15, 44, 0.84);
+      --glass-panel-elevated: rgba(29, 23, 52, 0.92);
+      --glass-panel-subtle: rgba(15, 9, 38, 0.65);
       --glass-inner-border: rgba(168, 85, 247, 0.35);
+      --glass-inner-border-subtle: rgba(168, 85, 247, 0.20);
       --glass-inner-glow: rgba(192, 132, 252, 0.14);
+      --glass-shadow: 0 14px 40px -8px rgba(7, 3, 20, 0.75), 0 0 25px rgba(168, 85, 247, 0.22);
+      --glass-rim: linear-gradient(90deg, transparent 5%, #ffffff 30%, #c084fc 70%, transparent 95%);
+
+      /* Left Sidebar & Master Header */
+      --sidebar-bg: rgba(12, 7, 28, 0.88);
+      --sidebar-border: 1px solid rgba(168, 85, 247, 0.32);
+      --sidebar-shadow: 4px 0 24px -2px rgba(147, 51, 234, 0.25);
+      --header-bg: rgba(12, 7, 28, 0.90);
+      --header-border: 1px solid rgba(168, 85, 247, 0.28);
 
       /* Sovereign White & Violet Palette */
       --primary-white: #ffffff;
@@ -670,7 +717,7 @@ function renderFullApplication(initialTab = "dashboard") {
       --light-lavender: #ddd6fe;
       --soft-lavender: #e9d5ff;
 
-      /* Mapping neon cyan to luminous violet so all existing badges, borders & accents become radiant violet & white */
+      /* Mana Conduits & Badges */
       --neon-cyan: #c084fc;
       --neon-sky: #ddd6fe;
       --neon-blue: #9333ea;
@@ -678,18 +725,36 @@ function renderFullApplication(initialTab = "dashboard") {
       --monarch-purple: #a855f7;
       
       /* Vibrant Supporting Accents */
-      --transcendent-green: #34d399;
-      --emerald-green: #10b981;
+      --transcendent-green: #45dfa4;
+      --emerald-green: #059669;
       --imperial-gold: #fbbf24;
       --alert-crimson: #f43f5e;
       --danger-red: #ef4444;
 
+      /* Fluid Gauges */
+      --jauge-hp-from: #007a55;
+      --jauge-hp-to: #45dfa4;
+      --jauge-hp-glow: rgba(69, 223, 164, 0.7);
+      --jauge-mp-from: #9333ea;
+      --jauge-mp-to: #c084fc;
+      --jauge-mp-glow: rgba(192, 132, 252, 0.7);
+
+      /* Circular Carousel Fade Mask */
+      --cc-fade: #070414;
+
       /* Text Hierarchy */
       --text-white: #ffffff;
-      --text-secondary: #cbd5e1;
-      --text-muted: #94a3b8;
+      --text-primary: #ffffff;
+      --text-secondary: #cfc2d7;
+      --text-muted: #988ca0;
+      --text-on-accent: #020c24;
 
-      --font-display: 'Rajdhani', sans-serif;
+      /* Box & Input Foundations */
+      --input-bg: rgba(15, 9, 38, 0.85);
+      --input-border: rgba(168, 85, 247, 0.35);
+      --code-bg: rgba(21, 15, 44, 0.90);
+
+      --font-display: 'Space Grotesk', 'Rajdhani', sans-serif;
       --font-body: 'Inter', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
 
@@ -700,36 +765,140 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     [data-theme="light-awakening"] {
+      /* Light Foundations (Albâtre lavande / nacré) */
+      --surface: #ffffff;
+      --surface-dim: #f5f3ff;
+      --surface-bright: #ffffff;
+      --surface-container-lowest: #ffffff;
+      --surface-container-low: #f8f6ff;
+      --surface-container: #f5f3ff;
+      --surface-container-high: #ede9fe;
+      --surface-container-highest: #ddd6fe;
+      --on-surface: #0f172a;
+      --on-surface-variant: #475569;
+      --outline: #94a3b8;
+      --outline-variant: #cbd5e1;
+      --surface-tint: #7c3aed;
+      --primary: #7c3aed;
+      --primary-container: #6d28d9;
+      --on-primary-container: #ffffff;
+      --secondary: #9333ea;
+      --secondary-container: #7c3aed;
+      --on-secondary-container: #ffffff;
+      --tertiary: #047857;
+      --tertiary-container: #d1fae5;
+      --tertiary-fixed: #059669;
+      --error: #e11d48;
+      --error-container: #ffe4e6;
+
       --bg-cosmic-0: #f5f3ff;
-      --bg-cosmic-1: #ede9fe;
-      --bg-cosmic-2: #ddd6fe;
-      --glass-panel: rgba(255, 255, 255, 0.92);
-      --glass-panel-elevated: #ffffff;
-      --glass-inner-border: rgba(168, 85, 247, 0.35);
-      --glass-inner-glow: rgba(192, 132, 252, 0.12);
+      --bg-cosmic-1: #ffffff;
+      --bg-cosmic-2: #ede9fe;
+      
+      /* Glassmorphism Panels (Verre givré lacté haute transparence) */
+      --glass-panel: rgba(255, 255, 255, 0.88);
+      --glass-panel-elevated: rgba(255, 255, 255, 0.96);
+      --glass-panel-subtle: rgba(255, 255, 255, 0.72);
+      --glass-inner-border: rgba(124, 58, 237, 0.28);
+      --glass-inner-border-subtle: rgba(124, 58, 237, 0.16);
+      --glass-inner-glow: rgba(124, 58, 237, 0.08);
+      --glass-shadow: 0 12px 35px -8px rgba(124, 58, 237, 0.12), 0 0 20px rgba(168, 85, 247, 0.10);
+      --glass-rim: linear-gradient(90deg, transparent 5%, #9333ea 30%, #7c3aed 70%, transparent 95%);
+
+      /* Left Sidebar & Master Header */
+      --sidebar-bg: rgba(255, 255, 255, 0.88);
+      --sidebar-border: 1px solid rgba(124, 58, 237, 0.22);
+      --sidebar-shadow: 4px 0 30px rgba(124, 58, 237, 0.10), inset -1px 0 10px rgba(124, 58, 237, 0.05);
+      --header-bg: rgba(255, 255, 255, 0.88);
+      --header-border: 1px solid rgba(124, 58, 237, 0.20);
+
+      /* Mana Conduits & Badges (Violet royal haute saturation) */
+      --primary-white: #0f172a;
+      --pure-white: #0f172a;
+      --primary-violet: #7c3aed;
+      --vibrant-purple: #9333ea;
+      --neon-violet: #7c3aed;
+      --royal-violet: #6d28d9;
+      --light-lavender: #6d28d9;
+      --soft-lavender: #5b21b6;
       --neon-cyan: #7c3aed;
       --neon-sky: #6d28d9;
-      --transcendent-green: #059669;
-      --imperial-gold: #b45309;
+      --neon-blue: #5b21b6;
+      --deep-sapphire: #6d28d9;
+      --monarch-purple: #9333ea;
+
+      /* Supporting Accents */
+      --transcendent-green: #047857;
+      --emerald-green: #10b981;
+      --imperial-gold: #d97706;
+      --alert-crimson: #e11d48;
+      --danger-red: #be123c;
+
+      /* Fluid Gauges */
+      --jauge-hp-from: #047857;
+      --jauge-hp-to: #10b981;
+      --jauge-hp-glow: rgba(16, 185, 129, 0.45);
+      --jauge-mp-from: #6d28d9;
+      --jauge-mp-to: #a855f7;
+      --jauge-mp-glow: rgba(168, 85, 247, 0.45);
+
+      /* Circular Carousel Fade Mask */
+      --cc-fade: #f5f3ff;
+
+      /* Text Hierarchy (Noir-encre améthyste & ardoise) */
       --text-white: #0f172a;
-      --text-secondary: #334155;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
       --text-muted: #64748b;
+      --text-on-accent: #ffffff;
+
+      /* Box & Input Foundations */
+      --input-bg: rgba(245, 243, 255, 0.85);
+      --input-border: rgba(124, 58, 237, 0.3);
+      --code-bg: rgba(243, 240, 255, 0.88);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    .cyber-grid {
+      background-image:
+        linear-gradient(to right, rgba(152, 140, 160, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(152, 140, 160, 0.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .sidebar-glow {
+      box-shadow: 4px 0 24px -2px rgba(147, 51, 234, 0.25);
+    }
+
     body {
       background-color: var(--bg-cosmic-0);
       background-image:
+        linear-gradient(to right, rgba(152, 140, 160, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(152, 140, 160, 0.04) 1px, transparent 1px),
         radial-gradient(ellipse at 15% 15%, rgba(147, 51, 234, 0.25) 0%, transparent 45%),
         radial-gradient(circle at 85% 20%, rgba(192, 132, 252, 0.18) 0%, transparent 40%),
         radial-gradient(circle at 50% 85%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
         radial-gradient(ellipse at 50% 0%, #170a38 0%, #0d0724 50%, #070414 100%);
+      background-size: 24px 24px, 24px 24px, auto, auto, auto, auto;
       background-attachment: fixed;
       color: var(--text-white);
       font-family: var(--font-body);
       min-height: 100vh;
       overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    [data-theme="light-awakening"] body {
+      background-color: #f5f3ff;
+      background-image:
+        linear-gradient(to right, rgba(124, 58, 237, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(124, 58, 237, 0.03) 1px, transparent 1px),
+        radial-gradient(ellipse at 15% 15%, rgba(168, 85, 247, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.10) 0%, transparent 40%),
+        radial-gradient(circle at 50% 85%, rgba(192, 132, 252, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 0%, #ffffff 0%, #faf8ff 50%, #f5f3ff 100%);
+      background-size: 24px 24px, 24px 24px, auto, auto, auto, auto;
+      color: var(--text-white);
     }
 
     #mana-particles-canvas {
@@ -749,10 +918,7 @@ function renderFullApplication(initialTab = "dashboard") {
       -webkit-backdrop-filter: blur(24px) saturate(180%);
       border: 1px solid var(--glass-inner-border);
       border-radius: var(--radius-md);
-      box-shadow: 
-        0 12px 35px -5px rgba(7, 3, 20, 0.7),
-        inset 0 0 20px var(--glass-inner-glow),
-        0 0 18px rgba(168, 85, 247, 0.16);
+      box-shadow: var(--glass-shadow);
       overflow: hidden;
       transition: all 0.25s ease;
       z-index: 2;
@@ -765,7 +931,7 @@ function renderFullApplication(initialTab = "dashboard") {
       left: 0;
       right: 0;
       height: 2px;
-      background: linear-gradient(90deg, transparent 5%, #ffffff 30%, #c084fc 70%, transparent 95%);
+      background: var(--glass-rim);
       opacity: 0.9;
       pointer-events: none;
     }
@@ -793,10 +959,10 @@ function renderFullApplication(initialTab = "dashboard") {
     }
     .spotlight-card:hover::after { opacity: 1; }
     .spotlight-card:hover {
-      border-color: rgba(192, 132, 252, 0.7);
+      border-color: var(--neon-cyan);
       box-shadow: 
-        0 14px 40px -5px rgba(35, 15, 75, 0.65),
-        inset 0 0 25px rgba(192, 132, 252, 0.2),
+        0 14px 40px -5px rgba(35, 15, 75, 0.45),
+        inset 0 0 25px var(--glass-inner-glow),
         0 0 25px rgba(168, 85, 247, 0.35);
     }
 
@@ -807,6 +973,12 @@ function renderFullApplication(initialTab = "dashboard") {
       -webkit-text-fill-color: transparent;
       animation: textShimmer 3.5s ease-in-out infinite;
       display: inline-block;
+    }
+    [data-theme="light-awakening"] .shiny-text {
+      background: linear-gradient(110deg, #0f172a 15%, #7c3aed 45%, #0f172a 75%, #9333ea 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .shiny-gold {
       background: linear-gradient(110deg, #f59e0b 10%, #fffbeb 50%, #ffd700 80%, #f59e0b 100%);
@@ -829,12 +1001,16 @@ function renderFullApplication(initialTab = "dashboard") {
 
     .border-beam-box {
       position: relative;
-      border: 1px solid rgba(255, 0, 60, 0.4);
+      border: 1px solid rgba(244, 63, 94, 0.4);
       background: var(--glass-panel);
       backdrop-filter: blur(20px);
       border-radius: var(--radius-md);
-      box-shadow: 0 0 25px rgba(255, 0, 60, 0.25);
+      box-shadow: 0 0 25px rgba(244, 63, 94, 0.25);
       overflow: hidden;
+    }
+    [data-theme="light-awakening"] .border-beam-box {
+      border-color: rgba(225, 29, 72, 0.4);
+      box-shadow: 0 0 25px rgba(225, 29, 72, 0.2);
     }
     .border-beam-box::before {
       content: "";
@@ -843,14 +1019,14 @@ function renderFullApplication(initialTab = "dashboard") {
       left: -50%;
       width: 200%;
       height: 200%;
-      background: conic-gradient(from 0deg, transparent 0deg, #ff003c 45deg, transparent 90deg);
+      background: conic-gradient(from 0deg, transparent 0deg, var(--alert-crimson) 45deg, transparent 90deg);
       animation: beamRotate 4s linear infinite;
       z-index: 0;
       opacity: 0.6;
     }
     .border-beam-content {
       position: relative;
-      background: rgba(8, 16, 38, 0.94);
+      background: var(--glass-panel-elevated);
       border-radius: calc(var(--radius-md) - 1px);
       z-index: 1;
     }
@@ -860,13 +1036,13 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     .capsule-slider-track {
-      background: rgba(3, 10, 26, 0.85);
-      border: 1px solid rgba(56, 189, 248, 0.35);
+      background: var(--input-bg);
+      border: 1px solid var(--glass-inner-border);
       border-radius: var(--radius-pill);
       height: 14px;
       position: relative;
       overflow: hidden;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
     }
     .capsule-slider-fill {
       height: 100%;
@@ -875,20 +1051,20 @@ function renderFullApplication(initialTab = "dashboard") {
       transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .capsule-fill-hp {
-      background: linear-gradient(90deg, #059669, #00ff66);
-      box-shadow: 0 0 10px rgba(0, 255, 102, 0.6);
+      background: linear-gradient(90deg, var(--jauge-hp-from), var(--jauge-hp-to));
+      box-shadow: 0 0 10px var(--jauge-hp-glow);
     }
     .capsule-fill-mp {
-      background: linear-gradient(90deg, #0284c7, #00f0ff);
-      box-shadow: 0 0 10px rgba(0, 240, 255, 0.7);
+      background: linear-gradient(90deg, var(--jauge-mp-from), var(--jauge-mp-to));
+      box-shadow: 0 0 10px var(--jauge-mp-glow);
     }
     .capsule-fill-xp {
-      background: linear-gradient(90deg, #0051ff, #38bdf8);
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+      background: linear-gradient(90deg, var(--royal-violet), var(--neon-violet));
+      box-shadow: 0 0 12px var(--jauge-mp-glow);
     }
 
     .btn-cyber {
-      background: rgba(4, 20, 56, 0.85);
+      background: var(--input-bg);
       border: 1px solid var(--neon-cyan);
       color: var(--neon-cyan);
       font-family: var(--font-display);
@@ -903,14 +1079,14 @@ function renderFullApplication(initialTab = "dashboard") {
       justify-content: center;
       gap: 8px;
       transition: all 0.2s ease;
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+      box-shadow: 0 0 12px rgba(168, 85, 247, 0.25);
       text-transform: uppercase;
       user-select: none;
     }
     .btn-cyber:hover {
       background: var(--neon-cyan);
-      color: #020c24;
-      box-shadow: 0 0 22px rgba(0, 240, 255, 0.75);
+      color: var(--text-on-accent);
+      box-shadow: 0 0 22px rgba(168, 85, 247, 0.75);
       transform: translateY(-2px);
     }
     .btn-cyber:active { transform: translateY(0); }
@@ -918,23 +1094,23 @@ function renderFullApplication(initialTab = "dashboard") {
     .btn-gold {
       border-color: var(--imperial-gold);
       color: var(--imperial-gold);
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);
+      box-shadow: 0 0 12px rgba(251, 191, 36, 0.25);
     }
     .btn-gold:hover {
       background: var(--imperial-gold);
-      color: #1e1002;
-      box-shadow: 0 0 22px rgba(255, 215, 0, 0.75);
+      color: var(--text-on-accent);
+      box-shadow: 0 0 22px rgba(251, 191, 36, 0.75);
     }
 
     .btn-red {
       border-color: var(--alert-crimson);
       color: var(--alert-crimson);
-      box-shadow: 0 0 12px rgba(255, 0, 60, 0.35);
+      box-shadow: 0 0 12px rgba(244, 63, 94, 0.35);
     }
     .btn-red:hover {
       background: var(--alert-crimson);
       color: #ffffff;
-      box-shadow: 0 0 25px rgba(255, 0, 60, 0.85);
+      box-shadow: 0 0 25px rgba(244, 63, 94, 0.85);
     }
 
     .radar-ping-badge {
@@ -943,8 +1119,8 @@ function renderFullApplication(initialTab = "dashboard") {
       gap: 7px;
       padding: 4px 10px;
       border-radius: var(--radius-pill);
-      background: rgba(0, 240, 255, 0.1);
-      border: 1px solid rgba(0, 240, 255, 0.35);
+      background: rgba(168, 85, 247, 0.12);
+      border: 1px solid var(--glass-inner-border);
       font-size: 11px;
       font-weight: 600;
       color: var(--neon-cyan);
@@ -969,11 +1145,11 @@ function renderFullApplication(initialTab = "dashboard") {
       bottom: 0;
       width: 275px;
       height: 100vh;
-      background: rgba(12, 7, 28, 0.84);
+      background: var(--sidebar-bg);
       backdrop-filter: blur(28px) saturate(190%);
       -webkit-backdrop-filter: blur(28px) saturate(190%);
-      border-right: 1px solid rgba(168, 85, 247, 0.32);
-      box-shadow: 4px 0 35px rgba(124, 58, 237, 0.22), inset -1px 0 15px rgba(192, 132, 252, 0.08);
+      border-right: var(--sidebar-border);
+      box-shadow: var(--sidebar-shadow);
       display: flex;
       flex-direction: column;
       padding: 20px 16px 16px 16px;
@@ -981,9 +1157,9 @@ function renderFullApplication(initialTab = "dashboard") {
       overflow-y: auto;
       overflow-x: hidden;
       gap: 4px;
+      transition: background 0.3s ease, border-color 0.3s ease;
     }
 
-    /* Custom scrollbar for left sidebar */
     .left-sidebar-nav::-webkit-scrollbar {
       width: 5px;
     }
@@ -998,7 +1174,7 @@ function renderFullApplication(initialTab = "dashboard") {
     .sidebar-brand-block {
       padding-bottom: 18px;
       margin-bottom: 12px;
-      border-bottom: 1px solid rgba(168, 85, 247, 0.22);
+      border-bottom: 1px solid var(--glass-inner-border-subtle);
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -1043,7 +1219,7 @@ function renderFullApplication(initialTab = "dashboard") {
       font-family: var(--font-mono);
       font-size: 9px;
       letter-spacing: 2px;
-      color: #c084fc;
+      color: var(--neon-cyan);
       opacity: 0.9;
       margin-top: 3px;
       line-height: 1;
@@ -1056,10 +1232,10 @@ function renderFullApplication(initialTab = "dashboard") {
       padding: 5px 10px;
       border-radius: var(--radius-pill);
       background: rgba(168, 85, 247, 0.12);
-      border: 1px solid rgba(192, 132, 252, 0.35);
+      border: 1px solid var(--glass-inner-border);
       font-size: 10.5px;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-white);
       font-family: var(--font-mono);
       letter-spacing: 1px;
       width: fit-content;
@@ -1068,8 +1244,8 @@ function renderFullApplication(initialTab = "dashboard") {
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #c084fc;
-      box-shadow: 0 0 8px #c084fc, 0 0 14px #a855f7;
+      background: var(--neon-cyan);
+      box-shadow: 0 0 8px var(--neon-cyan), 0 0 14px var(--primary-violet);
       animation: pulseGlow 2s infinite ease-in-out;
     }
     @keyframes pulseGlow {
@@ -1082,7 +1258,8 @@ function renderFullApplication(initialTab = "dashboard") {
       font-size: 9.5px;
       font-weight: 800;
       letter-spacing: 1.5px;
-      color: #a78bfa;
+      color: var(--neon-cyan);
+      opacity: 0.85;
       padding: 4px 8px;
       margin-top: 2px;
       margin-bottom: 4px;
@@ -1099,7 +1276,7 @@ function renderFullApplication(initialTab = "dashboard") {
     .nav-tab {
       background: transparent;
       border: 1px solid transparent;
-      color: #cbd5e1;
+      color: var(--text-secondary);
       font-family: var(--font-display);
       font-weight: 700;
       font-size: 13px;
@@ -1130,54 +1307,54 @@ function renderFullApplication(initialTab = "dashboard") {
       text-overflow: ellipsis;
     }
     .nav-tab:hover {
-      color: #ffffff;
+      color: var(--text-white);
       background: rgba(168, 85, 247, 0.14);
-      border-color: rgba(192, 132, 252, 0.35);
+      border-color: var(--glass-inner-border);
       transform: translateX(4px);
       box-shadow: 0 0 16px rgba(168, 85, 247, 0.2);
     }
     .nav-tab.active {
-      color: #ffffff;
-      background: linear-gradient(90deg, rgba(168, 85, 247, 0.32), rgba(147, 51, 234, 0.18));
-      border: 1px solid rgba(192, 132, 252, 0.6);
-      border-left: 4px solid #ffffff;
-      box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), inset 0 0 12px rgba(192, 132, 252, 0.12);
+      color: var(--text-white);
+      background: linear-gradient(90deg, rgba(168, 85, 247, 0.28), rgba(124, 58, 237, 0.12));
+      border: 1px solid var(--glass-inner-border);
+      border-left: 4px solid var(--neon-cyan);
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.3), inset 0 0 12px var(--glass-inner-glow);
     }
     .nav-tab.active .nav-tab-icon {
-      filter: drop-shadow(0 0 8px #ffffff);
+      filter: drop-shadow(0 0 8px var(--neon-cyan));
     }
     .nav-shortcut {
       font-size: 10px;
       font-family: var(--font-mono);
-      opacity: 0.65;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(168, 85, 247, 0.25);
+      opacity: 0.75;
+      background: var(--input-bg);
+      border: 1px solid var(--glass-inner-border-subtle);
       padding: 2px 5px;
       border-radius: 4px;
-      color: #ddd6fe;
+      color: var(--neon-cyan);
       margin-left: auto;
     }
 
     .sidebar-player-footer {
       padding-top: 14px;
       margin-top: auto;
-      border-top: 1px solid rgba(168, 85, 247, 0.22);
+      border-top: 1px solid var(--glass-inner-border-subtle);
     }
     .sidebar-player-card {
-      background: rgba(22, 13, 46, 0.75);
-      border: 1px solid rgba(168, 85, 247, 0.35);
+      background: var(--glass-panel);
+      border: 1px solid var(--glass-inner-border);
       border-radius: var(--radius-sm);
       padding: 10px 12px;
       display: flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     }
     .sidebar-player-avatar {
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #a855f7, #6d28d9);
+      background: linear-gradient(135deg, var(--primary-violet), var(--royal-violet));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1193,7 +1370,7 @@ function renderFullApplication(initialTab = "dashboard") {
       font-family: var(--font-display);
       font-weight: 800;
       font-size: 13px;
-      color: #ffffff;
+      color: var(--text-white);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1201,13 +1378,13 @@ function renderFullApplication(initialTab = "dashboard") {
     .sidebar-player-rank {
       font-family: var(--font-mono);
       font-size: 9.5px;
-      color: #c084fc;
+      color: var(--neon-cyan);
     }
     .sidebar-player-sh {
       font-family: var(--font-mono);
       font-weight: 800;
       font-size: 11px;
-      color: #fbbf24;
+      color: var(--imperial-gold);
       background: rgba(251, 191, 36, 0.12);
       border: 1px solid rgba(251, 191, 36, 0.35);
       padding: 3px 6px;
@@ -1230,15 +1407,16 @@ function renderFullApplication(initialTab = "dashboard") {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(12, 7, 28, 0.85);
+      background: var(--header-bg);
       backdrop-filter: blur(24px) saturate(180%);
       -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border-bottom: 1px solid rgba(168, 85, 247, 0.28);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.55);
+      border-bottom: var(--header-border);
+      box-shadow: var(--glass-shadow);
       padding: 12px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: background 0.3s ease, border-color 0.3s ease;
     }
 
     .main-container {
@@ -1256,7 +1434,7 @@ function renderFullApplication(initialTab = "dashboard") {
         width: 100%;
         height: auto;
         border-right: none;
-        border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+        border-bottom: var(--sidebar-border);
         flex-direction: row;
         overflow-x: auto;
         padding: 10px;
@@ -1287,15 +1465,154 @@ function renderFullApplication(initialTab = "dashboard") {
     @media (max-width: 1024px) { .grid-2col { grid-template-columns: 1fr; } }
 
     .system-alert-banner {
-      background: linear-gradient(90deg, rgba(0, 81, 255, 0.3) 0%, rgba(2, 14, 38, 0.85) 50%, rgba(0, 81, 255, 0.3) 100%);
+      background: linear-gradient(90deg, rgba(124, 58, 237, 0.25) 0%, var(--glass-panel) 50%, rgba(124, 58, 237, 0.25) 100%);
       border: 1px solid var(--neon-cyan);
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
+      box-shadow: 0 0 20px var(--glass-inner-glow);
       border-radius: var(--radius-md);
       padding: 12px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 22px;
+    }
+
+    /* Solo Leveling Authentic Status Window */
+    .solo-status-window {
+      position: relative;
+      background: var(--glass-panel);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid var(--glass-inner-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--glass-shadow);
+      padding: 24px;
+      margin-bottom: 22px;
+      overflow: hidden;
+    }
+    .solo-status-window::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--glass-rim);
+      pointer-events: none;
+    }
+    .solo-window-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--neon-cyan);
+      user-select: none;
+    }
+    .solo-window-btn {
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--glass-inner-border);
+      border-radius: 3px;
+      background: var(--input-bg);
+      cursor: pointer;
+      font-size: 10px;
+      line-height: 1;
+      transition: all 0.15s ease;
+    }
+    .solo-window-btn:hover {
+      background: var(--neon-cyan);
+      color: var(--text-on-accent);
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: var(--input-bg);
+      border: 1px solid var(--glass-inner-border-subtle);
+      border-radius: var(--radius-sm);
+      margin-bottom: 6px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-white);
+    }
+    .stat-increment-btn {
+      background: var(--input-bg);
+      border: 1px solid var(--neon-cyan);
+      color: var(--neon-cyan);
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 900;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .stat-increment-btn:hover {
+      background: var(--neon-cyan);
+      color: var(--text-on-accent);
+      box-shadow: 0 0 10px var(--neon-cyan);
+    }
+
+    /* Cyber Corner Trims */
+    .cyber-corner-tl {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 14px;
+      height: 14px;
+      border-top: 2px solid var(--primary-container);
+      border-left: 2px solid var(--primary-container);
+      border-top-left-radius: 8px;
+      pointer-events: none;
+    }
+    .cyber-corner-tr {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 14px;
+      height: 14px;
+      border-top: 2px solid var(--primary-container);
+      border-right: 2px solid var(--primary-container);
+      border-top-right-radius: 8px;
+      pointer-events: none;
+    }
+
+    /* Danger Callout Box */
+    .danger-callout-box {
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      box-shadow: 0 0 16px rgba(244, 63, 94, 0.12);
+    }
+    [data-theme="light-awakening"] .danger-callout-box {
+      background: rgba(225, 29, 72, 0.08);
+      border: 1px solid rgba(225, 29, 72, 0.25);
+      box-shadow: 0 2px 10px rgba(225, 29, 72, 0.08);
+    }
+
+    /* Telemetric Chips */
+    .telemetric-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-container-high);
+      border: 1px solid var(--outline-variant);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--on-surface-variant);
     }
 
     /* System Holographic Modal */
@@ -1305,7 +1622,7 @@ function renderFullApplication(initialTab = "dashboard") {
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(1, 6, 20, 0.85);
+      background: rgba(7, 4, 20, 0.75);
       backdrop-filter: blur(16px);
       z-index: 300;
       display: none;
@@ -1316,11 +1633,12 @@ function renderFullApplication(initialTab = "dashboard") {
     .modal-card {
       width: 90%;
       max-width: 560px;
-      background: rgba(5, 20, 52, 0.96);
+      background: var(--glass-panel-elevated);
       border: 1px solid var(--neon-cyan);
-      box-shadow: 0 0 35px rgba(0, 240, 255, 0.4);
+      box-shadow: 0 0 35px var(--glass-inner-glow), 0 20px 45px rgba(0, 0, 0, 0.4);
       border-radius: var(--radius-lg);
       padding: 26px;
+      color: var(--text-white);
       animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
     @keyframes modalPop {
@@ -1330,18 +1648,20 @@ function renderFullApplication(initialTab = "dashboard") {
 
     .form-input {
       width: 100%;
-      background: rgba(3, 12, 34, 0.9);
-      border: 1px solid var(--neon-cyan);
-      color: #fff;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text-white);
       padding: 12px;
       border-radius: var(--radius-sm);
       font-family: var(--font-mono);
       font-size: 13px;
       outline: none;
       box-sizing: border-box;
+      transition: all 0.2s ease;
     }
     .form-input:focus {
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
     }
 
     /* =========================================================================
@@ -1360,16 +1680,16 @@ function renderFullApplication(initialTab = "dashboard") {
       flex-wrap: wrap;
       gap: 14px;
       padding: 14px 20px;
-      background: rgba(3, 14, 38, 0.85);
+      background: var(--glass-panel);
       border: 1px solid var(--glass-inner-border);
       border-radius: var(--radius-md);
-      box-shadow: 0 4px 20px rgba(0, 20, 60, 0.4);
+      box-shadow: var(--glass-shadow);
     }
 
     .obsidian-view-mode-tabs {
       display: flex;
-      background: rgba(1, 6, 20, 0.8);
-      border: 1px solid rgba(56, 189, 248, 0.25);
+      background: var(--input-bg);
+      border: 1px solid var(--glass-inner-border-subtle);
       border-radius: var(--radius-sm);
       padding: 3px;
       gap: 4px;
@@ -1393,12 +1713,12 @@ function renderFullApplication(initialTab = "dashboard") {
     }
     .obsidian-mode-btn:hover {
       color: var(--text-white);
-      background: rgba(0, 240, 255, 0.1);
+      background: rgba(168, 85, 247, 0.12);
     }
     .obsidian-mode-btn.active {
-      color: #020c24;
+      color: var(--text-on-accent);
       background: var(--neon-cyan);
-      box-shadow: 0 0 14px rgba(0, 240, 255, 0.6);
+      box-shadow: 0 0 14px rgba(168, 85, 247, 0.6);
       font-weight: 800;
     }
 
@@ -1416,7 +1736,7 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     .obsidian-explorer {
-      background: rgba(2, 10, 30, 0.88);
+      background: var(--glass-panel);
       border: 1px solid var(--glass-inner-border);
       border-radius: var(--radius-md);
       padding: 16px;
@@ -1437,7 +1757,7 @@ function renderFullApplication(initialTab = "dashboard") {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+      border-bottom: 1px solid var(--glass-inner-border-subtle);
       padding-bottom: 8px;
     }
 
@@ -1460,13 +1780,13 @@ function renderFullApplication(initialTab = "dashboard") {
       transition: background 0.15s ease;
     }
     .obsidian-folder-header:hover {
-      background: rgba(0, 240, 255, 0.08);
+      background: rgba(168, 85, 247, 0.10);
     }
 
     .obsidian-file-list {
       margin-left: 14px;
       padding-left: 8px;
-      border-left: 1px solid rgba(56, 189, 248, 0.2);
+      border-left: 1px solid var(--glass-inner-border-subtle);
       display: flex;
       flex-direction: column;
       gap: 2px;
@@ -1490,19 +1810,19 @@ function renderFullApplication(initialTab = "dashboard") {
     }
     .obsidian-file-item:hover {
       color: var(--neon-cyan);
-      background: rgba(0, 240, 255, 0.12);
+      background: rgba(168, 85, 247, 0.12);
       transform: translateX(2px);
     }
     .obsidian-file-item.active {
-      color: #ffffff;
-      background: rgba(0, 81, 255, 0.35);
+      color: var(--text-white);
+      background: rgba(168, 85, 247, 0.25);
       border-left: 2px solid var(--neon-cyan);
       font-weight: 600;
     }
 
     .obsidian-main-stage {
       position: relative;
-      background: rgba(2, 8, 24, 0.92);
+      background: var(--glass-panel);
       border: 1px solid var(--glass-inner-border);
       border-radius: var(--radius-md);
       overflow: hidden;
@@ -1543,8 +1863,8 @@ function renderFullApplication(initialTab = "dashboard") {
     .graph-ctrl-btn {
       width: 32px;
       height: 32px;
-      background: rgba(4, 18, 48, 0.85);
-      border: 1px solid rgba(56, 189, 248, 0.4);
+      background: var(--input-bg);
+      border: 1px solid var(--glass-inner-border);
       color: var(--neon-cyan);
       border-radius: var(--radius-sm);
       font-size: 14px;
@@ -1552,22 +1872,22 @@ function renderFullApplication(initialTab = "dashboard") {
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 10, 30, 0.5);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
       transition: all 0.2s ease;
       user-select: none;
     }
     .graph-ctrl-btn:hover {
       background: var(--neon-cyan);
-      color: #010614;
-      box-shadow: 0 0 16px rgba(0, 240, 255, 0.7);
+      color: var(--text-on-accent);
+      box-shadow: 0 0 16px rgba(168, 85, 247, 0.7);
     }
 
     .obsidian-graph-legend {
       position: absolute;
       bottom: 16px;
       left: 16px;
-      background: rgba(4, 18, 48, 0.85);
-      border: 1px solid rgba(56, 189, 248, 0.25);
+      background: var(--glass-panel-elevated);
+      border: 1px solid var(--glass-inner-border);
       border-radius: var(--radius-sm);
       padding: 8px 12px;
       font-size: 11px;
@@ -1577,6 +1897,7 @@ function renderFullApplication(initialTab = "dashboard") {
       flex-wrap: wrap;
       z-index: 10;
       backdrop-filter: blur(12px);
+      color: var(--text-secondary);
     }
     .legend-item { display: flex; align-items: center; gap: 5px; }
     .legend-dot { width: 9px; height: 9px; border-radius: 50%; }
@@ -1592,7 +1913,7 @@ function renderFullApplication(initialTab = "dashboard") {
     .obsidian-reader-pane.active { display: flex; }
 
     .obsidian-note-header {
-      border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+      border-bottom: 1px solid var(--glass-inner-border-subtle);
       padding-bottom: 18px;
       margin-bottom: 22px;
     }
@@ -1620,7 +1941,7 @@ function renderFullApplication(initialTab = "dashboard") {
       font-family: var(--font-body);
       font-size: 14px;
       line-height: 1.8;
-      color: #cbd5e1;
+      color: var(--text-secondary);
     }
 
     .obsidian-note-body h1 {
@@ -1628,7 +1949,7 @@ function renderFullApplication(initialTab = "dashboard") {
       font-size: 24px;
       color: var(--text-white);
       margin: 18px 0 10px 0;
-      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+      border-bottom: 1px solid var(--glass-inner-border-subtle);
       padding-bottom: 6px;
     }
 
@@ -1646,21 +1967,33 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     .katex-display-box {
-      background: rgba(3, 14, 38, 0.85);
-      border: 1px solid rgba(0, 240, 255, 0.3);
+      background: var(--code-bg);
+      border: 1px solid var(--glass-inner-border);
       border-radius: var(--radius-sm);
-      padding: 16px;
+      padding: 16px 20px;
       margin: 16px 0;
       text-align: center;
       font-family: var(--font-mono);
       font-size: 15px;
-      color: var(--neon-cyan);
-      box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.08);
+      color: var(--text-white);
+      box-shadow: inset 0 0 15px var(--glass-inner-glow);
       overflow-x: auto;
+      position: relative;
+    }
+
+    .katex-formula-tag {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      font-size: 9px;
+      font-family: var(--font-mono);
+      letter-spacing: 1px;
+      color: var(--neon-cyan);
+      opacity: 0.85;
     }
 
     .wikilink-pill {
-      background: rgba(0, 81, 255, 0.25);
+      background: rgba(168, 85, 247, 0.18);
       border: 1px solid var(--neon-cyan);
       color: var(--neon-cyan);
       font-family: var(--font-mono);
@@ -1678,14 +2011,14 @@ function renderFullApplication(initialTab = "dashboard") {
     }
     .wikilink-pill:hover {
       background: var(--neon-cyan);
-      color: #010614;
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.7);
+      color: var(--text-on-accent);
+      box-shadow: 0 0 12px rgba(168, 85, 247, 0.7);
     }
 
     .obsidian-backlinks-panel {
       margin-top: 36px;
       padding-top: 20px;
-      border-top: 1px dashed rgba(56, 189, 248, 0.25);
+      border-top: 1px dashed var(--glass-inner-border-subtle);
     }
 
     .obsidian-backlinks-title {
@@ -1700,17 +2033,19 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     .backlink-card {
-      background: rgba(3, 12, 32, 0.7);
-      border: 1px solid rgba(56, 189, 248, 0.2);
+      background: var(--input-bg);
+      border: 1px solid var(--glass-inner-border-subtle);
       border-radius: var(--radius-sm);
       padding: 10px 14px;
       margin-bottom: 8px;
       cursor: pointer;
+      color: var(--text-secondary);
       transition: all 0.2s ease;
     }
     .backlink-card:hover {
       border-color: var(--neon-cyan);
-      background: rgba(0, 81, 255, 0.15);
+      background: rgba(168, 85, 247, 0.15);
+      color: var(--text-white);
       transform: translateX(4px);
     }
 
@@ -1740,14 +2075,15 @@ function renderFullApplication(initialTab = "dashboard") {
       height: 600px;
       overflow: hidden;
       border-radius: var(--radius-lg);
-      background: radial-gradient(ellipse at center, rgba(14, 165, 233, 0.08) 0%, rgba(2, 8, 24, 0.95) 75%);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      box-shadow: inset 0 0 60px rgba(2, 8, 24, 0.9), 0 0 30px rgba(0, 240, 255, 0.1);
+      background: var(--glass-panel);
+      backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid var(--glass-inner-border);
+      box-shadow: var(--glass-shadow);
       margin-bottom: 24px;
     }
 
     .circular-carousel {
-      --cc-fade: #020818;
+      --cc-fade: var(--cc-fade, #070414);
       --cc-radius: 14px;
       --cc-inner: 0.4;
       position: relative;
@@ -1774,7 +2110,7 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     .circular-carousel:focus-visible {
-      box-shadow: inset 0 0 0 2px rgba(0, 240, 255, 0.55);
+      box-shadow: inset 0 0 0 2px var(--neon-cyan);
     }
 
     .circular-carousel__view {
@@ -1819,9 +2155,9 @@ function renderFullApplication(initialTab = "dashboard") {
       width: 260px;
       height: 380px;
       border-radius: 14px;
-      background: linear-gradient(135deg, rgba(8, 20, 48, 0.95), rgba(2, 8, 24, 0.98));
-      border: 1.5px solid rgba(0, 240, 255, 0.4);
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.25), inset 0 0 20px rgba(0, 240, 255, 0.08);
+      background: var(--glass-panel-elevated);
+      border: 1.5px solid var(--glass-inner-border);
+      box-shadow: 0 0 25px var(--glass-inner-glow), inset 0 0 20px var(--glass-inner-glow);
       padding: 18px;
       display: flex;
       flex-direction: column;
@@ -1831,29 +2167,30 @@ function renderFullApplication(initialTab = "dashboard") {
       transition: border-color 0.3s, box-shadow 0.3s;
       cursor: pointer;
       user-select: none;
+      color: var(--text-white);
     }
 
     .quest-3d-card:hover {
       border-color: var(--neon-cyan);
-      box-shadow: 0 0 35px rgba(0, 240, 255, 0.5), inset 0 0 30px rgba(0, 240, 255, 0.15);
+      box-shadow: 0 0 35px rgba(168, 85, 247, 0.5), inset 0 0 30px var(--glass-inner-glow);
     }
 
     .quest-3d-card.active-quest-focus {
       border-color: var(--imperial-gold);
-      box-shadow: 0 0 45px rgba(255, 215, 0, 0.55), inset 0 0 30px rgba(255, 215, 0, 0.2);
+      box-shadow: 0 0 45px rgba(251, 191, 36, 0.55), inset 0 0 30px rgba(251, 191, 36, 0.2);
     }
 
     .quest-3d-card.quest-emergency {
       border-color: var(--alert-crimson);
-      box-shadow: 0 0 35px rgba(255, 0, 60, 0.5), inset 0 0 25px rgba(255, 0, 60, 0.15);
-      background: linear-gradient(135deg, rgba(38, 4, 14, 0.95), rgba(12, 1, 4, 0.98));
+      box-shadow: 0 0 35px rgba(244, 63, 94, 0.5), inset 0 0 25px rgba(244, 63, 94, 0.15);
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.15), var(--glass-panel-elevated));
     }
 
     .quest-3d-depth-shade {
       position: absolute;
       inset: 0;
       border-radius: 14px;
-      background: #020818;
+      background: var(--cc-fade);
       pointer-events: none;
       transition: opacity 0.2s;
     }
@@ -1984,18 +2321,18 @@ function renderFullApplication(initialTab = "dashboard") {
         </div>
 
         <div style="display: flex; align-items: center; gap: 16px;">
-          <div style="font-family: var(--font-mono); font-size: 13px; color: #ffffff; display: flex; align-items: center; gap: 6px; background: rgba(168, 85, 247, 0.12); border: 1px solid rgba(192, 132, 252, 0.3); padding: 5px 12px; border-radius: var(--radius-pill);">
+          <div style="font-family: var(--font-mono); font-size: 13px; color: var(--text-white); display: flex; align-items: center; gap: 6px; background: var(--input-bg); border: 1px solid var(--glass-inner-border-subtle); padding: 5px 12px; border-radius: var(--radius-pill);">
             <span>🕒</span>
             <span id="system-clock">--:--:--</span>
           </div>
-          <div class="radar-ping-badge" style="border-color: rgba(251, 191, 36, 0.4); color: #fbbf24;">
+          <div class="radar-ping-badge" style="border-color: rgba(251, 191, 36, 0.4); color: var(--imperial-gold);">
             <span>💎 CRISTAUX :</span>
             <strong id="header-crystals-val">${player.shadowCrystals}</strong>
           </div>
-          <div class="radar-ping-badge" style="border-color: rgba(52, 211, 153, 0.4); color: #34d399;">
+          <div class="radar-ping-badge" style="border-color: rgba(52, 211, 153, 0.4); color: var(--transcendent-green);">
             <span>STREAK : <span id="header-streak-val">${player.streakDays}</span>J</span>
           </div>
-          <button class="btn-cyber" onclick="toggleTheme()" style="padding: 6px 12px; font-size: 11px;">
+          <button class="btn-cyber" id="theme-toggle-btn" onclick="toggleTheme()" style="padding: 6px 12px; font-size: 11px;">
             🌓 THÈME
           </button>
         </div>
@@ -2004,59 +2341,142 @@ function renderFullApplication(initialTab = "dashboard") {
       <main class="main-container">
 
     <!-- =====================================================================
-         SCREEN 1 : DASHBOARD HUD (LIVE INTERACTIVE VITALS & LEVEL)
+         SCREEN 1 : DASHBOARD HUD (SOLO LEVELING STATUS WINDOW & STATS)
          ===================================================================== -->
     <div id="view-dashboard" class="view-panel ${initialTab === "dashboard" ? "active" : ""}">
       
-      <div class="system-alert-banner" id="dash-system-banner">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <span style="background: rgba(0, 240, 255, 0.2); border: 1px solid var(--neon-cyan); border-radius: 4px; padding: 3px 8px; font-size: 11px; font-weight: 800; font-family: var(--font-mono); color: var(--neon-cyan);">
-            [!] ALERT
+      <!-- Top Monarch Announcement / Canonical System Alert HUD -->
+      <div class="system-alert-banner" id="dash-system-banner" style="position: relative; overflow: hidden; border-radius: 12px; padding: 14px 22px; margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; background: linear-gradient(90deg, rgba(111,0,190,0.2) 0%, var(--surface-container-low) 50%, rgba(0,122,85,0.15) 100%); border: 1px solid rgba(221,184,255,0.3); box-shadow: 0 4px 24px -2px rgba(147,51,234,0.3);">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <span style="display: inline-flex; align-items: center; gap: 6px; background: rgba(111,0,190,0.35); border: 1px solid rgba(69,223,164,0.4); border-radius: 9999px; padding: 4px 12px; font-size: 11px; font-weight: 800; font-family: var(--font-mono); color: var(--tertiary-fixed); box-shadow: 0 0 10px rgba(69,223,164,0.25);">
+            <span class="material-symbols-outlined" style="font-size: 15px; color: var(--tertiary); animation: pulse 2s infinite;">priority_high</span>
+            [!] SYSTEM NOTICE
           </span>
-          <span class="shiny-green" style="font-family: var(--font-display); font-size: 18px; font-weight: 800; letter-spacing: 2px;">
-            [WELCOME, PLAYER.]
+          <span style="font-family: var(--font-display); font-size: 19px; font-weight: 800; letter-spacing: 2px; color: var(--text-white);">
+            WELCOME, <span class="shiny-green" style="color: var(--tertiary); text-shadow: 0 0 12px rgba(69,223,164,0.7); text-decoration: underline; text-decoration-color: rgba(69,223,164,0.5); text-underline-offset: 6px;">[WELCOME, PLAYER.]</span>
           </span>
-          <span style="font-size: 12px; color: var(--text-secondary); margin-left: 6px;" id="system-banner-status-desc">
-            Le Système du Monarque est synchronisé. Aucune pénalité active.
+          <span style="font-size: 11px; color: var(--text-secondary); font-family: var(--font-mono); background: var(--surface-container-high); padding: 3px 8px; border-radius: 4px;" id="system-banner-status-desc">
+            [MONARCH COGNITIVE SYNC: 100%]
           </span>
         </div>
-        <div style="font-size: 12px; font-family: var(--font-mono); color: var(--neon-cyan);">
-          SCORE HARMONIQUE : <strong style="color: var(--imperial-gold); font-size: 16px;" id="harmonic-score-display">Sh = ${harmonicScore}</strong>
+        <div style="display: flex; align-items: center; gap: 8px; background: var(--surface-container-highest); padding: 6px 14px; border-radius: 9999px; border: 1px solid rgba(221,184,255,0.2);">
+          <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">tune</span>
+          <span style="font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); text-transform: uppercase;">Harmonic Balance:</span>
+          <strong class="shiny-gold" style="font-size: 15px; font-family: var(--font-mono); color: var(--tertiary-fixed);" id="harmonic-score-display">Sh = ${harmonicScore}</strong>
+          <span style="width: 6px; height: 6px; border-radius: 5px; background: var(--tertiary); display: inline-block;"></span>
+          <span style="font-size: 10px; font-family: var(--font-mono); color: var(--tertiary-fixed); text-transform: uppercase; font-weight: 700;">Optimal</span>
         </div>
       </div>
 
       <div class="grid-2col">
-        <!-- Left: Status & Vitals -->
+        <!-- Left Column: Status Window, Attributes & Vitals -->
         <div>
-          <!-- Player Identity Card -->
-          <div class="glass-card spotlight-card" style="padding: 24px; margin-bottom: 22px;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px;">
-              <div>
-                <div style="font-size: 11px; letter-spacing: 2px; color: var(--neon-cyan); font-family: var(--font-mono); margin-bottom: 4px;">
-                  STATUS // LE MONARQUE SOUVERAIN
+          <!-- Solo Leveling Sovereign Status Window -->
+          <div class="solo-status-window spotlight-card" style="padding: 24px; margin-bottom: 22px; position: relative; border-radius: 12px; background: var(--surface-container); border: 1px solid rgba(221,184,255,0.25);">
+            <div class="cyber-corner-tl"></div>
+            <div class="cyber-corner-tr"></div>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-inner-border-subtle); padding-bottom: 10px; margin-bottom: 16px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="material-symbols-outlined" style="font-size: 16px; color: var(--primary);">badge</span>
+                <span style="font-size: 11px; letter-spacing: 2px; color: var(--primary); font-family: var(--font-mono); font-weight: 800;">
+                  [!] FENÊTRE DE STATUT DU MONARQUE // ARC 04
+                </span>
+              </div>
+              <div class="solo-window-controls">
+                <span class="solo-window-btn" title="Réduire">-</span>
+                <span class="solo-window-btn" title="Fermer" onclick="showSysNotification('[INFO SYSTÈME]', 'La fenêtre de statut principale ne peut être fermée.')">✕</span>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; flex-wrap: wrap; gap: 14px;">
+              <div style="display: flex; align-items: center; gap: 16px;">
+                <!-- Imperial S-Rank Diamond Crest -->
+                <div style="position: relative; width: 68px; height: 68px; border-radius: 12px; background: rgba(111,0,190,0.3); border: 1px solid rgba(221,184,255,0.4); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(147,51,234,0.35); flex-shrink: 0;">
+                  <span class="material-symbols-outlined" style="font-size: 38px; color: var(--primary); filter: drop-shadow(0 0 10px rgba(221,184,255,0.8));">stars</span>
+                  <span style="position: absolute; bottom: -6px; padding: 1px 6px; border-radius: 4px; background: var(--primary-container); font-size: 9px; font-family: var(--font-mono); font-weight: 800; color: #fff; letter-spacing: 1px; box-shadow: 0 2px 6px rgba(0,0,0,0.4);">
+                    RANK <span id="dash-player-rank">${player.rank}</span>
+                  </span>
                 </div>
-                <h1 class="shiny-text" id="dash-player-name" style="font-size: 32px; font-weight: 900; font-family: var(--font-display); line-height: 1;">
-                  ${player.name}
-                </h1>
-                <p id="dash-player-title" style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">
-                  ${player.title}
-                </p>
+                <div>
+                  <div style="font-size: 11px; letter-spacing: 2px; color: var(--primary); font-family: var(--font-mono); margin-bottom: 4px;">
+                    STATUS // LE MONARQUE SOUVERAIN
+                  </div>
+                  <h1 class="shiny-text" id="dash-player-name" style="font-size: 30px; font-weight: 900; font-family: var(--font-display); line-height: 1; letter-spacing: 1px;">
+                    ${player.name}
+                  </h1>
+                  <p id="dash-player-title" style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">
+                    TITRE : <strong style="color: var(--primary);">"Wolf Assassin"</strong> // Le Chasseur Souverain
+                  </p>
+                  <div style="font-size: 10.5px; color: var(--text-muted); font-family: var(--font-mono); margin-top: 2px;">
+                    GUID: 0x7E3-SHADOW-MNRCH-S9 • CLASSE: Shadow Ruler
+                  </div>
+                </div>
               </div>
 
-              <div style="text-align: center; background: rgba(0, 81, 255, 0.3); border: 2px solid var(--neon-cyan); padding: 10px 18px; border-radius: var(--radius-md); box-shadow: 0 0 18px rgba(0, 240, 255, 0.35);">
-                <div style="font-size: 10px; color: var(--neon-cyan); font-family: var(--font-display); letter-spacing: 1px;">RANG</div>
-                <div class="shiny-gold" id="dash-player-rank" style="font-size: 32px; font-weight: 900; line-height: 1; font-family: var(--font-display);">${player.rank}</div>
+              <div style="text-align: right; background: var(--surface-container-low); border: 1px solid var(--glass-inner-border-subtle); padding: 10px 16px; border-radius: 8px;">
+                <div style="font-size: 10px; color: var(--text-secondary); font-family: var(--font-mono); letter-spacing: 1.5px; text-transform: uppercase;">Palier Actuel</div>
+                <div style="font-size: 26px; font-weight: 900; line-height: 1; font-family: var(--font-display); color: var(--primary-fixed);" id="dash-level-label">LVL ${player.level}</div>
+                <div style="font-size: 10px; color: var(--tertiary-fixed); font-family: var(--font-mono); font-weight: 700; margin-top: 2px;">ÉVEIL NOVICE</div>
               </div>
             </div>
 
             <!-- Level & XP Capsule Progress -->
-            <div style="margin-top: 10px;">
+            <div style="margin-top: 10px; margin-bottom: 16px;">
               <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
-                <span style="color: var(--neon-cyan);" id="dash-level-label">NIVEAU ${player.level} // PALIER ACTUEL</span>
+                <span style="color: var(--primary); display: flex; align-items: center; gap: 4px;">
+                  <span class="material-symbols-outlined" style="font-size: 14px;">auto_mode</span> Progression d'Ascension
+                </span>
                 <span id="dash-xp-text" style="color: var(--text-white); font-weight: bold;">${player.currentXp} / ${player.nextLevelXp} XP (82%)</span>
               </div>
               <div class="capsule-slider-track">
                 <div class="capsule-slider-fill capsule-fill-xp" id="dash-xp-bar" style="width: 82%;"></div>
+              </div>
+            </div>
+
+            <!-- Attribute Allocation Matrix STR/AGI/PER/VIT/INT with [^] -->
+            <div style="border-top: 1px solid var(--glass-inner-border-subtle); padding-top: 14px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="font-size: 11px; font-weight: 800; letter-spacing: 1px; color: var(--primary); font-family: var(--font-display); display: flex; align-items: center; gap: 6px;">
+                  <span class="material-symbols-outlined" style="font-size: 15px;">fitness_center</span> RÉPARTITION DES ATTRIBUTS SOUVERAINS
+                </span>
+                <span style="font-size: 11px; font-family: var(--font-mono); color: var(--imperial-gold);">
+                  POINTS DISPOS : <strong id="stat-remaining-points">${player.attributes ? player.attributes.remainingPoints : 3}</strong>
+                </span>
+              </div>
+              <div class="stat-row">
+                <span style="display: flex; align-items: center; gap: 6px;"><strong style="color: var(--primary);">STR</strong> Force Brute</span>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <strong id="stat-val-str" style="color: var(--text-white); font-size: 15px;">${player.attributes ? player.attributes.str : 50}</strong>
+                  <button class="stat-increment-btn" onclick="allocateStatPoint('str')" title="Incrémenter la Force">[^]</button>
+                </div>
+              </div>
+              <div class="stat-row">
+                <span style="display: flex; align-items: center; gap: 6px;"><strong style="color: var(--primary);">AGI</strong> Vélocité</span>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <strong id="stat-val-agi" style="color: var(--text-white); font-size: 15px;">${player.attributes ? player.attributes.agi : 35}</strong>
+                  <button class="stat-increment-btn" onclick="allocateStatPoint('agi')" title="Incrémenter l'Agilité">[^]</button>
+                </div>
+              </div>
+              <div class="stat-row">
+                <span style="display: flex; align-items: center; gap: 6px;"><strong style="color: var(--primary);">PER</strong> Perception</span>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <strong id="stat-val-per" style="color: var(--text-white); font-size: 15px;">${player.attributes ? player.attributes.per : 29}</strong>
+                  <button class="stat-increment-btn" onclick="allocateStatPoint('per')" title="Incrémenter la Perception">[^]</button>
+                </div>
+              </div>
+              <div class="stat-row">
+                <span style="display: flex; align-items: center; gap: 6px;"><strong style="color: var(--primary);">VIT</strong> Vitalité</span>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <strong id="stat-val-vit" style="color: var(--text-white); font-size: 15px;">${player.attributes ? player.attributes.vit : 27}</strong>
+                  <button class="stat-increment-btn" onclick="allocateStatPoint('vit')" title="Incrémenter la Vitalité">[^]</button>
+                </div>
+              </div>
+              <div class="stat-row">
+                <span style="display: flex; align-items: center; gap: 6px;"><strong style="color: var(--primary);">INT</strong> Intelligence</span>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <strong id="stat-val-int" style="color: var(--text-white); font-size: 15px;">${player.attributes ? player.attributes.int : 27}</strong>
+                  <button class="stat-increment-btn" onclick="allocateStatPoint('int')" title="Incrémenter l'Intelligence">[^]</button>
+                </div>
               </div>
             </div>
           </div>
@@ -2064,43 +2484,51 @@ function renderFullApplication(initialTab = "dashboard") {
           <!-- True Solo Leveling Vital Gauges (Interactive with Real Recovery) -->
           <div class="glass-card spotlight-card" style="padding: 24px; margin-bottom: 22px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-              <span style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: var(--neon-cyan); font-family: var(--font-display);">
-                ÉMETTEUR BIOPHYSIQUE SOUVERAIN (BORBÉLY & GANDEVIA)
+              <span style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: var(--primary); font-family: var(--font-display); display: flex; align-items: center; gap: 6px;">
+                <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">monitor_heart</span> BIOMÉTRIE & RÉSERVES DE MANA (BORBÉLY & GANDEVIA)
               </span>
-              <span class="radar-ping-badge" id="fatigue-status-badge" style="border-color: rgba(0, 255, 102, 0.4); color: var(--transcendent-green); font-size: 10px;">
-                FATIGUE: 0% OPTIMAL
+              <span class="radar-ping-badge" id="fatigue-status-badge" style="border-color: rgba(69, 223, 164, 0.4); color: var(--tertiary-fixed); font-size: 10px;">
+                [STATUS: STABLE] FATIGUE: 0% OPTIMAL
               </span>
             </div>
 
             <!-- HP Capsule Slider -->
             <div style="margin-bottom: 16px;">
               <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
-                <span style="color: var(--transcendent-green); font-weight: bold;">+ HP // RÉSILIENCE BIOLOGIQUE</span>
-                <span style="font-weight: bold;" id="hp-value-text">${player.hp} / 100 (${player.hp}%)</span>
+                <span style="color: var(--tertiary-fixed); font-weight: bold; display: flex; align-items: center; gap: 6px;">
+                  <span class="material-symbols-outlined" style="font-size: 15px; color: var(--tertiary);">favorite</span> + HP // RÉSILIENCE BIOLOGIQUE
+                </span>
+                <span style="font-weight: bold; color: var(--tertiary-fixed);" id="hp-value-text">${player.hp} / 100 (${player.hp}%)</span>
               </div>
-              <div class="capsule-slider-track">
+              <div class="capsule-slider-track" style="position: relative;">
                 <div class="capsule-slider-fill capsule-fill-hp" id="hp-slider-bar" style="width: ${player.hp}%;"></div>
+                <div style="position: absolute; right: 4px; top: 2px; bottom: 2px; width: 4px; border-radius: 9999px; background: rgba(255,255,255,0.7); filter: blur(1px);"></div>
               </div>
             </div>
 
             <!-- MP Capsule Slider -->
             <div style="margin-bottom: 16px;">
               <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
-                <span style="color: var(--neon-cyan); font-weight: bold;">⚡ MP // FOCUS COGNITIF INDOMPTABLE</span>
-                <span style="font-weight: bold;" id="mp-value-text">${player.mp} / 100 (${player.mp}%)</span>
+                <span style="color: var(--primary-fixed); font-weight: bold; display: flex; align-items: center; gap: 6px;">
+                  <span class="material-symbols-outlined" style="font-size: 15px; color: var(--primary);">bolt</span> ⚡ MP // FOCUS COGNITIF INDOMPTABLE
+                </span>
+                <span style="font-weight: bold; color: var(--primary-fixed);" id="mp-value-text">${player.mp} / 100 (${player.mp}%)</span>
               </div>
-              <div class="capsule-slider-track">
+              <div class="capsule-slider-track" style="position: relative;">
                 <div class="capsule-slider-fill capsule-fill-mp" id="mp-slider-bar" style="width: ${player.mp}%;"></div>
+                <div style="position: absolute; right: 4px; top: 2px; bottom: 2px; width: 4px; border-radius: 9999px; background: rgba(255,255,255,0.7); filter: blur(1px);"></div>
               </div>
             </div>
 
             <!-- Sleep & Circadian Status + Interactive Restoration Controls -->
-            <div style="display: flex; gap: 10px; margin-top: 14px; font-size: 11px; font-family: var(--font-mono);">
-              <button class="btn-cyber" style="flex: 1; padding: 6px;" onclick="restoreVitals(15, 20)">
-                ✨ MÉDITATION (+15 HP, +20 MP)
+            <div style="display: flex; gap: 10px; margin-top: 14px; font-size: 11px; font-family: var(--font-mono); flex-wrap: wrap;">
+              <button class="btn-cyber" style="flex: 1; min-width: 140px; padding: 8px 12px; display: flex; align-items: center; justify-content: center; gap: 6px;" onclick="restoreVitals(15, 20)">
+                <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">self_improvement</span>
+                <span>MÉDITATION (+15 HP, +20 MP)</span>
               </button>
-              <button class="btn-cyber btn-gold" style="flex: 1; padding: 6px;" onclick="simulateDeepWorkDepletion()">
-                🧠 FOCUS (-15 MP, +50 XP)
+              <button class="btn-cyber btn-gold" style="flex: 1; min-width: 140px; padding: 8px 12px; display: flex; align-items: center; justify-content: center; gap: 6px;" onclick="simulateDeepWorkDepletion()">
+                <span class="material-symbols-outlined" style="font-size: 16px;">psychology</span>
+                <span>DEEP FOCUS (-15 MP, +50 XP)</span>
               </button>
             </div>
           </div>
@@ -2108,8 +2536,8 @@ function renderFullApplication(initialTab = "dashboard") {
           <!-- Octagonal Radar of the 8 Bases (Dynamic SVG) -->
           <div class="glass-card spotlight-card" style="padding: 24px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-              <span style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: var(--neon-cyan); font-family: var(--font-display);">
-                RADAR DES 8 BASES DE VIE
+              <span style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: var(--primary); font-family: var(--font-display); display: flex; align-items: center; gap: 6px;">
+                <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">hub</span> RADAR DES 8 BASES DE VIE
               </span>
               <span class="shiny-gold" id="radar-sh-badge" style="font-size: 14px; font-weight: bold; font-family: var(--font-mono);">
                 Sh = ${harmonicScore}
@@ -2118,33 +2546,38 @@ function renderFullApplication(initialTab = "dashboard") {
             
             <div style="display: flex; justify-content: center; padding: 10px 0;">
               <svg width="290" height="250" viewBox="0 0 290 250" id="radar-svg-canvas">
-                <polygon points="145,25 225,60 255,140 215,215 145,235 75,215 35,140 65,60" fill="none" stroke="rgba(56, 189, 248, 0.2)" stroke-width="1"/>
-                <polygon points="145,55 200,80 220,140 190,190 145,205 100,190 70,140 90,80" fill="none" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1"/>
-                <polygon id="radar-dynamic-poly" points="145,70 195,90 210,140 185,180 145,190 110,180 85,140 100,90" fill="rgba(0, 240, 255, 0.25)" stroke="#00f0ff" stroke-width="2"/>
-                <text x="145" y="16" fill="#38bdf8" font-size="10" font-family="monospace" text-anchor="middle">ACAD (55)</text>
-                <text x="240" y="60" fill="#38bdf8" font-size="10" font-family="monospace">AI (62)</text>
-                <text x="260" y="145" fill="#38bdf8" font-size="10" font-family="monospace">CYBER (48)</text>
-                <text x="225" y="230" fill="#38bdf8" font-size="10" font-family="monospace">EXP (42)</text>
-                <text x="145" y="248" fill="#38bdf8" font-size="10" font-family="monospace" text-anchor="middle">LNG (50)</text>
-                <text x="40" y="230" fill="#38bdf8" font-size="10" font-family="monospace">FIN (38)</text>
-                <text x="5" y="145" fill="#38bdf8" font-size="10" font-family="monospace">STR (52)</text>
-                <text x="35" y="60" fill="#38bdf8" font-size="10" font-family="monospace">DIS (65)</text>
+                <polygon points="145,25 225,60 255,140 215,215 145,235 75,215 35,140 65,60" fill="none" stroke="rgba(168, 85, 247, 0.25)" stroke-width="1"/>
+                <polygon points="145,55 200,80 220,140 190,190 145,205 100,190 70,140 90,80" fill="none" stroke="rgba(168, 85, 247, 0.35)" stroke-width="1"/>
+                <polygon id="radar-dynamic-poly" points="145,70 195,90 210,140 185,180 145,190 110,180 85,140 100,90" fill="rgba(147, 51, 234, 0.3)" stroke="var(--primary)" stroke-width="2"/>
+                <text x="145" y="16" fill="var(--primary)" font-size="10" font-family="monospace" text-anchor="middle">ACAD (55)</text>
+                <text x="240" y="60" fill="var(--text-secondary)" font-size="10" font-family="monospace">AI_ENG (62)</text>
+                <text x="260" y="145" fill="var(--text-secondary)" font-size="10" font-family="monospace">CYBER (48)</text>
+                <text x="225" y="230" fill="var(--text-secondary)" font-size="10" font-family="monospace">EXP (42)</text>
+                <text x="145" y="248" fill="var(--primary)" font-size="10" font-family="monospace" text-anchor="middle">LNG (50)</text>
+                <text x="40" y="230" fill="var(--text-secondary)" font-size="10" font-family="monospace">FIN (38)</text>
+                <text x="5" y="145" fill="var(--tertiary)" font-size="10" font-family="monospace">STR (52)</text>
+                <text x="35" y="60" fill="var(--text-secondary)" font-size="10" font-family="monospace">DIS (65)</text>
               </svg>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); border-top: 1px solid var(--glass-inner-border-subtle); padding-top: 10px; margin-top: 6px;">
+              <span>Harmonie Globale : <strong style="color: var(--tertiary-fixed);">Rang Alpha</strong></span>
+              <span>8-Axes Synchronisés</span>
             </div>
           </div>
         </div>
 
-        <!-- Right Column: Quests & Time Blocks -->
+        <!-- Right Column: Quests, Time Blocks & Portal -->
         <div>
           <!-- Quests Feed with Real Proof Validation -->
           <div class="glass-card spotlight-card" style="padding: 24px; margin-bottom: 22px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid rgba(56, 189, 248, 0.2); padding-bottom: 10px;">
-              <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--glass-inner-border-subtle); padding-bottom: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="material-symbols-outlined" style="font-size: 18px; color: var(--primary);">assignment_turned_in</span>
                 <span class="shiny-text" style="font-size: 16px; font-weight: 900; letter-spacing: 2px; font-family: var(--font-display);">
                   [!] QUEST INFO // QUÊTES DU JOUR
                 </span>
               </div>
-              <span class="radar-ping-badge" style="border-color: rgba(255, 0, 60, 0.4); color: var(--alert-crimson);">
+              <span class="radar-ping-badge" style="border-color: rgba(244, 63, 94, 0.4); color: var(--alert-crimson);">
                 COUVRE-FEU : 22H00
               </span>
             </div>
@@ -2153,18 +2586,18 @@ function renderFullApplication(initialTab = "dashboard") {
               ${SYSTEM_STATE.quests
                 .map(
                   (q) => `
-                <div class="glass-card" id="quest-card-${q.id}" style="padding: 16px; margin-bottom: 12px; background: rgba(3, 14, 38, 0.65); display: flex; justify-content: space-between; align-items: center;">
+                <div class="glass-card" id="quest-card-${q.id}" style="padding: 16px; margin-bottom: 12px; background: var(--input-bg); border: 1px solid var(--glass-inner-border-subtle); display: flex; justify-content: space-between; align-items: center;">
                   <div>
                     <div style="font-size: 14px; font-weight: bold; margin-bottom: 4px; color: var(--text-white);">${q.title}</div>
                     <div style="font-size: 12px; color: var(--text-secondary);">${q.description}</div>
-                    <div style="font-size: 11px; color: var(--neon-cyan); margin-top: 6px; font-family: var(--font-mono);">
+                    <div style="font-size: 11px; color: var(--primary); margin-top: 6px; font-family: var(--font-mono);">
                       RÉCOMPENSE : +<strong>${q.xp} XP</strong> | +<strong>${q.crystals} 💎</strong>
                     </div>
                   </div>
                   <div id="quest-action-${q.id}">
                     ${
                       q.completed
-                        ? `<span style="color: var(--transcendent-green); font-weight: bold; font-size: 12px; padding: 6px 14px; border: 1px solid var(--transcendent-green); border-radius: var(--radius-sm); background: rgba(0, 255, 102, 0.1);">ACCOMPLIE ✓</span>`
+                        ? `<span style="color: var(--transcendent-green); font-weight: bold; font-size: 12px; padding: 6px 14px; border: 1px solid var(--transcendent-green); border-radius: var(--radius-sm); background: rgba(52, 211, 153, 0.1);">ACCOMPLIE ✓</span>`
                         : `<button class="btn-cyber" onclick="openProofModal('${q.id}', '${q.title.replace(/'/g, "\\'")}', ${q.xp}, ${q.crystals})">VALIDER</button>`
                     }
                   </div>
@@ -2176,36 +2609,38 @@ function renderFullApplication(initialTab = "dashboard") {
           </div>
 
           <!-- Active Circadian Sprint with Working Timer -->
-          <div class="glass-card spotlight-card" style="padding: 24px; margin-bottom: 22px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-              <span style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: var(--monarch-purple); font-family: var(--font-display);">
-                SPRINT CIRCADIEN ACTIF // POMODORO 25 MIN
-              </span>
-              <span class="shiny-text" id="pomodoro-timer-display" style="font-size: 20px; font-weight: 900; font-family: var(--font-mono);">
-                25:00
-              </span>
-            </div>
-            <div style="font-size: 18px; font-weight: bold; margin-bottom: 6px; color: var(--text-white);" id="active-block-title">
-              Deep Work IA : Kernel Triton & FlashAttention-2
-            </div>
-            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
-              Zéro distraction. Isolation sensorielle stricte. +50 XP et régénération neuronale à l'achèvement.
-            </p>
-            <div style="display: flex; gap: 10px; margin-top: 16px;">
-              <button class="btn-cyber" id="pomodoro-toggle-btn" onclick="togglePomodoroTimer()">
-                ▶ DÉMARRER LE SPRINT
-              </button>
-              <button class="btn-cyber btn-gold" onclick="switchView('planner')">
-                VOIR PLANNING ➔
-              </button>
+          <div class="glass-card spotlight-card border-beam-box" style="padding: 24px; margin-bottom: 22px;">
+            <div class="border-beam-content" style="padding: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: var(--primary); font-family: var(--font-display); display: flex; align-items: center; gap: 6px;">
+                  <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">timelapse</span> SPRINT CIRCADIEN ACTIF // POMODORO 25 MIN
+                </span>
+                <span class="shiny-text" id="pomodoro-timer-display" style="font-size: 20px; font-weight: 900; font-family: var(--font-mono); color: var(--primary-fixed);">
+                  25:00
+                </span>
+              </div>
+              <div style="font-size: 17px; font-weight: bold; margin-bottom: 6px; color: var(--text-white);" id="active-block-title">
+                Deep Work IA : Kernel Triton & FlashAttention-2
+              </div>
+              <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                Zéro distraction. Isolation sensorielle stricte. +50 XP et régénération neuronale à l'achèvement.
+              </p>
+              <div style="display: flex; gap: 10px; margin-top: 16px;">
+                <button class="btn-cyber" id="pomodoro-toggle-btn" onclick="togglePomodoroTimer()">
+                  ▶ DÉMARRER LE SPRINT
+                </button>
+                <button class="btn-cyber btn-gold" onclick="switchView('planner')">
+                  VOIR PLANNING ➔
+                </button>
+              </div>
             </div>
           </div>
 
           <!-- Last Socratic Defense Card -->
-          <div class="glass-card spotlight-card" style="padding: 24px;">
+          <div class="glass-card spotlight-card" style="padding: 24px; margin-bottom: 22px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-              <span style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: var(--imperial-gold); font-family: var(--font-display);">
-                DERNIÈRE ÉVALUATION DE L'ARCHITECTE (GRILLE 20 PTS)
+              <span style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; color: var(--imperial-gold); font-family: var(--font-display); display: flex; align-items: center; gap: 6px;">
+                <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">psychology_alt</span> DERNIÈRE ÉVALUATION DE L'ARCHITECTE (GRILLE 20 PTS)
               </span>
               <span class="shiny-green" id="dash-oral-score" style="font-size: 22px; font-weight: 900; font-family: var(--font-display);">
                 18.5 / 20
@@ -2217,6 +2652,26 @@ function renderFullApplication(initialTab = "dashboard") {
             <p style="font-size: 12px; color: var(--text-secondary); font-style: italic; line-height: 1.5;" id="dash-oral-feedback">
               "Démonstration rigoureuse du compromis latence/précision sur RTX 4070. Les tenseurs symétriques ont été parfaitement explicités."
             </p>
+          </div>
+
+          <!-- S-Rank Dungeon Gate Telemetry Card -->
+          <div class="glass-card spotlight-card" style="padding: 20px; position: relative; overflow: hidden; border: 1px solid rgba(244,63,94,0.3);">
+            <div style="position: absolute; right: -20px; bottom: -20px; width: 90px; height: 90px; background: rgba(147, 51, 234, 0.2); border-radius: 9999px; filter: blur(20px); pointer-events: none;"></div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 10.5px; font-family: var(--font-mono); color: var(--primary-fixed); letter-spacing: 1.5px; text-transform: uppercase;">PORTAIL DÉTECTÉ // DIMENSION PURGATOIRE</span>
+              <span style="width: 8px; height: 8px; border-radius: 9999px; background: var(--alert-crimson); animation: pulse 1.5s infinite; display: inline-block;"></span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+              <div>
+                <span style="font-size: 9px; padding: 2px 8px; border-radius: 4px; background: rgba(244,63,94,0.25); color: var(--alert-crimson); font-weight: 800; font-family: var(--font-mono); letter-spacing: 1px;">S-RANK GATE</span>
+                <h4 style="font-size: 16px; font-weight: 800; color: var(--text-white); margin-top: 4px; font-family: var(--font-display);">Obsidian Void [Sector 7]</h4>
+                <p style="font-size: 11px; color: var(--text-secondary); font-family: var(--font-mono); margin-top: 2px;">Mana Surge: Anormal • Scellage temporel actif</p>
+              </div>
+              <button class="btn-cyber" style="padding: 8px 14px; font-size: 11px; white-space: nowrap; display: flex; align-items: center; gap: 6px;" onclick="showSysNotification('[SCANNER LA BRÈCHE]', 'Analyse dimensionnelle en cours : Résonance Mana 98.4%. Portail sous surveillance stricte.')">
+                <span class="material-symbols-outlined" style="font-size: 15px; color: var(--primary);">sensors</span>
+                <span>Scanner la brèche</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -2281,37 +2736,176 @@ function renderFullApplication(initialTab = "dashboard") {
          SCREEN 3 : JOURNAL DES QUÊTES & ALERTES SYSTÈME (3D CIRCULAR CAROUSEL)
          ===================================================================== -->
     <div id="view-quests" class="view-panel ${initialTab === "quests" ? "active" : ""}">
-      <!-- Emergency Quest Alert Box (Real Countdown) -->
-      <div class="border-beam-box" id="emergency-quest-box" style="margin-bottom: 24px;">
+      <!-- Emergency Quest Alert Box (Stitch S-Rank Red Alert) -->
+      <div class="border-beam-box" id="emergency-quest-box" style="margin-bottom: 24px; position: relative; overflow: hidden; border-radius: 12px; background: linear-gradient(135deg, rgba(147,0,10,0.3) 0%, var(--surface-container-low) 50%, var(--surface-container-lowest) 100%); border: 1px solid rgba(244,63,94,0.45); box-shadow: 0 0 35px rgba(244,63,94,0.2);">
+        <div class="cyber-corner-tl" style="border-color: var(--alert-crimson);"></div>
+        <div class="cyber-corner-tr" style="border-color: var(--alert-crimson);"></div>
         <div class="border-beam-content" style="padding: 24px;">
+          <!-- Alert Monospace Header -->
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
             <div style="display: flex; align-items: center; gap: 10px;">
-              <span class="radar-ping-badge" style="border-color: rgba(255, 0, 60, 0.6); color: var(--alert-crimson);">
-                [!] QUÊTE D'URGENCE DU SYSTÈME (RANG S)
+              <span class="radar-ping-badge" style="border-color: rgba(244, 63, 94, 0.7); background: rgba(244, 63, 94, 0.2); color: var(--alert-crimson); font-weight: 800;">
+                <span class="material-symbols-outlined" style="font-size: 14px; animation: pulse 1.5s infinite;">warning</span>
+                [!] DIRECTIVE D'URGENCE FORCÉE // RANG S
               </span>
-              <span style="font-size: 12px; color: var(--alert-crimson); font-weight: bold;" id="emergency-status-label">
-                RÉVOLUTION OU ÉCHEC IRRÉVERSIBLE
+              <span style="font-size: 11px; color: rgba(255, 180, 171, 0.8); font-family: var(--font-mono); letter-spacing: 1.5px;" id="emergency-status-label">
+                AUTHENTIFICATION CODE: 0xCRIT-9921
               </span>
             </div>
-            <div id="emergency-timer-text" style="font-size: 24px; font-weight: 900; font-family: var(--font-mono); color: var(--alert-crimson); text-shadow: 0 0 15px rgba(255, 0, 60, 0.8);">
-              [ 00:57:24 ]
+            <!-- Monospace Countdown Timer -->
+            <div style="display: flex; align-items: center; gap: 8px; background: var(--surface-container-lowest); padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(244, 63, 94, 0.3);">
+              <span class="material-symbols-outlined" style="font-size: 16px; color: var(--alert-crimson);">timer</span>
+              <span style="font-size: 10.5px; font-family: var(--font-mono); color: var(--text-secondary); text-transform: uppercase;">COMPTE À REBOURS :</span>
+              <span id="emergency-timer-text" style="font-size: 20px; font-weight: 900; font-family: var(--font-mono); color: var(--alert-crimson); text-shadow: 0 0 12px rgba(244, 63, 94, 0.75);">
+                [ 00:54:18 ]
+              </span>
+              <span id="emergency-timer" style="display: none;">00:54:18</span>
             </div>
           </div>
 
-          <h3 style="font-size: 20px; font-weight: 900; color: var(--text-white); margin-bottom: 8px; font-family: var(--font-display);">
-            Audit de Sécurité : Faille Critique sur le SingleUserGuard
-          </h3>
-          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5;">
-            Le Système détecte une vulnérabilité d'usurpation d'identité sur les endpoints du Chasseur. L'en-tête <code>x-player-id</code> doit être sanitisé immédiatement avant le verrouillage du récepteur.
-          </p>
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;" id="emergency-action-wrap">
-            <div style="font-size: 12px; font-family: var(--font-mono); color: var(--transcendent-green);">
-              GAIN : +500 XP | +100 CRISTAUX D'OMBRE 💎
+          <!-- Quest Title & Context -->
+          <div style="margin-bottom: 12px;">
+            <div style="font-size: 10.5px; color: var(--primary); font-family: var(--font-mono); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;">
+              THREAT LEVEL : APOCALYPTIC RUNTIME • DOMAINE : INFRASTRUCTURE & CRYPTOGRAPHIE
             </div>
-            <button class="btn-cyber btn-red" onclick="openProofModal('q-emergency-auth-bypass', 'Audit de Sécurité SingleUserGuard', 500, 100)">
-              SOUMETTRE LE COMMIT DE PATCH
-            </button>
+            <h3 style="font-size: 22px; font-weight: 900; color: var(--text-white); font-family: var(--font-display); letter-spacing: 0.5px; line-height: 1.2;">
+              Audit de Sécurité Système : Faille Critique sur le SingleUserGuard & Token Leak
+            </h3>
           </div>
+
+          <!-- Crimson Danger Callout Box (Penalty) -->
+          <div class="danger-callout-box" style="margin-bottom: 16px;">
+            <span class="material-symbols-outlined" style="font-size: 24px; color: var(--alert-crimson); animation: bounce 2s infinite; flex-shrink: 0; margin-top: 2px;">report</span>
+            <div>
+              <div style="font-size: 12px; font-weight: 800; color: var(--alert-crimson); font-family: var(--font-mono); letter-spacing: 1px; text-transform: uppercase;">
+                ⚠️ PÉNALITÉ FATIDIQUE EN CAS D'ÉCHEC
+              </div>
+              <p style="font-size: 12.5px; color: var(--text-white); margin-top: 2px; line-height: 1.5;">
+                Transfert immédiat et irrévocable en <strong style="text-decoration: underline; color: var(--alert-crimson);">Zone de Pénalité 4H</strong> (Survie Temporelle active, Verrouillage total des appareils via NextDNS Blackout & Répétition des séries musculaires d'extinction).
+              </p>
+            </div>
+          </div>
+
+          <!-- Mission Objectives (DoD) -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
+            <div style="background: var(--surface-container); border: 1px solid var(--glass-inner-border-subtle); border-radius: 8px; padding: 12px 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-size: 11px; font-weight: 800; color: var(--tertiary); font-family: var(--font-mono); letter-spacing: 1px;">
+                  ✓ OBJECTIF ALPHA (CRITIQUE)
+                </span>
+                <span style="font-size: 10px; color: var(--text-secondary); font-family: var(--font-mono);">[0/1 COMPLÉTÉ]</span>
+              </div>
+              <p style="font-size: 12px; color: var(--text-white); line-height: 1.4;">
+                Patch du middleware d'authentification RBAC et révocation des tokens corrompus dans la base active Redis.
+              </p>
+              <div class="capsule-slider-track" style="height: 5px; margin-top: 8px;">
+                <div class="capsule-slider-fill capsule-fill-hp" style="width: 35%;"></div>
+              </div>
+            </div>
+
+            <div style="background: var(--surface-container); border: 1px solid var(--glass-inner-border-subtle); border-radius: 8px; padding: 12px 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-size: 11px; font-weight: 800; color: var(--primary); font-family: var(--font-mono); letter-spacing: 1px;">
+                  ⚡ OBJECTIF BÊTA (VALIDATION)
+                </span>
+                <span style="font-size: 10px; color: var(--text-secondary); font-family: var(--font-mono);">[EN ATTENTE HOTFIX]</span>
+              </div>
+              <p style="font-size: 12px; color: var(--text-white); line-height: 1.4;">
+                Déploiement du hotfix sur environnement de staging et validation des tests d'intrusion automatisés sans régression.
+              </p>
+              <div class="capsule-slider-track" style="height: 5px; margin-top: 8px;">
+                <div class="capsule-slider-fill capsule-fill-mp" style="width: 15%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rewards & CTAs -->
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;" id="emergency-action-wrap">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <span style="font-size: 10.5px; font-family: var(--font-mono); color: var(--text-secondary); text-transform: uppercase;">RÉCOMPENSES DE VICTOIRE :</span>
+              <span class="telemetric-chip" style="color: var(--primary); border-color: rgba(221,184,255,0.3); font-weight: 700;">+500 XP</span>
+              <span class="telemetric-chip" style="color: var(--imperial-gold); border-color: rgba(251,191,36,0.3); font-weight: 700;">+100 CRISTAUX D'OMBRE 💎</span>
+              <span class="telemetric-chip" style="color: var(--tertiary-fixed); border-color: rgba(69,223,164,0.3); font-weight: 700;">+3 INT</span>
+              <span class="telemetric-chip" style="color: var(--primary-fixed); border-color: rgba(147,51,234,0.4); font-weight: 700;">TITRE : [Sentinelle du Noyau]</span>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button class="btn-cyber" style="font-size: 11px; padding: 8px 14px;" onclick="showSysNotification('[DÉTAILS TECHNIQUES]', 'Faille CVE-2026-LVL99 : Contournement du SingleUserGuard via injection de headers forgés.')">
+                [DÉTAILS TECHNIQUES]
+              </button>
+              <button class="btn-cyber btn-red" style="font-size: 11px; padding: 8px 16px; font-weight: 800; display: flex; align-items: center; gap: 6px;" onclick="openProofModal('q-emergency-auth-bypass', 'Audit de Sécurité SingleUserGuard', 500, 100)">
+                <span class="material-symbols-outlined" style="font-size: 16px;">bolt</span>
+                <span>SOUMETTRE LE COMMIT DE PATCH (VALIDATION CRITIQUE)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Solo Leveling Daily Physical Routine Card (Push-ups, Sit-ups, Squats, Run) -->
+      <div class="glass-card spotlight-card" style="padding: 22px; margin-bottom: 24px; border-radius: 12px; background: var(--surface-container-low); border: 1px solid rgba(69,223,164,0.35);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 10.5px; font-family: var(--font-mono); color: var(--primary); letter-spacing: 1.5px; text-transform: uppercase;">[SYSTEM NOTIFICATION]</span>
+              <span class="radar-ping-badge" style="border-color: rgba(69,223,164,0.4); color: var(--tertiary-fixed); font-size: 10px;">RANG D // STANDARD</span>
+            </div>
+            <h3 style="font-size: 18px; font-weight: 800; color: var(--primary); font-family: var(--font-display); margin-top: 4px;">
+              [Daily Quest: Strength Training has arrived.]
+            </h3>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="telemetric-chip" style="color: var(--tertiary); font-weight: 700;">18 JOURS CONSÉCUTIFS</span>
+            <span class="radar-ping-badge" style="border-color: rgba(69,223,164,0.4); color: var(--tertiary-fixed);">+18% BUFF</span>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px;">
+          <div style="background: var(--surface-container); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle);">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
+              <span style="color: var(--text-white); font-weight: 600;">1. Pompes (Push-ups)</span>
+              <span style="color: var(--tertiary-fixed); font-weight: 700;">[100 / 100] ✓</span>
+            </div>
+            <div class="capsule-slider-track" style="height: 6px;">
+              <div class="capsule-slider-fill capsule-fill-hp" style="width: 100%;"></div>
+            </div>
+          </div>
+          <div style="background: var(--surface-container); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle);">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
+              <span style="color: var(--text-white); font-weight: 600;">2. Abdominaux (Sit-ups)</span>
+              <span style="color: var(--primary); font-weight: 700;">[80 / 100] (80%)</span>
+            </div>
+            <div class="capsule-slider-track" style="height: 6px;">
+              <div class="capsule-slider-fill capsule-fill-mp" style="width: 80%;"></div>
+            </div>
+          </div>
+          <div style="background: var(--surface-container); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle);">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
+              <span style="color: var(--text-white); font-weight: 600;">3. Squats</span>
+              <span style="color: var(--tertiary-fixed); font-weight: 700;">[100 / 100] ✓</span>
+            </div>
+            <div class="capsule-slider-track" style="height: 6px;">
+              <div class="capsule-slider-fill capsule-fill-hp" style="width: 100%;"></div>
+            </div>
+          </div>
+          <div style="background: var(--surface-container); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle);">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
+              <span style="color: var(--text-white); font-weight: 600;">4. Course (Running)</span>
+              <span style="color: var(--primary); font-weight: 700;">[7.8 / 10.0 km] (78%)</span>
+            </div>
+            <div class="capsule-slider-track" style="height: 6px;">
+              <div class="capsule-slider-fill capsule-fill-mp" style="width: 78%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-top: 1px solid var(--glass-inner-border-subtle); padding-top: 12px;">
+          <div style="font-size: 11.5px; color: var(--alert-crimson); font-family: var(--font-mono); display: flex; align-items: center; gap: 6px;">
+            <span class="material-symbols-outlined" style="font-size: 16px;">warning</span>
+            <span>WARNING : Failure to complete the daily quest before 23:59:59 will result in an appropriate penalty.</span>
+          </div>
+          <button class="btn-cyber" style="font-size: 11px; padding: 7px 14px; background: rgba(0,122,85,0.25); border-color: var(--tertiary); color: var(--tertiary-fixed);" onclick="showSysNotification('[TÉLÉMÉTRIE FIT ENREGISTRÉE]', 'Synchronisation biomécanique validée. Vos efforts physiques alimentent les réserves de Vitalité.')">
+            ENREGISTRER TÉLÉMÉTRIE FIT (+200 XP, +20 💎)
+          </button>
         </div>
       </div>
 
@@ -2371,7 +2965,7 @@ function renderFullApplication(initialTab = "dashboard") {
             ${SYSTEM_STATE.quests
               .map(
                 (q) => `
-              <div class="glass-card spotlight-card" id="qlist-${q.id}" style="padding: 20px; background: rgba(3, 14, 38, 0.75);">
+              <div class="glass-card spotlight-card" id="qlist-${q.id}" style="padding: 20px; background: var(--glass-panel);">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                   <span class="radar-ping-badge">${q.base} // ${q.type}</span>
                   <span style="font-size: 12px; color: var(--imperial-gold); font-family: var(--font-mono);">+${q.xp} XP</span>
@@ -2398,24 +2992,111 @@ function renderFullApplication(initialTab = "dashboard") {
          SCREEN 4 : TIME-BLOCKING CIRCADIEN (WITH REAL COMPLETION & TIMERS)
          ===================================================================== -->
     <div id="view-planner" class="view-panel ${initialTab === "planner" ? "active" : ""}">
-      <div class="glass-card spotlight-card" style="padding: 26px; margin-bottom: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
-          <div>
-            <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display);">
-              PLANIFICATEUR CIRCADIEN TIME-BLOCKING (06H00 - 22H00)
-            </h2>
-            <p style="font-size: 13px; color: var(--text-secondary);">Modèle biphasique de Borbély (Pression Homéostatique S vs Vigilance Circadienne C).</p>
+      <!-- Borbély Two-Process Biophysical Hologram HUD Header -->
+      <div class="glass-card spotlight-card" style="padding: 24px; margin-bottom: 22px; position: relative; overflow: hidden; border-radius: 12px; background: var(--surface-container-low); border: 1px solid rgba(221,184,255,0.3);">
+        <div class="cyber-corner-tl"></div>
+        <div class="cyber-corner-tr"></div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 10.5px; font-family: var(--font-mono); color: var(--primary); letter-spacing: 1.5px; text-transform: uppercase;">
+              THE SYSTEM // CIRCADIAN ARCHITECTURE // [BORBÉLY TWO-PROCESS MODEL]
+            </span>
           </div>
-          <button class="btn-cyber" onclick="openCreateBlockModal()">+ AJOUTER UN BLOC</button>
+          <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-family: var(--font-mono); color: var(--tertiary-fixed);">
+            <span style="width: 6px; height: 6px; border-radius: 9999px; background: var(--tertiary); display: inline-block; animation: pulse 2s infinite;"></span>
+            <span>CHRONO-SYNCHRONISATION : ACTIVE (LATENCE 0.12ms)</span>
+          </div>
         </div>
 
-        <div id="planner-blocks-container">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 16px; flex-wrap: wrap; gap: 14px;">
+          <div>
+            <div style="font-size: 11px; letter-spacing: 2px; color: var(--tertiary-fixed); font-family: var(--font-mono); font-weight: bold; margin-bottom: 4px;">
+              MONARCH TIME-DOMINION ENGINE
+            </div>
+            <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display); line-height: 1.1;">
+              Planificateur Circadien & Time-Blocking Temporel
+            </h2>
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="btn-cyber" onclick="openCreateBlockModal()">+ AJOUTER UN BLOC TEMPOREL</button>
+            <button class="btn-cyber btn-gold" onclick="togglePomodoroTimer()">DÉMARRER POMODORO 25 MIN</button>
+          </div>
+        </div>
+
+        <!-- Telemetric Chips Cluster -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 18px;">
+          <div style="background: var(--surface-container); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(69,223,164,0.3); display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 11px; color: var(--text-secondary); font-family: var(--font-mono);">SYNCHRO BORBÉLY</span>
+            <strong style="font-size: 12px; color: var(--tertiary-fixed); font-family: var(--font-mono);">OPTIMALE (98.2%)</strong>
+          </div>
+          <div style="background: var(--surface-container); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(221,184,255,0.3); display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 11px; color: var(--text-secondary); font-family: var(--font-mono);">FENÊTRE DEEP WORK</span>
+            <strong style="font-size: 12px; color: var(--primary); font-family: var(--font-mono);">PIC ULTRA-DIEN</strong>
+          </div>
+          <div style="background: var(--surface-container); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(244,63,94,0.3); display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 11px; color: var(--text-secondary); font-family: var(--font-mono);">COUVRE-FEU FATIDIQUE</span>
+            <strong style="font-size: 12px; color: var(--alert-crimson); font-family: var(--font-mono);">22:00:00 [PÉNALITÉ ACTIVE]</strong>
+          </div>
+        </div>
+
+        <!-- Dual Curves Vector SVG Diagram (Processus S vs Processus C) -->
+        <div style="background: var(--surface-container-lowest); border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle); padding: 14px; margin-bottom: 10px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 11px; font-family: var(--font-mono); flex-wrap: wrap; gap: 8px;">
+            <div style="display: flex; gap: 14px;">
+              <span style="color: var(--primary); display: flex; align-items: center; gap: 4px;">
+                <span style="width: 10px; height: 3px; background: var(--primary); display: inline-block;"></span> Processus S (Pression Adénosine)
+              </span>
+              <span style="color: var(--tertiary); display: flex; align-items: center; gap: 4px;">
+                <span style="width: 10px; height: 3px; background: var(--tertiary); display: inline-block;"></span> Processus C (Alerte Circadienne)
+              </span>
+            </div>
+            <div style="color: var(--text-muted); font-size: 10px;">
+              TEMP: 36.8°C • CORTISOL: PEAK 1 • LUX: 10,000 lx
+            </div>
+          </div>
+          
+          <div style="position: relative; width: 100%; height: 160px;">
+            <svg width="100%" height="160" viewBox="0 0 800 160" preserveAspectRatio="none" style="overflow: visible;">
+              <defs>
+                <linearGradient id="dw-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#9333ea" stop-opacity="0.3"/>
+                  <stop offset="100%" stop-color="#9333ea" stop-opacity="0.02"/>
+                </linearGradient>
+                <linearGradient id="dip-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#ef4444" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#ef4444" stop-opacity="0.02"/>
+                </linearGradient>
+              </defs>
+              <!-- Shaded Zones -->
+              <rect x="120" y="10" width="160" height="130" fill="url(#dw-grad)" rx="4"/>
+              <text x="200" y="24" fill="var(--primary)" font-size="9" font-family="monospace" text-anchor="middle">DEEP WORK ALPHA [08h30-11h30]</text>
+              
+              <rect x="360" y="10" width="60" height="130" fill="url(#dip-grad)" rx="4"/>
+              <text x="390" y="24" fill="var(--alert-crimson)" font-size="9" font-family="monospace" text-anchor="middle">CREUX NSDR</text>
+
+              <rect x="440" y="10" width="160" height="130" fill="url(#dw-grad)" rx="4"/>
+              <text x="520" y="24" fill="var(--primary)" font-size="9" font-family="monospace" text-anchor="middle">DEEP WORK BETA [14h00-17h00]</text>
+
+              <!-- Now marker -->
+              <line x1="340" y1="10" x2="340" y2="140" stroke="var(--tertiary)" stroke-dasharray="3 3" stroke-width="2"/>
+              <text x="340" y="152" fill="var(--tertiary-fixed)" font-size="9" font-family="monospace" font-weight="bold" text-anchor="middle">NOW (12:45)</text>
+
+              <!-- Processus S curve (Homeostatic Sleep Pressure) -->
+              <path d="M 40 130 Q 220 120 400 95 T 650 50 T 760 25" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+              <!-- Processus C curve (Circadian Alertness) -->
+              <path d="M 40 110 Q 180 35 280 40 T 400 95 T 520 45 T 760 135" fill="none" stroke="var(--tertiary)" stroke-width="2.5"/>
+            </svg>
+          </div>
+        </div>
+
+        <div id="planner-blocks-container" style="margin-top: 18px;">
           ${SYSTEM_STATE.plannerBlocks
             .map(
               (b) => `
-            <div class="glass-card spotlight-card" id="block-card-${b.id}" style="padding: 16px 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; ${b.status === "ACTIVE" ? "border-color: var(--neon-cyan); box-shadow: 0 0 20px rgba(0,240,255,0.4);" : ""}">
+            <div class="glass-card spotlight-card" id="block-card-${b.id}" style="padding: 16px 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; ${b.status === "ACTIVE" ? "border-color: var(--primary); box-shadow: 0 0 20px rgba(147,51,234,0.4);" : ""}">
               <div style="display: flex; align-items: center; gap: 16px;">
-                <div style="font-size: 14px; font-family: var(--font-mono); color: var(--neon-cyan); min-width: 110px;">
+                <div style="font-size: 14px; font-family: var(--font-mono); color: var(--primary); min-width: 110px;">
                   ${b.time}
                 </div>
                 <div>
@@ -2620,7 +3301,7 @@ function renderFullApplication(initialTab = "dashboard") {
                       </div>
                     </div>
                     <h3 style="font-size: 17px; font-weight: bold; margin-bottom: 12px; color: var(--text-white); cursor: pointer;" onclick="openObsidianNote('${n.id}'); setObsidianMode('reader');">${n.title}</h3>
-                    <div style="background: rgba(2, 8, 24, 0.7); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: var(--radius-sm); padding: 14px; font-size: 12px; font-family: var(--font-mono); color: var(--text-secondary); line-height: 1.5; white-space: pre-wrap; margin-bottom: 14px;">${n.content}</div>
+                    <div style="background: var(--input-bg); border: 1px solid var(--glass-inner-border); border-radius: var(--radius-sm); padding: 14px; font-size: 12px; font-family: var(--font-mono); color: var(--text-secondary); line-height: 1.5; white-space: pre-wrap; margin-bottom: 14px;">${n.content}</div>
                     <div style="display: flex; gap: 6px; flex-wrap: wrap;">
                       ${n.tags.map((t) => `<span style="background: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); font-size: 11px; font-family: var(--font-mono); padding: 3px 8px; border-radius: 4px;">#${t}</span>`).join("")}
                     </div>
@@ -2654,7 +3335,7 @@ function renderFullApplication(initialTab = "dashboard") {
         </div>
 
         <!-- Real Web Audio Spectrum Canvas -->
-        <div class="glass-card" style="padding: 16px; margin-bottom: 22px; background: rgba(2, 8, 24, 0.85); text-align: center;">
+        <div class="glass-card" style="padding: 16px; margin-bottom: 22px; background: var(--input-bg); border: 1px solid var(--glass-inner-border); text-align: center;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <span style="font-size: 11px; color: var(--neon-cyan); font-family: var(--font-mono);">
               SPECTRE FRÉQUENTIEL FFT TEMPS RÉEL (64 BANDES // ANALYSERNODE)
@@ -2770,7 +3451,7 @@ function renderFullApplication(initialTab = "dashboard") {
                 <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 8px; color: var(--text-white);">${item.name}</h3>
                 <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.4; margin-bottom: 16px;">${item.desc}</p>
               </div>
-              <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(56, 189, 248, 0.15); padding-top: 14px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-inner-border); padding-top: 14px;">
                 <span style="font-size: 15px; font-weight: 900; color: var(--imperial-gold); font-family: var(--font-mono);">${item.cost} 💎</span>
                 <button class="btn-cyber btn-gold" onclick="buyShopItem('${item.id}', '${item.name.replace(/'/g, "\\'")}', ${item.cost})">ACHETER</button>
               </div>
@@ -2781,7 +3462,7 @@ function renderFullApplication(initialTab = "dashboard") {
         </div>
 
         <!-- Inventory of Redeemed Vouchers -->
-        <div style="margin-top: 30px; border-top: 1px solid rgba(56, 189, 248, 0.2); padding-top: 20px;">
+        <div style="margin-top: 30px; border-top: 1px solid var(--glass-inner-border); padding-top: 20px;">
           <h3 class="shiny-text" style="font-size: 18px; font-weight: bold; margin-bottom: 14px;">📦 MES ARTICLES DÉBLOQUÉS & CODES DE RETRAIT</h3>
           <div id="shop-inventory-container" class="grid-2col">
             ${SYSTEM_STATE.inventory
@@ -2809,52 +3490,137 @@ function renderFullApplication(initialTab = "dashboard") {
          SCREEN 9 : ZONE DE PÉNALITÉ & VERROUILLAGE RÉSEAU INVIOLABLE
          ===================================================================== -->
     <div id="view-penalty" class="view-panel ${initialTab === "penalty" ? "active" : ""}">
-      <div class="border-beam-box" style="margin-bottom: 24px;">
-        <div class="border-beam-content" style="padding: 26px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 12px;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <span class="radar-ping-badge" style="border-color: rgba(255, 0, 60, 0.5); color: var(--alert-crimson);">
-                ⚠️ ZONE DE PÉNALITÉ INVIOLABLE
-              </span>
-              <span style="font-size: 13px; font-weight: bold;" id="penalty-status-header">
-                STATUT : CHASSEUR EN RÈGLE (AUCUN BLOCAGE ACTIF)
+      
+      <!-- Purgatory Ambient Dimensional Background Header -->
+      <div class="relative w-full rounded-xl overflow-hidden p-space-lg mb-space-lg" style="background: var(--surface-container-lowest); border: 1px solid rgba(244,63,94,0.4); box-shadow: 0 0 40px rgba(147,0,10,0.35); padding: 24px; margin-bottom: 22px; position: relative;">
+        <div class="cyber-corner-tl" style="border-color: var(--alert-crimson);"></div>
+        <div class="cyber-corner-tr" style="border-color: var(--alert-crimson);"></div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 11px; font-family: var(--font-mono); color: var(--alert-crimson); letter-spacing: 1.5px; text-transform: uppercase;">
+              <span style="width: 8px; height: 8px; border-radius: 9999px; background: var(--alert-crimson); animation: pulse 1.5s infinite; display: inline-block;"></span>
+              <span>THE SYSTEM /// DIMENSIONAL PURGATORY /// [PENALTY ZONE & REHABILITATION]</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-top: 6px;">
+              <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display); line-height: 1.1; color: var(--text-white);">
+                Zone de Pénalité Dimensionnelle
+              </h2>
+              <span style="font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(244,63,94,0.25); color: var(--alert-crimson); font-weight: 800; font-family: var(--font-mono); border: 1px solid rgba(244,63,94,0.4);">
+                NIVEAU-4 EXCLUSION
               </span>
             </div>
-            <button class="btn-cyber btn-red" id="penalty-toggle-btn" onclick="togglePenaltySimulation()">DÉCLENCHER SIMULATION PÉNALITÉ</button>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 6px; max-width: 650px; line-height: 1.5;" id="penalty-status-header">
+              STATUT : CHASSEUR EN RÈGLE (AUCUN BLOCAGE ACTIF). Scellage chronobiologique de 22:00:00 actif. En cas d'échec, NextDNS verrouille tous les flux externes.
+            </p>
           </div>
 
-          <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px;">
-            En cas d'échec d'une quête obligatoire à 22h00, NextDNS verrouille tous les réseaux enregistrés.
-          </p>
+          <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px;">
+            <div style="background: rgba(244,63,94,0.15); border: 1px solid var(--alert-crimson); padding: 8px 16px; border-radius: 8px; display: flex; align-items: center; gap: 10px; box-shadow: 0 0 15px rgba(244,63,94,0.25);">
+              <span class="material-symbols-outlined" style="color: var(--alert-crimson); font-size: 20px; animation: pulse 2s infinite;">timer</span>
+              <div style="text-align: right;">
+                <div style="font-size: 9px; color: var(--text-secondary); font-family: var(--font-mono); text-transform: uppercase;">Temps Avant Dégradation Rang</div>
+                <div style="font-size: 18px; font-weight: 900; font-family: var(--font-mono); color: var(--alert-crimson); letter-spacing: 1px;">03:41:22</div>
+              </div>
+            </div>
+            <button class="btn-cyber btn-red" id="penalty-toggle-btn" onclick="togglePenaltySimulation()" style="font-size: 11px; padding: 8px 14px;">
+              DÉCLENCHER SIMULATION PÉNALITÉ
+            </button>
+          </div>
+        </div>
+      </div>
 
-          <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 12px; color: var(--alert-crimson); font-family: var(--font-display);">
-            DOMAINES SOUMIS AU BLACKOUT AUTOMATIQUE :
+      <!-- Top Bento Stat Cards (4 Cards) -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 22px;">
+        <!-- Card 1: Degré d'infraction -->
+        <div class="glass-card spotlight-card" style="padding: 16px; border-color: rgba(244,63,94,0.3);">
+          <div style="display: flex; justify-content: space-between; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); margin-bottom: 6px;">
+            <span>DEGRÉ D'INFRACTION</span>
+            <span style="color: var(--alert-crimson); font-weight: bold;">MULTIPLICATEUR x1.5</span>
+          </div>
+          <div style="font-size: 20px; font-weight: 900; color: var(--alert-crimson); font-family: var(--font-display);">CLASSE B</div>
+          <p style="font-size: 11px; color: var(--text-secondary); margin-top: 4px; line-height: 1.3;">Retard Couvre-feu 22h00 + Quête Journalière incomplète.</p>
+          <div style="font-size: 10px; color: var(--alert-crimson); font-family: var(--font-mono); border-top: 1px solid var(--glass-inner-border-subtle); padding-top: 8px; margin-top: 8px;">
+            Gravité Système: Critique Transitoire
+          </div>
+        </div>
+
+        <!-- Card 2: Drain passif -->
+        <div class="glass-card spotlight-card" style="padding: 16px; border-color: rgba(244,63,94,0.4);">
+          <div style="display: flex; justify-content: space-between; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); margin-bottom: 6px;">
+            <span>DRAIN PASSIF (HP/MP)</span>
+            <span class="material-symbols-outlined" style="font-size: 16px; color: var(--alert-crimson);">heart_broken</span>
+          </div>
+          <div style="font-size: 20px; font-weight: 900; color: var(--alert-crimson); font-family: var(--font-display);">-35% ACTIF</div>
+          <p style="font-size: 11px; color: var(--text-secondary); margin-top: 4px; line-height: 1.3;">-10 HP/min • Dépérissement continu jusqu'à purge.</p>
+          <div class="capsule-slider-track" style="height: 5px; margin-top: 8px;">
+            <div class="capsule-slider-fill" style="width: 65%; background: var(--alert-crimson);"></div>
+          </div>
+        </div>
+
+        <!-- Card 3: Séquestre Cristaux -->
+        <div class="glass-card spotlight-card" style="padding: 16px; border-color: rgba(221,184,255,0.3);">
+          <div style="display: flex; justify-content: space-between; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); margin-bottom: 6px;">
+            <span>SÉQUESTRE CRISTAUX</span>
+            <span class="material-symbols-outlined" style="font-size: 16px; color: var(--primary);">lock_clock</span>
+          </div>
+          <div style="font-size: 20px; font-weight: 900; color: var(--primary-fixed); font-family: var(--font-display);">120 CRISTAUX</div>
+          <p style="font-size: 11px; color: var(--text-secondary); margin-top: 4px; line-height: 1.3;">Sous mise en demeure. Révocation à l'échéance du chrono.</p>
+          <div style="font-size: 10px; color: var(--primary-fixed); font-family: var(--font-mono); border-top: 1px solid var(--glass-inner-border-subtle); padding-top: 8px; margin-top: 8px;">
+            Solde Sauvegardé: 700 Cristaux
+          </div>
+        </div>
+
+        <!-- Card 4: Jetons de Grâce -->
+        <div class="glass-card spotlight-card" style="padding: 16px; border-color: rgba(69,223,164,0.35);">
+          <div style="display: flex; justify-content: space-between; font-size: 11px; font-family: var(--font-mono); color: var(--tertiary); margin-bottom: 6px;">
+            <span>JETONS DE GRÂCE</span>
+            <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">shield</span>
+          </div>
+          <div style="font-size: 20px; font-weight: 900; color: var(--tertiary-fixed); font-family: var(--font-display);">2 DISPONIBLES</div>
+          <p style="font-size: 11px; color: var(--text-secondary); margin-top: 4px; line-height: 1.3;">Dissout instantanément les effets sans perte de HP.</p>
+          <button class="btn-cyber" style="width: 100%; margin-top: 8px; padding: 5px; font-size: 10.5px; border-color: var(--tertiary); color: var(--tertiary-fixed);" onclick="showSysNotification('[BOUCLIER SOUVERAIN]', 'Bouclier dimensionnel activé. Immunité temporaire accordée.')">
+            DÉPLOYER BOUCLIER (-1)
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Penalty Content Box -->
+      <div class="border-beam-box" style="margin-bottom: 24px;">
+        <div class="border-beam-content" style="padding: 26px;">
+          <!-- Domaines NextDNS Blackout -->
+          <h3 style="font-size: 15px; font-weight: bold; margin-bottom: 12px; color: var(--alert-crimson); font-family: var(--font-display); letter-spacing: 0.5px;">
+            DOMAINES SOUMIS AU BLACKOUT AUTOMATIQUE (NEXTDNS INVIOLABLE) :
           </h3>
           <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px;">
             ${SYSTEM_STATE.penalty.blockedDomains
               .map(
                 (d) => `
-              <span style="background: rgba(255, 0, 60, 0.12); border: 1px solid rgba(255, 0, 60, 0.4); color: var(--alert-crimson); font-size: 12px; font-family: var(--font-mono); padding: 5px 12px; border-radius: var(--radius-sm);">
-                🔒 ${d}
+              <span style="background: rgba(255, 0, 60, 0.12); border: 1px solid rgba(255, 0, 60, 0.4); color: var(--alert-crimson); font-size: 12px; font-family: var(--font-mono); padding: 6px 14px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 6px;">
+                <span>🔒</span> <span>${d}</span>
               </span>
             `,
               )
               .join("")}
           </div>
 
-          <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 12px; color: var(--transcendent-green); font-family: var(--font-display);">
+          <!-- Épreuves de Rédemption Immédiate -->
+          <h3 style="font-size: 15px; font-weight: bold; margin-bottom: 12px; color: var(--transcendent-green); font-family: var(--font-display); letter-spacing: 0.5px;">
             ÉPREUVES DE RÉDEMPTION POUR LEVER LE BLOCAGE :
           </h3>
           <div class="grid-2col">
-            <div class="glass-card" style="padding: 16px; border-color: rgba(0, 255, 102, 0.3);">
-              <div style="font-size: 13px; font-weight: bold; color: var(--text-white); margin-bottom: 6px;">OPTION A : CALISTHÉNIE MILITAIRE</div>
-              <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.4; margin-bottom: 10px;">${SYSTEM_STATE.penalty.redemptionOptionA}</p>
-              <button class="btn-cyber" style="width: 100%; padding: 6px;" onclick="redeemPenalty('A')">VALIDER 400 POMPES (RACHAT)</button>
+            <div class="glass-card" style="padding: 18px; border-color: rgba(69, 223, 164, 0.35);">
+              <div style="font-size: 13px; font-weight: bold; color: var(--text-white); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">fitness_center</span> OPTION A : CALISTHÉNIE MILITAIRE
+              </div>
+              <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;">${SYSTEM_STATE.penalty.redemptionOptionA}</p>
+              <button class="btn-cyber" style="width: 100%; padding: 8px; font-size: 11px; font-weight: 700;" onclick="redeemPenalty('A')">VALIDER 400 POMPES (RACHAT)</button>
             </div>
-            <div class="glass-card" style="padding: 16px; border-color: rgba(0, 255, 102, 0.3);">
-              <div style="font-size: 13px; font-weight: bold; color: var(--text-white); margin-bottom: 6px;">OPTION B : COURSE NOCTURNE GPS</div>
-              <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.4; margin-bottom: 10px;">${SYSTEM_STATE.penalty.redemptionOptionB}</p>
-              <button class="btn-cyber" style="width: 100%; padding: 6px;" onclick="redeemPenalty('B')">VALIDER 10 KM COURSE (RACHAT)</button>
+            <div class="glass-card" style="padding: 18px; border-color: rgba(69, 223, 164, 0.35);">
+              <div style="font-size: 13px; font-weight: bold; color: var(--text-white); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">directions_run</span> OPTION B : COURSE NOCTURNE GPS
+              </div>
+              <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;">${SYSTEM_STATE.penalty.redemptionOptionB}</p>
+              <button class="btn-cyber" style="width: 100%; padding: 8px; font-size: 11px; font-weight: 700;" onclick="redeemPenalty('B')">VALIDER 10 KM COURSE (RACHAT)</button>
             </div>
           </div>
         </div>
@@ -2878,7 +3644,7 @@ function renderFullApplication(initialTab = "dashboard") {
         </div>
 
         <div class="grid-2col">
-          <div class="glass-card" style="padding: 12px; background: rgba(1, 6, 18, 0.95); min-height: 380px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;">
+          <div class="glass-card" style="padding: 12px; background: var(--input-bg); border: 1px solid var(--glass-inner-border); min-height: 380px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;">
             <video id="webcam-video" style="display: none; width: 100%; border-radius: var(--radius-sm);" autoplay playsinline></video>
             <div id="cam-placeholder" style="text-align: center; color: var(--text-muted); padding: 40px 20px;">
               <div style="font-size: 48px; margin-bottom: 12px;">📷</div>
@@ -3103,15 +3869,74 @@ function renderFullApplication(initialTab = "dashboard") {
       switchView(path);
     });
 
-    // Theme Toggle
+    // Theme Toggle & State Persistence
+    function updateThemeToggleBtn(theme) {
+      const btn = document.getElementById('theme-toggle-btn');
+      if (btn) {
+        btn.innerHTML = (theme === 'light-awakening') ? '☀️ CLAIR' : '🌙 SOMBRE';
+      }
+    }
+
     function toggleTheme() {
       const current = document.documentElement.getAttribute('data-theme');
       const next = current === 'dark-monarch' ? 'light-awakening' : 'dark-monarch';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('levelup-theme', next);
+      updateThemeToggleBtn(next);
+      if (typeof refreshObsidianGraphTheme === 'function') refreshObsidianGraphTheme();
     }
-    const savedTheme = localStorage.getItem('levelup-theme');
-    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+
+    const savedTheme = localStorage.getItem('levelup-theme') || 'dark-monarch';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeToggleBtn(savedTheme);
+
+    // Solo Leveling Status Window: Attribute Point Allocation
+    function allocateStatPoint(stat) {
+      if (!state.player.attributes) {
+        state.player.attributes = { str: 50, agi: 35, per: 29, vit: 27, int: 27, remainingPoints: 3 };
+      }
+      if (state.player.attributes.remainingPoints <= 0) {
+        showSysNotification(
+          "[POINTS INSUFFISANTS]",
+          "Vous n'avez aucun point de caractéristique disponible. Accomplissez des quêtes de rang S ou validez des séries pour monter de niveau."
+        );
+        return;
+      }
+      if (state.player.attributes[stat] !== undefined) {
+        state.player.attributes[stat]++;
+        state.player.attributes.remainingPoints--;
+        saveState();
+        updateStatsUI();
+        const statLabels = {
+          str: 'FORCE (STR)',
+          agi: 'AGILITÉ (AGI)',
+          per: 'PERCEPTION (PER)',
+          vit: 'VITALITÉ (VIT)',
+          int: 'INTELLIGENCE (INT)'
+        };
+        playChime(880);
+        showSysNotification(
+          "[AUGMENTATION DE CARACTÉRISTIQUE]",
+          "Attribut <strong>" + (statLabels[stat] || stat.toUpperCase()) + "</strong> élevé à <strong>" + state.player.attributes[stat] + "</strong>.<br>Points restants à allouer : <strong>" + state.player.attributes.remainingPoints + "</strong>."
+        );
+      }
+    }
+
+    function updateStatsUI() {
+      if (!state.player) return;
+      if (!state.player.attributes) {
+        state.player.attributes = { str: 50, agi: 35, per: 29, vit: 27, int: 27, remainingPoints: 3 };
+      }
+      const remEl = document.getElementById('stat-remaining-points');
+      if (remEl) remEl.textContent = state.player.attributes.remainingPoints;
+      ['str', 'agi', 'per', 'vit', 'int'].forEach(s => {
+        const valEl = document.getElementById('stat-val-' + s);
+        if (valEl) valEl.textContent = state.player.attributes[s];
+      });
+    }
+
+    // Initialize stats on DOM ready
+    setTimeout(updateStatsUI, 30);
 
     // =========================================================================
     // SCREEN 1 : DASHBOARD VITALS & INTERACTIVE RESTORATION
@@ -3163,11 +3988,16 @@ function renderFullApplication(initialTab = "dashboard") {
         state.player.nextLevelXp = Math.round(state.player.nextLevelXp * 1.35);
         state.player.hp = 100;
         state.player.mp = 100;
+        if (!state.player.attributes) {
+          state.player.attributes = { str: 50, agi: 35, per: 29, vit: 27, int: 27, remainingPoints: 3 };
+        }
+        state.player.attributes.remainingPoints = (state.player.attributes.remainingPoints || 0) + 5;
         playChime(1046);
         showSysNotification(
           "🌟 [LEVEL UP! MONTÉE DE NIVEAU SOUVERAINE]",
           "Félicitations, Chasseur ! Vous avez atteint le <strong>NIVEAU " + state.player.level + "</strong> !\\nToutes vos jauges HP et MP sont instantanément restaurées à 100%.\\n<strong>+5 Points de caractéristiques</strong> disponibles."
         );
+        updateStatsUI();
       }
       saveState();
       updateXpUI();
@@ -3337,7 +4167,7 @@ function renderFullApplication(initialTab = "dashboard") {
             </div>
 
             <!-- Solo Leveling Quest Header -->
-            <div style="border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 10px;">
+            <div style="border-bottom: 1px solid var(--glass-inner-border); padding-bottom: 8px; margin-bottom: 10px;">
               <div style="font-size: 11px; letter-spacing: 2px; color: \${isEmergency ? 'var(--alert-crimson)' : 'var(--neon-cyan)'}; font-family: var(--font-mono); font-weight: 900; display: flex; align-items: center; gap: 6px;">
                 <span>ℹ️</span> <span>QUEST INFO</span>
               </div>
@@ -3347,9 +4177,9 @@ function renderFullApplication(initialTab = "dashboard") {
             </div>
 
             <!-- Solo Leveling Objective Details -->
-            <div style="flex: 1; background: rgba(2, 8, 24, 0.7); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 8px; padding: 10px; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); line-height: 1.5; margin-bottom: 10px; overflow: hidden;">
+            <div style="flex: 1; background: var(--input-bg); border: 1px solid var(--glass-inner-border); border-radius: 8px; padding: 10px; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); line-height: 1.5; margin-bottom: 10px; overflow: hidden;">
               \${isFit ? \`
-                <div style="color: var(--neon-cyan); font-weight: bold; margin-bottom: 4px; border-bottom: 1px dashed rgba(0,240,255,0.3); padding-bottom: 2px;">GOAL :</div>
+                <div style="color: var(--neon-cyan); font-weight: bold; margin-bottom: 4px; border-bottom: 1px dashed var(--glass-inner-border); padding-bottom: 2px;">GOAL :</div>
                 <div>• Push-ups : [14/100]</div>
                 <div>• Sit-ups : [0/100]</div>
                 <div>• Squats : [0/100]</div>
@@ -3363,8 +4193,8 @@ function renderFullApplication(initialTab = "dashboard") {
             <!-- Bottom Action & Rewards -->
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 11px; font-family: var(--font-mono);">
-                <span style="color: var(--transcendent-green);">+500 XP</span>
-                <span style="color: var(--imperial-gold);">+100 💎</span>
+                <span style="color: var(--transcendent-green);">+\${q.xp} XP</span>
+                <span style="color: var(--imperial-gold);">+\${q.crystals || 100} 💎</span>
               </div>
               <button class="btn-cyber \${isEmergency ? 'btn-red' : ''}" 
                       style="width: 100%; padding: 8px 12px; font-size: 11px;" 
@@ -3790,7 +4620,7 @@ function renderFullApplication(initialTab = "dashboard") {
       });
 
       // Extract wikilinks from content to build edges [[target]]
-      const linkRegex = /\[\[(.*?)\]\]/g;
+      const linkRegex = new RegExp('\\\\\\[\\\\\\[(.*?)\\\\\\]\\\\\\]', 'g');
       notes.forEach((note) => {
         let match;
         const text = note.content || '';
@@ -3853,7 +4683,7 @@ function renderFullApplication(initialTab = "dashboard") {
 
         html += \`
           <div class="obsidian-folder" style="margin-bottom: 8px;">
-            <div class="obsidian-folder-header" style="display: flex; align-items: center; gap: 6px; padding: 5px 8px; border-radius: 4px; color: var(--text-secondary); font-size: 11px; font-family: var(--font-mono); font-weight: bold; background: rgba(2, 8, 24, 0.4); cursor: pointer;" onclick="this.nextElementSibling.classList.toggle('hidden')">
+            <div class="obsidian-folder-header" style="display: flex; align-items: center; gap: 6px; padding: 5px 8px; border-radius: 4px; color: var(--text-secondary); font-size: 11px; font-family: var(--font-mono); font-weight: bold; background: var(--input-bg); border: 1px solid var(--glass-inner-border-subtle); cursor: pointer;" onclick="this.nextElementSibling.classList.toggle('hidden')">
               <span>📁</span>
               <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">\${fKey}</span>
               <span style="font-size: 10px; color: var(--text-muted); background: rgba(56, 189, 248, 0.1); padding: 1px 5px; border-radius: 3px;">\${folderNotes.length}</span>
@@ -3945,7 +4775,7 @@ function renderFullApplication(initialTab = "dashboard") {
 
     function openNoteByTitle(rawTitle) {
       if (!rawTitle) return;
-      const clean = rawTitle.replace(/\[\[|\]\]/g, '').trim().toLowerCase();
+      const clean = rawTitle.split('[[').join('').split(']]').join('').trim().toLowerCase();
       const target = (state.notes || []).find(n => 
         n.title.toLowerCase() === clean ||
         n.title.toLowerCase().includes(clean) ||
@@ -3965,62 +4795,76 @@ function renderFullApplication(initialTab = "dashboard") {
       if (!raw) return '';
 
       const displayFormulas = [];
-      let processed = raw.replace(/\$\$([\s\S]*?)\$\$/g, (match, formula) => {
+      let processed = raw.replace(new RegExp('[$][$](.*?)[$][$]', 'gs'), function(match, formula) {
         const id = 'KATEX_DISPLAY_' + displayFormulas.length;
         displayFormulas.push(formula.trim());
         return id;
       });
 
       const inlineFormulas = [];
-      processed = processed.replace(/\$([^$\n]+)\$/g, (match, formula) => {
+      processed = processed.replace(new RegExp('[$]([^$' + String.fromCharCode(10) + String.fromCharCode(13) + ']+)[$]', 'g'), function(match, formula) {
         const id = 'KATEX_INLINE_' + inlineFormulas.length;
         inlineFormulas.push(formula.trim());
         return id;
       });
 
       let html = processed
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
+        .split('&').join('&amp;')
+        .split('<').join('&lt;')
+        .split('>').join('&gt;');
 
-      html = html.replace(/\`\`\`([a-z]*)\n([\s\S]*?)\`\`\`/g, (m, lang, code) => {
-        return \`<pre style="background: rgba(2, 8, 24, 0.95); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 6px; padding: 14px; font-family: var(--font-mono); font-size: 12px; color: #a5f3fc; overflow-x: auto; margin: 14px 0; line-height: 1.6;"><code>\${code.trim()}</code></pre>\`;
+      html = html.replace(new RegExp('\`\`\`([a-z]*)' + String.fromCharCode(10) + '(.*?)\`\`\`', 'gs'), function(m, lang, code) {
+        return '<pre style="background: var(--input-bg); border: 1px solid var(--glass-inner-border); border-radius: 6px; padding: 14px; font-family: var(--font-mono); font-size: 12px; color: var(--neon-cyan); overflow-x: auto; margin: 14px 0; line-height: 1.6;"><code>' + code.trim() + '</code></pre>';
       });
 
-      html = html.replace(/^### (.*$)/gim, '<h3 style="font-size: 15px; font-weight: bold; color: var(--neon-cyan); margin: 18px 0 8px 0; font-family: var(--font-display);">$1</h3>');
-      html = html.replace(/^## (.*$)/gim, '<h2 style="font-size: 18px; font-weight: bold; color: var(--text-white); margin: 22px 0 10px 0; border-bottom: 1px solid rgba(56, 189, 248, 0.2); padding-bottom: 6px; font-family: var(--font-display);">$1</h2>');
-      html = html.replace(/^# (.*$)/gim, '<h1 style="font-size: 22px; font-weight: 900; color: var(--imperial-gold); margin: 26px 0 12px 0; font-family: var(--font-display);">$1</h1>');
+      html = html.replace(new RegExp('^### (.*$)', 'gim'), '<h3 style="font-size: 15px; font-weight: bold; color: var(--neon-cyan); margin: 18px 0 8px 0; font-family: var(--font-display);">$1</h3>');
+      html = html.replace(new RegExp('^## (.*$)', 'gim'), '<h2 style="font-size: 18px; font-weight: bold; color: var(--text-white); margin: 22px 0 10px 0; border-bottom: 1px solid var(--glass-inner-border); padding-bottom: 6px; font-family: var(--font-display);">$1</h2>');
+      html = html.replace(new RegExp('^# (.*$)', 'gim'), '<h1 style="font-size: 22px; font-weight: 900; color: var(--imperial-gold); margin: 26px 0 12px 0; font-family: var(--font-display);">$1</h1>');
 
-      html = html.replace(/\*\*(.*?)\*\*/g, '<strong style="color: var(--text-white);">$1</strong>');
-      html = html.replace(/\*(.*?)\*/g, '<em style="color: #cbd5e1;">$1</em>');
+      html = html.replace(new RegExp('([*][*])(.*?)([*][*])', 'g'), '<strong style="color: var(--text-white);">$2</strong>');
+      html = html.replace(new RegExp('(^|[^*])[*]([^*]+)[*]([^*]|$)', 'g'), '$1<em style="color: var(--text-secondary);">$2</em>$3');
 
-      html = html.replace(/\[\[(.*?)\]\]/g, (m, linkText) => {
-        return \`<span class="wikilink-pill" onclick="openNoteByTitle('\\\${linkText}')" title="Ouvrir la note liée [[ \\\${linkText} ]]">🔗 [[\\\${linkText}]]</span>\`;
+      html = html.replace(new RegExp('\\\\\\[\\\\\\[(.*?)\\\\\\]\\\\\\]', 'g'), function(m, linkText) {
+        return '<span class="wikilink-pill" data-title="' + encodeURIComponent(linkText) + '" onclick="openNoteByTitle(decodeURIComponent(this.dataset.title))" title="Ouvrir la note liée [[ ' + linkText + ' ]]">🔗 [[' + linkText + ']]</span>';
       });
 
-      html = html.replace(/(^|\s)#([a-zA-Z0-9_-]+)/g, '$1<span style="background: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); font-size: 11px; font-family: var(--font-mono); padding: 2px 7px; border-radius: 4px; margin-right: 4px;">#$2</span>');
+      html = html.replace(new RegExp('(^|[ \\t])#([a-zA-Z0-9_-]+)', 'g'), '$1<span style="background: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); font-size: 11px; font-family: var(--font-mono); padding: 2px 7px; border-radius: 4px; margin-right: 4px;">#$2</span>');
 
-      html = html.replace(/^\s*-\s+(.*$)/gim, '<li style="margin-left: 20px; list-style-type: square; color: var(--text-secondary); margin-bottom: 6px;">$1</li>');
-      html = html.replace(/^\s*(\d+)\.\s+(.*$)/gim, '<li style="margin-left: 20px; list-style-type: decimal; color: var(--text-secondary); margin-bottom: 6px;">$2</li>');
+      html = html.replace(new RegExp('^[ \\t]*-[ \\t]+(.*$)', 'gim'), '<li style="margin-left: 20px; list-style-type: square; color: var(--text-secondary); margin-bottom: 6px;">$1</li>');
+      html = html.replace(new RegExp('^[ \\t]*([0-9]+)[.][ \\t]+(.*$)', 'gim'), '<li style="margin-left: 20px; list-style-type: decimal; color: var(--text-secondary); margin-bottom: 6px;">$2</li>');
 
-      html = html.replace(/\n/g, '<br>');
+      html = html.split(String.fromCharCode(10)).join('<br>');
 
       displayFormulas.forEach((formula, idx) => {
         const token = 'KATEX_DISPLAY_' + idx;
-        const boxHtml = \`
-          <div class="katex-display-box">
-            <span class="katex-formula-tag">FORMULE KATEX</span>
-            <div style="font-family: 'KaTeX_Math', 'JetBrains Mono', serif; font-size: 15px; color: #f1f5f9; letter-spacing: 0.5px;">
-              \${formula}
-            </div>
-          </div>
-        \`;
+        let renderedFormula = formula;
+        if (typeof window !== 'undefined' && window.katex && typeof window.katex.renderToString === 'function') {
+          try {
+            renderedFormula = window.katex.renderToString(formula, { displayMode: true, throwOnError: false });
+          } catch(e) {
+            renderedFormula = formula;
+          }
+        }
+        const boxHtml = '<div class="katex-display-box" style="margin: 14px 0; padding: 14px; border-radius: 8px; background: var(--input-bg); border: 1px solid var(--glass-inner-border); overflow-x: auto;">' +
+            '<span class="katex-formula-tag" style="display: block; font-size: 10px; font-family: var(--font-mono); color: var(--neon-cyan); margin-bottom: 6px; letter-spacing: 1px;">FORMULE KATEX</span>' +
+            '<div style="font-family: KaTeX_Math, monospace, serif; font-size: 15px; color: var(--text-white); letter-spacing: 0.5px;">' +
+              renderedFormula +
+            '</div>' +
+          '</div>';
         html = html.replace(token, boxHtml);
       });
 
       inlineFormulas.forEach((formula, idx) => {
         const token = 'KATEX_INLINE_' + idx;
-        const inlineHtml = \`<code style="background: rgba(168, 85, 247, 0.15); color: #c084fc; padding: 2px 6px; border-radius: 4px; font-family: 'KaTeX_Math', monospace; font-size: 12px; border: 1px solid rgba(168, 85, 247, 0.3);">\${formula}</code>\`;
+        let renderedFormula = formula;
+        if (typeof window !== 'undefined' && window.katex && typeof window.katex.renderToString === 'function') {
+          try {
+            renderedFormula = window.katex.renderToString(formula, { displayMode: false, throwOnError: false });
+          } catch(e) {
+            renderedFormula = formula;
+          }
+        }
+        const inlineHtml = '<span class="katex-inline-formula" style="background: rgba(168, 85, 247, 0.15); color: var(--neon-cyan); padding: 2px 6px; border-radius: 4px; font-family: KaTeX_Math, monospace; font-size: 13px; border: 1px solid rgba(168, 85, 247, 0.3); display: inline-block;">' + renderedFormula + '</span>';
         html = html.replace(token, inlineHtml);
       });
 
@@ -4043,7 +4887,7 @@ function renderFullApplication(initialTab = "dashboard") {
           const idx = contentLower.indexOf(needle);
           const start = Math.max(0, idx - 40);
           const end = Math.min(note.content.length, idx + needle.length + 50);
-          const excerpt = (start > 0 ? '...' : '') + note.content.substring(start, end).replace(/\n/g, ' ') + (end < note.content.length ? '...' : '');
+          const excerpt = (start > 0 ? '...' : '') + note.content.substring(start, end).split(String.fromCharCode(10)).join(' ') + (end < note.content.length ? '...' : '');
 
           backlinks.push({
             note: note,
@@ -4346,10 +5190,11 @@ function renderFullApplication(initialTab = "dashboard") {
       const h = canvas.height;
       const cx = w / 2;
       const cy = h / 2;
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light-awakening';
 
       ctx.clearRect(0, 0, w, h);
 
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.04)';
+      ctx.strokeStyle = isLight ? 'rgba(124, 58, 237, 0.08)' : 'rgba(56, 189, 248, 0.05)';
       ctx.lineWidth = 1;
       const gridSize = 40 * graphZoom;
       const startX = (cx + graphPanX * graphZoom) % gridSize;
@@ -4386,12 +5231,12 @@ function renderFullApplication(initialTab = "dashboard") {
         ctx.lineTo(x2, y2);
 
         if (isHighlighted) {
-          ctx.strokeStyle = 'rgba(168, 85, 247, 0.75)';
+          ctx.strokeStyle = isLight ? 'rgba(124, 58, 237, 0.85)' : 'rgba(192, 132, 252, 0.85)';
           ctx.lineWidth = 2 * graphZoom;
-          ctx.shadowColor = '#a855f7';
+          ctx.shadowColor = isLight ? '#7c3aed' : '#c084fc';
           ctx.shadowBlur = 8;
         } else {
-          ctx.strokeStyle = 'rgba(56, 189, 248, 0.16)';
+          ctx.strokeStyle = isLight ? 'rgba(124, 58, 237, 0.22)' : 'rgba(168, 85, 247, 0.2)';
           ctx.lineWidth = 1 * graphZoom;
           ctx.shadowBlur = 0;
         }
@@ -4410,7 +5255,7 @@ function renderFullApplication(initialTab = "dashboard") {
         if (isActive || isHovered || matchesSearch) {
           ctx.beginPath();
           ctx.arc(sx, sy, r + 5 * graphZoom, 0, Math.PI * 2);
-          ctx.strokeStyle = isActive ? 'rgba(0, 240, 255, 0.8)' : (matchesSearch ? 'rgba(255, 215, 0, 0.9)' : 'rgba(168, 85, 247, 0.8)');
+          ctx.strokeStyle = isActive ? (isLight ? '#7c3aed' : 'var(--neon-cyan)') : (matchesSearch ? 'var(--imperial-gold)' : (isLight ? '#9333ea' : 'rgba(168, 85, 247, 0.8)'));
           ctx.lineWidth = 2;
           ctx.stroke();
         }
@@ -4424,7 +5269,7 @@ function renderFullApplication(initialTab = "dashboard") {
         ctx.shadowBlur = 0;
 
         ctx.lineWidth = isActive ? 2 : 1;
-        ctx.strokeStyle = isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.4)';
+        ctx.strokeStyle = isActive ? (isLight ? '#4c1d95' : '#ffffff') : (isLight ? 'rgba(124, 58, 237, 0.4)' : 'rgba(255, 255, 255, 0.4)');
         ctx.stroke();
 
         const showLabel = !isMini && (graphZoom > 0.65 || node.isHub || isHovered || isActive || matchesSearch);
@@ -4433,13 +5278,20 @@ function renderFullApplication(initialTab = "dashboard") {
           ctx.textAlign = 'center';
           ctx.textBaseline = 'top';
 
-          ctx.fillStyle = 'rgba(2, 8, 24, 0.85)';
+          ctx.fillStyle = isLight ? 'rgba(255, 255, 255, 0.92)' : 'rgba(7, 4, 20, 0.9)';
           ctx.fillText(node.title, sx + 1, sy + r + 5);
 
-          ctx.fillStyle = isActive ? 'var(--neon-cyan)' : (node.isHub ? '#d8b4fe' : '#e2e8f0');
+          ctx.fillStyle = isActive ? (isLight ? '#6d28d9' : 'var(--neon-cyan)') : (node.isHub ? (isLight ? '#7c3aed' : '#d8b4fe') : (isLight ? '#0f172a' : '#e2e8f0'));
           ctx.fillText(node.title, sx, sy + r + 4);
         }
       });
+    }
+
+    function refreshObsidianGraphTheme() {
+      const canvas = document.getElementById('obsidian-graph-canvas');
+      if (canvas) renderCanvasScene(canvas, false);
+      const splitCanvas = document.getElementById('obsidian-split-graph-canvas');
+      if (splitCanvas) renderCanvasScene(splitCanvas, true);
     }
 
     function startGraphAnimation() {
@@ -4550,7 +5402,7 @@ function renderFullApplication(initialTab = "dashboard") {
             </div>
           </div>
           <h3 style="font-size: 17px; font-weight: bold; margin-bottom: 12px; color: var(--text-white); cursor: pointer;" onclick="openObsidianNote('\\\${newNote.id}'); setObsidianMode('reader');">\${newNote.title}</h3>
-          <div style="background: rgba(2, 8, 24, 0.7); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: var(--radius-sm); padding: 14px; font-size: 12px; font-family: var(--font-mono); color: var(--text-secondary); line-height: 1.5; white-space: pre-wrap; margin-bottom: 14px;">\${newNote.content}</div>
+          <div style="background: var(--input-bg); border: 1px solid var(--glass-inner-border); border-radius: var(--radius-sm); padding: 14px; font-size: 12px; font-family: var(--font-mono); color: var(--text-secondary); line-height: 1.5; white-space: pre-wrap; margin-bottom: 14px;">\${newNote.content}</div>
           <div style="display: flex; gap: 6px; flex-wrap: wrap;">
             \${newNote.tags.map(t => \`<span style="background: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); font-size: 11px; font-family: var(--font-mono); padding: 3px 8px; border-radius: 4px;">#\${t}</span>\`).join('')}
           </div>
@@ -4602,11 +5454,12 @@ function renderFullApplication(initialTab = "dashboard") {
 
     function renderAudioSpectrumLoop() {
       if (!audioCanvas || !spectrumCtx) return;
-      spectrumCtx.fillStyle = 'rgba(2, 8, 24, 0.35)';
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light-awakening';
+      spectrumCtx.fillStyle = isLight ? 'rgba(245, 243, 255, 0.4)' : 'rgba(7, 4, 20, 0.4)';
       spectrumCtx.fillRect(0, 0, audioCanvas.width, audioCanvas.height);
 
-      const bars = 56;
-      const barWidth = (audioCanvas.width / bars) - 2;
+      const bars = 64;
+      const barWidth = Math.max(1, (audioCanvas.width / bars) - 2);
 
       let freqData = new Uint8Array(bars);
       if (audioAnalyser && audioRecordingActive) {
@@ -4615,9 +5468,26 @@ function renderFullApplication(initialTab = "dashboard") {
 
       for (let i = 0; i < bars; i++) {
         let val = freqData[i] || 0;
-        let h = audioRecordingActive ? (val / 255) * 110 + 10 : Math.sin(Date.now() * 0.005 + i * 0.25) * 20 + 25;
-        spectrumCtx.fillStyle = i % 2 === 0 ? '#00f0ff' : '#0284c7';
-        spectrumCtx.fillRect(i * (barWidth + 2), audioCanvas.height - h, barWidth, h);
+        let h = audioRecordingActive ? (val / 255) * (audioCanvas.height * 0.85) + 6 : Math.sin(Date.now() * 0.005 + i * 0.22) * 16 + 22;
+        const x = i * (barWidth + 2);
+        const y = audioCanvas.height - h;
+
+        const grad = spectrumCtx.createLinearGradient(0, y, 0, audioCanvas.height);
+        if (isLight) {
+          grad.addColorStop(0, '#9333ea');
+          grad.addColorStop(0.5, '#7c3aed');
+          grad.addColorStop(1, '#6d28d9');
+        } else {
+          grad.addColorStop(0, '#e9d5ff');
+          grad.addColorStop(0.3, '#c084fc');
+          grad.addColorStop(1, '#7c3aed');
+        }
+        spectrumCtx.fillStyle = grad;
+        spectrumCtx.fillRect(x, y, barWidth, h);
+
+        // Subtle cap
+        spectrumCtx.fillStyle = isLight ? '#7c3aed' : '#ffffff';
+        spectrumCtx.fillRect(x, y, barWidth, 2);
       }
       requestAnimationFrame(renderAudioSpectrumLoop);
     }
@@ -4931,7 +5801,9 @@ function renderFullApplication(initialTab = "dashboard") {
       function renderMana() {
         if (!bgCtx) return;
         bgCtx.clearRect(0, 0, pWidth, pHeight);
-        for (let p of particles) {
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light-awakening';
+
+        particles.forEach((p, i) => {
           p.y -= p.speedY;
           p.x += p.speedX;
           if (p.y < 0) {
@@ -4940,12 +5812,20 @@ function renderFullApplication(initialTab = "dashboard") {
           }
           bgCtx.beginPath();
           bgCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          const isWhite = (i % 2 === 0);
-          bgCtx.fillStyle = isWhite ? 'rgba(255, 255, 255, ' + (p.alpha * 0.9) + ')' : 'rgba(192, 132, 252, ' + p.alpha + ')';
-          bgCtx.shadowBlur = isWhite ? 6 : 10;
-          bgCtx.shadowColor = isWhite ? '#ffffff' : '#c084fc';
+
+          if (isLight) {
+            const isRoyal = (i % 2 === 0);
+            bgCtx.fillStyle = isRoyal ? 'rgba(124, 58, 237, ' + (p.alpha * 0.75) + ')' : 'rgba(168, 85, 247, ' + (p.alpha * 0.6) + ')';
+            bgCtx.shadowBlur = isRoyal ? 8 : 12;
+            bgCtx.shadowColor = isRoyal ? '#7c3aed' : '#a855f7';
+          } else {
+            const isWhite = (i % 2 === 0);
+            bgCtx.fillStyle = isWhite ? 'rgba(255, 255, 255, ' + (p.alpha * 0.9) + ')' : 'rgba(192, 132, 252, ' + p.alpha + ')';
+            bgCtx.shadowBlur = isWhite ? 6 : 10;
+            bgCtx.shadowColor = isWhite ? '#ffffff' : '#c084fc';
+          }
           bgCtx.fill();
-        }
+        });
         requestAnimationFrame(renderMana);
       }
       renderMana();
