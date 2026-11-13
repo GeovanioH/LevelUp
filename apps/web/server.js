@@ -526,6 +526,8 @@ Structures rhétoriques formelles indispensables pour l'évaluation orale à 20 
       status: "NOUVELLE",
       matchScore: 96.5,
       url: "https://www.campusfrance.org/fr/bourses-etudiants-etrangers",
+      image:
+        "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=900&q=80&auto=format&fit=crop",
     },
     {
       id: "opp-devpost-agentic",
@@ -537,6 +539,8 @@ Structures rhétoriques formelles indispensables pour l'évaluation orale à 20 
       status: "EN_COURS",
       matchScore: 98.0,
       url: "https://devpost.com/hackathons",
+      image:
+        "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&q=80&auto=format&fit=crop",
     },
     {
       id: "opp-cambridge-c1",
@@ -548,6 +552,47 @@ Structures rhétoriques formelles indispensables pour l'évaluation orale à 20 
       status: "SOUMIS",
       matchScore: 99.0,
       url: "https://www.cambridgeenglish.org",
+      image:
+        "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=900&q=80&auto=format&fit=crop",
+    },
+    {
+      id: "opp-deepmind-fellowship",
+      title: "DeepMind AI Research Fellowship 2027",
+      type: "BOURSE",
+      portal: "Google DeepMind",
+      amount: "50 000 £ + GPU Cluster",
+      deadline: "15 Février 2027",
+      status: "OUVERT",
+      matchScore: 97.8,
+      url: "https://deepmind.google/fellowships",
+      image:
+        "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&q=80&auto=format&fit=crop",
+    },
+    {
+      id: "opp-mistral-hackathon",
+      title: "Mistral AI Hackathon Paris // Le Chat Agents",
+      type: "HACKATHON",
+      portal: "Station F / Mistral",
+      amount: "30 000 € Cash Prize",
+      deadline: "20 Décembre 2026",
+      status: "NOUVELLE",
+      matchScore: 95.4,
+      url: "https://mistral.ai",
+      image:
+        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=900&q=80&auto=format&fit=crop",
+    },
+    {
+      id: "opp-aws-architect",
+      title: "AWS Certified Solutions Architect — Professional",
+      type: "CERTIFICATION",
+      portal: "Amazon Web Services",
+      amount: "Certification Cloud & DevOps",
+      deadline: "31 Janvier 2027",
+      status: "EN_COURS",
+      matchScore: 94.0,
+      url: "https://aws.amazon.com/certification",
+      image:
+        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&q=80&auto=format&fit=crop",
     },
   ],
   shopItems: [
@@ -2247,6 +2292,72 @@ function renderFullApplication(initialTab = "dashboard") {
       z-index: 30;
       pointer-events: auto;
     }
+
+    /* Opportunities 3D Carousel Container & Card Styles */
+    .opportunities-carousel-wrap {
+      position: relative;
+      width: 100%;
+      height: 560px;
+      overflow: hidden;
+      border-radius: 16px;
+      background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.08) 0%, var(--surface-container-lowest) 75%);
+      border: 1px solid var(--glass-inner-border);
+      box-shadow: inset 0 0 50px rgba(7, 3, 20, 0.8), 0 8px 32px -4px rgba(0, 0, 0, 0.5);
+      margin-top: 24px;
+    }
+
+    [data-theme="light-awakening"] .opportunities-carousel-wrap {
+      background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.06) 0%, rgba(245, 243, 255, 0.95) 75%);
+      border: 1px solid rgba(124, 58, 237, 0.25);
+      box-shadow: inset 0 0 50px rgba(124, 58, 237, 0.08), 0 8px 32px -4px rgba(124, 58, 237, 0.15);
+    }
+
+    .opp-3d-card {
+      position: absolute;
+      left: -110px;
+      top: -110px;
+      width: 220px;
+      height: 220px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--surface-container-high);
+      border: 1.5px solid var(--glass-inner-border);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px var(--glass-inner-glow);
+      cursor: grab;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    }
+
+    [data-theme="light-awakening"] .opp-3d-card {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1.5px solid rgba(124, 58, 237, 0.25);
+      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.12);
+    }
+
+    .opp-3d-card:hover {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 35px rgba(168, 85, 247, 0.6), inset 0 0 20px var(--glass-inner-glow);
+      transform: scale(1.03);
+    }
+
+    .opp-3d-card.active-opp-focus {
+      border-color: var(--imperial-gold);
+      box-shadow: 0 0 45px rgba(251, 191, 36, 0.55), inset 0 0 25px rgba(251, 191, 36, 0.2);
+    }
+
+    .opp-3d-depth-shade {
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      background: var(--cc-fade);
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
   </style>
 </head>
 <body>
@@ -3438,6 +3549,42 @@ function renderFullApplication(initialTab = "dashboard") {
             )
             .join("")}
         </div>
+
+        <!-- 3D CIRCULAR CAROUSEL DISPLAY (CYLINDER PRESET - REACTBITS) -->
+        <div class="opportunities-carousel-wrap">
+          <!-- Floating Title Overlay -->
+          <div style="position: absolute; top: 16px; left: 22px; z-index: 25; pointer-events: none;">
+            <div style="font-size: 11px; letter-spacing: 2px; color: var(--neon-cyan); font-family: var(--font-mono); font-weight: 800; display: flex; align-items: center; gap: 8px;">
+              <span>🌐</span>
+              <span>EXPLORATEUR CYLINDRIQUE 3D // VEILLE BOURSES & HACKATHONS</span>
+            </div>
+            <div style="font-size: 12.5px; color: var(--text-secondary); margin-top: 3px;">
+              Glissez horizontalement pour faire pivoter le cylindre 3D • Cliquez sur une carte pour inspecter
+            </div>
+          </div>
+
+          <div class="circular-carousel" id="opp-circular-carousel" data-axis="y" data-shape="cylinder" data-draggable style="--cc-fade: var(--cc-fade, #070414); --cc-radius: 12px; --cc-inner: 0.4;">
+            <div class="circular-carousel__view">
+              <div class="circular-carousel__stage" id="opp-carousel-stage">
+                <div class="circular-carousel__camera" id="opp-carousel-camera">
+                  <div class="circular-carousel__ring" id="opp-carousel-ring">
+                    <!-- Populated dynamically via JS -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls Bar -->
+          <div class="quest-carousel-controls" style="z-index: 30;">
+            <button class="btn-cyber" style="padding: 6px 14px; font-size: 11.5px;" onclick="stepOppCarousel(-1)">◀ PRÉCÉDENT</button>
+            <button class="btn-cyber btn-gold" id="btn-opp-carousel-play" style="padding: 6px 14px; font-size: 11.5px;" onclick="toggleOppCarouselDrift()">⏯ PAUSE</button>
+            <button class="btn-cyber" style="padding: 6px 14px; font-size: 11.5px;" onclick="stepOppCarousel(1)">SUIVANT ▶</button>
+            <span class="radar-ping-badge" id="opp-carousel-active-badge" style="font-size: 10.5px; padding: 4px 10px;">
+              OPPORTUNITÉ 1 / ${SYSTEM_STATE.opportunities.length}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -3883,6 +4030,11 @@ function renderFullApplication(initialTab = "dashboard") {
         setTimeout(() => {
           if (typeof initObsidianVault === 'function' && !obsidianInitialized) initObsidianVault();
           if (typeof resizeCanvas === 'function') resizeCanvas('obsidian-graph-canvas');
+        }, 50);
+      }
+      if (viewId === 'opportunities') {
+        setTimeout(() => {
+          if (typeof initOppCircularCarousel === 'function') initOppCircularCarousel();
         }, 50);
       }
       window.history.pushState({}, '', '/' + (viewId === 'dashboard' ? '' : viewId));
@@ -4429,6 +4581,297 @@ function renderFullApplication(initialTab = "dashboard") {
       }
 
       questCarouselAnimId = requestAnimationFrame(loop);
+    }
+
+    // =========================================================================
+    // REACTBITS CIRCULAR CAROUSEL 3D ENGINE FOR OPPORTUNITIES (CYLINDER PRESET)
+    // =========================================================================
+    let oppCarouselInitialized = false;
+    let oppCarouselAngle = 0;
+    let oppCarouselTarget = null;
+    let oppCarouselVelocity = 0;
+    let oppCarouselDrift = true;
+    let oppCarouselDirection = -1;
+    let oppCarouselSpeed = 14;
+    let isDraggingOppCarousel = false;
+    let oppPointerStart = { x: 0, y: 0, angle: 0, time: 0 };
+    let oppPointerCurrent = { x: 0, y: 0 };
+    let oppPointerSamples = [];
+    let oppCarouselAnimId = null;
+    let oppCarouselActiveIndex = 0;
+    let oppYaw = 0;
+    let oppPitch = 0;
+
+    const OPP_CARD_WIDTH = 220;
+    const OPP_GAP = 25;
+    const OPP_TILT = -5;
+    const OPP_PERSPECTIVE = 2500;
+
+    function initOppCircularCarousel() {
+      const ring = document.getElementById('opp-carousel-ring');
+      const stage = document.getElementById('opp-carousel-stage');
+      const root = document.getElementById('opp-circular-carousel');
+      if (!ring || !stage || !root) return;
+
+      stage.style.perspective = OPP_PERSPECTIVE + 'px';
+
+      const opportunities = state.opportunities || [];
+      const count = opportunities.length;
+      if (count === 0) return;
+
+      const step = 360 / count;
+      const pitch = OPP_CARD_WIDTH + OPP_GAP;
+      const chord = pitch / (2 * Math.sin(Math.PI / count));
+      const arc = (count * pitch) / (2 * Math.PI);
+      const radius = Math.max(chord + (arc - chord) * 1.0, 260);
+
+      // Populate Cards
+      ring.innerHTML = '';
+      opportunities.forEach((o, index) => {
+        const card = document.createElement('div');
+        card.className = 'circular-carousel__card';
+        card.setAttribute('data-opp-index', index);
+
+        card.innerHTML = \`
+          <div class="opp-3d-card" id="opp-3d-card-\${o.id}" onclick="handleOpp3DCardClick(\${index}, '\${o.id}')">
+            <!-- Background Image with Ambient Glow -->
+            <img src="\${o.image || 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=900&q=80&auto=format&fit=crop'}" 
+                 alt="\${o.title.replace(/"/g, '&quot;')}" 
+                 style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.35; filter: saturate(1.2); pointer-events: none;" />
+            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,4,20,0.5) 0%, rgba(14,9,30,0.92) 80%); pointer-events: none;"></div>
+
+            <!-- Content -->
+            <div style="position: relative; z-index: 2; padding: 12px 14px; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="radar-ping-badge" style="font-size: 9.5px; padding: 2px 7px;">\${o.type}</span>
+                <span style="font-size: 11px; color: var(--imperial-gold); font-family: var(--font-mono); font-weight: 800;">\${o.matchScore}% MATCH</span>
+              </div>
+
+              <div>
+                <h4 style="font-size: 13.5px; font-weight: 800; color: var(--text-white); font-family: var(--font-display); line-height: 1.25; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  \${o.title}
+                </h4>
+                <div style="font-size: 11px; color: var(--neon-cyan); font-family: var(--font-mono); font-weight: 700;">
+                  \${o.amount}
+                </div>
+                <div style="font-size: 10px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;">
+                  \${o.portal} • \${o.deadline}
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-inner-border-subtle); padding-top: 8px;">
+                <span style="font-size: 10px; color: var(--transcendent-green); font-weight: 800; background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.3); padding: 2px 6px; border-radius: 4px;">
+                  \${o.status}
+                </span>
+                <a href="\${o.url}" target="_blank" onclick="event.stopPropagation();" class="btn-cyber" style="padding: 4px 10px; font-size: 10px; text-decoration: none;">
+                  POSTULER ↗
+                </a>
+              </div>
+            </div>
+
+            <!-- Depth Shade overlay for 3D realism -->
+            <div class="opp-3d-depth-shade" id="opp-depth-shade-\${o.id}"></div>
+          </div>
+        \`;
+
+        ring.appendChild(card);
+      });
+
+      // Pointer Drag Events
+      root.addEventListener('pointerdown', (e) => {
+        isDraggingOppCarousel = true;
+        oppCarouselTarget = null;
+        oppPointerStart = {
+          x: e.clientX,
+          y: e.clientY,
+          angle: oppCarouselAngle,
+          time: performance.now()
+        };
+        oppPointerSamples = [{ time: performance.now(), angle: oppCarouselAngle }];
+        root.setAttribute('data-dragging', '');
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        const rect = root.getBoundingClientRect();
+        oppPointerCurrent.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        oppPointerCurrent.y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+
+        if (isDraggingOppCarousel) {
+          const deltaX = e.clientX - oppPointerStart.x;
+          const perPixel = 180 / (Math.PI * radius);
+          oppCarouselAngle = oppPointerStart.angle + deltaX * perPixel;
+          const now = performance.now();
+          oppPointerSamples.push({ time: now, angle: oppCarouselAngle });
+          while (oppPointerSamples.length > 2 && now - oppPointerSamples[0].time > 110) {
+            oppPointerSamples.shift();
+          }
+        }
+      });
+
+      window.addEventListener('pointerup', () => {
+        if (!isDraggingOppCarousel) return;
+        isDraggingOppCarousel = false;
+        root.removeAttribute('data-dragging');
+
+        if (oppPointerSamples.length >= 2) {
+          const first = oppPointerSamples[0];
+          const last = oppPointerSamples[oppPointerSamples.length - 1];
+          const span = (last.time - first.time) / 1000;
+          if (span > 0.008) {
+            const v = (last.angle - first.angle) / span;
+            oppCarouselVelocity = Math.max(-1200, Math.min(1200, v));
+            const tau = 0.18 + 0.6 * 1.5;
+            const pred = oppCarouselAngle + oppCarouselVelocity * tau * 0.55;
+            oppCarouselTarget = Math.round(pred / step) * step;
+          }
+        } else {
+          oppCarouselTarget = Math.round(oppCarouselAngle / step) * step;
+        }
+      });
+
+      // Mouse Wheel Delta
+      root.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaX) > 5 || Math.abs(e.deltaY) > 5) {
+          e.preventDefault();
+          const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+          oppCarouselAngle -= d * 0.15;
+          oppCarouselTarget = Math.round(oppCarouselAngle / step) * step;
+        }
+      }, { passive: false });
+
+      // Start Animation Loop
+      if (!oppCarouselAnimId) {
+        startOppCarouselLoop();
+      }
+
+      oppCarouselInitialized = true;
+    }
+
+    function handleOpp3DCardClick(index, oppId) {
+      focusOppCarouselCard(index);
+      const o = (state.opportunities || []).find(item => item.id === oppId);
+      if (o) {
+        showSysNotification(
+          "🌐 [" + o.type + " : " + o.title + "]",
+          "Portail : " + o.portal + " | Montant : " + o.amount + " | Date limite : " + o.deadline + " (Match : " + o.matchScore + "%)"
+        );
+      }
+    }
+
+    function focusOppCarouselCard(index) {
+      const opportunities = state.opportunities || [];
+      const step = 360 / Math.max(1, opportunities.length);
+      let target = -index * step;
+      target += 360 * Math.round((oppCarouselAngle - target) / 360);
+      oppCarouselTarget = target;
+    }
+
+    function stepOppCarousel(dir) {
+      const opportunities = state.opportunities || [];
+      const step = 360 / Math.max(1, opportunities.length);
+      const base = oppCarouselTarget ?? Math.round(oppCarouselAngle / step) * step;
+      oppCarouselTarget = base - dir * step;
+    }
+
+    function toggleOppCarouselDrift() {
+      oppCarouselDrift = !oppCarouselDrift;
+      const btn = document.getElementById('btn-opp-carousel-play');
+      if (btn) btn.textContent = oppCarouselDrift ? '⏯ PAUSE' : '▶ DÉFILER';
+      showSysNotification(
+        "[CARROUSEL 3D OPPORTUNITÉS]",
+        oppCarouselDrift ? "Rotation cinétique continue réactivée." : "Rotation automatique en pause."
+      );
+    }
+
+    function startOppCarouselLoop() {
+      let lastTime = performance.now();
+
+      function loop(now) {
+        const dt = Math.min((now - lastTime) / 1000, 0.05);
+        lastTime = now;
+
+        const opportunities = state.opportunities || [];
+        const count = opportunities.length;
+
+        if (count > 0) {
+          const step = 360 / count;
+          const pitch = OPP_CARD_WIDTH + OPP_GAP;
+          const chord = pitch / (2 * Math.sin(Math.PI / count));
+          const arc = (count * pitch) / (2 * Math.PI);
+          const radius = Math.max(chord + (arc - chord) * 1.0, 260);
+
+          // Physics updates
+          if (isDraggingOppCarousel) {
+            // Dragged manually
+          } else if (oppCarouselTarget !== null) {
+            const SPRING = 118;
+            const damping = 2 * Math.sqrt(SPRING);
+            const accel = SPRING * (oppCarouselTarget - oppCarouselAngle) - damping * oppCarouselVelocity;
+            oppCarouselVelocity += accel * dt;
+            oppCarouselAngle += oppCarouselVelocity * dt;
+            if (Math.abs(oppCarouselTarget - oppCarouselAngle) < 0.01 && Math.abs(oppCarouselVelocity) < 0.05) {
+              oppCarouselAngle = oppCarouselTarget;
+              oppCarouselVelocity = 0;
+              oppCarouselTarget = null;
+            }
+          } else if (oppCarouselDrift) {
+            const cruise = oppCarouselSpeed * oppCarouselDirection;
+            const tau = 0.18 + 0.6 * 1.5;
+            oppCarouselVelocity += (cruise - oppCarouselVelocity) * (1 - Math.exp(-dt / tau));
+            oppCarouselAngle += oppCarouselVelocity * dt;
+          }
+
+          // Parallax tilt
+          const aimYaw = oppPointerCurrent.x * 0.3 * 9;
+          const aimPitch = -oppPointerCurrent.y * 0.3 * 6;
+          oppYaw += (aimYaw - oppYaw) * 0.1;
+          oppPitch += (aimPitch - oppPitch) * 0.1;
+
+          // Camera & Ring DOM updates
+          const camera = document.getElementById('opp-carousel-camera');
+          const ring = document.getElementById('opp-carousel-ring');
+
+          if (camera && ring) {
+            camera.style.transform = \`translate3d(0, 0, \${-radius}px) rotateX(\${OPP_TILT + oppPitch}deg) rotateY(\${oppYaw}deg)\`;
+            ring.style.transform = \`rotateY(\${oppCarouselAngle}deg)\`;
+
+            const cards = ring.querySelectorAll('.circular-carousel__card');
+            cards.forEach((cardEl, idx) => {
+              const base = idx * step;
+              cardEl.style.transform = \`rotateY(\${base}deg) translateZ(\${radius}px)\`;
+
+              // Calculate front-facing cosine for depth fade
+              const world = ((((base + oppCarouselAngle + 180) % 360) + 360) % 360) - 180;
+              const facing = Math.cos((world * Math.PI) / 180);
+              const fade = 0.55 * Math.pow((1 - facing) / 2, 1.25);
+
+              const shade = cardEl.querySelector('.opp-3d-depth-shade');
+              if (shade) shade.style.opacity = fade.toFixed(3);
+
+              const cardBox = cardEl.querySelector('.opp-3d-card');
+              if (cardBox) {
+                if (Math.abs(world) < (step / 2)) {
+                  cardBox.classList.add('active-opp-focus');
+                } else {
+                  cardBox.classList.remove('active-opp-focus');
+                }
+              }
+            });
+
+            // Update Active Opportunity Badge
+            const activeIdx = ((Math.round(-oppCarouselAngle / step) % count) + count) % count;
+            if (activeIdx !== oppCarouselActiveIndex) {
+              oppCarouselActiveIndex = activeIdx;
+              const badge = document.getElementById('opp-carousel-active-badge');
+              if (badge) badge.textContent = \`OPPORTUNITÉ \${activeIdx + 1} / \${count}\`;
+            }
+          }
+        }
+
+        oppCarouselAnimId = requestAnimationFrame(loop);
+      }
+
+      oppCarouselAnimId = requestAnimationFrame(loop);
     }
 
     // =========================================================================
@@ -5891,6 +6334,10 @@ function renderFullApplication(initialTab = "dashboard") {
     // Initial State Render
     updateVitalsUI();
     updateXpUI();
+    setTimeout(() => {
+      if (typeof initOppCircularCarousel === 'function') initOppCircularCarousel();
+      if (typeof initQuestCircularCarousel === 'function') initQuestCircularCarousel();
+    }, 100);
   </script>
 </body>
 </html>`;

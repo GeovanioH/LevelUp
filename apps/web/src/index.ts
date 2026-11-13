@@ -5,5 +5,6 @@ export * from "./components/SkillTreeDagViewer";
 export * from "./components/DailyQuestsModal";
 export * from "./components/CircularCarousel";
 export * from "./components/QuestsCircularCarousel";
+export * from "./components/OpportunitiesCircularCarousel";
 export * from "./db/levelupDexie";
 export * from "./audio/proceduralAudioEngine";
