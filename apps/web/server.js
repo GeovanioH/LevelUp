@@ -2812,7 +2812,7 @@ function renderFullApplication(initialTab = "dashboard") {
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
+      transition: opacity 0.35s ease-out, visibility 0.35s ease-out;
       overflow: hidden;
     }
 
@@ -4649,8 +4649,7 @@ function renderFullApplication(initialTab = "dashboard") {
       state.player.hp = Math.min(100, state.player.hp + hpAdd);
       state.player.mp = Math.min(100, state.player.mp + mpAdd);
       saveState();
-      initSystemIntro();
-    updateVitalsUI();
+      updateVitalsUI();
       showSysNotification(
         "[RESTAURATION BIOPHYSIQUE VALIDÉE]",
         "La méditation a restauré <strong>+" + hpAdd + " HP</strong> et <strong>+" + mpAdd + " MP</strong>. Clarté mentale optimale."
@@ -6854,8 +6853,16 @@ function renderFullApplication(initialTab = "dashboard") {
       overlay.style.display = 'flex';
       introDismissed = false;
 
+      // Direct transition when video ends
       video.addEventListener('ended', () => {
         dismissIntroOverlay();
+      });
+
+      // Immediate transition as playback reaches the end (prevents freezing on last frame)
+      video.addEventListener('timeupdate', () => {
+        if (video.duration && video.currentTime >= video.duration - 0.15) {
+          dismissIntroOverlay();
+        }
       });
 
       video.addEventListener('error', () => {
@@ -6882,8 +6889,11 @@ function renderFullApplication(initialTab = "dashboard") {
         overlay.classList.add('dismissed');
         setTimeout(() => {
           overlay.style.display = 'none';
-          if (video) video.pause();
-        }, 800);
+          if (video) {
+            video.pause();
+            video.currentTime = 0;
+          }
+        }, 350);
       }
     }
 
@@ -6931,6 +6941,7 @@ function renderFullApplication(initialTab = "dashboard") {
     // Initial State Render
     updateVitalsUI();
     updateXpUI();
+    initSystemIntro();
     setTimeout(() => {
       if (typeof initOppCircularCarousel === 'function') initOppCircularCarousel();
       if (typeof initQuestCircularCarousel === 'function') initQuestCircularCarousel();
