@@ -4808,24 +4808,10 @@ function renderFullApplication(initialTab = "dashboard") {
     const QUEST_PERSPECTIVE = 1200;
 
     function setQuestsViewMode(mode) {
-      currentQuestsViewMode = mode;
-      const btnCarousel = document.getElementById('btn-quest-mode-carousel');
-      const btnGrid = document.getElementById('btn-quest-mode-grid');
+      currentQuestsViewMode = 'carousel';
       const secCarousel = document.getElementById('quests-carousel-section');
-      const secGrid = document.getElementById('quests-page-grid-section');
-
-      if (mode === 'carousel') {
-        if (btnCarousel) btnCarousel.classList.add('active');
-        if (btnGrid) btnGrid.classList.remove('active');
-        if (secCarousel) secCarousel.style.display = 'block';
-        if (secGrid) secGrid.style.display = 'none';
-        if (!questCarouselInitialized) initQuestCircularCarousel();
-      } else {
-        if (btnCarousel) btnCarousel.classList.remove('active');
-        if (btnGrid) btnGrid.classList.add('active');
-        if (secCarousel) secCarousel.style.display = 'none';
-        if (secGrid) secGrid.style.display = 'block';
-      }
+      if (secCarousel) secCarousel.style.display = 'block';
+      if (!questCarouselInitialized) initQuestCircularCarousel();
     }
 
     function initQuestCircularCarousel() {
