@@ -884,7 +884,10 @@ function renderFullApplication(initialTab = "dashboard") {
       color: var(--text-white);
       font-family: var(--font-body);
       min-height: 100vh;
-      overflow-x: hidden;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
@@ -1129,22 +1132,37 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     /* =========================================================================
-       LAYOUT ARCHITECTURE: FIXED LEFT GLASSMORPHIC SIDEBAR & MAIN WORKSPACE
+       LAYOUT ARCHITECTURE: CENTERED SOVEREIGN COCKPIT FRAME & DUAL WORKSPACE
        ========================================================================= */
     .app-layout {
       display: flex;
-      min-height: 100vh;
+      height: calc(100vh - 28px);
+      max-height: calc(100vh - 28px);
+      width: calc(100vw - 32px);
+      max-width: 1780px;
+      margin: 14px auto;
       position: relative;
+      background: var(--bg-cosmic-1);
+      border: 1px solid var(--glass-inner-border);
+      border-radius: 18px;
+      box-shadow: 0 16px 48px -10px rgba(7, 3, 20, 0.8), 0 0 35px -5px rgba(168, 85, 247, 0.28);
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    [data-theme="light-awakening"] .app-layout {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(124, 58, 237, 0.35);
+      box-shadow: 0 16px 48px -10px rgba(124, 58, 237, 0.18), 0 0 30px rgba(168, 85, 247, 0.22);
     }
 
     /* LEFT GLASSMORPHISM SIDEBAR NAVBAR */
     .left-sidebar-nav.nav-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
+      position: relative;
       width: 275px;
-      height: 100vh;
+      height: 100%;
+      max-height: 100%;
+      flex-shrink: 0;
       background: var(--sidebar-bg);
       backdrop-filter: blur(28px) saturate(190%);
       -webkit-backdrop-filter: blur(28px) saturate(190%);
@@ -1153,7 +1171,7 @@ function renderFullApplication(initialTab = "dashboard") {
       display: flex;
       flex-direction: column;
       padding: 20px 16px 16px 16px;
-      z-index: 120;
+      z-index: 20;
       overflow-y: auto;
       overflow-x: hidden;
       gap: 4px;
@@ -1392,21 +1410,43 @@ function renderFullApplication(initialTab = "dashboard") {
       flex-shrink: 0;
     }
 
-    /* MAIN APP AREA (OFFSET BY 275px FOR FIXED SIDEBAR) */
+    /* MAIN APP AREA */
     .app-main-area {
       flex: 1;
-      margin-left: 275px;
+      height: 100%;
       min-width: 0;
+      margin-left: 0;
       display: flex;
       flex-direction: column;
       position: relative;
       z-index: 2;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .app-main-area::-webkit-scrollbar {
+      width: 6px;
+    }
+    .app-main-area::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .app-main-area::-webkit-scrollbar-thumb {
+      background: rgba(168, 85, 247, 0.35);
+      border-radius: 6px;
+    }
+    .app-main-area::-webkit-scrollbar-thumb:hover {
+      background: rgba(192, 132, 252, 0.6);
+    }
+
+    [data-theme="light-awakening"] .app-main-area::-webkit-scrollbar-thumb {
+      background: rgba(124, 58, 237, 0.35);
     }
 
     .master-header {
       position: sticky;
       top: 0;
       z-index: 100;
+      flex-shrink: 0;
       background: var(--header-bg);
       backdrop-filter: blur(24px) saturate(180%);
       -webkit-backdrop-filter: blur(24px) saturate(180%);
@@ -1428,11 +1468,26 @@ function renderFullApplication(initialTab = "dashboard") {
       z-index: 2;
     }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 1024px), (max-height: 600px) {
+      body {
+        overflow-y: auto !important;
+        height: auto !important;
+        display: block !important;
+      }
+      .app-layout {
+        width: calc(100% - 16px);
+        margin: 8px auto;
+        min-height: calc(100vh - 16px);
+        height: auto !important;
+        max-height: none !important;
+        border-radius: 14px;
+        flex-direction: column;
+      }
       .left-sidebar-nav.nav-bar {
         position: relative;
         width: 100%;
-        height: auto;
+        height: auto !important;
+        max-height: none !important;
         border-right: none;
         border-bottom: var(--sidebar-border);
         flex-direction: row;
@@ -1449,6 +1504,8 @@ function renderFullApplication(initialTab = "dashboard") {
         width: auto;
       }
       .app-main-area {
+        height: auto !important;
+        overflow-y: visible !important;
         margin-left: 0;
       }
     }
@@ -3832,6 +3889,9 @@ function renderFullApplication(initialTab = "dashboard") {
 
       const targetView = document.getElementById('view-' + viewId);
       if (targetView) targetView.classList.add('active');
+
+      const mainArea = document.querySelector('.app-main-area');
+      if (mainArea) mainArea.scrollTop = 0;
 
       const tabs = document.querySelectorAll('.nav-tab');
       tabs.forEach(t => {
