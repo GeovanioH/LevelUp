@@ -2820,9 +2820,7 @@ function renderFullApplication(initialTab = "dashboard") {
           <span style="font-family: var(--font-display); font-size: 19px; font-weight: 800; letter-spacing: 2px; color: var(--text-white);">
             WELCOME, <span class="shiny-green" style="color: var(--tertiary); text-shadow: 0 0 12px rgba(69,223,164,0.7); text-decoration: underline; text-decoration-color: rgba(69,223,164,0.5); text-underline-offset: 6px;">[WELCOME, PLAYER.]</span>
           </span>
-          <span style="font-size: 11px; color: var(--text-secondary); font-family: var(--font-mono); background: var(--surface-container-high); padding: 3px 8px; border-radius: 4px;" id="system-banner-status-desc">
-            [MONARCH COGNITIVE SYNC: 100%]
-          </span>
+          <span id="system-banner-status-desc" style="display: none;"></span>
         </div>
         <div style="display: flex; align-items: center; gap: 8px; background: var(--surface-container-highest); padding: 6px 14px; border-radius: 9999px; border: 1px solid rgba(221,184,255,0.2);">
           <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">tune</span>
@@ -3208,19 +3206,9 @@ function renderFullApplication(initialTab = "dashboard") {
         <div class="border-beam-content" style="padding: 24px;">
           <!-- Alert Monospace Header -->
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <span class="radar-ping-badge" style="border-color: rgba(244, 63, 94, 0.7); background: rgba(244, 63, 94, 0.2); color: var(--alert-crimson); font-weight: 800;">
-                <span class="material-symbols-outlined" style="font-size: 14px; animation: pulse 1.5s infinite;">warning</span>
-                [!] DIRECTIVE D'URGENCE FORCÉE // RANG S
-              </span>
-              <span style="font-size: 11px; color: rgba(255, 180, 171, 0.8); font-family: var(--font-mono); letter-spacing: 1.5px;" id="emergency-status-label">
-                AUTHENTIFICATION CODE: 0xCRIT-9921
-              </span>
-            </div>
+            <span id="emergency-status-label" style="display: none;"></span>
             <!-- Monospace Countdown Timer -->
             <div style="display: flex; align-items: center; gap: 8px; background: var(--surface-container-lowest); padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(244, 63, 94, 0.3);">
-              <span class="material-symbols-outlined" style="font-size: 16px; color: var(--alert-crimson);">timer</span>
-              <span style="font-size: 10.5px; font-family: var(--font-mono); color: var(--text-secondary); text-transform: uppercase;">COMPTE À REBOURS :</span>
               <span id="emergency-timer-text" style="font-size: 20px; font-weight: 900; font-family: var(--font-mono); color: var(--alert-crimson); text-shadow: 0 0 12px rgba(244, 63, 94, 0.75);">
                 [ 00:54:18 ]
               </span>
@@ -3389,14 +3377,7 @@ function renderFullApplication(initialTab = "dashboard") {
 
       <!-- 1. 3D CIRCULAR CAROUSEL SECTION -->
       <div id="quests-carousel-section" class="quests-carousel-container">
-        <div style="position: absolute; top: 18px; left: 24px; z-index: 25; pointer-events: none;">
-          <div style="font-size: 11px; letter-spacing: 2px; color: var(--neon-cyan); font-family: var(--font-mono); font-weight: bold;">
-            REACTBITS // 3D CYLINDRICAL QUEST CAROUSEL
-          </div>
-          <div style="font-size: 13px; color: var(--text-secondary); margin-top: 2px;">
-            Glissez horizontalement pour faire pivoter le cylindre. Cliquez sur une carte pour la verrouiller.
-          </div>
-        </div>
+
 
         <div class="circular-carousel" id="quest-circular-carousel" data-axis="y" data-shape="cylinder" data-draggable>
           <div class="circular-carousel__view">
@@ -3414,9 +3395,7 @@ function renderFullApplication(initialTab = "dashboard") {
           <button class="btn-cyber" style="padding: 6px 14px; font-size: 12px;" onclick="stepQuestCarousel(-1)">◀ PRÉCÉDENT</button>
           <button class="btn-cyber btn-gold" id="btn-quest-carousel-play" style="padding: 6px 14px; font-size: 12px;" onclick="toggleQuestCarouselDrift()">⏯ PAUSE</button>
           <button class="btn-cyber" style="padding: 6px 14px; font-size: 12px;" onclick="stepQuestCarousel(1)">SUIVANT ▶</button>
-          <span class="radar-ping-badge" id="quest-carousel-active-badge" style="font-size: 11px; padding: 4px 10px;">
-            QUÊTE 1 / ${SYSTEM_STATE.quests.length}
-          </span>
+          <span id="quest-carousel-active-badge" style="display: none;"></span>
         </div>
       </div>
 
@@ -3463,11 +3442,7 @@ function renderFullApplication(initialTab = "dashboard") {
         <div class="cyber-corner-tr"></div>
         
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 10.5px; font-family: var(--font-mono); color: var(--primary); letter-spacing: 1.5px; text-transform: uppercase;">
-              THE SYSTEM // CIRCADIAN ARCHITECTURE // [BORBÉLY TWO-PROCESS MODEL]
-            </span>
-          </div>
+
           <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-family: var(--font-mono); color: var(--tertiary-fixed);">
             <span style="width: 6px; height: 6px; border-radius: 9999px; background: var(--tertiary); display: inline-block; animation: pulse 2s infinite;"></span>
             <span>CHRONO-SYNCHRONISATION : ACTIVE (LATENCE 0.12ms)</span>
