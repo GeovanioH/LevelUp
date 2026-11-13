@@ -726,6 +726,16 @@ function renderFullApplication(initialTab = "dashboard") {
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('levelup-theme');
+        if (t === 'light-awakening' || t === 'dark-monarch') {
+          document.documentElement.setAttribute('data-theme', t);
+        }
+      } catch (e) {}
+    })();
+  </script>
   <style>
     :root {
       /* Stitch Shadow Monarch HUD Design Tokens */
@@ -2688,7 +2698,7 @@ function renderFullApplication(initialTab = "dashboard") {
         </div>
 
         <!-- High-contrast Pill Button matching [Try it free] -->
-        <button class="header-cta-pill" id="theme-toggle-btn" onclick="toggleTheme()" title="Basculer le thème">
+        <button class="header-cta-pill" id="theme-toggle-btn" onclick="toggleTheme()" title="Passer en mode clair (Light Awakening)" aria-label="Passer en mode clair">
           ☀️ CLAIR
         </button>
       </div>
@@ -4313,7 +4323,7 @@ function renderFullApplication(initialTab = "dashboard") {
         notes: 'Second Brain',
         audio: 'Station Vocale',
         opportunities: 'Veille Bourses',
-        shop: 'Boutique d\'Ombre',
+        shop: "Boutique d'Ombre",
         penalty: 'Zone Pénalité',
         workout: 'Vision Sport'
       };
@@ -4360,21 +4370,51 @@ function renderFullApplication(initialTab = "dashboard") {
     function updateThemeToggleBtn(theme) {
       const btn = document.getElementById('theme-toggle-btn');
       if (btn) {
-        btn.innerHTML = (theme === 'light-awakening') ? '☀️ CLAIR' : '🌙 SOMBRE';
+        if (theme === 'light-awakening') {
+          btn.innerHTML = '🌙 SOMBRE';
+          btn.setAttribute('title', 'Passer en mode sombre (Dark Monarch)');
+          btn.setAttribute('aria-label', 'Passer en mode sombre');
+        } else {
+          btn.innerHTML = '☀️ CLAIR';
+          btn.setAttribute('title', 'Passer en mode clair (Light Awakening)');
+          btn.setAttribute('aria-label', 'Passer en mode clair');
+        }
       }
     }
 
     function toggleTheme() {
-      const current = document.documentElement.getAttribute('data-theme');
-      const next = current === 'dark-monarch' ? 'light-awakening' : 'dark-monarch';
+      const current = document.documentElement.getAttribute('data-theme') || 'dark-monarch';
+      const next = (current === 'light-awakening') ? 'dark-monarch' : 'light-awakening';
       document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('levelup-theme', next);
+      if (document.body) {
+        document.body.setAttribute('data-theme', next);
+      }
+      try {
+        localStorage.setItem('levelup-theme', next);
+      } catch (e) {
+        console.warn('LocalStorage non accessible:', e);
+      }
       updateThemeToggleBtn(next);
-      if (typeof refreshObsidianGraphTheme === 'function') refreshObsidianGraphTheme();
+      try {
+        if (typeof refreshObsidianGraphTheme === 'function') {
+          refreshObsidianGraphTheme();
+        }
+      } catch (err) {
+        console.warn('Obsidian graph refresh skipped:', err);
+      }
+      try {
+        window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: next } }));
+      } catch (e) {}
     }
 
-    const savedTheme = localStorage.getItem('levelup-theme') || 'dark-monarch';
+    let savedTheme = 'dark-monarch';
+    try {
+      savedTheme = localStorage.getItem('levelup-theme') || 'dark-monarch';
+    } catch (e) {}
     document.documentElement.setAttribute('data-theme', savedTheme);
+    if (document.body) {
+      document.body.setAttribute('data-theme', savedTheme);
+    }
     updateThemeToggleBtn(savedTheme);
 
     // Solo Leveling Status Window: Attribute Point Allocation
