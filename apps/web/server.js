@@ -3261,61 +3261,92 @@ function renderFullApplication(initialTab = "dashboard") {
       pointer-events: auto;
     }
 
-    /* Opportunities 3D Carousel Container & Card Styles */
-    .opportunities-carousel-wrap {
+    /* Opportunities 3D Carousel Container & Holographic Card Styles */
+    .opportunities-carousel-container {
       position: relative;
       width: 100%;
-      height: 560px;
-      overflow: hidden;
-      border-radius: 16px;
-      background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.08) 0%, var(--surface-container-lowest) 75%);
-      border: 1px solid var(--glass-inner-border);
-      box-shadow: inset 0 0 50px rgba(7, 3, 20, 0.8), 0 8px 32px -4px rgba(0, 0, 0, 0.5);
-      margin-top: 24px;
+      height: 520px;
+      overflow: visible;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      margin-bottom: 28px;
     }
 
-    [data-theme="light-awakening"] .opportunities-carousel-wrap {
-      background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.06) 0%, rgba(245, 243, 255, 0.95) 75%);
-      border: 1px solid rgba(124, 58, 237, 0.25);
-      box-shadow: inset 0 0 50px rgba(124, 58, 237, 0.08), 0 8px 32px -4px rgba(124, 58, 237, 0.15);
+    [data-theme="light-awakening"] .opportunities-carousel-container {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
     }
 
     .opp-3d-card {
       position: absolute;
-      left: -110px;
-      top: -110px;
-      width: 220px;
-      height: 220px;
-      border-radius: 12px;
+      left: -140px;
+      top: -210px;
+      width: 280px;
+      height: 420px;
+      border-radius: 18px;
       overflow: hidden;
-      background: var(--surface-container-high);
-      border: 1.5px solid var(--glass-inner-border);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px var(--glass-inner-glow);
-      cursor: grab;
-      user-select: none;
+      background: linear-gradient(165deg, rgba(18, 12, 38, 0.9) 0%, rgba(9, 6, 22, 0.98) 100%);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      border: 1.5px solid rgba(168, 85, 247, 0.28);
+      box-shadow:
+        0 18px 45px -8px rgba(0, 0, 0, 0.8),
+        0 0 25px -4px rgba(124, 58, 237, 0.25),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.22);
+      padding: 13px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+      transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+      cursor: pointer;
+      user-select: none;
+      color: var(--text-white);
     }
 
     [data-theme="light-awakening"] .opp-3d-card {
-      background: rgba(255, 255, 255, 0.95);
-      border: 1.5px solid rgba(124, 58, 237, 0.25);
-      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.12);
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.96) 0%, rgba(246, 243, 254, 0.94) 100%);
+      border: 1.5px solid rgba(124, 58, 237, 0.35);
+      box-shadow:
+        0 18px 45px -8px rgba(124, 58, 237, 0.22),
+        0 0 22px rgba(168, 85, 247, 0.12),
+        inset 0 1.5px 2px rgba(255, 255, 255, 0.9);
+      color: #0f172a;
     }
 
     .opp-3d-card:hover {
-      border-color: var(--neon-cyan);
-      box-shadow: 0 0 35px rgba(168, 85, 247, 0.6), inset 0 0 20px var(--glass-inner-glow);
-      transform: scale(1.03);
+      border-color: var(--opp-theme, var(--neon-cyan));
+      box-shadow:
+        0 22px 50px -5px rgba(0, 0, 0, 0.85),
+        0 0 35px var(--opp-glow, rgba(168, 85, 247, 0.5)),
+        inset 0 0 20px var(--glass-inner-glow);
+    }
+
+    [data-theme="light-awakening"] .opp-3d-card:hover {
+      border-color: var(--opp-theme, #7c3aed);
+      box-shadow:
+        0 22px 50px -5px rgba(124, 58, 237, 0.35),
+        0 0 30px var(--opp-glow, rgba(124, 58, 237, 0.35)),
+        inset 0 0 15px rgba(255, 255, 255, 0.8);
     }
 
     .opp-3d-card.active-opp-focus {
       border-color: var(--imperial-gold);
-      box-shadow: 0 0 45px rgba(251, 191, 36, 0.55), inset 0 0 25px rgba(251, 191, 36, 0.2);
+      box-shadow:
+        0 25px 60px -5px rgba(0, 0, 0, 0.9),
+        0 0 50px rgba(251, 191, 36, 0.55),
+        inset 0 0 30px rgba(251, 191, 36, 0.2);
+    }
+
+    .opp-3d-card:hover .quest-banner-img {
+      transform: scale(1.04);
     }
 
     .opp-3d-depth-shade {
@@ -4449,75 +4480,37 @@ function renderFullApplication(initialTab = "dashboard") {
 
 
     <!-- =====================================================================
-         SCREEN 7 : VEILLE BOURSES & HACKATHONS DEERFLOW (KANBAN)
+         SCREEN 7 : VEILLE BOURSES & HACKATHONS DEERFLOW (CYLINDRE 3D)
          ===================================================================== -->
     <div id="view-opportunities" class="view-panel ${initialTab === "opportunities" ? "active" : ""}">
-      <div class="glass-card spotlight-card" style="padding: 26px; margin-bottom: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+      
+      <!-- Opportunities Header & Action Bar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 14px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span class="material-symbols-outlined" style="font-size: 24px; color: var(--primary);">cyclone</span>
           <div>
-            <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display);">
-              VEILLE BOURSES & HACKATHONS (KANBAN DEERFLOW)
-            </h2>
-            <p style="font-size: 13px; color: var(--text-secondary);">Agrégation automatisée Campus France, Devpost et bourses d'excellence IA.</p>
-          </div>
-          <button class="btn-cyber" onclick="triggerDeerflowScraper()">🔄 SCRAPER NOUVELLES OPPORTUNITÉS</button>
-        </div>
-
-        <div class="grid-3col" id="opportunities-grid">
-          ${SYSTEM_STATE.opportunities
-            .map(
-              (o) => `
-            <div class="glass-card spotlight-card" id="opp-card-${o.id}" style="padding: 20px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <span class="radar-ping-badge">${o.type}</span>
-                <span style="font-size: 12px; color: var(--imperial-gold); font-family: var(--font-mono); font-weight: bold;">MATCH : ${o.matchScore}%</span>
-              </div>
-              <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 8px; color: var(--text-white);">${o.title}</h3>
-              <div style="font-size: 12px; color: var(--neon-cyan); font-family: var(--font-mono); margin-bottom: 6px;">${o.amount}</div>
-              <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 16px;">Portail : ${o.portal} | Date limite : ${o.deadline}</div>
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 11px; color: var(--transcendent-green); font-weight: bold; background: rgba(0, 255, 102, 0.1); padding: 4px 8px; border-radius: 4px;">${o.status}</span>
-                <a href="${o.url}" target="_blank" class="btn-cyber" style="padding: 5px 12px; font-size: 11px; text-decoration: none;">POSTULER ↗</a>
-              </div>
+            <div style="font-size: 13.5px; font-weight: 800; font-family: var(--font-mono); letter-spacing: 1.5px; color: var(--primary); text-transform: uppercase;">
+              CYLINDRE 3D — VEILLE BOURSES & HACKATHONS
             </div>
-          `,
-            )
-            .join("")}
-        </div>
-
-        <!-- 3D CIRCULAR CAROUSEL DISPLAY (CYLINDER PRESET - REACTBITS) -->
-        <div class="opportunities-carousel-wrap">
-          <!-- Floating Title Overlay -->
-          <div style="position: absolute; top: 16px; left: 22px; z-index: 25; pointer-events: none;">
-            <div style="font-size: 11px; letter-spacing: 2px; color: var(--neon-cyan); font-family: var(--font-mono); font-weight: 800; display: flex; align-items: center; gap: 8px;">
-              <span>🌐</span>
-              <span>EXPLORATEUR CYLINDRIQUE 3D — VEILLE BOURSES & HACKATHONS</span>
-            </div>
-            <div style="font-size: 12.5px; color: var(--text-secondary); margin-top: 3px;">
-              Glissez horizontalement pour faire pivoter le cylindre 3D • Cliquez sur une carte pour inspecter
+            <div style="font-size: 11.5px; color: var(--text-secondary); font-family: var(--font-mono); margin-top: 2px;">
+              Glissez horizontalement pour faire pivoter le cylindre • Cliquez sur une carte pour postuler
             </div>
           </div>
+        </div>
+        <button class="btn-cyber" onclick="triggerDeerflowScraper()">🔄 SCRAPER NOUVELLES OPPORTUNITÉS</button>
+      </div>
 
-          <div class="circular-carousel" id="opp-circular-carousel" data-axis="y" data-shape="cylinder" data-draggable style="--cc-fade: var(--cc-fade, #070414); --cc-radius: 12px; --cc-inner: 0.4;">
-            <div class="circular-carousel__view">
-              <div class="circular-carousel__stage" id="opp-carousel-stage">
-                <div class="circular-carousel__camera" id="opp-carousel-camera">
-                  <div class="circular-carousel__ring" id="opp-carousel-ring">
-                    <!-- Populated dynamically via JS -->
-                  </div>
+      <!-- 3D CIRCULAR CAROUSEL (SEAMLESSLY INTEGRATED INTO ENVIRONMENT) -->
+      <div id="opportunities-carousel-section" class="opportunities-carousel-container">
+        <div class="circular-carousel" id="opp-circular-carousel" data-axis="y" data-shape="cylinder" data-draggable>
+          <div class="circular-carousel__view">
+            <div class="circular-carousel__stage" id="opp-carousel-stage">
+              <div class="circular-carousel__camera" id="opp-carousel-camera">
+                <div class="circular-carousel__ring" id="opp-carousel-ring">
+                  <!-- Populated dynamically via JS -->
                 </div>
               </div>
             </div>
-          </div>
-
-          <!-- Controls Bar -->
-          <div class="quest-carousel-controls" style="z-index: 30;">
-            <button class="btn-cyber" style="padding: 6px 14px; font-size: 11.5px;" onclick="stepOppCarousel(-1)">◀ PRÉCÉDENT</button>
-            <button class="btn-cyber btn-gold" id="btn-opp-carousel-play" style="padding: 6px 14px; font-size: 11.5px;" onclick="toggleOppCarouselDrift()">⏯ PAUSE</button>
-            <button class="btn-cyber" style="padding: 6px 14px; font-size: 11.5px;" onclick="stepOppCarousel(1)">SUIVANT ▶</button>
-            <span class="radar-ping-badge" id="opp-carousel-active-badge" style="font-size: 10.5px; padding: 4px 10px;">
-              OPPORTUNITÉ 1 / ${SYSTEM_STATE.opportunities.length}
-            </span>
           </div>
         </div>
       </div>
