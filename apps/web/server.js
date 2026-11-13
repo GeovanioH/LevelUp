@@ -3358,7 +3358,7 @@ function renderFullApplication(initialTab = "dashboard") {
       transition: opacity 0.2s;
     }
   
-    /* CLEAN FULLSCREEN VIDEO INTRO (NO OVERLAY TEXT) */
+    /* CLEAN FULLSCREEN VIDEO INTRO + SYSTEM ALERT IMAGE TRANSITION */
     .system-intro-overlay {
       position: fixed;
       inset: 0;
@@ -3370,7 +3370,7 @@ function renderFullApplication(initialTab = "dashboard") {
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: opacity 0.35s ease-out, visibility 0.35s ease-out;
+      transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
       overflow: hidden;
     }
 
@@ -3386,6 +3386,59 @@ function renderFullApplication(initialTab = "dashboard") {
       object-fit: cover;
       display: block;
       background: #000000;
+      transition: opacity 0.25s ease;
+    }
+
+    .system-intro-alert-wrapper {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(12, 28, 60, 0.96) 0%, rgba(2, 6, 18, 0.99) 100%);
+      padding: 24px;
+      box-sizing: border-box;
+      animation: alertOverlayFadeIn 0.3s ease-out;
+    }
+
+    .system-intro-alert-img {
+      max-width: min(92vw, 680px);
+      max-height: 80vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 0 60px rgba(59, 130, 246, 0.7), 0 0 120px rgba(37, 99, 235, 0.4);
+      border: 1px solid rgba(96, 165, 250, 0.5);
+      animation: alertModalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .system-intro-alert-hint {
+      margin-top: 24px;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: rgba(147, 197, 253, 0.85);
+      text-transform: uppercase;
+      animation: pulseAlertHint 1.4s ease-in-out infinite;
+      user-select: none;
+    }
+
+    @keyframes alertOverlayFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes alertModalPop {
+      0% { transform: scale(0.92); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes pulseAlertHint {
+      0%, 100% { opacity: 0.45; }
+      50% { opacity: 1; }
     }
 
     .header-replay-intro-btn {
@@ -3428,11 +3481,15 @@ function renderFullApplication(initialTab = "dashboard") {
 </head>
 <body>
 
-  <!-- SYSTEM INTRO INITIALIZATION VIDEO (CLEAN FULLSCREEN - NO OVERLAY TEXT) -->
-  <div id="system-intro-overlay" class="system-intro-overlay" onclick="dismissIntroOverlay()" title="Cliquer pour passer">
+  <!-- SYSTEM INTRO INITIALIZATION VIDEO (CLEAN FULLSCREEN) & ALERT TRANSITION -->
+  <div id="system-intro-overlay" class="system-intro-overlay" onclick="handleIntroOverlayClick()" title="Cliquer pour passer">
     <video id="system-intro-video" class="system-intro-video" playsinline muted autoplay preload="auto">
       <source src="/intro.mp4" type="video/mp4">
     </video>
+    <div id="system-intro-alert-wrapper" class="system-intro-alert-wrapper">
+      <img id="system-intro-alert-img" class="system-intro-alert-img" src="/intro-alert.jpg" alt="[WELCOME, PLAYER.] System Alert" />
+      <div class="system-intro-alert-hint">[ INITIALISATION DU SYSTÈME EN COURS... CLIQUEZ POUR ENTRER ]</div>
+    </div>
   </div>
 
 
@@ -7633,12 +7690,46 @@ function renderFullApplication(initialTab = "dashboard") {
     });
 
     
-    // CLEAN SYSTEM INTRO VIDEO CONTROLLER
+    // CLEAN SYSTEM INTRO VIDEO & ALERT TRANSITION CONTROLLER
     let introDismissed = false;
+    let introAlertShown = false;
+    let alertAutoDismissTimer = null;
+
+    function showIntroAlertScreen() {
+      if (introAlertShown || introDismissed) return;
+      introAlertShown = true;
+      const video = document.getElementById('system-intro-video');
+      const alertWrapper = document.getElementById('system-intro-alert-wrapper');
+      
+      if (video) {
+        video.pause();
+        video.style.display = 'none';
+      }
+      if (alertWrapper) {
+        alertWrapper.style.display = 'flex';
+      }
+
+      // Automatically transition to application after 2.4s (or on user click)
+      if (alertAutoDismissTimer) clearTimeout(alertAutoDismissTimer);
+      alertAutoDismissTimer = setTimeout(() => {
+        dismissIntroOverlay();
+      }, 2400);
+    }
+
+    function handleIntroOverlayClick() {
+      // If alert screen is not yet shown, advance directly to the alert screen
+      if (!introAlertShown) {
+        showIntroAlertScreen();
+      } else {
+        // If alert screen is already showing, dismiss directly into the app
+        dismissIntroOverlay();
+      }
+    }
 
     function initSystemIntro() {
       const overlay = document.getElementById('system-intro-overlay');
       const video = document.getElementById('system-intro-video');
+      const alertWrapper = document.getElementById('system-intro-alert-wrapper');
       if (!overlay || !video) return;
 
       const hasSeen = sessionStorage.getItem('levelup_intro_seen');
@@ -7650,28 +7741,32 @@ function renderFullApplication(initialTab = "dashboard") {
 
       overlay.classList.remove('dismissed');
       overlay.style.display = 'flex';
+      video.style.display = 'block';
+      if (alertWrapper) alertWrapper.style.display = 'none';
       introDismissed = false;
+      introAlertShown = false;
 
-      // Direct transition when video ends
+      // Transition to alert image when the 4s video ends
       video.addEventListener('ended', () => {
-        dismissIntroOverlay();
+        showIntroAlertScreen();
       });
 
-      // Immediate transition as playback reaches the end (prevents freezing on last frame)
+      // Video is 4.0s long: as currentTime reaches 3.85s (or duration - 0.15s), directly reveal the alert screen
       video.addEventListener('timeupdate', () => {
-        if (video.duration && video.currentTime >= video.duration - 0.15) {
-          dismissIntroOverlay();
+        if (video.currentTime >= 3.85 || (video.duration && video.currentTime >= video.duration - 0.15)) {
+          showIntroAlertScreen();
         }
       });
 
       video.addEventListener('error', () => {
-        dismissIntroOverlay();
+        // Fallback: show alert screen directly if video cannot play
+        showIntroAlertScreen();
       });
 
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {
-          // Autoplay fallback: allow user click to play or dismiss
+          // Autoplay fallback
         });
       }
     }
@@ -7679,6 +7774,10 @@ function renderFullApplication(initialTab = "dashboard") {
     function dismissIntroOverlay() {
       if (introDismissed) return;
       introDismissed = true;
+      if (alertAutoDismissTimer) {
+        clearTimeout(alertAutoDismissTimer);
+        alertAutoDismissTimer = null;
+      }
 
       const overlay = document.getElementById('system-intro-overlay');
       const video = document.getElementById('system-intro-video');
@@ -7696,7 +7795,7 @@ function renderFullApplication(initialTab = "dashboard") {
           if (activeView) {
             triggerActiveViewCardsReveal(activeView);
           }
-        }, 350);
+        }, 400);
       }
     }
 
@@ -7704,10 +7803,18 @@ function renderFullApplication(initialTab = "dashboard") {
       sessionStorage.removeItem('levelup_intro_seen');
       const overlay = document.getElementById('system-intro-overlay');
       const video = document.getElementById('system-intro-video');
+      const alertWrapper = document.getElementById('system-intro-alert-wrapper');
+      if (alertAutoDismissTimer) {
+        clearTimeout(alertAutoDismissTimer);
+        alertAutoDismissTimer = null;
+      }
       if (overlay && video) {
         overlay.style.display = 'flex';
         overlay.classList.remove('dismissed');
+        video.style.display = 'block';
+        if (alertWrapper) alertWrapper.style.display = 'none';
         introDismissed = false;
+        introAlertShown = false;
         video.currentTime = 0;
         video.play();
       }
@@ -7906,6 +8013,39 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, head);
       fs.createReadStream(videoFile).pipe(res);
     }
+    return;
+  }
+
+  // Intro Alert Image Serving Endpoint
+  if (pathname === "/intro-alert.jpg" || pathname === "/assets/intro-alert.jpg") {
+    const candidatePaths = [
+      path.join(__dirname, "public", "intro-alert.jpg"),
+      path.join(__dirname, "..", "..", "apps", "web", "public", "intro-alert.jpg"),
+      path.join(__dirname, "intro-alert.jpg"),
+      path.join(process.cwd(), "apps", "web", "public", "intro-alert.jpg"),
+      path.join(process.cwd(), "public", "intro-alert.jpg"),
+    ];
+    let imgFile = null;
+    for (const p of candidatePaths) {
+      if (fs.existsSync(p)) {
+        imgFile = p;
+        break;
+      }
+    }
+
+    if (!imgFile) {
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "INTRO_IMAGE_NOT_FOUND" }));
+      return;
+    }
+
+    const stat = fs.statSync(imgFile);
+    res.writeHead(200, {
+      "Content-Length": stat.size,
+      "Content-Type": "image/jpeg",
+      "Cache-Control": "public, max-age=86400",
+    });
+    fs.createReadStream(imgFile).pipe(res);
     return;
   }
 
