@@ -100,6 +100,8 @@ const DEFAULT_STATE = {
       xp: 200,
       crystals: 20,
       completed: false,
+      image:
+        "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=900&q=80&auto=format&fit=crop",
       description:
         "100 Pompes militaires, 100 Abdos d'acier, 100 Squats explosifs et 10 km de course.",
       proof: "https://strava.com/activities/huriel-workout-10k",
@@ -112,6 +114,8 @@ const DEFAULT_STATE = {
       xp: 180,
       crystals: 20,
       completed: true,
+      image:
+        "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900&q=80&auto=format&fit=crop",
       description:
         "Exploitation de Buffer Overflow et élévation de privilèges Linux root.",
       proof: "https://tryhackme.com/p/Huriel/badges/room-complete",
@@ -124,6 +128,8 @@ const DEFAULT_STATE = {
       xp: 150,
       crystals: 15,
       completed: false,
+      image:
+        "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=900&q=80&auto=format&fit=crop",
       description:
         "Restitution orale de 3 min sur un article arXiv en anglais soutenu (grille 20 pts).",
       proof: "",
@@ -136,6 +142,8 @@ const DEFAULT_STATE = {
       xp: 250,
       crystals: 30,
       completed: false,
+      image:
+        "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&q=80&auto=format&fit=crop",
       description:
         "Implémentation d'un block FlashAttention-2 avec benchmark de VRAM sur RTX 4070.",
       proof: "https://github.com/GeovanioH/LevelUp/commit/365eed2",
@@ -148,6 +156,8 @@ const DEFAULT_STATE = {
       xp: 500,
       crystals: 100,
       completed: false,
+      image:
+        "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=900&q=80&auto=format&fit=crop",
       description:
         "Quête d'urgence imminente : Corriger la validation d'en-tête x-player-id avant expiration du chrono (reste 00:58:12).",
       proof: "",
@@ -2196,14 +2206,20 @@ function renderFullApplication(initialTab = "dashboard") {
     .quests-carousel-container {
       position: relative;
       width: 100%;
-      height: 600px;
+      height: 540px;
       overflow: hidden;
       border-radius: var(--radius-lg);
-      background: var(--glass-panel);
+      background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.08) 0%, var(--surface-container-lowest) 75%);
       backdrop-filter: blur(24px) saturate(180%);
       border: 1px solid var(--glass-inner-border);
-      box-shadow: var(--glass-shadow);
+      box-shadow: inset 0 0 50px rgba(7, 3, 20, 0.8), var(--glass-shadow);
       margin-bottom: 24px;
+    }
+
+    [data-theme="light-awakening"] .quests-carousel-container {
+      background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.06) 0%, rgba(245, 243, 255, 0.95) 75%);
+      border: 1px solid rgba(124, 58, 237, 0.25);
+      box-shadow: inset 0 0 45px rgba(124, 58, 237, 0.08), 0 8px 32px -4px rgba(124, 58, 237, 0.15);
     }
 
     .circular-carousel {
@@ -2279,10 +2295,11 @@ function renderFullApplication(initialTab = "dashboard") {
       width: 260px;
       height: 380px;
       border-radius: 14px;
+      overflow: hidden;
       background: var(--glass-panel-elevated);
       border: 1.5px solid var(--glass-inner-border);
-      box-shadow: 0 0 25px var(--glass-inner-glow), inset 0 0 20px var(--glass-inner-glow);
-      padding: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px var(--glass-inner-glow);
+      padding: 12px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -2292,6 +2309,16 @@ function renderFullApplication(initialTab = "dashboard") {
       cursor: pointer;
       user-select: none;
       color: var(--text-white);
+    }
+
+    [data-theme="light-awakening"] .quest-3d-card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1.5px solid rgba(124, 58, 237, 0.32);
+      box-shadow: 0 10px 28px rgba(124, 58, 237, 0.15), 0 0 15px rgba(168, 85, 247, 0.1);
+      color: #0f172a;
+    }
+    [data-theme="light-awakening"] .quest-3d-card .quest-title-text {
+      color: #0f172a !important;
     }
 
     .quest-3d-card:hover {
@@ -4071,6 +4098,11 @@ function renderFullApplication(initialTab = "dashboard") {
           if (typeof resizeCanvas === 'function') resizeCanvas('obsidian-graph-canvas');
         }, 50);
       }
+      if (viewId === 'quests') {
+        setTimeout(() => {
+          if (typeof initQuestCircularCarousel === 'function') initQuestCircularCarousel();
+        }, 50);
+      }
       if (viewId === 'opportunities') {
         setTimeout(() => {
           if (typeof initOppCircularCarousel === 'function') initOppCircularCarousel();
@@ -4313,9 +4345,9 @@ function renderFullApplication(initialTab = "dashboard") {
 
     const QUEST_CARD_WIDTH = 260;
     const QUEST_CARD_HEIGHT = 380;
-    const QUEST_GAP = 35;
-    const QUEST_TILT = -5;
-    const QUEST_PERSPECTIVE = 2500;
+    const QUEST_GAP = 12;
+    const QUEST_TILT = -4;
+    const QUEST_PERSPECTIVE = 1000;
 
     function setQuestsViewMode(mode) {
       currentQuestsViewMode = mode;
@@ -4354,7 +4386,7 @@ function renderFullApplication(initialTab = "dashboard") {
       const pitch = QUEST_CARD_WIDTH + QUEST_GAP;
       const chord = pitch / (2 * Math.sin(Math.PI / count));
       const arc = (count * pitch) / (2 * Math.PI);
-      const radius = Math.max(chord + (arc - chord) * 1.0, 380);
+      const radius = Math.round(chord + (arc - chord) * 0.4);
 
       // Populate Cards
       ring.innerHTML = '';
@@ -4371,14 +4403,20 @@ function renderFullApplication(initialTab = "dashboard") {
                id="quest-card-3d-\${q.id}"
                onclick="handleQuest3DCardClick(\${index}, '\${q.id}')">
             
-            <!-- Top HUD Badge -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-              <span class="radar-ping-badge" style="font-size: 10px; padding: 2px 7px; \${isEmergency ? 'border-color: rgba(255,0,60,0.6); color: var(--alert-crimson);' : ''}">
-                \${q.base} // \${q.type || 'DAILY'}
-              </span>
-              <span style="font-size: 11px; font-family: var(--font-mono); color: var(--imperial-gold); font-weight: bold;">
-                +\${q.xp} XP
-              </span>
+            <!-- Hero Banner Image with solo leveling gradient -->
+            <div style="position: relative; width: 100%; height: 110px; border-radius: 10px; overflow: hidden; margin-bottom: 8px; flex-shrink: 0;">
+              <img src="\${q.image || 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=900&q=80&auto=format&fit=crop'}" 
+                   alt="\${q.title.replace(/"/g, '&quot;')}" 
+                   style="width: 100%; height: 100%; object-fit: cover; filter: saturate(1.15);" />
+              <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,4,20,0.2) 0%, rgba(14,9,30,0.85) 100%);"></div>
+              <div style="position: absolute; top: 8px; left: 8px; right: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span class="radar-ping-badge" style="font-size: 9.5px; padding: 2px 7px; \${isEmergency ? 'border-color: rgba(255,0,60,0.8); color: var(--alert-crimson); background: rgba(255,0,60,0.2);' : ''}">
+                  \${q.base} // \${q.type || 'DAILY'}
+                </span>
+                <span style="font-size: 11px; font-family: var(--font-mono); color: var(--imperial-gold); font-weight: bold; background: rgba(0,0,0,0.6); padding: 2px 6px; border-radius: 4px;">
+                  +\${q.xp} XP
+                </span>
+              </div>
             </div>
 
             <!-- Solo Leveling Quest Header -->
@@ -4544,7 +4582,7 @@ function renderFullApplication(initialTab = "dashboard") {
           const pitch = QUEST_CARD_WIDTH + QUEST_GAP;
           const chord = pitch / (2 * Math.sin(Math.PI / count));
           const arc = (count * pitch) / (2 * Math.PI);
-          const radius = Math.max(chord + (arc - chord) * 1.0, 380);
+          const radius = Math.round(chord + (arc - chord) * 0.4);
 
           // Physics updates
           if (isDraggingQuestCarousel) {
@@ -4642,9 +4680,9 @@ function renderFullApplication(initialTab = "dashboard") {
     let oppPitch = 0;
 
     const OPP_CARD_WIDTH = 220;
-    const OPP_GAP = 25;
-    const OPP_TILT = -5;
-    const OPP_PERSPECTIVE = 2500;
+    const OPP_GAP = 10;
+    const OPP_TILT = -4;
+    const OPP_PERSPECTIVE = 1000;
 
     function initOppCircularCarousel() {
       const ring = document.getElementById('opp-carousel-ring');
@@ -4662,7 +4700,7 @@ function renderFullApplication(initialTab = "dashboard") {
       const pitch = OPP_CARD_WIDTH + OPP_GAP;
       const chord = pitch / (2 * Math.sin(Math.PI / count));
       const arc = (count * pitch) / (2 * Math.PI);
-      const radius = Math.max(chord + (arc - chord) * 1.0, 260);
+      const radius = Math.round(chord + (arc - chord) * 0.4);
 
       // Populate Cards
       ring.innerHTML = '';
@@ -4837,7 +4875,7 @@ function renderFullApplication(initialTab = "dashboard") {
           const pitch = OPP_CARD_WIDTH + OPP_GAP;
           const chord = pitch / (2 * Math.sin(Math.PI / count));
           const arc = (count * pitch) / (2 * Math.PI);
-          const radius = Math.max(chord + (arc - chord) * 1.0, 260);
+          const radius = Math.round(chord + (arc - chord) * 0.4);
 
           // Physics updates
           if (isDraggingOppCarousel) {

@@ -95,10 +95,10 @@ interface PresetConfig {
 const PRESETS: Record<CarouselPreset, PresetConfig> = {
   cylinder: {
     axis: "y",
-    tilt: -5,
-    perspective: 2500,
+    tilt: -4,
+    perspective: 1100,
     curve: 1,
-    spread: 1,
+    spread: 0.85,
     inward: false,
     billboard: false,
     backfaces: true,
@@ -209,7 +209,7 @@ export const CircularCarousel: React.FC<CircularCarouselProps> = ({
   intro = "rise",
   cardWidth = 220,
   aspectRatio = 1,
-  gap = 25,
+  gap = 12,
   curve,
   tilt,
   perspective,
@@ -384,7 +384,9 @@ export const CircularCarousel: React.FC<CircularCarouselProps> = ({
   incomingRef.current = incoming;
   const listRef = useRef(list);
   listRef.current = list;
-  const sourcesKey = incoming.map((item) => item.src || item.title || item.id).join("|");
+  const sourcesKey = incoming
+    .map((item) => item.src || item.title || item.id)
+    .join("|");
 
   useEffect(() => {
     let cancelled = false;
@@ -395,7 +397,10 @@ export const CircularCarousel: React.FC<CircularCarouselProps> = ({
       setLeaving(null);
       setList(next);
     }
-    const sources = next.slice(0, 16).map((item) => item.src).filter(Boolean) as string[];
+    const sources = next
+      .slice(0, 16)
+      .map((item) => item.src)
+      .filter(Boolean) as string[];
     const load = (src: string) =>
       new Promise((resolve) => {
         const image = new Image();
@@ -548,7 +553,8 @@ export const CircularCarousel: React.FC<CircularCarouselProps> = ({
         }
         if (
           state.intro &&
-          now - state.intro.start >= INTRO_LENGTH[state.intro.type as keyof typeof INTRO_LENGTH]
+          now - state.intro.start >=
+            INTRO_LENGTH[state.intro.type as keyof typeof INTRO_LENGTH]
         ) {
           state.intro = null;
           state.introDone = true;
@@ -614,7 +620,9 @@ export const CircularCarousel: React.FC<CircularCarouselProps> = ({
       if (now < state.holdUntil) busy = true;
 
       const ease = 1 - Math.exp(-dt / 0.35);
-      const aimYaw = state.pointer.inside ? state.pointer.x * s.parallax * 9 : 0;
+      const aimYaw = state.pointer.inside
+        ? state.pointer.x * s.parallax * 9
+        : 0;
       const aimPitch = state.pointer.inside
         ? -state.pointer.y * s.parallax * 6
         : 0;
@@ -668,7 +676,8 @@ export const CircularCarousel: React.FC<CircularCarouselProps> = ({
           transform = `rotateY(${base}deg) translateZ(${-r}px)`;
         } else {
           transform = `rotateY(${base}deg) translateZ(${r}px)`;
-          if (s.layout.billboard) transform += ` rotateY(${-(base + angle)}deg)`;
+          if (s.layout.billboard)
+            transform += ` rotateY(${-(base + angle)}deg)`;
         }
         if (mod.lift)
           transform +=
@@ -686,7 +695,8 @@ export const CircularCarousel: React.FC<CircularCarouselProps> = ({
       }
 
       const index =
-        ((Math.round(-state.angle / s.step) % s.count) + s.count) % s.count || 0;
+        ((Math.round(-state.angle / s.step) % s.count) + s.count) % s.count ||
+        0;
       if (index !== activeRef.current) {
         activeRef.current = index;
         setActive(index);
@@ -743,9 +753,7 @@ export const CircularCarousel: React.FC<CircularCarouselProps> = ({
       const s = settingsRef.current;
       if (!s.draggable) return;
       const delta =
-        Math.abs(event.deltaX) > Math.abs(event.deltaY)
-          ? event.deltaX
-          : 0;
+        Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : 0;
       if (!delta) return;
       event.preventDefault();
       const perPixel = 180 / (Math.PI * s.radius * state.fit);
@@ -810,8 +818,16 @@ export const CircularCarousel: React.FC<CircularCarouselProps> = ({
     if (!rootRef.current) return;
     const rect = rootRef.current.getBoundingClientRect();
     const pointer = stateRef.current.pointer;
-    pointer.x = clamp(((event.clientX - rect.left) / rect.width) * 2 - 1, -1, 1);
-    pointer.y = clamp(((event.clientY - rect.top) / rect.height) * 2 - 1, -1, 1);
+    pointer.x = clamp(
+      ((event.clientX - rect.left) / rect.width) * 2 - 1,
+      -1,
+      1,
+    );
+    pointer.y = clamp(
+      ((event.clientY - rect.top) / rect.height) * 2 - 1,
+      -1,
+      1,
+    );
   };
 
   const handlePointerDown = (event: React.PointerEvent) => {
@@ -870,10 +886,7 @@ export const CircularCarousel: React.FC<CircularCarouselProps> = ({
       (delta - press.origin) * perPixel * (s.layout.inward ? -1 : 1);
     const now = performance.now();
     press.samples.push({ time: now, angle: state.angle });
-    while (
-      press.samples.length > 2 &&
-      now - press.samples[0].time > 110
-    )
+    while (press.samples.length > 2 && now - press.samples[0].time > 110)
       press.samples.shift();
     wakeRef.current();
   };
@@ -892,9 +905,7 @@ export const CircularCarousel: React.FC<CircularCarouselProps> = ({
     const last = press.samples[press.samples.length - 1];
     const span = (last.time - first.time) / 1000;
     const velocity =
-      span > 0.008
-        ? clamp((last.angle - first.angle) / span, -1400, 1400)
-        : 0;
+      span > 0.008 ? clamp((last.angle - first.angle) / span, -1400, 1400) : 0;
     state.velocity = velocity;
     if (Math.abs(velocity) > 60) state.dir = Math.sign(velocity);
     const coasting =
