@@ -57,16 +57,16 @@ const DEFAULT_STATE = {
     title: "Wolf Assassin (Le Chasseur Souverain)",
     level: 14,
     rank: "D",
-    currentXp: 18450,
+    currentXp: 0,
     nextLevelXp: 22500,
-    availableSkillXp: 850,
+    availableSkillXp: 0,
     shadowCrystals: 820,
-    streakDays: 18,
-    hp: 88,
+    streakDays: 0,
+    hp: 100,
     maxHp: 100,
-    mp: 65,
+    mp: 100,
     maxMp: 100,
-    hoursAwake: 7.5,
+    hoursAwake: 0.0,
     curfewTime: "22:00",
     attributes: {
       str: 50,
@@ -74,7 +74,7 @@ const DEFAULT_STATE = {
       per: 29,
       vit: 27,
       int: 27,
-      remainingPoints: 3,
+      remainingPoints: 0,
     },
     bases: {
       acad: { name: "Excellence Académique (ACAD)", score: 55, level: 15 },
@@ -104,7 +104,7 @@ const DEFAULT_STATE = {
         "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=900&q=80&auto=format&fit=crop",
       description:
         "100 Pompes militaires, 100 Abdos d'acier, 100 Squats explosifs et 10 km de course.",
-      proof: "https://strava.com/activities/huriel-workout-10k",
+      proof: "",
     },
     {
       id: "q-thm-medium-room",
@@ -113,12 +113,12 @@ const DEFAULT_STATE = {
       base: "CYBER",
       xp: 180,
       crystals: 20,
-      completed: true,
+      completed: false,
       image:
         "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900&q=80&auto=format&fit=crop",
       description:
         "Exploitation de Buffer Overflow et élévation de privilèges Linux root.",
-      proof: "https://tryhackme.com/p/Huriel/badges/room-complete",
+      proof: "",
     },
     {
       id: "q-lng-cambridge-speech",
@@ -146,7 +146,7 @@ const DEFAULT_STATE = {
         "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&q=80&auto=format&fit=crop",
       description:
         "Implémentation d'un block FlashAttention-2 avec benchmark de VRAM sur RTX 4070.",
-      proof: "https://github.com/GeovanioH/LevelUp/commit/365eed2",
+      proof: "",
     },
     {
       id: "q-emergency-auth-bypass",
@@ -252,7 +252,7 @@ const DEFAULT_STATE = {
       time: "06:00 - 06:30",
       title: "🌅 Réveil & Hydratation",
       base: "DIS",
-      status: "COMPLETED",
+      status: "ACTIVE",
       type: "RITUEL",
     },
     {
@@ -260,7 +260,7 @@ const DEFAULT_STATE = {
       time: "06:30 - 07:30",
       title: "💪 Séance Sport Sung Jin-Woo (STR)",
       base: "STR",
-      status: "COMPLETED",
+      status: "UPCOMING",
       type: "SPORT",
     },
     {
@@ -268,7 +268,7 @@ const DEFAULT_STATE = {
       time: "07:30 - 08:30",
       title: "🚿 Petit-Déjeuner & Préparation",
       base: "DIS",
-      status: "COMPLETED",
+      status: "UPCOMING",
       type: "RITUEL",
     },
     {
@@ -276,7 +276,7 @@ const DEFAULT_STATE = {
       time: "08:30 - 11:30",
       title: "🧠 Deep Work IA : Transformers & vLLM",
       base: "AI_ENG",
-      status: "COMPLETED",
+      status: "UPCOMING",
       type: "DEEP_WORK",
     },
     {
@@ -284,7 +284,7 @@ const DEFAULT_STATE = {
       time: "11:30 - 12:30",
       title: "🚶 Pause Déjeuner & Restauration MP",
       base: "EXP",
-      status: "ACTIVE",
+      status: "UPCOMING",
       type: "REST",
     },
     {
@@ -546,7 +546,7 @@ Structures rhétoriques formelles indispensables pour l'évaluation orale à 20 
       portal: "Devpost / MLH",
       amount: "25 000 $ en crédits GPU",
       deadline: "30 Novembre 2026",
-      status: "EN_COURS",
+      status: "NOUVELLE",
       matchScore: 98.0,
       url: "https://devpost.com/hackathons",
       image:
@@ -559,7 +559,7 @@ Structures rhétoriques formelles indispensables pour l'évaluation orale à 20 
       portal: "Cambridge Assessment",
       amount: "Validation Rang B Indispensable",
       deadline: "15 Décembre 2026",
-      status: "SOUMIS",
+      status: "OUVERT",
       matchScore: 99.0,
       url: "https://www.cambridgeenglish.org",
       image:
@@ -598,7 +598,7 @@ Structures rhétoriques formelles indispensables pour l'évaluation orale à 20 
       portal: "Amazon Web Services",
       amount: "Certification Cloud & DevOps",
       deadline: "31 Janvier 2027",
-      status: "EN_COURS",
+      status: "OUVERT",
       matchScore: 94.0,
       url: "https://aws.amazon.com/certification",
       image:
@@ -647,27 +647,12 @@ Structures rhétoriques formelles indispensables pour l'évaluation orale à 20 
       desc: "Cockpit d'ingénierie suprême pour les sessions nocturnes du Monarque.",
     },
   ],
-  inventory: [
-    {
-      id: "inv-1",
-      name: "Clavier Ergonomique",
-      cost: 1800,
-      code: "LVL-SHADOW-KYB-89",
-      date: "05/11/2026",
-    },
-    {
-      id: "inv-2",
-      name: "Crédits RunPod Cloud",
-      cost: 300,
-      code: "LVL-SHADOW-RP-12",
-      date: "28/10/2026",
-    },
-  ],
+  inventory: [],
   penalty: {
     active: false,
     reason:
-      "Échec de complétion de la Quête Journalière obligatoire [DAILY_FIT_100_CORPS] avant l'heure fatidique de 22h00.",
-    remainingSeconds: 13335,
+      "Aucune infraction constatée. Le Joueur est en conformité absolue avec les directives du Système.",
+    remainingSeconds: 0,
     blockedDomains: [
       "tiktok.com",
       "instagram.com",
@@ -3808,7 +3793,11 @@ function renderFullApplication(initialTab = "dashboard") {
         <div style="margin-top: 30px; border-top: 1px solid var(--glass-inner-border); padding-top: 20px;">
           <h3 class="shiny-text" style="font-size: 18px; font-weight: bold; margin-bottom: 14px;">📦 MES ARTICLES DÉBLOQUÉS & CODES DE RETRAIT</h3>
           <div id="shop-inventory-container" class="grid-2col">
-            ${SYSTEM_STATE.inventory
+            ${SYSTEM_STATE.inventory.length === 0 ? `
+              <div class="empty-inventory-msg" style="grid-column: 1 / -1; padding: 24px; text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 13px; border: 1px dashed var(--glass-inner-border); border-radius: 8px;">
+                [INVENTAIRE VIERGE : AUCUN ARTICLE DÉBLOQUÉ POUR LE MOMENT]
+              </div>
+            ` : SYSTEM_STATE.inventory
               .map(
                 (inv) => `
               <div class="glass-card" style="padding: 14px; display: flex; justify-content: space-between; align-items: center;">
@@ -4160,9 +4149,16 @@ function renderFullApplication(initialTab = "dashboard") {
 
   <script>
     // System Local Storage Keys
-    const STORAGE_KEY = 'LEVELUP_SYSTEM_STATE_V3';
+    const STORAGE_KEY = 'LEVELUP_SYSTEM_STATE_V4_PRISTINE';
 
-    // State Synchronization
+    // State Synchronization & Legacy Data Purge
+    try {
+      localStorage.removeItem('LEVELUP_SYSTEM_STATE_V3');
+      localStorage.removeItem('LEVELUP_SYSTEM_STATE_V2');
+      localStorage.removeItem('LEVELUP_SYSTEM_STATE_V1');
+      localStorage.removeItem('LEVELUP_SYSTEM_STATE');
+    } catch(e) {}
+
     let state = ${JSON.stringify(SYSTEM_STATE)};
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -6392,6 +6388,8 @@ function renderFullApplication(initialTab = "dashboard") {
       // Add to inventory UI
       const invContainer = document.getElementById('shop-inventory-container');
       if (invContainer) {
+        const emptyMsg = invContainer.querySelector('.empty-inventory-msg');
+        if (emptyMsg) emptyMsg.remove();
         const div = document.createElement('div');
         div.className = 'glass-card';
         div.style.padding = '14px';
@@ -6713,6 +6711,13 @@ const server = http.createServer((req, res) => {
         balance: SYSTEM_STATE.player.shadowCrystals,
       }),
     );
+    return;
+  }
+
+  if (pathname === "/api/v1/system/reset") {
+    SYSTEM_STATE = JSON.parse(JSON.stringify(DEFAULT_STATE));
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ status: "PRISTINE_RESET_SUCCESS", state: SYSTEM_STATE }));
     return;
   }
 
