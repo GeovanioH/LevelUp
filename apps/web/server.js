@@ -1412,38 +1412,163 @@ function renderFullApplication(initialTab = "dashboard") {
       font-size: 12px;
     }
 
-    /* HIGH-CONTRAST PILL BUTTON (PRISMVEIL [Try it free] STYLE) */
-    .header-cta-pill {
-      background: #ffffff;
-      color: #0a0a0c;
-      font-family: var(--font-display, sans-serif);
-      font-weight: 700;
-      font-size: 12.5px;
-      letter-spacing: 0.3px;
-      padding: 7px 18px;
-      border-radius: var(--radius-pill, 9999px);
+    /* 3D LIQUID GLASS THEME SWITCH (VISIONOS / SKEUOMORPHIC PRISMVEIL REPLACEMENT) */
+    .glass-theme-switch {
+      background: transparent;
       border: none;
+      padding: 0;
+      margin: 0;
       cursor: pointer;
-      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
       outline: none;
+      transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+      vertical-align: middle;
     }
-    .header-cta-pill:hover {
-      transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 4px 16px rgba(255, 255, 255, 0.35);
+    .glass-theme-switch:hover {
+      transform: translateY(-1px) scale(1.03);
     }
-    .header-cta-pill:active {
-      transform: translateY(0) scale(0.98);
+    .glass-theme-switch:active {
+      transform: translateY(0) scale(0.97);
     }
 
-    [data-theme="light-awakening"] .header-cta-pill {
-      background: #0f172a;
-      color: #ffffff;
-      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.2);
+    .glass-switch-track {
+      height: 34px;
+      width: 98px;
+      border-radius: 9999px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      
+      /* Frosted Glass Track (Dark Theme) */
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.07) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        inset 0 1px 1px rgba(255, 255, 255, 0.35),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.25);
     }
-    [data-theme="light-awakening"] .header-cta-pill:hover {
-      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.35);
+
+    /* Frosted Glass Track (Light Theme - Exact Image 1 Match) */
+    [data-theme="light-awakening"] .glass-switch-track {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.2) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 
+        0 4px 16px rgba(100, 115, 140, 0.18),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.8),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.06);
+    }
+
+    /* 3D Glass Sphere Knob */
+    .glass-switch-thumb {
+      position: absolute;
+      top: 50%;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, border-color 0.3s ease;
+      
+      /* 3D Sphere Shading & Depth */
+      background: radial-gradient(circle at 32% 28%, 
+        rgba(255, 255, 255, 0.85) 0%, 
+        rgba(255, 255, 255, 0.4) 32%, 
+        rgba(255, 255, 255, 0.14) 62%, 
+        rgba(255, 255, 255, 0.28) 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 
+        0 6px 18px rgba(0, 0, 0, 0.25),
+        0 2px 5px rgba(0, 0, 0, 0.15),
+        inset 0 2px 4px rgba(255, 255, 255, 0.95),
+        inset 0 -3px 5px rgba(0, 0, 0, 0.2),
+        inset 2px 0 4px rgba(255, 255, 255, 0.55);
+    }
+
+    /* Specular Rim Reflection Arc */
+    .glass-thumb-reflection {
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      border-top: 2.2px solid rgba(255, 255, 255, 0.95);
+      border-left: 2px solid rgba(255, 255, 255, 0.85);
+      border-right: 2px solid transparent;
+      border-bottom: 2px solid transparent;
+      pointer-events: none;
+      transform: rotate(-10deg);
+      filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.7));
+    }
+
+    /* Glowing Icon inside Thumb */
+    .glass-thumb-icon {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      transition: all 0.3s ease;
+    }
+    .glass-thumb-icon svg {
+      filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    }
+
+    /* Text Label inside Track */
+    .glass-switch-label {
+      width: 100%;
+      font-family: 'Plus Jakarta Sans', var(--font-display, sans-serif);
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      color: #ffffff;
+      box-sizing: border-box;
+      pointer-events: none;
+      transition: padding 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+    }
+
+    [data-theme="light-awakening"] .glass-switch-label {
+      color: #ffffff;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    }
+
+    /* STATE A: LIGHT MODE (Knob on LEFT, Label on RIGHT - Exact Image 1 Match) */
+    .glass-theme-switch.is-light .glass-switch-thumb {
+      left: -2px;
+      transform: translateY(-50%);
+    }
+    .glass-theme-switch.is-light .glass-switch-label {
+      padding-left: 36px;
+      padding-right: 12px;
+    }
+
+    /* STATE B: DARK MODE (Knob on RIGHT, Label on LEFT) */
+    .glass-theme-switch.is-dark .glass-switch-thumb {
+      left: calc(100% - 36px);
+      transform: translateY(-50%);
+    }
+    .glass-theme-switch.is-dark .glass-switch-label {
+      padding-left: 12px;
+      padding-right: 36px;
+    }
+
+    /* Backward compatibility */
+    .header-cta-pill {
+      display: none;
     }
 
     @media (max-width: 900px) {
@@ -2621,9 +2746,19 @@ function renderFullApplication(initialTab = "dashboard") {
           <span><span id="header-streak-val">${player.streakDays}</span>J</span>
         </div>
 
-        <!-- High-contrast Pill Button matching [Try it free] -->
-        <button class="header-cta-pill" id="theme-toggle-btn" onclick="toggleTheme()" title="Passer en mode clair (Light Awakening)" aria-label="Passer en mode clair">
-          ☀️ CLAIR
+        <!-- 3D Liquid Glassmorphic Theme Switch (Image 1 Style) -->
+        <button class="glass-theme-switch is-dark" id="theme-toggle-btn" onclick="toggleTheme()" title="Changer de thème (Light / Dark)" aria-label="Changer de thème">
+          <div class="glass-switch-track">
+            <div class="glass-switch-thumb">
+              <div class="glass-thumb-reflection"></div>
+              <div class="glass-thumb-icon">
+                <svg viewBox="0 0 24 24" width="17" height="17" fill="#ffffff" stroke="none">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              </div>
+            </div>
+            <span class="glass-switch-label" id="theme-toggle-label">Dark</span>
+          </div>
         </button>
       </div>
     </header>
@@ -4290,16 +4425,28 @@ function renderFullApplication(initialTab = "dashboard") {
     // Theme Toggle & State Persistence
     function updateThemeToggleBtn(theme) {
       const btn = document.getElementById('theme-toggle-btn');
-      if (btn) {
-        if (theme === 'light-awakening') {
-          btn.innerHTML = '🌙 SOMBRE';
-          btn.setAttribute('title', 'Passer en mode sombre (Dark Monarch)');
-          btn.setAttribute('aria-label', 'Passer en mode sombre');
-        } else {
-          btn.innerHTML = '☀️ CLAIR';
-          btn.setAttribute('title', 'Passer en mode clair (Light Awakening)');
-          btn.setAttribute('aria-label', 'Passer en mode clair');
+      if (!btn) return;
+      const label = document.getElementById('theme-toggle-label');
+      const icon = btn.querySelector('.glass-thumb-icon');
+      
+      if (theme === 'light-awakening') {
+        btn.classList.remove('is-dark');
+        btn.classList.add('is-light');
+        if (label) label.textContent = 'Light';
+        if (icon) {
+          icon.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2" fill="#ffffff" stroke="none" /><line x1="12" y1="2" x2="12" y2="4.5" /><line x1="12" y1="19.5" x2="12" y2="22" /><line x1="4.22" y1="4.22" x2="6" y2="6" /><line x1="18" y1="18" x2="19.78" y2="19.78" /><line x1="2" y1="12" x2="4.5" y2="12" /><line x1="19.5" y1="12" x2="22" y2="12" /><line x1="4.22" y1="19.78" x2="6" y2="18" /><line x1="18" y1="6" x2="19.78" y2="4.22" /></svg>';
         }
+        btn.setAttribute('title', 'Mode Clair actif (Cliquer pour Mode Sombre)');
+        btn.setAttribute('aria-label', 'Mode Clair actif');
+      } else {
+        btn.classList.remove('is-light');
+        btn.classList.add('is-dark');
+        if (label) label.textContent = 'Dark';
+        if (icon) {
+          icon.innerHTML = '<svg viewBox="0 0 24 24" width="17" height="17" fill="#ffffff" stroke="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>';
+        }
+        btn.setAttribute('title', 'Mode Sombre actif (Cliquer pour Mode Clair)');
+        btn.setAttribute('aria-label', 'Mode Sombre actif');
       }
     }
 
