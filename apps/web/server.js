@@ -2574,25 +2574,27 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     /* =========================================================================
-       REACTBITS CIRCULAR CAROUSEL 3D (CYLINDER PRESET FOR QUESTS)
+       REACTBITS CIRCULAR CAROUSEL 3D (SEAMLESSLY INTEGRATED CYLINDER PRESET)
        ========================================================================= */
     .quests-carousel-container {
       position: relative;
       width: 100%;
-      height: 540px;
-      overflow: hidden;
-      border-radius: var(--radius-lg);
-      background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.08) 0%, var(--surface-container-lowest) 75%);
-      backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid var(--glass-inner-border);
-      box-shadow: inset 0 0 50px rgba(7, 3, 20, 0.8), var(--glass-shadow);
-      margin-bottom: 24px;
+      height: 520px;
+      overflow: visible;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      margin-bottom: 28px;
     }
 
     [data-theme="light-awakening"] .quests-carousel-container {
-      background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.06) 0%, rgba(245, 243, 255, 0.95) 75%);
-      border: 1px solid rgba(124, 58, 237, 0.25);
-      box-shadow: inset 0 0 45px rgba(124, 58, 237, 0.08), 0 8px 32px -4px rgba(124, 58, 237, 0.15);
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
     }
 
     .circular-carousel {
@@ -2602,7 +2604,7 @@ function renderFullApplication(initialTab = "dashboard") {
       position: relative;
       width: 100%;
       height: 100%;
-      overflow: hidden;
+      overflow: visible;
       outline: none;
       touch-action: pan-y;
       user-select: none;
@@ -3492,23 +3494,24 @@ function renderFullApplication(initialTab = "dashboard") {
         </div>
       </div>
 
-      <!-- Quests Mode Switcher & Create Button -->
+      <!-- Quests Header & Action Bar -->
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 14px;">
-        <div class="obsidian-view-mode-tabs">
-          <button class="obsidian-mode-btn active" id="btn-quest-mode-carousel" onclick="setQuestsViewMode('carousel')">
-            <span>🌀</span> CYLINDRE 3D (CIRCULAR CAROUSEL)
-          </button>
-          <button class="obsidian-mode-btn" id="btn-quest-mode-grid" onclick="setQuestsViewMode('grid')">
-            <span>📋</span> GRILLE COMPLÈTE
-          </button>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span class="material-symbols-outlined" style="font-size: 24px; color: var(--primary);">cyclone</span>
+          <div>
+            <div style="font-size: 13.5px; font-weight: 800; font-family: var(--font-mono); letter-spacing: 1.5px; color: var(--primary); text-transform: uppercase;">
+              CYLINDRE 3D — QUÊTES DU JOUR
+            </div>
+            <div style="font-size: 11.5px; color: var(--text-secondary); font-family: var(--font-mono); margin-top: 2px;">
+              Glissez horizontalement pour faire pivoter le cylindre • Cliquez sur une carte pour interagir
+            </div>
+          </div>
         </div>
         <button class="btn-cyber" onclick="openCreateQuestModal()">+ CRÉER UNE NOUVELLE QUÊTE</button>
       </div>
 
-      <!-- 1. 3D CIRCULAR CAROUSEL SECTION -->
+      <!-- 3D CIRCULAR CAROUSEL (SEAMLESSLY INTEGRATED INTO ENVIRONMENT) -->
       <div id="quests-carousel-section" class="quests-carousel-container">
-
-
         <div class="circular-carousel" id="quest-circular-carousel" data-axis="y" data-shape="cylinder" data-draggable>
           <div class="circular-carousel__view">
             <div class="circular-carousel__stage" id="quest-carousel-stage">
@@ -3518,45 +3521,6 @@ function renderFullApplication(initialTab = "dashboard") {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="quest-carousel-controls">
-          <button class="btn-cyber" style="padding: 6px 14px; font-size: 12px;" onclick="stepQuestCarousel(-1)">◀ PRÉCÉDENT</button>
-          <button class="btn-cyber btn-gold" id="btn-quest-carousel-play" style="padding: 6px 14px; font-size: 12px;" onclick="toggleQuestCarouselDrift()">⏯ PAUSE</button>
-          <button class="btn-cyber" style="padding: 6px 14px; font-size: 12px;" onclick="stepQuestCarousel(1)">SUIVANT ▶</button>
-          <span id="quest-carousel-active-badge" style="display: none;"></span>
-        </div>
-      </div>
-
-      <!-- 2. TRADITIONAL GRID SECTION -->
-      <div id="quests-page-grid-section" style="display: none;">
-        <div class="glass-card spotlight-card" style="padding: 26px;">
-          <h3 class="shiny-text" style="font-size: 22px; font-weight: 900; font-family: var(--font-display); margin-bottom: 18px;">
-            JOURNAL DES QUÊTES OBLIGATOIRES ACTIVES
-          </h3>
-          <div class="grid-2col" id="quests-page-grid">
-            ${SYSTEM_STATE.quests
-              .map(
-                (q) => `
-              <div class="glass-card spotlight-card" id="qlist-${q.id}" style="padding: 20px; background: var(--glass-panel);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                  <span class="radar-ping-badge">${q.base} — ${q.type}</span>
-                  <span style="font-size: 12px; color: var(--imperial-gold); font-family: var(--font-mono);">+${q.xp} XP</span>
-                </div>
-                <h4 style="font-size: 16px; font-weight: bold; margin-bottom: 8px; color: var(--text-white);">${q.title}</h4>
-                <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.4;">${q.description}</p>
-                <div id="qlist-action-${q.id}">
-                  ${
-                    q.completed
-                      ? `<div style="font-size: 12px; color: var(--transcendent-green); font-weight: bold;">ACCOMPLIE ✓ (PREUVE VÉRIFIÉE)</div>`
-                      : `<button class="btn-cyber" onclick="openProofModal('${q.id}', '${q.title.replace(/'/g, "\\'")}', ${q.xp}, ${q.crystals})">SOUMETTRE LA PREUVE</button>`
-                  }
-                </div>
-              </div>
-            `,
-              )
-              .join("")}
           </div>
         </div>
       </div>
@@ -4837,11 +4801,11 @@ function renderFullApplication(initialTab = "dashboard") {
     let questCarouselAnimId = null;
     let questCarouselInitialized = false;
 
-    const QUEST_CARD_WIDTH = 260;
-    const QUEST_CARD_HEIGHT = 380;
-    const QUEST_GAP = 12;
+    const QUEST_CARD_WIDTH = 270;
+    const QUEST_CARD_HEIGHT = 390;
+    const QUEST_GAP = 30;
     const QUEST_TILT = -4;
-    const QUEST_PERSPECTIVE = 1000;
+    const QUEST_PERSPECTIVE = 1200;
 
     function setQuestsViewMode(mode) {
       currentQuestsViewMode = mode;
@@ -4879,8 +4843,7 @@ function renderFullApplication(initialTab = "dashboard") {
       const step = 360 / count;
       const pitch = QUEST_CARD_WIDTH + QUEST_GAP;
       const chord = pitch / (2 * Math.sin(Math.PI / count));
-      const arc = (count * pitch) / (2 * Math.PI);
-      const radius = Math.round(chord + (arc - chord) * 0.4);
+      const radius = Math.max(500, Math.round(chord * 2.1));
 
       // Populate Cards
       ring.innerHTML = '';
@@ -5073,12 +5036,11 @@ function renderFullApplication(initialTab = "dashboard") {
         const quests = state.quests || [];
         const count = quests.length;
 
-        if (count > 0 && currentQuestsViewMode === 'carousel') {
+        if (count > 0) {
           const step = 360 / count;
           const pitch = QUEST_CARD_WIDTH + QUEST_GAP;
           const chord = pitch / (2 * Math.sin(Math.PI / count));
-          const arc = (count * pitch) / (2 * Math.PI);
-          const radius = Math.round(chord + (arc - chord) * 0.4);
+          const radius = Math.max(500, Math.round(chord * 2.1));
 
           // Physics updates
           if (isDraggingQuestCarousel) {
