@@ -102,10 +102,8 @@ const DEFAULT_STATE = {
       xp: 200,
       crystals: 20,
       completed: false,
-      image:
-        "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=900&q=80&auto=format&fit=crop",
-      description:
-        "100 Pompes militaires, 100 Abdos d'acier, 100 Squats explosifs et 10 km de course.",
+      image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=900&q=80&auto=format&fit=crop",
+      description: "100 Pompes militaires, 100 Abdos d'acier, 100 Squats explosifs et 10 km de course.",
       proof: "",
     },
     {
@@ -116,10 +114,8 @@ const DEFAULT_STATE = {
       xp: 180,
       crystals: 20,
       completed: false,
-      image:
-        "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900&q=80&auto=format&fit=crop",
-      description:
-        "Exploitation de Buffer Overflow et élévation de privilèges Linux root.",
+      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900&q=80&auto=format&fit=crop",
+      description: "Exploitation de Buffer Overflow et élévation de privilèges Linux root.",
       proof: "",
     },
     {
@@ -130,10 +126,8 @@ const DEFAULT_STATE = {
       xp: 150,
       crystals: 15,
       completed: false,
-      image:
-        "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=900&q=80&auto=format&fit=crop",
-      description:
-        "Restitution orale de 3 min sur un article arXiv en anglais soutenu (grille 20 pts).",
+      image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=900&q=80&auto=format&fit=crop",
+      description: "Restitution orale de 3 min sur un article arXiv en anglais soutenu (grille 20 pts).",
       proof: "",
     },
     {
@@ -144,10 +138,92 @@ const DEFAULT_STATE = {
       xp: 250,
       crystals: 30,
       completed: false,
-      image:
-        "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&q=80&auto=format&fit=crop",
-      description:
-        "Implémentation d'un block FlashAttention-2 avec benchmark de VRAM sur RTX 4070.",
+      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&q=80&auto=format&fit=crop",
+      description: "Implémentation d'un block FlashAttention-2 avec benchmark de VRAM sur RTX 4070.",
+      proof: "",
+    },
+    {
+      id: "q-acad-spectral-reduction",
+      type: "DAILY",
+      title: "Algèbre Linéaire & Réduction Spectrale (ACAD)",
+      base: "ACAD",
+      xp: 220,
+      crystals: 25,
+      completed: false,
+      image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=900&q=80&auto=format&fit=crop",
+      description: "Résolution complète de 3 problèmes d'agrégation : diagonalisation, formes quadratiques et décomposition polaire.",
+      proof: "",
+    },
+    {
+      id: "q-fin-risk-hedging",
+      type: "DAILY",
+      title: "Audit Trésorerie & Allocation Stratégique (FIN)",
+      base: "FIN",
+      xp: 170,
+      crystals: 20,
+      completed: false,
+      image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=900&q=80&auto=format&fit=crop",
+      description: "Modélisation du risque de change, calcul de la VaR 99%, passage en revue des ordres DCA et sécurisation du coffre.",
+      proof: "",
+    },
+    {
+      id: "q-dis-deepwork-monk",
+      type: "DAILY",
+      title: "Monk Mode : 4H Deep Work Inviolable (DIS)",
+      base: "DIS",
+      xp: 240,
+      crystals: 30,
+      completed: false,
+      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80&auto=format&fit=crop",
+      description: "Session d'hyperfocus 240 min sans notifications : NextDNS actif, téléphone au coffre, 0 dopamine artificielle.",
+      proof: "",
+    },
+    {
+      id: "q-exp-minto-pitch",
+      type: "DAILY",
+      title: "Pitch Rhétorique & Pyramide de Minto (EXP)",
+      base: "EXP",
+      xp: 180,
+      crystals: 20,
+      completed: false,
+      image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=900&q=80&auto=format&fit=crop",
+      description: "Enregistrement d'un pitch technique de 5 min selon le principe Minto (Situation, Complication, Question, Réponse).",
+      proof: "",
+    },
+    {
+      id: "q-str-explosive-pullups",
+      type: "DAILY",
+      title: "Calisthénie : Muscle-Up & Front Lever (STR)",
+      base: "STR",
+      xp: 210,
+      crystals: 25,
+      completed: false,
+      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=900&q=80&auto=format&fit=crop",
+      description: "5 séries de 5 Muscle-ups stricts, 4 x 10s maintien Hollow Body / Front Lever tuck, et 50 tractions explosives.",
+      proof: "",
+    },
+    {
+      id: "q-cyber-ghidra-reversing",
+      type: "DAILY",
+      title: "Rétro-Ingénierie Binaire ELF Ghidra (CYBER)",
+      base: "CYBER",
+      xp: 230,
+      crystals: 25,
+      completed: false,
+      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=900&q=80&auto=format&fit=crop",
+      description: "Analyse statique et dynamique sous Ghidra d'un binaire strippé x86_64, contournement d'anti-debug et exploit PoC.",
+      proof: "",
+    },
+    {
+      id: "q-ai-vllm-inference",
+      type: "DAILY",
+      title: "Serveur Inférence vLLM & AWQ 4-Bit (AI_ENG)",
+      base: "AI_ENG",
+      xp: 260,
+      crystals: 30,
+      completed: false,
+      image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=900&q=80&auto=format&fit=crop",
+      description: "Déploiement d'un cluster d'inférence avec quantification AWQ 4-bit, monitoring de latence TTFT et batching continu.",
       proof: "",
     },
     {
@@ -158,10 +234,8 @@ const DEFAULT_STATE = {
       xp: 500,
       crystals: 100,
       completed: false,
-      image:
-        "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=900&q=80&auto=format&fit=crop",
-      description:
-        "Quête d'urgence imminente : Corriger la validation d'en-tête x-player-id avant expiration du chrono (reste 00:58:12).",
+      image: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=900&q=80&auto=format&fit=crop",
+      description: "Quête d'urgence imminente : Corriger la validation d'en-tête x-player-id avant expiration du chrono (reste 00:58:12).",
       proof: "",
     },
   ],
@@ -2761,53 +2835,387 @@ function renderFullApplication(initialTab = "dashboard") {
       top: 0;
     }
 
+    /* ==========================================================================
+       NEXT-GEN HOLOGRAPHIC 3D QUEST CARD STYLING (REDESIGNED)
+       ========================================================================== */
     .quest-3d-card {
       position: absolute;
-      left: -130px;
-      top: -190px;
-      width: 260px;
-      height: 380px;
-      border-radius: 14px;
+      left: -140px;
+      top: -210px;
+      width: 280px;
+      height: 420px;
+      border-radius: 18px;
       overflow: hidden;
-      background: var(--glass-panel-elevated);
-      border: 1.5px solid var(--glass-inner-border);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px var(--glass-inner-glow);
-      padding: 12px;
+      background: linear-gradient(165deg, rgba(18, 12, 38, 0.9) 0%, rgba(9, 6, 22, 0.98) 100%);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      border: 1.5px solid rgba(168, 85, 247, 0.28);
+      box-shadow: 
+        0 18px 45px -8px rgba(0, 0, 0, 0.8),
+        0 0 25px -4px rgba(124, 58, 237, 0.25),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.22);
+      padding: 13px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      transition: border-color 0.3s, box-shadow 0.3s;
+      transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
       cursor: pointer;
       user-select: none;
       color: var(--text-white);
     }
 
     [data-theme="light-awakening"] .quest-3d-card {
-      background: rgba(255, 255, 255, 0.96);
-      border: 1.5px solid rgba(124, 58, 237, 0.32);
-      box-shadow: 0 10px 28px rgba(124, 58, 237, 0.15), 0 0 15px rgba(168, 85, 247, 0.1);
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.96) 0%, rgba(246, 243, 254, 0.94) 100%);
+      border: 1.5px solid rgba(124, 58, 237, 0.35);
+      box-shadow: 
+        0 18px 45px -8px rgba(124, 58, 237, 0.22),
+        0 0 22px rgba(168, 85, 247, 0.12),
+        inset 0 1.5px 2px rgba(255, 255, 255, 0.9);
       color: #0f172a;
-    }
-    [data-theme="light-awakening"] .quest-3d-card .quest-title-text {
-      color: #0f172a !important;
     }
 
     .quest-3d-card:hover {
-      border-color: var(--neon-cyan);
-      box-shadow: 0 0 35px rgba(168, 85, 247, 0.5), inset 0 0 30px var(--glass-inner-glow);
+      border-color: var(--quest-theme, var(--neon-cyan));
+      box-shadow: 
+        0 22px 50px -5px rgba(0, 0, 0, 0.85),
+        0 0 35px var(--quest-glow, rgba(168, 85, 247, 0.5)),
+        inset 0 0 20px var(--glass-inner-glow);
+    }
+
+    [data-theme="light-awakening"] .quest-3d-card:hover {
+      border-color: var(--quest-theme, #7c3aed);
+      box-shadow: 
+        0 22px 50px -5px rgba(124, 58, 237, 0.35),
+        0 0 30px var(--quest-glow, rgba(124, 58, 237, 0.35)),
+        inset 0 0 15px rgba(255, 255, 255, 0.8);
     }
 
     .quest-3d-card.active-quest-focus {
       border-color: var(--imperial-gold);
-      box-shadow: 0 0 45px rgba(251, 191, 36, 0.55), inset 0 0 30px rgba(251, 191, 36, 0.2);
+      box-shadow: 
+        0 25px 60px -5px rgba(0, 0, 0, 0.9),
+        0 0 50px rgba(251, 191, 36, 0.55),
+        inset 0 0 30px rgba(251, 191, 36, 0.2);
     }
 
     .quest-3d-card.quest-emergency {
-      border-color: var(--alert-crimson);
-      box-shadow: 0 0 35px rgba(244, 63, 94, 0.5), inset 0 0 25px rgba(244, 63, 94, 0.15);
-      background: linear-gradient(135deg, rgba(244, 63, 94, 0.15), var(--glass-panel-elevated));
+      border-color: var(--alert-crimson) !important;
+      box-shadow: 
+        0 25px 60px -5px rgba(0, 0, 0, 0.9),
+        0 0 45px rgba(244, 63, 94, 0.55),
+        inset 0 0 30px rgba(244, 63, 94, 0.2) !important;
+      background: linear-gradient(165deg, rgba(35, 10, 20, 0.92) 0%, rgba(14, 5, 12, 0.98) 100%) !important;
+    }
+
+    /* Cyber HUD Corners */
+    .quest-hud-corner {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      pointer-events: none;
+      z-index: 4;
+    }
+    .quest-hud-tl {
+      top: 6px;
+      left: 6px;
+      border-top: 2px solid var(--quest-theme, var(--neon-cyan));
+      border-left: 2px solid var(--quest-theme, var(--neon-cyan));
+    }
+    .quest-hud-tr {
+      top: 6px;
+      right: 6px;
+      border-top: 2px solid var(--quest-theme, var(--neon-cyan));
+      border-right: 2px solid var(--quest-theme, var(--neon-cyan));
+    }
+
+    /* Top Specular Rim */
+    .quest-specular-rim {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* Hero Banner Image */
+    .quest-banner-wrapper {
+      position: relative;
+      width: 100%;
+      height: 122px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 9px;
+      flex-shrink: 0;
+      background: #000;
+    }
+    .quest-banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.2) contrast(1.05);
+      transition: transform 0.4s ease;
+    }
+    .quest-3d-card:hover .quest-banner-img {
+      transform: scale(1.04);
+    }
+    .quest-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(8, 5, 20, 0.2) 0%, rgba(9, 6, 22, 0.88) 100%);
+    }
+
+    .quest-banner-top-chips {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      z-index: 2;
+    }
+    .quest-base-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 9.5px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      letter-spacing: 0.8px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(10, 6, 26, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid currentColor;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+    .quest-type-chip {
+      font-size: 9px;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      letter-spacing: 1px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(6, 182, 212, 0.2);
+      border: 1px solid rgba(6, 182, 212, 0.6);
+      color: var(--neon-cyan);
+      backdrop-filter: blur(8px);
+    }
+    .chip-emergency {
+      background: rgba(244, 63, 94, 0.3) !important;
+      border-color: rgba(244, 63, 94, 0.85) !important;
+      color: #ffe4e6 !important;
+      animation: pulse 1.8s infinite;
+    }
+
+    .quest-banner-bottom-bar {
+      position: absolute;
+      bottom: 6px;
+      left: 8px;
+      right: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 2;
+    }
+    .quest-reward-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(10, 6, 26, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 2.5px 7px;
+      border-radius: 5px;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      font-size: 10px;
+      font-family: var(--font-mono);
+      font-weight: 800;
+    }
+    .quest-xp-val {
+      color: #34d399;
+    }
+    .quest-crystal-val {
+      color: #fbbf24;
+    }
+
+    .quest-status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 8.5px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: #94a3b8;
+      background: rgba(10, 6, 26, 0.8);
+      padding: 2.5px 6px;
+      border-radius: 5px;
+      letter-spacing: 0.5px;
+    }
+    .quest-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--quest-theme, #06b6d4);
+      box-shadow: 0 0 8px currentColor;
+    }
+    .quest-status-indicator.is-done .quest-status-dot {
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+    }
+    .quest-status-indicator.is-done {
+      color: #34d399;
+    }
+
+    /* Quest Header */
+    .quest-header-section {
+      margin-bottom: 7px;
+    }
+    .quest-domain-label {
+      font-size: 9.5px;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    .quest-title-text {
+      font-size: 13.5px;
+      font-weight: 800;
+      font-family: var(--font-display, sans-serif);
+      color: #ffffff;
+      line-height: 1.25;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 34px;
+    }
+    [data-theme="light-awakening"] .quest-title-text {
+      color: #0f172a !important;
+    }
+
+    /* Terminal Brief Panel */
+    .quest-terminal-panel {
+      flex: 1;
+      background: rgba(12, 8, 28, 0.7);
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 10px;
+      margin-bottom: 9px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    [data-theme="light-awakening"] .quest-terminal-panel {
+      background: rgba(243, 238, 255, 0.65);
+      border-color: rgba(124, 58, 237, 0.18);
+    }
+    .quest-protocol-header {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 9.5px;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      color: #a78bfa;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      padding-bottom: 3px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    }
+    [data-theme="light-awakening"] .quest-protocol-header {
+      color: #6d28d9;
+      border-bottom-color: rgba(124, 58, 237, 0.15);
+    }
+    .quest-protocol-body {
+      flex: 1;
+      overflow: hidden;
+    }
+    .quest-desc-text {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: #cbd5e1;
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    [data-theme="light-awakening"] .quest-desc-text {
+      color: #334155;
+    }
+    .quest-fit-meters {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5px;
+      font-size: 9px;
+      font-family: var(--font-mono);
+    }
+    .fit-meter-row {
+      display: flex;
+      justify-content: space-between;
+      color: #94a3b8;
+    }
+    [data-theme="light-awakening"] .fit-meter-row {
+      color: #475569;
+    }
+    .fit-count {
+      color: #10b981;
+      font-weight: 800;
+    }
+
+    /* CTA Button */
+    .quest-footer-cta {
+      margin-top: auto;
+    }
+    .quest-cta-btn {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 9px;
+      border: 1.5px solid rgba(168, 85, 247, 0.5);
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.22) 0%, rgba(6, 182, 212, 0.15) 100%);
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 800;
+      font-family: var(--font-display, sans-serif);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    [data-theme="light-awakening"] .quest-cta-btn {
+      background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);
+      border-color: #6d28d9;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+    }
+    .quest-cta-btn:hover {
+      border-color: var(--quest-theme, #06b6d4);
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.45) 0%, rgba(6, 182, 212, 0.35) 100%);
+      box-shadow: 0 0 20px var(--quest-glow, rgba(168, 85, 247, 0.5));
+      transform: translateY(-1px);
+    }
+    .quest-cta-btn.btn-emergency {
+      background: linear-gradient(135deg, rgba(225, 29, 72, 0.85) 0%, rgba(159, 18, 57, 0.95) 100%) !important;
+      border-color: #f43f5e !important;
+      box-shadow: 0 0 25px rgba(244, 63, 94, 0.6) !important;
+    }
+    .quest-cta-btn.btn-completed {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+      border-color: #34d399 !important;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.4) !important;
     }
 
     .quest-3d-depth-shade {
@@ -4508,7 +4916,16 @@ function renderFullApplication(initialTab = "dashboard") {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        state = Object.assign(state, JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        state = Object.assign(state, parsed);
+        // Ensure all daily & emergency quests from SYSTEM_STATE exist
+        const defaultQuests = ${JSON.stringify(SYSTEM_STATE.quests)};
+        const existingIds = new Set((state.quests || []).map(q => q.id));
+        defaultQuests.forEach(dq => {
+          if (!existingIds.has(dq.id)) {
+            state.quests.push(dq);
+          }
+        });
       }
     } catch(e) {
       console.warn("Storage sync fallback:", e);
@@ -5065,9 +5482,9 @@ function renderFullApplication(initialTab = "dashboard") {
     let questCarouselAnimId = null;
     let questCarouselInitialized = false;
 
-    const QUEST_CARD_WIDTH = 270;
-    const QUEST_CARD_HEIGHT = 390;
-    const QUEST_GAP = 30;
+    const QUEST_CARD_WIDTH = 280;
+    const QUEST_CARD_HEIGHT = 420;
+    const QUEST_GAP = 28;
     const QUEST_TILT = -4;
     const QUEST_PERSPECTIVE = 1200;
 
@@ -5093,13 +5510,25 @@ function renderFullApplication(initialTab = "dashboard") {
       const step = 360 / count;
       const pitch = QUEST_CARD_WIDTH + QUEST_GAP;
       const chord = pitch / (2 * Math.sin(Math.PI / count));
-      const radius = Math.max(500, Math.round(chord * 2.1));
+      const radius = Math.max(540, Math.round(chord * 1.18));
+
+      const baseThemes = {
+        STR: { color: '#10b981', glow: 'rgba(16, 185, 129, 0.45)', icon: 'fitness_center', label: 'FORCE & CALISTHÉNIE' },
+        CYBER: { color: '#00f3ff', glow: 'rgba(0, 243, 255, 0.45)', icon: 'terminal', label: 'CYBERSÉCURITÉ' },
+        AI_ENG: { color: '#c084fc', glow: 'rgba(192, 132, 252, 0.45)', icon: 'psychology', label: 'INGÉNIERIE IA' },
+        ACAD: { color: '#818cf8', glow: 'rgba(129, 140, 248, 0.45)', icon: 'school', label: 'EXCELLENCE ACADÉMIQUE' },
+        EXP: { color: '#f59e0b', glow: 'rgba(245, 158, 11, 0.45)', icon: 'record_voice_over', label: 'ÉLOQUENCE & RÉSEAUTAGE' },
+        LNG: { color: '#38bdf8', glow: 'rgba(56, 189, 248, 0.45)', icon: 'translate', label: 'ANGLAIS C1/C2 CAMBRIDGE' },
+        FIN: { color: '#fbbf24', glow: 'rgba(251, 191, 36, 0.45)', icon: 'account_balance', label: 'FINANCES & TRÉSORERIE' },
+        DIS: { color: '#f43f5e', glow: 'rgba(244, 63, 94, 0.45)', icon: 'self_improvement', label: 'DISCIPLINE & MONK MODE' }
+      };
 
       // Populate Cards
       ring.innerHTML = '';
       quests.forEach((q, index) => {
-        const isEmergency = q.id === 'q-emergency-auth-bypass';
-        const isFit = q.id === 'q-daily-fit-1' || q.base === 'STR';
+        const isEmergency = q.type === 'EMERGENCY' || q.id === 'q-emergency-auth-bypass';
+        const isFit = q.id === 'q-fit-sungjinwoo' || q.id === 'q-str-explosive-pullups' || q.base === 'STR';
+        const theme = baseThemes[q.base] || { color: '#a855f7', glow: 'rgba(168, 85, 247, 0.45)', icon: 'stars', label: 'SYSTÈME DU MONARQUE' };
         
         const card = document.createElement('div');
         card.className = 'circular-carousel__card';
@@ -5108,58 +5537,97 @@ function renderFullApplication(initialTab = "dashboard") {
         card.innerHTML = \`
           <div class="quest-3d-card \${isEmergency ? 'quest-emergency' : ''}" 
                id="quest-card-3d-\${q.id}"
+               style="--quest-theme: \${theme.color}; --quest-glow: \${theme.glow};"
                onclick="handleQuest3DCardClick(\${index}, '\${q.id}')">
             
+            <!-- Cyber HUD Corner Brackets -->
+            <div class="quest-hud-corner quest-hud-tl"></div>
+            <div class="quest-hud-corner quest-hud-tr"></div>
+            
+            <!-- Top Specular Rim Light -->
+            <div class="quest-specular-rim"></div>
+
             <!-- Hero Banner Image with solo leveling gradient -->
-            <div style="position: relative; width: 100%; height: 110px; border-radius: 10px; overflow: hidden; margin-bottom: 8px; flex-shrink: 0;">
+            <div class="quest-banner-wrapper">
               <img src="\${q.image || 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=900&q=80&auto=format&fit=crop'}" 
                    alt="\${q.title.replace(/"/g, '&quot;')}" 
-                   style="width: 100%; height: 100%; object-fit: cover; filter: saturate(1.15);" />
-              <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,4,20,0.2) 0%, rgba(14,9,30,0.85) 100%);"></div>
-              <div style="position: absolute; top: 8px; left: 8px; right: 8px; display: flex; justify-content: space-between; align-items: center;">
-                <span class="radar-ping-badge" style="font-size: 9.5px; padding: 2px 7px; \${isEmergency ? 'border-color: rgba(255,0,60,0.8); color: var(--alert-crimson); background: rgba(255,0,60,0.2);' : ''}">
-                  \${q.base} — \${q.type || 'DAILY'}
+                   class="quest-banner-img" />
+              <div class="quest-banner-overlay"></div>
+              
+              <!-- Top Chips on Image -->
+              <div class="quest-banner-top-chips">
+                <span class="quest-base-chip" style="border-color: \${theme.color}; color: \${theme.color};">
+                  <span class="material-symbols-outlined" style="font-size: 11px;">\${theme.icon}</span>
+                  <span>\${q.base}</span>
                 </span>
-                <span style="font-size: 11px; font-family: var(--font-mono); color: var(--imperial-gold); font-weight: bold; background: rgba(0,0,0,0.6); padding: 2px 6px; border-radius: 4px;">
-                  +\${q.xp} XP
+                <span class="quest-type-chip \${isEmergency ? 'chip-emergency' : ''}">
+                  \${isEmergency ? '⚠️ URGENCE S-RANK' : (q.type || 'DAILY')}
                 </span>
+              </div>
+
+              <!-- Bottom Info on Image -->
+              <div class="quest-banner-bottom-bar">
+                <div class="quest-reward-pill">
+                  <span class="quest-xp-val">+\${q.xp} XP</span>
+                  <span class="quest-crystal-val">+\${q.crystals || 20} 💎</span>
+                </div>
+                <div class="quest-status-indicator \${q.completed ? 'is-done' : ''}">
+                  <span class="quest-status-dot"></span>
+                  <span>\${q.completed ? 'VALIDÉE' : 'ACTIVE'}</span>
+                </div>
               </div>
             </div>
 
-            <!-- Solo Leveling Quest Header -->
-            <div style="border-bottom: 1px solid var(--glass-inner-border); padding-bottom: 8px; margin-bottom: 10px;">
-              <div style="font-size: 11px; letter-spacing: 2px; color: \${isEmergency ? 'var(--alert-crimson)' : 'var(--neon-cyan)'}; font-family: var(--font-mono); font-weight: 900; display: flex; align-items: center; gap: 6px;">
-                <span>ℹ️</span> <span>QUEST INFO</span>
+            <!-- Quest Title & Context -->
+            <div class="quest-header-section">
+              <div class="quest-domain-label" style="color: \${theme.color};">
+                <span>DOMAINE : \${theme.label}</span>
               </div>
-              <div style="font-size: 14px; font-weight: bold; color: var(--text-white); margin-top: 4px; line-height: 1.3;">
+              <div class="quest-title-text" title="\${q.title.replace(/"/g, '&quot;')}">
                 \${q.title}
               </div>
             </div>
 
-            <!-- Solo Leveling Objective Details -->
-            <div style="flex: 1; background: var(--input-bg); border: 1px solid var(--glass-inner-border); border-radius: 8px; padding: 10px; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); line-height: 1.5; margin-bottom: 10px; overflow: hidden;">
-              \${isFit ? \`
-                <div style="color: var(--neon-cyan); font-weight: bold; margin-bottom: 4px; border-bottom: 1px dashed var(--glass-inner-border); padding-bottom: 2px;">GOAL :</div>
-                <div>• Push-ups : [14/100]</div>
-                <div>• Sit-ups : [0/100]</div>
-                <div>• Squats : [0/100]</div>
-                <div>• Running : [0/10km]</div>
-                <div style="color: var(--alert-crimson); font-size: 9px; margin-top: 4px;">WARNING: Failure triggers Penalty Zone.</div>
-              \` : \`
-                <div>\${q.description}</div>
-              \`}
+            <!-- Holographic Terminal Protocol Brief -->
+            <div class="quest-terminal-panel" style="border-left: 3px solid \${theme.color};">
+              <div class="quest-protocol-header">
+                <span class="material-symbols-outlined" style="font-size: 13px; color: \${theme.color};">terminal</span>
+                <span>PROTOCOLE D'EXÉCUTION</span>
+              </div>
+              <div class="quest-protocol-body">
+                \${isFit && q.id === 'q-fit-sungjinwoo' ? \`
+                  <div class="quest-fit-meters">
+                    <div class="fit-meter-row">
+                      <span>• Pompes militaires</span>
+                      <span class="fit-count">100 / 100 ✓</span>
+                    </div>
+                    <div class="fit-meter-row">
+                      <span>• Abdos d'acier</span>
+                      <span class="fit-count">80 / 100</span>
+                    </div>
+                    <div class="fit-meter-row">
+                      <span>• Squats explosifs</span>
+                      <span class="fit-count">100 / 100 ✓</span>
+                    </div>
+                    <div class="fit-meter-row">
+                      <span>• Course à pied</span>
+                      <span class="fit-count">7.8 / 10 km</span>
+                    </div>
+                  </div>
+                \` : \`
+                  <div class="quest-desc-text">
+                    › \${q.description}
+                  </div>
+                \`}
+              </div>
             </div>
 
-            <!-- Bottom Action & Rewards -->
-            <div>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 11px; font-family: var(--font-mono);">
-                <span style="color: var(--transcendent-green);">+\${q.xp} XP</span>
-                <span style="color: var(--imperial-gold);">+\${q.crystals || 100} 💎</span>
-              </div>
-              <button class="btn-cyber \${isEmergency ? 'btn-red' : ''}" 
-                      style="width: 100%; padding: 8px 12px; font-size: 11px;" 
+            <!-- Bottom Interactive CTA -->
+            <div class="quest-footer-cta">
+              <button class="quest-cta-btn \${isEmergency ? 'btn-emergency' : ''} \${q.completed ? 'btn-completed' : ''}"
                       onclick="event.stopPropagation(); openProofModal('\\\${q.id}', '\\\${q.title.replace(/'/g, "\\\\'")}', \\\${q.xp}, \\\${q.crystals});">
-                \${q.completed ? 'ACCOMPLIE ✓' : 'SOUMETTRE PREUVE'}
+                <span class="material-symbols-outlined" style="font-size: 15px;">\${q.completed ? 'task_alt' : (isEmergency ? 'bolt' : 'verified')}</span>
+                <span>\${q.completed ? 'ACCOMPLIE ✓' : (isEmergency ? 'COMMIT HOTFIX CRITIQUE' : 'SOUMETTRE PREUVE')}</span>
               </button>
             </div>
 
@@ -5169,6 +5637,7 @@ function renderFullApplication(initialTab = "dashboard") {
 
         ring.appendChild(card);
       });
+
 
       // Pointer Drag Events
       root.addEventListener('pointerdown', (e) => {
