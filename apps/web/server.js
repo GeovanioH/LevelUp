@@ -5878,10 +5878,10 @@ function renderFullApplication(initialTab = "dashboard") {
     let oppYaw = 0;
     let oppPitch = 0;
 
-    const OPP_CARD_WIDTH = 220;
-    const OPP_GAP = 10;
+    const OPP_CARD_WIDTH = 280;
+    const OPP_GAP = 20;
     const OPP_TILT = -4;
-    const OPP_PERSPECTIVE = 1000;
+    const OPP_PERSPECTIVE = 1100;
 
     function initOppCircularCarousel() {
       const ring = document.getElementById('opp-carousel-ring');
@@ -5898,55 +5898,98 @@ function renderFullApplication(initialTab = "dashboard") {
       const step = 360 / count;
       const pitch = OPP_CARD_WIDTH + OPP_GAP;
       const chord = pitch / (2 * Math.sin(Math.PI / count));
-      const arc = (count * pitch) / (2 * Math.PI);
-      const radius = Math.round(chord + (arc - chord) * 0.4);
+      const radius = Math.max(540, Math.round(chord * 1.25));
+
+      const typeThemes = {
+        BOURSE: { color: '#fbbf24', glow: 'rgba(251, 191, 36, 0.45)', icon: 'account_balance', label: "BOURSE D'EXCELLENCE" },
+        HACKATHON: { color: '#00f3ff', glow: 'rgba(0, 243, 255, 0.45)', icon: 'code', label: 'HACKATHON MONDIAL' },
+        CERTIFICATION: { color: '#c084fc', glow: 'rgba(192, 132, 252, 0.45)', icon: 'workspace_premium', label: 'CERTIFICATION' }
+      };
 
       // Populate Cards
       ring.innerHTML = '';
       opportunities.forEach((o, index) => {
+        const theme = typeThemes[o.type] || { color: '#38bdf8', glow: 'rgba(56, 189, 248, 0.45)', icon: 'stars', label: o.type };
         const card = document.createElement('div');
         card.className = 'circular-carousel__card';
         card.setAttribute('data-opp-index', index);
 
         card.innerHTML = \`
-          <div class="opp-3d-card" id="opp-3d-card-\${o.id}" onclick="handleOpp3DCardClick(\${index}, '\${o.id}')">
-            <!-- Background Image with Ambient Glow -->
-            <img src="\${o.image || 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=900&q=80&auto=format&fit=crop'}" 
-                 alt="\${o.title.replace(/"/g, '&quot;')}" 
-                 style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.35; filter: saturate(1.2); pointer-events: none;" />
-            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,4,20,0.5) 0%, rgba(14,9,30,0.92) 80%); pointer-events: none;"></div>
+          <div class="quest-3d-card opp-3d-card" 
+               id="opp-3d-card-\${o.id}" 
+               style="--quest-theme: \${theme.color}; --quest-glow: \${theme.glow}; --opp-theme: \${theme.color}; --opp-glow: \${theme.glow};" 
+               onclick="handleOpp3DCardClick(\${index}, '\${o.id}')">
+            
+            <!-- Cyber HUD Corner Brackets -->
+            <div class="quest-hud-corner quest-hud-tl" style="border-top-color: \${theme.color}; border-left-color: \${theme.color};"></div>
+            <div class="quest-hud-corner quest-hud-tr" style="border-top-color: \${theme.color}; border-right-color: \${theme.color};"></div>
+            
+            <!-- Top Specular Rim Light -->
+            <div class="quest-specular-rim"></div>
 
-            <!-- Content -->
-            <div style="position: relative; z-index: 2; padding: 12px 14px; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="radar-ping-badge" style="font-size: 9.5px; padding: 2px 7px;">\${o.type}</span>
-                <span style="font-size: 11px; color: var(--imperial-gold); font-family: var(--font-mono); font-weight: 800;">\${o.matchScore}% MATCH</span>
-              </div>
-
-              <div>
-                <h4 style="font-size: 13.5px; font-weight: 800; color: var(--text-white); font-family: var(--font-display); line-height: 1.25; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                  \${o.title}
-                </h4>
-                <div style="font-size: 11px; color: var(--neon-cyan); font-family: var(--font-mono); font-weight: 700;">
-                  \${o.amount}
-                </div>
-                <div style="font-size: 10px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;">
-                  \${o.portal} • \${o.deadline}
-                </div>
-              </div>
-
-              <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-inner-border-subtle); padding-top: 8px;">
-                <span style="font-size: 10px; color: var(--transcendent-green); font-weight: 800; background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.3); padding: 2px 6px; border-radius: 4px;">
-                  \${o.status}
+            <!-- Hero Banner Image with solo leveling gradient -->
+            <div class="quest-banner-wrapper">
+              <img src="\${o.image || 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=900&q=80&auto=format&fit=crop'}" 
+                   alt="\${o.title.replace(/"/g, '&quot;')}" 
+                   class="quest-banner-img" />
+              <div class="quest-banner-overlay"></div>
+              
+              <!-- Top Chips on Image -->
+              <div class="quest-banner-top-chips">
+                <span class="quest-base-chip" style="border-color: \${theme.color}; color: \${theme.color};">
+                  <span class="material-symbols-outlined" style="font-size: 11px;">\${theme.icon}</span>
+                  <span>\${o.type}</span>
                 </span>
-                <a href="\${o.url}" target="_blank" onclick="event.stopPropagation();" class="btn-cyber" style="padding: 4px 10px; font-size: 10px; text-decoration: none;">
-                  POSTULER ↗
-                </a>
+                <span class="quest-type-chip" style="background: rgba(251, 191, 36, 0.2); border-color: rgba(251, 191, 36, 0.6); color: #fbbf24;">
+                  \${o.matchScore}% MATCH
+                </span>
+              </div>
+
+              <!-- Bottom Info on Image -->
+              <div class="quest-banner-bottom-bar">
+                <div class="quest-reward-pill">
+                  <span class="quest-xp-val" style="color: #34d399;">\${o.amount}</span>
+                </div>
+                <div class="quest-status-indicator is-done">
+                  <span class="quest-status-dot" style="background: \${theme.color}; box-shadow: 0 0 8px \${theme.color};"></span>
+                  <span>\${o.status}</span>
+                </div>
               </div>
             </div>
 
+            <!-- Terminal Details Panel -->
+            <div class="quest-terminal-panel" style="border-left: 3px solid \${theme.color};">
+              <div class="quest-protocol-header">
+                <span class="material-symbols-outlined" style="font-size: 13px; color: \${theme.color};">hub</span>
+                <span>DÉTAILS DU PROGRAMME</span>
+              </div>
+              <div class="quest-protocol-body">
+                <div class="quest-title-text" style="font-size: 13px; margin-bottom: 6px;">
+                  \${o.title}
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 4px; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary);">
+                  <div style="display: flex; align-items: center; gap: 5px;">
+                    <span class="material-symbols-outlined" style="font-size: 12px; color: \${theme.color};">public</span>
+                    <span>Portail : <strong style="color: var(--text-white);">\${o.portal}</strong></span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 5px;">
+                    <span class="material-symbols-outlined" style="font-size: 12px; color: var(--alert-crimson);">event</span>
+                    <span>Échéance : <strong style="color: var(--text-white);">\${o.deadline}</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Interactive CTA -->
+            <div class="quest-footer-cta">
+              <a href="\${o.url}" target="_blank" onclick="event.stopPropagation();" class="quest-cta-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                <span>POSTULER AU PROGRAMME</span>
+                <span class="material-symbols-outlined" style="font-size: 14px;">open_in_new</span>
+              </a>
+            </div>
+
             <!-- Depth Shade overlay for 3D realism -->
-            <div class="opp-3d-depth-shade" id="opp-depth-shade-\${o.id}"></div>
+            <div class="quest-depth-shade" id="opp-depth-shade-\${o.id}"></div>
           </div>
         \`;
 
@@ -6075,8 +6118,7 @@ function renderFullApplication(initialTab = "dashboard") {
           const step = 360 / count;
           const pitch = OPP_CARD_WIDTH + OPP_GAP;
           const chord = pitch / (2 * Math.sin(Math.PI / count));
-          const arc = (count * pitch) / (2 * Math.PI);
-          const radius = Math.round(chord + (arc - chord) * 0.4);
+          const radius = Math.max(540, Math.round(chord * 1.25));
 
           // Physics updates
           if (isDraggingOppCarousel) {
@@ -6123,7 +6165,7 @@ function renderFullApplication(initialTab = "dashboard") {
               const facing = Math.cos((world * Math.PI) / 180);
               const fade = 0.55 * Math.pow((1 - facing) / 2, 1.25);
 
-              const shade = cardEl.querySelector('.opp-3d-depth-shade');
+              const shade = cardEl.querySelector('.quest-depth-shade') || cardEl.querySelector('.opp-3d-depth-shade');
               if (shade) shade.style.opacity = fade.toFixed(3);
 
               const cardBox = cardEl.querySelector('.opp-3d-card');
