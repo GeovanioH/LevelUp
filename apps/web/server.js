@@ -993,14 +993,14 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     [data-theme="light-awakening"] body {
-      background-color: #f5f3ff;
+      background-color: #ede9fe;
       background-image:
-        linear-gradient(to right, rgba(124, 58, 237, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(124, 58, 237, 0.03) 1px, transparent 1px),
-        radial-gradient(ellipse at 15% 15%, rgba(168, 85, 247, 0.12) 0%, transparent 45%),
-        radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.10) 0%, transparent 40%),
-        radial-gradient(circle at 50% 85%, rgba(192, 132, 252, 0.12) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 0%, #ffffff 0%, #faf8ff 50%, #f5f3ff 100%);
+        linear-gradient(to right, rgba(124, 58, 237, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(124, 58, 237, 0.06) 1px, transparent 1px),
+        radial-gradient(ellipse at 15% 15%, rgba(168, 85, 247, 0.24) 0%, transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.20) 0%, transparent 40%),
+        radial-gradient(circle at 50% 85%, rgba(192, 132, 252, 0.22) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 0%, #ffffff 0%, #f5f3ff 60%, #ede9fe 100%);
       background-size: 24px 24px, 24px 24px, auto, auto, auto, auto;
       color: var(--text-white);
     }
@@ -1254,9 +1254,11 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     [data-theme="light-awakening"] .app-layout {
-      background: rgba(255, 255, 255, 0.94);
-      border: 1px solid rgba(124, 58, 237, 0.35);
-      box-shadow: 0 16px 48px -10px rgba(124, 58, 237, 0.18), 0 0 30px rgba(168, 85, 247, 0.22);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.80) 0%, rgba(248, 246, 255, 0.88) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1.5px solid rgba(124, 58, 237, 0.28);
+      box-shadow: 0 16px 48px -10px rgba(124, 58, 237, 0.18), 0 0 30px rgba(168, 85, 247, 0.15);
     }
 
     /* TOP MASTER HEADER (TRUE VISIONOS LIQUID FROSTED GLASSMORPHISM) */
@@ -1290,17 +1292,17 @@ function renderFullApplication(initialTab = "dashboard") {
 
     /* TRUE TRANSLUCENT FROSTED GLASS (LIGHT AWAKENING) */
     [data-theme="light-awakening"] .master-header {
-      background: rgba(255, 255, 255, 0.48);
-      backdrop-filter: blur(28px) saturate(190%);
-      -webkit-backdrop-filter: blur(28px) saturate(190%);
-      border: 1px solid rgba(255, 255, 255, 0.75);
-      border-top: 1px solid rgba(255, 255, 255, 0.98);
-      border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(245, 240, 255, 0.68) 50%, rgba(238, 233, 254, 0.80) 100%) !important;
+      backdrop-filter: blur(32px) saturate(220%) !important;
+      -webkit-backdrop-filter: blur(32px) saturate(220%) !important;
+      border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+      border-top: 2px solid #ffffff !important;
+      border-bottom: 1.5px solid rgba(124, 58, 237, 0.35) !important;
       box-shadow: 
-        0 16px 40px -8px rgba(124, 58, 237, 0.16),
-        0 0 26px rgba(168, 85, 247, 0.12),
-        inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.98),
-        inset 0 -1px 2px 0 rgba(124, 58, 237, 0.08);
+        0 20px 48px -8px rgba(124, 58, 237, 0.24),
+        0 6px 18px -2px rgba(15, 23, 42, 0.10),
+        inset 0 2px 3px 0 #ffffff,
+        inset 0 -2px 4px 0 rgba(124, 58, 237, 0.14) !important;
     }
 
     .header-left-cluster {
@@ -1695,16 +1697,17 @@ function renderFullApplication(initialTab = "dashboard") {
 
     [data-theme="light-awakening"] .bottom-nav-dock,
     [data-theme="light-awakening"] .tab-bar-track {
-      background: rgba(255, 255, 255, 0.45);
-      backdrop-filter: blur(28px) saturate(180%);
-      -webkit-backdrop-filter: blur(28px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.75);
-      border-top: 1px solid rgba(255, 255, 255, 0.98);
-      border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.90) 0%, rgba(245, 240, 255, 0.74) 50%, rgba(238, 233, 254, 0.84) 100%) !important;
+      backdrop-filter: blur(32px) saturate(220%) !important;
+      -webkit-backdrop-filter: blur(32px) saturate(220%) !important;
+      border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+      border-top: 2px solid #ffffff !important;
+      border-bottom: 1.5px solid rgba(124, 58, 237, 0.38) !important;
       box-shadow: 
-        0 16px 40px -8px rgba(124, 58, 237, 0.18),
-        0 0 26px rgba(168, 85, 247, 0.15),
-        inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.98);
+        0 24px 54px -8px rgba(124, 58, 237, 0.30),
+        0 8px 24px -2px rgba(15, 23, 42, 0.12),
+        inset 0 2px 3px 0 #ffffff,
+        inset 0 -2px 4px 0 rgba(124, 58, 237, 0.16) !important;
     }
 
     /* NAV TAB : POLISHED GLASS PILL */
@@ -1840,24 +1843,26 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     [data-theme="light-awakening"] .nav-tab {
-      background: rgba(255, 255, 255, 0.5);
-      border: 1px solid rgba(124, 58, 237, 0.2);
-      border-top: 1px solid rgba(255, 255, 255, 0.9);
-      box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.60) !important;
+      border: 1px solid rgba(124, 58, 237, 0.22) !important;
+      border-top: 1px solid #ffffff !important;
+      color: #475569 !important;
+      box-shadow: 0 2px 6px rgba(124, 58, 237, 0.08), inset 0 1px 1px #ffffff !important;
     }
     [data-theme="light-awakening"] .nav-tab:hover {
-      color: #4c1d95;
-      background: rgba(124, 58, 237, 0.15);
-      border-color: rgba(124, 58, 237, 0.4);
-      border-top-color: rgba(255, 255, 255, 0.95);
+      color: #7c3aed !important;
+      background: rgba(255, 255, 255, 0.92) !important;
+      border-color: rgba(124, 58, 237, 0.45) !important;
+      border-top-color: #ffffff !important;
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.18), inset 0 1px 2px #ffffff !important;
     }
     [data-theme="light-awakening"] .nav-tab.active {
-      color: #ffffff;
-      background: linear-gradient(135deg, rgba(124, 58, 237, 0.92), rgba(109, 40, 217, 0.98));
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 0 4px 22px rgba(124, 58, 237, 0.45);
+      color: #ffffff !important;
+      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%) !important;
+      border: 1.5px solid rgba(255, 255, 255, 0.85) !important;
+      border-top: 1.5px solid #ffffff !important;
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
     }
-    [data-theme="light-awakening"] .nav-tab.active 
 
     /* MAIN APP AREA */
     .app-main-area {
