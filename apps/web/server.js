@@ -12,6 +12,7 @@ const fs = require("fs");
 const path = require("path");
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
+const INTRO_VIDEO_URL = process.env.INTRO_VIDEO_URL || process.env.FIREBASE_STORAGE_INTRO_URL || "";
 
 // Solo Leveling Sovereign Monarch Logo SVG
 const MONARCH_LOGO_SVG = `<svg class="monarch-crest-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -3499,6 +3500,7 @@ function renderFullApplication(initialTab = "dashboard") {
   <!-- SYSTEM INTRO INITIALIZATION VIDEO (CLEAN FULLSCREEN) & ALERT TRANSITION -->
   <div id="system-intro-overlay" class="system-intro-overlay" onclick="handleIntroOverlayClick()" title="Cliquer pour passer">
     <video id="system-intro-video" class="system-intro-video" playsinline muted autoplay preload="auto">
+      ${INTRO_VIDEO_URL ? '<source src="' + INTRO_VIDEO_URL + '" type="video/mp4">' : ''}
       <source src="/intro.webm?v=8s_v1_webm" type="video/webm">
       <source src="/intro.mp4?v=8s_v1_landscape" type="video/mp4">
     </video>
@@ -7637,7 +7639,12 @@ function renderFullApplication(initialTab = "dashboard") {
       }
     }
 
-    // React Bits Background Mana Particles
+    // React Bits Background Mana Particles (Zero-Lag Lifecycle: Paused during Intro Video)
+    let manaAnimationActive = false;
+    let manaAnimationFrameId = null;
+    let startManaAnimation = function() {};
+    let stopManaAnimation = function() {};
+
     const bgCanvas = document.getElementById('mana-particles-canvas');
     if (bgCanvas) {
       const bgCtx = bgCanvas.getContext('2d');
@@ -7662,7 +7669,7 @@ function renderFullApplication(initialTab = "dashboard") {
       }
 
       function renderMana() {
-        if (!bgCtx) return;
+        if (!manaAnimationActive || !bgCtx) return;
         bgCtx.clearRect(0, 0, pWidth, pHeight);
         const isLight = document.documentElement.getAttribute('data-theme') === 'light-awakening';
 
@@ -7689,9 +7696,37 @@ function renderFullApplication(initialTab = "dashboard") {
           }
           bgCtx.fill();
         });
-        requestAnimationFrame(renderMana);
+        manaAnimationFrameId = requestAnimationFrame(renderMana);
       }
-      renderMana();
+
+      startManaAnimation = function() {
+        if (manaAnimationActive) return;
+        manaAnimationActive = true;
+        if (bgCanvas) bgCanvas.style.visibility = 'visible';
+        renderMana();
+      };
+
+      stopManaAnimation = function() {
+        manaAnimationActive = false;
+        if (manaAnimationFrameId) {
+          cancelAnimationFrame(manaAnimationFrameId);
+          manaAnimationFrameId = null;
+        }
+        if (bgCanvas && bgCtx) {
+          bgCtx.clearRect(0, 0, pWidth, pHeight);
+        }
+      };
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          if (manaAnimationFrameId) {
+            cancelAnimationFrame(manaAnimationFrameId);
+            manaAnimationFrameId = null;
+          }
+        } else if (manaAnimationActive && !manaAnimationFrameId) {
+          manaAnimationFrameId = requestAnimationFrame(renderMana);
+        }
+      });
     }
 
     // Spotlight Card Tracking
@@ -7768,8 +7803,12 @@ function renderFullApplication(initialTab = "dashboard") {
       if (hasSeen) {
         overlay.classList.add('dismissed');
         overlay.style.display = 'none';
+        startManaAnimation();
         return;
       }
+
+      // Stop heavy particles during intro video playback to free 100% CPU/GPU for 4K video decoding
+      stopManaAnimation();
 
       overlay.classList.remove('dismissed');
       overlay.style.display = 'flex';
@@ -7855,6 +7894,8 @@ function renderFullApplication(initialTab = "dashboard") {
             try { video.pause(); } catch(e) {}
             video.currentTime = 0;
           }
+          // Resume background mana particles when intro is dismissed
+          startManaAnimation();
           const activeView = document.querySelector('.view-panel.active');
           if (activeView) {
             triggerActiveViewCardsReveal(activeView);
@@ -7865,6 +7906,7 @@ function renderFullApplication(initialTab = "dashboard") {
 
     function replayIntroVideo() {
       sessionStorage.removeItem('levelup_intro_seen');
+      stopManaAnimation();
       const overlay = document.getElementById('system-intro-overlay');
       const video = document.getElementById('system-intro-video');
       const alertWrapper = document.getElementById('system-intro-alert-wrapper');
