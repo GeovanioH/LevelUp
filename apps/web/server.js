@@ -12,7 +12,8 @@ const fs = require("fs");
 const path = require("path");
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
-const INTRO_VIDEO_URL = process.env.INTRO_VIDEO_URL || process.env.FIREBASE_STORAGE_INTRO_URL || "";
+const INTRO_VIDEO_URL = process.env.INTRO_VIDEO_URL || process.env.SUPABASE_INTRO_VIDEO_URL || process.env.FIREBASE_STORAGE_INTRO_URL || "https://hamqkltryiytqdxjpiyl.supabase.co/storage/v1/object/public/LevelUpimgandvid/test_upscale_5x.mp4";
+const INTRO_IMAGE_URL = process.env.INTRO_IMAGE_URL || process.env.SUPABASE_INTRO_IMAGE_URL || "https://hamqkltryiytqdxjpiyl.supabase.co/storage/v1/object/public/LevelUpimgandvid/test_alert_5x.webp";
 
 // Solo Leveling Sovereign Monarch Logo SVG
 const MONARCH_LOGO_SVG = `<svg class="monarch-crest-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -3505,7 +3506,7 @@ function renderFullApplication(initialTab = "dashboard") {
       <source src="/intro.mp4?v=8s_v1_landscape" type="video/mp4">
     </video>
     <div id="system-intro-alert-wrapper" class="system-intro-alert-wrapper">
-      <img id="system-intro-alert-img" class="system-intro-alert-img" src="/intro-alert.webp?v=8s_v1_upscale" alt="[WELCOME, PLAYER.] System Alert" />
+      <img id="system-intro-alert-img" class="system-intro-alert-img" src="${INTRO_IMAGE_URL || '/intro-alert.webp?v=8s_v1_upscale'}" alt="[WELCOME, PLAYER.] System Alert" />
       <div class="system-intro-alert-hint">[ INITIALISATION DU SYSTÈME EN COURS... CLIQUEZ POUR ENTRER ]</div>
     </div>
   </div>

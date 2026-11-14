@@ -22,6 +22,8 @@ services:
         sync: false
       - key: INTRO_VIDEO_URL
         sync: false
+      - key: INTRO_IMAGE_URL
+        sync: false
       - key: APP_MASTER_ENCRYPTION_KEY
         value: f7cd6ca7b0417c6e10037f32215c7fba0a105f42299ec1de6f64239601b678e9
       - key: APP_ENCRYPTION_KEY
