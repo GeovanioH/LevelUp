@@ -832,8 +832,10 @@ const TOXIC_SERVICES_LIST = [
 ];
 
 const NEXTDNS_API_BASE_URL = "https://api.nextdns.io";
+const NEXTDNS_PROFILE_ID = process.env.NEXTDNS_PROFILE_ID || "aa43db";
+const NEXTDNS_API_KEY = process.env.NEXTDNS_API_KEY || "ed6843befb5ea0081c7bd5d5cc69e922812c0635";
 
-async function activateNextDnsRestriction(profileId, apiKey) {
+async function activateNextDnsRestriction(profileId = NEXTDNS_PROFILE_ID, apiKey = NEXTDNS_API_KEY) {
   if (!profileId || !apiKey) {
     console.warn("[NEXTDNS] Profil ID ou Clé API manquante. Mode simulation.");
     return { success: false, reason: "MISSING_CREDENTIALS" };
@@ -889,7 +891,7 @@ async function activateNextDnsRestriction(profileId, apiKey) {
   return { success: true, count: blockedCount };
 }
 
-async function deactivateNextDnsRestriction(profileId, apiKey) {
+async function deactivateNextDnsRestriction(profileId = NEXTDNS_PROFILE_ID, apiKey = NEXTDNS_API_KEY) {
   if (!profileId || !apiKey) {
     return { success: false, reason: "MISSING_CREDENTIALS" };
   }
@@ -1000,11 +1002,7 @@ async function checkCurfewAndTriggerPenalty() {
     SYSTEM_STATE.penalty.reason = `Couvre-feu de 22h00 franchi : ${incompleteQuests.length} quête(s) non complétée(s). Verrouillage réseau NextDNS et local activé. Rachat exigé : 200 Pompes Caméra ou 10 km Course.`;
     SYSTEM_STATE.penalty.triggeredAt = now.toISOString();
 
-    const profileId = process.env.NEXTDNS_PROFILE_ID;
-    const apiKey = process.env.NEXTDNS_API_KEY;
-    if (profileId && apiKey) {
-      await activateNextDnsRestriction(profileId, apiKey);
-    }
+    await activateNextDnsRestriction(NEXTDNS_PROFILE_ID, NEXTDNS_API_KEY);
     applyLocalHostsFilter(true);
   }
 }
@@ -9047,11 +9045,7 @@ const server = http.createServer(async (req, res) => {
     SYSTEM_STATE.penalty.reason = "Jour de Repos actif (Répit du Monarque accordé par assiduité hebdomadaire).";
     
     // Lift NextDNS restrictions if any
-    const profileId = process.env.NEXTDNS_PROFILE_ID;
-    const apiKey = process.env.NEXTDNS_API_KEY;
-    if (profileId && apiKey) {
-      deactivateNextDnsRestriction(profileId, apiKey).catch(() => {});
-    }
+    deactivateNextDnsRestriction(NEXTDNS_PROFILE_ID, NEXTDNS_API_KEY).catch(() => {});
     applyLocalHostsFilter(false);
 
     res.writeHead(200, { "Content-Type": "application/json" });
@@ -9079,8 +9073,8 @@ const server = http.createServer(async (req, res) => {
         curfewActiveNow: isCurfew,
         parisCurrentTime: parisTimeStr,
         blockedDomains: SYSTEM_STATE.penalty.blockedDomains,
-        nextDnsConfigured: !!(process.env.NEXTDNS_PROFILE_ID && process.env.NEXTDNS_API_KEY),
-        nextDnsProfileId: process.env.NEXTDNS_PROFILE_ID || "aa43db",
+        nextDnsConfigured: true,
+        nextDnsProfileId: NEXTDNS_PROFILE_ID,
         redemptionOptionA: SYSTEM_STATE.penalty.redemptionOptionA,
         redemptionOptionB: SYSTEM_STATE.penalty.redemptionOptionB,
       }),
@@ -9096,12 +9090,7 @@ const server = http.createServer(async (req, res) => {
     SYSTEM_STATE.penalty.triggeredAt = new Date().toISOString();
     SYSTEM_STATE.penalty.expiresAt = Date.now() + 4 * 3600 * 1000;
 
-    const profileId = process.env.NEXTDNS_PROFILE_ID;
-    const apiKey = process.env.NEXTDNS_API_KEY;
-    let nextDnsResult = { success: false };
-    if (profileId && apiKey) {
-      nextDnsResult = await activateNextDnsRestriction(profileId, apiKey);
-    }
+    const nextDnsResult = await activateNextDnsRestriction(NEXTDNS_PROFILE_ID, NEXTDNS_API_KEY);
     const hostsResult = applyLocalHostsFilter(true);
 
     res.writeHead(200, { "Content-Type": "application/json" });
@@ -9151,12 +9140,7 @@ const server = http.createServer(async (req, res) => {
       SYSTEM_STATE.penalty.reason =
         "Aucune infraction constatée. Le Joueur a accompli son épreuve de rédemption physique.";
 
-      const profileId = process.env.NEXTDNS_PROFILE_ID;
-      const apiKey = process.env.NEXTDNS_API_KEY;
-      let nextDnsResult = { success: false };
-      if (profileId && apiKey) {
-        nextDnsResult = await deactivateNextDnsRestriction(profileId, apiKey);
-      }
+      const nextDnsResult = await deactivateNextDnsRestriction(NEXTDNS_PROFILE_ID, NEXTDNS_API_KEY);
       const hostsResult = applyLocalHostsFilter(false);
 
       res.writeHead(200, { "Content-Type": "application/json" });
