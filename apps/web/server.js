@@ -1039,15 +1039,12 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     body {
-      background-color: var(--bg-cosmic-0);
+      background-color: #d8dce6;
       background-image:
-        linear-gradient(to right, rgba(152, 140, 160, 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(152, 140, 160, 0.04) 1px, transparent 1px),
-        radial-gradient(ellipse at 15% 15%, rgba(147, 51, 234, 0.25) 0%, transparent 45%),
-        radial-gradient(circle at 85% 20%, rgba(192, 132, 252, 0.18) 0%, transparent 40%),
-        radial-gradient(circle at 50% 85%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 0%, #170a38 0%, #0d0724 50%, #070414 100%);
-      background-size: 24px 24px, 24px 24px, auto, auto, auto, auto;
+        linear-gradient(to right, rgba(148, 163, 184, 0.15) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.15) 1px, transparent 1px),
+        radial-gradient(ellipse at 50% 0%, #edf1f7 0%, #d8dce6 55%, #c8cdd8 100%);
+      background-size: 24px 24px, 24px 24px, auto;
       background-attachment: fixed;
       color: var(--text-white);
       font-family: var(--font-body);
@@ -1064,7 +1061,7 @@ function renderFullApplication(initialTab = "dashboard") {
     }
     html::-webkit-scrollbar-track,
     body::-webkit-scrollbar-track {
-      background: rgba(15, 9, 38, 0.5);
+      background: rgba(216, 220, 230, 0.85);
     }
     html::-webkit-scrollbar-thumb,
     body::-webkit-scrollbar-thumb {
