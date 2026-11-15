@@ -60,23 +60,61 @@ La progression en rang dépend conjointement du niveau global et de preuves tang
 
 ## 4. Spécifications des Fonctionnalités Clés
 
-### 4.1 Web HUD & Tableau de Bord
+### 4.1 Web HUD Central (Les 10 Écrans Canoniques)
 * Interface futuriste sombre avec visualisations radar des 8 bases, jauges de vitalité ($HP$, $MP$) et affichage des quêtes actives.
-* Mode hors-ligne avec synchronisation automatique via IndexedDB (Dexie.js).
+* 10 écrans spécialisés entièrement intégrés :
+  1. `/dashboard` : Statut général du Chasseur, jauges vitales, quêtes en cours, score harmonique.
+  2. `/quests` : Gestionnaire de quêtes quotidiennes et soumission de preuves.
+  3. `/planner` : Agenda Time-Blocking circadien (06h-22h) et minuteur Pomodoro 25 min.
+  4. `/workout` : Entraînement cinématique avec détection MediaPipe Pose et routines guidées.
+  5. `/audio` : Enregistreur vocal de monologues avec analyse spectrale et notation socratique /20.
+  6. `/skills` : Arbre orienté acyclique (DAG) des 120 compétences réparties sur les 8 piliers.
+  7. `/notes` : Second Brain style Obsidian avec rendu KaTeX, tags, arborescence et backlinks.
+  8. `/opportunities` : Centre de veille et scraping Deerflow (bourses, hackathons, financements).
+  9. `/shop` : Shadow Shop pour échanger les Cristaux d'Ombre contre récompenses et buffs.
+  10. `/penalty` : Cockpit de restriction réseau NextDNS et soumission de quêtes de purge.
+* Mode hors-ligne résilient avec synchronisation automatique IndexedDB (Dexie.js).
 
 ### 4.2 Moteur de Quêtes & Anti-Double Dépense
-* Quêtes journalières réparties sur les bases clés (sport, révision théorique, audio).
+* Quêtes journalières réparties sur les bases clés (sport, révision théorique, audio, code).
 * Validation atomique protégée par verrous distribués Redlock pour interdire les doubles validations.
+* Soumission de preuves irréfutables : commit GitHub, trace GPS Strava, certificat ou fichier audio.
 
-### 4.3 Pipeline d'Évaluation Vocale
-* Enregistrement audio local, transcription rapide par Faster-Whisper (INT8 local).
-* Évaluation socratique sur 20 points par l'agent IA (précision conceptuelle, fluidité, rigueur, argumentation).
+### 4.3 Pipeline d'Évaluation Vocale & Restitution Socratique
+* Enregistrement audio local ou via Discord, transcription rapide par Faster-Whisper (CUDA INT8).
+* Évaluation socratique sur 20 points par l'agent IA selon la grille officielle :
+  1. *Précision Conceptuelle & Vocabulaire* (/5)
+  2. *Fluidité & Élocution* (/5)
+  3. *Rigueur de la Synthèse & Structure* (/5)
+  4. *Application Pratique & Argumentation* (/5)
+* Pratique d'éloquence et de communication technique en anglais et français (Bases `LNG` & `EXP`).
+* Support de la planification et du journaling quotidien par note vocale.
 
-### 4.4 Détection Cinématique par Caméra
+### 4.4 Détection Cinématique par Caméra & Routines Guidées
 * Suivi des mouvements au poids du corps via MediaPipe Pose (WebAssembly).
-* Comptage strict des répétitions sans possibilité de simulation ou falsification.
+* Comptage strict des répétitions (pompes, pike push-ups, tractions, squats, relevés de jambes) sans possibilité de falsification.
+* Exécution des routines personnalisées : Dos & Épaules (17 étapes), Bras & Triceps (6 étapes), Abdos & Core (5 étapes), ou Trinité complète (28 étapes).
 
 ### 4.5 Mode Restriction & Pénalités (NextDNS & WFP)
-* Déclenchement automatique en cas d'inactivité avant 22h00.
+* Déclenchement automatique du couvre-feu anti-procrastination à 22h00 si les quêtes sont incomplètes.
 * Blocage réseau au niveau DNS (API NextDNS) et local (filtrage WFP / hosts).
-* Levée de la restriction conditionnée à l'accomplissement d'une épreuve physique de compensation (Quête de Purge).
+* Levée de la restriction conditionnée à l'accomplissement d'une épreuve physique de compensation (Quête de Purge : 200 pompes validées par vision ou 10 km de course).
+
+### 4.6 Bot Discord Opérationnel 24/7 (`apps/bot`)
+* 8 Commandes Slash natives : `/status`, `/valider`, `/stats`, `/programme`, `/cours`, `/monologue`, `/boutique`, `/penalite`.
+* Streaming audio temps réel via UDP/Opus pour connecter le bot dans les salons vocaux et évaluer les monologues oraux à la volée.
+
+### 4.7 Second Brain & Répétition Espacée SM-2
+* Coffre de notes Markdown compatible Obsidian avec rendu mathématique $\LaTeX$ (KaTeX).
+* Moteur de répétition espacée SM-2 planifiant les révisions conceptuelles pour garantir la rétention à long terme.
+
+### 4.8 Gestion Circadienne & Time-Blocking
+* Découpage déterministe de la journée de 06h00 à 22h00 en blocs de Deep Work et plages de récupération.
+* Minuteur Pomodoro 25 minutes avec intégration du calcul d'épuisement cognitif ($MP$).
+
+### 4.9 Veille Stratégique d'Opportunités Deerflow (Base `FIN`)
+* Scraper Playwright headless surveillant en continu les bourses d'études ($\\ge 5\\,000$ €), bourses Campus France et hackathons internationaux.
+* Normalisation des opportunités et déclenchement de veilles thématiques ciblées.
+
+### 4.10 Interopérabilité Agents IA (Serveur MCP LevelUp Natif)
+* Serveur Model Context Protocol (MCP) fournissant des outils JSON-RPC aux agents (Antigravity, Claude, Cursor) pour inspecter l'état du joueur, récupérer les quêtes, auditer les preuves et noter les soutenances orales.

@@ -64,29 +64,83 @@ Le rang officiel est garanti par des invariants réels et non par du temps pass�
 
 ---
 
-## 4. Composants Opérationnels Principaux
+## 4. Ce que vous pouvez faire avec LevelUp (Guide des Capacités & Cas d'Usage)
 
-### 4.1 Pipeline Audio & Évaluation Vocale Socratique
-* **Capture & Transcription** : Enregistrement local via Web HUD ou Discord, transcription via **Faster-Whisper** (quantification INT8, local-first).
-* **Grille d'Évaluation sur 20 Points** :
-  1. *Précision Conceptuelle & Vocabulaire* (/5)
-  2. *Fluidité & Élocution* (/5)
-  3. *Rigueur de la Synthèse & Structure* (/5)
-  4. *Application Pratique & Argumentation* (/5)
+Le système régit l'ensemble de votre quotidien à travers 9 modes opératoires interconnectés :
 
-### 4.2 Superviseur Cinématique Physique (Vision MediaPipe)
-* Analyse posturale en temps réel par caméra via **MediaPipe Pose** compilé en WebAssembly.
-* Détection automatique des répétitions (tractions, pompes, squats, abdos) sans triche possible.
+### 🎙️ 4.1 Audio, Restitution Orale & Assistant Vocal
+* **Évaluation Socratique Vocale (/20)** :
+  * Enregistrez votre discours directement dans le Web HUD ou en salon vocal Discord (`/monologue`).
+  * Transcription locale ultra-rapide par **Faster-Whisper (CUDA INT8)** sans latence cloud.
+  * Notation socratique automatisée sur 20 points : précision terminologique (/5), fluidité (/5), rigueur de synthèse (/5) et argumentation pratique (/5).
+* **Pratique d'Éloquence & Anglais Technique (Bases `LNG` & `EXP`)** :
+  * Restitutions orales de 3 à 5 minutes sur des concepts pointus (*PagedAttention*, *Kernel Triton*, *CTF write-ups*) pour valider vos quêtes d'expression orale sans taper une ligne.
+* **Planification & Journaling par Note Audio** :
+  * Dictez vos bilans quotidiens ou vos notes vocales pour que le système planifie automatiquement vos blocs temporels du lendemain ou alimente votre Second Brain.
 
-### 4.3 Protocole de Restriction Réseau (NextDNS & WFP)
-* En cas d'inactivité critique ou d'abandon des quêtes journalières avant l'heure limite (22h00) :
-  1. Appel à l'API **NextDNS** (`POST /profiles/{profile_id}/denylist`) pour verrouiller les réseaux sociaux et divertissements.
-  2. Blocage local via les filtres Windows Filtering Platform (WFP) et redirection hosts.
-  3. Déverrouillage conditionné à l'effort physique validé (Quête de Purge).
+### 🏋️ 4.2 Entraînement Physique par Caméra (Vision par Ordinateur)
+* **Comptage Cinématique Strict (MediaPipe Pose)** :
+  * Activez la caméra dans l'onglet **Workout** : le modèle analyse en temps réel les angles biomécaniques et incrémente automatiquement vos répétitions (pompes, pike push-ups, tractions, squats, relevés de jambes).
+* **Routines Calisthéniques Personnalisées** :
+  * Déroulé guidé pas à pas : **Dos & Épaules** (17 étapes), **Bras & Triceps** (6 étapes), **Abdos & Core** (5 étapes), ou la **Trinité** complète (28 étapes).
+* **Chronomètre & Triche Impossible** :
+  * Enchaînement automatique des temps de repos, bips sonores procéduraux WebAudio et validation inviolable.
 
-### 4.4 Veille d'Opportunités & Financements (Deerflow)
-* Scraper Playwright headless automatisé pour détecter appels à projets, hackathons, bourses et subventions.
-* Webhooks signés cryptographiquement via HMAC-SHA256 (`X-Deerflow-Signature`).
+### 🧠 4.3 Second Brain & Révision Théorique (Base `ACAD`)
+* **Coffre de Connaissances Markdown (Style Obsidian)** :
+  * Éditeur complet avec rendu $\LaTeX$ via KaTeX, gestion des tags, arborescence hiérarchique et rétroliens (*backlinks*).
+* **Algorithme de Répétition Espacée SM-2** :
+  * Calcul automatique des intervalles optimaux de révision pour ancrer définitivement les théorèmes et architectures en mémoire longue durée.
+* **Recherche Plein Texte Ultra-Rapide** :
+  * Indexation instantanée de toutes vos fiches techniques.
+
+### ⚡ 4.4 Gestion Circadienne & Discipline (Base `DIS`)
+* **Time-Blocking Circadien (06h00 – 22h00)** :
+  * Organisation visuelle des blocs de Deep Work, des plages d'entraînement et des pauses régénératrices.
+* **Sessions de Deep Work & Pomodoro** :
+  * Lancez un minuteur Pomodoro de 25 minutes ou une session chronométrée anti-distraction (sur le Web ou via `/cours sujet:<...> duree:<...>`).
+* **Jauges Physiologiques $HP$ et $MP$** :
+  * **HP (Vitalité)** : Décroissance homéostatique et régénération par le sommeil (modèle Borbély).
+  * **MP (Concentration)** : Consommation par le Deep Work et recharge lors des pauses (modèle Boksem).
+
+### 🤖 4.5 Bot Discord Opérationnel 24/7 (`apps/bot`)
+Pilotez l'intégralité du Système depuis votre smartphone ou PC en toute mobilité :
+* `/status` : Affiche votre carte holographique (Niveau, Rang, HP/MP, Cristaux, Série active).
+* `/valider id:<ID> preuve:<URL>` : Valide une quête avec preuve irréfutable (commit GitHub, Strava, certificat).
+* `/stats` : Affiche l'octogone des 8 bases et votre score harmonique $S_{\text{global}}$.
+* `/programme [jour]` : Consulte votre planning Time-Blocking de la journée ou du lendemain.
+* `/cours sujet:<...> duree:<...>` : Déclenche une session de travail focalisé sans distraction.
+* `/monologue [salon]` : Connecte le bot en vocal (streaming UDP/Opus) pour enregistrer et noter votre monologue.
+* `/boutique` : Consultez le catalogue d'objets et échangez vos Cristaux d'Ombre.
+* `/penalite` : Inspecte le statut des restrictions réseau et les conditions de rachat.
+
+### 🛡️ 4.6 Pare-Feu & Mode Restriction (NextDNS & Filtrage Local)
+* **Coupe-Feu Anti-Procrastination Automatique** :
+  * Si vos quêtes ne sont pas achevées avant **22h00**, le système enclenche le mode restriction : verrouillage des plateformes récréatives au niveau DNS (NextDNS) et local (hosts/WFP).
+* **Quête de Purge (Rachat Physique)** :
+  * L'unique moyen de lever la sanction est d'accomplir une épreuve physique certifiée (ex: 200 pompes validées par vision ou 10 km de course).
+
+### 🌐 4.7 Veille Stratégique d'Opportunités Deerflow (Base `FIN`)
+* **Scraper IA d'Opportunités à Fort Impact** :
+  * Détection continue des bourses d'études ($\\ge 5\\,000$ €/\$), bourses d'excellence (Campus France), grands hackathons mondiaux (Devpost, MLH) et financements.
+* **Lancement de Recherches depuis le Bot & l'UI** :
+  * Déclenchez une veille ou un scraping d'opportunités ciblées sur vos critères d'un simple clic ou par commande.
+
+### 🎮 4.8 Gamification & Progression Globale (Solo Leveling IRL)
+* **Score Harmonique Global ($S_{\text{global}}$)** :
+  * Interdiction mathématique du déséquilibre : si une base est ignorée, le score global s'effondre.
+* **Arbre des 120 Compétences (DAG)** :
+  * Arbre orienté acyclique couvrant l'IA, la cybersécurité, les mathématiques, la calisthénie, l'anglais et la finance.
+* **Shadow Shop (Boutique de l'Ombre)** :
+  * Dépensez vos Cristaux d'Ombre gagnés pour débloquer des récompenses physiques, des buffs ou des pauses autorisées.
+
+### 🔌 4.9 Contrôle par Agents IA (Serveur MCP LevelUp Natif)
+Grâce au serveur Model Context Protocol (MCP) intégré, tout agent IA externe (Antigravity, Claude, Cursor) peut interagir avec votre système :
+* `get_player_status` : Consulter votre état complet en direct.
+* `get_daily_quests` : Récupérer vos quêtes actives.
+* `submit_quest_proof` : Auditer et valider vos preuves de quête.
+* `grade_oral_monologue` : Évaluer vos soutenances orales.
+* `get_timeblocking_schedule` : Lire et synchroniser votre agenda quotidien.
 
 ---
 
