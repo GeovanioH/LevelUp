@@ -4066,59 +4066,62 @@ function renderFullApplication(initialTab = "dashboard") {
         </div>
       </div>
 
-      <!-- Solo Leveling Daily Physical Routine Card (Push-ups, Sit-ups, Squats, Run) -->
+      <!-- Daily Calisthenics Routine Card : Dos & Épaules -> Bras -> Abdos (Profil Personnel) -->
       <div class="glass-card spotlight-card" style="padding: 22px; margin-bottom: 24px; border-radius: 12px; background: var(--surface-container-low); border: 1px solid rgba(69,223,164,0.35);">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
           <div>
             <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-size: 10.5px; font-family: var(--font-mono); color: var(--primary); letter-spacing: 1.5px; text-transform: uppercase;">[SYSTEM NOTIFICATION]</span>
-              <span class="radar-ping-badge" style="border-color: rgba(69,223,164,0.4); color: var(--tertiary-fixed); font-size: 10px;">RANG E — ÉVEIL INITIAL</span>
+              <span style="font-size: 10.5px; font-family: var(--font-mono); color: var(--primary); letter-spacing: 1.5px; text-transform: uppercase;">[QUÊTE JOURNALIÈRE OBLIGATOIRE]</span>
+              <span class="radar-ping-badge" style="border-color: rgba(69,223,164,0.4); color: var(--tertiary-fixed); font-size: 10px;">TRINITÉ CALISTHÉNIQUE</span>
             </div>
             <h3 style="font-size: 18px; font-weight: 800; color: var(--primary); font-family: var(--font-display); margin-top: 4px;">
-              [Daily Quest: Strength Training has arrived.]
+              [Daily Quest : Entraînement Physique du Chasseur — Dos & Épaules, Bras & Abdos]
             </h3>
           </div>
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span class="telemetric-chip" style="color: var(--tertiary); font-weight: 700;">0 JOUR CONSÉCUTIF</span>
-            <span class="radar-ping-badge" style="border-color: rgba(69,223,164,0.4); color: var(--tertiary-fixed);">0% BUFF</span>
+            <button class="btn-cyber" style="font-size: 11px; padding: 6px 14px; background: rgba(0, 240, 255, 0.15); border-color: var(--neon-cyan); color: #fff;" onclick="switchView('workout')">
+              📹 OUVRIR CAMÉRA VISION SPORT ➔
+            </button>
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px;">
-          <div style="background: var(--surface-container); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 14px;">
+          <div style="background: var(--surface-container); padding: 14px; border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle); cursor: pointer;" onclick="switchView('workout'); selectWorkoutRoutine('DOS_EPAULES');">
             <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
-              <span style="color: var(--text-white); font-weight: 600;">1. Pompes (Push-ups)</span>
-              <span style="color: var(--primary); font-weight: 700;">[0 / 100] (0%)</span>
+              <span style="color: var(--text-white); font-weight: bold;">1. DOS & ÉPAULES</span>
+              <span style="color: var(--neon-cyan); font-weight: 700;">17 Étapes Stricte</span>
+            </div>
+            <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">
+              Pike push-ups, hyperextensions, inchworms, supine push-ups, étirements.
             </div>
             <div class="capsule-slider-track" style="height: 6px;">
-              <div class="capsule-slider-fill capsule-fill-hp" style="width: 0%;"></div>
+              <div class="capsule-slider-fill capsule-fill-hp" style="width: 100%;"></div>
             </div>
           </div>
-          <div style="background: var(--surface-container); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle);">
+
+          <div style="background: var(--surface-container); padding: 14px; border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle); cursor: pointer;" onclick="switchView('workout'); selectWorkoutRoutine('BRAS');">
             <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
-              <span style="color: var(--text-white); font-weight: 600;">2. Abdominaux (Sit-ups)</span>
-              <span style="color: var(--primary); font-weight: 700;">[0 / 100] (0%)</span>
+              <span style="color: var(--text-white); font-weight: bold;">2. BRAS & TRICEPS</span>
+              <span style="color: var(--primary); font-weight: 700;">6 Exercices Calisthéniques</span>
+            </div>
+            <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">
+              Push-ups, decline push-ups, diamond push-ups, wide, tricep extensions.
             </div>
             <div class="capsule-slider-track" style="height: 6px;">
-              <div class="capsule-slider-fill capsule-fill-mp" style="width: 0%;"></div>
+              <div class="capsule-slider-fill capsule-fill-mp" style="width: 100%;"></div>
             </div>
           </div>
-          <div style="background: var(--surface-container); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle);">
+
+          <div style="background: var(--surface-container); padding: 14px; border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle); cursor: pointer;" onclick="switchView('workout'); selectWorkoutRoutine('ABDOS');">
             <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
-              <span style="color: var(--text-white); font-weight: 600;">3. Squats</span>
-              <span style="color: var(--primary); font-weight: 700;">[0 / 100] (0%)</span>
+              <span style="color: var(--text-white); font-weight: bold;">3. ABDOS & CORE</span>
+              <span style="color: var(--imperial-gold); font-weight: 700;">5 Exercices de Gainage</span>
+            </div>
+            <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">
+              V-Ups, mountain climbers, relevés de jambes au sol, planche 1m30, gainage latéral.
             </div>
             <div class="capsule-slider-track" style="height: 6px;">
-              <div class="capsule-slider-fill capsule-fill-hp" style="width: 0%;"></div>
-            </div>
-          </div>
-          <div style="background: var(--surface-container); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-inner-border-subtle);">
-            <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
-              <span style="color: var(--text-white); font-weight: 600;">4. Course (Running)</span>
-              <span style="color: var(--primary); font-weight: 700;">[0.0 / 10.0 km] (0%)</span>
-            </div>
-            <div class="capsule-slider-track" style="height: 6px;">
-              <div class="capsule-slider-fill capsule-fill-mp" style="width: 0%;"></div>
+              <div class="capsule-slider-fill" style="width: 100%; background: var(--imperial-gold);"></div>
             </div>
           </div>
         </div>
@@ -4126,10 +4129,10 @@ function renderFullApplication(initialTab = "dashboard") {
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-top: 1px solid var(--glass-inner-border-subtle); padding-top: 12px;">
           <div style="font-size: 11.5px; color: var(--alert-crimson); font-family: var(--font-mono); display: flex; align-items: center; gap: 6px;">
             <span class="material-symbols-outlined" style="font-size: 16px;">warning</span>
-            <span>WARNING : Failure to complete the daily quest before 23:59:59 will result in an appropriate penalty.</span>
+            <span>ATTENTION : Quête quotidienne obligatoire. Tout manquement avant minuit déclenche le protocole NextDNS & Restriction.</span>
           </div>
-          <button class="btn-cyber" style="font-size: 11px; padding: 7px 14px; background: rgba(0,122,85,0.25); border-color: var(--tertiary); color: var(--tertiary-fixed);" onclick="showSysNotification('[TÉLÉMÉTRIE FIT ENREGISTRÉE]', 'Synchronisation biomécanique validée. Vos efforts physiques alimentent les réserves de Vitalité.')">
-            ENREGISTRER TÉLÉMÉTRIE FIT (+200 XP, +20 💎)
+          <button class="btn-cyber btn-gold" style="font-size: 11px; padding: 7px 14px;" onclick="switchView('workout'); selectWorkoutRoutine('DAILY_COMPLETE');">
+            DÉBUTER LA TRINITÉ COMPLÈTE (28 ÉTAPES) ➔
           </button>
         </div>
       </div>
@@ -4833,27 +4836,43 @@ function renderFullApplication(initialTab = "dashboard") {
           </div>
 
           <div>
-            <div class="glass-card spotlight-card" style="padding: 22px; margin-bottom: 18px;">
-              <div style="font-size: 11px; color: var(--imperial-gold); font-weight: bold; font-family: var(--font-mono);">ROUTINE SÉLECTIONNÉE</div>
-              <h3 style="font-size: 18px; font-weight: bold; margin: 4px 0; color: var(--text-white);">Routine Dos & Épaules (17 Étapes)</h3>
-              <p style="font-size: 12px; color: var(--text-secondary);">Étape 3/17 : Pike Push-Ups stricts (focus deltoïdes)</p>
+            <!-- Routine Selector Switcher -->
+            <div style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;">
+              <button class="btn-cyber active" id="btn-routine-dos" style="font-size: 11px; padding: 6px 12px;" onclick="selectWorkoutRoutine('DOS_EPAULES')">1. DOS & ÉPAULES (17)</button>
+              <button class="btn-cyber" id="btn-routine-bras" style="font-size: 11px; padding: 6px 12px;" onclick="selectWorkoutRoutine('BRAS')">2. BRAS & TRICEPS (6)</button>
+              <button class="btn-cyber" id="btn-routine-abdos" style="font-size: 11px; padding: 6px 12px;" onclick="selectWorkoutRoutine('ABDOS')">3. ABDOS & CORE (5)</button>
+              <button class="btn-cyber btn-gold" id="btn-routine-daily" style="font-size: 11px; padding: 6px 12px;" onclick="selectWorkoutRoutine('DAILY_COMPLETE')">TRINITÉ (28)</button>
             </div>
 
-            <div class="glass-card spotlight-card" style="padding: 26px; text-align: center; margin-bottom: 18px;">
-              <div style="font-size: 12px; letter-spacing: 2px; color: var(--neon-cyan); font-family: var(--font-display);">
-                RÉPÉTITIONS STRICTES COMPTABILISÉES
+            <div class="glass-card spotlight-card" style="padding: 22px; margin-bottom: 18px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-size: 11px; color: var(--imperial-gold); font-weight: bold; font-family: var(--font-mono);" id="workout-routine-title">ROUTINE SÉLECTIONNÉE : DOS & ÉPAULES</div>
+                <div style="font-size: 11px; color: var(--neon-cyan); font-family: var(--font-mono);" id="workout-step-indicator">ÉTAPE 1 / 17</div>
               </div>
-              <div id="workout-rep-count" class="shiny-green" style="font-size: 72px; font-weight: 900; font-family: var(--font-display); line-height: 1.1; margin: 8px 0;">
-                0 / 14
+              <h3 style="font-size: 20px; font-weight: bold; margin: 6px 0; color: var(--text-white);" id="workout-step-name">Jumping Jacks</h3>
+              <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;" id="workout-step-desc">Activation cardiovasculaire et dynamique</p>
+              <div style="font-size: 11px; color: var(--tertiary-fixed); font-family: var(--font-mono);" id="workout-step-joint">Cible Cinématique : Activation Dynamique</div>
+            </div>
+
+            <div class="glass-card spotlight-card" style="padding: 24px; text-align: center; margin-bottom: 18px;">
+              <div style="font-size: 12px; letter-spacing: 2px; color: var(--neon-cyan); font-family: var(--font-display);" id="workout-metric-label">
+                OBJECTIF EN COURS
+              </div>
+              <div id="workout-rep-count" class="shiny-green" style="font-size: 64px; font-weight: 900; font-family: var(--font-display); line-height: 1.1; margin: 8px 0;">
+                0 / 30s
               </div>
               <div style="font-size: 13px; color: var(--text-secondary); font-weight: bold;" id="workout-posture-badge">
-                EN ATTENTE DU FLUX VIDÉO / DÉTECTION POSTURALE
+                EN ATTENTE DU FLUX VIDÉO / ESTIMATION DE POSE
               </div>
             </div>
 
-            <div style="display: flex; gap: 12px;">
-              <button class="btn-cyber" style="flex: 1;" onclick="addManualRep()">+ 1 RÉPÉTITION (TEST)</button>
-              <button class="btn-cyber btn-gold" style="flex: 1;" onclick="validateWorkoutSet()">VALIDER LA SÉRIE</button>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+              <button class="btn-cyber" style="flex: 1;" onclick="addManualRep()">+ 1 UNITÉ / REP</button>
+              <button class="btn-cyber btn-gold" style="flex: 1;" onclick="nextWorkoutStep()">ÉTAPE SUIVANTE ➔</button>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <button class="btn-cyber" style="font-size: 11px; padding: 4px 10px;" onclick="prevWorkoutStep()">⮜ ÉTAPE PRÉCÉDENTE</button>
+              <button class="btn-cyber" style="font-size: 11px; padding: 4px 10px; color: var(--transcendent-green);" onclick="validateWorkoutSet()">✓ VALIDER TOUTE LA SÉRIE</button>
             </div>
           </div>
         </div>
@@ -7583,35 +7602,176 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     // =========================================================================
-    // SCREEN 10 : WORKOUT WEBCAM & REPETITION COUNTER
+    // SCREEN 10 : WORKOUT WEBCAM & SEQUENTIAL ROUTINE ENGINE (DOS, BRAS, ABDOS)
     // =========================================================================
-    let workoutReps = 0;
-    function addManualRep() {
-      workoutReps++;
-      playChime(587);
-      const el = document.getElementById('workout-rep-count');
-      if (el) el.textContent = workoutReps + " / 14";
+    const WORKOUT_ROUTINES_CATALOG = {
+      DOS_EPAULES: {
+        id: "DOS_EPAULES",
+        name: "Routine Dos & Épaules (17 Étapes)",
+        steps: [
+          { name: "Jumping Jacks", target: 30, unit: "s", desc: "Activation cardiovasculaire et dynamique", joint: "Dynamique Générale" },
+          { name: "Hyperextensions au sol", target: 14, unit: "reps", desc: "Renforcement érecteurs du rachis et chaîne postérieure", joint: "Hanche / Dos" },
+          { name: "Pike Push-Ups", target: 14, unit: "reps", desc: "Focus deltoïdes antérieurs et trapèzes (angle coude ≤ 75°)", joint: "Coude (≤ 75° / ≥ 160°)" },
+          { name: "Reverse Push-Ups", target: 12, unit: "reps", desc: "Activation rhomboïdes et deltoïdes postérieurs", joint: "Coude (≤ 75° / ≥ 160°)" },
+          { name: "Inchworms", target: 16, unit: "reps", desc: "Mobilité ischios, gainage dynamique et force scapulaire", joint: "Tronc / Épaules" },
+          { name: "Side-Lying Floor Stretch Gauche", target: 30, unit: "s", desc: "Étirement latéral et décompression grand dorsal gauche", joint: "Étirement" },
+          { name: "Side-Lying Floor Stretch Droit", target: 30, unit: "s", desc: "Étirement latéral et décompression grand dorsal droit", joint: "Étirement" },
+          { name: "Hyperextensions au sol", target: 12, unit: "reps", desc: "Seconde série érecteurs du rachis", joint: "Hanche / Dos" },
+          { name: "Pike Push-Ups", target: 12, unit: "reps", desc: "Seconde série deltoïdes (flexion coude ≤ 75°)", joint: "Coude (≤ 75° / ≥ 160°)" },
+          { name: "Reverse Push-Ups", target: 10, unit: "reps", desc: "Seconde série scapulae", joint: "Coude (≤ 75° / ≥ 160°)" },
+          { name: "Inchworms", target: 14, unit: "reps", desc: "Seconde série mobilité et core", joint: "Tronc / Épaules" },
+          { name: "Cat Cow Pose", target: 35, unit: "s", desc: "Décompression vertébrale et mobilité pelvienne", joint: "Rachis" },
+          { name: "Supine Push-Up", target: 14, unit: "reps", desc: "Rétraction scapulaire pure sur le dos", joint: "Scapulae" },
+          { name: "Floor Y-Raises", target: 14, unit: "reps", desc: "Trapèzes inférieurs et stabilité scapulo-humérale", joint: "Épaules" },
+          { name: "Supine Push-Up", target: 13, unit: "reps", desc: "Seconde série rétraction scapulaire", joint: "Scapulae" },
+          { name: "Reverse Snow Angels", target: 12, unit: "reps", desc: "Endurance rhomboïdes et deltoïdes postérieurs", joint: "Dorsaux" },
+          { name: "Child's Pose", target: 30, unit: "s", desc: "Récupération souveraine et étirement myofascial final", joint: "Récupération" }
+        ]
+      },
+      BRAS: {
+        id: "BRAS",
+        name: "Routine Bras & Triceps (6 Exercices)",
+        steps: [
+          { name: "Push-Ups Classiques", target: 15, unit: "reps", desc: "Pectoraux et triceps au poids du corps avec tempo contrôlé", joint: "Coude (≤ 75° / ≥ 160°)" },
+          { name: "Decline Push-Ups", target: 12, unit: "reps", desc: "Pieds surélevés : focus deltoïdes antérieurs et pectoraux hauts", joint: "Coude (≤ 75° / ≥ 160°)" },
+          { name: "Diamond Push-Ups", target: 12, unit: "reps", desc: "Mains en losange : isolation des chefs médial et latéral des triceps", joint: "Coude (≤ 75° / ≥ 160°)" },
+          { name: "Pike Push-Ups", target: 12, unit: "reps", desc: "Chaîne de poussée verticale deltoïdes", joint: "Coude (≤ 75° / ≥ 160°)" },
+          { name: "Wide Push-Ups", target: 15, unit: "reps", desc: "Prise large : ouverture thoracique et travail pectoral ciblé", joint: "Coude (≤ 75° / ≥ 160°)" },
+          { name: "Tricep Cross Extensions au sol", target: 10, unit: "reps", desc: "Isolation triceps au sol à l'échec postural strict", joint: "Coude (≤ 80° / ≥ 160°)" }
+        ]
+      },
+      ABDOS: {
+        id: "ABDOS",
+        name: "Routine Abdos & Core d'Acier (5 Exercices)",
+        steps: [
+          { name: "V-Ups Synchronisés", target: 10, unit: "reps", desc: "Élévation simultanée tronc et membres inférieurs avec verrouillage lombaire", joint: "Hanche / Tronc (≤ 80° / ≥ 155°)" },
+          { name: "Mountain Climbers Rapides", target: 30, unit: "s", desc: "Gainage dynamique anti-rotation et cadence soutenue", joint: "Hanche / Core" },
+          { name: "Relevés de Jambes au sol", target: 12, unit: "reps", desc: "Grand droit inférieur sans cambrure lombaire", joint: "Hanche / Tronc (≤ 80° / ≥ 155°)" },
+          { name: "Gainage Planche Classique", target: 90, unit: "s", desc: "Rétroversion pelvienne, côtes rentrées et fessiers contractés (1m30)", joint: "Core Isométrique" },
+          { name: "Gainage Latéral", target: 45, unit: "s", desc: "Maintien oblique et alignement tête-bassin-chevilles (45s par côté)", joint: "Obliques" }
+        ]
+      }
+    };
+
+    // Concatenate into unified 28-step Daily Complete
+    WORKOUT_ROUTINES_CATALOG.DAILY_COMPLETE = {
+      id: "DAILY_COMPLETE",
+      name: "Trinité Calisthénique Complète (28 Étapes)",
+      steps: [
+        ...WORKOUT_ROUTINES_CATALOG.DOS_EPAULES.steps,
+        ...WORKOUT_ROUTINES_CATALOG.BRAS.steps,
+        ...WORKOUT_ROUTINES_CATALOG.ABDOS.steps
+      ]
+    };
+
+    let activeRoutineKey = 'DOS_EPAULES';
+    let activeStepIndex = 0;
+    let currentStepProgress = 0;
+
+    function renderCurrentWorkoutStep() {
+      const routine = WORKOUT_ROUTINES_CATALOG[activeRoutineKey] || WORKOUT_ROUTINES_CATALOG.DOS_EPAULES;
+      const step = routine.steps[activeStepIndex] || routine.steps[0];
+
+      const rTitle = document.getElementById('workout-routine-title');
+      if (rTitle) rTitle.textContent = "ROUTINE SÉLECTIONNÉE : " + routine.name.toUpperCase();
+
+      const indicator = document.getElementById('workout-step-indicator');
+      if (indicator) indicator.textContent = "ÉTAPE " + (activeStepIndex + 1) + " / " + routine.steps.length;
+
+      const sName = document.getElementById('workout-step-name');
+      if (sName) sName.textContent = step.name;
+
+      const sDesc = document.getElementById('workout-step-desc');
+      if (sDesc) sDesc.textContent = step.desc;
+
+      const sJoint = document.getElementById('workout-step-joint');
+      if (sJoint) sJoint.textContent = "Cible Cinématique : " + step.joint;
+
+      const mCount = document.getElementById('workout-rep-count');
+      if (mCount) mCount.textContent = currentStepProgress + " / " + step.target + (step.unit === 's' ? 's' : '');
+
       const badge = document.getElementById('workout-posture-badge');
-      if (badge && workoutReps >= 14) {
-        badge.textContent = "POSTURE STRICTE VALIDÉE ✓";
-        badge.style.color = "var(--transcendent-green)";
-      } else if (badge) {
-        badge.textContent = "SÉRIE EN COURS (" + workoutReps + " / 14)";
-        badge.style.color = "var(--neon-cyan)";
+      if (badge) {
+        if (currentStepProgress >= step.target) {
+          badge.textContent = "OBJECTIF ÉTAPE ATTEINT ✓ PRÊT POUR L'ÉTAPE SUIVANTE";
+          badge.style.color = "var(--transcendent-green)";
+        } else {
+          badge.textContent = "SÉRIE EN COURS (" + currentStepProgress + " / " + step.target + ") • CONTRÔLE POSTURAL ACTIF";
+          badge.style.color = "var(--neon-cyan)";
+        }
+      }
+
+      // Highlight active button
+      ['dos', 'bras', 'abdos', 'daily'].forEach(k => {
+        const b = document.getElementById('btn-routine-' + k);
+        if (b) {
+          if ((k === 'dos' && activeRoutineKey === 'DOS_EPAULES') ||
+              (k === 'bras' && activeRoutineKey === 'BRAS') ||
+              (k === 'abdos' && activeRoutineKey === 'ABDOS') ||
+              (k === 'daily' && activeRoutineKey === 'DAILY_COMPLETE')) {
+            b.classList.add('active');
+          } else {
+            b.classList.remove('active');
+          }
+        }
+      });
+    }
+
+    function selectWorkoutRoutine(key) {
+      if (WORKOUT_ROUTINES_CATALOG[key]) {
+        activeRoutineKey = key;
+        activeStepIndex = 0;
+        currentStepProgress = 0;
+        playChime(659);
+        renderCurrentWorkoutStep();
+      }
+    }
+
+    function addManualRep() {
+      const routine = WORKOUT_ROUTINES_CATALOG[activeRoutineKey];
+      const step = routine.steps[activeStepIndex];
+      currentStepProgress++;
+      playChime(587);
+
+      if (currentStepProgress === step.target) {
+        playChime(880);
+      }
+      renderCurrentWorkoutStep();
+    }
+
+    function nextWorkoutStep() {
+      const routine = WORKOUT_ROUTINES_CATALOG[activeRoutineKey];
+      if (activeStepIndex < routine.steps.length - 1) {
+        activeStepIndex++;
+        currentStepProgress = 0;
+        playChime(784);
+        renderCurrentWorkoutStep();
+      } else {
+        validateWorkoutSet();
+      }
+    }
+
+    function prevWorkoutStep() {
+      if (activeStepIndex > 0) {
+        activeStepIndex--;
+        currentStepProgress = 0;
+        playChime(440);
+        renderCurrentWorkoutStep();
       }
     }
 
     function validateWorkoutSet() {
       playChime(1046);
-      addExperience(120);
-      state.player.shadowCrystals += 15;
+      addExperience(250);
+      state.player.shadowCrystals += 30;
       saveState();
       const cEl = document.getElementById('header-crystals-val');
       if (cEl) cEl.textContent = state.player.shadowCrystals;
 
+      const routine = WORKOUT_ROUTINES_CATALOG[activeRoutineKey];
       showSysNotification(
-        "💪 [SÉRIE CALISTHÉNIQUE VALIDÉE]",
-        "Série de " + workoutReps + " répétitions validée avec posture stricte.<br>Gains : <strong>+120 XP STR</strong> et <strong>+15 Cristaux d'Ombre 💎</strong>."
+        "💪 [QUÊTE CALISTHÉNIQUE VALIDÉE]",
+        "La <strong>" + routine.name + "</strong> a été exécutée selon les critères stricts du Système.<br>Gains : <strong>+250 XP STR</strong> et <strong>+30 Cristaux d'Ombre 💎</strong>."
       );
     }
 

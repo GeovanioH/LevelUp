@@ -2,6 +2,10 @@ import { describe, it, expect, beforeEach } from "vitest";
 import {
   RoutineSequenceEngine,
   ROUTINE_DOS_EPAULES_17_STEPS,
+  ROUTINE_BRAS_TRICEPS,
+  ROUTINE_ABDOS_ACIER,
+  ROUTINE_DAILY_COMPLETE,
+  ROUTINE_CATALOG,
   type RoutineStep,
 } from "../../../apps/web/src/features/cv/routineSequenceEngine";
 
@@ -72,5 +76,69 @@ describe("Routine Dos & Épaules (17 Canonical Steps)", () => {
 
     expect(engine.isRoutineCompleted()).toBe(true);
     expect(engine.getProgressPercentage()).toBe(100);
+  });
+});
+
+describe("Routine Bras & Triceps Calisthenics (6 Étapes - Profil Personnel)", () => {
+  it("contains exactly 6 arm exercises matching personal profile", () => {
+    expect(ROUTINE_BRAS_TRICEPS).toHaveLength(6);
+    expect(ROUTINE_BRAS_TRICEPS[0].name).toBe("Push-Ups Classiques");
+    expect(ROUTINE_BRAS_TRICEPS[1].name).toBe("Decline Push-Ups");
+    expect(ROUTINE_BRAS_TRICEPS[2].name).toBe("Diamond Push-Ups");
+    expect(ROUTINE_BRAS_TRICEPS[3].name).toBe("Pike Push-Ups");
+    expect(ROUTINE_BRAS_TRICEPS[4].name).toBe("Wide Push-Ups");
+    expect(ROUTINE_BRAS_TRICEPS[5].name).toBe("Tricep Cross Extensions au sol");
+  });
+});
+
+describe("Routine Abdos & Core d'Acier (5 Étapes - Profil Personnel)", () => {
+  it("contains exactly 5 abdominal core exercises matching personal profile", () => {
+    expect(ROUTINE_ABDOS_ACIER).toHaveLength(5);
+    expect(ROUTINE_ABDOS_ACIER[0].name).toBe("V-Ups Synchronisés");
+    expect(ROUTINE_ABDOS_ACIER[1].name).toBe("Mountain Climbers Rapides");
+    expect(ROUTINE_ABDOS_ACIER[2].name).toBe("Relevés de Jambes au sol");
+    expect(ROUTINE_ABDOS_ACIER[3].name).toBe("Gainage Planche Classique");
+    expect(ROUTINE_ABDOS_ACIER[4].name).toBe("Gainage Latéral");
+  });
+});
+
+describe("Trinité Calisthénique Quotidienne Complète (28 Étapes)", () => {
+  it("concatenates Dos & Épaules (17), Bras (6) et Abdos (5) into a unified 28-step engine", () => {
+    expect(ROUTINE_DAILY_COMPLETE).toHaveLength(28);
+    const fullEngine = new RoutineSequenceEngine(ROUTINE_DAILY_COMPLETE);
+
+    // Initial step is Jumping Jacks (from Dos & Épaules)
+    expect(fullEngine.getCurrentStep().name).toBe("Jumping Jacks");
+
+    // Fast-forward through first 17 steps (Dos & Épaules)
+    for (let i = 0; i < 17; i++) {
+      const q = fullEngine.getCurrentStep().targetReps ?? fullEngine.getCurrentStep().targetSeconds ?? 1;
+      fullEngine.addProgress(q);
+      fullEngine.nextStep();
+    }
+
+    // Step 17 is the start of Bras & Triceps
+    expect(fullEngine.getCurrentStepIndex()).toBe(17);
+    expect(fullEngine.getCurrentStep().name).toBe("Push-Ups Classiques");
+
+    // Fast-forward through Bras (6 steps)
+    for (let i = 0; i < 6; i++) {
+      const q = fullEngine.getCurrentStep().targetReps ?? fullEngine.getCurrentStep().targetSeconds ?? 1;
+      fullEngine.addProgress(q);
+      fullEngine.nextStep();
+    }
+
+    // Step 23 is the start of Abdos & Core
+    expect(fullEngine.getCurrentStepIndex()).toBe(23);
+    expect(fullEngine.getCurrentStep().name).toBe("V-Ups Synchronisés");
+
+    // Fast-forward through Abdos (5 steps)
+    for (let i = 0; i < 5; i++) {
+      const q = fullEngine.getCurrentStep().targetReps ?? fullEngine.getCurrentStep().targetSeconds ?? 1;
+      fullEngine.addProgress(q);
+      fullEngine.nextStep();
+    }
+
+    expect(fullEngine.isRoutineCompleted()).toBe(true);
   });
 });

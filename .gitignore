@@ -31,3 +31,7 @@ pnpm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
+
+# Personal Configuration (Never committed)
+config/personal_profile.md
+*personal_profile*

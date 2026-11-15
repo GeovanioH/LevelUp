@@ -120,36 +120,39 @@ export const ROUTINE_DOS_EPAULES_17_STEPS: readonly RoutineStep[] = [
 export const ROUTINE_BRAS_TRICEPS: readonly RoutineStep[] = [
   {
     id: "arm-01",
-    name: "Dips Calisthéniques",
+    name: "Push-Ups Classiques",
     targetReps: 15,
-    description:
-      "Triceps et faisceau inférieur pectoral (flexion coude <= 75°)",
+    description: "Pectoraux et triceps au poids du corps avec tempo contrôlé",
   },
   {
     id: "arm-02",
-    name: "Diamond Push-Ups",
+    name: "Decline Push-Ups",
     targetReps: 12,
-    description:
-      "Focus chefs médial et latéral du triceps à l'échec postural strict",
+    description: "Pieds surélevés : focus deltoïdes antérieurs et pectoraux hauts",
   },
   {
     id: "arm-03",
-    name: "Pompes Déclinées",
+    name: "Diamond Push-Ups",
     targetReps: 12,
-    description: "Pectoraux claviculaires et deltoïdes antérieurs",
+    description: "Mains en losange : isolation des chefs médial et latéral des triceps",
   },
   {
     id: "arm-04",
-    name: "Extensions Triceps au sol",
-    targetReps: 10,
-    description:
-      "Isolation triceps au poids du corps avec verrouillage scapulaire",
+    name: "Pike Push-Ups",
+    targetReps: 12,
+    description: "Flexion coude <= 75° : deltoïdes et chaîne de poussée verticale",
   },
   {
     id: "arm-05",
-    name: "Gainage Triceps Isométrique",
-    targetSeconds: 30,
-    description: "Contraction isométrique maximale de finition",
+    name: "Wide Push-Ups",
+    targetReps: 15,
+    description: "Prise large : ouverture thoracique et travail pectoral ciblé",
+  },
+  {
+    id: "arm-06",
+    name: "Tricep Cross Extensions au sol",
+    targetReps: 10,
+    description: "Isolation triceps au sol à l'échec postural strict",
   },
 ] as const;
 
@@ -157,7 +160,7 @@ export const ROUTINE_ABDOS_ACIER: readonly RoutineStep[] = [
   {
     id: "abs-01",
     name: "V-Ups Synchronisés",
-    targetReps: 15,
+    targetReps: 10,
     description:
       "Élévation simultanée tronc et membres inférieurs avec verrouillage lombaire",
   },
@@ -170,30 +173,61 @@ export const ROUTINE_ABDOS_ACIER: readonly RoutineStep[] = [
   {
     id: "abs-03",
     name: "Relevés de Jambes au sol",
-    targetReps: 15,
+    targetReps: 12,
     description: "Grand droit inférieur sans cambrure lombaire",
   },
   {
     id: "abs-04",
-    name: "Planche Dynamique",
-    targetSeconds: 45,
-    description: "Rétroversion pelvienne et bascule contrôlée du bassin",
+    name: "Gainage Planche Classique",
+    targetSeconds: 90,
+    description:
+      "Rétroversion pelvienne, côtes rentrées et fessiers contractés (1m30)",
   },
   {
     id: "abs-05",
-    name: "Hollow Body Hold",
-    targetSeconds: 30,
+    name: "Gainage Latéral",
+    targetSeconds: 45,
     description:
-      "Tension gymnastique pure, côtes rentrées et fessiers contractés",
-  },
-  {
-    id: "abs-06",
-    name: "Crunchs Bicyclette",
-    targetReps: 20,
-    description:
-      "Obliques internes et externes avec rotation contrôlée de la cage thoracique",
+      "Maintien oblique et alignement tête-bassin-chevilles (45s)",
   },
 ] as const;
+
+/**
+ * La Trinité Calisthénique Quotidienne Complète (28 Étapes)
+ * Enchaînement séquentiel strict : 1. Dos & Épaules (17) ➔ 2. Bras & Triceps (6) ➔ 3. Abdos & Core (5)
+ */
+export const ROUTINE_DAILY_COMPLETE: readonly RoutineStep[] = [
+  ...ROUTINE_DOS_EPAULES_17_STEPS,
+  ...ROUTINE_BRAS_TRICEPS,
+  ...ROUTINE_ABDOS_ACIER,
+] as const;
+
+export const ROUTINE_CATALOG = {
+  DOS_EPAULES: {
+    id: "dos-epaules-17",
+    title: "Routine Dos & Épaules (17 Étapes)",
+    category: "DOS_EPAULES",
+    steps: ROUTINE_DOS_EPAULES_17_STEPS,
+  },
+  BRAS_TRICEPS: {
+    id: "bras-triceps-6",
+    title: "Routine Bras & Triceps (6 Exercices)",
+    category: "BRAS",
+    steps: ROUTINE_BRAS_TRICEPS,
+  },
+  ABDOS_CORE: {
+    id: "abdos-core-5",
+    title: "Routine Abdos & Core d'Acier (5 Exercices)",
+    category: "ABDOS",
+    steps: ROUTINE_ABDOS_ACIER,
+  },
+  DAILY_COMPLETE: {
+    id: "daily-complete-28",
+    title: "Trinité Calisthénique Complète (28 Étapes)",
+    category: "DAILY_QUEST",
+    steps: ROUTINE_DAILY_COMPLETE,
+  },
+} as const;
 
 export class RoutineSequenceEngine {
   private readonly steps: readonly RoutineStep[];
