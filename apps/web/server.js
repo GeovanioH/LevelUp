@@ -8000,19 +8000,19 @@ function renderFullApplication(initialTab = "dashboard") {
 
       if (container) {
         if (!state.inventory || state.inventory.length === 0) {
-          container.innerHTML = '<div class="empty-inventory-msg" style="grid-column: 1 / -1; padding: 30px; text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 13px; border: 1px dashed var(--glass-inner-border); border-radius: 10px; background: rgba(15, 9, 38, 0.4);"><div style="font-size: 28px; margin-bottom: 8px;">🎒</div><div style="font-weight: bold; color: var(--text-secondary); margin-bottom: 4px;">VOTRE SAC D\'INVENTAIRE EST ACTUELLEMENT VIDE</div><div>Accomplissez vos quêtes quotidiennes (100 💎/jour) pour forger votre <strong>Pass Jour de Repos</strong> (600 💎) ou vos potions ci-dessous.</div></div>';
+          container.innerHTML = '<div class="empty-inventory-msg" style="grid-column: 1 / -1; padding: 30px; text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 13px; border: 1px dashed var(--glass-inner-border); border-radius: 10px; background: rgba(15, 9, 38, 0.4);"><div style="font-size: 28px; margin-bottom: 8px;">🎒</div><div style="font-weight: bold; color: var(--text-secondary); margin-bottom: 4px;">VOTRE SAC D&#39;INVENTAIRE EST ACTUELLEMENT VIDE</div><div>Accomplissez vos quêtes quotidiennes (100 💎/jour) pour forger votre <strong>Pass Jour de Repos</strong> (600 💎) ou vos potions ci-dessous.</div></div>';
         } else {
           container.innerHTML = state.inventory.map(function(inv) {
             var badgeColor = inv.type === 'REST_DAY' ? 'var(--imperial-gold)' : 'var(--primary)';
             var borderStyle = inv.type === 'REST_DAY' ? 'border-color: rgba(251, 191, 36, 0.45);' : 'border-color: var(--glass-inner-border);';
-            var desc = inv.type === 'REST_DAY' ? 'Octroie 24h d\'immunité totale contre le couvre-feu NextDNS et gèle les quêtes sans briser votre streak.' : (inv.type === 'POTION_MP' ? 'Recharge immédiate de +50 MP de concentration.' : (inv.type === 'POTION_HP' ? 'Restauration immédiate de +50 HP de vitalité.' : 'Article certifié du Système.'));
+            var desc = inv.type === 'REST_DAY' ? 'Octroie 24h d&#39;immunité totale contre le couvre-feu NextDNS et gèle les quêtes sans briser votre streak.' : (inv.type === 'POTION_MP' ? 'Recharge immédiate de +50 MP de concentration.' : (inv.type === 'POTION_HP' ? 'Restauration immédiate de +50 HP de vitalité.' : 'Article certifié du Système.'));
             var actionBtn = '';
             if (inv.type === 'REST_DAY') {
-              actionBtn = inv.used ? '<span class="radar-ping-badge" style="color: var(--tertiary); border-color: var(--tertiary);">✓ UTILISÉ AUJOURD\'HUI</span>' : '<button class="btn-cyber btn-gold" style="font-size: 11px; padding: 6px 14px;" onclick="activateRestDay(\'' + inv.id + '\')">⚡ ACTIVER LE REPOS (24H)</button>';
+              actionBtn = inv.used ? '<span class="radar-ping-badge" style="color: var(--tertiary); border-color: var(--tertiary);">✓ UTILISÉ AUJOURD&#39;HUI</span>' : '<button class="btn-cyber btn-gold" style="font-size: 11px; padding: 6px 14px;" onclick="activateRestDay(\\"' + inv.id + '\\")">⚡ ACTIVER LE REPOS (24H)</button>';
             } else if (inv.type === 'POTION_MP') {
-              actionBtn = inv.used ? '<span class="radar-ping-badge" style="color: var(--text-muted);">CONSOMMÉ</span>' : '<button class="btn-cyber" style="font-size: 11px; padding: 6px 14px;" onclick="usePotion(\'' + inv.id + '\', \'MP\')">BOIRE (+50 MP)</button>';
+              actionBtn = inv.used ? '<span class="radar-ping-badge" style="color: var(--text-muted);">CONSOMMÉ</span>' : '<button class="btn-cyber" style="font-size: 11px; padding: 6px 14px;" onclick="usePotion(\\"' + inv.id + '\\", \\"MP\\")">BOIRE (+50 MP)</button>';
             } else if (inv.type === 'POTION_HP') {
-              actionBtn = inv.used ? '<span class="radar-ping-badge" style="color: var(--text-muted);">CONSOMMÉ</span>' : '<button class="btn-cyber btn-green" style="font-size: 11px; padding: 6px 14px;" onclick="usePotion(\'' + inv.id + '\', \'HP\')">BOIRE (+50 HP)</button>';
+              actionBtn = inv.used ? '<span class="radar-ping-badge" style="color: var(--text-muted);">CONSOMMÉ</span>' : '<button class="btn-cyber btn-green" style="font-size: 11px; padding: 6px 14px;" onclick="usePotion(\\"' + inv.id + '\\", \\"HP\\")">BOIRE (+50 HP)</button>';
             } else {
               actionBtn = '<span class="radar-ping-badge" style="color: var(--neon-cyan);">ACTIF</span>';
             }
@@ -8673,11 +8673,11 @@ function renderFullApplication(initialTab = "dashboard") {
         alertWrapper.style.opacity = '1';
       }
 
-      // Automatically transition to application after 2.2s (or on user click)
+      // Automatically transition to application after 2.5s (or on user click)
       if (alertAutoDismissTimer) clearTimeout(alertAutoDismissTimer);
       alertAutoDismissTimer = setTimeout(() => {
         dismissIntroOverlay();
-      }, 2200);
+      }, 2500);
     }
 
     function handleIntroOverlayClick() {
@@ -8704,7 +8704,7 @@ function renderFullApplication(initialTab = "dashboard") {
         return;
       }
 
-      // Stop heavy particles during intro video playback to free 100% CPU/GPU for 4K video decoding
+      // Stop heavy particles during intro video playback to free 100% CPU/GPU
       stopManaAnimation();
 
       overlay.classList.remove('dismissed');
@@ -8726,31 +8726,41 @@ function renderFullApplication(initialTab = "dashboard") {
       video.setAttribute('muted', '');
       video.setAttribute('playsinline', '');
 
-      // 1. ABSOLUTE FAIL-SAFE: At exactly 8.0 seconds (8000ms), force video disappearance!
+      // 1. Initial absolute fail-safe timer (12s) if network is slow or video stalls
       if (introForceTimer) clearTimeout(introForceTimer);
       introForceTimer = setTimeout(() => {
         showIntroAlertScreen();
-      }, 8000);
+      }, 12000);
 
-      // 2. High-Frequency Poller (every 40ms) to detect when video finishes (currentTime >= 7.6s or ended)
+      // 2. Dynamic timer once video starts actively playing
+      const onPlaying = () => {
+        const dur = (video.duration && !isNaN(video.duration) && video.duration > 0) ? video.duration : 8.0;
+        if (introForceTimer) clearTimeout(introForceTimer);
+        introForceTimer = setTimeout(() => {
+          showIntroAlertScreen();
+        }, Math.ceil((dur + 1.2) * 1000));
+      };
+      video.addEventListener('playing', onPlaying, { once: true });
+
+      // 3. High-Frequency Poller (every 50ms) to detect when video finishes naturally
       if (introPlaybackPoller) clearInterval(introPlaybackPoller);
       introPlaybackPoller = setInterval(() => {
         if (!video) return;
-        if (video.currentTime >= 7.6 || video.ended || (video.duration && video.currentTime >= video.duration - 0.2)) {
+        if (video.ended || (video.duration && video.currentTime >= video.duration - 0.2)) {
           showIntroAlertScreen();
         }
-      }, 40);
+      }, 50);
 
-      // 3. Native event listeners
+      // 4. Native event listeners
       video.addEventListener('ended', showIntroAlertScreen);
       video.addEventListener('timeupdate', () => {
-        if (video.currentTime >= 7.6 || (video.duration && video.currentTime >= video.duration - 0.2)) {
+        if (video.duration && video.currentTime >= video.duration - 0.2) {
           showIntroAlertScreen();
         }
       });
       video.addEventListener('error', showIntroAlertScreen);
 
-      // 4. Start playback
+      // 5. Start playback
       try {
         const playPromise = video.play();
         if (playPromise !== undefined) {
@@ -8831,16 +8841,27 @@ function renderFullApplication(initialTab = "dashboard") {
         introAlertShown = false;
         video.currentTime = 0;
 
+        if (introForceTimer) clearTimeout(introForceTimer);
         introForceTimer = setTimeout(() => {
           showIntroAlertScreen();
-        }, 8000);
+        }, 12000);
 
+        const onReplayPlaying = () => {
+          const dur = (video.duration && !isNaN(video.duration) && video.duration > 0) ? video.duration : 8.0;
+          if (introForceTimer) clearTimeout(introForceTimer);
+          introForceTimer = setTimeout(() => {
+            showIntroAlertScreen();
+          }, Math.ceil((dur + 1.2) * 1000));
+        };
+        video.addEventListener('playing', onReplayPlaying, { once: true });
+
+        if (introPlaybackPoller) clearInterval(introPlaybackPoller);
         introPlaybackPoller = setInterval(() => {
           if (!video) return;
-          if (video.currentTime >= 7.6 || video.ended || (video.duration && video.currentTime >= video.duration - 0.2)) {
+          if (video.ended || (video.duration && video.currentTime >= video.duration - 0.2)) {
             showIntroAlertScreen();
           }
-        }, 40);
+        }, 50);
 
         try {
           video.play();
