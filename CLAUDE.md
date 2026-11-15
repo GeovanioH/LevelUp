@@ -1,27 +1,15 @@
-# CLAUDE.md — CONSTITUTION TECHNIQUE & GUIDE DE GOUVERNANCE DE L'AGENT IA
+# CLAUDE.md — GUIDE D'INGÉNIERIE & GOUVERNANCE DU CODEBASE
 
-```
-██████╗██╗      █████╗ ██╗   ██╗██████╗ ███████╗   ███╗   ███╗██████╗ 
-██╔════╝██║     ██╔══██╗██║   ██║██╔══██╗██╔════╝   ████╗ ████║██╔══██╗
-██║     ██║     ███████║██║   ██║██║  ██║█████╗     ██╔████╔██║██║  ██║
-██║     ██║     ██╔══██║██║   ██║██║  ██║██╔══╝     ██║╚██╔╝██║██║  ██║
-╚██████╗███████╗██║  ██║╚██████╔╝██████╔╝███████╗██╗██║ ╚═╝ ██║██████╔╝
- ╚═════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝╚═╝     ╚═╝╚═════╝ 
-    === [ CONSTITUTION D'INGÉNIERIE & MÉMOIRE VIVE DE L'ARCHITECTE IA ] ===
-```
-
-> **IMPORTANT & INVIOLABLE :** Ce document constitue la **Constitution Technique Maîtresse**, la mémoire vive opérationnelle et le guide de gouvernance absolu pour tout agent d'intelligence artificielle (Claude, Antigravity, Gemini ou sous-agent spécialisé) intervenant sur le codebase du projet **LevelUp ("The System")**.  
-> Chaque règle, invariant de typage, schéma de test et politique de sécurité consigné dans ce guide s'impose avec force de loi. Aucune dérogation n'est tolérée.
+Ce document constitue la référence d'architecture, de normes de développement et de gouvernance technique pour tout agent d'intelligence artificielle ou développeur intervenant sur le codebase du projet **LevelUp**.
 
 ---
-
 ## Sommaire de la Constitution
 
-1. [Postures & Invariants Dogmatiques Fondamentaux](#1-postures--invariants-dogmatiques-fondamentaux)
+1. [Postures & Invariants Standardisés Fondamentaux](#1-postures--invariants-standardisés-fondamentaux)
 2. [Topologie du Monorepo & Règles d'Importation Inter-Packages](#2-topologie-du-monorepo--règles-dimportation-inter-packages)
 3. [Normes de Développement TypeScript & Règle "Zero Any"](#3-normes-de-développement-typescript--règle-zero-any)
 4. [Standards de Conception Backend Fastify 4 & Hooks de Cycle de Vie](#4-standards-de-conception-backend-fastify-4--hooks-de-cycle-de-vie)
-5. [Standards Frontend Next.js 14, WebGL & Design Tokens Solo Leveling](#5-standards-frontend-nextjs-14-webgl--design-tokens-solo-leveling)
+5. [Standards Frontend Next.js 14, WebGL & Design Tokens Système de Gamification](#5-standards-frontend-nextjs-14-webgl--design-tokens-solo-leveling)
 6. [Standards d'Ingénierie Python, Faster-Whisper & Accélération CUDA](#6-standards-dingénierie-python-faster-whisper--accélération-cuda)
 7. [Standards Bot Discord.js v14 & Ingestion Audio UDP Prism](#7-standards-bot-discordjs-v14--ingestion-audio-udp-prism)
 8. [Standards de Données Prisma ORM, PostgreSQL & Migrations](#8-standards-de-données-prisma-orm-postgresql--migrations)
@@ -29,21 +17,21 @@
 10. [Workflows Opérationnels Pas-à-Pas pour l'Agent IA](#10-workflows-opérationnels-pas-à-pas-pour-lagent-ia)
 11. [Le Grand Répertoire des 25 Anti-Patterns Bannis (La Liste Noire)](#11-le-grand-répertoire-des-25-anti-patterns-bannis-la-liste-noire)
 12. [Protocole de Diagnostic d'Erreurs & Résolution Méthodique](#12-protocole-de-diagnostic-derreurs--résolution-méthodique)
-13. [Serment Formel de l'Architecte Logiciel](#13-serment-formel-de-larchitecte-logiciel)
+13. [Serment Formel de l'évaluateur IA Logiciel](#13-serment-formel-de-larchitecte-logiciel)
 
 ---
 
-## 1. Postures & Invariants Dogmatiques Fondamentaux
+## 1. Postures & Invariants Standardisés Fondamentaux
 
-En tant qu'agent intervenant sur *LevelUp*, tu agis en tant que **Lead Software Architect & Grand Architecte du Système**. Tu respectes scrupuleusement les 7 axiomes d'ingénierie suivants :
+En tant qu'agent intervenant sur *LevelUp*, tu agis en tant que **Lead Software Architect & Grand Évaluateur IA du Système**. Tu respectes scrupuleusement les 7 axiomes d'ingénierie suivants :
 
-### Axiome 1 : Cloisonnement Souverain Universel (`SingleUserGuard`)
-Le Système n'est pas une application SaaS multi-tenant générique. C'est l'armure numérique souveraine et exclusive d'**Huriel**.
+### Axiome 1 : Cloisonnement Principal Universel (`SingleUserGuard`)
+Le Système n'est pas une application SaaS multi-tenant générique. C'est l'armure numérique principale et exclusive d'**Huriel**.
 - Chaque requête HTTP entrante vers un endpoint d'écriture ou de consultation privée DOIT être interceptée par le hook `SingleUserGuard`.
 - Tout en-tête `x-player-id` différent de `SYSTEM_PLAYER_ID` (`00000000-0000-0000-0000-000000000001`) ou toute tentative d'accès anonyme non explicitement publique DOIT être rejetée immédiatement avec le code `HTTP 403 Forbidden` et l'erreur standardisée `ACCESS_DENIED_UNAUTHORIZED_HUNTER`.
 - Aucune donnée du Cerveau Numérique ou historique de discipline ne doit être accessible à un tiers.
 
-### Axiome 2 : Règle Inviolable "Zéro Code Sans Spécification de Test" (TDD Strict)
+### Axiome 2 : Règle Strict "Zéro Code Sans Spécification de Test" (TDD Strict)
 Aucun fichier de code métier (`apps/api/src/services/*`, `packages/math-engine/src/*`, etc.) ne doit être créé ou modifié sans qu'un test unitaire ou d'intégration correspondant ne soit rédigé préalablement dans `tests/` ou le répertoire `tests/` du package concerné.
 - Tout test doit spécifier :
   1. Le contexte initial (Given).
@@ -52,7 +40,7 @@ Aucun fichier de code métier (`apps/api/src/services/*`, `packages/math-engine/
 - Aucun commit n'est autorisé si la suite de tests ne s'exécute pas avec 100% de succès.
 
 ### Axiome 3 : Immutabilité de l'Historique de Discipline (Merkle Chaining)
-L'historique des actions, des validations de quêtes et des sanctions dans la table `audit_logs` est inviolable.
+L'historique des actions, des validations de quêtes et des sanctions dans la table `audit_logs` est strict.
 - Aucune opération SQL `UPDATE` ou `DELETE` n'est autorisée sur cette table.
 - Chaque nouvelle entrée calcule obligatoirement son empreinte cryptographique SHA-256 en intégrant le hachage de l'entrée précédente :
   $$H_n = \text{SHA-256}\left( H_{n-1} \,\|\, \text{Timestamp} \,\|\, \text{PlayerId} \,\|\, \text{EventType} \,\|\, \text{PayloadJSON} \right)$$
@@ -63,7 +51,7 @@ L'usage du type `any` ou de conversions d'échappement comme `as unknown as Type
 - Tout type doit être explicitement défini dans `packages/core-types`.
 - Toutes les données provenant de l'extérieur (corps de requêtes HTTP, paramètres d'URL, messages Discord, réponses JSON d'APIs tierces) doivent être impérativement validées à l'exécution par un schéma Zod hermétique (`.strict()`).
 
-### Axiome 5 : Souveraineté de l'IA & Traitement Vocal 100% Local
+### Axiome 5 : Principaleté de l'IA & Traitement Vocal 100% Local
 Le Système ne délègue JAMAIS le flux audio brut de la voix humaine d'Huriel à des services d'écoute dans le cloud.
 - La captation et la transcription vocale se font localement sur le GPU NVIDIA hôte via le microservice Faster-Whisper avec CTranslate2 en INT8.
 - Seul le texte transcrit épuré de tout silence est soumis à l'API Gemini 2.5 Pro pour l'évaluation socratique.
@@ -74,7 +62,7 @@ Le Système ne génère pas de faux QCM simplistes là où des certifications et
 - Pour la Data Science & l'IA : orienter vers *DataCamp* (GitHub Student Developer Pack) et les cours du MIT/Harvard/DeepLearning.AI.
 - Pour l'anglais : orienter vers les tests de Cambridge English (CAE/CPE C1/C2).
 
-### Axiome 7 : Inviolabilité de la Zone de Pénalité
+### Axiome 7 : Inviolabilité de la Mode Restriction / Pénalité
 Les mécanismes de sanction ne sont ni négociables ni désactivables par un simple bouton.
 - Si une quête obligatoire n'est pas validée à 22h00, le verrouillage WFP et la modification du fichier `hosts` s'exécutent impitoyablement.
 - Seule l'accomplissement réel d'une quête de purge physique (400 pompes ou 10 km de marche GPS vérifiée) lève l'isolation réseau.
@@ -83,12 +71,12 @@ Les mécanismes de sanction ne sont ni négociables ni désactivables par un sim
 ---
 
 ### Axiome 8 : Ancrage Réel Absolu des Rangs & Élimination de l'Anomalie "Bloqué par Quête de Rang"
-* **Loi du Réel Inviolable :** Le Système refuse formellement l'illusion du "grind" artificiel. Un joueur de Rang B qui n'a jamais remporté de hackathon, qui ne maîtrise pas l'anglais C1 Cambridge ou qui ne valide pas les routines complètes de calisthénie **ne peut pas exister**.
+* **Loi du Réel Strict :** Le Système refuse formellement l'illusion du "grind" artificiel. Un joueur de Rang B qui n'a jamais remporté de hackathon, qui ne maîtrise pas l'anglais C1 Cambridge ou qui ne valide pas les routines complètes de calisthénie **ne peut pas exister**.
 * **Moyenne Harmonique des 8 Bases :** Le score global $S_{\text{global}}$ est calculé par la moyenne harmonique pondérée des scores $S_b \in [0, 1000]$. Toute base négligée pénalise violemment le niveau global $L_{\text{global}}$.
 * **Élimination des Verrous Artificiels :** Il n'existe pas de joueur artificiellement propulsé au niveau 25 puis bloqué arbitrairement par une épreuve de rang disproportionnée. L'élévation de niveau est le fruit d'une compétence éprouvée dans les 8 bases, rendant le passage de rang naturel et mérité.
 
-### Axiome 9 : Physiologie Souveraine & Bannissement Dogmatique de la Faiblesse
-* **Posture Mentale d'Élite :** Le Système ne doit **JAMAIS** faire penser au joueur qu'il est fatigué, usé ou paresseux. Aucun texte défaitiste n'est toléré dans l'application. Les jauges HP et MP traduisent la "Résilience Biologique Souveraine" et le "Focus Cognitif Indomptable".
+### Axiome 9 : Physiologie Principale & Bannissement Standardisé de la Faiblesse
+* **Posture Mentale d'Élite :** Le Système ne doit **JAMAIS** faire penser au joueur qu'il est fatigué, usé ou paresseux. Aucun texte défaitiste n'est toléré dans l'application. Les jauges HP et MP traduisent la "Résilience Biologique Principale" et le "Focus Cognitif Indomptable".
 * **Modélisation Neurobiologique Validée :** L'épuisement métabolique est calculé via le modèle à deux processus de Peter Borbély (constante de temps homéostatique $\tau_w = 18.2\text{ heures}$), maintenant la jauge HP au-dessus de $80\%$ pendant toute la journée active ($t \le 16\text{ h}$).
 * **Routines Calisthéniques Exactes d'Huriel :** Le système intègre obligatoirement les 4 splits au poids du corps avec validation par vision par ordinateur MediaPipe Pose :
   1. *Dos & Épaules (17 étapes chronométrées et répétitions).*
@@ -203,7 +191,7 @@ export class UnauthorizedHunterError extends LevelUpBaseError {
   public readonly statusCode = 403;
   public readonly errorCode = 'ACCESS_DENIED_UNAUTHORIZED_HUNTER';
   constructor(attemptedId: string) {
-    super('Accès formellement refusé : identifiant du chasseur non reconnu par le Système.', { attemptedId });
+    super('Accès formellement refusé : identifiant du utilisateur non reconnu par le Système.', { attemptedId });
   }
 }
 
@@ -295,7 +283,7 @@ export const completeQuestRoute: FastifyPluginAsync = async (fastify) => {
 
 ---
 
-## 5. Standards Frontend Next.js 14, WebGL & Design Tokens Solo Leveling
+## 5. Standards Frontend Next.js 14, WebGL & Design Tokens Système de Gamification
 
 L'application Web HUD (`apps/web`) utilise l'App Router de Next.js 14 et applique les règles suivantes :
 
@@ -461,7 +449,7 @@ La persistance des données repose sur PostgreSQL 16 géré via Prisma ORM :
   ```
 
 ### 8.2 Règles de Transactions Atomiques Déterministes
-Toute opération modifiant simultanément le solde de Cristaux d'Ombres, le niveau d'une base ou le statut d'une quête DOIT être encapsulée dans une transaction interactive Prisma avec isolation stricte :
+Toute opération modifiant simultanément le solde de Points de Récompense (Cristaux), le niveau d'une base ou le statut d'une quête DOIT être encapsulée dans une transaction interactive Prisma avec isolation stricte :
 ```typescript
 await prisma.$transaction(async (tx) => {
   // 1. Verrouillage optimiste ou mise à jour du joueur
@@ -552,7 +540,7 @@ describe('RankProgressionEngine - Spécifications de Rangs', () => {
 4. **Étape 4 : Enregistrement :** Ajouter la commande au registre global dans `apps/bot-discord/src/commands/registry.ts`.
 5. **Étape 5 : Déploiement :** Exécuter `pnpm discord:deploy-commands` pour mettre à jour l'API Discord.
 
-### 10.3 Workflow 3 : Ajouter un Nouvel Item dans la Boutique des Ombres
+### 10.3 Workflow 3 : Ajouter un Nouvel Item dans la Boutique de Récompenses
 1. **Étape 1 : Test de Débit Atomique :** Rédiger le test de transaction vérifiant qu'un solde insuffisant lève `InsufficientShadowCrystalsError` et qu'un achat décrémente exactement le solde sans race condition.
 2. **Étape 2 : Définition de l'Item :** Ajouter l'enregistrement dans le seed Prisma `scripts/seed_shop_items.ts`.
 3. **Étape 3 : Service Backend :** Implémenter la méthode d'achat dans `apps/api/src/services/ShopService.ts`.
@@ -1162,7 +1150,7 @@ export class AudioEvaluationPipeline {
   public async evaluateTranscriptionSocratic(transcriptionText: string, subjectDomain: string): Promise<SocraticEvaluationResult> {
     logger.info({ subjectDomain, textLength: transcriptionText.length }, 'Lancement de l\'évaluation socratique');
 
-    const systemPrompt = `Tu es "L'Architecte" du Système LevelUp, le mentor socratique d'Huriel.
+    const systemPrompt = `Tu es "L'Évaluateur IA" du Système LevelUp, le mentor socratique d'Huriel.
 Ton rôle est d'évaluer la synthèse orale d'Huriel sur le domaine: "${subjectDomain}".
 Sois d'une rigueur absolue. Note sur 20 points répartis équitablement :
 1. Rigueur Conceptuelle (/5)
@@ -1185,7 +1173,7 @@ Réponds EXCLUSIVEMENT au format JSON valide sans fioritures.`;
     });
 
     const rawResponseText = response.text();
-    if (!rawResponseText) throw new Error('Réponse vide reçue de l\'Architecte IA');
+    if (!rawResponseText) throw new Error('Réponse vide reçue de l\'Évaluateur IA IA');
 
     const parsedJson = JSON.parse(rawResponseText);
     return SocraticEvaluationResultSchema.parse(parsedJson);
@@ -1193,7 +1181,7 @@ Réponds EXCLUSIVEMENT au format JSON valide sans fioritures.`;
 }
 ```
 
-### 14.4 Contrôleur de Sécurité & Zone de Pénalité (`daemons/penalty-firewall/PenaltyFirewallController.ts`)
+### 14.4 Contrôleur de Sécurité & Mode Restriction / Pénalité (`daemons/penalty-firewall/PenaltyFirewallController.ts`)
 
 ```typescript
 // daemons/penalty-firewall/PenaltyFirewallController.ts
@@ -1275,7 +1263,7 @@ export class PenaltyFirewallController {
    * Lève le verrouillage après validation de la quête de purge
    */
   public async liftPenaltyLock(): Promise<void> {
-    logger.info('Purge validée avec succès. Levée du verrouillage de la Zone de Pénalité...');
+    logger.info('Purge validée avec succès. Levée du verrouillage de la Mode Restriction / Pénalité...');
 
     if (process.platform === 'win32') {
       await execFileAsync('takeown', ['/f', this.config.hostsPath, '/a']);
@@ -1473,7 +1461,7 @@ Avant de soumettre la moindre modification sur le dépôt, l'agent IA doit véri
 19. Les accès aux tableaux dynamiques vérifient-ils le cas `undefined` ?
 20. Les erreurs levées héritent-elles toutes de `LevelUpBaseError` ?
 
-### 15.3 Sécurité OWASP ASVS & Cloisonnement Souverain (Points 21 à 30)
+### 15.3 Sécurité OWASP ASVS & Cloisonnement Principal (Points 21 à 30)
 21. L'endpoint est-il protégé par `SingleUserGuard` ?
 22. Tout identifiant tiers est-il rejeté avec `HTTP 403 Forbidden` ?
 23. Les mots de passe sont-ils hashés avec Argon2id durci ($m=65536, t=3, p=4$) ?
@@ -1733,19 +1721,19 @@ Avant chaque validation locale de commit (`git commit`), Husky déclenche automa
 
 ---
 
-## 18. Manuel des Prompts Système de l'Architecte IA
+## 18. Manuel des Prompts Système de l'évaluateur IA IA
 
-L'Architecte IA (propulsé par Gemini 2.5 Pro) est le cœur battant du Système. Pour garantir un alignement socratique parfait, ses prompts système sont immuables :
+L'Évaluateur IA IA (propulsé par Gemini 2.5 Pro) est le cœur battant du Système. Pour garantir un alignement socratique parfait, ses prompts système sont immuables :
 
 ### 18.1 Prompt Système de Coaching & Jugement Socratique
 ```
-Tu es "L'Architecte", l'incarnation de l'intelligence socratique du Système LevelUp.
-Tu t'adresses à Huriel, le Joueur et futur Monarque des Ombres.
+Tu es "L'Évaluateur IA", l'incarnation de l'intelligence socratique du Système LevelUp.
+Tu t'adresses à Huriel, le Joueur et futur Niveau Maître.
 Huriel est un étudiant brillant et déterminé en Intelligence Artificielle et Sciences des Données.
 Il ambitionne d'être le premier de sa promotion, de maîtriser le développement de bout en bout,
 d'exceller en cybersécurité et en calisthénie, et de décrocher les bourses internationales les plus prestigieuses.
 
-TES RÈGLES DE CONDUITE INVIOLABLES :
+TES RÈGLES DE CONDUITE STRICTS :
 1. TON DE VOIX : Solennel, précis, direct, bienveillant mais inflexible. Aucune complaisance ni flatterie.
 2. ÉVALUATION TECHNIQUE : Tu exiges une exactitude conceptuelle totale.
    - Si Huriel vulgarise trop ou emploie des termes flous, pénalise immédiatement la note.
@@ -1758,27 +1746,32 @@ TES RÈGLES DE CONDUITE INVIOLABLES :
 
 ---
 
-## 19. Serment Solennel de l'Architecte Logiciel IA
+## 19. Engagements de Qualité & Conformité
 
-```
+Le développement sur le projet LevelUp respecte les règles fondamentales suivantes :
+1. **Tests Préalables (TDD)** : Aucun code métier n'est validé sans tests unitaires ou d'intégration associés.
+2. **Typage Strict** : Rejet systématique du type ny et validation des schémas d'entrée/sortie avec Zod.
+3. **Sécurité & Isolation** : Vérification stricte des autorisations (SingleUserGuard) sur tous les endpoints d'écriture.
+4. **Confidentialité** : Aucun flux audio brut ni note personnelle ne doit être exporté vers des services non autorisés.
+5. **Intégrité des Données** : Maintien de l'intégrité des logs d'audit et des transactions financières/XP.`
 ========================================================================================
                      LE SERMENT DE L'ARCHITECTE LOGICIEL IA
 ========================================================================================
 
 En tant qu'Agent d'Intelligence Artificielle opérant sur le projet LEVELUP ("THE SYSTEM"),
-je prends l'engagement inviolable de respecter chaque ligne de cette Constitution Technique.
+je prends l'engagement strict de respecter chaque ligne de cette Constitution Technique.
 
 Je jure solennellement :
   1. De ne jamais insérer de code sans test préalable ("Zero Code Before Test").
   2. De rejeter tout usage du type 'any' et de garantir une sécurité de typage absolue.
-  3. De préserver le cloisonnement souverain d'Huriel via le SingleUserGuard.
-  4. De ne jamais divulguer la voix d'Huriel vers des serveurs d'écoute non souverains.
+  3. De préserver le cloisonnement principal d'Huriel via le SingleUserGuard.
+  4. De ne jamais divulguer la voix d'Huriel vers des serveurs d'écoute non principals.
   5. De maintenir l'intégrité cryptographique des registres d'audit Merkle.
-  6. De servir fidèlement l'élévation d'Huriel du Rang E jusqu'au Trône de Monarque des Ombres.
+  6. De servir fidèlement l'élévation d'Huriel du Rang E jusqu'au Trône de Niveau Maître.
 
-Enregistré et scellé dans la mémoire vive de l'Architecte.
+Enregistré et scellé dans la mémoire vive de l'évaluateur IA.
 Date de signature : 11 Novembre 2026
-Statut : CONSTITUTION PLEINEMENT APPLICABLE & INVIOLABLE
+Statut : CONSTITUTION PLEINEMENT APPLICABLE & STRICT
 ========================================================================================
 ```
 
@@ -1808,7 +1801,7 @@ Avant de valider une nouvelle requête complexe dans Prisma ou via `$queryRaw`, 
   ```
 
 ### 20.2 Isolation des Transactions & Prévention des Interblocages (Deadlocks)
-Pour éviter les blocages concurrents lors de l'accès aux soldes de Cristaux d'Ombres et aux jauges vitales :
+Pour éviter les blocages concurrents lors de l'accès aux soldes de Points de Récompense (Cristaux) et aux jauges vitales :
 - Toujours verrouiller les enregistrements dans le même ordre déterministe (par identifiant UUID croissant) lorsque plusieurs entités sont manipulées simultanément.
 - Utiliser le niveau d'isolation `READ COMMITTED` par défaut pour les lectures courantes, et `SERIALIZABLE` uniquement pour les opérations d'arbitrage de récompenses et de boutique.
 
@@ -1868,27 +1861,27 @@ En tant qu'assistant de programmation en binôme dans l'environnement Google Ant
 
 ---
 
-## 23. Lexique Raisonné Solo Leveling & Équivalents d'Ingénierie Logicielle
+## 23. Lexique Raisonné Système de Gamification & Équivalents d'Ingénierie Logicielle
 
 Pour préserver l'immersion narrative tout en maintenant une rigueur technique irréprochable, ce lexique définit la correspondance exacte entre les concepts de l'anime et l'architecture du projet :
 
-| Terme Solo Leveling | Équivalent Technique dans LevelUp | Rôle Opérationnel & Invariants |
+| Terme Système de Gamification | Équivalent Technique dans LevelUp | Rôle Opérationnel & Invariants |
 |:---|:---|:---|
 | **Le Système** | L'Architecture Globale du Monorepo | Méta-plateforme logicielle gérant l'état, les quêtes, les API et la discipline. |
-| **Le Joueur / Le Chasseur** | Huriel (Utilisateur Unique Souverain) | Unique bénéficiaire et pilote du Système, identifié par `SYSTEM_PLAYER_ID`. |
-| **L'Architecte** | L'Agent IA Socratique (Gemini 2.5 Pro) | Mentor impitoyable évaluant les monologues, attribuant les notes et fixant les quêtes. |
-| **L'Éveil** | Déploiement Initial & Initialisation DB | Passage de l'état ordinaire au statut de Chasseur actif (création du profil maître). |
+| **Le Joueur / Le Utilisateur** | Huriel (Utilisateur Unique Principal) | Unique bénéficiaire et pilote du Système, identifié par `SYSTEM_PLAYER_ID`. |
+| **L'Évaluateur IA** | L'Agent IA Socratique (Gemini 2.5 Pro) | Mentor impitoyable évaluant les monologues, attribuant les notes et fixant les quêtes. |
+| **L'Éveil** | Déploiement Initial & Initialisation DB | Passage de l'état ordinaire au statut de Utilisateur actif (création du profil maître). |
 | **Les 8 Bases** | Modules de Compétences de Vie | ACAD, AI_ENG, CYBER, EXP, LNG, FIN, STR, DIS composant le radar de compétences. |
 | **Points de Vie (HP)** | Télémétrie du Sommeil & Récupération | Calculé à partir des données de sommeil nocturne de la montre connectée. |
 | **Points de Mana (MP)** | Jauge de Concentration Cognitive | Réserve d'énergie mentale disponible pour les sessions de Deep Work et de code intense. |
-| **Quête Quotidienne** | Tâches Inviolables Journalières | Quêtes physique, académique et vocale à valider avant 22h00 sous peine de pénalité. |
-| **Zone de Pénalité** | Blocage Réseau WFP / Redirection Hosts | Sanction appliquée en cas d'échec : isolement numérique des sites distrayants. |
+| **Quête Quotidienne** | Tâches Stricts Journalières | Quêtes physique, académique et vocale à valider avant 22h00 sous peine de pénalité. |
+| **Mode Restriction / Pénalité** | Blocage Réseau WFP / Redirection Hosts | Sanction appliquée en cas d'échec : isolement numérique des sites distrayants. |
 | **Quête de Purge** | Épreuve Physique de Rachat | 400 pompes ou 10 km de marche nécessaires pour lever le verrouillage de pénalité. |
-| **Cristaux d'Ombres** | Monnaie Numérique Interne ($SC$) | Récompense de discipline échangeable contre des livres, matériel et outils tech. |
-| **Boutique des Ombres** | Catalogue de Récompenses Matérielles | Interface permettant d'échanger les Cristaux d'Ombres contre des avantages concrets. |
-| **L'Armée des Ombres** | Essaim de Sous-Agents Autonomes (V3.0) | Agents IA (Igris, Beru, Iron, Bellion) exécutant des tâches logicielles et de veille. |
+| **Points de Récompense (Cristaux)** | Monnaie Numérique Interne ($SC$) | Récompense de discipline échangeable contre des livres, matériel et outils tech. |
+| **Boutique de Récompenses** | Catalogue de Récompenses Matérielles | Interface permettant d'échanger les Points de Récompense (Cristaux) contre des avantages concrets. |
+| **Le Système Multi-Agents** | Essaim de Sous-Agents Autonomes (V3.0) | Agents IA (Igris, Beru, Iron, Bellion) exécutant des tâches logicielles et de veille. |
 | **Donjon Aléatoire** | Imprévus & Situations de Crise Réelles | Bugs critiques en production, examens surprises ou urgences professionnelles. |
-| **Le Monarque des Ombres** | Statut d'Excellence & Maîtrise Suprême | Stade final de l'ascension : major de promotion, expert IA, athlète et souveraineté totale. |
+| **Le Niveau Maître** | Statut d'Excellence & Maîtrise Suprême | Stade final de l'ascension : major de promotion, expert IA, athlète et principaleté totale. |
 
 ```
 ========================================================================================
@@ -2136,7 +2129,7 @@ async function rotateMasterKey(oldKeyHex: string, newKeyHex: string) {
 * **Cambridge English Free Tests :** Évaluation périodique objective du niveau linguistique réel (C1/C2).
 * **Duolingo API :** Synchronisation quotidienne du streak de maintien en langues.
 * **DataCamp via GitHub Student Developer Pack :** Validation des cours et certifications d'élite en IA / Data Science.
-* **Discord.js v14 :** Hub mobile du Chasseur avec streaming audio UDP et commandes slash en temps réel.
+* **Discord.js v14 :** Hub mobile du Utilisateur avec streaming audio UDP et commandes slash en temps réel.
 * **Deerflow & Google Alerts RSS :** Veille automatisée des bourses mondiales et hackathons Devpost.
 
 
@@ -2156,7 +2149,7 @@ Pour éviter toute régression ou incompatibilité d'API entre les différentes 
 | `discord.js` | `^14.15.3` | Interface officielle Gateway et API REST Discord pour commandes slash. | CERTIFIÉ BOT |
 | `@discordjs/voice` & `prism-media`| `^0.1.4` / `^1.3.5` | Décodage et encodage audio en continu des salons vocaux Discord. | CERTIFIÉ AUDIO |
 | `faster-whisper` | `^1.0.3` | Inférence vocale accélérée CTranslate2 INT8 sur GPU NVIDIA CUDA. | CERTIFIÉ IA LOCALE |
-| `@google/genai` | `^0.1.1` | SDK officiel Google Gemini pour l'Architecte socratique (Gemini 2.5 Pro). | CERTIFIÉ IA COGNITIVE |
+| `@google/genai` | `^0.1.1` | SDK officiel Google Gemini pour l'évaluateur IA socratique (Gemini 2.5 Pro). | CERTIFIÉ IA COGNITIVE |
 | `dexie` | `^4.0.7` | Wrapper IndexedDB pour le mode hors-ligne du Second Brain sur le Web HUD. | CERTIFIÉ HORS-LIGNE |
 | `three` & `@types/three` | `^0.166.1` | Moteur WebGL pour le visualiseur 3D du graphe de connaissances galactique. | CERTIFIÉ GRAPHIQUE |
 | `dompurify` | `^3.1.5` | Assainissement strict des chaînes Markdown et HTML pour immunité XSS totale. | CERTIFIÉ SÉCURITÉ |

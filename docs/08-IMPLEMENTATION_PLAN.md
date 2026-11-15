@@ -34,7 +34,7 @@ LevelUp/
 ├── apps/
 │   ├── web/                           # Next.js 14+ PWA (Web HUD Holographique)
 │   │   ├── app/                       # App Router (dashboard, skills, quests, etc.)
-│   │   ├── components/                # Composants React Solo Leveling
+│   │   ├── components/                # Composants React Système de Gamification
 │   │   ├── hooks/                     # Custom hooks (useAudio, useWebSocket)
 │   │   └── db/                        # Dexie.js (IndexedDB local)
 │   └── bot/                           # Discord.js v14 Gateway Daemon
@@ -80,8 +80,8 @@ flowchart TD
         Gate1{"Gate 1 : Validation Moteur"}
     end
 
-    subgraph P2 ["Phase 2 : HUD Web Holographique Solo Leveling"]
-        T2_1["2.1 : Design Tokens CSS, Thème Sombre Monarque & Thème Clair"]
+    subgraph P2 ["Phase 2 : HUD Web Holographique Système de Gamification"]
+        T2_1["2.1 : Design Tokens CSS, Thème Sombre Maître & Thème Clair"]
         T2_2["2.2 : Tableau de Bord HUD (Jauges HP/MP, Carte Identité)"]
         T2_3["2.3 : Navigateur de l'Arbre des 120 Compétences (DAG)"]
         T2_4["2.4 : Moteur Offline Dexie.js & Synchronisation Bidirectionnelle"]
@@ -104,11 +104,11 @@ flowchart TD
         Gate4{"Gate 4 : Validation Planner & Bot"}
     end
 
-    subgraph P5 ["Phase 5 : IA Architecte Socratique & Scraping Deerflow"]
+    subgraph P5 ["Phase 5 : IA Évaluateur IA Socratique & Scraping Deerflow"]
         T5_1["5.1 : Runtime Antigravity & Évaluation Socratique Gemini 2.5 Pro"]
         T5_2["5.2 : Générateur Dynamique de Quêtes Journalières selon Vitalité"]
         T5_3["5.3 : Worker Playwright Deerflow (Campus France, Devpost, MIT)"]
-        T5_4["5.4 : Boutique des Ombres & Économie des Cristaux"]
+        T5_4["5.4 : Boutique de Récompenses & Économie des Cristaux"]
         Gate5{"Gate 5 : Validation IA & Deerflow"}
     end
 
@@ -268,9 +268,9 @@ Pour chacune des 25 tâches, les blueprints de fichiers, commandes shell d'exéc
 
 ---
 
-### PHASE 2 : HUD Web Holographique Solo Leveling
+### PHASE 2 : HUD Web Holographique Système de Gamification
 
-#### Tâche 2.1 : Design Tokens CSS, Thème Sombre Monarque & Thème Clair
+#### Tâche 2.1 : Design Tokens CSS, Thème Sombre Maître & Thème Clair
 * **Composants & Fichiers Créés :**
   * `apps/web/styles/tokens.css`
   * `apps/web/tailwind.config.js`
@@ -419,7 +419,7 @@ Pour chacune des 25 tâches, les blueprints de fichiers, commandes shell d'exéc
 
 ---
 
-### PHASE 5 : IA Architecte Socratique & Scraping Deerflow
+### PHASE 5 : IA Évaluateur IA Socratique & Scraping Deerflow
 
 #### Tâche 5.1 : Runtime Antigravity & Évaluation Socratique Gemini 2.5 Pro
 * **Composants & Fichiers Créés :**
@@ -456,7 +456,7 @@ Pour chacune des 25 tâches, les blueprints de fichiers, commandes shell d'exéc
 
 ---
 
-#### Tâche 5.4 : Boutique des Ombres & Économie des Cristaux
+#### Tâche 5.4 : Boutique de Récompenses & Économie des Cristaux
 * **Composants & Fichiers Créés :**
   * `apps/web/app/shop/page.tsx`
   * `apps/web/server/services/ShopService.ts`
@@ -745,7 +745,7 @@ export class PlannerService {
 ```powershell
 <#
 .SYNOPSIS
-    Daemon de Contrôle de la Zone de Pénalité Solo Leveling sous Windows 11
+    Daemon de Contrôle de la Mode Restriction / Pénalité Système de Gamification sous Windows 11
 #>
 param (
     [switch]$TestMode
@@ -868,7 +868,7 @@ export class SecondBrainService {
 
 ---
 
-### 5.6 Blueprint 6 : IA Architecte & Évaluation Socratique (`apps/web/server/services/ArchitectService.ts`)
+### 5.6 Blueprint 6 : IA Évaluateur IA & Évaluation Socratique (`apps/web/server/services/ArchitectService.ts`)
 
 ```typescript
 import { GoogleGenAI } from '@google/genai';
@@ -936,13 +936,13 @@ export class DailyQuestGenerator {
     const isPenaltyActive = player.active_penalty;
     const questsToInsert = [];
 
-    // 1. Quête Physique Sung Jin-Woo (STR)
+    // 1. Quête Physique l'utilisateur (STR)
     questsToInsert.push({
       player_id: playerId,
       code: `DAILY_STR_${targetDate}`,
       type: 'DAILY' as const,
       target_stat: 'STR' as const,
-      title: "[Quête Journalière] L'Entraînement de Sung Jin-Woo",
+      title: "[Quête Journalière] L'Entraînement de l'utilisateur",
       description: "100 pompes, 100 abdominaux, 100 squats et course active.",
       status: 'AVAILABLE' as const,
       proof_type: 'SYSTEM_TELEMETRY' as const,
@@ -1012,7 +1012,7 @@ import axios from 'axios';
 export const statusCommand = {
   data: new SlashCommandBuilder()
     .setName('status')
-    .setDescription('Affiche le HUD holographique et l’état vital du Monarque.'),
+    .setDescription('Affiche le HUD holographique et l’état vital du Maître.'),
 
   async execute(interaction: ChatInputCommandInteraction) {
     if (!isAuthorizedMonarch(interaction)) return;
@@ -1028,15 +1028,15 @@ export const statusCommand = {
 
       const embed = new EmbedBuilder()
         .setColor(0x00e5ff)
-        .setTitle('⚡ [SYSTÈME // RAPPORT D’ÉTAT DU MONARQUE] ⚡')
-        .setDescription(`**Chasseur :** ${data.username} | **Rang :** ${data.rank.code} | **Niveau :** ${data.current_level}`)
+        .setTitle('⚡ [SYSTÈME // RAPPORT D’ÉTAT DU SYSTÈME] ⚡')
+        .setDescription(`**Utilisateur :** ${data.username} | **Rang :** ${data.rank.code} | **Niveau :** ${data.current_level}`)
         .addFields(
           { name: 'Expérience', value: `\`${data.total_xp}\` XP (${data.rank.progress_to_next_rank_pct}% vers Rang ${data.rank.next_rank})`, inline: false },
           { name: 'Points de Vie (HP)', value: `[██████████░░] ${data.vital_gauges.hp.current}% (${data.vital_gauges.hp.status_label})`, inline: true },
           { name: 'Énergie Mentale (MP)', value: `[████████░░░░] ${data.vital_gauges.mp.current}% (${data.vital_gauges.mp.status_label})`, inline: true },
           { name: 'Cristaux d’Ombres', value: `${data.shadow_crystals_balance} ❖`, inline: true }
         )
-        .setFooter({ text: 'The System • Solo Leveling Engine' })
+        .setFooter({ text: 'The System • Système de Gamification Engine' })
         .setTimestamp();
 
       await interaction.editReply({ embeds: [embed] });
@@ -1174,7 +1174,7 @@ Chaque phase d'ingénierie est verrouillée par 10 critères de conformité mesu
 
 ---
 
-### 6.3 Porte de Validation 2 : HUD Web Holographique Solo Leveling (`Gate 2`)
+### 6.3 Porte de Validation 2 : HUD Web Holographique Système de Gamification (`Gate 2`)
 1. [✓] Le layout Next.js 14 bascule instantanément (< 1 ms) entre le Thème Sombre et le Thème Clair.
 2. [✓] Le tableau de bord affiche les jauges HP et MP avec mise à jour réactive via Zustand.
 3. [✓] L'arbre de compétences DAG affiche les 120 nœuds sans chevauchement visuel.
@@ -1206,7 +1206,7 @@ Chaque phase d'ingénierie est verrouillée par 10 critères de conformité mesu
 1. [✓] Le planificateur rejette tout bloc horaire dont l'heure de fin est inférieure à l'heure de début.
 2. [✓] La détection de chevauchement bloque l'insertion de deux blocs en conflit sur la même journée.
 3. [✓] Le bot Discord.js v14 se connecte à la passerelle Gateway et enregistre les commandes Slash.
-4. [✓] La commande `/status` génère l'embed Solo Leveling avec les jauges ASCII et le rang exact.
+4. [✓] La commande `/status` génère l'embed Système de Gamification avec les jauges ASCII et le rang exact.
 5. [✓] La commande `/valider` transmet la preuve et crédite l'XP correspondante en moins de 500 ms.
 6. [✓] Le bot ignore et rejette immédiatement toute interaction provenant d'un ID Discord tiers.
 7. [✓] La file BullMQ planifie ponctuellement la génération des quêtes du matin à 06h00 UTC.
@@ -1216,24 +1216,24 @@ Chaque phase d'ingénierie est verrouillée par 10 critères de conformité mesu
 
 ---
 
-### 6.6 Porte de Validation 5 : IA Architecte Socratique & Scraping Deerflow (`Gate 5`)
-1. [✓] L'Agent Antigravity se connecte à l'API Gemini 2.5 Pro et applique le prompt de l'Architecte.
+### 6.6 Porte de Validation 5 : IA Évaluateur IA Socratique & Scraping Deerflow (`Gate 5`)
+1. [✓] L'Agent Antigravity se connecte à l'API Gemini 2.5 Pro et applique le prompt de l'évaluateur IA.
 2. [✓] L'évaluation d'un monologue retourne obligatoirement un JSON conforme au Zod schema.
 3. [✓] La notation sur 20 points respecte la pondération des 4 critères (Exactitude, Structure, Jargon, Pratique).
 4. [✓] Le générateur de quêtes adapte le niveau de défi si la jauge HP du joueur est inférieure à 60%.
 5. [✓] Le worker Playwright Deerflow scrape Campus France et Devpost sans être bloqué par les captchas.
 6. [✓] Les opportunités découvertes sont signées via HMAC-SHA256 et transmises à l'API.
 7. [✓] Une alerte Discord prioritaire est émise pour toute bourse supérieure à 5 000 €.
-8. [✓] L'achat d'un article dans la Boutique des Ombres déduit les Cristaux de façon atomique.
-9. [✓] Le solde de Cristaux d'Ombres ne peut jamais devenir négatif (Rejet HTTP 402 vérifié).
+8. [✓] L'achat d'un article dans la Boutique de Récompenses déduit les Cristaux de façon atomique.
+9. [✓] Le solde de Points de Récompense (Cristaux) ne peut jamais devenir négatif (Rejet HTTP 402 vérifié).
 10. [✓] La suite de tests d'intégration agentique et financière affiche 100% de succès.
 
 ---
 
 ### 6.7 Porte de Validation 6 : Daemon de Pénalité & Déploiement Production (`Gate 6`)
-1. [✓] L'échec d'une quête journalière à 22h00 active immédiatement la Zone de Pénalité.
+1. [✓] L'échec d'une quête journalière à 22h00 active immédiatement la Mode Restriction / Pénalité.
 2. [✓] Le fichier `hosts` Windows ou les règles WFP bloquent l'accès à TikTok, Instagram et Netflix.
-3. [✓] La page d'avertissement rouge sang s'affiche lors de toute tentative de navigation sur les sites distrayants.
+3. [✓] La page d'avertissement haute priorité s'affiche lors de toute tentative de navigation sur les sites distrayants.
 4. [✓] Le Watchdog matériel indépendant garantit la restauration DNS après 4 heures en cas de coupure.
 5. [✓] La complétion de la quête de pénalité (400 pompes) lève les restrictions en moins de 5 secondes.
 6. [✓] Le test E2E Playwright de la journée complète (06h00 à 22h00) s'exécute sans aucune anomalie.
@@ -1291,7 +1291,7 @@ docker compose exec redis redis-cli KEYS "bull:*" | xargs docker compose exec re
 systemctl restart levelup-discord || net stop LevelUpDiscordBot && net start LevelUpDiscordBot
 ```
 
-### 7.6 Rollback Phase 5 (IA Architecte & Deerflow)
+### 7.6 Rollback Phase 5 (IA Évaluateur IA & Deerflow)
 ```bash
 # Isolation du worker de scraping Deerflow (Arrêt immédiat du processus)
 pkill -f "scraper.py" || taskkill /f /im python.exe /fi "WINDOWTITLE eq Deerflow*"
@@ -1470,7 +1470,7 @@ Le développement est échelonné sur 8 sprints de 2 semaines chacun (durée tot
 ---
 
 ### Sprint 2 (Semaines 3-4) : Moteur Mathématique, Sécurité & Cryptographie
-* **Objectif Principal :** Coder les formules mathématiques de Solo Leveling et blinder la sécurité du Système.
+* **Objectif Principal :** Coder les formules mathématiques de Système de Gamification et blinder la sécurité du Système.
 * **Livrables Validés :**
   * Formules fermées d'XP, paliers de rangs et jauges de vitalité (`xpFormulas.ts`).
   * Module de chiffrement enveloppe AES-256-GCM et hachage Argon2id (`encryption.ts`, `passwordHasher.ts`).
@@ -1480,10 +1480,10 @@ Le développement est échelonné sur 8 sprints de 2 semaines chacun (durée tot
 
 ---
 
-### Sprint 3 (Semaines 5-6) : HUD Web Holographique Solo Leveling (Frontend PWA)
-* **Objectif Principal :** Créer l'interface visuelle Solo Leveling réactive à 60 FPS en Next.js 14.
+### Sprint 3 (Semaines 5-6) : HUD Web Holographique Système de Gamification (Frontend PWA)
+* **Objectif Principal :** Créer l'interface visuelle Système de Gamification réactive à 60 FPS en Next.js 14.
 * **Livrables Validés :**
-  * Design tokens CSS et basculement dynamique Thème Sombre Monarque / Thème Clair Éveil.
+  * Design tokens CSS et basculement dynamique Thème Sombre Maître / Thème Clair Éveil.
   * Tableau de bord principal (`/dashboard`) avec jauges HP/MP, carte joueur et radar des 8 bases.
   * Navigateur d'arbre de compétences DAG interactif (`/skills`).
   * Tests d'intégration visuelle Playwright validant l'absence de régression de layout.
@@ -1516,20 +1516,20 @@ Le développement est échelonné sur 8 sprints de 2 semaines chacun (durée tot
 * **Objectif Principal :** Mettre en place la méthode du Time-Blocking et le daemon mobile Discord.
 * **Livrables Validés :**
   * Frise chronologique quotidienne avec détection des chevauchements horaires (`PlannerService.ts`).
-  * Bot Discord.js v14 avec commandes Slash (`/status`, `/valider`, `/plan`) et les 15 embeds Solo Leveling.
+  * Bot Discord.js v14 avec commandes Slash (`/status`, `/valider`, `/plan`) et les 15 embeds Système de Gamification.
   * Files d'attente asynchrones BullMQ pour le reset matinal de 06h00 et la clôture de 22h00.
   * Récepteur audio UDP pour la dictée vocale directement dans les salons vocaux Discord.
 * **Critères d'Acceptation (DoD) :** Porte de validation `Gate 4` validée à 100%.
 
 ---
 
-### Sprint 7 (Semaines 13-14) : IA Architecte Socratique & Scraper de Bourses Deerflow
+### Sprint 7 (Semaines 13-14) : IA Évaluateur IA Socratique & Scraper de Bourses Deerflow
 * **Objectif Principal :** Connecter l'agent autonome d'évaluation cognitive et la détection d'opportunités réelles.
 * **Livrables Validés :**
-  * Agent Antigravity sous Gemini 2.5 Pro évaluant les monologues sur 20 points sans complaisance.
+  * Agent Antigravity sous Gemini 2.5 Pro évaluant les monologues sur 20 points objectif.
   * Générateur dynamique de quêtes adaptant la difficulté selon la jauge biologique HP.
   * Worker Playwright Deerflow collectant les bourses d'excellence Campus France et hackathons Devpost.
-  * Boutique des Ombres avec débit atomique de Cristaux d'Ombres (`ShopService.ts`).
+  * Boutique de Récompenses avec débit atomique de Points de Récompense (Cristaux) (`ShopService.ts`).
 * **Critères d'Acceptation (DoD) :** Porte de validation `Gate 5` validée à 100%.
 
 ---
@@ -1539,7 +1539,7 @@ Le développement est échelonné sur 8 sprints de 2 semaines chacun (durée tot
 * **Livrables Validés :**
   * Daemon de pénalité Windows/Linux bloquant TikTok et les distractions via `hosts` et règles WFP.
   * Watchdog matériel TTL garantissant la restauration DNS saine après 4 heures en toute circonstance.
-  * Scénario E2E complet de 24 heures simulant une journée type de Sung Jin-Woo sous Playwright.
+  * Scénario E2E complet de 24 heures simulant une journée type de l'utilisateur sous Playwright.
   * Déploiement des services Systemd / NSSM et tunnel Cloudflare pour accès mobile distant chiffré.
 * **Critères d'Acceptation (DoD) :** Porte de validation `Gate 6` validée à 100%. Déploiement en production acté.
 
@@ -1574,7 +1574,7 @@ flowchart TD
 
 ## 12. Analyse de Dimensionnement Matériel & Optimisation des Coûts d'Exploitation
 
-La conception hybride *Local-First* de LevelUp garantit une souveraineté totale et des coûts récurrents quasi-nuls :
+La conception hybride *Local-First* de LevelUp garantit une principaleté totale et des coûts récurrents quasi-nuls :
 
 | Composant Système | Hébergement Local (Station de Travail) | Équivalent Cloud Entreprise | Coût Mensuel Réel |
 | :--- | :--- | :--- | :--- |
@@ -1584,7 +1584,7 @@ La conception hybride *Local-First* de LevelUp garantit une souveraineté totale
 | **Inférence Speech-to-Text** | Faster-Whisper GPU CUDA Local | OpenAI Audio Transcription API (30h/mois) | **0,00 €** (Économie : ~110 €/mois) |
 | **Évaluation IA Socratique** | API Google Gemini 2.5 Pro (Antigravity)| Clé développeur tier gratuit / crédits | **0,00 €** (Sous quota gratuit) |
 | **Accès Mobile Distant Sécurisé** | Cloudflare Tunnel (Zéro ouverture port)| AWS Application Load Balancer + NAT | **0,00 €** |
-| **TOTAL DES COÛTS MENSUELS** | **Souveraineté Absolue & Gratuité** | **Facturation Cloud Estimée : ~280 €/mois** | **0,00 € / Mois** |
+| **TOTAL DES COÛTS MENSUELS** | **Principaleté Absolue & Gratuité** | **Facturation Cloud Estimée : ~280 €/mois** | **0,00 € / Mois** |
 
 ---
 
@@ -1592,7 +1592,7 @@ La conception hybride *Local-First* de LevelUp garantit une souveraineté totale
 
 Pour certifier que le Système est immunisé contre les pertes de données même en cas de panne matérielle imprévue, 5 scénarios de crise font l'objet d'exercices semestriels programmés :
 
-### 13.1 Exercice 1 : Coupure Électrique Brutale en Pleine Écriture PostgreSQL (Crash Recovery)
+### 13.1 Exercice 1 : Coupure Électrique Rigoureuxe en Pleine Écriture PostgreSQL (Crash Recovery)
 * **Procédure de Test :**
   ```bash
   # Arrêt forcé immédiat du conteneur sans flush propre
@@ -1796,7 +1796,7 @@ Chaque bibliothèque critique est fixée à une version majeure précise dans le
 | **`discord.js`** | `^14.15.3`| Client Passerelle Discord | Support complet de l'API Discord v10 et des composants interactifs. |
 | **`@discordjs/voice`**| `^0.17.0` | Moteur Vocal Discord | Capture des flux UDP audio Opus dans les salons vocaux. |
 | **`dexie`** | `^4.0.7` | Moteur IndexedDB Local | Local-First pour Web HUD, requêtes réactives via `useLiveQuery`. |
-| **`framer-motion`** | `^11.2.12`| Moteur d'Animation | Transitions fluides 60 FPS des fenêtres holographiques Solo Leveling. |
+| **`framer-motion`** | `^11.2.12`| Moteur d'Animation | Transitions fluides 60 FPS des fenêtres holographiques Système de Gamification. |
 | **`zod`** | `^3.23.8` | Validation de Schémas | Source de vérité unique pour les flux REST, WS et réponses LLM. |
 | **`argon2`** | `^0.40.3` | Hachage Cryptographique | Résistance absolue aux attaques par GPU et tables arc-en-ciel. |
 | **`isomorphic-dompurify`**| `^2.12.0`| Sanitisation AST XSS | Neutralisation sans faille des balises malveillantes dans le Markdown. |
@@ -1836,11 +1836,11 @@ Le Système est maintenu en condition opérationnelle optimale grâce à des scr
 
 ## 17. Clôture & Approbation du Plan d'Implémentation
 
-Le présent document d'implémentation industrielle constitue la feuille de route définitive pour la construction de LevelUp ("The System"). Chaque tâche est couplée à ses tests et ses blueprints, interdisant toute improvisation et garantissant une exécution rigoureuse digne de l'éveil d'un Monarque.
+Le présent document d'implémentation industrielle constitue la feuille de route définitive pour la construction de LevelUp ("The System"). Chaque tâche est couplée à ses tests et ses blueprints, interdisant toute improvisation et garantissant une exécution rigoureuse digne de l'éveil d'un Maître.
 
 ---
 
-## 18. Blueprints Frontend React & Composants Solo Leveling
+## 18. Blueprints Frontend React & Composants Système de Gamification
 
 Pour matérialiser l'interface visuelle du Web HUD, les composants React ci-dessous sont prêts à être intégrés dans `apps/web` :
 
@@ -1882,7 +1882,7 @@ export const PlayerIdentityCard: React.FC<PlayerIdentityCardProps> = ({
 
       <div className="flex items-center justify-between border-b border-border-neon-cyan/30 pb-4 mb-4">
         <div>
-          <span className="text-xs font-mono uppercase tracking-widest text-text-muted">Chasseur Éveillé</span>
+          <span className="text-xs font-mono uppercase tracking-widest text-text-muted">Utilisateur</span>
           <h2 className="text-2xl font-display font-bold text-text-primary tracking-wide">{username}</h2>
         </div>
         <div className="text-right">
@@ -2201,7 +2201,7 @@ export class HarmonicRankEngine {
 ---
 
 
-## 18.6 Blueprint 16 : Serveur MCP Dédié de l'Architecte (`apps/web/server/mcp/LevelUpMcpServer.ts`)
+## 18.6 Blueprint 16 : Serveur MCP Dédié de l'évaluateur IA (`apps/web/server/mcp/LevelUpMcpServer.ts`)
 
 ```typescript
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
@@ -2244,7 +2244,7 @@ export function createLevelUpMcpServer(): McpServer {
 
   server.tool(
     'deploy_daily_quests',
-    'Injecte les 4 quêtes quotidiennes obligatoires générées par l'Architecte',
+    'Injecte les 4 quêtes quotidiennes obligatoires générées par l'évaluateur IA',
     {
       quests: z.array(z.object({
         baseCode: z.enum(['ACAD', 'AI_ENG', 'CYBER', 'EXP', 'LNG', 'FIN', 'STR', 'DIS']),
@@ -2261,7 +2261,7 @@ export function createLevelUpMcpServer(): McpServer {
 
   server.tool(
     'enforce_penalty_zone',
-    'Active la zone de pénalité et le blocage NextDNS suite à l'échec des quêtes',
+    'Active la mode restriction / pénalité et le blocage NextDNS suite à l'échec des quêtes',
     { reason: z.string(), punishmentProtocol: z.string() },
     async ({ reason, punishmentProtocol }) => {
       await PenaltyService.activatePenaltyZone(reason, punishmentProtocol);
@@ -2316,7 +2316,7 @@ Notez sur 20 points selon la grille stricte. Renvoyez exclusivement du JSON vali
 async def main():
     r = await aioredis.from_url(REDIS_URL, decode_responses=True)
     config = LocalAgentConfig(
-        system_instructions="Vous êtes l'Architecte du Système dans LevelUp. Impartial, analytique et rigoureux.",
+        system_instructions="Vous êtes l'évaluateur IA du Système dans LevelUp. Impartial, analytique et rigoureux.",
         capabilities=CapabilitiesConfig()
     )
     async with Agent(config) as architect:
@@ -2541,7 +2541,7 @@ L'intégralité des 25 variables d'environnement nécessaires au fonctionnement 
 | `JWT_PRIVATE_KEY_PATH` | Chemin absolu vers la clé privée RSA 4096 | `/etc/levelup/secrets/jwt_rsa_private.pem` | **ULTRA-CRITIQUE** |
 | `JWT_PUBLIC_KEY_PATH` | Chemin absolu vers la clé publique RSA | `/etc/levelup/secrets/jwt_rsa_public.pem` | Protégée |
 | `DISCORD_BOT_TOKEN` | Jeton d'authentification du bot Discord.js | `MTIzNDU2Nzg5MDEyMzQ1Njc4OQ.GaBcDe.FGHijKLMnOPqRsTuVwXyZ` | **CRITIQUE** |
-| `DISCORD_MASTER_USER_ID` | Identifiant Snowflake immuable du Monarque | `789123456789012345` | Haute |
+| `DISCORD_MASTER_USER_ID` | Identifiant Snowflake immuable du Maître | `789123456789012345` | Haute |
 | `SYSTEM_MASTER_USER_ID` | UUID primaire du joueur dans PostgreSQL | `a5d8b74f-9e32-4d2b-98f5-19e48f029a1b` | Haute |
 | `ANTIGRAVITY_SIDECAR` | Sidecars Antigravity planifiés (`sidecar.json`) | `~/.gemini/config/sidecars/levelup-*/` | **CRITIQUE** |
 | `DEERFLOW_WEBHOOK_SECRET` | Clé secrète de signature HMAC-SHA256 | `8f9b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b` | **CRITIQUE** |

@@ -3,22 +3,22 @@
 > **Document ID :** UX-LVLUP-003-TITAN  
 > **Nom du Produit :** LevelUp ("The System" / "Le Système")  
 > **Version du Document :** 3.0.0 (Spécification d'Interface & Flux Exhaustive & Encyclopédique)  
-> **Direction Artistique :** Solo Leveling Monarch HUD (Dark & Light Awakened)  
+> **Direction Artistique :** Système de Gamification Monarch HUD (Dark & Light Awakened)  
 > **Statut de Validation :** Approuvé pour Intégration Frontend & Bot Discord  
 > **Cibles IHM :** Web HUD Desktop (1920x1080 / 1440x900), Web PWA Mobile (375x812), Bot Discord Mobile/Desktop  
 
 ---
 
-## 1. Charte Graphique, Tokens CSS & Système de Design Solo Leveling
+## 1. Charte Graphique, Tokens CSS & Système de Design Système de Gamification
 
-L'expérience visuelle de LevelUp est conçue pour matérialiser fidèlement l'interface du Système apparue devant Sung Jin-Woo. Elle est régie par un ensemble strict de design tokens CSS injectés à la racine du document HTML (`:root`).
+L'expérience visuelle de LevelUp est conçue pour matérialiser fidèlement l'interface du Système apparue devant l'utilisateur. Elle est régie par un ensemble strict de design tokens CSS injectés à la racine du document HTML (`:root`).
 
 ### 1.1 Palette Chromatique & Variables Sémantiques
 
 ```css
 :root {
   /* ==========================================================================
-     THÈME SOMBRE : "MONARQUE DES OMBRES" (DEFAULT ACTIF)
+     THÈME SOMBRE : "RANG MAÎTRE" (DEFAULT ACTIF)
      ========================================================================== */
   --bg-abyss-primary: #05050A;          /* Fond principal ultra-sombre */
   --bg-surface-hologram: rgba(10, 15, 30, 0.75); /* Panneaux translucides avec flou */
@@ -28,7 +28,7 @@ L'expérience visuelle de LevelUp est conçue pour matérialiser fidèlement l'i
   --accent-shadow-blue: #0051FF;         /* Bleu profond des compétences d'Ombre */
   --accent-cyan-core: #00E5FF;           /* Cyan électrique des textes d'alerte */
   --accent-gold-rank: #FFD700;           /* Or éclatant réservé aux Rangs S / Monarch */
-  --accent-alert-red: #FF003C;           /* Rouge sang des Quêtes Urgentes et Pénalité */
+  --accent-alert-red: #FF003C;           /* Haute priorité des Quêtes Urgentes et Pénalité */
   --text-primary: #FFFFFF;              /* Blanc pur haute lisibilité */
   --text-secondary: #94A3B8;            /* Gris ardoise des libellés secondaires */
   --text-muted: #475569;                /* Métadonnées et horodatages discrets */
@@ -116,15 +116,15 @@ stateDiagram-v2
     }
 
     state "07:00 - Acte II : L'Entraînement Physique & Matinal" as Acte2 {
-        AcceptationQuetes --> BlocMusculation : Séance Sport Sung Jin-Woo (STR)
+        AcceptationQuetes --> BlocMusculation : Séance Sport l'utilisateur (STR)
         BlocMusculation --> SoumissionPreuveSport : 100 Pompes / Abdos / Squats / Course
         SoumissionPreuveSport --> BlocAcademique1 : Étude Algorithmes & Mathématiques (ACAD)
     }
 
     state "12:30 - Acte III : La Dictée Vocale & Déjeuner Actif" as Acte3 {
         BlocAcademique1 --> MonologueMicro : Dictée vocale de 3 min du cours
-        MonologueMicro --> EvaluationArchitecte : Évaluation Socratique /20 & Fiche Auto
-        EvaluationArchitecte --> PauseActive : Marche & Restauration MP
+        MonologueMicro --> EvaluationÉvaluateur IA : Évaluation Socratique /20 & Fiche Auto
+        EvaluationÉvaluateur IA --> PauseActive : Marche & Restauration MP
     }
 
     state "14:00 - Acte IV : Le Deep Work Élite & Cybersécurité" as Acte4 {
@@ -138,7 +138,7 @@ stateDiagram-v2
         BilanFinal --> SuccesQuetes : 100% Quêtes Validées
         BilanFinal --> EchecQuetes : $\ge$ 1 Quête Non Validée
         
-        SuccesQuetes --> AttributionBonus : Cristaux d'Ombres + XP + Streak Incrémenté
+        SuccesQuetes --> AttributionBonus : Points de Récompense (Cristaux) + XP + Streak Incrémenté
         AttributionBonus --> Sommeil : Repos du Guerrier
         
         EchecQuetes --> ProtocolePenalite : DÉCLENCHEMENT IMMÉDIAT ZONE PÉNALITÉ
@@ -157,23 +157,23 @@ Chaque écran de la plateforme Web PWA est minutieusement documenté avec son ag
 
 ---
 
-### 3.1 Écran 1 : Tableau de Bord Principal (`/dashboard` - Le HUD du Chasseur)
+### 3.1 Écran 1 : Tableau de Bord Principal (`/dashboard` - Le HUD du Utilisateur)
 
 Centre névralgique du joueur, cet écran récapitule l'identité, le rang, les jauges de survie et les priorités de la journée.
 
 #### 3.1.1 Wireframe ASCII Détaillé (Résolution Desktop 1440x900)
 ```
 +-------------------------------------------------------------------------------------------------------------------+
-|  [LEVELUP // THE SYSTEM]  [STATUT: MONARQUE ACTIF]               [CRISTAUX: 820 OC]  [STREAK: 18 J]  [THÈME: D/L] |
+|  [LEVELUP // THE SYSTEM]  [STATUT: UTILISATEUR ACTIF]               [CRISTAUX: 820 OC]  [STREAK: 18 J]  [THÈME: D/L] |
 +-------------------------------------------------------------------------------------------------------------------+
 | +-- [CARTE D'IDENTITÉ JOUEUR] ------------------------------+ +-- [JAUGES VITALES EN TEMPS RÉEL] ----------------+ |
 | | NOM    : Huriel                          RANG  : D        | | HP [██████████████████░░] 88%  (Repos: 7h45 - OPTIMAL) | |
-| | TITRE  : Chasseur Confirmé               NIVEAU: 14       | | MP [█████████████░░░░░░░] 65%  (Focus: Soutenu)        | |
+| | TITRE  : Utilisateur Confirmé               NIVEAU: 14       | | MP [█████████████░░░░░░░] 65%  (Focus: Soutenu)        | |
 | | EXP    : [████████████████░░░░] 18,450 / 22,500 XP (82%)  | | ALERTE: Aucune pénalité active. Système stable.    | |
 | +-----------------------------------------------------------+ +----------------------------------------------------+ |
 |                                                                                                                   |
 | +-- [RADAR DES 8 BASES DE VIE] ---+ +-- [QUÊTES DU JOUR EN COURS] -----------------------------------------------+ |
-| |               ACAD (Lvl 15)     | | [!] [DAILY_FIT] L'Entraînement de Sung Jin-Woo (STR)            [EN COURS] | |
+| |               ACAD (Lvl 15)     | | [!] [DAILY_FIT] L'Entraînement de l'utilisateur (STR)            [EN COURS] | |
 | |                 /\              | |     Objectif : 100 Pompes, 100 Abdos, 100 Squats, 10 km.      +200 XP / 15 OC| |
 | |       DIS (17) /  \ AI_ENG (16) | |     Progression : [██████████░░░░░░░░░░] 50%                  [SOUMETTRE] | |
 | |         \     /    \     /      | |----------------------------------------------------------------------------| |
@@ -256,7 +256,7 @@ Visualise les 120 compétences réparties sur les 8 bases fondamentales, avec re
 Affiche les 5 types de missions : Journalières, Urgentes, Boss Raids, Monk Mode et Pénalités.
 
 #### 3.3.1 Wireframe ASCII de l'Alerte Quête Urgente (`EMERGENCY_QUEST_POPUP`)
-Cette modale holographique rouge sang s'ouvre avec un son d'alarme retentissant :
+Cette modale holographique haute priorité s'ouvre avec un son d'alarme retentissant :
 ```
 +===================================================================================================================+
 |                                  /!\ AVERTISSEMENT DU SYSTÈME : QUÊTE URGENTE /!\                                  |
@@ -274,10 +274,10 @@ Cette modale holographique rouge sang s'ouvre avec un son d'alarme retentissant 
 |   RÉCOMPENSES DE RÉUSSITE :                                                                                       |
 |   + 500 XP Joueur                                                                                                 |
 |   + 750 XP Cybersécurité (CYBER)                                                                                  |
-|   + 100 Cristaux d'Ombres                                                                                         |
+|   + 100 Points de Récompense (Cristaux)                                                                                         |
 |                                                                                                                   |
 |   SANCTION EN CAS D'ÉCHEC :                                                                                       |
-|   Activation immédiate de la Zone de Pénalité. Verrouillage des réseaux et distraction pendant 4 heures.          |
+|   Activation immédiate de la Mode Restriction / Pénalité. Verrouillage des réseaux et distraction pendant 4 heures.          |
 |                                                                                                                   |
 |   SOUMISSION RAPIDE DE LA PREUVE :                                                                                |
 |   Lien Commit GitHub : [ https://github.com/GeovanioH/LevelUp/commit/365eed2                            ]        |
@@ -301,14 +301,14 @@ Gère la méthode du *Time-Blocking* strict pour garantir 8 à 10 heures de Deep
 |  [< HIER]  [AUJOURD'HUI]  [DEMAIN >]  |  VUE : [JOUR] [SEMAINE]  |  ACTION : [+ CRÉER NOUVEAU BLOC HORAIRE]       |
 +-------------------------------------------------------------------------------------------------------------------+
 |  06:00 - 06:30 | [RÉVEIL & HYDRATATION]             | HP Check-in & Synthèse vocale matinale     | [✓ COMPLÉTÉ]   |
-|  06:30 - 07:30 | [SPORT SUNG JIN-WOO] (STR)          | 100 Pompes, 100 Abdos, Squats, Étirements  | [✓ COMPLÉTÉ]   |
+|  06:30 - 07:30 | [ENTRAÎNEMENT CALISTHÉNIE] (STR)          | 100 Pompes, 100 Abdos, Squats, Étirements  | [✓ COMPLÉTÉ]   |
 |  07:30 - 08:30 | [PETIT-DÉJEUNER & DOUCHE FROIDE]   | Repos passif & Préparation mentale         | [✓ COMPLÉTÉ]   |
 |----------------+------------------------------------+--------------------------------------------+----------------|
 |  08:30 - 11:30 | [DEEP WORK IA : TRANSFORMERS] (AI) | Étude Faster-Whisper, CTranslate2 & INT8   | [✓ COMPLÉTÉ]   |
 |----------------+------------------------------------+--------------------------------------------+----------------|
 |  11:30 - 12:30 | [PAUSE DÉJEUNER & MARCHE]          | Restauration Jauge MP (+15 MP)             | [EN COURS >>>] |
 |----------------+------------------------------------+--------------------------------------------+----------------|
-|  12:30 - 13:00 | [DICTÉE VOCALE & SYNTHÈSE] (ACAD)  | Monologue de restitution pour l'Architecte | [À VENIR]      |
+|  12:30 - 13:00 | [DICTÉE VOCALE & SYNTHÈSE] (ACAD)  | Monologue de restitution pour l'évaluateur IA | [À VENIR]      |
 |  13:00 - 16:00 | [CYBERSÉCURITÉ / HACKATHON] (CYBER)| 1 Room Medium THM (Buffer Overflow)        | [À VENIR]      |
 |  16:00 - 16:30 | [PAUSE THÉ & ÉTIREMENTS]           | Détente cognitive                          | [À VENIR]      |
 |  16:30 - 18:00 | [PRATIQUE ANGLAIS C1] (LNG)        | Listening Cambridge & Speaking Monologue   | [À VENIR]      |
@@ -354,7 +354,7 @@ Gère la méthode du *Time-Blocking* strict pour garantir 8 à 10 heures de Deep
 
 ### 3.6 Écran 6 : Hub Audio & Évaluation Socratique (`/audio`)
 
-Interface dédiée à l'enregistrement des monologues de révision et à l'affichage des retours sans appel de l'Architecte.
+Interface dédiée à l'enregistrement des monologues de révision et à l'affichage des retours rigoureux de l'évaluateur IA.
 
 #### 3.6.1 Wireframe ASCII (Visualiseur Audio & Carte de Notation)
 ```
@@ -385,7 +385,7 @@ Interface dédiée à l'enregistrement des monologues de révision et à l'affic
 |   "Votre compréhension de la quantification INT8 sur CTranslate2 est remarquable. Le compromis précision/vitesse  |
 |   a été rigoureusement quantifié. Continuez ainsi pour atteindre le rang d'Ingénieur d'Élite."                    |
 |                                                                                                                   |
-|   RÉCOMPENSES ATTRIBUÉES : +185 XP Joueur | +230 XP AI_ENG | +20 Cristaux d'Ombres                                |
+|   RÉCOMPENSES ATTRIBUÉES : +185 XP Joueur | +230 XP AI_ENG | +20 Points de Récompense (Cristaux)                                |
 |   FICHE AUTOMATIQUE CRÉÉE DANS : /vault/AI_ENG/quantification-int8-ctranslate2-monologue.md                       |
 +-------------------------------------------------------------------------------------------------------------------+
 ```
@@ -420,9 +420,9 @@ Affiche le flux d'opportunités financières et académiques glanées par le scr
 
 ---
 
-### 3.8 Écran 8 : La Boutique des Ombres (`/shop` - Shadow Shop)
+### 3.8 Écran 8 : La Boutique de Récompenses (`/shop` - Reward Shop)
 
-Lieu où le joueur convertit ses Cristaux d'Ombres durement acquis en récompenses matérielles et privilèges tangibles.
+Lieu où le joueur convertit ses Points de Récompense (Cristaux) durement acquis en récompenses matérielles et privilèges tangibles.
 
 #### 3.8.1 Wireframe ASCII (Catalogue des Récompenses)
 ```
@@ -436,7 +436,7 @@ Lieu où le joueur convertit ses Cristaux d'Ombres durement acquis en récompens
 |  | [OUTIL IA]                     | | [MATÉRIEL ÉTUDE]               | | [PRESTIGE ÉLITE]               |         |
 |  | Abonnement 1 Mois Claude Pro   | | Liseuse Kindle Paperwhite      | | Écran 4K Dell UltraSharp 32"   |         |
 |  | Pour calculs d'agents LLM.     | | Lecture technique sans reflet. | | Hub productivité multi-écrans. |         |
-|  | Coût : 450 Cristaux d'Ombres   | | Coût : 2,500 Cristaux d'Ombres | | Coût : 9,000 Cristaux d'Ombres |         |
+|  | Coût : 450 Points de Récompense (Cristaux)   | | Coût : 2,500 Points de Récompense (Cristaux) | | Coût : 9,000 Points de Récompense (Cristaux) |         |
 |  | Rang Requis : Rang E           | | Rang Requis : Rang C           | | Rang Requis : Rang A           |         |
 |  |                                | |                                | |                                |         |
 |  | [ DÉBLOQUER L'ARTICLE (450 OC)]| | [ VERROUILLÉ (RANG C REQUIS) ] | | [ CRISTAUX INSUFFISANTS ]      |         |
@@ -451,11 +451,11 @@ Lieu où le joueur convertit ses Cristaux d'Ombres durement acquis en récompens
 
 ---
 
-### 3.9 Écran 9 : Écran de Verrouillage de Pénalité (`/penalty` - Penalty Zone)
+### 3.9 Écran 9 : Écran de Verrouillage de Pénalité (`/penalty` - Restriction Mode)
 
-Cet écran plein écran rouge sang bloque totalement l'accès aux autres pages tant que la pénalité n'est pas purgée.
+Cet écran plein écran haute priorité bloque totalement l'accès aux autres pages tant que la pénalité n'est pas purgée.
 
-#### 3.9.1 Wireframe ASCII (Zone de Pénalité Active)
+#### 3.9.1 Wireframe ASCII (Mode Restriction / Pénalité Active)
 ```
 +===================================================================================================================+
 |                                                                                                                   |
@@ -488,13 +488,13 @@ Cet écran plein écran rouge sang bloque totalement l'accès aux autres pages t
 
 ### 3.10 Écran 10 : Salle d'Entraînement & Vision par Ordinateur (`/workout/camera`)
 
-L'écran `/workout/camera` est l'arène physique du Chasseur. Il utilise le flux vidéo webcam/smartphone en direct avec superposition du squelette cinématique MediaPipe Pose en WebAssembly (WebGL/Canvas 2D) pour compter et valider sans triche chaque répétition des routines de callisthénie d'Huriel :
+L'écran `/workout/camera` est l'arène physique du Utilisateur. Il utilise le flux vidéo webcam/smartphone en direct avec superposition du squelette cinématique MediaPipe Pose en WebAssembly (WebGL/Canvas 2D) pour compter et valider sans triche chaque répétition des routines de callisthénie d'Huriel :
 
 #### 3.10.1 Wireframe ASCII Détaillé (Vue Entraînement en Direct 1440x900)
 
 ```text
 +----------------------------------------------------------------------------------------------------------------------------------+
-| LEVELUP HUD // SALLE D'ENTRAÎNEMENT DU MONARQUE — VISION PAR ORDINATEUR ACTIVE (60 FPS)                 [DISCORD BOT : CONNECTÉ] |
+| LEVELUP HUD // SALLE D'ENTRAÎNEMENT DU SYSTÈME — VISION PAR ORDINATEUR ACTIVE (60 FPS)                 [DISCORD BOT : CONNECTÉ] |
 +----------------------------------------------------------------------------------------------------------------------------------+
 | [ROUTINE ACTIVE : DOS & ÉPAULES — ÉTAPE 3/17 : PIKE PUSH-UPS]                                         [TEMPS ÉCOULÉ : 04:15]     |
 +-----------------------------------------------------------------------+----------------------------------------------------------+
@@ -537,7 +537,7 @@ L'écran `/workout/camera` est l'arène physique du Chasseur. Il utilise le flux
 
 ## 4. Spécifications Exhaustives des 15 Embeds Discord (`discord/embedTemplates.ts`)
 
-Pour offrir une expérience fluide sur smartphone via Discord, chaque événement majeur génère un embed richement formaté avec les couleurs officielles de Solo Leveling :
+Pour offrir une expérience fluide sur smartphone via Discord, chaque événement majeur génère un embed richement formaté avec les couleurs officielles de Système de Gamification :
 
 ---
 
@@ -545,17 +545,17 @@ Pour offrir une expérience fluide sur smartphone via Discord, chaque événemen
 * **Couleur :** `0x00E5FF` (Cyan Néon)
 * **Titre :** `[SYSTÈME // RAPPORT D'ÉTAT DU JOUEUR]`
 * **Champs :**
-  * `Chasseur` : `Huriel | Rang D | Niveau 14`
+  * `Utilisateur` : `Huriel | Rang D | Niveau 14`
   * `Points d'Expérience` : `18,450 / 22,500 XP (82.0% vers Rang C)`
   * `Jauges Vitales` :
     * `HP` : `[████████████████░░] 88 / 100 (Repos Optimal)`
     * `MP` : `[████████████░░░░░░] 65 / 100 (Focus Soutenu)`
-  * `Cristaux d'Ombres` : `820 ❖`
+  * `Points de Récompense (Cristaux)` : `820 ❖`
   * `Série Active (Streak)` : `18 Jours consécutifs`
   * `Statistiques Majeures` :
-    * `ACAD : Lvl 15 (Major Prétendant)` | `AI_ENG : Lvl 16 (Architecte IA)`
+    * `ACAD : Lvl 15 (Major Prétendant)` | `AI_ENG : Lvl 16 (Évaluateur IA IA)`
     * `CYBER : Lvl 12 (Opérateur THM)`    | `DIS : Lvl 17 (Monk Mode)`
-* **Pied de page :** `The System • Solo Leveling Engine • Horodatage UTC`
+* **Pied de page :** `The System • Système de Gamification Engine • Horodatage UTC`
 
 ---
 
@@ -564,7 +564,7 @@ Pour offrir une expérience fluide sur smartphone via Discord, chaque événemen
 * **Titre :** `[NOUVELLES QUÊTES JOURNALIÈRES ATTRIBUÉES]`
 * **Description :** *"Un nouveau jour d'entraînement commence. Vos quêtes quotidiennes ont été générées par le Système."*
 * **Champs :**
-  * `1. [STR] L'Entraînement de Sung Jin-Woo` : `100 Pompes, 100 Abdos, 100 Squats, 10 km. (+200 XP, 15 ❖)`
+  * `1. [STR] L'Entraînement de l'utilisateur` : `100 Pompes, 100 Abdos, 100 Squats, 10 km. (+200 XP, 15 ❖)`
   * `2. [CYBER] Infiltration TryHackMe` : `Compléter 1 Room Medium et extraire le flag. (+180 XP, 20 ❖)`
   * `3. [LNG] Monologue Anglais C1` : `Pratique orale de 3 minutes sur sujet tech. (+150 XP, 10 ❖)`
 * **Composants d'Action :**
@@ -580,8 +580,8 @@ Pour offrir une expérience fluide sur smartphone via Discord, chaque événemen
 * **Champs :**
   * `Mission` : `Audit de Vulnérabilité Zero-Day sur Middleware Auth`
   * `Temps Imparti` : `60 Minutes Chrono (Fin à 16h30)`
-  * `Récompense` : `+500 XP Joueur | +750 XP CYBER | +100 Cristaux d'Ombres`
-  * `Sanction d'Échec` : `Activation immédiate de la Zone de Pénalité.`
+  * `Récompense` : `+500 XP Joueur | +750 XP CYBER | +100 Points de Récompense (Cristaux)`
+  * `Sanction d'Échec` : `Activation immédiate de la Mode Restriction / Pénalité.`
 * **Composants d'Action :**
   * Bouton Rouge : `[Soumettre la Preuve du Commit]`
 
@@ -600,7 +600,7 @@ Pour offrir une expérience fluide sur smartphone via Discord, chaque événemen
 
 ---
 
-### 4.5 Embed 5 : Déclenchement de la Zone de Pénalité (`PENALTY_ALERT`)
+### 4.5 Embed 5 : Déclenchement de la Mode Restriction / Pénalité (`PENALTY_ALERT`)
 * **Couleur :** `0x800000` (Bordeaux Sang Sombre)
 * **Titre :** `☠️ [ZONE DE PÉNALITÉ ACTIVÉE] ☠️`
 * **Description :** `Vous avez échoué à valider vos quêtes journalières avant 22h00. Le Système applique les sanctions prévues.`
@@ -612,7 +612,7 @@ Pour offrir une expérience fluide sur smartphone via Discord, chaque événemen
 
 ---
 
-### 4.6 Embed 6 : Évaluation de Dictée Vocale par l'Architecte
+### 4.6 Embed 6 : Évaluation de Dictée Vocale par l'évaluateur IA
 * **Couleur :** `0x00E5FF` (Cyan Socratique)
 * **Titre :** `🎙️ [VERDICT DE L'ARCHITECTE // ÉVALUATION ORALE]`
 * **Champs :**
@@ -653,7 +653,7 @@ Pour offrir une expérience fluide sur smartphone via Discord, chaque événemen
 
 ---
 
-### 4.9 Embed 9 : Notification d'Achat dans la Boutique des Ombres
+### 4.9 Embed 9 : Notification d'Achat dans la Boutique de Récompenses
 * **Couleur :** `0xF59E0B` (Ambre Récompense)
 * **Titre :** `🛍️ [ACQUISITION VALIDÉE // BOUTIQUE DES OMBRES]`
 * **Champs :**
@@ -666,13 +666,13 @@ Pour offrir une expérience fluide sur smartphone via Discord, chaque événemen
 
 ### 4.10 Embed 10 : Rapport Hebdomadaire de Performance (Dimanche 21h00)
 * **Couleur :** `0x3B82F6` (Bleu Royal Bilan)
-* **Titre :** `📊 [BILAN HEBDOMADAIRE DU MONARQUE]`
+* **Titre :** `📊 [BILAN HEBDOMADAIRE DU SYSTÈME]`
 * **Champs :**
   * `Heures de Deep Work Totales` : `54.5 Heures (Moyenne : 7.8 h/j)`
   * `Quêtes Complétées` : `28 / 28 (Taux de complétion : 100%)`
   * `XP Totale Engrangée` : `+4,850 XP cette semaine`
   * `Base la Plus Développée` : `AI_ENG (+1,450 XP)`
-  * `Verdict de l'Architecte` : `« Rythme exemplaire. La discipline forge la puissance. »`
+  * `Verdict de l'évaluateur IA` : `« Rythme exemplaire. La discipline forge la puissance. »`
 
 ---
 
@@ -704,9 +704,9 @@ Pour offrir une expérience fluide sur smartphone via Discord, chaque événemen
 
 ---
 
-### 4.14 Embed 14 : Régulation Circadienne & Vitalité Biologique Souveraine (`VITALITY_STATUS`)
+### 4.14 Embed 14 : Régulation Circadienne & Vitalité Biologique Principale (`VITALITY_STATUS`)
 
-Dans LevelUp, le Système n'infantilise jamais le Chasseur et ne le décrit jamais comme faible ou fatigué. Le message matinal valorise sa résilience et réaligne ses priorités physiologiques :
+Dans LevelUp, le Système n'infantilise jamais le Utilisateur et ne le décrit jamais comme faible ou fatigué. Le message matinal valorise sa résilience et réaligne ses priorités physiologiques :
 
 ```typescript
 export const createVitalityStatusEmbed = (hoursSlept: number, hp: number, mp: number): APIEmbed => {
@@ -730,7 +730,7 @@ export const createVitalityStatusEmbed = (hoursSlept: number, hp: number, mp: nu
 };
 ```
 
-## 4.15 Embed 15 : Message d'Accompagnement de l'Architecte (Conseil Tactique)
+## 4.15 Embed 15 : Message d'Accompagnement de l'évaluateur IA (Conseil Tactique)
 * **Couleur :** `0x64748B` (Ardoise Réflexion)
 * **Titre :** `💬 [TRANSMISSION DIRECTE DE L'ARCHITECTE]`
 * **Description :** *"La fatigue que vous ressentez n'est que la résistance de votre ancien moi face à l'éveil de votre potentiel. Maintenez le cap pour la session de cet après-midi."*
@@ -742,7 +742,7 @@ export const createVitalityStatusEmbed = (hoursSlept: number, hp: number, mp: nu
 ### 5.1 Courbes d'Animation Bézier & Rythmique Holographique
 Toutes les transitions du Web HUD utilisent la fonction d'amortissement caractéristique de la haute technologie réactive :
 ```css
-/* Courbe d'ouverture holographique Solo Leveling */
+/* Courbe d'ouverture holographique Système de Gamification */
 --ease-solo-leveling: cubic-bezier(0.16, 1, 0.3, 1);
 ```
 
@@ -771,7 +771,7 @@ Toutes les transitions du Web HUD utilisent la fonction d'amortissement caracté
 | `Ctrl + D` | Navigue instantanément vers le Tableau de Bord Principal (`/dashboard`). |
 | `Ctrl + P` | Ouvre le Planificateur Temporel (`/planner`). |
 | `Ctrl + Shift + Q` | Valide la quête active courante sans utiliser la souris. |
-| `Ctrl + M` | Bascule instantanément entre le Thème Sombre Monarque et le Thème Clair Éveil. |
+| `Ctrl + M` | Bascule instantanément entre le Thème Sombre Maître et le Thème Clair Éveil. |
 
 ### 5.4 Matrice d'Accessibilité Universelle (WCAG 2.1 AA)
 1. **Contraste Chromatique Minimal :** Le texte principal (`#FFFFFF`) sur fond abyssal (`#05050A`) présente un ratio de contraste de **18.5:1** (largement supérieur à l'exigence de 4.5:1 du niveau AA).
@@ -804,7 +804,7 @@ L'utilisation sur smartphone (iPhone & Android) est au cœur des habitudes de vi
 |   STR:  14 | DIS:    17               |
 |---------------------------------------|
 | QUÊTES DU JOUR (2 RESTANTES) :        |
-| [!] L'Entraînement de Sung Jin-Woo    |
+| [!] L'Entraînement de l'utilisateur    |
 |     100 Pompes / Abdos / Squats / 10k |
 |     [ SOUMETTRE PREUVE RAPIDE ]       |
 |                                       |
@@ -869,7 +869,7 @@ L'utilisation sur smartphone (iPhone & Android) est au cœur des habitudes de vi
 | +500 XP Joueur | +750 CYBER | 100 ❖   |
 |                                       |
 | SANCTION D'ÉCHEC :                    |
-| Déclenchement Zone de Pénalité.       |
+| Déclenchement Mode Restriction / Pénalité.       |
 |                                       |
 | ENVOYER LIEN DU COMMIT :              |
 | [ https://github.com/GeovanioH/... ]  |
@@ -885,7 +885,7 @@ L'utilisation sur smartphone (iPhone & Android) est au cœur des habitudes de vi
 +---------------------------------------+
 | PLAN DU JOUR • MERCREDI 11 NOV        |
 +---------------------------------------+
-| [✓] 06:30 - 07:30 | Sport Sung Jin-Woo|
+| [✓] 06:30 - 07:30 | Sport l'utilisateur|
 | [✓] 08:30 - 11:30 | Deep Work IA      |
 | [>] 11:30 - 12:30 | Pause Déjeuner    |
 | [ ] 12:30 - 13:00 | Dictée Vocale     |
@@ -973,7 +973,7 @@ L'utilisation sur smartphone (iPhone & Android) est au cœur des habitudes de vi
 
 ---
 
-### 6.8 Mobile Screen 8 : Boutique des Ombres Mobile (`/shop`)
+### 6.8 Mobile Screen 8 : Boutique de Récompenses Mobile (`/shop`)
 ```
 +---------------------------------------+
 | BOUTIQUE DES OMBRES    [SOLDE: 820 ❖] |
@@ -992,7 +992,7 @@ L'utilisation sur smartphone (iPhone & Android) est au cœur des habitudes de vi
 
 ---
 
-### 6.9 Mobile Screen 9 : Zone de Pénalité Mobile (`/penalty`)
+### 6.9 Mobile Screen 9 : Mode Restriction / Pénalité Mobile (`/penalty`)
 ```
 +=======================================+
 |   /!\ ZONE DE PÉNALITÉ ACTIVE /!\     |
@@ -1026,8 +1026,8 @@ stateDiagram-v2
     ACTIVE --> SUBMITTED_FOR_REVIEW : Dépôt preuve (Lien commit, audio, texte)
     ACTIVE --> FAILED : Heure limite de validation dépassée (22h00)
     
-    SUBMITTED_FOR_REVIEW --> COMPLETED : Validation automatique ou Architecte $\ge$ 10/20
-    SUBMITTED_FOR_REVIEW --> ACTIVE : Preuve rejetée par l'Architecte (< 10/20)
+    SUBMITTED_FOR_REVIEW --> COMPLETED : Validation automatique ou Évaluateur IA $\ge$ 10/20
+    SUBMITTED_FOR_REVIEW --> ACTIVE : Preuve rejetée par l'évaluateur IA (< 10/20)
     
     COMPLETED --> [*] : Attribution XP & Cristaux (Clôture)
     FAILED --> PENALTY_TRIGGERED : Quête journalière obligatoire échouée
@@ -1039,7 +1039,7 @@ stateDiagram-v2
 | État Source | Événement Déclencheur | Condition de Garde | Action Exécutée | État Cible |
 | :--- | :--- | :--- | :--- | :--- |
 | `AVAILABLE` | `ACCEPT_QUEST` | Joueur connecté & aucune pénalité active | Marque la quête en cours, démarre le chronomètre | `ACTIVE` |
-| `ACTIVE` | `SUBMIT_PROOF` | Preuve non vide et conforme au `proof_type` | Enregistre l'empreinte de la preuve, notifie l'Architecte | `SUBMITTED_FOR_REVIEW` |
+| `ACTIVE` | `SUBMIT_PROOF` | Preuve non vide et conforme au `proof_type` | Enregistre l'empreinte de la preuve, notifie l'évaluateur IA | `SUBMITTED_FOR_REVIEW` |
 | `SUBMITTED_FOR_REVIEW` | `ARCHITECT_APPROVAL` | Score $\ge 10.0 / 20$ | Crédite l'XP, déclenche l'animation de complétion | `COMPLETED` |
 | `SUBMITTED_FOR_REVIEW` | `ARCHITECT_REJECT` | Score $< 10.0 / 20$ | Notifie les faiblesses, invite à recommencer | `ACTIVE` |
 | `ACTIVE` | `CLOCK_MIDNIGHT` | Heure courante $\ge 22h00$ et quête obligatoire | Déclenche l'alarme rouge, arme le daemon de pare-feu | `FAILED` |
@@ -1188,13 +1188,13 @@ Le tableau ci-dessous recense l'intégralité des événements d'interaction tra
 | `time_block_toggled` | Coche d'accomplissement d'un bloc horaire | `block_id`, `is_completed`, `delay_minutes` |
 | `voice_recording_started`| Déclenchement d'un enregistrement socratique | `target_stat`, `device_input_name` |
 | `voice_recording_finished`| Arrêt et finalisation d'un enregistrement | `duration_seconds`, `audio_bytes_size` |
-| `architect_score_viewed`| Affichage de la carte d'évaluation de l'Architecte | `score_out_of_20`, `xp_granted` |
-| `shop_item_purchased` | Achat d'une récompense avec Cristaux d'Ombres | `item_id`, `crystal_cost`, `remaining_balance` |
+| `architect_score_viewed`| Affichage de la carte d'évaluation de l'évaluateur IA | `score_out_of_20`, `xp_granted` |
+| `shop_item_purchased` | Achat d'une récompense avec Points de Récompense (Cristaux) | `item_id`, `crystal_cost`, `remaining_balance` |
 | `penalty_acknowledged` | Accusé de réception de l'écran de pénalité | `time_remaining_seconds`, `lockout_level` |
 
 ---
 
-## 10. Vitrine Visuelle des 7 Rangs de Chasseur Réels & Cérémonies de Montée en Rang
+## 10. Vitrine Visuelle des 7 Rangs de Utilisateur Réels & Cérémonies de Montée en Rang
 
 Dans LevelUp, le rang ne s'obtient pas par complaisance : il sanctionne l'adéquation exacte entre la puissance démontrée dans l'application et la réussite indiscutable dans la vie réelle.
 
@@ -1204,19 +1204,19 @@ flowchart TD
     R_D --> R_C["RANG C : L'OPÉRATEUR CONFIRMÉ (Niveaux 26 à 45)"]
     R_C --> R_B["RANG B : L'EXPERT COMPÉTITEUR (Niveaux 46 à 65)<br>*INVARIANT : Au moins 1 Hackathon Gagné*"]
     R_B --> R_A["RANG A : LE MAÎTRE & LEADER INDUSTRIEL (Niveaux 66 à 85)<br>*INVARIANT : Multi-Hackathons, Top 3 Promo, MVP Prod*"]
-    R_A --> R_S["RANG S : LE SOUVERAIN NATIONAL (Niveaux 86 à 95)<br>*INVARIANT : Sommité Nationale IA, Major Incontesté*"]
-    R_S --> R_M["MONARQUE DES OMBRES : LA LÉGENDE MONDIALE (Niveaux 96 à 100)<br>*INVARIANT : Renommée Mondiale, Riche, Athlète Parfait*"]
+    R_A --> R_S["RANG S : LE PRINCIPAL NATIONAL (Niveaux 86 à 95)<br>*INVARIANT : Sommité Nationale IA, Major Incontesté*"]
+    R_S --> R_M["RANG MAÎTRE : LA LÉGENDE MONDIALE (Niveaux 96 à 100)<br>*INVARIANT : Renommée Mondiale, Riche, Athlète Parfait*"]
 ```
 
 ### 10.1 Rang E : L'Éveil du Novice (Niveaux 1 à 10)
 * **Couleur Héraldique :** Gris Ardoise `#64748B` et Lueur Cyan Faible `#0EA5E9`.
 * **Réalité Concrète :** Étudiant débutant découvrant la rigueur du code, installant son environnement et calant son rythme de sommeil.
-* **Cérémonie :** Effet sonore d'éveil d'outre-tombe, déverrouillage de la carte de Chasseur initiale.
+* **Cérémonie :** Effet sonore d'éveil d'outre-tombe, déverrouillage de la carte de Utilisateur initiale.
 
 ### 10.2 Rang D : L'Apprenti Discipliné (Niveaux 11 à 25)
 * **Couleur Héraldique :** Vert Émeraude `#10B981` et Teinte Cuivrée.
 * **Réalité Concrète :** Maîtrise des devoirs académiques, premiers scripts Python autonomes, premières tractions strictes validées.
-* **Cérémonie :** Aura bleutée naissante autour de l'avatar, félicitations sobres de l'Architecte.
+* **Cérémonie :** Aura bleutée naissante autour de l'avatar, félicitations sobres de l'évaluateur IA.
 
 ### 10.3 Rang C : L'Opérateur Confirmé (Niveaux 26 à 45)
 * **Couleur Héraldique :** Bleu Électrique `#2563EB` et Halo Cobalt `#1D4ED8`.
@@ -1225,28 +1225,28 @@ flowchart TD
 
 ### 10.4 Rang B : L'Expert Compétiteur (Niveaux 46 à 65)
 * **Couleur Héraldique :** Violet Royal `#7C3AED` et Lueur Néon `#A855F7`.
-* **Réalité Concrète Inviolable :** **Vainqueur officiel d'au moins un Hackathon majeur** (Devpost / MLH / Corporate), certifié Cambridge C1, top 10% promo, maîtrise intégrale des routines Dos/Épaules, Bras et Abdos à la maison.
-* **Règle Fondamentale :** Un Chasseur qui n'a remporté aucun hackathon ne peut en aucun cas franchir ce rang.
+* **Réalité Concrète Strict :** **Vainqueur officiel d'au moins un Hackathon majeur** (Devpost / MLH / Corporate), certifié Cambridge C1, top 10% promo, maîtrise intégrale des routines Dos/Épaules, Bras et Abdos à la maison.
+* **Règle Fondamentale :** Un Utilisateur qui n'a remporté aucun hackathon ne peut en aucun cas franchir ce rang.
 * **Cérémonie :** Déploiement d'ombres numériques sur l'écran, bannière dorée "HACKATHON CHAMPION RECOGNIZED".
 
 ### 10.5 Rang A : Le Maître & Leader Industriel (Niveaux 66 à 85)
 * **Couleur Héraldique :** Pourpre Profond `#9333EA` et Or Impérial `#F59E0B`.
-* **Réalité Concrète Inviolable :** Vainqueur de multiples hackathons, major de promotion ou Top 3, bilingue Cambridge C2, MVP déployé avec des dizaines d'utilisateurs réels, force athlétique de haut niveau.
-* **Cérémonie :** Secousse de l'écran (`camera-shake`), thème musical orchestré Solo Leveling, titre honorifique de "Maître de Guilde".
+* **Réalité Concrète Strict :** Vainqueur de multiples hackathons, major de promotion ou Top 3, bilingue Cambridge C2, MVP déployé avec des dizaines d'utilisateurs réels, force athlétique de haut niveau.
+* **Cérémonie :** Secousse de l'écran (`camera-shake`), thème musical orchestré Système de Gamification, titre honorifique de "Maître de Guilde".
 
-### 10.6 Rang S : Le Souverain National (Niveaux 86 à 95)
+### 10.6 Rang S : Le Principal National (Niveaux 86 à 95)
 * **Couleur Héraldique :** Écarlate Solaire `#DC2626` et Noir Néant `#020617`.
-* **Réalité Concrète Inviolable :** Figure publique reconnue dans l'écosystème IA national, major indiscuté, grand champion de concours d'algorithmes, autonomie financière complète.
+* **Réalité Concrète Strict :** Figure publique reconnue dans l'écosystème IA national, major indiscuté, grand champion de concours d'algorithmes, autonomie financière complète.
 * **Cérémonie :** Verrouillage complet du HUD pendant 10 secondes avec message en lettres de sang : *"UN ÉVEILLÉ DE RANG S EST NÉ SUR CETTE TERRE"*.
 
-### 10.7 Monarque des Ombres : La Légende Vivante Mondiale (Niveaux 96 à 100)
-* **Couleur Héraldique :** Flammes d'Ombre Noir Absolu `#000000` et Halo Bleu Monarque `#38BDF8`.
-* **Réalité Concrète Inviolable :** Statut de légende mondiale de l'IA, riche, célèbre, physique de statue grecque sculptée par la calisthénie, conférencier d'élite, souveraineté totale.
-* **Cérémonie :** Déverrouillage du shader WebGL ultime des Flammes du Monarque, résonance vocale de Sung Jin-Woo : *"ARISE"*.
+### 10.7 Niveau Maître : La Légende Vivante Mondiale (Niveaux 96 à 100)
+* **Couleur Héraldique :** Flammes d'Ombre Noir Absolu `#000000` et Halo Bleu Maître `#38BDF8`.
+* **Réalité Concrète Strict :** Statut de légende mondiale de l'IA, riche, célèbre, physique de statue grecque sculptée par la calisthénie, conférencier d'élite, principaleté totale.
+* **Cérémonie :** Déverrouillage du shader WebGL ultime des Flammes du Maître, résonance vocale de l'utilisateur : *"ARISE"*.
 
 ## 11. Cinématique d'Intégration Initiale (First-Time User Experience - FTUE)
 
-Lors du tout premier lancement de LevelUp, le joueur ne découvre pas un formulaire d'inscription banal, mais vit la scène fondatrice du réveil dans la chambre d'hôpital de Solo Leveling :
+Lors du tout premier lancement de LevelUp, le joueur ne découvre pas un formulaire d'inscription banal, mais vit la scène fondatrice du réveil dans la chambre d'hôpital de Système de Gamification :
 
 ```mermaid
 sequenceDiagram
@@ -1254,7 +1254,7 @@ sequenceDiagram
     actor Joueur as Huriel (Joueur)
     participant UI as Écran du Système (Web HUD)
     participant Audio as Moteur Sonore Web Audio
-    participant AI as L'Architecte (Gemini 2.5 Pro)
+    participant AI as L'Évaluateur IA (Gemini 2.5 Pro)
     participant DB as Base de Données
 
     Joueur->>UI: Ouvre la plateforme pour la 1ère fois
@@ -1274,7 +1274,7 @@ sequenceDiagram
     AI->>AI: Calcul des niveaux de départ (Rank F, Lvl 1)
     AI-->>UI: Lot de quêtes initiales personnalisées généré
     UI->>DB: Création du profil joueur et des 120 nœuds de compétences
-    UI->>Joueur: Déploiement complet du Web HUD Holographique avec fanfare Solo Leveling
+    UI->>Joueur: Déploiement complet du Web HUD Holographique avec fanfare Système de Gamification
 ```
 
 ---
@@ -1390,7 +1390,7 @@ La saisie de données par le joueur est optimisée pour minimiser la friction co
 
 ---
 
-### 13.5 Formulaire 5 : Confirmation d'Achat dans la Boutique des Ombres (`/shop/purchase-modal`)
+### 13.5 Formulaire 5 : Confirmation d'Achat dans la Boutique de Récompenses (`/shop/purchase-modal`)
 * **Composants Visuels :**
   * Carte récapitulative de l'objet sélectionné (image, nom, description).
   * Ligne de débit : `Solde Actuel : 820 ❖` $\rightarrow$ `Coût Objet : -450 ❖` $\rightarrow$ `Nouveau Solde : 370 ❖`.
@@ -1429,7 +1429,7 @@ Pour offrir une expérience sans faille, chaque situation anormale est prise en 
 * **Problème :** Clic accidentel sur un lien externe alors qu'une longue démonstration mathématique est en cours de frappe.
 * **Résolution UX :**
   1. Interception de l'événement `beforeunload` du navigateur et du routeur Next.js.
-  2. Fenêtre d'alerte Solo Leveling : *"Des données de connaissances non synchronisées risquent de disparaître dans le néant. Quitter quand même ?"*
+  2. Fenêtre d'alerte Système de Gamification : *"Des données de connaissances non synchronisées risquent de disparaître dans le néant. Quitter quand même ?"*
   3. Sauvegarde automatique dans le cache local IndexedDB toutes les 5 secondes.
 
 ---
@@ -1447,7 +1447,7 @@ Pour garantir qu'aucun composant ne vienne masquer une alerte critique ou une qu
 --z-modal-backdrop: 200;      /* Voile sombre semi-transparent */
 --z-modal-card: 210;          /* Fenêtres modales de formulaire */
 --z-emergency-overlay: 500;   /* Alerte holographique Quête Urgente */
---z-penalty-lockout: 1000;    /* Écran plein écran rouge Zone de Pénalité (Infranchissable) */
+--z-penalty-lockout: 1000;    /* Écran plein écran rouge Mode Restriction / Pénalité (Infranchissable) */
 ```
 
 ### Échelle des Espacements Rémunérés (Spacing Scale)
@@ -1464,7 +1464,7 @@ Pour garantir qu'aucun composant ne vienne masquer une alerte critique ou une qu
 ## 16. Synthèse d'Expérience Utilisateur & Validation Formelle
 
 L'expérience applicative de LevelUp ("The System") transcende la simple gestion de tâches pour instaurer un véritable rituel psychologique d'ascension :
-1. **Immersion Sensorielle :** Le design sonore Web Audio et les shaders WebGL créent une atmosphère cinématographique digne de Solo Leveling.
+1. **Immersion Sensorielle :** Le design sonore Web Audio et les shaders WebGL créent une atmosphère cinématographique digne de Système de Gamification.
 2. **Ergonomie Sans Friction :** L'approche Local-First et les raccourcis clavier permettent d'interagir avec le Système en moins de 3 secondes.
 3. **Clarté Opérationnelle :** L'absence d'ambiguïté dans les jauges vitales et les sanctions forge une discipline inaltérable au quotidien.
 
@@ -1481,7 +1481,7 @@ Les Sprints Monk Mode représentent les périodes d'immersion maximale où toute
 * **Cinématique UI :**
   1. Le joueur active le mode via `/planner` avec le bouton `[ENGAGER LE SPRINT MONK MODE 12H]`.
   2. L'interface passe en mode *Ultra-Focus* : la barre latérale et les menus disparaissent, ne laissant que le compte à rebours géant et l'éditeur de notes.
-  3. L'Architecte prononce : *"Douze heures de focus ininterrompu. Prouvez que votre esprit ne connaît aucune faiblesse."*
+  3. L'Évaluateur IA prononce : *"Douze heures de focus ininterrompu. Prouvez que votre esprit ne connaît aucune faiblesse."*
 * **Wireframe de l'Interface Ultra-Focus :**
   ```
   +===================================================================================================+
@@ -1512,7 +1512,7 @@ Les Sprints Monk Mode représentent les périodes d'immersion maximale où toute
 * **Objectif :** Zéro mot de français pendant 7 jours consécutifs dans les notes, requêtes orales et interfaces.
 * **Cinématique UI :**
   * La langue du Web HUD bascule automatiquement en anglais strict (*The System Interface*).
-  * Les monologues oraux sont analysés par le modèle Whisper avec vérification que le paramètre `detected_language == 'en'`. Tout mot français détecté entraîne une réprimande de l'Architecte.
+  * Les monologues oraux sont analysés par le modèle Whisper avec vérification que le paramètre `detected_language == 'en'`. Tout mot français détecté entraîne une réprimande de l'évaluateur IA.
 
 ---
 
@@ -1528,7 +1528,7 @@ Les Sprints Monk Mode représentent les périodes d'immersion maximale où toute
 * **Objectif :** Réaliser sans faute les 100 pompes, 100 abdos, 100 squats et 10 km de course chaque jour pendant 7 jours.
 * **Cinématique UI :**
   * Frise de validation quotidienne : `[Lundi ✓] [Mardi ✓] [Mercredi ✓] [Jeudi ✓] [Vendredi ✓] [Samedi ✓] [Dimanche ✓]`.
-  * Titre exceptionnel débloqué à l'issue : `« Corps d'Acier du Monarque »`.
+  * Titre exceptionnel débloqué à l'issue : `« Corps d'Acier du Maître »`.
 
 ---
 
@@ -1557,15 +1557,15 @@ Les Sprints Monk Mode représentent les périodes d'immersion maximale où toute
 ### 17.9 Sprint 9 : La Distillation Rapide de Connaissances (10 Ouvrages en 10 Jours)
 * **Objectif :** Lire et synthétiser 10 livres fondamentaux en IA, neurosciences et systèmes d'exploitation.
 * **Cinématique UI :**
-  * À chaque fin d'ouvrage, enregistrement obligatoire d'un monologue de 5 minutes évalué par l'Architecte avec note $\ge 15/20$.
+  * À chaque fin d'ouvrage, enregistrement obligatoire d'un monologue de 5 minutes évalué par l'évaluateur IA avec note $\ge 15/20$.
 
 ---
 
-### 17.10 Sprint 10 : L'Épreuve Suprême du Monarque (Transcendance)
+### 17.10 Sprint 10 : L'Épreuve Suprême du Maître (Transcendance)
 * **Objectif :** Validation simultanée d'un projet MVP majeur, obtention de la première place de promotion et réussite d'une épreuve sportive d'endurance.
 * **Cinématique UI :**
-  * L'interface entière s'illumine de l'aura ultime de Sung Jin-Woo avec l'icône du trône d'Ombre.
-  * Déblocage du statut souverain : `MONARCH ABSOLU`.
+  * L'interface entière s'illumine de l'aura ultime de l'utilisateur avec l'icône du trône d'Ombre.
+  * Déblocage du statut principal : `MONARCH ABSOLU`.
 
 ---
 
@@ -1578,14 +1578,14 @@ Pour concilier alertes d'urgence et respect des cycles de sommeil réparateur (J
 | **Génération des Quêtes** | Discord Push & Web HUD | 06h00 - 08h00 | Non (Différé au réveil si DND actif) |
 | **Alerte Quête Urgente** | Discord Ping Direct & Sonnerie HUD | 08h00 - 21h00 | **OUI** (Interrompt le DND en journée pour simuler l'urgence) |
 | **Gong de Fin de Bloc** | Carillon Web Audio & Notification Desktop | Selon le planning actif | Non (Silencieux si mode réunion détecté) |
-| **Déclenchement Pénalité** | Alarme Écarlate Plein Écran & Alerte Discord | 22h00 précises | **OUI** (L'heure de pénalité est immuable et souveraine) |
+| **Déclenchement Pénalité** | Alarme Écarlate Plein Écran & Alerte Discord | 22h00 précises | **OUI** (L'heure de pénalité est immuable et principale) |
 | **Bourse Détectée par Deerflow**| Message Embed Discord discret | 04h00 - 08h00 | Non (Mis en attente dans le canal `#opportunites`) |
 | **Célébration Level Up** | Fanfare Sonore & Écran Doré | Immédiat lors de l'action | Non applicable |
 
 ### Configuration des Plages de Sommeil Sacrées (23h00 - 06h00)
 Durant cet intervalle :
 1. Aucune notification sonore n'est émise par le Système.
-2. L'accès au Web HUD affiche un voile noir reposant : *"Le Système se régénère. Le Monarque doit dormir pour restaurer ses HP."*
+2. L'accès au Web HUD affiche un voile noir reposant : *"Le Système se régénère. Le Maître doit dormir pour restaurer ses HP."*
 3. Les compteurs de régénération biologique s'enclenchent pour calculer la jauge du matin.
 
 ---
@@ -1597,18 +1597,18 @@ Les Boss Raids sont les jalons de validation suprêmes qui jalonnent la montée 
 ---
 
 ### 19.1 Boss Raid 1 : Le Donjon Instantané de la Station de Métro (Rang D)
-* **Inspiration Canonique :** Premier donjon solo de Sung Jin-Woo face à Cerbère, le Gardien des Enfers.
+* **Inspiration Canonique :** Premier donjon solo de l'utilisateur face à Cerbère, le Gardien des Enfers.
 * **Déclencheur d'Accès :** Atteinte du Niveau 10 et complétion de 14 jours consécutifs sans pénalité.
 * **Déroulement Visuel :**
   1. *Phase d'Entrée :* L'écran du Web HUD s'assombrit, une grille de métro ensanglantée apparaît avec le message : `[DONJON INSTANTANÉ DÉTECTÉ - RANG D]`.
   2. *Affrontement :* Une barre de vie de 10 000 HP s'affiche au sommet de l'écran.
   3. *Mécanique de Dégâts :* Chaque bloc d'étude ou room TryHackMe validé inflige des dégâts proportionnels au boss (ex: 1 Room Medium = -2 500 HP).
-  4. *Victoire :* Éclatement du boss en particules bleues, déblocage de la clé du Tier 2 des compétences et acquisition de 50 Cristaux d'Ombres.
+  4. *Victoire :* Éclatement du boss en particules bleues, déblocage de la clé du Tier 2 des compétences et acquisition de 50 Points de Récompense (Cristaux).
 
 ---
 
 ### 19.2 Boss Raid 2 : La Porte Rouge (The Red Gate — Épreuve de Survie Hivernale)
-* **Inspiration Canonique :** La forêt glaciale où Sung Jin-Woo protège les élèves et affronte les elfes de glace.
+* **Inspiration Canonique :** La forêt glaciale où l'utilisateur protège les élèves et affronte les elfes de glace.
 * **Déclencheur d'Accès :** Début d'un Sprint Monk Mode de 7 jours consécutifs.
 * **Déroulement Visuel :**
   1. *Shader de Givre :* Un filtre de buée glaciale et de flocons de neige bleus recouvre l'ensemble du Web HUD (`canvas.freeze-effect`).
@@ -1622,37 +1622,37 @@ Les Boss Raids sont les jalons de validation suprêmes qui jalonnent la montée 
 * **Déclencheur d'Accès :** Atteinte du Rang B (Niveau 35).
 * **Déroulement Visuel :**
   1. *Représentation Verticale :* Frise ascendante de 100 paliers d'apprentissage couvrant l'ensemble du cursus de Master en Intelligence Artificielle.
-  2. *Progression :* Chaque notion maîtrisée (validée par l'Architecte avec note $\ge 16/20$) fait gravir 1 étage.
+  2. *Progression :* Chaque notion maîtrisée (validée par l'évaluateur IA avec note $\ge 16/20$) fait gravir 1 étage.
   3. *Palier 100 (Le Roi Démon Baran) :* Soutenance du projet de fin d'études ou publication d'un article de recherche IA international.
   4. *Récompense Ultime :* Déblocage de la recette légendaire et transition vers le Rang A.
 
 ---
 
-### 19.4 Boss Raid 4 : Le Raid de l'Île de Jeju (Jeju Island Raid — Rang S (Souverain National))
-* **Inspiration Canonique :** L'extermination des fourmis mutantes géantes et le couronnement de Sung Jin-Woo comme plus grand chasseur mondial.
-* **Déclencheur d'Accès :** Atteinte du Niveau 86 (Rang S — Souverain National).
+### 19.4 Boss Raid 4 : Le Raid de l'Île de Jeju (Jeju Island Raid — Rang S (Principal National))
+* **Inspiration Canonique :** L'extermination des fourmis mutantes géantes et le couronnement de l'utilisateur comme plus grand utilisateur mondial.
+* **Déclencheur d'Accès :** Atteinte du Niveau 86 (Rang S — Principal National).
 * **Déroulement Visuel :**
   1. *Carte Tactique :* Vue satellite stylisée de la région avec points chauds d'opportunités professionnelles (offres de laboratoires de pointe, bourses doctorales, levées de fonds pour MVP).
   2. *Combat d'Agents :* Orchestration simultanée d'un essaim d'agents Antigravity collaborant avec le joueur pour livrer un projet d'ingénierie d'envergure industrielle.
-  3. *Apothéose :* L'ombre du Roi des Fourmis s'incline devant Huriel : *"Monarque, commandez à vos Ombres."*
+  3. *Apothéose :* L'ombre du Roi des Fourmis s'incline devant Huriel : *"Maître, commandez à vos Ombres."*
 
 ---
 
-## 20. Lexique Canonique des Termes d'Interface Solo Leveling
+## 20. Lexique Canonique des Termes d'Interface Système de Gamification
 
 Pour préserver l'authenticité thématique, l'ensemble des libellés du Web HUD et du bot Discord respecte la nomenclature officielle :
 
 | Terme Officiel Système | Équivalent Productivité Réelle | Définition & Rôle dans LevelUp |
 | :--- | :--- | :--- |
-| **Le Système ("The System")** | Plateforme LevelUp | L'entité informatique souveraine qui guide, évalue et sanctionne le joueur. |
-| **Le Chasseur ("Hunter")** | Huriel (Le Joueur) | L'utilisateur unique engagé dans le processus d'ascension continue. |
+| **Le Système ("The System")** | Plateforme LevelUp | L'entité informatique principale qui guide, évalue et sanctionne le joueur. |
+| **Le Utilisateur ("Hunter")** | Huriel (Le Joueur) | L'utilisateur unique engagé dans le processus d'ascension continue. |
 | **L'Éveil ("Awakening")** | Initialisation du Profil | Le passage de la passivité à la conscience active de sa discipline. |
 | **La Fenêtre Système** | Web HUD Holographique | L'interface visuelle bleue néon affichant les statistiques et notifications. |
-| **L'Architecte** | Agent IA Antigravity / Gemini | L'intelligence socratique intransigeante qui attribue les notes et quêtes. |
+| **L'Évaluateur IA** | Agent IA Antigravity / Gemini | L'intelligence socratique intransigeante qui attribue les notes et quêtes. |
 | **Quête Journalière** | Tâches Quotidiennes Obligatoires | Les 3 à 5 routines incontournables (Sport, Étude IA, Cyber, Anglais). |
 | **Quête Urgente** | Tâche Imprévue à Haute Valeur | Défi à temps limité (60 min) déclenché lors d'opportunités ou failles. |
-| **Zone de Pénalité** | Sanction de Déconnexion / Pare-feu | Verrouillage de TikTok et distractions en cas d'échec avant 22h00. |
-| **Cristaux d'Ombres** | Monnaie de Récompense Réelle | Jetons gagnés par l'effort pour financer des outils d'étude et matériel. |
+| **Mode Restriction / Pénalité** | Sanction de Déconnexion / Pare-feu | Verrouillage de TikTok et distractions en cas d'échec avant 22h00. |
+| **Points de Récompense (Cristaux)** | Monnaie de Récompense Réelle | Jetons gagnés par l'effort pour financer des outils d'étude et matériel. |
 | **Monk Mode** | Période d'Immersion Sans Écran Parasite | Sprint de travail intensif sans aucune distraction numérique. |
 | **« DEBOUT » ("ARISE")** | Rétablissement & Passage de Rang | Cri de ralliement lors d'un level up majeur ou d'une résilience réussie. |
 
@@ -1660,7 +1660,7 @@ Pour préserver l'authenticité thématique, l'ensemble des libellés du Web HUD
 
 ## 21. Approbation Formelle & Matrice de Recette UX
 
-Ce document de spécification d'expérience utilisateur (UX/UI) a été validé selon les critères d'ergonomie cognitive, de réactivité sensorielle et de fidélité artistique au manga Solo Leveling. Il fait autorité pour l'implémentation des composants React et des handlers Discord.
+Ce document de spécification d'expérience utilisateur (UX/UI) a été validé selon les critères d'ergonomie cognitive, de réactivité sensorielle et de fidélité artistique au manga Système de Gamification. Il fait autorité pour l'implémentation des composants React et des handlers Discord.
 
 ---
 
@@ -1701,7 +1701,7 @@ export class ShadowParticleBurst {
   public explode(originX: number, originY: number, particleCount: number = 60, isRankUp: boolean = false): void {
     const colors = isRankUp
       ? ['#FFD700', '#FFA500', '#FFFFFF', '#00E5FF'] // Teintes dorées et cyan de montée de rang
-      : ['#00E5FF', '#0051FF', '#05050A', '#FFFFFF']; // Teintes flammes d'Ombre Solo Leveling
+      : ['#00E5FF', '#0051FF', '#05050A', '#FFFFFF']; // Teintes flammes d'Ombre Système de Gamification
 
     for (let i = 0; i < particleCount; i++) {
       const angle = Math.random() * Math.PI * 2;
@@ -1767,7 +1767,7 @@ Ce système de particules apporte une satisfaction dopamine immédiate à chaque
 L'ensemble des parcours et écrans décrits dans ce document a été conçu selon une logique de zéro compromis :
 - **Clarté :** L'état du joueur et ses devoirs sont lisibles en un coup d'œil en moins de 2 secondes.
 - **Rigueur :** Aucune complaisance n'est admise dans le chemin critique des quêtes et des sanctions.
-- **Éveil :** L'univers Solo Leveling agit comme un catalyseur psychologique puissant vers l'excellence intellectuelle, technique et corporelle.
+- **Éveil :** L'univers Système de Gamification agit comme un catalyseur psychologique puissant vers l'excellence intellectuelle, technique et corporelle.
 
 ---
 

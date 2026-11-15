@@ -1,114 +1,59 @@
-# Product Requirements Document (PRD) Exhaustif — LevelUp ("The System")
+# Product Requirements Document (PRD) — LevelUp
 
-> **Document ID :** PRD-LVLUP-001-TITAN  
+> **Document ID :** PRD-LVLUP-001  
 > **Nom du Produit :** LevelUp  
-> **Nom de Code Système :** "The System" (Le Système de l'Éveillé)  
-> **Version du Document :** 3.0.0 (Spécification Encyclopédique & Opérationnelle)  
-> **Statut :** Approuvé pour Implémentation Immédiate  
-> **Auteur(s) :** Huriel & Lead Software Architect AI  
-> **Classification :** Confidentiel / Propriétaire  
+> **Version :** 3.0.0 (Spécification Opérationnelle)  
+> **Statut :** Approuvé pour Implémentation  
+> **Cible :** Plateforme de Suivi de Performance & Ingénierie Personnelle  
 
 ---
+## 1. Contexte, Objectifs & Principes de Conception
 
-## 1. Contexte Stratégique, Psychologie de la Performance & Vision
+### 1.1 Objectifs de la Plateforme
+Un profil ambitieux en Intelligence Artificielle et Ingénierie logicielle poursuit simultanément plusieurs axes exigeants :
+1. **Excellence académique :** Assimilation de cours denses (mathématiques appliquées, recherche opérationnelle, théorie de l'information), réussite des examens et alternance.
+2. **Ingénierie logicielle & IA :** Conception d'architectures, développement de MVPs, expérimentation des modèles de fondation, agents autonomes et bases vectorielles.
+3. **Cybersécurité :** Entraînement sur TryHackMe et HackTheBox, participation à des CTFs, audit de code et compréhension des vulnérabilités (OWASP Top 10, exploitation mémoire).
+4. **Communication & International :** Maîtrise de l'anglais professionnel (C1/C2 Cambridge), aisance oratoire, participation à des hackathons mondiaux (Devpost, MLH).
+5. **Financement & Bourses :** Veille et candidature aux bourses d'excellence et de mobilité, financement des études et du matériel de calcul.
+6. **Condition physique :** Maintien de la santé posturale, force et endurance musculaire (calisthénie) couplé à une récupération optimisée (sommeil).
 
-### 1.1 Le Problème Fondamental : La Dispersion Cognitive de l'Étudiant d'Élite
-Un étudiant en Intelligence Artificielle ambitieux poursuit simultanément des objectifs à haute intensité qui sollicitent des aires cérébrales radicalement différentes :
-1. **L'excellence académique :** Viser et maintenir la place de premier de promotion, assimiler des cours denses (mathématiques appliquées, recherche opérationnelle, théorie de l'information), préparer des examens théoriques et pratiques complexes, mener des projets scolaires en équipe et réussir son alternance en entreprise.
-2. **L'ingénierie technique pure :** Concevoir des architectures logicielles, coder des MVPs opérationnels, tester de nouvelles applications, explorer les modèles de fondation, les architectures d'agents autonomes, le fine-tuning et les bases de données vectorielles.
-3. **La cybersécurité défensive et offensive :** Pratiquer quotidiennement sur TryHackMe et HackTheBox, participer à des CTF (*Capture The Flag*), auditer du code, comprendre les vulnérabilités de bas niveau (Buffer Overflows, Heap exploitation) et de haut niveau (OWASP Top 10, API security).
-4. **L'ambition internationale & l'influence :** Maîtriser l'anglais au niveau bilingue professionnel (C1/C2 Cambridge), développer son éloquence, sa prestance, son aisance oratoire, participer activement à des hackathons compétitifs mondiaux (Devpost, MLH) et bâtir un réseau professionnel puissant de pairs et de mentors.
-5. **L'émancipation financière & matérielle :** Détecter et postuler aux bourses d'excellence et de mobilité, financer ses études et son matériel de calcul (GPU, serveurs), monétiser ses compétences en ingénierie.
-6. **La fondation biologique :** Maintenir une puissance physique d'athlète (musculation lourde, force, endurance musculaire, santé posturale) et une clarté mentale inaltérable grâce à un sommeil réparateur et une discipline de fer.
+### 1.2 Approche Fonctionnelle
+Contrairement aux to-do lists conventionnelles qui manquent de rétroaction et traitent indifféremment tâches critiques et secondaires, **LevelUp** introduit un cadre de gamification rigoureux, quantifiable et déterministe où chaque effort réel est récompensé de manière proportionnée.
 
-**La tragédie classique :** L'accumulation chaotique de ces objectifs engendre la paralysie décisionnelle, la dispersion mentale et la culpabilité. Les to-do lists conventionnelles (Todoist, Notion, Trello) échouent systématiquement car :
-* Elles sont passives et manquent d'immersion psychologique.
-* Elles ne fournissent aucun retour dopaminergique proportionné à l'effort réel.
-* Elles traitent une tâche triviale ("acheter du pain") au même niveau qu'un exploit d'ingénierie ("rooter une machine TryHackMe Insane").
-* Elles ne s'interfacent pas avec les outils réels (Discord, transcription audio, bourses d'études, code source).
+### 1.3 Principes Directeurs
+1. **Ancrage sur les Standards Établis :** Utilisation exclusive de critères d'évaluation reconnus et officiels (Cambridge English, GitHub Student Developer Pack, TryHackMe, Harvard CS50, DeepLearning.AI).
+2. **Validation par la Preuve :** Tout gain d'XP ou progression repose sur une preuve vérifiable (commit GitHub, rapport TryHackMe, vidéo analysée par vision par ordinateur, relevé officiel).
+3. **Multi-Canal Intégré :** Accès fluide via Web HUD (PWA React), bot Discord (Discord.js v14) et scripts d'orchestration locale.
+4. **Base de Connaissances Unifiée :** Mémoire technique et académique centralisée dans un vault Markdown (`vault/`) compatible Obsidian.
 
-### 1.2 La Solution : Le Méta-Orchestrateur "Solo Leveling"
-Inspiré de l'architecture du "Système" de l'anime *Solo Leveling*, **LevelUp** ne se contente pas de lister des tâches : il transforme la réalité physique et intellectuelle de l'utilisateur en un environnement de RPG brutal, immersif et déterministe. 
-Le Système ne négocie pas, ne tolère pas la médiocrité, mais récompense chaque gramme d'effort par une montée en puissance quantifiable et visible.
-
-### 1.3 Principes Directeurs Inviolables
-
-1. **Zéro Réinvention Artificielle (Principe du Réel) :** Le Système ne crée pas de mini-jeux ni de faux tests de niveau. Il s'ancre exclusivement sur les standards mondiaux reconnus et gratuits : tests officiels Cambridge English, certifications GitHub Student Developer Pack, challenges TryHackMe / PortSwigger, cours MIT / Stanford / Harvard, compétitions de hackathons Devpost / MLH.
-2. **Mesure Absolue & Traçabilité :** Tout gain d'XP et de score doit être étayé par une preuve tangible irréfutable (enregistrement vocal transcrit, lien de commit et pull request GitHub, rapport de room TryHackMe, relevé de notes officiel, flux vidéo analysé par vision par ordinateur).
-3. **Omniprésence Silencieuse :** Le Système communique là où se trouve l'utilisateur : sur son bureau via la PWA React haute performance, sur son smartphone et ses écouteurs via le Bot Discord (Discord.js v14) et le pipeline d'inférence vocale locale.
-4. **Second Brain Unifié :** La mémoire de l'utilisateur n'est jamais dispersée. Toutes les connaissances académiques, techniques et stratégiques acquises sont indexées dans un coffre-fort numérique Markdown natif (`vault/`) intégré au Système.
-
-### 1.4 Ancrage Réel Absolu des Niveaux et Rangs (Élimination du Virtuel Fantasmé)
-
-Dans la plupart des systèmes de gamification conventionnels, un utilisateur peut accumuler de l'expérience en cochant des micro-tâches répétitives sans que sa réalité physique, intellectuelle ou financière ne change d'un iota. **LevelUp rejette viscéralement cette illusion.**
-
-* **Loi Fondamentale du Monarque :** Le niveau et le rang atteints dans le Système doivent être le miroir exact, fidèle et indiscutable de la réussite du joueur dans le monde réel. Si un utilisateur atteint le Rang S ou le rang de Monarque, il **doit être** dans la vie réelle un ingénieur en intelligence artificielle de renommée mondiale, financièrement libre ou riche, athlète au corps sculpté et puissant, orateur éloquent et bilingue parfait.
-* **Non-Existence des Profils Déséquilibrés :** Un "Chasseur de Rang B" qui n'a jamais remporté le moindre hackathon d'envergure, qui ne s'exprime pas couramment en anglais ou qui est incapable d'enchaîner une routine complète de calisthénie **n'existe pas** dans le Système.
-* **Élimination de la Notion de "Bloqué par Quête de Rang" :** Dans l'ancienne conception, un joueur pouvait accumuler artificiellement des niveaux (passer par exemple du niveau 1 au niveau 25) tout en se retrouvant bloqué devant une quête de rang disproportionnée qu'il était incapable d'accomplir. Cette aberration est définitivement supprimée. Dans LevelUp, le niveau global et le rang sont strictement couplés aux accomplissements fondateurs des 8 bases : **il est impossible d'atteindre le niveau requis pour un rang sans avoir déjà validé les compétences de base indispensables.**
-
-### 1.5 Nomenclature Mathématique : Score de Base ($S_b$), Niveau de Base ($L_b$) et Score Global ($S_{\text{global}}$)
-
-Pour éliminer toute ambiguïté de calcul et forcer un développement holistique sans faille, le Système établit une distinction rigoureuse entre **Score** et **Niveau** :
-
-1. **Par Base Fondamentale ($b \in \{1, \dots, 8\}$) :**
-   * **Score de Base ($S_b$) :** Chaque base dispose d'un score continu $S_b \in [0, 1000]$, alimenté par l'accomplissement des nœuds de compétences, des quêtes quotidiennes spécialisées et des preuves réelles vérifiées.
-   * **Niveau de Base ($L_b$) :** Le niveau dans une base donnée est calculé de manière quadratique à partir du score de cette base :
+### 1.4 Modèle Mathématique de Progression
+Le système distingue rigoureusement le score continu et le niveau :
+1. **Par Domaine ($b \in \{1, \dots, 8\}$) :**
+   - **Score de Base ($S_b \in [0, 1000]$)** : Alimenté par les compétences validées, quêtes et preuves.
+   - **Niveau de Base ($L_b$)** : Calcul quadratique :
      $$L_b = \min \left( 100, \left\lfloor \sqrt{\frac{S_b}{1000}} \times 100 \right\rfloor \right)$$
 
-2. **Agrégation du Score Global ($S_{\text{global}}$) via Moyenne Harmonique Pondérée :**
-   Une moyenne arithmétique standard permettrait à un joueur d'ignorer complètement la puissance physique (`STR`) ou l'anglais (`LNG`) tout en gonflant artificiellement son score en code (`AI_ENG`). Pour interdire cette négligence, le Système calcule le **Score Global** par une moyenne harmonique pondérée :
+2. **Score Global ($S_{\text{global}}$) par Moyenne Harmonique Pondérée :**
+   Pour interdire le délaissement d'un domaine au profit d'un autre :
    $$S_{\text{global}} = \frac{\sum_{b=1}^{8} w_b}{\sum_{b=1}^{8} \frac{w_b}{S_b + \epsilon}}$$
-   Où $w_b$ est le poids relatif attribué à la base $b$ ($\sum w_b = 1.0$) et $\epsilon = 0.01$ empêche la division par zéro. Dans une moyenne harmonique, la valeur minimale domine le résultat : si le joueur néglige une seule base ($S_b \to 0$), son Score Global s'effondre, rendant tout passage au rang supérieur impossible.
+   avec $w_b$ le poids relatif du domaine et $\epsilon = 0.01$.
 
-3. **Niveau Global du Chasseur ($L_{\text{global}}$) :**
-   Le Niveau Global du joueur (affiché sur le HUD holographique) est directement dérivé du Score Global :
+3. **Niveau Global ($L_{\text{global}}$) :**
    $$L_{\text{global}} = \min \left( 100, \left\lfloor \sqrt{\frac{S_{\text{global}}}{1000}} \times 100 \right\rfloor \right)$$
 
-### 1.6 Écosystème des Services & Applications Externes Référencés
-
-Le Système ne cherche pas à recréer des outils là où des références mondiales d'élite existent gratuitement :
-
-| Domaine Opérationnel | Service Externe Référencé | Rôle & Modalité d'Intégration dans LevelUp |
+### 1.5 Écosystème des Services Référencés
+| Domaine | Service Référencé | Rôle dans LevelUp |
 | :--- | :--- | :--- |
-| **Veille Technologique & Bourses** | **Deerflow AI & Google Alerts RSS** | Surveillance automatisée des bourses d'études mondiales (Eiffel, Fulbright, Erasmus Mundus) et alertes hackathons Devpost via flux RSS et scraping headless Playwright. |
-| **Maîtrise Linguistique** | **Cambridge English Free Tests** | Tests gratuits officiels Cambridge English (C1 Advanced & C2 Proficiency) pour la certification et le calibrage périodique du niveau réel d'anglais. |
-| **Pratique Quotidienne des Langues** | **Duolingo API & Anki** | Maintien du streak journalier de langues et répétition espacée algorithmique (SM-2) du vocabulaire technique et académique en IA et cybersécurité. |
-| **Certifications Techniques Gratuites** | **DataCamp (GitHub Student Pack)** | Exploitation complète des accès premium gratuits DataCamp, freeCodeCamp, CS50 Harvard et DeepLearning.AI pour valider les nœuds `AI_ENG`. |
-| **Interface HUD Mobile & Vocale** | **Discord Bot (Discord.js v14)** | Terminal déporté du Chasseur : commandes slash, journalisation vocale par streaming UDP, alertes de quêtes et suivi du Deep Work en canal vocal dédié. |
-| **Validation Sportive par Vision** | **MediaPipe Pose & OpenCV** | Analyse cinématique par caméra en temps réel (angles articulaires coude/épaule/genou) pour compter objectivement chaque répétition de calisthénie sans triche possible. |
-| **Pare-Feu Anti-Distraction & Pénalités** | **NextDNS API & Pare-feu Local** | Blocage dynamique au niveau DNS et réseau (NextDNS, Pi-hole, Windows Filtering Platform / Hosts) des domaines récréatifs lors des sessions Deep Work et pénalités. |
+| **Veille Bourses & Hackathons** | **Deerflow / Scraper Playwright** | Détection automatique des bourses mondiales et hackathons Devpost. |
+| **Maîtrise Linguistique** | **Cambridge English Tests** | Évaluation et étalonnage régulier du niveau d'anglais (C1/C2). |
+| **Pratique Vocabulaire & Langues** | **Anki / Algorithme SM-2** | Répétition espacée du vocabulaire technique et académique. |
+| **Certifications Techniques** | **DataCamp (GitHub Student Pack)** | Validation des cours et compétences data/IA. |
+| **Interface Déportée** | **Bot Discord (Discord.js v14)** | Commandes rapides, alertes et journalisation. |
+| **Validation Sportive** | **MediaPipe Pose (WASM)** | Analyse cinématique par caméra pour comptage automatique des répétitions. |
+| **Régulation Réseau** | **NextDNS API** | Blocage temporaire des distractions en session de travail ou restriction. |
 
 ---
-
-### 1.7 Synthèse Dogmatique & Traçabilité Opérationnelle : Les 10 Décisions Inviolables du Système
-
-Le présent document PRD consigne formellement les 10 décisions architecturales et philosophiques arrêtées pour le développement et l'exploitation de *LevelUp* :
-
-1. **Loi du Réel Inviolable (Zéro Illusion Gamifiée) :** Les niveaux et les rangs sont ancrés dans le monde réel. Le statut suprême de Monarque des Ombres correspond à un ingénieur IA de renommée mondiale, financièrement souverain, athlète au corps d'élite et orateur bilingue. Un Chasseur de Rang B sans victoire officielle en hackathon ne peut pas exister.
-2. **Nomenclature par Base & Moyenne Harmonique Pondérée :** Chaque base dispose d'un Score continu ($S_b \in [0, 1000]$) et d'un Niveau de base ($L_b$). Le Score Global ($S_{\text{global}}$) est calculé par la moyenne harmonique pondérée des 8 bases :
-   $$S_{\text{global}} = \frac{\sum_{b=1}^{8} w_b}{\sum_{b=1}^{8} \frac{w_b}{S_b + \epsilon}}$$
-   Toute faiblesse ou délaissement d'une base ($S_b \to 0$) pénalise violemment le niveau global $L_{\text{global}}$.
-3. **Suppression Définitive de l'Anomalie "Bloqué par Quête de Rang" :** Le niveau global harmonique et le rang sont strictement couplés aux réalisations réelles (hackathon gagné pour Rang B, C1 Cambridge, etc.). L'élévation de rang s'opère naturellement sans goulot d'étranglement artificiel.
-4. **Physiologie Souveraine des Jauges HP & MP (Zéro Notion de Fatigue) :** L'interface bannit tout message de fatigue, d'épuisement ou de paresse. Les jauges traduisent la "Résilience Biologique Souveraine" (HP) et le "Focus Cognitif Indomptable" (MP). Décroissance lente validée par le modèle à deux processus de Peter Borbély (homéostasie d'adénosine avec $\tau_w \approx 18.2\text{ h}$, $HP \ge 80\%$ après 16h d'éveil) et le modèle dopaminergique de Boksem (+10 MP par quête validée).
-5. **Programmes Complets de Calisthénie d'Huriel Encodés :**
-   * *Dos & Épaules (17 étapes) :* Jumping Jacks 30s, Hyperextension x14, Pike Push Ups x14, Reverse Push-Ups x12, Inchworms x16, Side-Lying Stretch G 30s, Side-Lying Stretch D 30s, Hyperextension x12, Pike Push Ups x12, Reverse Push-Ups x10, Inchworms x14, Cat Cow Pose 35s, Supine Push Up x14, Floor Y Raises x14, Supine Push Up x13, Reverse Snow Angels x12, Child's Pose 30s.
-   * *Bras & Triceps Calisthenics (@giovanni_fiderio) :* 6 variantes en 3 séries poussées à l'échec postural strict (Push-Ups classiques, Decline, Diamond, Pike, Wide, Tricep Cross Extensions au sol).
-   * *Abdos & Core d'Acier (@lou4n.ldlm) :* V-Up (3x10), Mountain Climber (3x30s), Relevé de jambes au sol (3x12), Gainage classique (2x1m30), Gainage latéral (2x45s par côté).
-   * *Jambes & Mobilité :* Squats 4x25, Fentes sautées 3x12/jambe, Chaise murale 3x60s, Calf raises 4x20.
-6. **Validation Cinématique par Caméra (MediaPipe Pose WebAssembly) :** Analyse temps réel 100% locale des 33 repères squelettiques. Comptage objectif avec hystérésis (flexion coude $\le 75^\circ \to$ extension $\ge 160^\circ$ avec score de confiance $\ge 70\%$).
-7. **Second Brain Unifié Compatible Obsidian (`vault/`) :** Fiches de connaissances Markdown pures, métadonnées YAML, liens bidirectionnels `[[wikilinks]]` et recherche instantanée par trigrammes PostgreSQL (`pg_trgm`).
-8. **Ordonnancement Circadien & Les 5 Catégories de Quêtes :**
-   * *Daily Quests :* 4 quotidiennes avec rotation musculaire stricte.
-   * *Emergency Quests :* Alertes réelles opportunités (4h à 24h, XP x1.5).
-   * *Boss Raids :* Examens universitaires, Hackathons 48h Devpost, Cambridge.
-   * *Monk Mode Sprints :* Le Jeudi Commando (façon Sung Jin-Woo) de 06h00 à 22h00 pour combler les bases faibles.
-   * *Penalty Quests :* Sanction à 00h01 (réveil à 05h00, 100 pompes, 100 abdos, verrouillage NextDNS 24h).
-9. **L'Agent Orchestrateur Antigravity ("L'Architecte") :** Connecté via un serveur MCP dédié (`levelup-mcp-server`), un worker Python utilisant le SDK officiel `google-antigravity` et BullMQ. Notation socratique sur 20 points pour les résumés oraux et commandement de l'Armée des Ombres.
-10. **Modèle Économique : 100% Gratuit (0,00 € / mois) :** Architecture local-first et exploitation exclusive des quotas gratuits officiels (Gemini API Free Tier, Faster-Whisper local, MediaPipe Pose local, NextDNS gratuit, GitHub Student Pack).
-
----
-
-
 ## 2. Décomposition Encyclopédique des 8 Bases de Vie (Les 120 Nœuds de Compétences)
 
 Chaque base dispose d'un arbre hiérarchique de compétences concrètes avec ressources réelles, critères de validation et XP associée.
@@ -274,7 +219,7 @@ mindmap
 | **FIN-03** | *Exploitation des Crédits Cloud Gratuits* | Activation des offres gratuites de serveurs pour étudiants (Azure for Students 100$, AWS Educate, DigitalOcean). | GitHub Pack / Portails étudiants Cloud | Déploiement d'une infrastructure de test sur crédits étudiants gratuits | `+150 XP` |
 | **FIN-04** | *Domaines & Certificats SSL Gratuits* | Enregistrement de son nom de domaine professionnel gratuit via Namecheap ou Name.com (inclus dans le GitHub Pack). | GitHub Education / Namecheap | Nom de domaine personnel actif pointant vers son portfolio | `+120 XP` |
 | **FIN-05** | *Souscription aux Outils de Développement Offerts* | Déblocage des licences professionnelles gratuites : JetBrains All Products Pack, Datacamp, Frontend Masters. | GitHub Student Pack partners | Capture de l'accès actif aux cours DataCamp et IDE JetBrains | `+150 XP` |
-| **FIN-06** | *Constitution du Fonds de Sécurité d'Urgence* | Mise de côté méthodique d'une réserve de précaution inviolable représentant au moins 2 mois de dépenses. | Compte d'épargne dédié | Relevé de compte prouvant la constitution de la réserve de sécurité | `+250 XP` |
+| **FIN-06** | *Constitution du Fonds de Sécurité d'Urgence* | Mise de côté méthodique d'une réserve de précaution strict représentant au moins 2 mois de dépenses. | Compte d'épargne dédié | Relevé de compte prouvant la constitution de la réserve de sécurité | `+250 XP` |
 | **FIN-07** | *Configuration du Radar Deerflow pour Bourses* | Paramétrage des filtres de veille automatique pour détecter les bourses d'études et subventions européennes en IA. | Moteur Deerflow intégré LevelUp | Premier lot de 3 opportunités pertinentes capturées et enregistrées en base | `+180 XP` |
 | **FIN-08** | *Constitution du Dossier Type de Candidature aux Bourses* | Rédaction d'une lettre de motivation d'excellence, CV académique normé, lettres de recommandation d'enseignants. | Modèles de bourses internationales | Dossier de candidature complet prêt à l'envoi archivé en PDF | `+250 XP` |
 | **FIN-09** | *Dépôt d'une Candidature Officielle à une Bourse* | Soumission formelle d'un dossier de bourse universitaire ou de mobilité internationale avant l'échéance. | Plateformes de bourses publiques/privées | Récépissé officiel de dépôt de dossier | `+300 XP` |
@@ -385,7 +330,7 @@ Circuit complet de renforcement de la sangle abdominale combinant travail dynami
 | **STR-09** | *Force Explosive du Bas du Corps (Squats)* | Réalisation d'une série de 50 squats profonds au poids du corps sans rupture de rythme. | Entraînement bas du corps | Série de 50 squats continus validée par MediaPipe | `+120 XP` |
 | **STR-10** | *Tractions Lestées (+15 kg)* | Exécution de 5 tractions strictes avec une charge additionnelle de 15 kg attachée à la ceinture. | Entraînement de force maximale | Vidéo validée avec pesée de la charge et exécution propre | `+250 XP` |
 | **STR-11** | *Endurance Cardiovasculaire (Course 5 km)* | Course continue de 5 kilomètres courue en moins de 25 minutes sans s'arrêter. | Données d'application GPS de course (Strava) | Trace GPS avec temps inférieur à 25:00 | `+200 XP` |
-| **STR-12** | *Le Défi des 100 Pompes de Solo Leveling* | Complétion de 100 pompes réparties en un minimum de séries au cours d'une seule session d'entraînement. | Entraînement emblématique Sung Jin-Woo | Log de la séance avec détail des répétitions par série | `+200 XP` |
+| **STR-12** | *Le Défi des 100 Pompes de Système de Gamification* | Complétion de 100 pompes réparties en un minimum de séries au cours d'une seule session d'entraînement. | Entraînement emblématique l'utilisateur | Log de la séance avec détail des répétitions par série | `+200 XP` |
 | **STR-13** | *Régularité Physique Inébranlable (4 Séances/Semaine)* | Tenue stricte de 4 entraînements intenses par semaine pendant 2 mois consécutifs sans aucune séance manquée. | Journal d'entraînement LevelUp | 8 semaines consécutives avec 4 séances hebdomadaires tracées | `+400 XP` |
 | **STR-14** | *Endurance de Fond (Course 10 km)* | Course de 10 kilomètres achevée en moins de 55 minutes en maintenant une allure constante. | Traceur GPS de running | Capture de la trace GPS certifiant 10 km en $< 55\text{ min}$ | `+300 XP` |
 | **STR-15** | *Condition Physique d'Athlète Complet* | Validation conjointe : 15 tractions strictes + 50 pompes d'affilée + 5 km en $< 23\text{ min}$ + Mobilité parfaite. | Batterie complète de tests physiques | Épreuve physique complète filmée et certifiée | `+800 XP` |
@@ -394,21 +339,21 @@ Circuit complet de renforcement de la sangle abdominale combinant travail dynami
 
 | ID Nœud | Intitulé de la Compétence | Description & Programme Réel | Ressources Gratuites Associées | Preuve de Validation (DoD) | XP Gain |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **DIS-01** | *Sanctuaire Matinal sans Écran* | Zéro consultation des réseaux sociaux ou de messages dans les 60 premières minutes suivant le réveil. | Règle d'hygiène mentale | 14 jours consécutifs de matinée sanctuarisée documentés | `+120 XP` |
+| **DIS-01** | *Espace de travail Matinal sans Écran* | Zéro consultation des réseaux sociaux ou de messages dans les 60 premières minutes suivant le réveil. | Règle d'hygiène mentale | 14 jours consécutifs de matinée sanctuarisée documentés | `+120 XP` |
 | **DIS-02** | *Session de Deep Work de 90 Minutes* | Travail intellectuel intense sans aucune interruption, notification ou changement d'onglet pendant 1h30. | Méthode Deep Work (Cal Newport) | Minuteur de bloc Time-Blocking respecté à 100% | `+100 XP` |
 | **DIS-03** | *Détox Digitale des Réseaux Récréatifs* | Désinstallation complète ou blocage strict de TikTok et Instagram sur tous ses terminaux pendant 7 jours. | Outils de restriction d'écran | 7 jours complets avec zéro seconde passée sur ces applications | `+200 XP` |
 | **DIS-04** | *Double Session de Deep Work (3 Heures Cumulées)* | Accomplissement de deux blocs de 90 minutes de travail concentré dans la même journée. | Planificateur journalier LevelUp | Deux blocs d'études ou de code achevés sans diversion | `+180 XP` |
 | **DIS-05** | *Série Ininterrompue de Quêtes Quotidiennes (7 Jours)* | Clôture de l'intégralité des 4 Quêtes Quotidiennes obligatoires avant minuit pendant 7 jours consécutifs. | Suivi des streaks LevelUp | Badge "Semaine Parfaite" débloqué dans le Système | `+250 XP` |
 | **DIS-06** | *Douche Froide de Discipline* | Prise d'une douche entièrement froide de 2 minutes dès le saut du lit pour vaincre la résistance mentale. | Protocoles de neurobiologie (Dopamine baseline) | 10 jours consécutifs de douches froides matinales enregistrés | `+120 XP` |
-| **DIS-07** | *Sanctuaire du Coucher (Zéro Écran à 22h)* | Extinction totale de tous les écrans (ordinateur, téléphone) au moins 45 minutes avant le coucher. | Hygiène du rythme circadien | Horodatage d'extinction vérifié sur 10 jours consécutifs | `+150 XP` |
+| **DIS-07** | *Espace de travail du Coucher (Zéro Écran à 22h)* | Extinction totale de tous les écrans (ordinateur, téléphone) au moins 45 minutes avant le coucher. | Hygiène du rythme circadien | Horodatage d'extinction vérifié sur 10 jours consécutifs | `+150 XP` |
 | **DIS-08** | *Refus Résolu des Gratifications Immédiates* | Capacité à refuser une tentation immédiate (soirée non planifiée, jeu vidéo) pour terminer un livrable clé. | Entraînement de la volonté stoïcienne | Journalisation de la tentation surmontée et livrable terminé | `+150 XP` |
 | **DIS-09** | *Session Commando Monk Mode de 6 Heures* | Journée intensive (jeudi commando) avec 6 heures de Deep Work nettes réparties en 3 blocs stricts. | Protocole Monk Mode LevelUp | Clôture des 3 blocs majeurs avec fiches de sortie déposées | `+350 XP` |
-| **DIS-10** | *Série Ininterrompue de 30 Jours de Quêtes* | 30 jours consécutifs sans manquer une seule quête quotidienne. Aucune entrée en zone de pénalité. | Système LevelUp | Badge "Discipline d'Acier" débloqué | `+600 XP` |
+| **DIS-10** | *Série Ininterrompue de 30 Jours de Quêtes* | 30 jours consécutifs sans manquer une seule quête quotidienne. Aucune entrée en mode restriction / pénalité. | Système LevelUp | Badge "Discipline d'Acier" débloqué | `+600 XP` |
 | **DIS-11** | *Résilience Post-Échec Immédiate* | Suite à une mauvaise note ou un rejet de candidature : révision immédiate des erreurs dans les 2 heures sans plainte. | Pratique de l'Amor Fati stoïcien | Fiche d'analyse post-mortem rédigée dans le Second Brain | `+200 XP` |
 | **DIS-12** | *Jeûne Dopaminergique de 24 Heures* | 24 heures complètes le dimanche sans réseaux sociaux, sans vidéos, sans musique, centré sur la marche et l'étude. | Protocole de réinitialisation dopaminergique | Journal de bord rédigé le dimanche soir au calme | `+300 XP` |
 | **DIS-13** | *Session Marathon de Deep Work (8 Heures Cumulées)* | Journée exceptionnelle d'ingénierie totalisant 8 heures de concentration pure lors d'un sprint de hackathon. | Cockpit de hackathon | Traces de commits et logs de travail certifiant 8h d'effort | `+500 XP` |
-| **DIS-14** | *Série Ininterrompue de 90 Jours (3 Mois Parfaits)* | Un trimestre entier de discipline souveraine : zéro abandon, zéro compromis, respect absolu du Système. | Registre immuable du Système | Statut de Maître de Discipline débloqué | `+1200 XP` |
-| **DIS-15** | *Volonté Inaltérable du Monarque* | Capacité à exécuter son devoir avec une froide détermination quelle que soit la météo, la fatigue ou l'humeur. | Sommet de l'arbre de discipline | Accomplissement des objectifs annuels sans défaillance | `+2500 XP` |
+| **DIS-14** | *Série Ininterrompue de 90 Jours (3 Mois Parfaits)* | Un trimestre entier de discipline principale : zéro abandon, zéro compromis, respect absolu du Système. | Registre immuable du Système | Statut de Maître de Discipline débloqué | `+1200 XP` |
+| **DIS-15** | *Volonté Inaltérable du Maître* | Capacité à exécuter son devoir avec une froide détermination quelle que soit la météo, la fatigue ou l'humeur. | Sommet de l'arbre de discipline | Accomplissement des objectifs annuels sans défaillance | `+2500 XP` |
 
 
 ---
@@ -419,15 +364,15 @@ Le Système n'improvise rien : il dispose d'une bibliothèque exhaustive de quê
 
 ### 3.1 Catalogue des Quêtes Quotidiennes (`DAILY_QUESTS` — 50 Quêtes Types)
 
-Chaque jour, l'Architecte sélectionne 4 à 6 quêtes parmi cette bibliothèque en fonction des matières universitaires du moment, de la fatigue et des échéances :
+Chaque jour, l'évaluateur IA sélectionne 4 à 6 quêtes parmi cette bibliothèque en fonction des matières universitaires du moment, de la fatigue et des échéances :
 
 #### Pôle 1 : Corps & Puissance Physique (STR)
 * **QD-STR-01 :** *Tirage des Ombres (Dos & Biceps)* — 5 séries de tractions strictes au poids du corps (minimum 8 répétitions par série) + 3 séries de tirage horizontal. Récompense : `+100 XP STR`. Preuve : Log d'entraînement validé.
 * **QD-STR-02 :** *Poussée Suprême (Pectoraux & Triceps)* — 5 séries de 25 pompes militaires au sol + 4 séries de 12 dips profonds. Récompense : `+100 XP STR`. Preuve : Log d'entraînement validé.
 * **QD-STR-03 :** *La Muraille Abdominale* — 4 tours de circuit abdominal : 1 min de planche frontale, 30 secondes de planche latérale chaque côté, 25 crunchs inversés. Récompense : `+90 XP STR`. Preuve : Chronomètre vérifié.
-* **QD-STR-04 :** *L'Épreuve du Centurion (Solo Leveling Classic)* — Accomplir 100 pompes, 100 abdos et 100 squats au cours de la journée. Récompense : `+150 XP STR`. Preuve : Saisie des blocs de répétitions.
+* **QD-STR-04 :** *L'Épreuve du Centurion (Système de Gamification Classic)* — Accomplir 100 pompes, 100 abdos et 100 squats au cours de la journée. Récompense : `+150 XP STR`. Preuve : Saisie des blocs de répétitions.
 * **QD-STR-05 :** *Piliers d'Athlète (Bas du Corps)* — 4 séries de 20 fentes marchées avec haltères + 4 séries de 20 squats explosifs. Récompense : `+110 XP STR`. Preuve : Log de séance.
-* **QD-STR-06 :** *Endurance de Chasseur (Course 5 km)* — Courir 5 kilomètres en extérieur à une allure continue sans marcher. Récompense : `+130 XP STR`. Preuve : Lien de synchronisation d'activité GPS.
+* **QD-STR-06 :** *Endurance de Utilisateur (Course 5 km)* — Courir 5 kilomètres en extérieur à une allure continue sans marcher. Récompense : `+130 XP STR`. Preuve : Lien de synchronisation d'activité GPS.
 * **QD-STR-07 :** *Surcharge Progressive du Dos* — 4 séries de 6 tractions avec une charge additionnelle de 10 kg à la ceinture. Récompense : `+140 XP STR`. Preuve : Vidéo de pesée et exécution.
 * **QD-STR-08 :** *Récupération & Mobilité Articulaire* — 25 minutes d'étirements profonds des hanches, épaules et décompression de la colonne vertébrale. Récompense : `+80 XP STR / +30 XP HP`. Preuve : Décompte du bloc.
 * **QD-STR-09 :** *Session Explosive Poids du Corps* — 5 tours : 10 tractions + 20 pompes + 30 squats réalisés en moins de 18 minutes. Récompense : `+140 XP STR`. Preuve : Chronomètre de fin de séance.
@@ -446,7 +391,7 @@ Chaque jour, l'Architecte sélectionne 4 à 6 quêtes parmi cette bibliothèque 
 * **QD-ACD-10 :** *Simulation d'Exposé Technique* — Enregistrer un mémo vocal de 5 minutes présentant le fonctionnement d'un algorithme du programme sans bafouiller. Récompense : `+110 XP ACAD / +40 XP EXP`. Preuve : Enregistrement transcrit par l'IA.
 
 #### Pôle 3 : Ingénierie IA, Code Pur & Hackathons (AI_ENG)
-* **QD-AIE-01 :** *Analyse de Papier de Recherche (Paper Reading)* — Lire un papier arXiv de recherche en IA (ex: architecture Mamba, DPO, Attention sparse), en extraire les 3 contributions clés et dicter un résumé vocal de 3 minutes. Récompense : `+150 XP AI_ENG`. Preuve : Résumé transcrit et noté par l'Architecte.
+* **QD-AIE-01 :** *Analyse de Papier de Recherche (Paper Reading)* — Lire un papier arXiv de recherche en IA (ex: architecture Mamba, DPO, Attention sparse), en extraire les 3 contributions clés et dicter un résumé vocal de 3 minutes. Récompense : `+150 XP AI_ENG`. Preuve : Résumé transcrit et noté par l'évaluateur IA.
 * **QD-AIE-02 :** *Session de Code MVP (Bloc 2h)* — Développer une fonctionnalité complète d'un projet personnel en appliquant une Clean Architecture avec tests unitaires. Récompense : `+160 XP AI_ENG`. Preuve : Commit GitHub avec message descriptif normé.
 * **QD-AIE-03 :** *Implémentation d'un Nœud de Pipeline RAG* — Coder un mécanisme de re-ranking avec un modèle cross-encoder pour améliorer la précision des documents injectés dans le contexte LLM. Récompense : `+140 XP AI_ENG`. Preuve : Fichier source Python testé.
 * **QD-AIE-04 :** *Création d'un Outil Agentique MCP* — Concevoir un serveur Model Context Protocol exposant une nouvelle capacité (ex: interrogation d'une API de veille) pour Antigravity. Récompense : `+150 XP AI_ENG`. Preuve : Schéma d'outil fonctionnel.
@@ -495,7 +440,7 @@ Ces quêtes surgissent de manière inopinée avec un compte à rebours strict et
 * **QE-06 :** *Réponse Express à une Offre de Stage/Alternance* — Une offre d'élite vient d'apparaître. Vous avez 60 minutes pour adapter votre CV, rédiger une lettre de motivation sur-mesure et soumettre votre candidature. Récompense : `+250 XP EXP / +100 XP ACAD`. Échéance : 60 minutes.
 * **QE-07 :** *Room Temporaire TryHackMe CTF* — Une salle de challenge temporaire est ouverte pour 24h. Vous avez 2 heures pour capturer le premier flag utilisateur. Récompense : `+300 XP CYBER`. Échéance : 120 minutes.
 * **QE-08 :** *Traduction Technique d'Urgence* — Traduire intégralement en anglais impeccable une documentation technique de 500 mots en moins de 30 minutes sans traducteur automatique. Récompense : `+180 XP LNG`. Échéance : 30 minutes.
-* **QE-09 :** *Session de Sauvegarde & Audit de Sécurité* — L'Architecte ordonne une vérification immédiate : vérifier la validité du backup PostgreSQL local, tester la commande de restauration et vérifier l'espace disque. Récompense : `+150 XP AI_ENG`. Échéance : 30 minutes.
+* **QE-09 :** *Session de Sauvegarde & Audit de Sécurité* — L'Évaluateur IA ordonne une vérification immédiate : vérifier la validité du backup PostgreSQL local, tester la commande de restauration et vérifier l'espace disque. Récompense : `+150 XP AI_ENG`. Échéance : 30 minutes.
 * **QE-10 :** *Défi de Calcul Mental & Théorie* — Résoudre 5 calculs de complexité algorithmique (notation Grand O) en moins de 20 minutes chronométrées. Récompense : `+150 XP ACAD`. Échéance : 20 minutes.
 * **QE-11 :** *Opportunité de Pitch Improvvisé* — Enregistrer sans préparation un pitch de 2 minutes présentant une idée de projet à un investisseur fictif. Récompense : `+180 XP EXP`. Échéance : 20 minutes.
 * **QE-12 :** *Résolution de Conflit Git Complexe* — Simuler et résoudre un rebase interactif avec 3 conflits de fusion sur une branche Git sans perdre un seul commit. Récompense : `+140 XP AI_ENG`. Échéance : 25 minutes.
@@ -506,7 +451,7 @@ Ces quêtes surgissent de manière inopinée avec un compte à rebours strict et
 * **QE-17 :** *Rédaction de Spécification Express* — Écrire les user stories et critères d'acceptation d'une nouvelle fonctionnalité en moins de 30 minutes selon le standard MoSCoW. Récompense : `+150 XP AI_ENG`. Échéance : 30 minutes.
 * **QE-18 :** *Détection de Fuite Mémoire (Leak Hunt)* — Identifier l'origine d'une surconsommation de RAM sur un conteneur ou un script en moins de 45 minutes. Récompense : `+200 XP AI_ENG`. Échéance : 45 minutes.
 * **QE-19 :** *Session Flash de Prononciation Anglaise* — Répéter 10 virelangues (*tongue twisters*) complexes en anglais avec enregistrement vocal et validation de netteté. Récompense : `+120 XP LNG`. Échéance : 15 minutes.
-* **QE-20 :** *L'Épreuve du Sanctuaire Intérieur* — Fermer tous les logiciels de divertissement, éteindre les notifications et s'asseoir droit en silence pendant 10 minutes de concentration pure. Récompense : `+150 XP DIS`. Échéance : 15 minutes.
+* **QE-20 :** *L'Épreuve du Espace de travail Intérieur* — Fermer tous les logiciels de divertissement, éteindre les notifications et s'asseoir droit en silence pendant 10 minutes de concentration pure. Récompense : `+150 XP DIS`. Échéance : 15 minutes.
 
 ---
 
@@ -522,17 +467,17 @@ Les Boss représentent les grands projets et jalons décisifs de la vie réelle.
 * **QB-06 :** *La Forteresse de la Bourse d'Excellence (Boss HP : 1 500)* — Dossier complet de bourse internationale soumis via Deerflow. Éléments de dégâts : Relevés académiques (300 HP), Lettre de motivation d'élite (400 HP), Recommandations (300 HP), Entretien oral préparé (500 HP). Victoire : Bourse accordée. Récompense : `+1500 XP FIN / +500 XP ACAD`.
 * **QB-07 :** *L'Épreuve Physique du Berserk (Boss HP : 600)* — Validation conjointe de 15 tractions strictes, 50 pompes militaires et 5 km en moins de 23 minutes. Chaque épreuve validée inflige 200 HP. Victoire : Défi relevé. Récompense : `+800 XP STR`, Titre : *"L'Athlète d'Ombre"*.
 * **QB-08 :** *La Genèse du MVP Commercial (Boss HP : 1 800)* — Conception, développement et lancement public d'un SaaS IA avec passerelle de paiement active. Victoire : Première vente enregistrée. Récompense : `+2000 XP AI_ENG / +1000 XP FIN`.
-* **QB-09 :** *Le Sanctuaire des 30 Jours de Fer (Boss HP : 900)* — Tenir 30 jours consécutifs de discipline absolue sans manquer une seule quête quotidienne. Chaque jour parfait inflige 30 HP au Boss. Victoire : 30 jours sans faute. Récompense : `+1200 XP DIS`.
+* **QB-09 :** *Le Espace de travail des 30 Jours de Fer (Boss HP : 900)* — Tenir 30 jours consécutifs de discipline absolue sans manquer une seule quête quotidienne. Chaque jour parfait inflige 30 HP au Boss. Victoire : 30 jours sans faute. Récompense : `+1200 XP DIS`.
 * **QB-10 :** *Le Colosse du CTF National (Boss HP : 1 400)* — Participation à une compétition Capture The Flag de 24 heures. Chaque challenge résolu dans les catégories Web, Pwn, Crypto, Forensics lui inflige des dégâts. Victoire : Top 10% du classement final. Récompense : `+1400 XP CYBER`.
 * **QB-11 :** *La Chaire Universitaire (Soutenance de Fin d'Année) (Boss HP : 1 000)* — Grand oral de soutenance de projet devant le jury académique. Dégâts : Support visuel irréprochable (300 HP), Élocution et prestance (400 HP), Réponses maîtrisées aux questions pièges (300 HP). Victoire : Note de soutenance $\ge 18/20$. Récompense : `+1000 XP ACAD / +500 XP EXP`.
 * **QB-12 :** *Le Réseau des 500 Alliances (Boss HP : 800)* — Atteindre 500 relations professionnelles stratégiques qualifiées sur LinkedIn avec un profil optimisé et des interactions régulières. Victoire : 500 connexions et 5 échanges de mentorat. Récompense : `+800 XP EXP`.
 * **QB-13 :** *L'Explorateur des Terres Inconnues (Recherche IA) (Boss HP : 1 200)* — Reproduction complète et amélioration des résultats d'un papier de recherche IA récent. Victoire : Code reproductible et article de synthèse publié. Récompense : `+1500 XP AI_ENG`.
 * **QB-14 :** *L'Éradicateur de Dette Technique (Boss HP : 700)* — Audit complet d'une base de code de 10 000 lignes : passage de la couverture de tests de 30% à 85% et élimination de tous les bugs connus. Victoire : Couverture $\ge 85\%$. Récompense : `+800 XP AI_ENG`.
-* **QB-15 :** *L'Avènement du Monarque (Boss Ultime) (Boss HP : 10 000)* — L'épreuve finale pour débloquer le Niveau 100 : Major de promotion officiel + Niveau C2 certifié + Bourse décrochée + Top 1% TryHackMe + Condition physique athlétique accomplie. Victoire : Sacre du Monarque de l'Ombre. Récompense : `+10000 XP All Stats`, Titre Suprême : *"Le Monarque de l'Ombre"*.
+* **QB-15 :** *L'Avènement du Maître (Boss Ultime) (Boss HP : 10 000)* — L'épreuve finale pour débloquer le Niveau 100 : Major de promotion officiel + Niveau C2 certifié + Bourse décrochée + Top 1% TryHackMe + Condition physique athlétique accomplie. Victoire : Sacre du Maître de l'Ombre. Récompense : `+10000 XP All Stats`, Titre Suprême : *"Le Maître de l'Ombre"*.
 
 ---
 
-### 3.4 Hiérarchie des Rangs du Chasseur & Épreuves Fondatrices Commando
+### 3.4 Hiérarchie des Rangs du Utilisateur & Épreuves Fondatrices Commando
 
 Dans LevelUp, le rang ne s'achète pas et ne se débloque pas par une simple accumulation de temps passé. Il matérialise l'autorité, la réputation, la puissance physique et l'excellence académique et professionnelle réelles de l'utilisateur.
 
@@ -543,7 +488,7 @@ flowchart LR
     C --> B["Rang B (Expert & Hackathon Winner)<br>Lvl 46 - 65"]
     B --> A["Rang A (Maître / Leader Industriel)<br>Lvl 66 - 85"]
     A --> S["Rang S (National Sovereign)<br>Lvl 86 - 95"]
-    S --> Monarch["Monarque des Ombres<br>Lvl 96 - 100"]
+    S --> Monarch["Niveau Maître<br>Lvl 96 - 100"]
 ```
 
 #### Critères Réels Indiscutables par Palier de Rang :
@@ -561,7 +506,7 @@ flowchart LR
    * *Exigences Clés :* Déploiement d'un MVP fullstack fonctionnel (React + FastAPI/Node), top 20% de promo validé, 10 tractions strictes, 5 km de course en $< 25\text{ min}$, maintien d'un streak Duolingo/Anki de 30 jours.
 
 4. **Rang B : L'Expert Compétiteur ($L_{\text{global}} \in [46, 65]$)**
-   * *Statut Réel :* **Vainqueur de Hackathon reconnu.** Un Chasseur de Rang B sans victoire en compétition de code n'existe pas dans le Système.
+   * *Statut Réel :* **Vainqueur de Hackathon reconnu.** Un Utilisateur de Rang B sans victoire en compétition de code n'existe pas dans le Système.
    * *Exigences Clés Obligatoires (Invariants) :*
      * **Victoire ou Podium Officiel en Hackathon :** Au moins un hackathon majeur remporté ou podium (Devpost, MLH, Hackathon inter-écoles national ou corporate).
      * **Certification Linguistique Reconnue :** Certification Cambridge English C1 Advanced (ou équivalent officiel C1) validée.
@@ -577,7 +522,7 @@ flowchart LR
      * Physique athlétique d'élite : 15 tractions strictes, routine d'abdos complète enchaînée, 10 km en $< 50\text{ min}$.
      * Bourse d'excellence ou alternance d'élite décrochée via la veille Deerflow.
 
-6. **Rang S : Le Souverain National ($L_{\text{global}} \in [86, 95]$)**
+6. **Rang S : Le Principal National ($L_{\text{global}} \in [86, 95]$)**
    * *Statut Réel :* Figure montante reconnue à l'échelle nationale dans l'écosystème de l'Intelligence Artificielle et de la recherche appliquée.
    * *Exigences Clés Obligatoires :*
      * Major de promotion indiscuté de son école d'ingénieurs.
@@ -585,31 +530,31 @@ flowchart LR
      * Indépendance financière relative (revenus de conseil, SaaS, ou bourse de recherche doctorale prestigieuse).
      * Maîtrise physique suprême (force relative calisthénique de haut niveau, masse grasse athlétique $< 12\%$).
 
-7. **Monarque des Ombres : La Légende Vivante Mondiale ($L_{\text{global}} \in [96, 100]$)**
+7. **Niveau Maître : La Légende Vivante Mondiale ($L_{\text{global}} \in [96, 100]$)**
    * *Statut Réel :* Génie mondial de l'IA, riche, célèbre, physique de statue grecque, orateur influent invité aux conférences mondiales.
    * *Exigences Clés :* Fondateur ou CTO d'une entreprise tech valorisée à plusieurs millions, liberté financière absolue, contributions open-source majeures à l'infrastructure mondiale de l'IA, maîtrise oratoire bilingue sans accent, condition physique olympique.
 
 #### Les 10 Protocoles Commando d'Élévation (`MONK_MODE_SPRINTS`) :
 
-Ces journées sont programmées (comme le jeudi commando façon Sung Jin-Woo) pour accélérer le développement holistique et synchroniser les scores des 8 bases :
+Ces journées sont programmées (comme le jeudi commando façon l'utilisateur) pour accélérer le développement holistique et synchroniser les scores des 8 bases :
 
-* **QC-01 :** *Le Jeudi Commando Originel (Sung Jin-Woo Edition)* — 06h00 Réveil & Routine Dos/Épaules 17 exercices $\rightarrow$ 08h30-11h30 Mathématiques & Optimisation $\rightarrow$ 12h30-15h30 Cybersécurité TryHackMe $\rightarrow$ 16h00-18h30 Architecture IA & Code MVP $\rightarrow$ 19h00 Lecture technique anglaise. Récompense : `+600 XP All Bases`.
-* **QC-02 :** *Le Sprint de l'Architecte Logiciel* — Conception et déploiement d'un MVP complet en 3 blocs de 3 heures de programmation pure sans pause récréative. Récompense : `+700 XP AI_ENG / +300 XP DIS`.
+* **QC-01 :** *Le Jeudi Commando Originel (l'utilisateur Edition)* — 06h00 Réveil & Routine Dos/Épaules 17 exercices $\rightarrow$ 08h30-11h30 Mathématiques & Optimisation $\rightarrow$ 12h30-15h30 Cybersécurité TryHackMe $\rightarrow$ 16h00-18h30 Architecture IA & Code MVP $\rightarrow$ 19h00 Lecture technique anglaise. Récompense : `+600 XP All Bases`.
+* **QC-02 :** *Le Sprint de l'évaluateur IA Logiciel* — Conception et déploiement d'un MVP complet en 3 blocs de 3 heures de programmation pure sans pause récréative. Récompense : `+700 XP AI_ENG / +300 XP DIS`.
 * **QC-03 :** *La Journée Blanche des Révisions Universitaires* — 8 heures nettes d'exercices d'annales d'examens en 4 sessions de 2 heures, validées avec note $\ge 16/20$. Récompense : `+800 XP ACAD / +200 XP DIS`.
 * **QC-04 :** *Le Marathon Cyber Gladiator* — 8 heures d'immersion totale sur TryHackMe / PortSwigger pour franchir un palier de classement. Récompense : `+800 XP CYBER`.
 * **QC-05 :** *L'Immersion Anglaise Intégrale (24h)* — Interdiction absolue de prononcer, lire ou écrire un seul mot en français durant 24h ; passage d'un test Cambridge C1/C2 complet. Récompense : `+500 XP LNG / +300 XP DIS`.
 * **QC-06 :** *La Forge Physique Calisthénique* — Enchaînement de la Routine Dos & Épaules le matin et de la Routine Bras & Abdos l'après-midi, couplées à 4h d'ingénierie. Récompense : `+500 XP STR / +300 XP DIS`.
 * **QC-07 :** *Le Sprint Bourses & Opportunités* — Analyse de toutes les opportunités mondiales via Deerflow / Google Alerts et dépôt de 3 dossiers parfaits. Récompense : `+600 XP FIN / +300 XP ACAD`.
-* **QC-08 :** *Le Reset Dopaminergique Monastique* — Zéro écran récréatif, lecture papier, marche silencieuse, alimentation saine, coucher à 21h30. Récompense : `+600 XP DIS / Vitalité Souveraine`.
+* **QC-08 :** *Le Reset Dopaminergique Monastique* — Zéro écran récréatif, lecture papier, marche silencieuse, alimentation saine, coucher à 21h30. Récompense : `+600 XP DIS / Vitalité Principale`.
 * **QC-09 :** *Le Hackathon Commando Solo (36h)* — Développement solitaire intensif pour livrer un MVP d'IA fonctionnel du vendredi soir au dimanche matin. Récompense : `+1200 XP AI_ENG`.
-* **QC-10 :** *L'Ordre Suprême du Système* — Ajustement stratégique inopiné déclenché par l'Architecte pour combler la base la plus faible constatée par la moyenne harmonique. Récompense : `+800 XP Base Minimale`.
+* **QC-10 :** *L'Ordre Suprême du Système* — Ajustement stratégique inopiné déclenché par l'évaluateur IA pour combler la base la plus faible constatée par la moyenne harmonique. Récompense : `+800 XP Base Minimale`.
 
 ### 3.5 Catalogue des Quêtes de Pénalité (`PENALTY_QUESTS` — 10 Protocoles de Sanction)
 
 Déclenchées automatiquement à 00h01 UTC en cas de non-validation des Quêtes Quotidiennes sans justification légitime :
 
 * **QP-01 :** *La Punition du Réveil Forcé (05h00)* — Obligation de se lever à 05h00 pile le lendemain matin et d'accomplir immédiatement une séance de 100 pompes et 100 abdos avant 06h00 sous peine d'exclusion temporaire du Système.
-* **QP-02 :** *Le Sanctuaire du Silence (Coupure Totale)* — Blocage réseau local des applications de divertissement (TikTok, YouTube, Instagram) pendant 24 heures complètes via le script pare-feu.
+* **QP-02 :** *Le Espace de travail du Silence (Coupure Totale)* — Blocage réseau local des applications de divertissement (TikTok, YouTube, Instagram) pendant 24 heures complètes via le script pare-feu.
 * **QP-03 :** *La Double Séance de Compensation* — Réalisation obligatoire d'un bloc de 3 heures de cours universitaires le samedi matin pour compenser l'inattention de la semaine.
 * **QP-04 :** *L'Épreuve du Froid* — Douche glaciale de 3 minutes imposée le matin suivant pour réveiller la volonté défaillante et réinitialiser les récepteurs de dopamine.
 * **QP-05 :** *La Course de l'Humilité (7 km)* — Course matinale de 7 kilomètres sous la pluie ou le froid avant d'avoir le droit d'allumer son ordinateur de travail.
@@ -617,13 +562,13 @@ Déclenchées automatiquement à 00h01 UTC en cas de non-validation des Quêtes 
 * **QP-07 :** *Le Gel de l'Attribution d'XP (XP Freeze)* — Les gains d'expérience sont divisés par deux pendant 48 heures consécutives jusqu'à ce que la régularité soit restaurée.
 * **QP-08 :** *L'Exil Numérique Dominical* — Interdiction formelle d'allumer son ordinateur tout le dimanche suivant, réservé exclusivement au sport au poids du corps et à la lecture de livres papier.
 * **QP-09 :** *La Tâche Ingrate Programmée* — Accomplir une tâche d'ingénierie fastidieuse mais vitale (ex: réécrire 50 tests unitaires, nettoyer 200 dépendances logicielles) avant tout autre travail.
-* **QP-10 :** *L'Avertissement Ultime du Monarque* — En cas de 3 pénalités consécutives : rétrogradation temporaire d'un sous-rang et verrouillage de l'accès aux projets personnels jusqu'à redressement complet.
+* **QP-10 :** *L'Avertissement Ultime du Maître* — En cas de 3 pénalités consécutives : rétrogradation temporaire d'un sous-rang et verrouillage de l'accès aux projets personnels jusqu'à redressement complet.
 
 ---
 
-## 4. Grille de Notation & Évaluation Sévère de l'Architecte IA (Sur 20 Points)
+## 4. Grille de Notation & Évaluation Sévère de l'évaluateur IA IA (Sur 20 Points)
 
-L'Agent Architecte résidant dans Antigravity n'est pas un complaisant distributeur d'XP. Il applique une grille de correction rigide d'école d'ingénieurs d'élite pour évaluer chaque résumé de lecture ou de cours :
+L'Agent Évaluateur IA résidant dans Antigravity n'est pas un complaisant distributeur d'XP. Il applique une grille de correction rigide d'école d'ingénieurs d'élite pour évaluer chaque résumé de lecture ou de cours :
 
 | Critère d'Évaluation | Barème | Exigence pour Obtenir les Points | Conséquence en Cas d'Insuffisance |
 | :--- | :--- | :--- | :--- |
@@ -634,7 +579,7 @@ L'Agent Architecte résidant dans Antigravity n'est pas un complaisant distribut
 | **5. Clarté Linguistique & Vocabulaire d'Ingénieur** | **/ 2 points** | Vocabulaire technique approprié, orthographe impeccable, syntaxe soignée (en français ou en anglais). | Perte de 1 point par tranche de 3 fautes grossières ou imprécisions de vocabulaire. |
 
 ### Barème d'Attribution de l'Expérience (XP) selon la Note Obtenue :
-* **Note $\le 9 / 20$ (Échec / Travail Bâclé) :** `0 XP attribuée`. Message de rejet motivé de l'Architecte : *"Travail insuffisant. Le Système ne récompense pas la paresse intellectuelle. Recommencez en approfondissant les concepts."*
+* **Note $\le 9 / 20$ (Échec / Travail Bâclé) :** `0 XP attribuée`. Message de rejet motivé de l'évaluateur IA : *"Travail insuffisant. Le Système ne récompense pas la paresse intellectuelle. Recommencez en approfondissant les concepts."*
 * **Note de $10$ à $13 / 20$ (Passable / Mérite Amélioration) :** `50% de l'XP nominale accordée` (ex: 60 XP au lieu de 120 XP).
 * **Note de $14$ à $17 / 20$ (Bon Travail / Conforme aux Attentes) :** `100% de l'XP nominale accordée` (ex: 120 XP).
 * **Note de $18$ à $20 / 20$ (Excellence / Maîtrise Exceptionnelle) :** `120% de l'XP nominale accordée` (+ bonus de 20% pour mention d'honneur) + message de félicitations solennel du Système.
@@ -646,12 +591,12 @@ L'Agent Architecte résidant dans Antigravity n'est pas un complaisant distribut
 
 ### 5.1 Calibrage Dynamique de la Vitalité & Concentration : Modélisation Neurobiologique Réelle (Jauges HP & MP)
 
-#### 5.1.1 Posture Psychologique Inviolable : Bannissement de la Notion de Faiblesse
-Dans l'univers de *Solo Leveling*, le Système ne traite jamais le Chasseur comme un être paresseux, usé ou victime de la fatigue. La fatigue perçue est avant tout un verrou psychologique et mental que la discipline transcende.
+#### 5.1.1 Posture Psychologique Strict : Bannissement de la Notion de Faiblesse
+Dans l'univers de *Système de Gamification*, le Système ne traite jamais le Utilisateur comme un être paresseux, usé ou victime de la fatigue. La fatigue perçue est avant tout un verrou psychologique et mental que la discipline transcende.
 
 * **Règle UI / UX Absolue :** Les jauges HP et MP ne doivent **JAMAIS** faire penser à l'utilisateur qu'il est épuisé, fatigué ou amoindri. Aucun message alarmiste ou défaitiste (ex: *"Vous êtes épuisé, allez vous reposer"*) n'est toléré sur le HUD.
-* **Sémantique Souveraine :** 
-  * La jauge **HP** représente la **Résilience Biologique Souveraine** (homéostasie cellulaire, récupération métabolique).
+* **Sémantique Principale :** 
+  * La jauge **HP** représente la **Résilience Biologique Principale** (homéostasie cellulaire, récupération métabolique).
   * La jauge **MP** représente le **Focus & l'Acuité Cognitive** (capacité de concentration exécutive du cortex préfrontal).
 * **Décroissance Lente et Résiliente :** L'épuisement de ces deux valeurs est volontairement calibré pour être **extrêmement lent**, fondé sur les modèles scientifiques de neurobiologie humaine. Même après une longue journée de 16 heures d'éveil, le joueur maintient un niveau de vitalité et de focus élevé, affirmant sa posture de force mentale.
 
@@ -675,7 +620,7 @@ La vitalité humaine ne chute pas de manière linéaire ou précipitée. Selon l
    $$S(t) = 1 - (1 - S_0) e^{-\frac{t}{\tau_w}}$$
    Où $t$ est le temps écoulé en heures depuis le réveil et $S_0 \in [0.05, 0.15]$ est la pression résiduelle au réveil.
 
-2. **Équation de la Jauge HP (Résilience Biologique Souveraine) :**
+2. **Équation de la Jauge HP (Résilience Biologique Principale) :**
    La jauge HP reflète la fraction de capacité métabolique non entravée par la pression homéostatique :
    $$HP(t) = \max \left( 60, \left\lfloor 100 \times \left( 1 - 0.25 \times S(t) \right) \times C(t) \right\rfloor \right)$$
    Où $C(t) \in [0.95, 1.05]$ est le modulateur circadien sinusoïdal synchronisé sur le rythme biologique de 24 heures :
@@ -715,9 +660,9 @@ La capacité de concentration et de résolution de problèmes complexes (Deep Wo
    * Une marche active en extérieur sans écran de 15 minutes restaure $+15\text{ MP}$.
    * La jauge MP reste ainsi solidement positionnée entre $75\%$ et $100\%$ tout au long de la journée pour un joueur discipliné et actif.
 
-### 5.2 L'Économie des Récompenses : L'Inventaire & La Boutique des Ombres (`Shadow Shop`)
+### 5.2 L'Économie des Récompenses : L'Inventaire & La Boutique de Récompenses (`Reward Shop`)
 
-Pour éliminer toute culpabilité lors des moments de détente, le Système introduit une monnaie d'échange déterministe : les **Cristaux d'Ombre** ($\mathcal{C}$).
+Pour éliminer toute perte d'efficacité lors des moments de détente, le Système introduit une monnaie d'échange déterministe : les **Points de Récompense (Cristaux)** ($\mathcal{C}$).
 
 #### Règles d'Émission Monétaire :
 * $10\text{ points d'XP gagnés} = 1\text{ Cristal d'Ombre } (\mathcal{C})$.
@@ -739,7 +684,7 @@ Ce mécanisme crée un pont psychologique indestructible : **le plaisir n'est pl
 
 | Risque Identifié | Probabilité | Gravité | Impact sur le Joueur | Stratégie de Mitre & Garde-Fous |
 | :--- | :--- | :--- | :--- | :--- |
-| **Surcharge & Burnout (Surmenage)** | Élevée | Critique | Découragement brutal suite à une semaine trop dense menant à l'abandon du Système. | L'Architecte surveille la moyenne mobile des HP sur 3 jours. Si $\overline{HP} < 55$, déclenchement forcé d'une journée de décharge (*Deload Day*) avec réduction de 60% des quêtes. |
+| **Surcharge & Burnout (Surmenage)** | Élevée | Critique | Découragement rigoureux suite à une semaine trop dense menant à l'abandon du Système. | L'Évaluateur IA surveille la moyenne mobile des HP sur 3 jours. Si $\overline{HP} < 55$, déclenchement forcé d'une journée de décharge (*Deload Day*) avec réduction de 60% des quêtes. |
 | **Tentative de Triche & Auto-Illusion** | Moyenne | Majeure | Validation de quêtes sans effort réel pour voir monter les jauges d'XP artificiellement. | Obligation stricte de preuves vérifiables : commits GitHub publics, analyse IA de la synthèse vocale, scores certifiés Cambridge/TryHackMe. |
 | **Lassitude de la Gamification** | Faible | Moyenne | Perte d'intérêt pour les badges après 3 mois d'utilisation continue. | Renouvellement périodique des Boss de Donjons calqués sur les saisons universitaires réelles et introduction de nouvelles branches de compétences. |
 | **Isolement Social Excessif (Monk Mode Toxique)** | Moyenne | Majeure | Négligence des relations humaines au profit d'un travail solitaire obsessionnel. | Intégration de la base `EXP` (Éloquence & Réseautage) imposant des quêtes de sorties, d'échanges professionnels et de prise de parole publique. |
@@ -749,7 +694,7 @@ Ce mécanisme crée un pont psychologique indestructible : **le plaisir n'est pl
 
 ## 7. Conformité, Protection de la Vie Privée & Éthique des Données
 
-1. **Souveraineté des Données Personnelles (RGPD) :**
+1. **Principaleté des Données Personnelles (RGPD) :**
    * L'utilisateur est l'unique propriétaire de ses données. Aucune information de santé, de notes scolaires, d'objectifs ou de finances n'est transmise à des tiers publicitaires.
    * Les fichiers Markdown sont stockés en clair sur la machine de l'utilisateur dans des formats ouverts et portables sans dépendance propriétaire.
 2. **Cloisonnement des Clés d'API :**
@@ -820,7 +765,7 @@ La moyenne estimée à l'examen final dans une unité d'enseignement $k$ ($\hat{
 
 $$\hat{M}_k = 0.40 \times \overline{CC}_k + 0.35 \times \overline{ExamBlanc}_k + 0.25 \times \left( 20 \times \frac{\text{HeuresRevisées}_k}{\text{HeuresCibles}_k} \right)$$
 
-Si $\hat{M}_k < 16.0$, l'Architecte émet automatiquement une Quête d'Urgence académique pour consolider la matière avant que la moyenne globale ne soit compromise.
+Si $\hat{M}_k < 16.0$, l'évaluateur IA émet automatiquement une Quête d'Urgence académique pour consolider la matière avant que la moyenne globale ne soit compromise.
 
 ---
 
@@ -843,11 +788,11 @@ Cette matrice garantit qu'aucune exigence du produit ne reste orpheline : chaque
 | :--- | :--- | :--- | :--- | :--- |
 | **REQ-01** | Affichage du profil joueur avec niveau, rang et jauges HP/MP | `components/hud/StatusWindow.tsx` | `GET /api/v1/player/status` | `TC-01 à TC-09, Test 2.1` |
 | **REQ-02** | Calcul mathématique d'XP selon la loi logarithmique $100 \times \lfloor L^{1.75} \rfloor$ | `lib/engine/xpCalculator.ts` | `POST /api/v1/quests/:id/complete` | `TC-01, TC-03, TC-06, Test 1.1` |
-| **REQ-03** | Machine d'état stricte des 7 rangs réels (E à Monarque) | `lib/engine/rankManager.ts` | `GET /api/v1/player/status` | `TC-05, TC-14, Test 1.1` |
+| **REQ-03** | Machine d'état stricte des 7 rangs réels (E à Maître) | `lib/engine/rankManager.ts` | `GET /api/v1/player/status` | `TC-05, TC-14, Test 1.1` |
 | **REQ-04** | Génération automatique des 4 Quêtes Quotidiennes à 06h00 UTC | `lib/workers/questWorker.ts` | `GET /api/v1/quests/today` | `TC-16, TC-19, Test 4.2` |
 | **REQ-05** | Validation de quête avec preuve (URL GitHub, audio, texte) | `services/questService.ts` | `POST /api/v1/quests/:id/complete` | `TC-17, TC-20, TC-24, Test 1.2` |
 | **REQ-06** | Transcription vocale instantanée en note Markdown via Whisper | `lib/audio/whisperService.ts` | `POST /api/v1/audio/transcribe` | `TC-51 à TC-53, Test 3.2` |
-| **REQ-07** | Évaluation des synthèses d'études sur 20 par l'Architecte IA | `lib/ai/architectAgent.ts` | `POST /api/v1/architect/evaluate-summary` | `TC-83, TC-87, TC-88, Test 5.1` |
+| **REQ-07** | Évaluation des synthèses d'études sur 20 par l'évaluateur IA IA | `lib/ai/architectAgent.ts` | `POST /api/v1/architect/evaluate-summary` | `TC-83, TC-87, TC-88, Test 5.1` |
 | **REQ-08** | Cerveau Numérique natif Markdown avec support des wikilinks | `components/brain/MarkdownEditor.tsx` | `POST /api/v1/notes` | `TC-54 à TC-60, Test 3.1` |
 | **REQ-09** | Assainissement strict anti-XSS des fiches de notes | `lib/markdown/sanitizer.ts` | `GET /api/v1/notes/:slug` | `TC-18, TC-59, Test 3.1` |
 | **REQ-10** | Agenda Time-Blocking avec décompte temps réel | `components/schedule/TimeBlockScheduler.tsx`| `GET /api/v1/schedule/today` | `TC-36 à TC-40, Test 4.2` |
@@ -858,8 +803,8 @@ Cette matrice garantit qu'aucune exigence du produit ne reste orpheline : chaque
 | **REQ-15** | Détection et calendrier des compétitions de code et hackathons | `lib/integrations/deerflowService.ts` | `GET /api/v1/opportunities?cat=HACKATHON` | `TC-86, Test 5.2` |
 | **REQ-16** | Mode Donjon de Boss avec points de vie décrémentaux | `components/hud/BossRaidCard.tsx` | `POST /api/v1/boss/:id/damage` | `TC-20, TC-28, Test 2.1` |
 | **REQ-17** | Mode Journée Commando Monk Mode (agenda verrouillé) | `services/scheduleService.ts` | `POST /api/v1/monkmode/activate` | `TC-27, TC-50, Test 4.2` |
-| **REQ-18** | Procédure de sanction réseau locale en zone de pénalité | `scripts/penalty_firewall.ps1` | `Système Local Hosts / DNS` | `TC-32, Test 1.5-Gate` |
-| **REQ-19** | Boutique des Ombres (échange de cristaux contre récompenses) | `services/shopService.ts` | `POST /api/v1/shop/purchase` | `TC-08, TC-15, Test 1.1` |
+| **REQ-18** | Procédure de sanction réseau locale en mode restriction / pénalité | `scripts/penalty_firewall.ps1` | `Système Local Hosts / DNS` | `TC-32, Test 1.5-Gate` |
+| **REQ-19** | Boutique de Récompenses (échange de cristaux contre récompenses) | `services/shopService.ts` | `POST /api/v1/shop/purchase` | `TC-08, TC-15, Test 1.1` |
 | **REQ-20** | Alternance instantanée de thème Thème Sombre néon / Thème Clair orange | `components/theme/ThemeProvider.tsx` | `Attribut data-theme HTML` | `TC-2.2, Test 2.2` |
 | **REQ-21** | Chiffrement au repos des secrets d'API via AES-256-GCM | `lib/crypto/encryption.ts` | `PostgreSQL Cryptographic Layer` | `TC-05, TC-92, Test 1.2` |
 | **REQ-22** | Hachage des identifiants avec Argon2id (64 Mo de mémoire) | `lib/auth/hasher.ts` | `POST /api/v1/auth/login` | `TC-95, Test 1.2` |
@@ -890,21 +835,21 @@ Cette matrice garantit qu'aucune exigence du produit ne reste orpheline : chaque
 | **REQ-47** | Masquage automatique des stack-traces en production (HTTP 500) | `lib/middleware/errorHandler.ts` | `Global Exception Filter` | `TC-90, TC-96, Test 1.2` |
 | **REQ-48** | Envoi d'un récapitulatif nocturne à 22h00 sur Discord | `lib/workers/eveningWorker.ts` | `Discord Embed Delivery` | `TC-48, Test 4.1` |
 | **REQ-49** | Ségrégation stricte des environnements de dev, test et production | `config/environment.ts` | `Process Environment Schema` | `TC-64, Test 0.1` |
-| **REQ-50** | Purge complète des données via commande sécurisée du Monarque | `app/api/v1/system/reset/route.ts` | `POST /api/v1/system/reset` | `TC-13, Test 0.3` |
+| **REQ-50** | Purge complète des données via commande sécurisée du Maître | `app/api/v1/system/reset/route.ts` | `POST /api/v1/system/reset` | `TC-13, Test 0.3` |
 
 
 ---
 
 ## 10. Lexique Canonique & Glossaire des Termes du Système
 
-Pour assurer une harmonie sémantique parfaite entre les interfaces, les prompts de l'Architecte et le code source, les définitions suivantes sont contractuelles :
+Pour assurer une harmonie sémantique parfaite entre les interfaces, les prompts de l'évaluateur IA et le code source, les définitions suivantes sont contractuelles :
 
 * **L'Éveil (The Awakening) :** Le moment où l'utilisateur décide de renoncer à la médiocrité, à la passivité et à la distraction numérique pour intégrer le Système et mesurer chaque action de sa vie.
-* **Le Monarque de l'Ombre (The Shadow Monarch) :** Le statut ultime (Niveau 100) représentant la maîtrise conjointe des 8 bases fondamentales : premier de promotion incontesté, ingénieur IA et hacker émérite, orateur bilingue, athlète accompli et souverain de sa discipline.
-* **L'Architecte (The Architect) :** L'agent d'intelligence artificielle résidant dans Antigravity, chargé d'auditer les progrès du joueur, de calibrer l'effort journalier et de sanctionner la paresse intellectuelle avec une sévérité constructive.
-* **La Zone de Pénalité (The Penalty Zone) :** L'état de restriction imposé par le Système lorsqu'une quête quotidienne obligatoire n'a pas été clôturée avant minuit. Elle exige un rachat physique et intellectuel immédiat au lever du jour.
-* **La Boutique des Ombres (The Shadow Shop) :** Le registre d'échange où les Cristaux d'Ombre gagnés par la sueur et la concentration sont convertis en droits de loisirs et récompenses sans aucune culpabilité.
+* **Le Maître de l'Ombre (The Shadow Monarch) :** Le statut ultime (Niveau 100) représentant la maîtrise conjointe des 8 bases fondamentales : premier de promotion incontesté, ingénieur IA et hacker émérite, orateur bilingue, athlète accompli et principal de sa discipline.
+* **L'Évaluateur IA (The Architect) :** L'agent d'intelligence artificielle résidant dans Antigravity, chargé d'auditer les progrès du joueur, de calibrer l'effort journalier et de sanctionner la paresse intellectuelle avec une sévérité constructive.
+* **La Mode Restriction / Pénalité (The Restriction Mode) :** L'état de restriction imposé par le Système lorsqu'une quête quotidienne obligatoire n'a pas été clôturée avant minuit. Elle exige un rachat physique et intellectuel immédiat au lever du jour.
+* **La Boutique de Récompenses (The Reward Shop) :** Le registre d'échange où les Points de Récompense (Cristaux) gagnés par la sueur et la concentration sont convertis en droits de loisirs et récompenses sans aucune perte d'efficacité.
 * **Le Second Brain (Cerveau Numérique) :** L'arborescence Markdown locale unifiée où toutes les connaissances théoriques, techniques et stratégiques assimilées par le joueur sont interconnectées par des liens bidirectionnels pour ne plus jamais être oubliées.
-* **Le Sanctuaire de Deep Work (Monk Mode) :** Un bloc temporel inaltérable durant lequel le joueur est totalement invisible pour le monde extérieur, sans téléphone, sans réseaux sociaux, entièrement dédié à la production d'ingénierie pure ou à la résolution d'exercices denses.
+* **Le Espace de travail de Deep Work (Monk Mode) :** Un bloc temporel inaltérable durant lequel le joueur est totalement invisible pour le monde extérieur, sans téléphone, sans réseaux sociaux, entièrement dédié à la production d'ingénierie pure ou à la résolution d'exercices denses.
 * **Le Donjon de Boss (Boss Raid) :** Une épreuve majeure du monde réel (semaine d'examens universitaires, compétition de hackathon 48h, lancement d'un produit SaaS, certification officielle) matérialisée sous forme d'un adversaire colossal doté de points de vie abattus par chaque livrable achevé.
 * **Les 8 Sphères (The Eight Cores) :** Les huit piliers statistiques orthogonaux composant l'âme et la puissance du joueur : `ACAD` (Académique), `AI_ENG` (Ingénierie IA), `CYBER` (Cybersécurité), `EXP` (Éloquence), `LNG` (Langues & Anglais), `FIN` (Finances & Bourses), `STR` (Force Physique), `DIS` (Discipline & Volonté).

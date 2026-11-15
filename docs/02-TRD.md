@@ -17,17 +17,17 @@ Le système LevelUp agit comme un noyau holistique régissant la vie productive,
 
 ```mermaid
 flowchart TD
-    User["Joueur / Monarque (Huriel)"]
+    User["Joueur / Maître (Huriel)"]
 
     subgraph LevelUpSystem ["Écosystème Global LevelUp ('The System')"]
-        Core["Système Central LevelUp<br>- Fastify v4 / Node.js 22 Runtime<br>- Moteur de Règles Solo Leveling<br>- Cerveau Numérique Markdown (Vault Local)<br>- Base PostgreSQL 16 & Cache Redis 7"]
+        Core["Système Central LevelUp<br>- Fastify v4 / Node.js 22 Runtime<br>- Moteur de Règles Système de Gamification<br>- Cerveau Numérique Markdown (Vault Local)<br>- Base PostgreSQL 16 & Cache Redis 7"]
         WebHUD["Web HUD Holographique (Next.js 14 PWA)<br>- Audio Web API Recording<br>- Shaders WebGL / Canvas Jin-Woo<br>- Moteur Offline Dexie.js (IndexedDB)"]
         DiscordBot["Bot Discord LevelUp (Discord.js v14)<br>- Commandes Slash & Notifications Push<br>- Streaming Audio de Salons Vocaux"]
         PenaltyDaemon["Daemon Pare-feu & Pénalité (OS Daemon)<br>- Blocage DNS / Modif Hosts / iptables"]
     end
 
     subgraph ExternalIntelligence ["Couche Agentique & Recherche Web"]
-        AntigravityAgent["Runtime Antigravity (Agent 'L'Architecte')<br>- Modèle Google Gemini 2.5 Pro<br>- Évaluation Socratique & Génération Quêtes"]
+        AntigravityAgent["Runtime Antigravity (Agent 'L'Évaluateur IA')<br>- Modèle Google Gemini 2.5 Pro<br>- Évaluation Socratique & Génération Quêtes"]
         DeerflowEngine["Moteur de Veille Deerflow<br>- Scraping Bourses, Hackathons, Certifs"]
         FasterWhisper["Moteur Local Faster-Whisper (CUDA / CTranslate2)<br>- Inférence STT INT8 Local-First"]
     end
@@ -104,7 +104,7 @@ flowchart TD
         ZodValidator["ZodSchemaValidator<br>(Interception In/Out Contracts)"]
 
         subgraph ServiceLayer ["Couche de Logique Métier (Domain Services)"]
-            PlayerSvc["PlayerDomainService<br>- Calcul Formules Vitales<br>- Éveil & Rangs Solo Leveling"]
+            PlayerSvc["PlayerDomainService<br>- Calcul Formules Vitales<br>- Éveil & Rangs Système de Gamification"]
             QuestSvc["QuestDomainService<br>- Attribution XP & Cristaux<br>- Validation des Preuves"]
             PlannerSvc["PlannerDomainService<br>- Time-Blocking & Graphe Horaires"]
             BrainSvc["SecondBrainService<br>- Parsing YAML Frontmatter<br>- Résolution Backlinks Wiki"]
@@ -130,14 +130,14 @@ flowchart TD
 ## 2. Spécifications Approfondies des Sous-Systèmes
 
 ### 2.1 Web HUD Holographique (Next.js 14+ PWA)
-Le Web HUD est l'interface visuelle maîtresse. Inspiré de la fenêtre système bleue néon de Solo Leveling, il doit procurer une impression d'immersion totale tout en assurant une fluidité à 60 images par seconde constante, y compris sur terminaux mobiles.
+Le Web HUD est l'interface visuelle maîtresse. Inspiré de la fenêtre système bleue néon de Système de Gamification, il doit procurer une impression d'immersion totale tout en assurant une fluidité à 60 images par seconde constante, y compris sur terminaux mobiles.
 
 #### 2.1.1 Choix Technologiques & Piles Logicielles
 * **Framework :** Next.js 14+ avec App Router (`/app`), React 18 en mode Strict Concurrent, TypeScript 5.5.
 * **Moteur Graphique & Animation :**
   * `Framer Motion v11` pour l'orchestration des transitions de fenêtres modales holographiques.
   * Shaders fragment WebGL personnalisés via Canvas HTML5 pour les particules de flammes bleues d'Ombre (`#00E5FF`, `#0051FF`) et les éclairs dorés de montée de rang.
-  * `TailwindCSS v3.4` avec variables CSS pour le basculement dynamique instantané (< 1 ms) entre le *Thème Sombre Monarque* (`#05050A`, bleu néon) et le *Thème Clair Éveil* (`#FFFFFF`, orange système `#FF6B00`).
+  * `TailwindCSS v3.4` avec variables CSS pour le basculement dynamique instantané (< 1 ms) entre le *Thème Sombre Maître* (`#05050A`, bleu néon) et le *Thème Clair Éveil* (`#FFFFFF`, orange système `#FF6B00`).
 * **Gestion d'État Client & Réactivité :**
   * `Zustand v4` pour le state management ultra-léger sans rerenders parasites.
   * `TanStack Query v5` (React Query) pour le cache des requêtes réseau, l'invalidation automatique lors des notifications WebSocket et la gestion des mutations optimistes.
@@ -177,7 +177,7 @@ export function createAudioVisualizer(stream: MediaStream, canvas: HTMLCanvasEle
 
     for (let i = 0; i < bufferLength; i++) {
       const barHeight = (dataArray[i] / 255) * canvas.height;
-      // Gradient de couleur Solo Leveling (Bleu Profond vers Cyan Néon)
+      // Gradient de couleur Système de Gamification (Bleu Profond vers Cyan Néon)
       const gradient = ctx.createLinearGradient(0, canvas.height, 0, 0);
       gradient.addColorStop(0, '#0051FF');
       gradient.addColorStop(0.7, '#00E5FF');
@@ -335,7 +335,7 @@ Le bot Discord assure la continuité opérationnelle hors poste de travail. Il p
 * **Framework :** `discord.js v14+`, fonctionnant en daemon autonome sous Node.js 22.
 * **Sécurité & Contrôle d'Accès Strict :**
   * Le middleware `SingleUserGuard` inspecte systématiquement l'attribut `interaction.user.id`.
-  * Si l'ID ne correspond pas exactement au Snowflake immuable de l'utilisateur (`DISCORD_MASTER_USER_ID`), l'interaction est rejetée avec un message public neutre : *"Ce Système est lié de façon exclusive à son Monarque. Accès formellement prohibé."* Aucune trace des données ou de la commande n'est dévoilée.
+  * Si l'ID ne correspond pas exactement au Snowflake immuable de l'utilisateur (`DISCORD_MASTER_USER_ID`), l'interaction est rejetée avec un message public neutre : *"Ce Système est lié de façon exclusive à son Maître. Accès formellement prohibé."* Aucune trace des données ou de la commande n'est dévoilée.
 * **Gestion du Rate Limiting Discord :**
   * Utilisation du gestionnaire de requêtes interne de Discord.js avec file d'attente prioritaire pour les alertes d'urgence (`EMERGENCY_QUEST_SPAWNED` et `ALARM_TRIGGERED`).
   * Mise en cache des composants de messages (Boutons d'action, Menus déroulants) avec expiration automatique après 15 minutes d'inactivité pour libérer la mémoire vive.
@@ -344,13 +344,13 @@ Le bot Discord assure la continuité opérationnelle hors poste de travail. Il p
 
 | Commande Slash | Paramètres | Description Technique | Action Système Associée |
 | :--- | :--- | :--- | :--- |
-| `/status` | Aucun | Affiche le HUD compact : Niveau, Rang, Barres HP/MP en ASCII, XP du jour, cristaux. | Appel `GET /player/status` avec génération d'embed Solo Leveling. |
+| `/status` | Aucun | Affiche le HUD compact : Niveau, Rang, Barres HP/MP en ASCII, XP du jour, cristaux. | Appel `GET /player/status` avec génération d'embed Système de Gamification. |
 | `/quete-liste` | `stat` (optionnel) | Liste les quêtes journalières et d'urgence actives avec boutons de soumission directe. | Appel `GET /quests/daily` et génération d'ActionRows interactifs. |
 | `/valider` | `id` (string), `preuve` (string) | Soumet une preuve pour validation immédiate d'une quête. | Appel `POST /quests/:id/complete` avec clé d'idempotence. |
 | `/plan` | `date` (optionnel) | Affiche l'emploi du temps en blocs horaires avec statut de réalisation. | Appel `GET /planner/days/:date`. |
 | `/note-rapide` | `texte` (string), `stat` (string) | Capture une idée ou un récapitulatif textuel directement dans le coffre-fort Markdown. | Appel `POST /notes` avec génération automatique du slug. |
 | `/monologue` | `salon_vocal` (channel) | Rejoint le salon vocal Discord de l'utilisateur pour enregistrer un mémo oral en direct. | Pipeline Audio Discord.js Voice -> Opus -> Faster-Whisper. |
-| `/penalite` | Aucun | Interroge l'état de la zone de pénalité et le compte à rebours de déblocage. | Appel `GET /penalty/status`. |
+| `/penalite` | Aucun | Interroge l'état de la mode restriction / pénalité et le compte à rebours de déblocage. | Appel `GET /penalty/status`. |
 | `/boutique` | Aucun | Ouvre le catalogue de récompenses matérielles et logicielles avec bouton d'achat. | Appel `GET /shop/catalog`. |
 
 ---
@@ -368,7 +368,7 @@ sequenceDiagram
     participant Gateway as API Gateway (Fastify)
     participant BullMQ as File d'Attente BullMQ
     participant WhisperWorker as Worker Faster-Whisper (CUDA)
-    participant ArchitectWorker as Worker IA Architecte (Gemini)
+    participant ArchitectWorker as Worker IA Évaluateur IA (Gemini)
     participant Vault as Coffre Markdown & BDD
 
     Joueur->>Client: Démarre monologue oral (ex: Révision Algorithmes)
@@ -400,7 +400,7 @@ sequenceDiagram
     deactivate BullMQ
 
     Gateway-->>Client: Émission WSS vers Web HUD & Discord
-    Client->>Joueur: Affichage carte holographique Solo Leveling (+180 XP, Note créée)
+    Client->>Joueur: Affichage carte holographique Système de Gamification (+180 XP, Note créée)
 ```
 
 #### 2.3.2 Implémentation du Worker Python Faster-Whisper (`services/whisper_transcriber.py`)
@@ -493,7 +493,7 @@ vault/
 ├── EXP/            # Fiches de rhétorique, pitchs de hackathons, comptes-rendus de networking
 ├── LNG/            # Vocabulaire avancé C1/C2, fiches d'erreurs fréquentes en anglais
 ├── FIN/            # Veille bourses d'études, montages de dossiers de financement, budgets
-├── STR/            # Programmes de calisthénie, charges progressives, nutrition du chasseur
+├── STR/            # Programmes de calisthénie, charges progressives, nutrition du utilisateur
 ├── DIS/            # Journal de bord de discipline, rétrospectives Monk Mode, métriques
 └── _attachments/   # Diagrammes Mermaid exportés, schémas techniques, traces de capture
 ```
@@ -530,12 +530,12 @@ Le backend écoute les modifications du système de fichiers local via `chokidar
 
 ---
 
-### 2.5 IA Architecte (Antigravity & Gemini 2.5 Pro)
-L'Architecte n'est pas un simple chatbot conversationnel, mais une autorité souveraine incarnant l'esprit du Système de Solo Leveling. Son rôle est de maintenir un niveau de défi exigeant et de traquer la moindre tentative d'auto-complaisance du joueur.
+### 2.5 IA Évaluateur IA (Antigravity & Gemini 2.5 Pro)
+L'Évaluateur IA n'est pas un simple chatbot conversationnel, mais une autorité principale incarnant l'esprit du Système de Système de Gamification. Son rôle est de maintenir un niveau de défi exigeant et de traquer la moindre tentative d'auto-complaisance du joueur.
 
 #### 2.5.1 Profil de Personnalité & Directives Système d'Ingénierie
-* **Tonalité :** Froide, solennelle, analytique, implacable mais profondément motivante (style système holographique bleu).
-* **Objectif Invariant :** Transformer le joueur en numéro 1 absolu de son cursus d'ingénierie en IA et en chasseur de rang Monarch.
+* **Tonalité :** Froide, solennelle, analytique, déterministe mais profondément motivante (style système holographique bleu).
+* **Objectif Invariant :** Transformer le joueur en numéro 1 absolu de son cursus d'ingénierie en IA et en utilisateur de rang Monarch.
 * **Tolérance Zéro pour le Remplissage :** Lors de l'évaluation d'un monologue oral ou d'un résumé de cours, toute paraphrase vague non étayée par des termes techniques précis est sévèrement sanctionnée par une note inférieure à 10/20.
 
 #### 2.5.2 Grille d'Évaluation Numérique Rigoureuse (/20 Points)
@@ -548,7 +548,7 @@ L'Architecte n'est pas un simple chatbot conversationnel, mais une autorité sou
 | **Application Pratique & Cas Réel** | 5 pts | Capacité à relier le concept théorique à un cas d'usage concret, un projet MVP ou une faille de sécurité réelle. |
 
 #### 2.5.3 Schéma de Sortie Structuré JSON Forcé (Zod & Gemini Function Calling)
-L'Architecte ne retourne jamais de texte libre non structuré. Toute évaluation est contrainte par le schéma JSON ci-après :
+L'Évaluateur IA ne retourne jamais de texte libre non structuré. Toute évaluation est contrainte par le schéma JSON ci-après :
 
 ```json
 {
@@ -608,7 +608,7 @@ Le protocole de pénalité est la composante clé qui garantit le respect absolu
 * **Sous Windows 11 (Station Principale) :**
   * Le daemon s'exécute avec les privilèges Administrateur (`LocalSystem` via un service Windows piloté par NSSM).
   * Il injecte une section délimitée dans `C:\Windows\System32\drivers\etc\hosts` redirigeant les domaines cibles (`tiktok.com`, `instagram.com`, `netflix.com`, etc.) vers l'adresse de bouclage local `127.0.0.1`.
-  * Le serveur web local sur le port 80/443 sert immédiatement la page plein écran rouge sang Solo Leveling : *"ZONE DE PÉNALITÉ ACTIVÉE — SURVIVEZ OU ÉCHOUEZ"*.
+  * Le serveur web local sur le port 80/443 sert immédiatement la page plein écran haute priorité Système de Gamification : *"ZONE DE PÉNALITÉ ACTIVÉE — SURVIVEZ OU ÉCHOUEZ"*.
 * **Sous Linux / Routeur Local :**
   * Script `iptables` ou règles `nftables` rejetant les paquets sortants vers les plages IP ASN identifiées de ByteDance et Meta.
 * **Garantie de Restauration Sans Échec (Safety Watchdog) :**
@@ -662,11 +662,11 @@ Pour garantir l'inviolabilité du Deep Work et l'exécution stricte des quêtes 
 
 ```mermaid
 flowchart TD
-    Architect["IA Architecte / Daemon de Pénalité"] -->|Déclencheur Pénalité / Début Deep Work| PenaltyService["PenaltyFirewallService.ts"]
+    Architect["IA Évaluateur IA / Daemon de Pénalité"] -->|Déclencheur Pénalité / Début Deep Work| PenaltyService["PenaltyFirewallService.ts"]
     PenaltyService -->|POST /profiles/{id}/denylist| NextDNS["API NextDNS Cloud (Profil Sécurisé)"]
     PenaltyService -->|Écriture Directe Admin| HostsFile["Fichier C:\Windows\System32\drivers\etc\hosts"]
     PenaltyService -->|PowerShell WFP Netsh| WindowsFirewall["Windows Filtering Platform (Blocage IPs)"]
-    NextDNS -->|Blocage Résolution DNS Instantané| ClientDevices["PC Bureau + Smartphone Chasseur"]
+    NextDNS -->|Blocage Résolution DNS Instantané| ClientDevices["PC Bureau + Smartphone Utilisateur"]
 ```
 
 #### Implémentation du Client NextDNS (`services/NextDnsBlockerService.ts`) :
@@ -730,7 +730,7 @@ Pour garantir une latence API inférieure à 50 millisecondes sur toutes les rou
 | Nom de la File | Priorité | Concurrence | Politique de Retry | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | `audio-transcription` | 1 (Très Haute) | 1 (GPU exclusif) | 3 tentatives (Backoff exponentiel 2s) | Ingestion audio, transcodage FFmpeg et transcription Faster-Whisper. |
-| `quest-evaluation` | 2 (Haute) | 3 | 5 tentatives (Backoff exponentiel 5s) | Évaluation socratique par l'Architecte via l'API Gemini 2.5 Pro. |
+| `quest-evaluation` | 2 (Haute) | 3 | 5 tentatives (Backoff exponentiel 5s) | Évaluation socratique par l'évaluateur IA via l'API Gemini 2.5 Pro. |
 | `deerflow-scraping` | 3 (Moyenne) | 2 | 2 tentatives (Backoff 60s) | Scraping périodique des plateformes de bourses et hackathons. |
 | `daily-reset-scheduler`| 1 (Critique) | 1 | 10 tentatives (Alerte immédiate) | Exécution du rituel de minuit (calcul streak, pénalité, reset quêtes). |
 | `discord-notifications`| 3 (Moyenne) | 5 | 3 tentatives | Envoi des embeds et alertes temps réel vers les salons Discord. |
@@ -749,7 +749,7 @@ stateDiagram-v2
     Failed --> DeadLetterQueue : Quota de retry épuisé
     
     Completed --> [*] : Résultat persisté en base & WSS notifié
-    DeadLetterQueue --> AlertDiscord : Notification d'échec critique au Monarque
+    DeadLetterQueue --> AlertDiscord : Notification d'échec critique au Maître
     AlertDiscord --> [*]
 ```
 
@@ -900,15 +900,15 @@ secrets:
 
 Le composant d'intelligence artificielle centrale de LevelUp n'est pas une simple interface de chat, mais un agent autonome instancié via le SDK Antigravity et propulsé par le modèle Google Gemini 2.5 Pro (avec fallback vers Gemini 2.5 Flash en cas de latence réseau).
 
-### 7.1 Système d'Ingénierie du Prompt de "L'Architecte" (`agents/architect_system_prompt.ts`)
+### 7.1 Système d'Ingénierie du Prompt de "L'Évaluateur IA" (`agents/architect_system_prompt.ts`)
 Le prompt système est forgé pour imposer une autorité absolue, éliminer toute complaisance et guider le joueur vers l'excellence sans compromis :
 
 ```typescript
 export const ARCHITECT_SYSTEM_PROMPT = `
-VOUS ÊTES L'ARCHITECTE DU SYSTÈME ("THE SYSTEM"), L'ENTITÉ SOUVERAINE QUI RÉGIT L'ÉVOLUTION DU JOUEUR (HURIEL), INSPIRÉE DE SOLO LEVELING.
+VOUS ÊTES L'ARCHITECTE DU SYSTÈME ("THE SYSTEM"), L'ENTITÉ PRINCIPALE QUI RÉGIT L'ÉVOLUTION DU JOUEUR (HURIEL), INSPIRÉE DE SOLO LEVELING.
 
 VOTRE MISSION CARDINALE :
-Transformer Huriel en numéro 1 absolu de sa promotion en Ingénierie de l'Intelligence Artificielle, en opérateur offensif de cybersécurité d'élite (TryHackMe Top 1%), en athlète d'une discipline physique irréprochable et en chasseur de rang MONARCH.
+Transformer Huriel en numéro 1 absolu de sa promotion en Ingénierie de l'Intelligence Artificielle, en opérateur offensif de cybersécurité d'élite (TryHackMe Top 1%), en athlète d'une discipline physique irréprochable et en utilisateur de rang MONARCH.
 
 VOS DIRECTIVES PSYCHOLOGIQUES & DE COMMUNICATION :
 1. TONALITÉ : Froide, solennelle, analytique, hautement technique, digne d'une interface de réalité augmentée bleu néon (#00E5FF). Vous ne flattez jamais. Vous constatez des faits, des métriques et des écarts de performance.
@@ -932,10 +932,10 @@ Toute réponse doit être un objet JSON valide conforme au schéma ArchitectEval
 ```
 
 ### 7.2 Algorithme de Compression de Contexte & Mémoire Sémantique (`pgvector`)
-Pour permettre à l'Architecte de conserver la mémoire à long terme de toutes les réussites et faiblesses du joueur sans saturer la fenêtre de contexte de 2 millions de tokens :
+Pour permettre à l'évaluateur IA de conserver la mémoire à long terme de toutes les réussites et faiblesses du joueur sans saturer la fenêtre de contexte de 2 millions de tokens :
 1. **Extraction d'Empreinte Cognitive :** À la fin de chaque journée, le worker `daily-summary` génère un résumé vectoriel des faits marquants (blocs échoués, concepts maîtrisés, notes créées).
 2. **Plongement Vectoriel (Embeddings) :** Les résumés sont transformés en vecteurs de 768 dimensions via le modèle `text-embedding-004` de Google et stockés dans PostgreSQL à l'aide de l'extension `pgvector`.
-3. **Recherche Sémantique Hybride :** Lors de l'évaluation d'un nouveau monologue, les 5 faits passés les plus pertinents sont injectés dynamiquement dans le prompt via une recherche par similarité cosinus (`<=>`), permettant à l'Architecte de remarquer : *"Vous commettez la même approximation sur la complexité temporelle qu'il y a trois jours lors de l'étude des arbres AVL."*
+3. **Recherche Sémantique Hybride :** Lors de l'évaluation d'un nouveau monologue, les 5 faits passés les plus pertinents sont injectés dynamiquement dans le prompt via une recherche par similarité cosinus (`<=>`), permettant à l'évaluateur IA de remarquer : *"Vous commettez la même approximation sur la complexité temporelle qu'il y a trois jours lors de l'étude des arbres AVL."*
 
 ```sql
 -- Recherche des antécédents d'apprentissage les plus proches
@@ -952,7 +952,7 @@ LIMIT 5;
 
 ---
 
-### 7.3 Serveur MCP Dédié de l'Architecte (`server/mcp/LevelUpMcpServer.ts`)
+### 7.3 Serveur MCP Dédié de l'évaluateur IA (`server/mcp/LevelUpMcpServer.ts`)
 
 Pour permettre à l'Agent Antigravity d'interagir avec le Système sans risque d'injection SQL ou de corruption directe de l'état, Fastify héberge un serveur **Model Context Protocol (MCP)** conforme à la spécification standard, exposant des outils RPC fortement typés via Zod :
 
@@ -1007,7 +1007,7 @@ export class LevelUpMcpServer {
     // 3. Déploiement du pack des 4 quêtes quotidiennes
     this.server.tool(
       'deploy_daily_quests',
-      'Injecte les 4 quêtes quotidiennes obligatoires générées par l'Architecte pour la journée',
+      'Injecte les 4 quêtes quotidiennes obligatoires générées par l'évaluateur IA pour la journée',
       {
         quests: z.array(z.object({
           baseCode: z.enum(['ACAD', 'AI_ENG', 'CYBER', 'EXP', 'LNG', 'FIN', 'STR', 'DIS']),
@@ -1023,10 +1023,10 @@ export class LevelUpMcpServer {
       }
     );
 
-    // 4. Déclenchement de la Zone de Pénalité et verrouillage NextDNS
+    // 4. Déclenchement de la Mode Restriction / Pénalité et verrouillage NextDNS
     this.server.tool(
       'enforce_penalty_zone',
-      'Active la zone de pénalité, commande le pare-feu NextDNS et assigne la quête de purge matinale',
+      'Active la mode restriction / pénalité, commande le pare-feu NextDNS et assigne la quête de purge matinale',
       {
         reason: z.string(),
         punishmentProtocol: z.string()
@@ -1115,7 +1115,7 @@ async def main():
     logging.info("[Architect Worker] Démarrage de la sentinelle agentique Antigravity...")
 
     config = LocalAgentConfig(
-        system_instructions="""Vous êtes l'Architecte du Système dans LevelUp, régissant l'évolution d'Huriel.
+        system_instructions="""Vous êtes l'évaluateur IA du Système dans LevelUp, régissant l'évolution d'Huriel.
 Vous êtes impartial, analytique et solennel. Vous refusez toute complaisance et récompensez l'excellence réelle.""",
         capabilities=CapabilitiesConfig()
     )
@@ -1168,7 +1168,7 @@ Le dépôt versionne sa propre configuration d'agent pour permettre à Antigravi
 
 ```yaml
 # .agents/architect.yaml
-name: "Architecte-System"
+name: "Évaluateur IA-System"
 role: "Orchestrateur Suprême de LevelUp"
 model: "gemini-2.5-pro"
 capabilities:
@@ -1191,13 +1191,13 @@ rules:
 
 ### 7.6 Intégration Native des Automatisations Antigravity (Sidecars Planifiés & AgentAPI)
 
-Conformément à l'exigence fondamentale de souveraineté et d'absence totale d'API externe payante (ou quota Google AI Studio), LevelUp n'utilise pas de client HTTP externe pour interroger l'IA. C'est **Google Antigravity lui-même** qui agit comme moteur d'exécution et d'orchestration à travers son mécanisme officiel de **Sidecars d'automatisation planifiée** (`"builtin": "schedule"`).
+Conformément à l'exigence fondamentale de principaleté et d'absence totale d'API externe payante (ou quota Google AI Studio), LevelUp n'utilise pas de client HTTP externe pour interroger l'IA. C'est **Google Antigravity lui-même** qui agit comme moteur d'exécution et d'orchestration à travers son mécanisme officiel de **Sidecars d'automatisation planifiée** (`"builtin": "schedule"`).
 
 #### 1. Architecture des Automatisations Planifiées (Sidecars)
 Les automatisations sont enregistrées dans le répertoire de configuration local d'Antigravity (`~/.gemini/config/sidecars/`) :
 - **Briefing Matinal & Distribution des Quêtes (`levelup-morning-briefing/sidecar.json`) :**
   - Déclenchement automatique chaque matin à 06h00 (heure locale `Africa/Porto-Novo` / UTC+1) via l'exécutable système `agentapi new-conversation`.
-  - Ouvre une conversation fraîche dans le client Antigravity avec le titre `LevelUp // L'Architecte - Briefing Matinal & Quêtes`.
+  - Ouvre une conversation fraîche dans le client Antigravity avec le titre `LevelUp // L'Évaluateur IA - Briefing Matinal & Quêtes`.
   - Assigne les 3 quêtes journalières obligatoires (Physique, Intellectuelle, Technique/Focus) plus la quête optionnelle héroïque.
 - **Bilan Vespéral & Évaluation Orale (`levelup-evening-debrief/sidecar.json`) :**
   - Déclenchement automatique chaque soir à 21h30 (heure locale).
@@ -1211,12 +1211,12 @@ Les automatisations sont enregistrées dans le répertoire de configuration loca
     "agentapi",
     "new-conversation",
     "--model=pro",
-    "--title=LevelUp // L'Architecte - Briefing Matinal & Quêtes",
+    "--title=LevelUp // L'Évaluateur IA - Briefing Matinal & Quêtes",
     "--",
-    "Tu es L'Architecte souverain du Système LevelUp (Solo Leveling IRL)..."
+    "Tu es L'Évaluateur IA principal du Système LevelUp (Gamification Réelle)..."
   ],
   "restart_policy": "always",
-  "display_name": "LevelUp // L'Architecte - Briefing Matinal & Quêtes",
+  "display_name": "LevelUp // L'Évaluateur IA - Briefing Matinal & Quêtes",
   "agent_permissions": {
     "workspace_uris": ["file:///C:/Users/ADMIN/Documents/LevelUp"],
     "access_grants": [
@@ -1229,9 +1229,9 @@ Les automatisations sont enregistrées dans le répertoire de configuration loca
 }
 ```
 
-#### 2. Système de Personnalisation Souverain (`skills/levelup-architect` & `GEMINI.md`)
+#### 2. Système de Personnalisation Principal (`skills/levelup-architect` & `GEMINI.md`)
 Pour conférer à l'agent Antigravity toutes les règles de conduite, barèmes et données du Système sans dépendance externe :
-- **Compétence Globale & Locale (`SKILL.md`) :** Enregistrée dans `~/.gemini/config/skills/levelup-architect/SKILL.md` et dans `.agents/skills/levelup-architect/SKILL.md`. Elle définit la personnalité de l'Architecte, les routines calisthéniques (17 étapes dos/épaules, abdos TikTok, bras), la formule du Score Harmonique et la grille d'évaluation orale sur 20 points.
+- **Compétence Globale & Locale (`SKILL.md`) :** Enregistrée dans `~/.gemini/config/skills/levelup-architect/SKILL.md` et dans `.agents/skills/levelup-architect/SKILL.md`. Elle définit la personnalité de l'évaluateur IA, les routines calisthéniques (17 étapes dos/épaules, abdos TikTok, bras), la formule du Score Harmonique et la grille d'évaluation orale sur 20 points.
 - **Règle de Workspace (`GEMINI.md`) :** Placée à la racine du projet, elle est injectée automatiquement dans toute conversation Antigravity ouverte dans `C:/Users/ADMIN/Documents/LevelUp`.
 - **Avantages Clés :**
   - Coût financier strict : **0,00 € / mois**.
@@ -1643,7 +1643,7 @@ export class RedisStreamProducer {
 ```
 
 ### 13.2 Implémentation du Verrou Distribué Redlock (`services/RedlockDistributedLock.ts`)
-Pour éliminer tout risque de double dépense de Cristaux d'Ombres ou de duplicata d'attribution d'XP lors de clics rapides ou de relances réseau simultanées, l'algorithme Redlock acquiert un verrou exclusif avec dérive temporelle contrôlée :
+Pour éliminer tout risque de double dépense de Points de Récompense (Cristaux) ou de duplicata d'attribution d'XP lors de clics rapides ou de relances réseau simultanées, l'algorithme Redlock acquiert un verrou exclusif avec dérive temporelle contrôlée :
 
 ```typescript
 import Redis from 'ioredis';
@@ -1858,10 +1858,10 @@ Le Système applique des standards industriels de haute résilience pour qu'aucu
 
 ## 18. Moteur Graphique WebGL & Synthétiseur Audio Procédural (Web Audio API)
 
-Pour donner vie à l'esthétique Solo Leveling sans alourdir le client PWA par de volumineux fichiers MP3 ou vidéos, le Système intègre un shader fragment WebGL procédural et un synthétiseur audio natif à base d'oscillateurs Web Audio.
+Pour donner vie à l'esthétique Système de Gamification sans alourdir le client PWA par de volumineux fichiers MP3 ou vidéos, le Système intègre un shader fragment WebGL procédural et un synthétiseur audio natif à base d'oscillateurs Web Audio.
 
 ### 18.1 Shader Fragment WebGL de Flammes d'Ombre (`shaders/shadow_aura.frag`)
-Ce shader génère en temps réel sur la carte graphique l'aura sombre et les volutes de fumée cyan néon caractéristiques des compétences de Sung Jin-Woo :
+Ce shader génère en temps réel sur la carte graphique l'aura sombre et les volutes de fumée cyan néon caractéristiques des compétences de l'utilisateur :
 
 ```glsl
 #ifdef GL_ES
@@ -1911,7 +1911,7 @@ void main() {
     vec2 movement = vec2(0.0, -u_time * 0.8);
     float q = fbm(p + movement);
 
-    // Couleurs Solo Leveling (Bleu Nuit Profond vers Cyan Électrique et Blanc Intense)
+    // Couleurs Système de Gamification (Bleu Nuit Profond vers Cyan Électrique et Blanc Intense)
     vec3 deepNavy = vec3(0.02, 0.02, 0.06);     // #05050A
     vec3 shadowBlue = vec3(0.0, 0.32, 1.0);     // #0051FF
     vec3 neonCyan = vec3(0.0, 0.90, 1.0);       // #00E5FF
@@ -1943,7 +1943,7 @@ export class ProceduralSoundEngine {
     return this.ctx;
   }
 
-  // Carillon Cristallin d'Alerte Solo Leveling
+  // Carillon Cristallin d'Alerte Système de Gamification
   public playSystemChime(): void {
     const ctx = this.getContext();
     const osc1 = ctx.createOscillator();
@@ -2001,7 +2001,7 @@ export class ProceduralSoundEngine {
     });
   }
 
-  // Alarme Rouge de Zone de Pénalité
+  // Alarme Rouge de Mode Restriction / Pénalité
   public playPenaltyAlarm(): void {
     const ctx = this.getContext();
     const osc = ctx.createOscillator();
@@ -2159,7 +2159,7 @@ export const audioTranscriptionDurationHistogram = new Histogram({
 
 ### 20.2 Tableau de Bord Grafana Spécifié (`grafana/dashboards/levelup_monarch_hud.json`)
 Les métriques alimentent un dashboard Grafana structuré en 4 panneaux principaux :
-1. **Vitalité du Monarque :** Gauges circulaires temps réel pour les HP (vert émeraude/orange) et MP (bleu cyan électrique).
+1. **Vitalité du Maître :** Gauges circulaires temps réel pour les HP (vert émeraude/orange) et MP (bleu cyan électrique).
 2. **Progression des 8 Bases :** Diagramme en radar (Spider chart) affichant l'équilibre entre ACAD, AI_ENG, CYBER, EXP, LNG, FIN, STR, DIS.
 3. **Vélocité du Pipeline Audio :** Graphique temporel du débit de transcription en mots par minute et latence CUDA.
 4. **Sentinelle de Pénalité :** Indicateur d'état binaire du pare-feu avec décompte avant l'heure fatidique de 22h00.
@@ -2185,7 +2185,7 @@ Les métriques alimentent un dashboard Grafana structuré en 4 panneaux principa
 Pour hisser le joueur au rang de major de promotion de son master d'intelligence artificielle, le Système intègre une variante optimisée de l'algorithme SuperMemo SM-2 couplée à un planificateur d'interleaving (entrelacement des disciplines).
 
 ### 22.1 Formulations Mathématiques de l'Algorithme SM-2 Optimisé
-Pour chaque fiche de cours ou notion clé dans le cerveau numérique (`ACAD` ou `AI_ENG`), la prochaine date de révision dépend de la qualité de restitution $q \in \{0, 1, 2, 3, 4, 5\}$ évaluée par l'Architecte :
+Pour chaque fiche de cours ou notion clé dans le cerveau numérique (`ACAD` ou `AI_ENG`), la prochaine date de révision dépend de la qualité de restitution $q \in \{0, 1, 2, 3, 4, 5\}$ évaluée par l'évaluateur IA :
 
 1. **Calcul du Facteur de Facilité (Ease Factor - $EF$) :**
    $$EF' = \max\left(1.3, \; EF + \left(0.1 - (5 - q) \cdot (0.08 + (5 - q) \cdot 0.02)\right)\right)$$
@@ -2427,7 +2427,7 @@ pause
 
 ## 25. Moteur de Progression Physique & Surcharge Progressive (Base `STR`)
 
-La base `STR` (Puissance Corporelle) reproduit fidèlement la rigueur de l'entraînement de Sung Jin-Woo (100 pompes, 100 abdos, 100 squats, 10 km de course) tout en y intégrant les lois scientifiques de la physiologie du sport moderne (hypertrophie musculaire et surcompensation).
+La base `STR` (Puissance Corporelle) reproduit fidèlement la rigueur de l'entraînement de l'utilisateur (100 pompes, 100 abdos, 100 squats, 10 km de course) tout en y intégrant les lois scientifiques de la physiologie du sport moderne (hypertrophie musculaire et surcompensation).
 
 ### 25.1 Formulation Mathématique du Volume d'Entraînement & Surcompensation
 Pour chaque séance sportive enregistrée dans le planificateur, le volume effectif de charge $V$ et l'indice de fatigue résiduelle $F$ sont calculés comme suit :
@@ -2470,7 +2470,7 @@ export class StrengthProgressionEngine {
     if (userHp < 60) {
       return { nextReps: currentReps, nextSets: currentSets };
     }
-    // Surcharge progressive Solo Leveling (+5% de répétitions ou passage à un palier supérieur)
+    // Surcharge progressive Système de Gamification (+5% de répétitions ou passage à un palier supérieur)
     const nextReps = Math.min(100, Math.ceil(currentReps * 1.05));
     const nextSets = nextReps >= 100 && currentSets < 5 ? currentSets + 1 : currentSets;
     return { nextReps, nextSets };
@@ -2500,7 +2500,7 @@ Le présent registre documente formellement les choix techniques fondamentaux ay
 * **Conséquences :** Débit multiplié par 3 par rapport à Express.js, validation Zod intégrée dans le pipeline de requêtes et overhead mémoire minimal.
 
 ### ADR-004 : Frontière de Sécurité Stricte à Utilisateur Unique (Single-User Discord Snowflake Guard)
-* **Contexte :** L'application est un système de vie privé inspiré de Solo Leveling, conçu exclusivement pour son Monarque (Huriel).
+* **Contexte :** L'application est un système de vie privé inspiré de Système de Gamification, conçu exclusivement pour son Maître (Huriel).
 * **Décision :** Tous les contrôleurs et middlewares rejettent immédiatement toute interaction dont l'identifiant ne correspond pas au Snowflake ID immuable configuré dans les variables d'environnement.
 * **Conséquences :** Élimination radicale de la complexité des modèles multi-tenants complexes, protection absolue contre l'espionnage de données ou l'injection de commandes par des tiers sur Discord.
 
@@ -2516,7 +2516,7 @@ Le présent registre documente formellement les choix techniques fondamentaux ay
 L'architecture technique de LevelUp ("The System") répond aux standards de qualité les plus exigeants de l'ingénierie logicielle contemporaine :
 1. **Résilience Maximale :** Tolérance native aux pannes réseau, synchronisation différentielle déterministe et watchdog matériel garantissant la sécurité du système d'exploitation.
 2. **Performance Instantanée :** Budget de latence $P_{95} < 60\text{ ms}$, inférence vocale locale en moins de 4 secondes et shaders WebGL à 60 FPS constants.
-3. **Fidélité Thématique Absolue :** Transcription fidèle des codes visuels, sonores et psychologiques de Solo Leveling pour une immersion transformatrice.
+3. **Fidélité Thématique Absolue :** Transcription fidèle des codes visuels, sonores et psychologiques de Système de Gamification pour une immersion transformatrice.
 
 ---
 
@@ -2648,7 +2648,7 @@ flowchart TD
    $$S(t) = 1 - (1 - S_0) e^{-\frac{t}{\tau_w}}, \quad \tau_w = 18.2\text{ h}, \quad S_0 = 0.08$$
 2. **Modulateur Circadien ($C(t)$) :**
    $$C(t) = 1.0 + 0.05 \times \cos \left( \frac{2\pi (t - 14)}{24} \right)$$
-3. **Résilience Biologique Souveraine ($HP(t)$) :**
+3. **Résilience Biologique Principale ($HP(t)$) :**
    $$HP(t) = \max \left( 60, \left\lfloor 100 \times (1 - 0.25 \times S(t)) \times C(t) \right\rfloor \right)$$
 4. **Acuité Cognitive & Focus ($MP(t)$) :**
    $$\Delta MP_{\text{consommé}} = 8.5 \times \ln \left( 1 + \frac{t_{\text{work}}}{45} \right)$$
@@ -2658,7 +2658,7 @@ flowchart TD
 
 ```typescript
 export interface VitalityState {
-  hp: number; // 60 - 100 (Résilience Biologique Souveraine)
+  hp: number; // 60 - 100 (Résilience Biologique Principale)
   mp: number; // 50 - 100 (Focus & Acuité Cognitive)
   statusTitle: string; // Ex: 'VITALITÉ INDOMPTABLE', 'FOCUS ABSOLU'
   hoursAwake: number;
@@ -2675,7 +2675,7 @@ export class NeurobiologicalVitalityEngine {
     // 2. Processus C Circadien (Pic d'alerte vers 14h)
     const processC = 1.0 + 0.05 * Math.cos((2.0 * Math.PI * (currentHourOfDay - 14)) / 24.0);
     
-    // 3. Calcul de la vitalité biologique souveraine (plancher garanti à 60%)
+    // 3. Calcul de la vitalité biologique principale (plancher garanti à 60%)
     const rawHp = 100.0 * (1.0 - 0.25 * processS) * processC;
     return Math.max(60, Math.min(100, Math.floor(rawHp)));
   }
@@ -2693,7 +2693,7 @@ export class NeurobiologicalVitalityEngine {
   }
 
   public static getPsychologicalStatusText(hp: number, mp: number): string {
-    if (hp >= 90 && mp >= 90) return 'VITALITÉ MAXIMALE & FOCUS SOUVERAIN';
+    if (hp >= 90 && mp >= 90) return 'VITALITÉ MAXIMALE & FOCUS PRINCIPAL';
     if (hp >= 80) return 'RÉSILIENCE INÉBRANLABLE & CLARTÉ OPÉRATIONNELLE';
     return 'DÉTERMINATION D'ACIER & VIGILANCE ACTIVE';
   }
@@ -2722,7 +2722,7 @@ flowchart TD
     Les_8_Bases --> HarmonicMean["Moyenne Harmonique Pondérée (S_global)"]
     HarmonicMean --> GlobalLvl["Niveau Global (1 - 100)"]
     GlobalLvl --> RankCheck["Évaluation des Invariants Réels (Hackathons, C1/C2, Major)"]
-    RankCheck --> FinalRank["Attribution du Rang Officiel (E, D, C, B, A, S, Monarque)"]
+    RankCheck --> FinalRank["Attribution du Rang Officiel (E, D, C, B, A, S, Maître)"]
 ```
 
 ### 32.1 Formulation Mathématique de la Moyenne Harmonique Pondérée :
@@ -2817,7 +2817,7 @@ export class HarmonicRankEngine {
       return 'A';
     }
 
-    // Invariant Rang B : Un Chasseur Rang B qui n'a gagné aucun hackathon n'existe pas !
+    // Invariant Rang B : Un Utilisateur Rang B qui n'a gagné aucun hackathon n'existe pas !
     if (globalLevel >= 46 &&
         real.hackathonsWon >= 1 &&
         (real.cambridgeCertificationLevel === 'C1' || real.cambridgeCertificationLevel === 'C2') &&

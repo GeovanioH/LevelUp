@@ -510,7 +510,7 @@ model AuditLog {
 
 ## 3. Scripts DDL Natifs PostgreSQL & Définitions de Triggers (`init_schema.sql`)
 
-Ce script SQL contient l'intégralité des extensions, types énumérés, tables physiques, fonctions PL/pgSQL et triggers garantissant l'intégrité absolue des règles Solo Leveling :
+Ce script SQL contient l'intégralité des extensions, types énumérés, tables physiques, fonctions PL/pgSQL et triggers garantissant l'intégrité absolue des règles Système de Gamification :
 
 ```sql
 -- ==============================================================================
@@ -693,7 +693,7 @@ CREATE TABLE IF NOT EXISTS opportunities (
 
 CREATE INDEX IF NOT EXISTS idx_opportunities_lookup ON opportunities (player_id, status, deadline);
 
--- Table des Achats de la Boutique des Ombres
+-- Table des Achats de la Boutique de Récompenses
 CREATE TABLE IF NOT EXISTS shop_purchases (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     player_id UUID NOT NULL REFERENCES players(id) ON DELETE CASCADE,
@@ -1036,7 +1036,7 @@ async function main() {
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-03', name: 'Crédits Cloud Étudiants (Azure/AWS)', level: 8, desc: 'Déploiement d\'infrastructures de test sur crédits gratuits.' },
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-04', name: 'Nom de Domaine Professionnel Offert', level: 12, desc: 'Enregistrement de son nom de domaine personnel via Namecheap.' },
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-05', name: 'Licences JetBrains & DataCamp Pro', level: 16, desc: 'Activation des environnements d\'ingénierie professionnels.' },
-    { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-06', name: 'Fonds d\'Urgence Sécurisé', level: 20, desc: 'Constitution de 2 mois de dépenses en réserve inviolable.' },
+    { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-06', name: 'Fonds d\'Urgence Sécurisé', level: 20, desc: 'Constitution de 2 mois de dépenses en réserve strict.' },
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-07', name: 'Veille Automatique Bourses Deerflow', level: 25, desc: 'Capture et filtrage des bourses de mobilité et d\'excellence.' },
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-08', name: 'Dossier Type de Candidature Bourse', level: 30, desc: 'Lettres de recommandation et CV académique normé prêts.' },
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-09', name: 'Dépôt Formel de Candidature Bourse', level: 40, desc: 'Soumission d\'un dossier complet avant l\'échéance officielle.' },
@@ -1058,7 +1058,7 @@ async function main() {
     { baseCode: BaseStatCode.STR, nodeCode: 'STR-08', name: 'Tractions Lestées (+15 kg)', level: 35, desc: '5 répétitions strictes avec charge de 15 kg à la ceinture.' },
     { baseCode: BaseStatCode.STR, nodeCode: 'STR-09', name: 'Course de 5 km en Moins de 25 min', level: 45, desc: 'Allure soutenue en extérieur validée par traceur GPS.' },
     { baseCode: BaseStatCode.STR, nodeCode: 'STR-10', name: 'Mobilité Posturale Quotidienne', level: 55, desc: '21 jours de routine d\'étirements pour contrer la position assise.' },
-    { baseCode: BaseStatCode.STR, nodeCode: 'STR-11', name: 'Défi 100 Pompes de Solo Leveling', level: 65, desc: 'Compléter 100 pompes au cours d\'une seule séance.' },
+    { baseCode: BaseStatCode.STR, nodeCode: 'STR-11', name: 'Défi 100 Pompes de Système de Gamification', level: 65, desc: 'Compléter 100 pompes au cours d\'une seule séance.' },
     { baseCode: BaseStatCode.STR, nodeCode: 'STR-12', name: 'Discipline Physique (4 Séances/Semaine)', level: 75, desc: '2 mois sans manquer une seule séance d\'entraînement.' },
     { baseCode: BaseStatCode.STR, nodeCode: 'STR-13', name: 'Tractions Lestées Lourdes (+25 kg)', level: 85, desc: '3 répétitions strictes avec charge additionnelle de 25 kg.' },
     { baseCode: BaseStatCode.STR, nodeCode: 'STR-14', name: 'Course de 10 km en Moins de 55 min', level: 92, desc: 'Endurance de fond validée sur 10 kilomètres continus.' },
@@ -1074,12 +1074,12 @@ async function main() {
     { baseCode: BaseStatCode.DIS, nodeCode: 'DIS-07', name: 'Couvre-Feu Digital (22h00)', level: 25, desc: 'Extinction totale des écrans 45 minutes avant le sommeil.' },
     { baseCode: BaseStatCode.DIS, nodeCode: 'DIS-08', name: 'Refus de la Gratification Immédiate', level: 30, desc: 'Surmonter une tentation sociale pour achever un livrable clé.' },
     { baseCode: BaseStatCode.DIS, nodeCode: 'DIS-09', name: 'Session Commando Monk Mode (6h)', level: 40, desc: 'Journée commando avec 6 heures de Deep Work nettes.' },
-    { baseCode: BaseStatCode.DIS, nodeCode: 'DIS-10', name: 'Discipline d\'Acier (30 Jours Parfaits)', level: 50, desc: '30 jours consécutifs sans une seule entrée en zone de pénalité.' },
+    { baseCode: BaseStatCode.DIS, nodeCode: 'DIS-10', name: 'Discipline d\'Acier (30 Jours Parfaits)', level: 50, desc: '30 jours consécutifs sans une seule entrée en mode restriction / pénalité.' },
     { baseCode: BaseStatCode.DIS, nodeCode: 'DIS-11', name: 'Résilience Post-Échec Immédiate', level: 60, desc: 'Analyser et corriger une erreur dans les 2 heures sans plainte.' },
     { baseCode: BaseStatCode.DIS, nodeCode: 'DIS-12', name: 'Jeûne Dopaminergique Dominical', level: 70, desc: '24 heures le dimanche sans réseaux, vidéos ni divertissement.' },
     { baseCode: BaseStatCode.DIS, nodeCode: 'DIS-13', name: 'Marathon de Deep Work (8 Heures)', level: 80, desc: 'Journée d\'ingénierie exceptionnelle totalisant 8h de focus.' },
-    { baseCode: BaseStatCode.DIS, nodeCode: 'DIS-14', name: 'Souveraineté Trimestrielle (90 Jours)', level: 90, desc: 'Un trimestre entier sans aucun abandon ni compromis de routine.' },
-    { baseCode: BaseStatCode.DIS, nodeCode: 'DIS-15', name: 'Volonté Inaltérable du Monarque', level: 100, desc: 'Exécution froide et déterminée en toutes circonstances.' },
+    { baseCode: BaseStatCode.DIS, nodeCode: 'DIS-14', name: 'Principaleté Trimestrielle (90 Jours)', level: 90, desc: 'Un trimestre entier sans aucun abandon ni compromis de routine.' },
+    { baseCode: BaseStatCode.DIS, nodeCode: 'DIS-15', name: 'Volonté Inaltérable du Maître', level: 100, desc: 'Exécution froide et déterminée en toutes circonstances.' },
   ];
 
   for (const node of skillNodesData) {
@@ -1130,7 +1130,7 @@ Ce dictionnaire analyse chaque colonne des 9 tables physiques avec son type de s
 * `max_hp` : `INTEGER` (4 octets), non-nul, défaut `100`. Contrainte CHECK : $\ge 100$. Plafond d'énergie physique.
 * `current_mp` : `INTEGER` (4 octets), non-nul, défaut `100`. Contrainte CHECK : $\ge 0$ et $\le max\_mp$. Points de concentration mentale.
 * `max_mp` : `INTEGER` (4 octets), non-nul, défaut `100`. Contrainte CHECK : $\ge 100$. Plafond de concentration mentale.
-* `shadow_crystals` : `INTEGER` (4 octets), non-nul, défaut `0`. Contrainte CHECK : $\ge 0$. Monnaie de la Boutique des Ombres ($10\text{ XP} = 1\text{ Cristal}$).
+* `shadow_crystals` : `INTEGER` (4 octets), non-nul, défaut `0`. Contrainte CHECK : $\ge 0$. Monnaie de la Boutique de Récompenses ($10\text{ XP} = 1\text{ Cristal}$).
 * `current_title` : `VARCHAR(100)` (101 octets max), non-nul, défaut `'L''Éveillé Novice'`. Titre honorifique affiché sur le HUD.
 * `theme_preference` : `VARCHAR(30)` (31 octets max), non-nul, défaut `'DARK_MONARCH'`. Valeurs : `'DARK_MONARCH'` ou `'LIGHT_AWAKENING'`.
 * `discord_user_id` : `VARCHAR(50)` (51 octets max), Index Unique, nullable. Identifiant Discord pour le verrouillage Single-User.
@@ -1180,7 +1180,7 @@ Ce dictionnaire analyse chaque colonne des 9 tables physiques avec son type de s
 * `status` : `quest_status_enum` (4 octets), non-nul, défaut `'PENDING'`. Valeurs : `'PENDING', 'ACTIVE', 'COMPLETED', 'FAILED', 'EXPIRED'`.
 * `proof_type` : `proof_type_enum` (4 octets), non-nul, défaut `'NONE'`. Type de justificatif attendu.
 * `proof_data` : `TEXT` (variable), nullable. Contenu de la preuve (URL commit GitHub, lien de transcript, texte).
-* `architect_score` : `INTEGER` (4 octets), nullable. Contrainte CHECK : $\ge 0$ et $\le 20$. Note attribuée par l'Architecte IA.
+* `architect_score` : `INTEGER` (4 octets), nullable. Contrainte CHECK : $\ge 0$ et $\le 20$. Note attribuée par l'évaluateur IA IA.
 * `architect_feedback` : `TEXT` (variable), nullable. Justification et commentaires de l'IA.
 * `completed_at` : `TIMESTAMPTZ` (8 octets), nullable. Horodatage de validation de la quête.
 
@@ -1222,7 +1222,7 @@ Ce dictionnaire analyse chaque colonne des 9 tables physiques avec son type de s
 * `duration_seconds` : `INTEGER` (4 octets), non-nul. Contrainte CHECK : $> 0$ et $\le 600$. Durée de l'enregistrement (max 10 minutes).
 * `audio_format` : `VARCHAR(50)` (51 octets max), non-nul, défaut `'audio/webm'`.
 * `raw_transcript` : `TEXT` (variable), non-nul. Transcription textuelle brute issue de Whisper / Gemini.
-* `ai_summary` : `TEXT` (variable), non-nul. Synthèse structurée générée par l'Architecte.
+* `ai_summary` : `TEXT` (variable), non-nul. Synthèse structurée générée par l'évaluateur IA.
 * `ai_quality_score` : `INTEGER` (4 octets), non-nul. Contrainte CHECK : $\ge 0$ et $\le 20$. Note pédagogique.
 * `transcribed_at` : `TIMESTAMPTZ` (8 octets), non-nul, défaut `NOW()`.
 
@@ -1244,11 +1244,11 @@ Ce dictionnaire analyse chaque colonne des 9 tables physiques avec son type de s
 
 ---
 
-### 6.9 Table `shop_purchases` (La Boutique des Ombres)
+### 6.9 Table `shop_purchases` (La Boutique de Récompenses)
 * `id` : `UUID` (16 octets), Clé Primaire, non-nul.
 * `player_id` : `UUID` (16 octets), Clé Étrangère référençant `players(id)` avec cascade.
 * `item_name` : `VARCHAR(150)` (151 octets max), non-nul. Nom du droit de récompense acheté.
-* `crystal_cost` : `INTEGER` (4 octets), non-nul. Contrainte CHECK : $> 0$. Coût en Cristaux d'Ombre déduit du solde joueur.
+* `crystal_cost` : `INTEGER` (4 octets), non-nul. Contrainte CHECK : $> 0$. Coût en Points de Récompense (Cristaux) déduit du solde joueur.
 * `category` : `shop_category_enum` (4 octets), non-nul. Catégorie de loisir autorisée.
 * `purchased_at` : `TIMESTAMPTZ` (8 octets), non-nul, défaut `NOW()`.
 
@@ -1269,9 +1269,9 @@ Ce dictionnaire analyse chaque colonne des 9 tables physiques avec son type de s
 * `workout_routines` stocke les métadonnées des routines (Dos & Épaules en 17 étapes, Bras à l'échec en 6 variantes, Abdos en 5 exercices, Jambes).
 * `workout_steps` définit chaque étape avec son mode de comptage (`REPETITIONS` vs `DURATION_SECONDS`), ses seuils d'angle MediaPipe (`target_angle_min` ex: 75°, `target_angle_max` ex: 160°) et les articulations cibles (`key_joint_points` [11, 13, 15] pour les pompes).
 
-### 6.12 Table `real_world_achievements` (Invariants Réels des Rangs de Chasseur)
+### 6.12 Table `real_world_achievements` (Invariants Réels des Rangs de Utilisateur)
 * Stocke les preuves et réalisations incontestables dans le monde réel (nombre de hackathons gagnés, niveau officiel Cambridge C1/C2, percentile de rang dans la promo, nombre d'utilisateurs en production, patrimoine / bourses en euros).
-* Empêche formellement tout joueur de gravir les rangs B, A, S et Monarque s'il ne remplit pas les conditions réelles (ex: Hackathons gagnés >= 1 pour le Rang B).
+* Empêche formellement tout joueur de gravir les rangs B, A, S et Maître s'il ne remplit pas les conditions réelles (ex: Hackathons gagnés >= 1 pour le Rang B).
 
 ### 6.13 Table `external_integration_configs` (Services Tiers Connectés)
 * Configure l'accès chiffré aux API de NextDNS (blocage dynamique des divertissements), Duolingo (maintien du streak de langues), DataCamp (progression des parcours IA via GitHub Student Pack) et Discord (Snowflake ID immuable).
@@ -1676,7 +1676,7 @@ L'analyse de capacité ci-dessous garantit que le Système conserve une empreint
 
 Pour offrir une observabilité maximale sur les progrès du joueur sans multiplier les requêtes complexes, le Système s'appuie sur des vues SQL matérialisées et des scripts de maintenance automatisés :
 
-### 14.1 Vues SQL Optimisées pour le HUD et l'Architecte
+### 14.1 Vues SQL Optimisées pour le HUD et l'évaluateur IA
 
 ```sql
 -- 1. Vue Synthétique de la Progression des 8 Bases (Pour le HUD)
@@ -1698,7 +1698,7 @@ JOIN players p ON p.id = ps.player_id
 LEFT JOIN skill_nodes sn ON sn.stat_id = ps.id
 GROUP BY ps.player_id, p.username, p.current_level, p.rank_code, ps.base_code, ps.level, ps.current_xp, ps.next_level_xp;
 
--- 2. Vue d'Évaluation de la Journée Courante (Pour le Bilan de l'Architecte à 22h00)
+-- 2. Vue d'Évaluation de la Journée Courante (Pour le Bilan de l'évaluateur IA à 22h00)
 CREATE OR REPLACE VIEW v_daily_performance AS
 SELECT 
     q.player_id,
@@ -2148,10 +2148,10 @@ Pour garantir qu'aucun index n'est créé sans justification rigoureuse, la tabl
 | `idx_notes_search_vector` | `second_brain_notes`| `(search_vector)` | `GIN` | Moteur de recherche plein texte en langage naturel sur l'ensemble des cours et fiches. |
 | `idx_notes_trgm_title` | `second_brain_notes`| `(title gin_trgm_ops)` | `GIN Trigramme` | Recherche par similarité et autocomplétion des wikilinks `[[Note]]`. |
 | `idx_opportunities_lookup` | `opportunities` | `(player_id, status, deadline)` | `B-Tree` | Tri chronologique des bourses d'études et hackathons non expirés. |
-| `idx_shop_purchases` | `shop_purchases` | `(player_id, purchased_at)`| `B-Tree` | Historique des récompenses débloquées dans la Boutique des Ombres. |
+| `idx_shop_purchases` | `shop_purchases` | `(player_id, purchased_at)`| `B-Tree` | Historique des récompenses débloquées dans la Boutique de Récompenses. |
 | `idx_audit_lookup` | `audit_logs` | `(player_id, event_type, timestamp)` | `B-Tree` | Traçabilité des opérations de sécurité et vérification d'idempotence. |
 
-Ce schéma relationnel haute performance garantit une scalabilité totale, une conformité stricte aux règles de l'anime Solo Leveling et une robustesse de données absolue pour les 5 prochaines années.
+Ce schéma relationnel haute performance garantit une scalabilité totale, une conformité stricte aux règles de l'anime Système de Gamification et une robustesse de données absolue pour les 5 prochaines années.
 
 
 ---

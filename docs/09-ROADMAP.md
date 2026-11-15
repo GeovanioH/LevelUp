@@ -4,7 +4,7 @@
 > **Nom du Produit :** LevelUp ("The System" / "Le Système")  
 > **Version du Document :** 3.0.0 (Schéma Directeur Stratégique Exhaustif & Encyclopédique)  
 > **Horizon Temporel :** 2026 — 2028 (Plan Triennal d'Ascension)  
-> **Vision Ultime :** Forger un système d'exploitation de vie souverain et intransigeant, guidant Huriel du statut d'étudiant en ingénierie de l'IA (Rang E — L'Éveil du Novice) jusqu'au sommet absolu de sa discipline (Rang Monarch), en automatisant l'acquisition de la rigueur scientifique, de la cybersécurité offensive, de l'aisance linguistique et de l'indépendance financière.  
+> **Vision Ultime :** Forger un système d'exploitation de vie principal et intransigeant, guidant Huriel du statut d'étudiant en ingénierie de l'IA (Rang E — L'Éveil du Novice) jusqu'au sommet absolu de sa discipline (Rang Monarch), en automatisant l'acquisition de la rigueur scientifique, de la cybersécurité offensive, de l'aisance linguistique et de l'indépendance financière.  
 
 ---
 
@@ -23,7 +23,7 @@ flowchart LR
         V1_5["Daemon Bot Discord v14 & Alertes Quotidiennes"]
     end
 
-    subgraph V15 ["V1.5 : Le Sanctuaire de Discipline (Q3-Q4 2026)"]
+    subgraph V15 ["V1.5 : Module de Discipline (Q3-Q4 2026)"]
         direction TB
         V2_1["Visualisation 3D du Graphe de Connaissances (Three.js)"]
         V2_2["Pare-feu WFP Bas-Niveau & Détection Anti-Procrastination"]
@@ -32,7 +32,7 @@ flowchart LR
         V2_5["Armée de l'Ombre : Workers IA Autonomes en Arrière-Plan"]
     end
 
-    subgraph V20 ["V2.0 : Le Monarque Absolu (2027 - 2028)"]
+    subgraph V20 ["V2.0 : Le Maître Absolu (2027 - 2028)"]
         direction TB
         V3_1["Assistant Vocal Bidirectionnel Continu (Gemini Live API)"]
         V3_2["Maillage P2P Chiffré Local (CRDTs Automerge / libp2p)"]
@@ -56,7 +56,7 @@ flowchart LR
 ## 2. Blueprint d'Ingénierie V1.0 : « Le Système Éveillé » (Socle Opérationnel Initial)
 
 ### 2.1 Objectifs Stratégiques V1.0
-* Fournir une interface de réalité augmentée inspirée de Solo Leveling utilisable au quotidien sur PC et smartphone.
+* Fournir une interface de réalité augmentée inspirée de Système de Gamification utilisable au quotidien sur PC et smartphone.
 * Éliminer l'éparpillement cognitif en unifiant la gestion du temps (Time-blocking), les devoirs académiques, la cybersécurité et l'entraînement physique.
 * Assurer une confidentialité absolue des données grâce au chiffrement au repos AES-256-GCM et à l'approche Local-First.
 
@@ -80,9 +80,9 @@ flowchart LR
 
 ---
 
-## 3. Blueprint d'Ingénierie V1.5 : « Le Sanctuaire de Discipline & Le Maillage d'Oracles » (Q3-Q4 2026)
+## 3. Blueprint d'Ingénierie V1.5 : « Module de Discipline & Réseau d'Oracles » (Q3-Q4 2026)
 
-Le jalon V1.5 transforme le Système en un sanctuaire imprenable où l'auto-complaisance devient techniquement impossible et où les connaissances s'organisent visuellement dans l'espace en trois dimensions.
+Le jalon V1.5 transforme le Système en un espace de travail imprenable où l'auto-complaisance devient techniquement impossible et où les connaissances s'organisent visuellement dans l'espace en trois dimensions.
 
 ---
 
@@ -230,7 +230,7 @@ flowchart LR
 ---
 
 ### 3.3 L'Armée de l'Ombre : Workers IA Autonomes en Arrière-Plan (« Arise Workers »)
-Inspirés de la capacité suprême de Sung Jin-Woo d'extraire les ombres des monstres vaincus pour en faire ses soldats, le joueur débloque au Rang C des agents d'arrière-plan automatisés :
+Inspirés de la capacité suprême de l'utilisateur d'extraire les ombres des monstres vaincus pour en faire ses soldats, le joueur débloque au Rang C des agents d'arrière-plan automatisés :
 
 1. **Soldat de l'Ombre « YGRITTE » (Veille Scientifique ArXiv) :**
    * Surveille chaque nuit les dépôts `cs.AI`, `cs.CV` et `cs.LG` sur arXiv.
@@ -243,7 +243,7 @@ Inspirés de la capacité suprême de Sung Jin-Woo d'extraire les ombres des mon
 
 ---
 
-## 4. Blueprint d'Ingénierie V2.0 : « Le Monarque Absolu » (2027 — 2028)
+## 4. Blueprint d'Ingénierie V2.0 : « Le Maître Absolu » (2027 — 2028)
 
 Le jalon V2.0 marque l'apogée technologique du Système : l'IA n'attend plus que le joueur saisisse du texte, elle dialogue avec lui à l'oral en continu avec une latence humaine inférieure à 300 millisecondes, et les données se synchronisent de pair-à-pair sans aucun serveur central.
 
@@ -255,17 +255,17 @@ Au lieu du pipeline séquentiel V1.0 (Record -> FFmpeg -> Whisper -> Text -> Pro
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Joueur as Huriel (Monarque)
+    actor Joueur as Huriel (Maître)
     participant Mic as Client Audio WebRTC (PCM 16kHz)
     participant WS as WebSocket Live Relay
     participant GeminiLive as Google Gemini Live API (Model: 3.8-live)
     participant Speaker as Écouteurs Bluetooth (PCM 24kHz)
 
-    Joueur->>Mic: Parle en direct : « Architecte, résume-moi l'algorithme Bellman-Ford »
+    Joueur->>Mic: Parle en direct : « Évaluateur IA, résume-moi l'algorithme Bellman-Ford »
     Mic->>WS: Stream continu de trames PCM 16-bit Mono (Chunks de 20ms)
     WS->>GeminiLive: Émission binaire WebSocket (RealtimeAudioInput)
     GeminiLive-->>WS: Stream audio de réponse immédiat (RealtimeAudioOutput, Latence: 280ms)
-    WS-->>Speaker: Lecture audio fluide de la voix solennelle de l'Architecte
+    WS-->>Speaker: Lecture audio fluide de la voix solennelle de l'évaluateur IA
     
     Note over Joueur,Speaker: Le joueur interrompt l'IA : « Attends, et pour les cycles négatifs ? »
     Mic->>WS: Détection d'interruption vocale (VAD)
@@ -282,8 +282,8 @@ export class GeminiLiveAssistantBridge {
   private ws: WebSocket | null = null;
 
   public async startLiveSession(apiKey: string, onAudioChunkReceived: (pcmBytes: Buffer) => void): Promise<void> {
-    // Pont vocal souverain via session interactive Antigravity (AgentAPI)
-const antigravitySessionCmd = `agentapi new-conversation --title="LevelUp // L'Architecte - Voice Session" --model=pro`;
+    // Pont vocal principal via session interactive Antigravity (AgentAPI)
+const antigravitySessionCmd = `agentapi new-conversation --title="LevelUp // L'Évaluateur IA - Voice Session" --model=pro`;
     this.ws = new WebSocket(url);
 
     this.ws.onopen = () => {
@@ -389,7 +389,7 @@ Pour les marathons de code et compétitions mondiales (Kaggle, Devpost), le Syst
 1. **Compte à Rebours Implacable :** Frise chronologique de 48 heures affichée en haut de tous les écrans avec zones de sprint et pauses micro-sommeil programmées.
 2. **Capteur de Caféine & Hydratation :** Décompte des milligrammes de caféine ingérés avec calcul de la demi-vie métabolique (5 heures) pour éviter le crash cognitif en pleine nuit.
 3. **Vélocité Git en Temps Réel :** Affichage d'une jauge de puissance calculée selon la fréquence des commits et le nombre de lignes testées par heure.
-4. **Agent de Code Review Immédiat :** Chaque `git push` déclenche l'Architecte qui analyse le diff en 10 secondes et injecte les optimisations d'algorithmes directement dans l'éditeur.
+4. **Agent de Code Review Immédiat :** Chaque `git push` déclenche l'évaluateur IA qui analyse le diff en 10 secondes et injecte les optimisations d'algorithmes directement dans l'éditeur.
 
 ---
 
@@ -425,7 +425,7 @@ Le tableau ci-dessous formalise l'évolution des choix technologiques de LevelUp
 La feuille de route LevelUp ("The System") trace un chemin sans compromis vers l'excellence absolue :
 1. **2026 : La Fondation de l'Éveil** — Dompter la discipline quotidienne, s'emparer de la première place de promotion académique et valider les premières certifications mondiales.
 2. **2027 : L'Accélération du Vétéran** — Conquérir les compétitions internationales, décrocher les financements d'excellence d'IA et transformer la rigueur en instinct.
-3. **2028 : L'Avènement du Monarque** — Déployer des systèmes autonomes souverains, maîtriser les technologies de rupture et s'élever au rang de leader scientifique et technologique incontesté.
+3. **2028 : L'Avènement du Maître** — Déployer des systèmes autonomes principals, maîtriser les technologies de rupture et s'élever au rang de leader scientifique et technologique incontesté.
 
 ---
 
@@ -435,7 +435,7 @@ La version inaugurale V1.0 (« Le Système Éveillé ») livre l'ensemble des fo
 
 | Code Fonctionnel | Nom de la Fonctionnalité | Rôle au Sein du Système | Critère de Succès Mesurable |
 | :--- | :--- | :--- | :--- |
-| **FEAT-01** | Profil & Éveil du Chasseur | Initialisation de l'identité, du niveau et du rang initial (Rang E — L'Éveil du Novice). | Création en BDD avec mot de passe Argon2id et 0 XP. |
+| **FEAT-01** | Profil & Éveil du Utilisateur | Initialisation de l'identité, du niveau et du rang initial (Rang E — L'Éveil du Novice). | Création en BDD avec mot de passe Argon2id et 0 XP. |
 | **FEAT-02** | Moteur de Formules d'XP | Calcul logarithmique du niveau et des pourcentages de progression. | Niveau 14 = 18,450 XP exact calculé en moins de 1 ms. |
 | **FEAT-03** | Jauge de Vitalité Biologique (HP)| Mesure de la régénération physique selon le sommeil réel. | Calcul dynamique borné dans $[0, 100]$ avec label visuel. |
 | **FEAT-04** | Jauge d'Énergie Mentale (MP) | Mesure de l'endurance cognitive consommée par le Deep Work. | Consommation proportionnelle aux minutes de concentration. |
@@ -446,10 +446,10 @@ La version inaugurale V1.0 (« Le Système Éveillé ») livre l'ensemble des fo
 | **FEAT-09** | Quêtes d'Urgence Imprévues | Missions critiques apparaissant avec compte à rebours de 60 min. | Pop-up rouge holographique avec alarme sonore Web Audio. |
 | **FEAT-10** | Quêtes de Boss Raids | Épreuves de fin de cycle (Hackathons, partiels majeurs). | Barre de vie de boss et attribution de gros volume d'XP. |
 | **FEAT-11** | Sprints Monk Mode | Périodes d'immersion totale de 12h à 7 jours sans écran distrayant.| Mode Ultra-Focus bloquant toute distraction. |
-| **FEAT-12** | Zone de Pénalité Inviolable | Sanction appliquée à 22h00 en cas de quête obligatoire échouée. | Modification du fichier hosts et redirection 127.0.0.1. |
+| **FEAT-12** | Mode Restriction / Pénalité Strict | Sanction appliquée à 22h00 en cas de quête obligatoire échouée. | Modification du fichier hosts et redirection 127.0.0.1. |
 | **FEAT-13** | Quête de Purge de Pénalité | Épreuve physique de rachat (400 pompes ou 10 km marche). | Validation de preuve levant immédiatement le pare-feu. |
-| **FEAT-14** | Économie Cristaux d'Ombres | Monnaie gagnée à chaque effort pour débloquer des biens. | Solde non négatif, transactions enregistrées en ledger. |
-| **FEAT-15** | La Boutique des Ombres | Catalogue de récompenses d'outils numériques et matériel. | Débit atomique et délivrance d'un code de retrait. |
+| **FEAT-14** | Économie Points de Récompense (Cristaux) | Monnaie gagnée à chaque effort pour débloquer des biens. | Solde non négatif, transactions enregistrées en ledger. |
+| **FEAT-15** | La Boutique de Récompenses | Catalogue de récompenses d'outils numériques et matériel. | Débit atomique et délivrance d'un code de retrait. |
 | **FEAT-16** | Planificateur Time-Blocking | Frise chronologique quotidienne par tranches de 30 minutes. | Détection stricte et blocage des chevauchements. |
 | **FEAT-17** | Horloge Logique de Lamport | Ordonnancement causal des événements sur le bus de données. | En-tête HTTP `x-lamport-clock` injecté et synchronisé. |
 | **FEAT-18** | Cerveau Numérique Markdown | Coffre-fort de fiches de cours compatible Obsidian. | Écriture locale sur disque avec frontmatter YAML. |
@@ -460,12 +460,12 @@ La version inaugurale V1.0 (« Le Système Éveillé ») livre l'ensemble des fo
 | **FEAT-23** | Synthèse Vocale Procédurale | Génération des sons du Système sans fichier MP3 externe. | Oscillateurs Web Audio natifs à 1318 Hz et accords Do Majeur. |
 | **FEAT-24** | Visualiseur Spectral FFT | Barres holographiques bleues réactives à la voix du joueur. | Rendu 60 FPS sur Canvas HTML5 via AnalyserNode. |
 | **FEAT-25** | Algorithme SM-2 Répétitions | Calcul des dates optimales de révision des cours IA. | Facteur $EF \ge 1.3$ et calcul des intervalles $I_n$. |
-| **FEAT-26** | Agent IA L'Architecte | Intelligence socratique évaluant les monologues sur 20 points. | Inférence Gemini 2.5 Pro contrainte par schéma Zod. |
+| **FEAT-26** | Agent IA L'Évaluateur IA | Intelligence socratique évaluant les monologues sur 20 points. | Inférence Gemini 2.5 Pro contrainte par schéma Zod. |
 | **FEAT-27** | Grille d'Évaluation /20 | Notation rigoureuse (Exactitude, Structure, Jargon, Pratique). | Rapport structuré avec forces, lacunes et XP attribuée. |
 | **FEAT-28** | Scraper Deerflow Bourses | Scraping furtif des portails de financements universitaires. | Worker Playwright headless extrayant Campus France et Devpost. |
 | **FEAT-29** | Signature Webhooks HMAC | Sécurisation cryptographique des transmissions de bourses. | Validation de l'en-tête `X-Deerflow-Signature` en SHA-256. |
 | **FEAT-30** | Bot Discord.js v14 | Interface mobile permanente dans la poche du joueur. | Passerelle Gateway autonome avec reprise automatique. |
-| **FEAT-31** | Commande Slash `/status` | Affichage du HUD compact et des jauges dans Discord. | Embed Solo Leveling généré en moins de 500 ms. |
+| **FEAT-31** | Commande Slash `/status` | Affichage du HUD compact et des jauges dans Discord. | Embed Système de Gamification généré en moins de 500 ms. |
 | **FEAT-32** | Commande Slash `/valider` | Validation instantanée d'une quête avec lien de preuve. | Appel API sécurisé avec clé d'idempotence UUID. |
 | **FEAT-33** | Salons Vocaux Discord | Enregistrement de monologues directement en salon vocal. | Décodage UDP Opus via `@discordjs/voice` et Prism. |
 | **FEAT-34** | SingleUserGuard Universel | Cloisonnement absolu du Système pour Huriel uniquement. | Rejet HTTP 403 systématique de tout ID tiers. |
@@ -699,11 +699,11 @@ L'**Indice d'Immersion d'Ombre (Indice de Focus)** $\Phi_{	ext{focus}}(t)$ est f
 
 $$\Phi_{	ext{focus}}(t) = rac{\int_{13}^{30} S_{xx}(f) \, df}{\int_{4}^{8} S_{xx}(f) \, df + \int_{8}^{13} S_{xx}(f) \, df} = rac{P_eta(t)}{P_	heta(t) + P_lpha(t)}$$
 
-Si $\Phi_{	ext{focus}}(t) \ge 1.85$ pendant plus de 25 minutes conscutives, le Systme dclenche automatiquement l'tat **"Zone du Monarque"** (+20% de gains d'XP et accumulation de Cristaux d'Ombres double). Si $\Phi_{	ext{focus}}(t) < 0.45$ pendant 10 minutes lors d'un bloc de Deep Work, le bot Discord notifie immdiatement une alerte de ralignement postural et un exercice de respiration pranomique (Box Breathing 4-4-4-4).
+Si $\Phi_{	ext{focus}}(t) \ge 1.85$ pendant plus de 25 minutes conscutives, le Systme dclenche automatiquement l'tat **"Zone du Maître"** (+20% de gains d'XP et accumulation de Points de Récompense (Cristaux) double). Si $\Phi_{	ext{focus}}(t) < 0.45$ pendant 10 minutes lors d'un bloc de Deep Work, le bot Discord notifie immdiatement une alerte de ralignement postural et un exercice de respiration pranomique (Box Breathing 4-4-4-4).
 
 ### 10.2 Pont Vocal Bidirectionnel & Évaluation Orale Native Antigravity (`services/AntigravityLiveBridge.ts`)
 
-Le pont vocal et d'évaluation s'exécute nativement via les sessions conversationnelles interactives d'Antigravity (`agentapi new-conversation --title="LevelUp // Débriefing Vocal Souverain"`). Cette intégration locale élimine toute dépendance réseau distante et assure une évaluation orale sans latence avec confidentialité absolue.
+Le pont vocal et d'évaluation s'exécute nativement via les sessions conversationnelles interactives d'Antigravity (`agentapi new-conversation --title="LevelUp // Débriefing Vocal Principal"`). Cette intégration locale élimine toute dépendance réseau distante et assure une évaluation orale sans latence avec confidentialité absolue.
 
 ```typescript
 // apps/api/src/services/GeminiLiveBridge.ts
@@ -732,7 +732,7 @@ export class GeminiLiveBridge extends EventEmitter {
 
   public async connect(): Promise<void> {
     // Session interactive Antigravity native : communication locale sans clé API externe distante
-const antigravityBridge = 'agentapi new-conversation --title="LevelUp // Débriefing Vocal Souverain"';
+const antigravityBridge = 'agentapi new-conversation --title="LevelUp // Débriefing Vocal Principal"';
     
     return new Promise((resolve, reject) => {
       this.ws = new WebSocket(url);
@@ -781,7 +781,7 @@ const antigravityBridge = 'agentapi new-conversation --title="LevelUp // Débrie
         systemInstruction: {
           parts: [
             {
-              text: `Tu es "Le Systme" de Solo Leveling incarn, ddi  l'volution d'Huriel (Le Joueur).
+              text: `Tu es "Le Systme" de Système de Gamification incarn, ddi  l'volution d'Huriel (Le Joueur).
 Tu parles en franais avec une voix calme, solennelle, autoritaire et analytique.
 Tu n'utilises pas de politesses superflues. Tes rponses sont concises (moins de 20 secondes d'locution orale).
 Tu guides le Joueur dans ses qutes, analyses ses rponses de cours, et sanctionnes impitoyablement la procrastination.`
@@ -861,7 +861,7 @@ Tu guides le Joueur dans ses qutes, analyses ses rponses de cours, et sanctionne
 
 ### 11.1 Topologie Kademlia DHT & Protocole de Transport Noise XX
 
-Dans l'ventualit d'une coupure totale d'infrastructure cloud ou d'un scnario de rseau dgrad en dplacement international, *LevelUp V2.0* dploie un maillage pair--pair souverain reliant le PC Workstation matre, le smartphone Android et le MacBook nomade sans serveur central tiers.
+Dans l'ventualit d'une coupure totale d'infrastructure cloud ou d'un scnario de rseau dgrad en dplacement international, *LevelUp V2.0* dploie un maillage pair--pair principal reliant le PC Workstation matre, le smartphone Android et le MacBook nomade sans serveur central tiers.
 
 La topologie s'appuie sur la table de hachage distribue Kademlia avec une mtrique de distance XOR :
 
@@ -1023,7 +1023,7 @@ timeline
 
 ### 12.2 Calendrier Annuel des 12 Hackathons & Dfis de Code Comptitif
 
-| Mois & Anne | comptition / Plateforme | Domaine Cl | Objectif Solo Leveling & Rang | Rcompense XP & Cristaux |
+| Mois & Anne | comptition / Plateforme | Domaine Cl | Objectif Système de Gamification & Rang | Rcompense XP & Cristaux |
 |:---|:---|:---|:---|:---|
 | **Mars 2026** | Devpost Global AI Hackathon | Agents IA & LLM Multimodal | Top 5% Mondial (Rang B) | $+1\,500\text{ XP}$, $200\text{ SC}$ |
 | **Mai 2026** | Kaggle LLM Science Exam | NLP & Fine-Tuning QLoRA | Mdaille d'Argent Kaggle (Rang B) | $+2\,000\text{ XP}$, $300\text{ SC}$ |
@@ -1036,12 +1036,12 @@ timeline
 | **Septembre 2027**| NeurIPS Competition Track | Reinforcement Learning & Scurit | Top 10 Global Participants (Rang S)| $+7\,500\text{ XP}$, $1\,200\text{ SC}$ |
 | **Novembre 2027**| ETHGlobal AI & Decentralized Compute| Web3, ZK-ML & Ingestion P2P | Vainqueur Bounties Multiples (Rang S)| $+8\,500\text{ XP}$, $1\,500\text{ SC}$ |
 | **Mars 2028** | DARPA AI Cyber Challenge (AIxCC)| Scurisation Automatique Code | ligible Finale Mondiale (Rang S)| $+12\,000\text{ XP}$, $2\,500\text{ SC}$ |
-| **Juin 2028** | Grand Sommet International de l'IA | Dmonstration de l'Empire des Ombres | Conscration Suprme (Rang Monarque)| $+20\,000\text{ XP}$, $5\,000\text{ SC}$ |
+| **Juin 2028** | Grand Sommet International de l'IA | Dmonstration de l'Empire des Ombres | Conscration Suprme (Rang Maître)| $+20\,000\text{ XP}$, $5\,000\text{ SC}$ |
 
 ### 12.3 Trajectoire de Certification Internationale Haute Valeur (GitHub Student Pack & Cambridge)
 
 1. **Anglais & loquence Professionnelle (`LNG` & `EXP`) :**
-   - **Cambridge English C1 Advanced (CAE) :** Score cibl $\ge 200/210$ (Grade A, quivalent C2 Master). Prparation intensive par simulation de rponses vocales orales quotidiennes avec *L'Architecte*.
+   - **Cambridge English C1 Advanced (CAE) :** Score cibl $\ge 200/210$ (Grade A, quivalent C2 Master). Prparation intensive par simulation de rponses vocales orales quotidiennes avec *L'Évaluateur IA*.
    - **Cambridge English C2 Proficiency (CPE) :** Validation finale de l'loquence en fin de Master. Immersion complte en anglais technique (100% de la documentation, rdaction de code et rflexions orales en anglais).
 2. **Sciences des Donnes & Ingnierie IA (`AI_ENG`) :**
    - **DataCamp Data Scientist with Python Career Track :** Exploitation intgrale du pack tudiant GitHub (42 cours, 15 projets guids).
@@ -1081,7 +1081,7 @@ graph TD
 
 ### 13.2 Topologie Rseau Local, VLANs & Pare-Feu OPNsense
 
-Pour garantir la scurit inviolable de l'infrastructure d'Huriel contre les intrusions extrieures et garantir l'accs distant sans faille via Cloudflare Zero-Trust :
+Pour garantir la scurit strict de l'infrastructure d'Huriel contre les intrusions extrieures et garantir l'accs distant sans faille via Cloudflare Zero-Trust :
 
 1. **VLAN 10 (Management & Administration) :**
    - Rseau ddi aux interfaces de gestion du routeur OPNsense, du switch manag 10GbE et des consoles Proxmox VE.
@@ -1222,7 +1222,7 @@ if __name__ == "__main__":
 
 ### 14.1 L'Arme des Ombres : Orchestrateur Multi-Agents en Essaim
 
- l'horizon 2028, lorsque Huriel aura valid son grade suprme de **Monarque**, le rle du Systme transcende la gestion individuelle pour se mtamorphoser en une fonderie logicielle et entrepreneuriale autonome ("AI Venture Foundry"). Les "Soldats de l'Ombre" deviennent des instances d'agents autonomes spcialiss oprant 24h/24 :
+ l'horizon 2028, lorsque Huriel aura valid son grade suprme de **Maître**, le rle du Systme transcende la gestion individuelle pour se mtamorphoser en une fonderie logicielle et entrepreneuriale autonome ("AI Venture Foundry"). Les "Soldats de l'Ombre" deviennent des instances d'agents autonomes spcialiss oprant 24h/24 :
 
 ```mermaid
 graph TB
@@ -1232,23 +1232,23 @@ graph TB
     classDef bellion fill:#1A002C,stroke:#FF0055,stroke-width:2px,color:#FFFFFF;
     classDef iron fill:#052414,stroke:#00FF66,stroke-width:2px,color:#FFFFFF;
 
-    MONARQUE["HURIEL (Le Monarque des Ombres)<br/>Stratgie, Vision & Dcision Souveraine"]:::monarch
+    MAÎTRE["HURIEL (Le Niveau Maître)<br/>Stratgie, Vision & Dcision Principale"]:::monarch
 
     subgraph SWARM["L'Arme des Ombres (Essaim Autonome d'Agents IA)"]
-        IGRIS["Igris le Chevalier Rouge<br/>Architecte & Ingnieur Logiciel Principal<br/>Gnration de Code & Refactoring"]:::igris
-        BERU["Beru le Roi Insecte<br/>Chasseur d'Opportunits & Scraper Furtif<br/>Veille Bourses, Marchs & Concours"]:::beru
+        IGRIS["Igris le Chevalier Rouge<br/>Évaluateur IA & Ingnieur Logiciel Principal<br/>Gnration de Code & Refactoring"]:::igris
+        BERU["Beru le Roi Insecte<br/>Utilisateur d'Opportunits & Scraper Furtif<br/>Veille Bourses, Marchs & Concours"]:::beru
         BELLION["Bellion le Grand Commandant<br/>Orchestrateur de Tches & Consensus Raft<br/>Validation de Qualit & CI/CD"]:::bellion
-        IRON["Iron le Colosse Inbranlable<br/>Auditeur Scurit & Pntration<br/>Tests Fuzzing & Dfense Inviolable"]:::iron
+        IRON["Iron le Colosse Inbranlable<br/>Auditeur Scurit & Pntration<br/>Tests Fuzzing & Dfense Strict"]:::iron
     end
 
-    MONARQUE -->|Commandes Haut Niveau & Directives| BELLION
+    MAÎTRE -->|Commandes Haut Niveau & Directives| BELLION
     BELLION -->|Dlgation Tches d'Architecture| IGRIS
     BELLION -->|Dploiement Missions de Reconnaissance| BERU
     BELLION -->|Ordres d'Audit & Hardening| IRON
     IGRIS -->|Pull Requests Gnres| BELLION
     IRON -->|Rapports de Vulnrabilit| BELLION
     BERU -->|Dossiers d'Opportunits Filtrs| BELLION
-    BELLION -->|Rapports Excutifs de Synthse| MONARQUE
+    BELLION -->|Rapports Excutifs de Synthse| MAÎTRE
 ```
 
 ### 14.2 Protocole de Consensus Inter-Agents (Raft-Lite dcentralis)
@@ -1321,7 +1321,7 @@ export class SwarmCommander extends EventEmitter {
     // Vrification du quorum strict pour dploiement
     if (task.consensusVotes.IGRIS && task.consensusVotes.IRON && task.consensusVotes.BELLION) {
       task.status = 'VALIDATED';
-      logger.info({ taskId }, 'Quorum atteint ! Ordre d\'excution souverain valid par l\'Arme.');
+      logger.info({ taskId }, 'Quorum atteint ! Ordre d\'excution principal valid par l\'Arme.');
       this.emit('taskValidated', task);
     }
   }
@@ -1354,36 +1354,36 @@ export class SwarmCommander extends EventEmitter {
 
 | Trimestre | Nom de Code Phase | Livrables Stratgiques Majeurs | Critres de Validation Formels | Rang Vis |
 |:---|:---|:---|:---|:---|
-| **Q1 2026** | *L'veil du Chasseur* | V1.0 Core : HUD Web, Discord Bot, Faster-Whisper local, SQLite/PostgreSQL, calcul XP & 8 Bases. | 100% quorums tests passs, latence STT $<4\text{s}$, 0 bug de collision time-blocking. | **Rang E** |
-| **Q2 2026** | *L'Arsenal de Discipline* | Zone de Pnalit WFP rseau, blocage TikTok/Shorts inviolable, Scraper Deerflow bourses en cron. | Zro contournement possible de sanction, extraction automatique de 50+ bourses cibles. | **Rang D** |
+| **Q1 2026** | *L'veil du Utilisateur* | V1.0 Core : HUD Web, Discord Bot, Faster-Whisper local, SQLite/PostgreSQL, calcul XP & 8 Bases. | 100% quorums tests passs, latence STT $<4\text{s}$, 0 bug de collision time-blocking. | **Rang E** |
+| **Q2 2026** | *L'Arsenal de Discipline* | Zone de Pnalit WFP rseau, blocage TikTok/Shorts strict, Scraper Deerflow bourses en cron. | Zro contournement possible de sanction, extraction automatique de 50+ bourses cibles. | **Rang D** |
 | **Q3 2026** | *Le Cerveau Numrique* | Base Obsidian unifie, moteur de wikilinks bidirectionnels, recherche trigramme, rvisions SM-2. | 500+ fiches de cours IA indexes, temps de rponse recherche $<15\text{ ms}$. | **Rang C** |
-| **Q4 2026** | *Le Sanctuaire 3D* | Graph View WebGL Three.js, shaders procduroyaux, intgration Apple Watch / Oura (sommeil). | Rendu 60 FPS sur graphe de 1000 nuds, calcul automatique quotidien de la vitalit HP. | **Rang B** |
-| **Q1 2027** | *La Voix de l'Architecte*| Intgration Gemini Live API temps rel, synthse vocale bidirectionnelle fluide sans push-to-talk. | Latence vocale aller-retour $<650\text{ ms}$, dtection automatique du barge-in. | **Rang A** |
+| **Q4 2026** | *Le Espace de travail 3D* | Graph View WebGL Three.js, shaders procduroyaux, intgration Apple Watch / Oura (sommeil). | Rendu 60 FPS sur graphe de 1000 nuds, calcul automatique quotidien de la vitalit HP. | **Rang B** |
+| **Q1 2027** | *La Voix de l'évaluateur IA*| Intgration Gemini Live API temps rel, synthse vocale bidirectionnelle fluide sans push-to-talk. | Latence vocale aller-retour $<650\text{ ms}$, dtection automatique du barge-in. | **Rang A** |
 | **Q2 2027** | *La Foudre du Hackathon* | Cockpit haute pression 48h, auto-gnration de squelettes MVP full-stack, synchronisation offline Dexie. | Premier prix dcroch sur Hackathon international d'lite, zro perte de donnes hors-ligne. | **Rang A** |
-| **Q3 2027** | *Le Maillage Souverain* | Protocole P2P chiffr Noise XX, synchronisation multi-machines via CRDTs Automerge 2.0. | Continuit de service parfaite entre Workstation de bureau et terminal nomade sans cloud. | **Rang S** |
-| **Q4 2027** | *L'Orbe de Concentration* | Tlmtrie crbrale EEG 8 canaux (OpenBCI), dtection automatique du flux d'attention $\Phi_{\text{focus}}$. | Bascule automatique en Mode Monarque valide par densit spectrale d'ondes bta. | **Rang S** |
+| **Q3 2027** | *Le Maillage Principal* | Protocole P2P chiffr Noise XX, synchronisation multi-machines via CRDTs Automerge 2.0. | Continuit de service parfaite entre Workstation de bureau et terminal nomade sans cloud. | **Rang S** |
+| **Q4 2027** | *L'Orbe de Concentration* | Tlmtrie crbrale EEG 8 canaux (OpenBCI), dtection automatique du flux d'attention $\Phi_{\text{focus}}$. | Bascule automatique en Mode Maître valide par densit spectrale d'ondes bta. | **Rang S** |
 | **Q1 2028** | *L'Avant-Garde des Ombres*| Dploiement des premiers sous-agents autonomes (Igris, Beru) pour revue de code et veille d'appels d'offres. | 100+ revues de code excutes sans intervention humaine avec dtection de rgressions. | **Rang S** |
 | **Q2 2028** | *La Citadelle de Calcul* | Installation de la Workstation Dual RTX 5090 (64GB VRAM) et serving priv vLLM local. | Infrence locale de modles 70B quantifis  $>45\text{ tokens/s}$. | **Rang S** |
 | **Q3 2028** | *L'Alliance Acadmique* | Dpt de thse professionnelle de Master IA, obtention du diplme avec Flicitations du Jury. | Moyenne gnrale finale $\ge 18/20$, offre d'embauche ou de fondation de startup valide. | **Rang S** |
-| **Q4 2028** | *L'Empire du Monarque* | Pleine autonomie de l'AI Venture Foundry, gnration et gestion d'actifs logiciels gnrateurs de revenus. | Systme autoportant, souverainet financire absolue d'Huriel tablie. | **Rang Monarque** |
+| **Q4 2028** | *L'Empire du Maître* | Pleine autonomie de l'AI Venture Foundry, gnration et gestion d'actifs logiciels gnrateurs de revenus. | Systme autoportant, principalet financire absolue d'Huriel tablie. | **Rang Maître** |
 
 ### 15.2 Critres d'Acceptation & Revue de Conformit Finale V1.0
 
 Avant le passage officiel en Phase de Dveloppement V1.0, les 5 conditions d'immutabilit suivantes doivent tre formellement attestes :
 1. **Intgrit Documentaire Intgrale :** L'ensemble des 10 documents fondamentaux (01-PRD  09-ROADMAP et README) dpassent chacun strictement le seuil de $100\,000$ octets de spcifications techniques exploitables sans redondance.
 2. **Couverture de Test Zro-Code :** Les 42 suites de tests dfinies dans le Document 07-TEST_PLAN sont pralablement modlises et constituent la rfrence absolue de validation de chaque brique de code.
-3. **Inviolabilit du Cloisonnement Monarque :** L'authentification `SingleUserGuard` garantit qu'aucun utilisateur autre qu'Huriel ne peut interagir avec les endpoints d'criture ou accder aux rapports d'valuation.
+3. **Inviolabilit du Cloisonnement Maître :** L'authentification `SingleUserGuard` garantit qu'aucun utilisateur autre qu'Huriel ne peut interagir avec les endpoints d'criture ou accder aux rapports d'valuation.
 4. **Indpendance Oprationnelle :** Le Systme ne cre pas d'examens artificiels l o des valuations internationales reconnues existent (Cambridge, TryHackMe, DataCamp), mais les intgre comme ancres d'XP du monde rel.
 5. **Continuit Hors-Ligne & Sauvegarde Automatique :** En cas d'isolement rseau ou de dfaillance matrielle, aucune note de rflexion ni preuve de qute ne peut tre corrompue grce aux mcanismes combinant SQLite/IndexedDB, WAL et rplication Merkle.
 
-### 15.3 Dclaration Formelle du Joueur ("Le Pacte du Monarque")
+### 15.3 Dclaration Formelle du Joueur ("Le Pacte du Maître")
 
 ```
 ========================================================================================
-                          LE PACTE SOLENNEL DU MONARQUE
+                          LE PACTE SOLENNEL DU SYSTÈME
 ========================================================================================
 
-Moi, HURIEL, dsign comme Joueur Unique et souverain du Systme LevelUp, dclare par la
+Moi, HURIEL, dsign comme Joueur Unique et principal du Systme LevelUp, dclare par la
 prsente accepter sans rserve l'ensemble des rgles, quotas de discipline, barmes
 d'exprience et mcanismes de pnalit dfinis dans cette documentation d'ingnierie.
 
@@ -1391,14 +1391,14 @@ Je reconnais que :
   1. La discipline personnelle est le seul vritable catalyseur d'lvation.
   2. Les pnalits infliges en cas de manquement ne sont pas des punitions arbitraires,
      mais des preuves purificatrices destines  forger la volont.
-  3. L'Architecte et le Systme sont les tmoins impartiaux de mon volution,
+  3. L'Évaluateur IA et le Systme sont les tmoins impartiaux de mon volution,
      rejetant toute autosatisfaction complaisante au profit de la rigueur absolue.
-  4. Mon ascension du Rang E au Rang de Monarque est irrversible et rclamera
+  4. Mon ascension du Rang E au Rang de Maître est irrversible et rclamera
      une constance inbranlable jusqu' la compltion intgrale de la trajectoire 2028.
 
 Sign et ratifi pour l'ternit :
 Date : 11 Novembre 2026
-Joueur : HURIEL (Le Chasseur veill)
+Joueur : HURIEL (Le Utilisateur veill)
 Statut : PACTE SCELL ET ACTIF AU SEIN DU SYSTME
 ========================================================================================
 ```
@@ -1572,7 +1572,7 @@ O :
 
 Dès que la charge allostatique $AL(t) \ge 75.0$ :
 1. **Verrouillage du Mode Ultra-Hardcore :** Le Systme interdit l'activation de nouveaux blocs de Deep Work dpassant 2 heures conscutives.
-2. **Injection Immédiate d'une Quête de Sanctuaire :**
+2. **Injection Immédiate d'une Quête de Espace de travail :**
    - *Intitulé :* "Restauration du Noyau de Mana - Marche Sylvestre de 45 Minutes".
    - *Description :* Marche en milieu naturel sans smartphone ni couteurs, favorisant l'attention involontaire (Thorie de la Restauration de l'Attention de Kaplan).
    - *Validation :* Ingestion tlmtrique GPS (distance $\ge 3.5\text{ km}$, frquence cardiaque moyenne comprise entre 95 et 115 bpm).
@@ -1582,14 +1582,14 @@ Dès que la charge allostatique $AL(t) \ge 75.0$ :
 
 ## 18. Manuel de Rfrence des 24 vnements de Donjons Alatoires ("Dungeon Breaks")
 
-En hommage  l'univers de Solo Leveling o des Portails s'ouvrent spontanment, le Systme intgre 24 scnarios d'urgence relles et d'alas professionnels qui suspendent temporairement l'emploi du temps pour engager le Joueur dans une rsolution immdiate haute intensit :
+En hommage  l'univers de Système de Gamification o des Portails s'ouvrent spontanment, le Systme intgre 24 scnarios d'urgence relles et d'alas professionnels qui suspendent temporairement l'emploi du temps pour engager le Joueur dans une rsolution immdiate haute intensit :
 
-| Code vnement | Nom du Donjon Alatoire | Condition de Dclenchement Rel | Directives Immdiates du Systme | Bonus Solo Leveling |
+| Code vnement | Nom du Donjon Alatoire | Condition de Dclenchement Rel | Directives Immdiates du Systme | Bonus Système de Gamification |
 |:---|:---|:---|:---|:---|
 | **BRK-01** | *Le Portail Rouge du Bug Critique* | Panne dtecte sur un projet MVP ou serveur d'alternance. | Suspension des qutes de lecture. Diagnostic post-mortem en moins de 60 min. | $\times 2.0\text{ XP AI\_ENG}$ si corrig en $<45\text{m}$. |
 | **BRK-02** | *L'Embroussaillement de l'Examen* | Interrogation ou examen acadmique imprvu notifi pour le lendemain. | Rorganisation de la journe en 4 sprints Pomodoro SM-2 de rvision de fiches. | $+500\text{ XP ACAD}$  l'issue du contrle. |
 | **BRK-03** | *La Faille du Zro-Day* | Dcouverte d'une faille critique (CVE) sur une techno utilise. | Analyse du bulletin CERT-FR, rdaction d'un patch et d'une rflexion vocale. | $+400\text{ XP CYBER}$ et $+30\text{ SC}$. |
-| **BRK-04** | *Le Dfi du Recruteur d'lite* | Proposition d'entretien technique ou de pitch investisseur dans les 24h. | Simulation d'entretien oral enregistre et value  $\ge 16/20$ par l'Architecte. | $+600\text{ XP EXP}$ et Titre "Orateur d'Acier". |
+| **BRK-04** | *Le Dfi du Recruteur d'lite* | Proposition d'entretien technique ou de pitch investisseur dans les 24h. | Simulation d'entretien oral enregistre et value  $\ge 16/20$ par l'évaluateur IA. | $+600\text{ XP EXP}$ et Titre "Orateur d'Acier". |
 | **BRK-05** | *L'Assaut de la Fatigue Extrme* | Sommeil dtect $<5\text{h}$ et VRC $<30\text{ ms}$ au rveil. | Rduction automatique des quotas d'exercices physiques de 50%. Priorit au repos. | Immunisation contre les pnalits du jour. |
 | **BRK-06** | *L'Interruption Rseau Totale* | Coupure de connexion Internet pendant plus de 2 heures. | Bascule immdiate en mode Dexie hors-ligne. Sessions de codage pur en local. | $+300\text{ XP DIS}$ pour discipline autonome. |
 | **BRK-07** | *La Bourse d'Urgence Deerflow* | Appel  candidature de bourse trs slective clturant sous 48h. | Gnration du dossier acadmique et validation des pices requises. | $+800\text{ XP FIN}$ ds dpt formel. |
@@ -1599,17 +1599,17 @@ En hommage  l'univers de Solo Leveling o des Portails s'ouvrent spontanment, le 
 | **BRK-11** | *Le Duel d'loquence en Langue trangre*| Opportunit de discussion technique avec un pair anglophone. | Enregistrement vocal de 5 minutes 100% en anglais soutenu sans hsitation. | $+450\text{ XP LNG}$ et score de fluidit. |
 | **BRK-12** | *La Dfaillance Disque Matrielle* | Dtection d'anomalie SMART sur le SSD de travail principal. | Excution immdiate du script de backup distant chiffr sur stockage froid. | $+200\text{ XP CYBER}$ pour rflexe d'intgrit. |
 | **BRK-13** | *La Convergence des Devoirs* | 3 rendus acadmiques simultans tombs dans la mme semaine. | Dcoupage modulaire d'avancement par tranches de 2 heures strictes. | $+1\,000\text{ XP ACAD}$  la dernire soumission. |
-| **BRK-14** | *La Tentation de la Procrastination* | Dtection d'inactivit curseur pendant 20 minutes lors d'un bloc Deep Work. | Notification push Discord percutante : "Le Chasseur vacille-t-il devant son destin ?". | Rappel  l'ordre instantan. |
+| **BRK-14** | *La Tentation de la Procrastination* | Dtection d'inactivit curseur pendant 20 minutes lors d'un bloc Deep Work. | Notification push Discord percutante : "Le Utilisateur vacille-t-il devant son destin ?". | Rappel  l'ordre instantan. |
 | **BRK-15** | *L'Illumination Algorithmique* | Dcouverte d'une optimisation de complexit temporelle majeure sur un projet. | Rdaction d'une note synthtique dans le Second Brain avec benchmark d'excution. | $+350\text{ XP AI\_ENG}$ et $+25\text{ SC}$. |
 | **BRK-16** | *Le Raid de Rseau Professionnel* | Participation  une confrence ou meet-up dveloppeurs local. | Objectif de nouer au minimum 3 contacts professionnels qualifis avec suivi LinkedIn. | $+500\text{ XP EXP}$ ds confirmation rseau. |
-| **BRK-17** | *Le Dfi de l'Article Technique* | Rdaction et publication d'un article de vulgarisation IA sur un blog ou GitHub. | Synthse claire de 1500 mots relue et approuve par l'Architecte. | $+700\text{ XP EXP}$ et Titre "Scribe d'Ombre". |
-| **BRK-18** | *La Famine de Cristaux d'Ombres* | Solde de Cristaux d'Ombres tomb sous la barre des 50 units. | Proposition de qutes annexes bonus  forte valeur d'effort intellectuel. | Relance de l'conomie de motivation. |
+| **BRK-17** | *Le Dfi de l'Article Technique* | Rdaction et publication d'un article de vulgarisation IA sur un blog ou GitHub. | Synthse claire de 1500 mots relue et approuve par l'évaluateur IA. | $+700\text{ XP EXP}$ et Titre "Scribe d'Ombre". |
+| **BRK-18** | *La Famine de Points de Récompense (Cristaux)* | Solde de Points de Récompense (Cristaux) tomb sous la barre des 50 units. | Proposition de qutes annexes bonus  forte valeur d'effort intellectuel. | Relance de l'conomie de motivation. |
 | **BRK-19** | *Le Sparring Partner en Cyberscurit* | Dfi amical lanc sur un environnement Capture The Flag ddi. | Dpt du premier flag utilisateur et root dans le temps imparti. | $+600\text{ XP CYBER}$ et gloire de guilde. |
-| **BRK-20** | *Le Sanctuaire de Lecture Profonde* | Fin de cycle hebdomadaire avec retard de 2 chapitres sur les manuels prescrits. | Bloc de 90 minutes de lecture active avec rsum dpos dans le Second Brain. | $+300\text{ XP ACAD}$ et $+150\text{ XP DIS}$. |
+| **BRK-20** | *Le Espace de travail de Lecture Profonde* | Fin de cycle hebdomadaire avec retard de 2 chapitres sur les manuels prescrits. | Bloc de 90 minutes de lecture active avec rsum dpos dans le Second Brain. | $+300\text{ XP ACAD}$ et $+150\text{ XP DIS}$. |
 | **BRK-21** | *L'veil de la Force Cardiovasculaire*| Baisse sensible de la capacit respiratoire observe au cours du mois. | Course  pied de 10 kilomtres ralise en moins de 55 minutes. | $+600\text{ XP STR}$ et titre "Arpenteur". |
 | **BRK-22** | *La Dflagration Thermique du GPU* | Surchauffe de la carte graphique dpassant $82^\circ\text{C}$ en plein calcul de gradients. | Arrt automatique du job PyTorch, dpoussirage et rvision de la courbe de ventilation. | Prservation du matriel d'lite. |
 | **BRK-23** | *La Nuit du Dploiement Zro-Downtime*| Migration d'une base de donnes de production sans interruption de service. | Application rigoureuse des migrations Prisma avec Blue-Green deployment. | $+800\text{ XP AI\_ENG}$ pour professionnalisme. |
-| **BRK-24** | *L'Appel du Monarque* | Validation simultane de toutes les qutes obligatoires de la journe avant 20h00. | Dclenchement d'une fanfare triomphale Web Audio et bonus de repos absolu autoris. | $+500\text{ XP DIS}$ et statut "Journe Parfaite". |
+| **BRK-24** | *L'Appel du Maître* | Validation simultane de toutes les qutes obligatoires de la journe avant 20h00. | Dclenchement d'une fanfare triomphale Web Audio et bonus de repos absolu autoris. | $+500\text{ XP DIS}$ et statut "Journe Parfaite". |
 
 ```
 ========================================================================================
@@ -1621,7 +1621,7 @@ En hommage  l'univers de Solo Leveling o des Portails s'ouvrent spontanment, le 
 
 ---
 
-## 19. Procdures d'Exploitation Standardises (SOP) & Rituels d'Entranement Solo Leveling
+## 19. Procdures d'Exploitation Standardises (SOP) & Rituels d'Entranement Système de Gamification
 
 Pour transformer les principes d'ingnierie de *LevelUp* en comportements physiques et intellectuels inbranlables, le Systme dfinit 4 procdures oprationnelles standardises (SOP) rgissant les cycles circadiens d'Huriel :
 
@@ -1636,14 +1636,14 @@ sequenceDiagram
     participant W as Audio Faster-Whisper
     participant DB as Base PostgreSQL
 
-    Note over H, DB: 06h00 : Dclenchement de l'veil du Chasseur
-    D->>H: Notification Push Embed : "Debout, Chasseur Huriel. L'veil quotidien a commenc."
+    Note over H, DB: 06h00 : Dclenchement de l'veil du Utilisateur
+    D->>H: Notification Push Embed : "Debout, Utilisateur Huriel. L'veil quotidien a commenc."
     H->>D: Commande /status ou ouverture du Web HUD
     API->>DB: Calcul des jauges du matin (HP bas sur le sommeil Oura, MP = 100)
     API-->>H: Affichage des 3 quêtes obligatoires du jour et de la frise chronologique
     Note over H: 06h15 - 07h00 : Routine Physique (100 pompes, 100 abdos, 100 squats, 5 km course)
     H->>D: /valider id="QUEST-DAILY-PHYSICAL" preuve="Lien Strava / Apple Fitness"
-    API->>DB: Attribution immdiate de +300 XP STR, +100 XP DIS, +25 Cristaux d'Ombres
+    API->>DB: Attribution immdiate de +300 XP STR, +100 XP DIS, +25 Points de Récompense (Cristaux)
     D-->>H: Embed Triomphal : "Qute Quotidienne Physique Valide avec Succs."
     Note over H: 07h00 - 07h30 : Revue vocale des objectifs de la journe
 ```
@@ -1659,13 +1659,13 @@ sequenceDiagram
 2. **21h40 - Monologue d'valuation Socratique :**
    - Huriel enregistre une note vocale de 3  5 minutes rsumant les concepts d'IA ou de cyberscurit assimils dans la journe.
    - Faster-Whisper transcrit l'audio en INT8 localement sur GPU CUDA ($<4\text{s}$).
-   - L'Architecte (Gemini 2.5 Pro) attribue une note sur 20 selon la grille formelle.
+   - L'Évaluateur IA (Gemini 2.5 Pro) attribue une note sur 20 selon la grille formelle.
    - Si la note $\ge 14/20$, les points d'XP acadmiques sont dfinitivement consolids.
 3. **21h55 - Bilan de Discipline du Systme :**
    - Vrifie si toutes les quêtes obligatoires sont coches comme `COMPLETED`.
    - Si oui : mission de la fanfare Web Audio Do Majeur, attribution du bonus de compltion quotidienne ($+200\text{ XP DIS}$), passage du statut en "Journe Parfaite".
    - Si non : Notification d'avertissement solennel rouge cramoisi. Compte  rebours de 5 minutes avant dclenchement automatique de la Zone de Pnalit.
-4. **22h00 - Activation Inviolable de la Pnalit (si manquement dtect) :**
+4. **22h00 - Activation Strict de la Pnalit (si manquement dtect) :**
    - Le driver de filtrage rseau WFP et la modification NTFS du fichier `hosts` s'excutent instantanment.
    - TikTok, Instagram, Twitter, YouTube et sites distrayants redirigs vers `127.0.0.1`.
    - Seule la quête de purge (400 pompes ou 10 km de marche contrle par GPS) peut dverrouiller le rseau.
@@ -1677,19 +1677,19 @@ Chaque dimanche  20h00, le Systme bascule en mode de synthse hebdomadaire :
 - **Rvision Spaced Repetition SM-2 :** Calcul de la file d'attente des cartes conceptuelles et fiches Obsidian ncessitant une rexposition mnmonique.
 - **Gnration du Programme d'Entranement Intensif :** Le planificateur circadien propose l'agenda dtaill du lundi au dimanche suivant, incluant les plages de cours universitaires, les crneaux d'alternance, les blocs de Deep Work et les sessions de sport.
 
-### 19.4 Table d'Ascension des 7 Rangs de Chasseur Réels & Privilèges Système
+### 19.4 Table d'Ascension des 7 Rangs de Utilisateur Réels & Privilèges Système
 
 LevelUp élimine définitivement les pseudo-blocages artificiels de type "Bloqué par quête de rang". Le niveau global $L_{\text{global}}$ découle directement du score global calculé par moyenne harmonique pondérée des 8 bases ($S_b \in [0, 1000]$). Chaque rang sanctionne l'accomplissement d'invariants réels indiscutables dans le monde physique :
 
-| Rang Solo Leveling | Niveaux Globaux | Titre Solo Leveling | Invariants Réels Indiscutables (DoD Physique & Réel) | Privilèges Conférés par le Système |
+| Rang Système de Gamification | Niveaux Globaux | Titre Système de Gamification | Invariants Réels Indiscutables (DoD Physique & Réel) | Privilèges Conférés par le Système |
 |:---|:---|:---|:---|:---|
 | **Rang E** | **1 — 10** | *L'Éveil du Novice* | Initialisation de l'environnement, 7 jours de quêtes quotidiennes parfaits, mise en place du Second Brain Markdown. | Accès au Web HUD de base, journalisation vocale Whisper, génération des quêtes quotidiennes. |
-| **Rang D** | **11 — 25** | *L'Apprenti Discipliné* | $S_{\text{ACAD}} \ge 250$, 1ère room TryHackMe résolue sans aide, 30 pompes strictes, évaluation Cambridge C1 initiale. | Déverrouillage des quêtes d'urgence, accès aux salons d'études Discord, Boutique des Ombres palier 1. |
+| **Rang D** | **11 — 25** | *L'Apprenti Discipliné* | $S_{\text{ACAD}} \ge 250$, 1ère room TryHackMe résolue sans aide, 30 pompes strictes, évaluation Cambridge C1 initiale. | Déverrouillage des quêtes d'urgence, accès aux salons d'études Discord, Boutique de Récompenses palier 1. |
 | **Rang C** | **26 — 45** | *L'Opérateur Confirmé* | Top 20% de promo universitaire, MVP Fullstack fonctionnel déployé en 48h, 10 tractions strictes, streak Duolingo 30j. | Déverrouillage des Donjons Instantanés d'examens, automatisation des alarmes BullMQ. |
-| **Rang B** | **46 — 65** | *L'Expert Compétiteur* | **Au moins 1 Hackathon majeur remporté (Devpost / MLH / Corporate)**, certification **Cambridge C1 Advanced**, maîtrise des routines Dos/Épaules, Bras et Abdos par caméra, Top 10% promo. *Un Chasseur Rang B sans victoire en hackathon n'existe pas.* | Accès aux Sprints Commando Monk Mode, contrôle dynamique du pare-feu NextDNS, boutique palier 2. |
-| **Rang A** | **66 — 85** | *Le Maître & Leader Industriel* | **Multiples victoires en hackathons (>= 2)**, Major de promo ou Top 3, niveau **Cambridge C2**, SaaS déployé avec vrais utilisateurs actifs, condition physique d'athlète. | Mode Commando sans restriction, création de quêtes personnalisées de haut rang, accès prioritaire Architecte IA. |
-| **Rang S** | **86 — 95** | *Le Souverain National* | Sommité nationale de l'ingénierie IA, grand champion international d'algorithmes, major de promo indiscuté, indépendance financière / bourses d'élite. | Déverrouillage du Raid de l'Île de Jeju, gestion des investissements matériels lourds (serveurs GPU dédiés). |
-| **MONARQUE**| **96 — 100**| **LE MONARQUE DES OMBRES** | **Légende mondiale de l'IA**, multimillionnaire, physique de statue grecque forgé par la calisthénie, conférencier d'élite bilingue, autorité absolue. | Maîtrise souveraine du Système, shader WebGL des Flammes d'Ombre permanentes, omnipotence opérationnelle. |
+| **Rang B** | **46 — 65** | *L'Expert Compétiteur* | **Au moins 1 Hackathon majeur remporté (Devpost / MLH / Corporate)**, certification **Cambridge C1 Advanced**, maîtrise des routines Dos/Épaules, Bras et Abdos par caméra, Top 10% promo. *Un Utilisateur Rang B sans victoire en hackathon n'existe pas.* | Accès aux Sprints Commando Monk Mode, contrôle dynamique du pare-feu NextDNS, boutique palier 2. |
+| **Rang A** | **66 — 85** | *Le Maître & Leader Industriel* | **Multiples victoires en hackathons (>= 2)**, Major de promo ou Top 3, niveau **Cambridge C2**, SaaS déployé avec vrais utilisateurs actifs, condition physique d'athlète. | Mode Commando sans restriction, création de quêtes personnalisées de haut rang, accès prioritaire Évaluateur IA IA. |
+| **Rang S** | **86 — 95** | *Le Principal National* | Sommité nationale de l'ingénierie IA, grand champion international d'algorithmes, major de promo indiscuté, indépendance financière / bourses d'élite. | Déverrouillage du Raid de l'Île de Jeju, gestion des investissements matériels lourds (serveurs GPU dédiés). |
+| **MAÎTRE**| **96 — 100**| **LE RANG MAÎTRE** | **Légende mondiale de l'IA**, multimillionnaire, physique de statue grecque forgé par la calisthénie, conférencier d'élite bilingue, autorité absolue. | Maîtrise principale du Système, shader WebGL des Flammes d'Ombre permanentes, omnipotence opérationnelle. |
 
 ---
 
@@ -1709,8 +1709,8 @@ Pour garantir une comprhension univoque entre le Joueur, les ingnieurs de mainte
 | **DIS** | *Discipline & Focus* | Base de vie sanctionnant la rgularit d'excution, le respect des chances et l'absence de faute. |
 | **HP** | *Health Points* | Jauge vitale biologique refltant la rcupration physiologique et la qualit du sommeil nocturne. |
 | **MP** | *Mana Points* | Jauge de concentration cognitive et de clart mentale disponible pour les sessions de Deep Work. |
-| **SC** | *Shadow Crystals* | Cristaux d'Ombres, monnaie numrique interne rcompensant la rigueur et utilisable en Boutique. |
-| **HUD** | *Heads-Up Display* | Interface utilisateur visuelle inspirée de Solo Leveling prsentant en temps rel l'tat du Chasseur. |
+| **SC** | *Shadow Crystals* | Points de Récompense (Cristaux), monnaie numrique interne rcompensant la rigueur et utilisable en Boutique. |
+| **HUD** | *Heads-Up Display* | Interface utilisateur visuelle inspirée de Système de Gamification prsentant en temps rel l'tat du Utilisateur. |
 | **WFP** | *Windows Filtering Platform*| API noyau Windows utilise pour interdire formellement le trafic rseau vers les domaines distrayants. |
 | **VAD** | *Voice Activity Detection* | Algorithme dtectant la prsence de la voix humaine afin d'interrompre ou dclencher l'ingestion audio. |
 | **CRDT** | *Conflict-Free Replicated Data*| Structures de donnes mathmatiques permettant la synchronisation multi-terminaux sans serveur central. |
@@ -1757,7 +1757,7 @@ Mettre en place la racine du monorepo pnpm v9+ avec Turborepo, la configuration 
 
 #### B. Prompt Maître d'Exécution (Phase 0)
 ```markdown
-Tu es L'Architecte et l'ingénieur pair-programming en chef du projet LevelUp ("The System").
+Tu es L'Évaluateur IA et l'ingénieur pair-programming en chef du projet LevelUp ("The System").
 Ta mission est d'implémenter l'intégralité de la PHASE 0 : Socle Technique, Monorepo & Infrastructure, dans C:\Users\ADMIN\Documents\LevelUp.
 
 Contraintes Strictes :
@@ -1816,18 +1816,19 @@ Pour valider et clôturer la Phase 0, exécute les 4 mini-tests suivants :
 ### 21.2 Phase 1 : Moteur Mathématique d'XP, Domaines & Cryptographie
 
 #### A. Périmètre & Objectifs
-Implémenter le cœur logique et mathématique dans `packages/contracts` et `packages/crypto` : la formule de niveau $	ext{XP}(L) = 100 	imes \lfloor L^{1.75} floor$, le calcul du Score Harmonique global $S_H = rac{8}{\sum_{b=1}^8 rac{1}{\max(S_b, 1)}}$, le moteur biophysique de vitalité (jauge HP selon Borbély avec $	au_w pprox 18.2	ext{ h}$, jauge MP selon Gandevia avec $+10	ext{ MP}$ à chaque validation), et le module de chiffrement AES-256-GCM + Argon2id pour la protection des tokens NextDNS et des données locales.
+Implémenter le cœur logique et mathématique dans `packages/contracts` et `packages/crypto` : la formule de niveau $	ext{XP}(L) = 100 	imes \lfloor L^{1.75} 
+floor$, le calcul du Score Harmonique global $S_H = rac{8}{\sum_{b=1}^8 rac{1}{\max(S_b, 1)}}$, le moteur biophysique de vitalité (jauge HP selon Borbély avec $	au_w pprox 18.2	ext{ h}$, jauge MP selon Gandevia avec $+10	ext{ MP}$ à chaque validation), et le module de chiffrement AES-256-GCM + Argon2id pour la protection des tokens NextDNS et des données locales.
 
 #### B. Prompt Maître d'Exécution (Phase 1)
 ```markdown
-Tu es L'Architecte et l'ingénieur pair-programming du Système LevelUp.
+Tu es L'Évaluateur IA et l'ingénieur pair-programming du Système LevelUp.
 Ta mission est d'implémenter la PHASE 1 : Moteur Mathématique, Domaines & Cryptographie.
 
 Invariants Mathématiques & Biophysiques :
 1. Calcul d'XP : `calculateNextLevelXp(level: number): number = 100 * Math.floor(Math.pow(level, 1.75))`.
 2. Score Harmonique des 8 bases : $S_H = rac{8}{\sum_{b=1}^8 rac{1}{\max(S_b, 1)}}$. Interdiction formelle de score virtuel ; si une base tombe vers 0, le score global s'effondre.
 3. Échelle des 7 Rangs Réels : E (1-10), D (11-25), C (26-45), B (46-65, hackathon obligatoire), A (66-85), S (86-95), MONARCH (96-100).
-4. Physiologie Souveraine HP/Mana : Modèle Borbély garantissant $HP \ge 80\%$ après 16h d'éveil actif. Aucune mention de fatigue permise ; statuts valorisants "Résilience Biologique Souveraine" et "Focus Cognitif Indomptable".
+4. Physiologie Principale HP/Mana : Modèle Borbély garantissant $HP \ge 80\%$ après 16h d'éveil actif. Aucune mention de fatigue permise ; statuts valorisants "Résilience Biologique Principale" et "Focus Cognitif Indomptable".
 5. Cryptographie : Module `packages/crypto` avec chiffrement enveloppe AES-256-GCM (IV aléatoire 12 octets, authTag 16 octets), dérivation PBKDF2/Argon2id, et SingleUserGuard.
 
 Livrables à Générer :
@@ -1870,20 +1871,20 @@ Exécute la suite Vitest dédiée au moteur mathématique et à la cryptographie
 
 ---
 
-### 21.3 Phase 2 : HUD Web Holographique Solo Leveling (React 19 + Dexie.js)
+### 21.3 Phase 2 : HUD Web Holographique Système de Gamification (React 19 + Dexie.js)
 
 #### A. Périmètre & Objectifs
 Développer l'application front-end Progressive Web App (PWA) dans `apps/web` en utilisant React 19, Vite, TailwindCSS, Dexie.js (IndexedDB local-first pour une résilience totale sans connexion), WebGL shaders (flammes d'ombre néon et particules de mana), et Web Audio API (fanfares procédurales Do Majeur).
 
 #### B. Prompt Maître d'Exécution (Phase 2)
 ```markdown
-Tu es L'Architecte et l'ingénieur frontend de LevelUp ("The System").
-Ta mission est d'implémenter la PHASE 2 : HUD Web Holographique Solo Leveling (PWA React 19).
+Tu es L'Évaluateur IA et l'ingénieur frontend de LevelUp ("The System").
+Ta mission est d'implémenter la PHASE 2 : HUD Web Holographique Système de Gamification (PWA React 19).
 
 Directives Visuelles & Ergonomiques :
-1. Thème Solo Leveling strict : Fond noir abysse `#0A0A10`, bleu néon mana `#00F0FF`, violet sombre Monarque `#8A2BE2`, bordures dorées de rang `#FFD700`.
-2. Jauges Vitales Holographiques : Jauge HP et Jauge MP animées avec lueur néon et affichage des statuts souverains ("Résilience Biologique Souveraine", "Focus Cognitif Indomptable").
-3. Carte d'Identité du Chasseur : Titre de rang actuel, niveau global harmonique $L_{	ext{global}}$, badge de rang canonique (E à MONARCH).
+1. Thème Système de Gamification strict : Fond noir abysse `#0A0A10`, bleu néon mana `#00F0FF`, violet sombre Maître `#8A2BE2`, bordures dorées de rang `#FFD700`.
+2. Jauges Vitales Holographiques : Jauge HP et Jauge MP animées avec lueur néon et affichage des statuts principals ("Résilience Biologique Principale", "Focus Cognitif Indomptable").
+3. Carte d'Identité du Utilisateur : Titre de rang actuel, niveau global harmonique $L_{	ext{global}}$, badge de rang canonique (E à MONARCH).
 4. Radar Octogonal des 8 Bases : Graphique interactif (SVG / Canvas) affichant l'équilibre des 8 piliers (ACAD, AI_ENG, CYBER, EXP, LNG, FIN, STR, DIS).
 5. Visualiseur DAG de l'Arbre des 120 Compétences : Graphe interactif zoomable/pannable avec nœuds déverrouillés, en cours ou verrouillés.
 6. Local-First Offline avec Dexie.js : Stockage complet des stats et quêtes dans IndexedDB, synchronisation bidirectionnelle fluide en arrière-plan.
@@ -1933,13 +1934,14 @@ Implémenter le moteur de vision par ordinateur client (MediaPipe Pose WASM) pou
 
 #### B. Prompt Maître d'Exécution (Phase 3)
 ```markdown
-Tu es L'Architecte et l'ingénieur IA/Vision de LevelUp ("The System").
+Tu es L'Évaluateur IA et l'ingénieur IA/Vision de LevelUp ("The System").
 Ta mission est d'implémenter la PHASE 3 : Pipeline Audio, Vision par Ordinateur & Cerveau Numérique.
 
 Spécifications du Moteur Cinématique (MediaPipe Pose WASM) :
 1. Intégration de `@mediapipe/pose` dans `apps/web/src/features/cv/WorkoutCameraViewer.tsx`.
 2. Calcul trigonométrique des angles articulaires en temps réel :
-   - Angle du coude : $ec{u} = 	ext{Épaule} - 	ext{Coude}$, $ec{v} = 	ext{Poignet} - 	ext{Coude}$, $	heta = rccos\left(rac{ec{u} \cdot ec{v}}{\|ec{u}\| \|ec{v}\|}ight)$.
+   - Angle du coude : $ec{u} = 	ext{Épaule} - 	ext{Coude}$, $ec{v} = 	ext{Poignet} - 	ext{Coude}$, $	heta = rccos\left(rac{ec{u} \cdot ec{v}}{\|ec{u}\| \|ec{v}\|}
+ight)$.
    - Règle Anti-Triche : Flexion validée si $	heta \le 75^\circ$, extension complète si $	heta \ge 160^\circ$.
    - Machine à états finis des répétitions : `IDLE` -> `REP_DOWN` -> `REP_UP` -> `REP_COUNTED`.
 3. Routines Encodées Strictes :
@@ -1991,7 +1993,7 @@ Construire le moteur d'ordonnancement circadien Time-Blocking (résolution des c
 
 #### B. Prompt Maître d'Exécution (Phase 4)
 ```markdown
-Tu es L'Architecte et l'ingénieur backend/Discord de LevelUp ("The System").
+Tu es L'Évaluateur IA et l'ingénieur backend/Discord de LevelUp ("The System").
 Ta mission est d'implémenter la PHASE 4 : Planificateur Temporel & Bot Discord (Discord.js v14).
 
 Spécifications du Planificateur :
@@ -2000,7 +2002,7 @@ Spécifications du Planificateur :
 Spécifications du Bot Discord :
 2. Daemon Discord.js v14 dans `apps/bot` :
    - Connexion Gateway 24/7 avec reconnexion exponentielle.
-   - Commandes Slash : `/status` (affiche le HUD du Chasseur avec jauges HP/MP et niveau), `/valider [quete_id]` (validation manuelle de quête avec preuve), `/stats` (graphique des 8 bases).
+   - Commandes Slash : `/status` (affiche le HUD du Utilisateur avec jauges HP/MP et niveau), `/valider [quete_id]` (validation manuelle de quête avec preuve), `/stats` (graphique des 8 bases).
    - Formatage holographique des 15 embeds Discord avec bordures de couleur selon le rang.
    - Récepteur audio vocal UDP pour permettre à Huriel d'enregistrer ses bilans oraux directement dans un salon vocal privé.
 
@@ -2036,11 +2038,11 @@ Livrables à Générer :
 ### 21.6 Phase 5 : Couche IA Locale, Scraping des Bourses & Sentinelle NextDNS
 
 #### A. Périmètre & Objectifs
-Connecter le système au monde extérieur : interfaçage avec l'API Cloud de NextDNS (`POST /profiles/{id}/denylist`) pour activer le pare-feu anti-distraction en Deep Work et lors des pénalités nocturnes, scraper headless Playwright pour la veille automatique des bourses d'excellence et hackathons (Deerflow AI & Google Alerts RSS), et implémenter la grille d'évaluation orale sur 20 points de l'Architecte.
+Connecter le système au monde extérieur : interfaçage avec l'API Cloud de NextDNS (`POST /profiles/{id}/denylist`) pour activer le pare-feu anti-distraction en Deep Work et lors des pénalités nocturnes, scraper headless Playwright pour la veille automatique des bourses d'excellence et hackathons (Deerflow AI & Google Alerts RSS), et implémenter la grille d'évaluation orale sur 20 points de l'évaluateur IA.
 
 #### B. Prompt Maître d'Exécution (Phase 5)
 ```markdown
-Tu es L'Architecte et l'ingénieur DevSecOps/IA de LevelUp ("The System").
+Tu es L'Évaluateur IA et l'ingénieur DevSecOps/IA de LevelUp ("The System").
 Ta mission est d'implémenter la PHASE 5 : Couche IA Locale, Scraping des Bourses & Sentinelle NextDNS.
 
 Spécifications Sentinelle NextDNS :
@@ -2079,7 +2081,7 @@ Livrables à Générer :
    ```bash
    pnpm test tests/unit/ai/oral_grader.spec.ts
    ```
-   *DoD :* Attribution stricte des notes sans complaisance, respect des 4 critères de 5 points, rejet des prompt injections.
+   *DoD :* Attribution stricte des notes objectif, respect des 4 critères de 5 points, rejet des prompt injections.
 
 ---
 
@@ -2090,7 +2092,7 @@ Finaliser l'infrastructure industrielle : conteneurisation multi-stage de produc
 
 #### B. Prompt Maître d'Exécution (Phase 6)
 ```markdown
-Tu es L'Architecte et l'ingénieur d'infrastructure de LevelUp ("The System").
+Tu es L'Évaluateur IA et l'ingénieur d'infrastructure de LevelUp ("The System").
 Ta mission est d'implémenter la PHASE 6 : Durcissement, Monitoring, CI/CD & Déploiement Final.
 
 Spécifications de Production :
@@ -2134,7 +2136,7 @@ Livrables à Générer :
 
 ### 21.8 Suite de Tests Globaux du Projet & Certification Suprême
 
-Une fois les 7 phases (0 à 6) accomplies au vert, le Système doit subir l'épreuve de **Certification Globale de Bout en Bout** avant d'être déclaré opérationnel pour le Monarque :
+Une fois les 7 phases (0 à 6) accomplies au vert, le Système doit subir l'épreuve de **Certification Globale de Bout en Bout** avant d'être déclaré opérationnel pour le Maître :
 
 ```mermaid
 flowchart LR
@@ -2145,7 +2147,7 @@ flowchart LR
 ```
 
 #### 1. Le Smoke Test Global End-to-End (`scripts/smoke_test_suite.sh`)
-Exécute le scénario complet d'une journée type du Chasseur :
+Exécute le scénario complet d'une journée type du Utilisateur :
 ```bash
 ./scripts/smoke_test_suite.sh
 ```
@@ -2168,7 +2170,7 @@ k6 run tests/load/k6_stress_test.js
 - Temps de réponse $p95 < 35	ext{ ms}$, $p99 < 50	ext{ ms}$.
 
 #### 3. Protocole de Certification Finale & Signoff
-Le Système est officiellement verrouillé et prêt pour l'ascension réelle du Monarque lorsque la commande suivante affiche un tableau 100 % vert :
+Le Système est officiellement verrouillé et prêt pour l'ascension réelle du Maître lorsque la commande suivante affiche un tableau 100 % vert :
 ```bash
 pnpm turbo run test && pnpm turbo run lint && pnpm tsx scripts/verify_phase_gates.ts
 ```

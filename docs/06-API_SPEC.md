@@ -23,7 +23,7 @@ L'API REST de LevelUp est conçue selon les spécifications RFC 7231 (HTTP/1.1) 
 * `Accept` : Doit être `application/json`.
 * `X-Request-ID` : Chaîne UUIDv4 unique générée côté client (HUD Web, bot Discord, daemon local). Si omise, le middleware API Gateway (`RequestIdMiddleware`) injecte un UUIDv4 avant le dispatching.
 * `X-Client-Version` : Version semver du client appelant (ex: `1.4.2`). Permet au backend de rejeter les clients obsolètes lors de ruptures de schéma avec le code `426 Upgrade Required`.
-* `Idempotency-Key` : UUIDv4 ou empreinte SHA-256 obligatoire sur toutes les mutations critiques (`POST /quests/:id/complete`, `POST /shop/purchase`, `POST /skills/:node_id/unlock`, `POST /auth/logout`). Protège contre la duplication d'attribution d'XP ou de débits de Cristaux d'Ombres en cas de coupure réseau ou de retry intempestif.
+* `Idempotency-Key` : UUIDv4 ou empreinte SHA-256 obligatoire sur toutes les mutations critiques (`POST /quests/:id/complete`, `POST /shop/purchase`, `POST /skills/:node_id/unlock`, `POST /auth/logout`). Protège contre la duplication d'attribution d'XP ou de débits de Points de Récompense (Cristaux) en cas de coupure réseau ou de retry intempestif.
 
 ### 1.2 Structure Normalisée de Réponse Succès (`2xx`)
 Toute réponse positive suit scrupuleusement l'enveloppe canonique suivante :
@@ -51,7 +51,7 @@ Toute erreur applicative ou de validation est interceptée par le filtre d'excep
   "success": false,
   "error": {
     "code": "INSUFFICIENT_SHADOW_CRYSTALS",
-    "message": "Le solde de Cristaux d'Ombres du joueur est insuffisant pour procéder à cet achat.",
+    "message": "Le solde de Points de Récompense (Cristaux) du joueur est insuffisant pour procéder à cet achat.",
     "status_code": 402,
     "category": "BUSINESS_RULE_VIOLATION",
     "details": [
@@ -59,7 +59,7 @@ Toute erreur applicative ou de validation est interceptée par le filtre d'excep
         "field": "crystal_cost",
         "expected": 500,
         "actual": 320,
-        "issue": "Il vous manque 180 Cristaux d'Ombres pour débloquer l'objet 'Anneau de Concentration Ultime'."
+        "issue": "Il vous manque 180 Points de Récompense (Cristaux) pour débloquer l'objet 'Anneau de Concentration Ultime'."
       }
     ],
     "help_url": "https://docs.levelup.local/errors/INSUFFICIENT_SHADOW_CRYSTALS"
@@ -101,12 +101,12 @@ Le tableau ci-dessous recense l'intégralité des 40 codes d'erreur immuables re
 | `AUDIO_CORRUPT_PAYLOAD` | 400 | Audio | Le conteneur audio WebM/Opus est corrompu ou illisible par FFmpeg. |
 | `AUDIO_DURATION_EXCEEDED` | 422 | Audio | La durée enregistrée dépasse le seuil maximum de 600 secondes. |
 | `WHISPER_INFERENCE_ERROR` | 502 | IA & Transcrit | Échec du moteur local Faster-Whisper (CUDA OOM ou crash runtime). |
-| `GEMINI_UPSTREAM_TIMEOUT` | 504 | IA Architecte | Délai de réponse dépassé lors de l'appel à l'API Google Gemini 2.5 Pro. |
-| `ARCHITECT_EVAL_FAILED` | 502 | IA Architecte | Le format JSON retourné par l'Architecte ne respecte pas le Zod Schema. |
+| `GEMINI_UPSTREAM_TIMEOUT` | 504 | IA Évaluateur IA | Délai de réponse dépassé lors de l'appel à l'API Google Gemini 2.5 Pro. |
+| `ARCHITECT_EVAL_FAILED` | 502 | IA Évaluateur IA | Le format JSON retourné par l'évaluateur IA ne respecte pas le Zod Schema. |
 | `DEERFLOW_SCRAPE_UNAVAILABLE`| 503 | Deerflow | Le worker de scraping Deerflow est inaccessible ou en maintenance. |
 | `DEERFLOW_INVALID_SIGNATURE`| 401 | Deerflow | Signature HMAC-SHA256 du webhook d'opportunités invalide. |
 | `SHOP_ITEM_OUT_OF_STOCK` | 409 | Boutique | Récompense épuisée ou indisponible dans la boutique courante. |
-| `INSUFFICIENT_SHADOW_CRYSTALS`| 402| Boutique | Solde de Cristaux d'Ombres insuffisant pour valider l'acquisition. |
+| `INSUFFICIENT_SHADOW_CRYSTALS`| 402| Boutique | Solde de Points de Récompense (Cristaux) insuffisant pour valider l'acquisition. |
 | `PENALTY_FIREWALL_ERROR` | 500 | Pénalité | Échec de l'application de la règle de redirection DNS/Hosts locale. |
 | `OFFLINE_SYNC_VERSION_CONFLICT`| 409| Synchronisation | Conflit de version vectorielle détecté entre Dexie.js et PostgreSQL. |
 | `MALFORMED_JSON_PAYLOAD` | 400 | Transport | Le corps de la requête n'est pas un JSON syntaxiquement valide. |
@@ -625,7 +625,7 @@ Ci-dessous la spécification détaillée de chacun des endpoints exposés par l'
 ### 3.1 Authentification & Gestion de Session
 
 #### 3.1.1 `POST /auth/login`
-Authentifie le joueur unique (Maître / Monarque) et initialise une session sécurisée.
+Authentifie le joueur unique (Maître / Maître) et initialise une session sécurisée.
 * **Méthode :** `POST`
 * **Chemin :** `/api/v1/auth/login`
 * **Authentification Requise :** Aucune (Public)
@@ -753,7 +753,7 @@ Retourne la photographie temps réel complète du joueur, ses jauges, son rang e
       "active_penalty": false,
       "rank": {
         "code": "D",
-        "name": "Chasseur Confirmé",
+        "name": "Utilisateur Confirmé",
         "min_level_required": 10,
         "next_rank": "C",
         "xp_to_next_rank": "22500",
@@ -792,7 +792,7 @@ Retourne la photographie temps réel complète du joueur, ses jauges, son rang e
           "xp_for_current_level": 1500,
           "xp_for_next_level": 2200,
           "progress_percentage": 60.0,
-          "mastery_title": "Architecte de Réseaux Neuronaux"
+          "mastery_title": "Évaluateur IA de Réseaux Neuronaux"
         },
         {
           "code": "CYBER",
@@ -832,7 +832,7 @@ Retourne la photographie temps réel complète du joueur, ses jauges, son rang e
           "xp_for_current_level": 400,
           "xp_for_next_level": 900,
           "progress_percentage": 20.0,
-          "mastery_title": "Chasseur de Subventions"
+          "mastery_title": "Utilisateur de Subventions"
         },
         {
           "code": "STR",
@@ -1027,7 +1027,7 @@ Retourne les quêtes journalières assignées pour la date en cours.
           "code": "DAILY_FIT_100_CORPS",
           "type": "DAILY",
           "target_stat": "STR",
-          "title": "[Quête Journalière] L'Entraînement de Sung Jin-Woo",
+          "title": "[Quête Journalière] L'Entraînement de l'utilisateur",
           "description": "Exécuter sans défaillir : 100 pompes, 100 abdominaux, 100 squats et 10 km de course.",
           "status": "AVAILABLE",
           "proof_type": "SYSTEM_TELEMETRY",
@@ -1067,7 +1067,7 @@ Retourne les quêtes journalières assignées pour la date en cours.
 ---
 
 #### 3.4.2 `POST /quests/:id/submit-proof`
-Soumet un élément de preuve (URL, texte Markdown, chemin de fichier ou transcript) pour validation par le Système ou l'Architecte.
+Soumet un élément de preuve (URL, texte Markdown, chemin de fichier ou transcript) pour validation par le Système ou l'évaluateur IA.
 * **Méthode :** `POST`
 * **Chemin :** `/api/v1/quests/q2b3c4d5-e6f7-4a8b-9c0d-1e2f3a4b5c6d/submit-proof`
 * **Corps de Requête (`SubmitQuestProofRequest`) :**
@@ -1085,7 +1085,7 @@ Soumet un élément de preuve (URL, texte Markdown, chemin de fichier ou transcr
     "data": {
       "quest_id": "q2b3c4d5-e6f7-4a8b-9c0d-1e2f3a4b5c6d",
       "status": "SUBMITTED_FOR_REVIEW",
-      "message": "Preuve enregistrée avec succès. L'évaluation automatisée de l'Architecte est en cours."
+      "message": "Preuve enregistrée avec succès. L'évaluation automatisée de l'évaluateur IA est en cours."
     },
     "meta": {
       "timestamp": "2026-11-11T14:30:00.000Z",
@@ -1098,7 +1098,7 @@ Soumet un élément de preuve (URL, texte Markdown, chemin de fichier ou transcr
 ---
 
 #### 3.4.3 `POST /quests/:id/complete`
-Déclenche la transaction d'attribution des récompenses, la vérification du level up et l'émission des sons & notifications Solo Leveling.
+Déclenche la transaction d'attribution des récompenses, la vérification du level up et l'émission des sons & notifications Système de Gamification.
 * **Méthode :** `POST`
 * **Chemin :** `/api/v1/quests/q2b3c4d5-e6f7-4a8b-9c0d-1e2f3a4b5c6d/complete`
 * **En-têtes Requête :**
@@ -1171,7 +1171,7 @@ Récupère tous les blocs horaires programmés pour une date donnée.
           "block_date": "2026-11-11",
           "start_time": "06:30",
           "end_time": "07:30",
-          "title": "Entraînement Physique Sung Jin-Woo (Pompes, Abdos, Squats)",
+          "title": "Entraînement Physique l'utilisateur (Pompes, Abdos, Squats)",
           "target_stat": "STR",
           "is_completed": true,
           "notes": "100 pompes d'affilée validées à 07:15."
@@ -1380,7 +1380,7 @@ Réceptionne un segment binaire du flux audio enregistré via le HUD Web ou Disc
 ---
 
 #### 3.7.2 `POST /audio/finalize-transcription`
-Déclenche la concaténation FFmpeg, l'inférence Faster-Whisper, la synthèse Markdown et l'évaluation par l'Architecte.
+Déclenche la concaténation FFmpeg, l'inférence Faster-Whisper, la synthèse Markdown et l'évaluation par l'évaluateur IA.
 * **Méthode :** `POST`
 * **Chemin :** `/api/v1/audio/finalize-transcription`
 * **Corps de Requête :**
@@ -1428,10 +1428,10 @@ Déclenche la concaténation FFmpeg, l'inférence Faster-Whisper, la synthèse M
 
 ---
 
-### 3.8 IA Architecte (Antigravity & Gemini 2.5 Pro)
+### 3.8 IA Évaluateur IA (Antigravity & Gemini 2.5 Pro)
 
 #### 3.8.1 `POST /architect/monologue-evaluate`
-Soumet directement un texte ou une transcription brute au moteur d'évaluation cognitive de l'Architecte.
+Soumet directement un texte ou une transcription brute au moteur d'évaluation cognitive de l'évaluateur IA.
 * **Méthode :** `POST`
 * **Chemin :** `/api/v1/architect/monologue-evaluate`
 * **Corps de Requête :**
@@ -1591,10 +1591,10 @@ Consulte les bourses, subventions et hackathons indexés.
 
 ---
 
-### 3.10 Boutique des Ombres (Shadow Shop)
+### 3.10 Boutique de Récompenses (Reward Shop)
 
 #### 3.10.1 `GET /shop/catalog`
-Liste les récompenses tangibles et privilèges numériques déblocables avec les Cristaux d'Ombres.
+Liste les récompenses tangibles et privilèges numériques déblocables avec les Points de Récompense (Cristaux).
 * **Méthode :** `GET`
 * **Chemin :** `/api/v1/shop/catalog`
 * **Réponse Succès `200 OK` :**
@@ -1678,7 +1678,7 @@ Procède à l'acquisition d'un bien en déduisant les Cristaux du joueur via tra
 ### 3.11 Protocole de Pénalité & Contrôle Réseau
 
 #### 3.11.1 `GET /penalty/status`
-Vérifie si le Système a engagé la zone de pénalité suite à l'échec d'une quête journalière obligatoire.
+Vérifie si le Système a engagé la mode restriction / pénalité suite à l'échec d'une quête journalière obligatoire.
 * **Méthode :** `GET`
 * **Chemin :** `/api/v1/penalty/status`
 * **Réponse Succès `200 OK` :**
@@ -1814,7 +1814,7 @@ Récupère le delta de toutes les entités modifiées sur le serveur depuis le d
           "active_penalty": false,
           "rank": {
             "code": "D",
-            "name": "Chasseur Confirmé",
+            "name": "Utilisateur Confirmé",
             "min_level_required": 10,
             "next_rank": "C",
             "xp_to_next_rank": "22500",
@@ -2033,7 +2033,7 @@ Déclenché à la seconde exacte d'échéance d'un bloc horaire du planificateur
 ```
 
 #### 4.3.2 `EMERGENCY_QUEST_SPAWNED`
-Affiche le rectangle holographique rouge d'alerte Solo Leveling sur le HUD et notifie le canal d'urgence Discord.
+Affiche le rectangle holographique rouge d'alerte Système de Gamification sur le HUD et notifie le canal d'urgence Discord.
 ```json
 {
   "event": "EMERGENCY_QUEST_SPAWNED",
@@ -2082,7 +2082,7 @@ Annonce le passage à un rang supérieur (ex: Rang D vers Rang C).
   "payload": {
     "old_rank": "D",
     "new_rank": "C",
-    "rank_title": "Chasseur Vétéran",
+    "rank_title": "Utilisateur Vétéran",
     "new_features_unlocked": [
       "Accès aux Boss Raids de Niveau C",
       "Déblocage de l'inventaire boutique matérielle Tier 2"
@@ -2094,7 +2094,7 @@ Annonce le passage à un rang supérieur (ex: Rang D vers Rang C).
 ```
 
 #### 4.3.5 `PENALTY_ACTIVATED`
-Notifie le déclenchement immédiat de la Zone de Pénalité.
+Notifie le déclenchement immédiat de la Mode Restriction / Pénalité.
 ```json
 {
   "event": "PENALTY_ACTIVATED",
@@ -2157,9 +2157,9 @@ Le document OpenAPI 3.1 ci-après fournit la représentation canonique intégral
   "info": {
     "title": "LevelUp System API",
     "version": "1.0.0",
-    "description": "API REST et WebSocket hautement résiliente du Système LevelUp (Inspiré de Solo Leveling).",
+    "description": "API REST et WebSocket hautement résiliente du Système LevelUp (Inspiré de Système de Gamification).",
     "contact": {
-      "name": "Huriel - Monarque du Système",
+      "name": "Huriel - Maître du Système",
       "url": "https://levelup.local"
     }
   },
@@ -2223,7 +2223,7 @@ Le document OpenAPI 3.1 ci-après fournit la représentation canonique intégral
   "paths": {
     "/auth/login": {
       "post": {
-        "summary": "Connexion du Joueur Monarque",
+        "summary": "Connexion du Joueur Maître",
         "operationId": "loginUser",
         "tags": ["Authentification"],
         "requestBody": {
@@ -2356,7 +2356,7 @@ Le document OpenAPI 3.1 ci-après fournit la représentation canonique intégral
     },
     "/audio/finalize-transcription": {
       "post": {
-        "summary": "Finalisation de Transcription & Évaluation Architecte",
+        "summary": "Finalisation de Transcription & Évaluation Évaluateur IA",
         "operationId": "finalizeAudioTranscription",
         "tags": ["Audio & STT"],
         "security": [{ "BearerAuth": [] }],
@@ -2371,7 +2371,7 @@ Le document OpenAPI 3.1 ci-après fournit la représentation canonique intégral
     },
     "/shop/purchase": {
       "post": {
-        "summary": "Achat d'un Article dans la Boutique des Ombres",
+        "summary": "Achat d'un Article dans la Boutique de Récompenses",
         "operationId": "purchaseShopItem",
         "tags": ["Boutique"],
         "security": [{ "BearerAuth": [] }, { "IdempotencyHeader": [] }],
@@ -2381,7 +2381,7 @@ Le document OpenAPI 3.1 ci-après fournit la représentation canonique intégral
         },
         "responses": {
           "200": { "description": "Article acheté et Cristaux débités" },
-          "402": { "description": "Solde de Cristaux d'Ombres insuffisant" }
+          "402": { "description": "Solde de Points de Récompense (Cristaux) insuffisant" }
         }
       }
     }
@@ -2806,7 +2806,7 @@ curl -s -X POST "https://api.levelup.local/api/v1/deerflow/webhook" \
 
 ## 9. Spécification Détaillée du Rate Limiting & Algorithme Sliding Window (Redis 7 Lua)
 
-Afin d'éviter tout déni de service (DDoS), surcharge de la base de données PostgreSQL ou contournement des contraintes temporelles imposées par le Système de Solo Leveling, chaque point de terminaison de l'API est assujetti à un quota dynamique calculé via une fenêtre glissante milliseconde par milliseconde stockée dans Redis 7 sous la clé normalisée `ratelimit:{client_id}:{endpoint_hash}`.
+Afin d'éviter tout déni de service (DDoS), surcharge de la base de données PostgreSQL ou contournement des contraintes temporelles imposées par le Système de Système de Gamification, chaque point de terminaison de l'API est assujetti à un quota dynamique calculé via une fenêtre glissante milliseconde par milliseconde stockée dans Redis 7 sous la clé normalisée `ratelimit:{client_id}:{endpoint_hash}`.
 
 ### 9.1 Matrice des Quotas par Catégorie de Routes
 

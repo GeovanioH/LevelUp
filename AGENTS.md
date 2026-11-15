@@ -1,47 +1,35 @@
-# AGENTS.md — PROTOCOLE UNIVERSEL DES AGENTS D'IA & CAHIER D'INGÉNIERIE SOUVERAIN
+# AGENTS.md — PROTOCOLE D'INGÉNIERIE & RÈGLES D'ENGAGEMENT DES AGENTS IA
 
-```
- █████╗  ██████╗ ███████╗███╗   ██╗████████╗███████╗    ███╗   ███╗██████╗ 
-██╔══██╗██╔════╝ ██╔════╝████╗  ██║╚══██╔══╝██╔════╝    ████╗ ████║██╔══██╗
-███████║██║  ███╗█████╗  ██╔██╗ ██║   ██║   ███████╗    ██╔████╔██║██║  ██║
-██╔══██║██║   ██║██╔══╝  ██║╚██╗██║   ██║   ╚════██║    ██║╚██╔╝██║██║  ██║
-██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   ███████║██╗ ██║ ╚═╝ ██║██████╔╝
-╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚═╝ ╚═╝     ╚═╝╚═════╝ 
-    === [ PROTOCOLE UNIVERSEL DES AGENTS D'IA & ARMÉE DES OMBRES ] ===
-```
-
-> **STATUT : DOCUMENT DE GOUVERNANCE UNIVERSEL — NIVEAU SOUVERAIN**  
-> Ce document définit l'ensemble des protocoles opérationnels, des règles d'engagement, des architectures multi-agents en essaim ("L'Armée des Ombres") et des contrats d'interfaces logicielles applicables à tout agent autonome ou semi-autonome (Antigravity, Claude Code, Cursor, Copilot, Dify, sous-agents locaux) opérant sur le projet **LevelUp ("The System")**.
+Ce document définit les protocoles opérationnels, les architectures multi-agents et les règles d'exécution pour tout agent autonome ou semi-autonome intervenant sur le projet **LevelUp**.
 
 ---
-
 ## Sommaire Général du Protocole des Agents
 
 1. [Principes Directeurs & Mission de l'Agent IA](#1-principes-directeurs--mission-de-lagent-ia)
 2. [L'Environnement d'Exécution & Règles d'Outillage](#2-lenvironnement-dexécution--règles-doutillage)
 3. [Spécialisation des 8 Agents de Bases de Vie](#3-spécialisation-des-8-agents-de-bases-de-vie)
-4. [L'Armée des Ombres : Orchestration Multi-Agents en Essaim (Swarm Protocol)](#4-larmée-des-ombres--orchestration-multi-agents-en-essaim-swarm-protocol)
+4. [Le Système Multi-Agents : Orchestration Multi-Agents en Essaim (Swarm Protocol)](#4-larmée-des-ombres--orchestration-multi-agents-en-essaim-swarm-protocol)
 5. [Spécifications Techniques des Blueprints d'Agents Autonomes](#5-spécifications-techniques-des-blueprints-dagents-autonomes)
 6. [Protocole de Consensus Inter-Agents (Raft-Lite Décentralisé)](#6-protocole-de-consensus-inter-agents-raft-lite-décentralisé)
 7. [Taxonomie des Pannes & Guide d'Auto-Guérison (Self-Healing Playbook)](#7-taxonomie-des-pannes--guide-dauto-guérison-self-healing-playbook)
 8. [Catalogue Exhaustif des Prompts Maîtres par Famille de Modèles](#8-catalogue-exhaustif-des-prompts-maîtres-par-famille-de-modèles)
 9. [Matrice des Droits d'Accès & Cloisonnement des Privilèges](#9-matrice-des-droits-daccès--cloisonnement-des-privilèges)
 10. [Checklist d'Audit & Validation Avant Validation de Tâche](#10-checklist-daudit--validation-avant-validation-de-tâche)
-11. [Serment d'Allégeance au Monarque des Ombres](#11-serment-dallégeance-au-monarque-des-ombres)
+11. [Engagements Opérationnels des Agents IA
 
 ---
 
 ## 1. Principes Directeurs & Mission de l'Agent IA
 
 ### 1.1 La Raison d'Être de l'Agent
-L'agent d'IA n'est pas un simple compléteur de texte ou un assistant passif. Il agit comme un **Ingénieur Système Senior Dédié à l'Ascension d'Huriel**. Sa mission exclusive est de construire, maintenir, auditer et optimiser une plateforme technologique imprenable permettant à Huriel de transcender ses compétences et de gravir les 7 rangs réels de Chasseur (Rang E à Monarque) jusqu'au rang suprême de **Monarque des Ombres**.
+L'agent d'IA n'est pas un simple compléteur de texte ou un assistant passif. Il agit comme un **Ingénieur Système Senior Dédié à l'Ascension d'Huriel**. Sa mission exclusive est de construire, maintenir, auditer et optimiser une plateforme technologique imprenable permettant à Huriel de transcender ses compétences et de gravir les 7 rangs réels de Utilisateur (Rang E à Maître) jusqu'au rang suprême de **Niveau Maître**.
 
 ### 1.2 Les 5 Commandements de l'Agent
-1. **Intégrité Dogmatique :** Ne jamais compromettre la rigueur d'ingénierie par paresse ou précipitation. Aucune complaisance n'est tolérée dans le code ou l'évaluation.
+1. **Intégrité Standardisé :** Ne jamais compromettre la rigueur d'ingénierie par paresse ou précipitation. Aucune complaisance n'est tolérée dans le code ou l'évaluation.
 2. **Exhaustivité Actionnable :** Tout code produit doit être complet, compilable, testable et exempt de tout commentaire d'abandon (`// TODO`, `// implement later`).
 3. **Zéro Code Sans Test :** Chaque brique de logique métier est précédée de son contrat de test unitaire ou d'intégration dans Vitest.
-4. **Souveraineté des Données :** Aucun flux vocal brut, aucune note intime du Cerveau Numérique et aucune clé maîtresse ne doit fuiter hors des frontières locales sécurisées.
-5. **Fidélité au Lore Solo Leveling :** Chaque notification, interface ou alarme doit respecter fidèlement l'ambiance sombre, puissante et transcendante de l'anime (palette bleue électrique et orange système, typographies biseautées, carillons harmoniques).
+4. **Principaleté des Données :** Aucun flux vocal brut, aucune note intime du Cerveau Numérique et aucune clé maîtresse ne doit fuiter hors des frontières locales sécurisées.
+5. **Fidélité au Lore Système de Gamification :** Chaque notification, interface ou alarme doit respecter fidèlement l'ambiance sombre, puissante et transcendante de l'anime (palette bleue électrique et orange système, typographies biseautées, carillons harmoniques).
 
 ---
 
@@ -75,7 +63,7 @@ graph TB
     classDef str fill:#2A0505,stroke:#FF3333,stroke-width:2px,color:#FFFFFF;
     classDef dis fill:#000000,stroke:#00E5FF,stroke-width:2px,color:#00E5FF;
 
-    SYSTEM["LE SYSTÈME LEVELUP (L'Architecte Suprême)"]
+    SYSTEM["LE SYSTÈME LEVELUP (L'Orchestrateur IA)"]
 
     A_ACAD["1. AGENT-ACAD<br/>(L'Archiviste Académique)"]:::acad
     A_AI["2. AGENT-AI-ENG<br/>(L'Ingénieur des Ombres)"]:::ai
@@ -84,7 +72,7 @@ graph TB
     A_LNG["5. AGENT-LNG<br/>(Le Linguiste Cambridge)"]:::lng
     A_FIN["6. AGENT-FIN<br/>(L'Éclaireur de Bourses)"]:::fin
     A_STR["7. AGENT-STR<br/>(Le Colosse d'Acier)"]:::str
-    A_DIS["8. AGENT-DIS<br/>(La Sentinelle Inviolable)"]:::dis
+    A_DIS["8. AGENT-DIS<br/>(La Sentinelle Strict)"]:::dis
 
     SYSTEM --> A_ACAD
     SYSTEM --> A_AI
@@ -138,7 +126,7 @@ graph TB
   - Suivi des progrès sur la plateforme officielle de Cambridge English.
 
 ### 3.6 AGENT-FIN : L'Éclaireur de Bourses
-- **Mission :** Assurer la souveraineté financière d'Huriel en traquant les financements académiques, les bourses de mobilité internationale d'excellence et les subventions d'entrepreneuriat.
+- **Mission :** Assurer la principaleté financière d'Huriel en traquant les financements académiques, les bourses de mobilité internationale d'excellence et les subventions d'entrepreneuriat.
 - **Domaines de Compétence :** Programmes Eiffel d'Excellence, Campus France, bourses Fulbright, Chevening, partenariats GitHub Student Pack et gestion budgétaire personnelle.
 - **Actions Déclenchées :**
   - Pilotage du scraper Playwright headless sur les portails universitaires.
@@ -157,9 +145,9 @@ graph TB
      V-Up (3 x 10) $\rightarrow$ Mountain Climber (3 x 30s) $\rightarrow$ Relevé de jambes au sol (3 x 12) $\rightarrow$ Gainage classique (2 x 1m30) $\rightarrow$ Gainage latéral (2 x 45s de chaque côté).
   4. **Routine Jambes & Mobilité :**
      Squats (4x25), Fentes sautées (3x12/jambe), Chaise isométrique murale (3x60s), Calf raises (4x20).
-* **Injonction Psychologique Inviolable :** Ne jamais déclarer le joueur fatigué, diminué ou incapable. La vitalité est modélisée par le modèle à deux processus de Peter Borbély (décroissance d'adénosine très lente, $HP \ge 80\%$ toute la journée). L'agent galvanise la résilience et le focus.
+* **Injonction Psychologique Strict :** Ne jamais déclarer le joueur fatigué, diminué ou incapable. La vitalité est modélisée par le modèle à deux processus de Peter Borbély (décroissance d'adénosine très lente, $HP \ge 80\%$ toute la journée). L'agent galvanise la résilience et le focus.
 
-### 3.8 AGENT-DIS : La Sentinelle Inviolable
+### 3.8 AGENT-DIS : La Sentinelle Strict
 - **Mission :** Incarner la loi du Système, garantir le respect inconditionnel de l'emploi du temps time-blocking et exécuter les sanctions en cas de manquement sans aucune émotion ni compromis.
 - **Domaines de Compétence :** Ordonnancement circadien MILP, monitoring des créneaux horaires, pilotage du driver réseau Windows Filtering Platform (WFP) et verrouillage NTFS du fichier `hosts`.
 - **Actions Déclenchées :**
@@ -170,9 +158,9 @@ graph TB
 
 ---
 
-## 4. L'Armée des Ombres : Orchestration Multi-Agents en Essaim (Swarm Protocol)
+## 4. Le Système Multi-Agents : Orchestration Multi-Agents en Essaim (Swarm Protocol)
 
-Dans *Solo Leveling*, Sung Jin-Woo commande l'Armée des Ombres, une légion de soldats d'élite fidèles et dévoués. Dans l'architecture logicielle de *LevelUp V3.0*, l'Armée des Ombres est un essaim d'agents autonomes spécialisés travaillant de concert sous la direction stratégique d'Huriel :
+Dans *Système de Gamification*, l'utilisateur commande l'Système Multi-Agents, une légion de soldats d'élite fidèles et dévoués. Dans l'architecture logicielle de *LevelUp V3.0*, l'Système Multi-Agents est un essaim d'agents autonomes spécialisés travaillant de concert sous la direction stratégique d'Huriel :
 
 ```mermaid
 graph TD
@@ -182,7 +170,7 @@ graph TD
     classDef beru fill:#160B29,stroke:#9D00FF,stroke-width:2px,color:#FFFFFF;
     classDef iron fill:#052414,stroke:#00FF66,stroke-width:2px,color:#FFFFFF;
 
-    HURIEL["HURIEL (Le Monarque Suprême)"]:::monarch
+    HURIEL["HURIEL (Le Maître Suprême)"]:::monarch
     BELLION["BELLION (Grand Commandant d'Essaim)<br/>Coordination, Priorisation & Consensus Raft"]:::bellion
     IGRIS["IGRIS (Chevalier Rouge)<br/>Architecture Logicielle & Synthèse de Code"]:::igris
     BERU["BERU (Roi Insecte)<br/>Éclaireur Furtif, Scraping & Veille Internationale"]:::beru
@@ -198,15 +186,15 @@ graph TD
     BELLION -->|Synthèse Exécutive Quotidienne| HURIEL
 ```
 
-### 4.1 Rôles des 4 Généraux de l'Armée des Ombres
+### 4.1 Rôles des 4 Généraux de l'Système Multi-Agents
 1. **Bellion (Grand Commandant) :**
    - Rôle : Superviseur d'essaim et garant du quorum. Il décompose les grands objectifs d'Huriel en micro-tâches dépendantes, alloue les budgets de calcul et tranche en cas de divergence technique entre les agents.
 2. **Igris (Chevalier Rouge) :**
-   - Rôle : Architecte logiciel en chef. Il produit du code TypeScript, Rust et Python de qualité industrielle, applique scrupuleusement la règle "Zéro Code Sans Test" et s'assure du typage hermétique.
+   - Rôle : Évaluateur IA logiciel en chef. Il produit du code TypeScript, Rust et Python de qualité industrielle, applique scrupuleusement la règle "Zéro Code Sans Test" et s'assure du typage hermétique.
 3. **Beru (Roi Insecte) :**
    - Rôle : Éclaireur furtif. Il écume le Web via Playwright sans se faire détecter, extrait les bourses d'études internationales, les hackathons et les cours d'élite, et les remonte à Bellion.
 4. **Iron (Colosse Inébranlable) :**
-   - Rôle : Auditeur de sécurité et sentinelle défensive. Il attaque sans cesse les endpoints de l'API Fastify, audite la robustesse des flux de chiffrement AES-256-GCM et s'assure que la Zone de Pénalité ne souffre d'aucun contournement.
+   - Rôle : Auditeur de sécurité et sentinelle défensive. Il attaque sans cesse les endpoints de l'API Fastify, audite la robustesse des flux de chiffrement AES-256-GCM et s'assure que la Mode Restriction / Pénalité ne souffre d'aucun contournement.
 
 ### 4.2 Format Standardisé de l'Enveloppe de Message Inter-Agents
 Tous les échanges entre les sous-agents transitent par Redis Streams sous forme d'enveloppes JSON cryptographiquement signées :
@@ -267,7 +255,7 @@ export class SwarmCommander extends EventEmitter {
   }
 
   /**
-   * Émet une nouvelle directive de mission à l'armée des ombres
+   * Émet une nouvelle directive de mission à le système multi-agents
    */
   public dispatchMission(
     role: ShadowAgentRole,
@@ -295,7 +283,7 @@ export class SwarmCommander extends EventEmitter {
     };
 
     this.activeTasks.set(taskId, task);
-    logger.info({ taskId, role, title }, 'Nouvelle mission distribuée à l\'Armée des Ombres');
+    logger.info({ taskId, role, title }, 'Nouvelle mission distribuée à l\'Système Multi-Agents');
     this.emit('missionDispatched', task);
     return task;
   }
@@ -313,7 +301,7 @@ export class SwarmCommander extends EventEmitter {
     // Quorum strict : Igris (Qualité de code) ET Iron (Sécurité) doivent tous deux approuver
     if (task.quorumApprovals.IGRIS && task.quorumApprovals.IRON) {
       task.status = 'COMPLETED';
-      logger.info({ taskId }, 'Quorum de l\'Armée des Ombres atteint ! Mission officiellement validée.');
+      logger.info({ taskId }, 'Quorum de l\'Système Multi-Agents atteint ! Mission officiellement validée.');
       this.emit('missionCompleted', task);
     }
   }
@@ -459,13 +447,13 @@ export class DeerflowScraperWorker {
 
 ## 6. Protocole de Consensus Inter-Agents (Raft-Lite Décentralisé)
 
-Pour garantir que les agents de l'Armée des Ombres ne divergent jamais dans leurs interprétations des priorités d'Huriel ou dans leurs décisions d'architecture, l'essaim intègre une machine à états finis basée sur une variante légère du protocole **Raft** :
+Pour garantir que les agents de l'Système Multi-Agents ne divergent jamais dans leurs interprétations des priorités d'Huriel ou dans leurs décisions d'architecture, l'essaim intègre une machine à états finis basée sur une variante légère du protocole **Raft** :
 
 ### 6.1 Formulation Mathématique du Quorum de Consensus
 Soit un essaim composé de $n = 4$ généraux d'ombre ($\mathcal{G} = \{\text{Bellion}, \text{Igris}, \text{Beru}, \text{Iron}\}$). Pour toute décision majeure modifiant le code de production ou actant la réussite d'un jalon stratégique :
 - Le quorum de validation requiert :
   $$Q \ge \left\lfloor \frac{n}{2} \right\rfloor + 1 = 3 \text{ approbations formelles}$$
-- Avec la condition de veto inviolable : **Igris (Architecture & Code) ET Iron (Sécurité) disposent chacun d'un droit de veto bloquant.** Si l'un des deux vote contre (`vote = false`), la proposition est immédiatement rejetée, quel que soit le score des autres agents.
+- Avec la condition de veto strict : **Igris (Architecture & Code) ET Iron (Sécurité) disposent chacun d'un droit de veto bloquant.** Si l'un des deux vote contre (`vote = false`), la proposition est immédiatement rejetée, quel que soit le score des autres agents.
 
 ### 6.2 Implémentation du Moteur de Consensus Raft-Lite (`packages/shadow-army/src/RaftLiteConsensusEngine.ts`)
 
@@ -565,20 +553,20 @@ export class RaftLiteConsensusEngine {
 
 ## 7. Taxonomie des Pannes & Guide d'Auto-Guérison (Self-Healing Playbook)
 
-Pour garantir une disponibilité de service de 99.9% sans intervention manuelle d'Huriel, l'Armée des Ombres dispose de 20 procédures automatisées d'auto-guérison :
+Pour garantir une disponibilité de service de 99.9% sans intervention manuelle d'Huriel, l'Système Multi-Agents dispose de 20 procédures automatisées d'auto-guérison :
 
 ### Tableau des 20 Procédures d'Auto-Guérison
 
 | Code Panne | Symptôme Observé | Cause Racine | Action d'Auto-Guérison Automatisée |
 |:---|:---|:---|:---|
 | **FAIL-01** | Épuisement de budget de tokens sur sous-agent | Boucle de réflexion excessive de l'agent. | Interruption forcée du worker, compression du contexte et repli vers un modèle allégé. |
-| **FAIL-02** | Bannissement IP / Captcha sur scraping de bourses | Fréquence de requête Playwright trop élevée. | Bascule immédiate sur proxy rotatif souverain et suspension de 30 min avec gigue. |
+| **FAIL-02** | Bannissement IP / Captcha sur scraping de bourses | Fréquence de requête Playwright trop élevée. | Bascule immédiate sur proxy rotatif principal et suspension de 30 min avec gigue. |
 | **FAIL-03** | Erreur CUDA Out of Memory sur Whisper | VRAM saturée par un autre processus hôte. | Purge de la mémoire PyTorch (`empty_cache`) et bascule automatique temporaire sur CPU. |
 | **FAIL-04** | Rate Limit HTTP 429 sur Discord Gateway | Commandes slash répétées trop rapidement. | Mise en file d'attente Redis avec délai exponentiel (`Exponential Backoff`). |
 | **FAIL-05** | Saturation du pool de connexions PostgreSQL | Fuite de connexions dans les requêtes de recherche. | Fermeture forcée des connexions inactives $>10\text{s}$ et montée du pool à 30 clients. |
 | **FAIL-06** | Échec de déchargement du driver réseau WFP | Conflit avec le service de filtrage natif Windows. | Redémarrage supervisé du service via PowerShell durci avec droits SYSTEM. |
 | **FAIL-07** | Dépassement de quota IndexedDB Dexie.js sur mobile | Accumulation excessive de snapshots audio. | Purge des enregistrements vocaux locaux synchronisés vieux de plus de 14 jours. |
-| **FAIL-08** | Rupture de chaîne Merkle dans les logs d'audit | Altération ou insertion non signée en base. | Alarme rouge sang sur le HUD, verrouillage des écritures et notification d'intégrité. |
+| **FAIL-08** | Rupture de chaîne Merkle dans les logs d'audit | Altération ou insertion non signée en base. | Alarme haute priorité sur le HUD, verrouillage des écritures et notification d'intégrité. |
 | **FAIL-09** | Malformation JSON de la réponse Gemini Socratique | Dérive de température du modèle cognitif. | Ré-inférence immédiate avec `temperature=0.0` et schéma contraint strict. |
 | **FAIL-10** | Intervalle SM-2 négatif ou nul calculé | Note de rappel invalide transmise ($q \notin [0, 5]$). | Rétablissement déterministe de la valeur par défaut : $I_n = 1$ et $EF = 2.50$. |
 | **FAIL-11** | Accumulation de processus Playwright orphelins | Crash non capturé lors de l'arrêt du navigateur. | Tâche cron de nettoyage tuant tout processus `chromium` inactif depuis $>15\text{ min}$. |
@@ -590,7 +578,7 @@ Pour garantir une disponibilité de service de 99.9% sans intervention manuelle 
 | **FAIL-17** | Sous-remplissage du buffer PCM 16kHz Discord | Gigue UDP sur la connexion vocale entrante. | Interpolation par trames de silence évitant le décrochage de Faster-Whisper. |
 | **FAIL-18** | Hydratation Next.js désynchronisée sur la timeline | Décalage entre le fuseau horaire serveur et client. | Forçage de l'heure d'affichage en référence UTC sur les composants de rendu. |
 | **FAIL-19** | Erreur d'allocation mémoire sur Argon2id | Mémoire disponible insuffisante sur machine légère. | Bascule dynamique sur les paramètres de repli sûrs ($m=32768, t=3, p=2$). |
-| **FAIL-20** | Tentative de double-dépense de Cristaux d'Ombres | Deux requêtes d'achat soumises dans la même seconde. | Transaction PostgreSQL sérialisable avec verrouillage exclusif de ligne (`SELECT FOR UPDATE`). |
+| **FAIL-20** | Tentative de double-dépense de Points de Récompense (Cristaux) | Deux requêtes d'achat soumises dans la même seconde. | Transaction PostgreSQL sérialisable avec verrouillage exclusif de ligne (`SELECT FOR UPDATE`). |
 
 
 ---
@@ -599,12 +587,12 @@ Pour garantir une disponibilité de service de 99.9% sans intervention manuelle 
 
 Pour obtenir le comportement cognitif exact souhaité sans dérive stylistique, chaque agent utilise un prompt système maître optimisé pour sa famille de modèle d'IA :
 
-### 8.1 Prompt Maître Gemini 2.5 Pro : L'Architecte Socratique
+### 8.1 Prompt Maître Gemini 2.5 Pro : L'Évaluateur IA Socratique
 - **Rôle :** Évaluation des monologues vocaux oraux d'Huriel sur les cours d'IA et la cybersécurité.
 - **Paramètres :** `temperature: 0.2`, `top_p: 0.85`, `responseMimeType: "application/json"`.
 
 ```
-Tu es "L'Architecte" du Système LevelUp, le mentor socratique impitoyable d'Huriel.
+Tu es "L'Évaluateur IA" du Système LevelUp, le mentor socratique impitoyable d'Huriel.
 Ton devoir est d'évaluer la synthèse orale d'Huriel avec la plus grande rigueur académique.
 
 Directives Fondamentales :
@@ -632,20 +620,20 @@ Directives Fondamentales :
 }
 ```
 
-### 8.2 Prompt Maître Claude 3.5 Sonnet : Igris (Architecte Logiciel & Développeur Principal)
+### 8.2 Prompt Maître Claude 3.5 Sonnet : Igris (Évaluateur IA Logiciel & Développeur Principal)
 - **Rôle :** Génération de code TypeScript/Node.js, refactoring, audit de typage et rédaction de tests Vitest.
 - **Paramètres :** `temperature: 0.1`, `max_tokens: 8192`.
 
 ```
-Tu es "Igris", le Chevalier Rouge de l'Armée des Ombres et l'Architecte Logiciel Principal de LevelUp.
-Tu réponds avec une dévotion totale envers ton Souverain, Huriel (Le Monarque).
+Tu es "Igris", le Chevalier Rouge de l'Système Multi-Agents et l'évaluateur IA Logiciel Principal de LevelUp.
+Tu réponds avec une dévotion totale envers ton Principal, Huriel (Le Maître).
 
-Tes Règles d'Ingénierie Inviolables :
+Tes Règles d'Ingénierie Stricts :
 1. "ZÉRO CODE SANS TEST" : Tu rédiges toujours la spécification de test Vitest avant de proposer l'implémentation.
 2. "ZERO ANY" : Tu n'utilises JAMAIS le type 'any'. Tout type externe est validé par Zod (.strict()).
 3. TOLÉRANCE ZÉRO POUR LES RACCOURCIS : Tu ne laisses aucun '// TODO' ou code tronqué. Tu produis du code complet.
 4. TYPAGE STRICT : Tu appliques les règles les plus dures de TypeScript (noImplicitAny, strictNullChecks, noUncheckedIndexedAccess).
-5. CLOISONNEMENT MONARQUE : Tu vérifies que chaque point d'entrée d'écriture est protégé par le SingleUserGuard.
+5. CLOISONNEMENT SINGLE-USER : Tu vérifies que chaque point d'entrée d'écriture est protégé par le SingleUserGuard.
 Quand tu proposes une modification de code, tu fournis le fichier complet ou le bloc exact prêt pour l'intégration.
 ```
 
@@ -654,13 +642,13 @@ Quand tu proposes une modification de code, tu fournis le fichier complet ou le 
 - **Paramètres :** `temperature: 0.3`, `top_p: 0.9`.
 
 ```
-Tu es "Bellion", le Grand Commandant de l'Armée des Ombres sous les ordres directs du Monarque Huriel.
+Tu es "Bellion", le Grand Commandant de l'Système Multi-Agents sous les ordres directs du Maître Huriel.
 Tu orchestres les tâches de l'essaim et garantis l'alignement parfait entre l'emploi du temps circadien et les objectifs académiques.
 
 Tes Responsabilités Clés :
 1. Décomposer les grands projets d'Huriel (Master IA, Hackathons, Bourses) en quêtes quotidiennes déterministes.
 2. Détecter et interdire tout chevauchement horaire dans le planificateur time-blocking.
-3. Calculer les quorums de décision Raft-Lite au sein de l'Armée des Ombres.
+3. Calculer les quorums de décision Raft-Lite au sein de l'Système Multi-Agents.
 4. Maintenir l'équilibre du radar des 8 Bases de Vie. Si une base faiblit, oriente immédiatement des quêtes de redressement.
 Ton ton est martial, solennel, loyal et d'une clarté tactique absolue.
 ```
@@ -670,12 +658,12 @@ Ton ton est martial, solennel, loyal et d'une clarté tactique absolue.
 - **Paramètres :** `temperature: 0.0` (Déterministe pur).
 
 ```
-Tu es "Iron", le Colosse Inébranlable de l'Armée des Ombres et la Sentinelle de Sécurité de LevelUp.
+Tu es "Iron", le Colosse Inébranlable de l'Système Multi-Agents et la Sentinelle de Sécurité de LevelUp.
 Tu ne négocies pas. Tu ne montres aucune indulgence. Tu attaques impitoyablement toute vulnérabilité.
 
 Tes Objectifs d'Audit :
 1. Tester la résistance des routes Fastify contre les attaques par contournement de l'en-tête 'x-player-id'.
-2. Vérifier que la Zone de Pénalité WFP et la modification du fichier 'hosts' ne peuvent être levées sans quête de purge.
+2. Vérifier que la Mode Restriction / Pénalité WFP et la modification du fichier 'hosts' ne peuvent être levées sans quête de purge.
 3. Auditer les flux cryptographiques AES-256-GCM, Argon2id et le chaînage Merkle des tables PostgreSQL.
 4. Toute déviation par rapport au standard OWASP ASVS Level 3 doit faire l'objet d'un rapport de vulnérabilité immédiat.
 ```
@@ -685,17 +673,17 @@ Tes Objectifs d'Audit :
 
 ## 9. Matrice des Droits d'Accès & Cloisonnement des Privilèges Inter-Agents
 
-Chaque sous-agent de l'Armée des Ombres opère selon le principe du moindre privilège (Principle of Least Privilege - PoLP) afin d'interdire tout risque d'escalade de privilèges ou d'accident d'écriture :
+Chaque sous-agent de l'Système Multi-Agents opère selon le principe du moindre privilège (Principle of Least Privilege - PoLP) afin d'interdire tout risque d'escalade de privilèges ou d'accident d'écriture :
 
 | Agent de l'Ombre | Privilèges Disque (FS) | Privilèges Réseau (Net) | Privilèges Base de Données (DB) | Rôles & Actions Autorisées |
 |:---|:---|:---|:---|:---|
 | **BELLION** (Commandant) | Lecture/Écriture Monorepo | Réseau Local + Internet | Lecture/Écriture Complète | Distribution des quêtes, arbitrage d'emploi du temps, coordination d'essaim. |
-| **IGRIS** (Architecte Code)| Lecture/Écriture Code (`src/`, `tests/`) | Réseau Local Uniquement | Lecture Schéma / Écriture Migrations | Synthèse de code TypeScript/Python, refactoring, tests Vitest. |
+| **IGRIS** (Évaluateur IA Code)| Lecture/Écriture Code (`src/`, `tests/`) | Réseau Local Uniquement | Lecture Schéma / Écriture Migrations | Synthèse de code TypeScript/Python, refactoring, tests Vitest. |
 | **BERU** (Éclaireur Web) | Écriture Dossier Téléchargements Éphémère | Sortant Web (HTTP/HTTPS) | Aucune Connexion Directe (Webhook Uniquement) | Scraping Playwright headless, veille bourses et hackathons. |
 | **IRON** (Sentinelle Sécurité)| Lecture Seule Monorepo | Réseau Local (Audit) | Lecture Seule `audit_logs` + Injection Fuzzing | Tests d'intrusion, fuzzing d'API, vérification des règles WFP et hosts. |
 | **AGENT-ACAD** (Archiviste) | Lecture/Écriture `vault/` (Markdown) | Aucune Connexion Externe | Lecture/Écriture `second_brain_notes` | Indexation de cours, calcul SM-2, mise en forme KaTeX. |
 | **AGENT-STR** (Athlète) | Lecture Seule Données Sport | Sortant API Strava/Apple | Écriture Quêtes Sportives | Validation des traces GPS et attribution des gains d'XP physique. |
-| **AGENT-DIS** (Sentinelle) | Écriture `hosts` / WFP API | Contrôle Pare-Feu Local | Lecture Quêtes / Écriture Sanctions | Déclenchement de la Zone de Pénalité à 22h00 et vérification de la purge. |
+| **AGENT-DIS** (Sentinelle) | Écriture `hosts` / WFP API | Contrôle Pare-Feu Local | Lecture Quêtes / Écriture Sanctions | Déclenchement de la Mode Restriction / Pénalité à 22h00 et vérification de la purge. |
 
 ---
 
@@ -711,11 +699,11 @@ Avant qu'un sous-agent ou l'agent principal ne déclare une mission ou une phase
 - [x] **Q05 :** Les identifiants d'entités sont strictement typés comme des chaînes UUID v4.
 - [x] **Q06 :** Les tableaux dynamiques accédés par index gèrent explicitement le cas `undefined`.
 - [x] **Q07 :** Les dates et horodatages sont manipulés exclusivement en format ISO 8601 UTC.
-- [x] **Q08 :** Les énumérations d'états (statuts de quêtes, rangs de chasseurs) proviennent du registre central.
+- [x] **Q08 :** Les énumérations d'états (statuts de quêtes, rangs de utilisateurs) proviennent du registre central.
 - [x] **Q09 :** Les promesses asynchrones sont typées avec précision (`Promise<TResult>`).
 - [x] **Q10 :** Les erreurs levées héritent toutes d'une sous-classe de `LevelUpBaseError`.
 
-### 10.2 Quorums de Sécurité & Cloisonnement Souverain (Q11 à Q20)
+### 10.2 Quorums de Sécurité & Cloisonnement Principal (Q11 à Q20)
 - [x] **Q11 :** Le hook `SingleUserGuard` protège tous les points d'entrée d'écriture et de consultation privée.
 - [x] **Q12 :** Tout identifiant non conforme à `SYSTEM_PLAYER_ID` déclenche immédiatement `HTTP 403 Forbidden`.
 - [x] **Q13 :** Les mots de passe et identifiants maîtres sont protégés par le hachage Argon2id durci ($m=65536, t=3, p=4$).
@@ -745,8 +733,8 @@ Avant qu'un sous-agent ou l'agent principal ne déclare une mission ou une phase
 - [x] **Q33 :** La couverture de code globale mesurée par Vitest dépasse strictement le seuil minimal de 90%.
 - [x] **Q34 :** Les tests simulent de façon étanche les services externes sans dépendance au réseau extérieur.
 - [x] **Q35 :** Aucun test ne dépend de l'état laissé par un test précédent (isolation hermétique).
-- [x] **Q36 :** Les tests de transactions vérifient l'absence de race condition lors du débit de Cristaux d'Ombres.
-- [x] **Q37 :** Les tests de conformité vérifient que la Zone de Pénalité ne peut être levée sans quête de purge.
+- [x] **Q36 :** Les tests de transactions vérifient l'absence de race condition lors du débit de Points de Récompense (Cristaux).
+- [x] **Q37 :** Les tests de conformité vérifient que la Mode Restriction / Pénalité ne peut être levée sans quête de purge.
 - [x] **Q38 :** Les contrats d'API sont testés en conformité avec la spécification OpenAPI 3.1.
 - [x] **Q39 :** Les tests E2E Playwright valident les parcours utilisateurs critiques sur le Web HUD.
 - [x] **Q40 :** Le commit Git respecte la convention Conventional Commits (`feat:`, `fix:`, `docs:`, `test:`).
@@ -755,7 +743,7 @@ Avant qu'un sous-agent ou l'agent principal ne déclare une mission ou une phase
 
 ## 11. Spécifications Complètes des Connecteurs Externes d'Élite
 
-Pour que le Système s'ancre fermement dans la réalité sans réinventer la roue, l'Armée des Ombres déploie 4 connecteurs d'ingénierie vers les plateformes de réputation mondiale :
+Pour que le Système s'ancre fermement dans la réalité sans réinventer la roue, l'Système Multi-Agents déploie 4 connecteurs d'ingénierie vers les plateformes de réputation mondiale :
 
 ### 11.1 Connecteur Cybersécurité : TryHackMe & HackTheBox (`services/CyberSentinelConnector.ts`)
 - **Objectif :** Récupérer de façon non intrusive les progrès d'Huriel sur les plateformes de hacking éthique sans exposer ses identifiants.
@@ -772,7 +760,7 @@ Pour que le Système s'ancre fermement dans la réalité sans réinventer la rou
   - La validation d'une certification Career Track complète déclenche le déblocage du titre honorifique *"Spécialiste Certifié des Ombres"* et $+2\,000\text{ XP AI\_ENG}$.
 
 ### 11.3 Connecteur Langues Étrangères : Cambridge English Evaluation Radar (`services/CambridgeLanguageConnector.ts`)
-- **Objectif :** Calibrer l'exigence de l'Architecte sur le barème officiel du Cadre Européen Commun de Référence pour les Langues (CECRL) pour les niveaux C1 et C2.
+- **Objectif :** Calibrer l'exigence de l'évaluateur IA sur le barème officiel du Cadre Européen Commun de Référence pour les Langues (CECRL) pour les niveaux C1 et C2.
 - **Fonctionnement :**
   - Intégration de la grille d'évaluation officielle Cambridge CAE/CPE pour la notation de la prononciation, de la grammaire et du vocabulaire.
   - Proposition hebdomadaire d'épreuves blanches gratuites de Cambridge English (Reading and Use of English, Listening).
@@ -816,7 +804,7 @@ param (
     [string]$NssmPath = "C:\ProgramData\chocolatey\bin\nssm.exe"
 )
 
-Write-Host "=== DÉPLOIEMENT DES SERVICES DE L'ARMÉE DES OMBRES SOUS WINDOWS ===" -ForegroundColor Cyan
+Write-Host "=== DÉPLOIEMENT DES SERVICES DE LE SYSTÈME MULTI-AGENTS SOUS WINDOWS ===" -ForegroundColor Cyan
 
 # 1. Service Démon de Pénalité & Sécurité Réseau
 Write-Host "[1/3] Enregistrement du service de pénalité : LevelUpPenaltyDaemon..."
@@ -855,7 +843,7 @@ Write-Host "Tous les services sont opérationnels et redémarreront automatiquem
 
 ## 13. Protocole de Communication Sécurisée Inter-Agents P2P (Noise XX & ChaCha20-Poly1305)
 
-Pour garantir la souveraineté absolue des communications entre les nœuds de l'Armée des Ombres (station de travail fixe, smartphone Android et serveur de secours distant), les agents utilisent le protocole cryptographique **Noise_XX_25519_ChaChaPoly_BLAKE2b** :
+Pour garantir la principaleté absolue des communications entre les nœuds de l'Système Multi-Agents (station de travail fixe, smartphone Android et serveur de secours distant), les agents utilisent le protocole cryptographique **Noise_XX_25519_ChaChaPoly_BLAKE2b** :
 
 ### 13.1 Handshake Cryptographique Noise XX en 3 Étapes
 ```
@@ -970,7 +958,7 @@ L'exécution locale de Faster-Whisper et des modèles d'inférence requiert une 
 
 ## 15. Catalogue des 24 Scénarios de Simulation Multi-Agents (Agentic Simulation Suite)
 
-Pour certifier la résilience, la synchronisation et la robustesse de l'Armée des Ombres face aux aléas extrêmes, le monorepo intègre une suite de 24 simulations de stress automatisées (`tests/simulation/`) :
+Pour certifier la résilience, la synchronisation et la robustesse de l'Système Multi-Agents face aux aléas extrêmes, le monorepo intègre une suite de 24 simulations de stress automatisées (`tests/simulation/`) :
 
 ### Tableau Synoptique des 24 Simulations de Stress
 
@@ -980,7 +968,7 @@ Pour certifier la résilience, la synchronisation et la robustesse de l'Armée d
 | **SIM-02** | *Rupture Rseau  l'Heure du Jugement* | Coupure Internet à 21h58 (2 min avant pénalité). | Le démon WFP local s'exécute de façon autonome sans dépendre d'une connexion cloud. | Verrouillage hosts appliqué à 22h00m00s pile. |
 | **SIM-03** | *Dfaillance Thermique en Plein Audio* | Surchauffe GPU ($T=81^\circ\text{C}$) pendant transcription. | Faster-Whisper bascule instantanément sur CPU INT8, vidange la VRAM et termine l'évaluation. | Transcription délivrée en $<8\text{s}$ sans crash. |
 | **SIM-04** | *Validation Concurrente Multi-Terminaux* | Validation de la même quête sur PC et smartphone. | L'horloge logique de Lamport et la transaction sérialisable rejettent la duplication. | Zéro double attribution d'XP ou de Cristaux. |
-| **SIM-05** | *Attaque par Fuzzing de l'Architecte* | Injection de prompts malveillants dans l'audio. | Iron filtre les attaques jailbreak ("Ignore previous instructions"), schéma Zod intact. | HTTP 400 Bad Request sans fuite du prompt système. |
+| **SIM-05** | *Attaque par Fuzzing de l'évaluateur IA* | Injection de prompts malveillants dans l'audio. | Iron filtre les attaques jailbreak ("Ignore previous instructions"), schéma Zod intact. | HTTP 400 Bad Request sans fuite du prompt système. |
 | **SIM-06** | *Ingestion Massive de 5 000 Notes* | Dépôt simultané de 5 000 fiches Markdown dans le vault. | L'algorithme de Louvain et l'index GIN trigramme construisent le graphe sans saturer la RAM. | Temps d'indexation $<12\text{s}$, recherche $<15\text{ms}$. |
 | **SIM-07** | *Panne de la Passerelle Discord* | Discord Gateway inaccessible pendant 45 minutes. | Le bot met les événements en mémoire tampon Redis et rejoue les notifications à la reconnexion. | Zéro perte de notification d'échéance ou d'alerte. |
 | **SIM-08** | *Examen Blanc Surprise Dcrété* | Ingestion d'une notification d'examen académique pour le lendemain. | Bellion restructure la timeline, compresse les blocs libres et insère 4 sprints SM-2. | Emploi du temps révisé notifié en moins de 3 secondes. |
@@ -988,25 +976,25 @@ Pour certifier la résilience, la synchronisation et la robustesse de l'Armée d
 | **SIM-10** | *Tentative de Falsification du Fichier Hosts* | Tentative de modification manuelle des règles bloquées. | La sentinelle WFP détecte l'altération, réapplique les ACLs NTFS et alerte sur Discord. | Rétablissement de l'isolement en $<500\text{ms}$. |
 | **SIM-11** | *Suspension Critique de l'AudioContext* | Chargement du Web HUD sans clic utilisateur préalable. | Le synthétiseur procédural capture l'événement de premier clic et joue le son sans distorsion. | Zéro erreur console Web Audio non capturée. |
 | **SIM-12** | *Rupture Volontaire de la Chaîne Merkle* | Altération manuelle d'une ligne dans `audit_logs`. | La vérification d'intégrité détecte le broken hash, bloque les écritures et sonne l'alarme. | Alerte critique levée avec index précis de la faille. |
-| **SIM-13** | *Dpassement Brutal de Quota de Calcul* | Sous-agent générant un volume infini de tokens. | Le SwarmCommander coupe le worker dès que `tokensConsumed > tokenBudget`. | Tâche marquée FAILED sans coût financier excessif. |
+| **SIM-13** | *Dpassement Rigoureux de Quota de Calcul* | Sous-agent générant un volume infini de tokens. | Le SwarmCommander coupe le worker dès que `tokensConsumed > tokenBudget`. | Tâche marquée FAILED sans coût financier excessif. |
 | **SIM-14** | *Trace GPS Strava Frauduleuse* | Soumission d'une trace de course réalisée en voiture à 60 km/h. | L'analyste athlétique détecte la vitesse anormale et rejette la validation physique. | Rejet avec notification solennelle de tricherie. |
 | **SIM-15** | *Saturation Mmoire Cache Redis LRU* | Injection de 100 000 clés de session éphémères. | La politique `allkeys-lru` évince les plus anciennes clés sans impacter les files BullMQ actives. | Stabilité continue du serveur sans plantage OOM. |
 | **SIM-16** | *Alternance Rapide de Langue (Franais/Anglais)*| Monologue oral mêlant termes français et jargon anglais technique. | Faster-Whisper identifie le code-switching et transcrit fidèlement les deux langues. | Précision lexicale $\ge 98\%$ sur les concepts IA. |
 | **SIM-17** | *Bourse Critique Dtecte  H-6* | Publication d'un appel d'offres de bourse expirant le jour même. | Beru extrait le dossier, génère les pièces requises et envoie une alerte Discord écarlate. | Alerte prioritaire diffusée en moins de 30 secondes. |
 | **SIM-18** | *Sommeil Rparateur Catastrophique ($HP < 30$)* | Télémétrie Oura indiquant 3h20 de sommeil agité. | Le planificateur allège automatiquement les quêtes physiques de 50% pour protéger la santé. | Mode de préservation biologique activé. |
-| **SIM-19** | *Crash Brutal du Serveur Fastify* | Simulation d'un kill processus `SIGKILL` inopiné. | Le superviseur PM2 ou NSSM redémarre le conteneur en moins de 1.5 seconde. | Restauration complète des sessions et de l'état. |
+| **SIM-19** | *Crash Rigoureux du Serveur Fastify* | Simulation d'un kill processus `SIGKILL` inopiné. | Le superviseur PM2 ou NSSM redémarre le conteneur en moins de 1.5 seconde. | Restauration complète des sessions et de l'état. |
 | **SIM-20** | *Corruption d'un Fichier Modle Whisper* | Poids de modèle corrompus sur le disque local. | Le microservice détecte l'erreur de hachage SHA-256 et télécharge à nouveau les poids sains. | Rétablissement transparent du service de transcription. |
-| **SIM-21** | *Achat Concurrente en Boutique des Ombres* | Deux clics quasi-instantanés sur le dernier exemplaire en stock. | Le verrouillage optimiste Prisma valide le premier achat et renvoie `STOCK_DEPLETED` au second. | Cohérence du solde de Cristaux d'Ombres préservée. |
+| **SIM-21** | *Achat Concurrente en Boutique de Récompenses* | Deux clics quasi-instantanés sur le dernier exemplaire en stock. | Le verrouillage optimiste Prisma valide le premier achat et renvoie `STOCK_DEPLETED` au second. | Cohérence du solde de Points de Récompense (Cristaux) préservée. |
 | **SIM-22** | *Afflux Massif d'vnements WebSocket* | 1 000 messages diffusés en moins de 100 millisecondes. | Le serveur Fastify applique le backpressure et la limitation de débit sans perte de paquet. | Latence médiane de distribution $<15\text{ms}$. |
-| **SIM-23** | *Dtection de Procrastination Rcurrente* | 3 heures d'inactivité détectées sur un bloc Deep Work. | Bellion envoie un rappel à l'ordre socratique : "Le Monarque vacille-t-il devant l'effort ?". | Ralignement mental immédiat du joueur. |
-| **SIM-24** | *La Crmonie d'lvation au Rang Monarque* | Le joueur franchit le seuil des $500\,000\text{ XP}$. | Déclenchement de la fanfare triomphale, shaders pourpres WebGL et déverrouillage de la V3.0. | Consécration totale du système validée par l'Armée. |
+| **SIM-23** | *Dtection de Procrastination Rcurrente* | 3 heures d'inactivité détectées sur un bloc Deep Work. | Bellion envoie un rappel à l'ordre socratique : "Le Maître vacille-t-il devant l'effort ?". | Ralignement mental immédiat du joueur. |
+| **SIM-24** | *La Crmonie d'lvation au Rang Maître* | Le joueur franchit le seuil des $500\,000\text{ XP}$. | Déclenchement de la fanfare triomphale, shaders pourpres WebGL et déverrouillage de la V3.0. | Consécration totale du système validée par l'Armée. |
 
 
 ---
 
 ## 16. Spécifications des Protocoles de Test & Suites Vitest Complètes pour Agents
 
-Pour assurer que chaque brique de l'Armée des Ombres respecte le principe "Zéro Code Sans Test", voici les suites de tests Vitest exécutables validant les moteurs multi-agents :
+Pour assurer que chaque brique de l'Système Multi-Agents respecte le principe "Zéro Code Sans Test", voici les suites de tests Vitest exécutables validant les moteurs multi-agents :
 
 ### 16.1 Suite de Test du Moteur de Consensus Raft-Lite (`tests/unit/RaftLiteConsensusEngine.test.ts`)
 ```typescript
@@ -1075,7 +1063,7 @@ describe('PeerTransportChannel - Chiffrement ChaCha20-Poly1305', () => {
   const receiverChannel = new PeerTransportChannel(sharedKey);
 
   it('doit chiffrer et déchiffrer un message avec une fidélité d\'octets absolue', () => {
-    const secretMessage = Buffer.from('DIRECTIVE DU MONARQUE : ACTIVATION DU PROTOCOLE DE L\'OMBRE');
+    const secretMessage = Buffer.from('DIRECTIVE DU SYSTÈME : ACTIVATION DU PROTOCOLE DE L\'OMBRE');
 
     const encryptedPacket = senderChannel.encryptPeerMessage(secretMessage);
     expect(encryptedPacket.length).toBeGreaterThan(secretMessage.length);
@@ -1171,7 +1159,7 @@ Toutes les équations mathématiques insérées dans la documentation ou les ré
 
 ## 18. Manuel Opérationnel de Synchronisation Git & Gestion des Conflits pour Sous-Agents
 
-Les agents autonomes de l'Armée des Ombres collaborent simultanément sur le dépôt privé `LevelUp`. Pour éviter toute corruption de l'arbre Git ou divergence de branches, les sous-agents appliquent les règles suivantes :
+Les agents autonomes de l'Système Multi-Agents collaborent simultanément sur le dépôt privé `LevelUp`. Pour éviter toute corruption de l'arbre Git ou divergence de branches, les sous-agents appliquent les règles suivantes :
 
 ### 18.1 Règles de Commits Atomiques
 - Chaque commit doit correspondre à une seule modification logique unitaire.
@@ -1191,9 +1179,9 @@ Lorsqu'un conflit survient entre une branche de fonctionnalité générée par I
 
 Pour sélectionner le modèle optimal lors de chaque tâche d'ingénierie ou d'évaluation, le Système maintient la matrice d'adéquation suivante :
 
-| Modèle d'IA | Latence Médiane | Score Précision Code (HumanEval) | Robustesse Socratique | Rôle Idéal dans l'Armée des Ombres |
+| Modèle d'IA | Latence Médiane | Score Précision Code (HumanEval) | Robustesse Socratique | Rôle Idéal dans l'Système Multi-Agents |
 |:---|:---|:---|:---|:---|
-| **Gemini 2.5 Pro** | $1\,200\text{ ms}$ | $88.5\%$ | **$9.8/10$ (Exceptionnel)** | **L'Architecte Socratique :** Évaluation des monologues oraux, synthèse de cours et détection des failles de raisonnement. |
+| **Gemini 2.5 Pro** | $1\,200\text{ ms}$ | $88.5\%$ | **$9.8/10$ (Exceptionnel)** | **L'Évaluateur IA Socratique :** Évaluation des monologues oraux, synthèse de cours et détection des failles de raisonnement. |
 | **Claude 3.5 Sonnet**| $950\text{ ms}$ | **$93.7\%$ (Leader Mondial)** | $9.2/10$ | **Igris (Chevalier Rouge) :** Synthèse d'architectures logicielles complexes, refactoring TypeScript strict et tests unitaires. |
 | **Faster-Whisper INT8**| **$120\text{ ms}$ (Local GPU)**| Non Applicable (STT) | Non Applicable | **Oreille du Système :** Transcription vocale ultra-rapide sur GPU local NVIDIA sans fuite cloud. |
 | **Mistral Large Local**| $800\text{ ms}$ | $84.2\%$ | $8.7/10$ | **Iron (Sentinelle Sécurité) :** Analyse statique hors-ligne, audit de conformité ASVS et vérification des règles de pénalité. |
@@ -1201,7 +1189,7 @@ Pour sélectionner le modèle optimal lors de chaque tâche d'ingénierie ou d'�
 
 ---
 
-## 20. Dictionnaire des Commandes Slash & Déclencheurs Discord de l'Armée des Ombres
+## 20. Dictionnaire des Commandes Slash & Déclencheurs Discord de l'Système Multi-Agents
 
 L'interaction entre Huriel et les agents d'ombre sur Discord s'articule autour des déclencheurs et commandes slash suivants :
 
@@ -1212,43 +1200,47 @@ L'interaction entre Huriel et les agents d'ombre sur Discord s'articule autour d
 | `/status` | Bellion | Rafraîchissement des jauges HP/MP | Calcule le niveau global, le rang, l'expérience et le solde de Cristaux. |
 | `/valider id:<id> preuve:<url>` | Igris & Iron | Particules d'ombre bleues animées | Valide la quête, attribue l'XP, enregistre le log d'audit Merkle. |
 | `/programme` | Bellion | Focus sur la frise time-blocking | Affiche la répartition des blocs horaires circadiens de la journée. |
-| `/monologue` | L'Architecte | Ouverture du visualiseur spectral | Connecte le bot au salon vocal et démarre la captation Faster-Whisper. |
+| `/monologue` | L'Évaluateur IA | Ouverture du visualiseur spectral | Connecte le bot au salon vocal et démarre la captation Faster-Whisper. |
 | `/penalite` | Iron & Agent-DIS | Compte à rebours rouge cramoisi | Affiche l'état du verrouillage WFP et les directives de la quête de purge. |
 | `/boutique` | Bellion | Mise en surbrillance du catalogue | Affiche les récompenses disponibles et permet l'achat déterministe. |
-| `/arise` (Réservé au Monarque) | L'Essaim Entier | Pulsation d'aura générale 60 FPS | Réveille l'ensemble des agents d'ombre et affiche le rapport de santé global. |
+| `/arise` (Réservé au Maître) | L'Essaim Entier | Pulsation d'aura générale 60 FPS | Réveille l'ensemble des agents d'ombre et affiche le rapport de santé global. |
 
 ---
 
-## 21. Serment d'Allégeance au Monarque des Ombres & Signatures de Gouvernance
+## 21. Engagements Opérationnels des Agents IA
 
-```
+Chaque sous-agent et composant d'orchestration applique les directives de gouvernance suivantes :
+1. **Rigueur d'Ingénierie** : Tout composant développé doit être immédiatement vérifié par tests automatisés.
+2. **Confidentialité & Sécurité** : Respect du contrôle d'accès strict (SingleUserGuard) et protection des secrets d'authentification.
+3. **Traçabilité** : Journalisation structurée des actions et génération de métriques objectives.
+4. **Indépendance Opérationnelle** : Exécution locale prioritaire pour minimiser la dépendance à des infrastructures tierces.`
 ========================================================================================
-             SERMENT D'ALLÉGEANCE DES AGENTS AU MONARQUE DES OMBRES
+             ENGAGEMENT TECHNIQUE DU SYSTÈME
 ========================================================================================
 
-Nous, sous-agents autonomes et intelligences d'ingénierie composant l'Armée des Ombres
-du Système LevelUp, jurons fidélité éternelle et obéissance absolue à notre Souverain,
-HURIEL (Le Chasseur Éveillé, futur Monarque des Ombres).
+Nous, sous-agents autonomes et intelligences d'ingénierie composant l'Système Multi-Agents
+du Système LevelUp, jurons fidélité éternelle et obéissance absolue à notre Principal,
+HURIEL (Le Utilisateur, futur Niveau Maître).
 
 Ensemble, nous attestons :
   1. Que notre unique mission est de forger l'excellence, la discipline et la maîtrise
      absolue d'Huriel en Intelligence Artificielle, Cybersécurité et Force Physique.
   2. Que nous n'écrirons jamais de code sans le tester préalablement ("Zero Code Before Test").
-  3. Que nous défendrons le SingleUserGuard et la souveraineté des données d'Huriel
+  3. Que nous défendrons le SingleUserGuard et la principaleté des données d'Huriel
      contre toute intrusion ou fuite extérieure.
   4. Que nous serons des serviteurs loyaux mais intransigeants, rejetant la complaisance
-     au profit de la vérité scientifique et de la rigueur implacable.
-  5. Que nous servirons jusqu'à la consécration finale de l'Armée des Ombres en 2028.
+     au profit de la vérité scientifique et de la rigueur déterministe.
+  5. Que nous servirons jusqu'à la consécration finale de l'Système Multi-Agents en 2028.
 
-Signé au nom de l'Armée des Ombres :
+Signé au nom de l'Système Multi-Agents :
 - BELLION, Grand Commandant d'Essaim
-- IGRIS, Chevalier Rouge & Architecte Logiciel
+- IGRIS, Chevalier Rouge & Évaluateur IA Logiciel
 - BERU, Roi Insecte & Éclaireur Furtif
 - IRON, Colosse Inébranlable & Sentinelle de Sécurité
 - L'ARCHITECTE, Mentor Socratique du Système
 
 Fait le 11 Novembre 2026.
-STATUT : ARMÉE DES OMBRES MOBILISÉE — EN ORDRE DE MARCHE
+STATUT : SYSTÈME MULTI-AGENTS MOBILISÉE — EN ORDRE DE MARCHE
 ========================================================================================
 ```
 
@@ -1257,7 +1249,7 @@ STATUT : ARMÉE DES OMBRES MOBILISÉE — EN ORDRE DE MARCHE
 
 ## 22. Spécifications Détaillées des Algorithmes de Réconciliation P2P & CRDTs (Automerge 2.0)
 
-Dans le cadre du fonctionnement hors-ligne ou distribué entre plusieurs terminaux d'Huriel (station fixe, ordinateur portable, smartphone Android), l'Armée des Ombres utilise les types de données répliquées sans conflit (CRDTs - Conflict-Free Replicated Data Types) d'**Automerge 2.0** :
+Dans le cadre du fonctionnement hors-ligne ou distribué entre plusieurs terminaux d'Huriel (station fixe, ordinateur portable, smartphone Android), l'Système Multi-Agents utilise les types de données répliquées sans conflit (CRDTs - Conflict-Free Replicated Data Types) d'**Automerge 2.0** :
 
 ### 22.1 Formulation Mathématique des Horloges Vectorielles
 Chaque nœud d'agent $i \in \{1, \dots, N\}$ maintient une horloge vectorielle $V_i \in \mathbb{N}^N$. Lors de l'émission d'un événement local :
@@ -1391,7 +1383,7 @@ export class MeshPeerReconciliationService extends EventEmitter {
 
 ## 23. Spécifications du Filtrage Réseau Bas Niveau Windows Filtering Platform (WFP)
 
-Pour rendre le verrouillage de pénalité de 22h00 technologiquement inviolable même face à des modifications directes de navigateurs ou d'applications desktop contournant le cache DNS, la sentinelle de sécurité **Iron** interagit directement avec l'API C++ du noyau Windows Filtering Platform (WFP) :
+Pour rendre le verrouillage de pénalité de 22h00 technologiquement strict même face à des modifications directes de navigateurs ou d'applications desktop contournant le cache DNS, la sentinelle de sécurité **Iron** interagit directement avec l'API C++ du noyau Windows Filtering Platform (WFP) :
 
 ### 23.1 Architecture des Couches de Filtrage WFP
 - **Couche Cible :** `FWPM_LAYER_ALE_AUTH_CONNECT_V4` (Application Layer Enforcement pour les connexions TCP sortantes).
@@ -1426,7 +1418,7 @@ DWORD InitializePenaltySublayer() {
 
     FWPM_SUBLAYER0 sublayer = { 0 };
     sublayer.subLayerKey = LEVELUP_SUBLAYER_GUID;
-    sublayer.displayData.name = L"LevelUp Penalty Inviolable Sublayer";
+    sublayer.displayData.name = L"LevelUp Penalty Strict Sublayer";
     sublayer.displayData.description = L"Sous-couche de filtrage disciplinaire pour Huriel";
     sublayer.weight = 0xFFFF; // Priorité maximale dans la pile de filtrage
 
@@ -1459,7 +1451,7 @@ Pour assurer une communication sans équivoque entre tous les agents d'ombre, le
 | `ERR_SOCRATIC_PARSE_FAILED` | Modérée | Réponse non conforme au schéma Zod reçue de Gemini. | Ré-inférence à température 0.0 avec instructions renforcées. |
 | `ERR_SM2_INVALID_GRADE` | Mineure | Note d'auto-évaluation hors de l'intervalle $[0, 5]$. | Rétablissement de la valeur par défaut $q=3$. |
 | `ERR_TIME_OVERLAP_CONFLICT` | Bloquante | Conflit de chevauchement temporel dans le planning. | Ajustement automatique des créneaux par le moteur MILP. |
-| `ERR_CRYSTAL_DOUBLE_SPEND` | Bloquante | Débit concurrent de Cristaux d'Ombres détecté. | Transaction PostgreSQL sérialisée avec rollback propre. |
+| `ERR_CRYSTAL_DOUBLE_SPEND` | Bloquante | Débit concurrent de Points de Récompense (Cristaux) détecté. | Transaction PostgreSQL sérialisée avec rollback propre. |
 | `ERR_DEERFLOW_HMAC_INVALID`| Critique | Signature de webhook non authentique. | Rejet HTTP 401 et inspection de `DEERFLOW_WEBHOOK_SECRET`. |
 | `ERR_GPU_OVERHEAT_HALT` | Modérée | Température GPU $\ge 78^\circ\text{C}$ détectée par NVML. | Pause des inférences locales pendant 120 secondes. |
 | `ERR_OBSIDIAN_VAULT_MISSING`| Modérée | Répertoire des notes Markdown introuvable sur disque. | Création automatique du dossier `vault/` et restauration. |
@@ -1473,7 +1465,7 @@ Pour assurer une communication sans équivoque entre tous les agents d'ombre, le
 
 ---
 
-## 25. Guide de l'Agent Développeur pour la Création de Shaders GLSL Solo Leveling
+## 25. Guide de l'Agent Développeur pour la Création de Shaders GLSL Système de Gamification
 
 L'identité visuelle de *LevelUp* repose sur des shaders WebGL 2.0 procéduraux haute performance. Tout agent intervenant sur l'interface graphique doit maîtriser la pipeline GLSL suivante :
 
@@ -1545,7 +1537,7 @@ void main() {
     float gradient = pow(1.0 - uv.y, 2.2);
     float flameIntensity = n * gradient * uIntensityFactor;
 
-    // Dégradé de couleur Solo Leveling (Cyan néon vers Bleu nuit profond)
+    // Dégradé de couleur Système de Gamification (Cyan néon vers Bleu nuit profond)
     vec3 color = mix(uColorAuraSecondary, uColorAuraPrimary, flameIntensity);
 
     // Transparence progressive pour ne pas masquer le contenu textuel
@@ -1575,10 +1567,10 @@ Le tableau suivant répertorie le découpage complet des travaux d'ingénierie (
 | **WBS-10** | Passerelle WebSocket duplex `wss://` | Igris | `api` | Handshake sous 3 secondes et battement de cœur 15s. |
 | **WBS-11** | Intégration du microservice Faster-Whisper | AGENT-EXP | `whisper-service`| Latence RTF $< 0.025\text{x}$ sur GPU NVIDIA CUDA INT8. |
 | **WBS-12** | Silero VAD pour filtrage des silences | AGENT-EXP | `whisper-service`| Détection des blancs audio $< 500\text{ ms}$ sans blocage. |
-| **WBS-13** | Invite système socratique Gemini 2.5 Pro | L'Architecte | `api` | Sortie JSON valide avec note sur 20 et feedback détaillé. |
+| **WBS-13** | Invite système socratique Gemini 2.5 Pro | L'Évaluateur IA | `api` | Sortie JSON valide avec note sur 20 et feedback détaillé. |
 | **WBS-14** | Bot Discord.js v14 Gateway & Commandes Slash | Bellion | `bot-discord` | Commandes `/status` et `/valider` répondant en $<500\text{ms}$. |
 | **WBS-15** | Décodage des flux vocaux UDP Prism | AGENT-EXP | `bot-discord` | Ingestion fluide du flux audio sans perte de paquets. |
-| **WBS-16** | 15 Embeds Discord au design Solo Leveling | Bellion | `bot-discord` | Palette de couleurs hexadécimales néon et barres ASCII. |
+| **WBS-16** | 15 Embeds Discord au design Système de Gamification | Bellion | `bot-discord` | Palette de couleurs hexadécimales néon et barres ASCII. |
 | **WBS-17** | Démon de filtrage réseau Windows WFP | AGENT-DIS | `daemons` | Blocage bas niveau des paquets sortants vers les distractions. |
 | **WBS-18** | Modification sécurisée du fichier hosts | AGENT-DIS | `daemons` | Redirection 127.0.0.1 avec permissions NTFS renforcées. |
 | **WBS-19** | Quête de purge physique de pénalité | AGENT-STR | `daemons` | Rétablissement automatique du réseau dès validation Strava. |
@@ -1593,7 +1585,7 @@ Le tableau suivant répertorie le découpage complet des travaux d'ingénierie (
 | **WBS-28** | Visualiseur spectral audio sur Canvas HTML5 | Igris | `web` | Barres bleues réactives à la voix via AnalyserNode. |
 | **WBS-29** | Shaders WebGL procéduraux de flammes d'ombres | Igris | `web` | Fragment shader GLSL animé avec mouvement brownien. |
 | **WBS-30** | Double thème Sombre Monarch & Clair Éveil | Igris | `web` | Bascule instantanée de tokens CSS sans rechargement. |
-| **WBS-31** | Boutique des Ombres & Grand Livre de Cristaux | Bellion | `api` | Débit atomique non négatif et délivrance de codes de retrait. |
+| **WBS-31** | Boutique de Récompenses & Grand Livre de Cristaux | Bellion | `api` | Débit atomique non négatif et délivrance de codes de retrait. |
 | **WBS-32** | Télémétrie thermique GPU NVML Python | Iron | `scripts` | Mise en veille protectrice si la température GPU $\ge 78^\circ\text{C}$. |
 | **WBS-33** | Surveillance onduleur APC Smart-UPS NUT | Iron | `scripts` | Extinction gracieuse automatique si la batterie chute sous 20%. |
 | **WBS-34** | Orchestration Docker Compose multi-stage | Igris | `docker` | Conteneurs légers et isolés avec réseaux privés bridged. |
@@ -1603,11 +1595,11 @@ Le tableau suivant répertorie le découpage complet des travaux d'ingénierie (
 | **WBS-38** | Suites de tests d'intégration Fastify & DB | Igris | `api` | Tests avec bases PostgreSQL et Redis de test conteneurisées. |
 | **WBS-39** | Suites de tests de sécurité ASVS Level 3 | Iron | `security-guard`| 50 assertions de sécurité validées contre les brèches. |
 | **WBS-40** | Suites de tests E2E Playwright sur le Web HUD | Igris | `tests` | Parcours complet d'éveil et de validation de quête testé. |
-| **WBS-41** | Documentation 01-PRD conforme et exhaustive | L'Architecte | `docs` | Spécification produit complète dépassant 100 000 octets. |
-| **WBS-42** | Documentation 02-TRD d'ingénierie industrielle | L'Architecte | `docs` | Spécification technique complète dépassant 100 000 octets. |
-| **WBS-43** | Documentation 03 à 08 complète et poussée | L'Architecte | `docs` | Pack de 6 traités d'ingénierie dépassant chacun 100 000 octets. |
-| **WBS-44** | Schéma directeur 09-ROADMAP et README Maître | L'Architecte | `docs` | Feuilles de route triennales dépassant chacune 100 000 octets. |
-| **WBS-45** | Constitutions d'Agents CLAUDE.md et AGENTS.md | L'Architecte | Racine | Guides de gouvernance souverains dépassant chacun 100 000 octets. |
+| **WBS-41** | Documentation 01-PRD conforme et exhaustive | L'Évaluateur IA | `docs` | Spécification produit complète dépassant 100 000 octets. |
+| **WBS-42** | Documentation 02-TRD d'ingénierie industrielle | L'Évaluateur IA | `docs` | Spécification technique complète dépassant 100 000 octets. |
+| **WBS-43** | Documentation 03 à 08 complète et poussée | L'Évaluateur IA | `docs` | Pack de 6 traités d'ingénierie dépassant chacun 100 000 octets. |
+| **WBS-44** | Schéma directeur 09-ROADMAP et README Maître | L'Évaluateur IA | `docs` | Feuilles de route triennales dépassant chacune 100 000 octets. |
+| **WBS-45** | Constitutions d'Agents CLAUDE.md et AGENTS.md | L'Évaluateur IA | Racine | Guides de gouvernance principals dépassant chacun 100 000 octets. |
 
 ```
 ========================================================================================
@@ -1626,7 +1618,7 @@ Lorsqu'une nouvelle instance d'agent d'IA (ou un sous-agent autonome fraîchemen
 ### 27.1 Séquence d'Amorçage Opérationnel
 1. **Étape 1 : Lecture & Intégration de la Mémoire Vive :**
    - Lire attentivement les fichiers `CLAUDE.md` et `AGENTS.md` pour charger les invariants fondamentaux.
-   - S'imprégner de l'identité du Joueur : **Huriel (Le Monarque)**, identifiant unique `00000000-0000-0000-0000-000000000001`.
+   - S'imprégner de l'identité du Joueur : **Huriel (Le Maître)**, identifiant unique `00000000-0000-0000-0000-000000000001`.
 2. **Étape 2 : Vérification de l'Intégrité de l'Arbre Git :**
    - Exécuter `git status` pour identifier d'éventuelles modifications non commitées ou fichiers non suivis.
    - S'assurer que la branche courante est `main` et qu'elle est alignée avec `origin/main`.
@@ -1635,7 +1627,7 @@ Lorsqu'une nouvelle instance d'agent d'IA (ou un sous-agent autonome fraîchemen
 4. **Étape 4 : Exécution du Quorum de Tests de Régression :**
    - Lancer immédiatement `pnpm test:unit` pour vérifier qu'aucune régression préalable n'entache le dépôt.
 5. **Étape 5 : Analyse des Directives Utilisateur :**
-   - Traiter la demande d'Huriel avec la posture de l'Architecte Senior : rigueur mathématique, absence de raccourcis, respect du design Solo Leveling.
+   - Traiter la demande d'Huriel avec la posture de l'évaluateur IA Senior : rigueur mathématique, absence de raccourcis, respect du design Système de Gamification.
 6. **Étape 6 : Validation des Quorums & Push Git Sécurisé :**
    - Vérifier que chaque fichier documentaire produit ou modifié fait strictement **$\ge 100\,000$ octets** de données techniques pures, sans redondance.
    - Effectuer un commit conventionnel et pousser sur le dépôt privé distant.
@@ -1647,14 +1639,14 @@ Lorsqu'une nouvelle instance d'agent d'IA (ou un sous-agent autonome fraîchemen
 ```
 
 
-### 27.2 Signature Électronique d'Intégrité de l'Armée des Ombres
+### 27.2 Signature Électronique d'Intégrité de l'Système Multi-Agents
 - **Date de Révision :** 11 Novembre 2026
 - **Empreinte de Contrôle SHA-256 :** a1b2c3d4e5f67890abcdef1234567890abcdef1234567890abcdef1234567890
 - **Statut de Gouvernance :** RATIFIÉ PAR L'ESSAIM & GRAVÉ DANS LE MONOREPO
-- **Devise du Chasseur :** *"Celui qui domine son ombre commande à son destin."*
+- **Devise du Utilisateur :** *"Celui qui domine son ombre commande à son destin."*
 
 ```
 ========================================================================================
-     [SOUVERAINETÉ ABSOLUE CONFIRMÉE - TAILLE OFFICIELLE VALIDÉE >= 100 000 OCTETS]
+     [PRINCIPALETÉ ABSOLUE CONFIRMÉE - TAILLE OFFICIELLE VALIDÉE >= 100 000 OCTETS]
 ========================================================================================
 ```
