@@ -3,7 +3,7 @@
 > **Document ID :** SEC-LVLUP-005-TITAN  
 > **Nom du Produit :** LevelUp ("The System" / "Le Système")  
 > **Version du Document :** 3.0.0 (Spécification de Durcissement Exhaustive & Industrielle)  
-> **Classification de Sécurité :** CONFIDENTIEL INTERNE — Propriété Exclusive du Maître (Huriel)  
+> **Classification de Sécurité :** CONFIDENTIEL INTERNE — Propriété Exclusive du Maître (Utilisateur)  
 > **Norme de Référence :** OWASP Top 10 (2021), NIST SP 800-63B, ANSSI Guide d'Hygiène Informatique  
 > **Statut de Validation :** Approuvé pour Déploiement en Production Sécurisée  
 
@@ -562,7 +562,7 @@ export class KeyRotationManager {
 
 ## 9. Architecture de Contrôle d'Accès Zéro-Trust & SingleUserGuard
 
-Puisque LevelUp est le Système exclusif de son Maître (Huriel), tout accès par une autre identité humaine ou bot est considéré comme une intrusion hostile et immédiatement repoussé.
+Puisque LevelUp est le Système exclusif de son Maître (Utilisateur), tout accès par une autre identité humaine ou bot est considéré comme une intrusion hostile et immédiatement repoussé.
 
 ### 9.1 Implémentation du Middleware SingleUserGuard Fastify (`server/guards/singleUserGuard.ts`)
 
@@ -1109,7 +1109,7 @@ class LevelUpRedTeamSimulator:
     async def test_01_timing_attack_login(self):
         """Mesure l'écart temporel entre utilisateur valide et inexistant (Doit être <= 5ms)."""
         t0 = time.perf_counter()
-        async with self.session.post(f"{BASE_URL}/auth/login", json={"username": "Huriel", "password": "WrongPassword1!"}) as r:
+        async with self.session.post(f"{BASE_URL}/auth/login", json={"username": "Utilisateur", "password": "WrongPassword1!"}) as r:
             dur_valid = time.perf_counter() - t0
 
         t0 = time.perf_counter()
@@ -2045,7 +2045,7 @@ Le Système d'exploitation LevelUp ("The System") est officiellement validé pou
 ## 42. Sécurité Biométrique, Confidentialité de la Vision par Ordinateur & Intégrité NextDNS
 
 ### 42.1 Traitement Vidéo Étanche 100% Client (Air-Gapped Computer Vision)
-Pour préserver rigoureusement l'intimité corporelle d'Huriel durant ses sessions d'entraînement au poids du corps :
+Pour préserver rigoureusement l'intimité corporelle de l'utilisateur durant ses sessions d'entraînement au poids du corps :
 1. **Zéro Transmission Réseau :** Les flux vidéo capturés par la webcam ou la caméra mobile ne sont jamais téléversés vers un serveur externe, ni même vers le backend Fastify local. L'inférence MediaPipe Pose s'exécute exclusivement en mémoire volatile via WebAssembly / WebGPU dans le thread Web Worker du navigateur.
 2. **Élimination Immédiate des Trames :** Chaque trame vidéo `VideoFrame` est immédiatement libérée de la mémoire graphique (VRAM) dès l'extraction des 33 coordonnées squelettiques relatives ($x, y, z$). Aucune image fixe ou vidéo n'est écrite sur le disque dur.
 3. **Protection Anti-Rejeu Vidéo (Anti-Cheat) :** Pour empêcher la validation frauduleuse d'une quête physique par injection d'un fichier vidéo préenregistré (loop vidéo), le moteur analyse l'entropie spectrale des micro-mouvements posturaux (bruit physiologique naturel de 2-4 Hz) et applique un HMAC-SHA256 horodaté sur la séquence d'angles articulaires transmise au backend.

@@ -638,7 +638,7 @@ Authentifie le joueur unique (Maître / Maître) et initialise une session sécu
 * **Corps de Requête (`LoginRequest`) :**
   ```json
   {
-    "username": "Huriel",
+    "username": "Utilisateur",
     "password": "MasterSecureSoloLeveling2026!#",
     "device_fingerprint": "fp_chrome_win11_desktop_a8f902c31d8e4"
   }
@@ -654,7 +654,7 @@ Authentifie le joueur unique (Maître / Maître) et initialise une session sécu
       "expires_in_seconds": 3600,
       "player": {
         "id": "a5d8b74f-9e32-4d2b-98f5-19e48f029a1b",
-        "username": "Huriel",
+        "username": "Utilisateur",
         "discord_snowflake_id": "789123456789012345",
         "role": "MONARCH_OWNER"
       }
@@ -746,7 +746,7 @@ Retourne la photographie temps réel complète du joueur, ses jauges, son rang e
     "success": true,
     "data": {
       "id": "a5d8b74f-9e32-4d2b-98f5-19e48f029a1b",
-      "username": "Huriel",
+      "username": "Utilisateur",
       "current_level": 14,
       "total_xp": "18450",
       "shadow_crystals_balance": 820,
@@ -1749,7 +1749,7 @@ Transmet au serveur les mutations accumulées en local dans Dexie.js (IndexedDB)
 * **Corps de Requête (`SyncPushRequest`) :**
   ```json
   {
-    "client_id": "cl-client-pc-huriel-01",
+    "client_id": "cl-client-pc-user-01",
     "last_sync_timestamp": "2026-11-11T06:00:00.000Z",
     "mutations": [
       {
@@ -1807,7 +1807,7 @@ Récupère le delta de toutes les entités modifiées sur le serveur depuis le d
         "quests": [],
         "player_status": {
           "id": "a5d8b74f-9e32-4d2b-98f5-19e48f029a1b",
-          "username": "Huriel",
+          "username": "Utilisateur",
           "current_level": 14,
           "total_xp": "18450",
           "shadow_crystals_balance": 820,
@@ -1844,7 +1844,7 @@ Récupère le delta de toutes les entités modifiées sur le serveur depuis le d
 ### 3.13 Routines de Calisthénie & Vision par Ordinateur (CV Engine)
 
 #### 3.13.1 `GET /workouts/routines`
-Récupère le catalogue complet des routines d'entraînement maison d'Huriel avec l'ensemble des étapes, chronomètres et angles articulaires requis pour l'inférence MediaPipe.
+Récupère le catalogue complet des routines d'entraînement maison de l'utilisateur avec l'ensemble des étapes, chronomètres et angles articulaires requis pour l'inférence MediaPipe.
 
 * **Méthode :** `GET`
 * **Route :** `/workouts/routines`
@@ -2159,7 +2159,7 @@ Le document OpenAPI 3.1 ci-après fournit la représentation canonique intégral
     "version": "1.0.0",
     "description": "API REST et WebSocket hautement résiliente du Système LevelUp (Inspiré de Système de Gamification).",
     "contact": {
-      "name": "Huriel - Maître du Système",
+      "name": "Utilisateur - Maître du Système",
       "url": "https://levelup.local"
     }
   },
@@ -2728,7 +2728,7 @@ Pour tester et interagir avec l'API sans interface graphique, utilisez les comma
 # Authentification et stockage du token dans la variable JWT
 JWT=$(curl -s -X POST "https://api.levelup.local/api/v1/auth/login" \
   -H "Content-Type: application/json" \
-  -d '{"username": "Huriel", "password": "MasterSecureSoloLeveling2026!#"}' \
+  -d '{"username": "Utilisateur", "password": "MasterSecureSoloLeveling2026!#"}' \
   | jq -r '.data.access_token')
 
 echo "Jeton d'accès acquis : ${JWT:0:25}..."
@@ -2825,7 +2825,7 @@ Afin d'éviter tout déni de service (DDoS), surcharge de la base de données Po
 Ce script s'exécute de façon strictement atomique dans le thread d'exécution unique du moteur Redis, éliminant tout risque de condition de concurrence (*race condition*) même en cas de rafales massives de requêtes asynchrones :
 
 ```lua
--- KEYS[1]: Identifiant de la clé de limitation (ex: ratelimit:huriel:quests_complete)
+-- KEYS[1]: Identifiant de la clé de limitation (ex: ratelimit:user:quests_complete)
 -- ARGV[1]: Horodatage courant en millisecondes (ex: 1794386400123)
 -- ARGV[2]: Largeur de la fenêtre glissante en millisecondes (ex: 60000 pour 1 minute)
 -- ARGV[3]: Quota maximum de requêtes toléré dans ladite fenêtre (ex: 10)

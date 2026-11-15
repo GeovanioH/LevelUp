@@ -111,7 +111,7 @@ Le niveau et le rang sont strictement couplés aux réalisations réelles indisp
 
 ---
 
-### 2.3 Les Programmes Complets de Calisthénie d'Huriel & Vision par Ordinateur
+### 2.3 Les Programmes Complets de Calisthénie & Vision par Ordinateur
 
 Le Système intègre au cœur de sa base `STR` les programmes complets au poids du corps avec contrôle cinématique par caméra (MediaPipe Pose WebAssembly) :
 
@@ -320,9 +320,9 @@ Le fichier `.env` situé à la racine du monorepo centralise l'ensemble des para
 # ------------------------------------------------------------------------------
 # 1. PRINCIPALETÉ & IDENTIFIANT DU JOUEUR (SINGLE USER ENFORCEMENT)
 # ------------------------------------------------------------------------------
-# UUID unique et immuable d'Huriel (Le Maître)
+# UUID unique et immuable de l'utilisateur (Le Maître)
 SYSTEM_PLAYER_ID="00000000-0000-0000-0000-000000000001"
-SYSTEM_PLAYER_NAME="Huriel"
+SYSTEM_PLAYER_NAME="Utilisateur"
 SYSTEM_PLAYER_DISCORD_ID="123456789012345678"
 NODE_ENV="development" # "development", "production", "test"
 PORT=3001
@@ -334,7 +334,7 @@ API_URL="http://localhost:3001"
 # 2. BASES DE DONNÉES (POSTGRESQL & REDIS)
 # ------------------------------------------------------------------------------
 # Chaîne de connexion PostgreSQL avec pool de connexions (10 workers)
-DATABASE_URL="postgresql://levelup_admin:HurielShadowMonarch2026!@localhost:5432/levelup_db?schema=public&connection_limit=20&pool_timeout=10"
+DATABASE_URL="postgresql://levelup_admin:UtilisateurShadowMonarch2026!@localhost:5432/levelup_db?schema=public&connection_limit=20&pool_timeout=10"
 # URL de l'instance Redis pour BullMQ et le cache d'états
 REDIS_URL="redis://:RedisMonarchAuthPass2026@localhost:6379/0"
 
@@ -344,7 +344,7 @@ REDIS_URL="redis://:RedisMonarchAuthPass2026@localhost:6379/0"
 # Clé maîtresse de chiffrement de 256 bits générée par: openssl rand -hex 32
 SYSTEM_MASTER_ENCRYPTION_KEY="0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
 # Secret pour la signature des JSON Web Tokens (HMAC-SHA512)
-JWT_SECRET="super-secret-jwt-signing-key-huriel-monarch-levelup-2026-64bytes-min"
+JWT_SECRET="super-secret-jwt-signing-key-user-monarch-levelup-2026-64bytes-min"
 JWT_EXPIRATION="7d"
 # Secret HMAC pour valider les webhooks entrants de Deerflow
 DEERFLOW_WEBHOOK_SECRET="deerflow-hmac-sha256-secret-key-verification-level-up"
@@ -406,7 +406,7 @@ Le Web HUD est une Single Page Application réactive bâtie avec Next.js 14 (App
 
 ```
 +---------------------------------------------------------------------------------------------------+
-|  [LEVEL 14] HURIEL (Le Utilisateur) | RANG D | TITRE: Sentinelle du Savoir  [23:45:12] [🌙/☀️] |
+|  [LEVEL 14] UTILISATEUR (Le Utilisateur) | RANG D | TITRE: Sentinelle du Savoir  [23:45:12] [🌙/☀️] |
 +---------------------------------------------------------------------------------------------------+
 |  HP [████████████████████░░░░░░░░░░] 78/100 (Sommeil 7h45) | MP [██████████████████████████] 100/100 |
 +---------------------------------------------------------------------------------------------------+
@@ -442,7 +442,7 @@ Le Web HUD est une Single Page Application réactive bâtie avec Next.js 14 (App
 
 ## 7. Manuel Opérationnel du Bot Discord v14
 
-Le bot Discord de *LevelUp* constitue l'interface mobile omniprésente d'Huriel, lui permettant d'interagir avec le Système où qu'il se trouve depuis son smartphone.
+Le bot Discord de *LevelUp* constitue l'interface mobile omniprésente de l'utilisateur, lui permettant d'interagir avec le Système où qu'il se trouve depuis son smartphone.
 
 ### 7.1 Répertoire Exhaustif des Commandes Slash
 
@@ -459,10 +459,10 @@ Le bot Discord de *LevelUp* constitue l'interface mobile omniprésente d'Huriel,
 
 ### 7.2 Protocole d'Enregistrement Audio en Salon Vocal Discord
 Le bot écoute les flux vocaux UDP entrants grâce à `@discordjs/voice` et au décodeur Prism :
-1. Huriel rejoint le salon vocal `#espace de travail-vocal` et tape `/monologue`.
+1. L'utilisateur rejoint le salon vocal `#espace de travail-vocal` et tape `/monologue`.
 2. Le bot rejoint le salon et émet un son de carillon procédural à 1318 Hz pour signifier le début de la session.
 3. Le flux Opus est découpé en tranches PCM 16-bit 16 kHz et transféré en temps réel vers le microservice local Faster-Whisper.
-4. Dès qu'Huriel quitte le salon ou dit *"Fin du rapport"*, le bot clôture l'enregistrement, soumet la transcription à *L'Évaluateur IA*, et publie le rapport d'évaluation complet dans `#rapports-oraux` avec la note sur 20.
+4. Dès qu'Utilisateur quitte le salon ou dit *"Fin du rapport"*, le bot clôture l'enregistrement, soumet la transcription à *L'Évaluateur IA*, et publie le rapport d'évaluation complet dans `#rapports-oraux` avec la note sur 20.
 
 ---
 
@@ -471,7 +471,7 @@ Le bot écoute les flux vocaux UDP entrants grâce à `@discordjs/voice` et au d
 Le Second Brain de *LevelUp* est un coffre-fort de connaissances bidirectionnel, stocké sous forme de fichiers Markdown sur le disque local et répliqué dans PostgreSQL pour une recherche instantanée.
 
 ### 8.1 Format Standardisé des Fiches de Connaissance
-Chaque fiche de révision générée ou saisie par Huriel respecte un frontmatter YAML rigoureux :
+Chaque fiche de révision générée ou saisie par l'utilisateur respecte un frontmatter YAML rigoureux :
 
 ```markdown
 ---
@@ -480,7 +480,7 @@ title: "Mécanismes d'Attention Multi-Têtes & FlashAttention-2"
 slug: "attention-multi-tetes"
 base: "AI_ENG"
 tags: ["deep-learning", "transformers", "nlp", "cuda"]
-author: "Huriel"
+author: "Utilisateur"
 sm2_interval: 6
 sm2_repetition: 2
 sm2_ease_factor: 2.50
@@ -535,7 +535,7 @@ USING gin ((title || ' ' || content || ' ' || array_to_string(tags, ' ')) gin_tr
 ## 9. Le Pipeline Audio Local Faster-Whisper & L'Évaluateur IA Socratique
 
 ### 9.1 Traitement Audio Haute Performance sur GPU Local
-Le microservice Faster-Whisper (`apps/whisper-service`) s'exécute sur le GPU NVIDIA local d'Huriel avec quantification INT8, garantissant un traitement instantané sans fuite de données vers un cloud tiers.
+Le microservice Faster-Whisper (`apps/whisper-service`) s'exécute sur le GPU NVIDIA local de l'utilisateur avec quantification INT8, garantissant un traitement instantané sans fuite de données vers un cloud tiers.
 
 ```
 [Microphone Joueur / Discord] (WebM / Opus 48kHz)
@@ -621,7 +621,7 @@ Dès que la preuve est transmise via `/valider id="QUEST-PENALTY-PURGE"`, le dé
 
 ## 11. Scraper Deerflow & Passerelle de Veille Bourses
 
-Pour propulser Huriel vers les meilleures opportunités académiques et financières internationales, le Système intègre un orchestrateur de scraping headless basé sur **Playwright**.
+Pour propulser Utilisateur vers les meilleures opportunités académiques et financières internationales, le Système intègre un orchestrateur de scraping headless basé sur **Playwright**.
 
 ### 11.1 Portails Surveillés en Continu
 1. **Campus France & Bourses Eiffel d'Excellence :** Surveillance des appels à candidatures pour étudiants internationaux de Master et Doctorat en IA.
@@ -840,7 +840,7 @@ Toutes les commandes opérationnelles sont accessibles à la racine via le gesti
 
 ## 15. Normes de Développement & Charte de Contribution
 
-Bien que le Système soit principal et dédié à Huriel, son code source applique les standards les plus stricts de l'industrie logicielle pour garantir une robustesse à toute épreuve.
+Bien que le Système soit principal et dédié à Utilisateur, son code source applique les standards les plus stricts de l'industrie logicielle pour garantir une robustesse à toute épreuve.
 
 ### 15.1 Invariants d'Architecture Stricts
 1. **Cloisonnement SingleUserGuard Universel :**  
@@ -972,7 +972,7 @@ export class ProceduralSoundSynthesizer {
 
 ## 17. Guide Complet des 20 Scénarios d'Entraînement Quotidiens & Quêtes d'Élite
 
-Pour que le Système s'adapte précisément à la réalité académique et professionnelle d'Huriel, 20 profils types de journées et quêtes d'entraînement sont préconfigurés dans le planificateur :
+Pour que le Système s'adapte précisément à la réalité académique et professionnelle de l'utilisateur, 20 profils types de journées et quêtes d'entraînement sont préconfigurés dans le planificateur :
 
 ### Tableau Comparatif des 20 Scénarios Types
 
@@ -1009,7 +1009,7 @@ Pour faciliter l'intégration de nouveaux modules ou clients mobiles tiers (appl
 ```json
 {
   "playerId": "00000000-0000-0000-0000-000000000001",
-  "playerName": "Huriel",
+  "playerName": "Utilisateur",
   "level": 14,
   "rank": "RANK_D",
   "title": "Sentinelle du Savoir",
@@ -1117,7 +1117,7 @@ L'algorithme SM-2 a démontré une robustesse mathématique inégalée depuis 19
 Le verrouillage de pénalité est persistant. Au démarrage du système d'exploitation Windows, le service NSSM `LevelUpPenaltyDaemon` s'exécute avant l'ouverture de session utilisateur, vérifie dans PostgreSQL si la quête de purge a été validée, et maintient les règles de pare-feu WFP et le fichier `hosts` tant qu'aucune preuve d'effort n'a été soumise.
 
 ### Q5 : Comment le bot Discord fonctionne-t-il sur smartphone sans hébergement cloud payant ?
-Le bot Discord se connecte en tant que client Gateway WebSocket sortant vers les serveurs de Discord. Il peut donc tourner sur le PC fixe de bureau à la maison tout en répondant instantanément aux commandes tapées sur le smartphone d'Huriel à l'université ou dans les transports, sans nécessiter d'adresse IP publique fixe ni d'ouverture de ports sur la box Internet.
+Le bot Discord se connecte en tant que client Gateway WebSocket sortant vers les serveurs de Discord. Il peut donc tourner sur le PC fixe de bureau à la maison tout en répondant instantanément aux commandes tapées sur le smartphone de l'utilisateur à l'université ou dans les transports, sans nécessiter d'adresse IP publique fixe ni d'ouverture de ports sur la box Internet.
 
 ### Q6 : Pourquoi avoir séparé la vitalité en HP et MP plutôt qu'une seule jauge d'énergie ?
 La physiologie humaine distingue la fatigue biologique (sommeil réparateur, courbatures musculaires = $HP$) de la fatigue cognitive (épuisement du cortex préfrontal, saturation mémorielle = $MP$). Un athlète peut avoir $100\%\text{ HP}$ mais $10\%\text{ MP}$ après 8 heures de mathématiques denses. Séparer ces jauges permet d'orienter le joueur vers l'activité optimale (du sport physique quand le mental est saturé, de la lecture calme quand le corps est fatigué).
@@ -1129,7 +1129,7 @@ Le Système est conçu selon le principe de la principaleté personnelle : tromp
 `pg_trgm` décompose chaque mot en sous-chaînes de 3 caractères consécutifs (trigrammes). L'index GIN permet de calculer la similarité de Jaccard entre les trigrammes de la requête et ceux des fiches Markdown, autorisant la recherche floue (typos tolérées) avec des temps de réponse sous les 15 millisecondes.
 
 ### Q9 : Quelle est la différence entre le rôle de "L'Évaluateur IA" et celui du Joueur ?
-Le Joueur (Huriel) est l'exécutant actif qui agit dans le monde réel (étudie, code, s'entraîne, networke). L'Évaluateur IA est l'incarnation de l'intelligence socratique du Système : il ne prend pas de décisions à la place du Joueur, mais agit comme un mentor impitoyable, exigeant, juste et impartial qui mesure l'exactitude des propos et révèle les angles morts.
+Le Joueur (Utilisateur) est l'exécutant actif qui agit dans le monde réel (étudie, code, s'entraîne, networke). L'Évaluateur IA est l'incarnation de l'intelligence socratique du Système : il ne prend pas de décisions à la place du Joueur, mais agit comme un mentor impitoyable, exigeant, juste et impartial qui mesure l'exactitude des propos et révèle les angles morts.
 
 ### Q10 : Pourquoi les fichiers de documentation sont-ils si volumineux ($\ge 100\text{ Ko}$) ?
 Chaque document de *LevelUp* est conçu comme un traité d'ingénierie complet et autonome. Ils intègrent l'ensemble des formules mathématiques, des schémas d'architecture C4, des contrats d'API OpenAPI complets, des politiques de sécurité ASVS Level 3 et des plans de test exhaustifs nécessaires pour construire et maintenir le système pendant les 3 prochaines années sans ambiguïté.
@@ -1143,7 +1143,7 @@ Sur une carte NVIDIA RTX 4070 (8 Go VRAM), le modèle `medium` de Faster-Whisper
 ### Q13 : Comment l'intégration de Deerflow évite-t-elle le blocage par Cloudflare sur les sites de bourses ?
 Le scraper Playwright intègre le plugin `stealth`, émule une empreinte de navigateur réelle (User-Agent dynamique, drapeaux WebGL réels, résolutions d'écran réalistes, mouvements de souris polynomiaux de Bézier) et respecte un délai de requête aléatoire distribué selon une loi gaussienne.
 
-### Q14 : Que se passe-t-il si Huriel atteint le Rang de Maître ?
+### Q14 : Que se passe-t-il si Utilisateur atteint le Rang de Maître ?
 L'atteinte du Rang Maître marque l'achèvement de la phase d'apprentissage individuel et déverrouille l'Système Multi-Agents (V3.0) : le Système orchestre alors un essaim d'agents autonomes pour fonder et diriger des entreprises logicielles, des projets open source mondiaux et des initiatives de recherche de pointe.
 
 ### Q15 : Comment sauvegarder l'intégralité du Système en cas de sinistre matériel ?
@@ -1162,7 +1162,7 @@ Toutes les données sensibles au repos (tokens d'API, notes confidentielles du S
 - **Tag d'Authentification :** 128 bits garantissant l'intégrité et l'authenticité des données.
 
 ### 20.2 Hachage des Mots de Passe & Secrets par Argon2id
-La protection des identifiants maîtres d'Huriel applique les recommandations de l'OWASP :
+La protection des identifiants maîtres de l'utilisateur applique les recommandations de l'OWASP :
 - **Algorithme :** Argon2id (hybride anti-canal auxiliaire et anti-GPU).
 - **Mémoire ($m$) :** $65\,536\text{ KiB}$ (64 Mo de RAM).
 - **Itérations temporelles ($t$) :** $3$ passes.
@@ -1283,7 +1283,7 @@ jobs:
 ========================================================================================
 
 Projet : LevelUp ("The System")
-Auteur & Principal : HURIEL (Le Utilisateur -> Le Niveau Maître)
+Auteur & Principal : UTILISATEUR (Le Utilisateur -> Le Niveau Maître)
 Date d'Entrée en Vigueur : 11 Novembre 2026
 Objectif Suprême : Transcendance Intellectuelle, Excellence Académique IA,
                    Force Physique et Principaleté Financière Absolue.
@@ -1621,13 +1621,13 @@ describe('SecurityGuard - Cloisonnement SingleUserGuard', () => {
     expect(response.body.error).toBe('ACCESS_DENIED_UNAUTHORIZED_HUNTER');
   });
 
-  it('doit autoriser l\'accès avec HTTP 200 pour l\'identifiant maître d\'Huriel', async () => {
+  it('doit autoriser l\'accès avec HTTP 200 pour l\'identifiant maître d\'Utilisateur', async () => {
     const response = await supertest(app.server)
       .get('/api/v1/player/state')
       .set('x-player-id', '00000000-0000-0000-0000-000000000001');
 
     expect(response.status).toBe(200);
-    expect(response.body.playerName).toBe('Huriel');
+    expect(response.body.playerName).toBe('Utilisateur');
   });
 });
 ```
@@ -1641,7 +1641,7 @@ Le bot Discord utilise 15 embeds standardisés reproduisant fidèlement le style
 ### 27.1 Embed `EMBED_STATUS_HUD` (Aperçu du Statut du Utilisateur)
 ```
 ╔══════════════════════════════════════════════════════════════════════════════╗
-║  ⚡ [LE SYSTÈME] STATUT DU CHASSEUR : HURIEL (NIVEAU 14)                     ║
+║  ⚡ [LE SYSTÈME] STATUT DU CHASSEUR : UTILISATEUR (NIVEAU 14)                     ║
 ║  Rang : D | Titre : "Sentinelle du Savoir" | Cristaux : 420 SC              ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║  HP : [████████████████████░░░░░░░░░░] 78/100 (Sommeil 7h45 - Score 82)      ║

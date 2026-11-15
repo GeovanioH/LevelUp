@@ -889,7 +889,7 @@ export class ArchitectService {
     academicContext?: string;
   }) {
     const prompt = `
-ÉVALUATION D'UN MONOLOGUE ORAL ÉTUDIANT DU JOUEUR (HURIEL) :
+ÉVALUATION D'UN MONOLOGUE ORAL ÉTUDIANT DU JOUEUR (UTILISATEUR) :
 - Matière Ciblée : ${params.targetStat}
 - Sujet Précis  : ${params.topic}
 - Contexte      : ${params.academicContext || 'Révision continue'}
@@ -1153,7 +1153,7 @@ Chaque phase d'ingénierie est verrouillée par 10 critères de conformité mesu
 4. [✓] Le conteneur Docker Redis 7 répond aux commandes PING sur `127.0.0.1:6379`.
 5. [✓] Les extensions PostgreSQL `uuid-ossp`, `pg_trgm` et `btree_gin` sont instanciées.
 6. [✓] Les migrations Prisma sont appliquées sans drift (`pnpm prisma migrate status`).
-7. [✓] Le script de seed insère exactement les 120 compétences et le profil joueur Huriel.
+7. [✓] Le script de seed insère exactement les 120 compétences et le profil joueur Utilisateur.
 8. [✓] La vue SQL `v_player_bases_summary` retourne les 8 bases de vie du joueur.
 9. [✓] Le linter ESLint s'exécute avec zéro erreur et zéro avertissement (`pnpm lint`).
 10. [✓] Le hook pre-commit Husky bloque tout commit introduisant une régression de type TypeScript.
@@ -1167,7 +1167,7 @@ Chaque phase d'ingénierie est verrouillée par 10 critères de conformité mesu
 4. [✓] Toute modification d'un seul bit du tag MAC lève une exception cryptographique immédiate.
 5. [✓] Le gestionnaire de clés HKDF dérive des sous-clés distinctes selon le contexte.
 6. [✓] Les mots de passe maîtres sont hachés avec Argon2id ($m=65536, t=3, p=4$).
-7. [✓] Le middleware SingleUserGuard rejette à 100% les requêtes dont l'ID ne correspond pas à Huriel.
+7. [✓] Le middleware SingleUserGuard rejette à 100% les requêtes dont l'ID ne correspond pas à Utilisateur.
 8. [✓] L'attribution d'XP s'exécute dans une transaction atomique avec verrouillage `FOR UPDATE`.
 9. [✓] Le verrou distribué Redlock interdit toute double attribution d'XP lors de requêtes concurrentes.
 10. [✓] La suite de tests unitaires Vitest de la Phase 1 affiche 100% de réussite.
@@ -1366,7 +1366,7 @@ docker compose ps
 # Application des migrations DDL Prisma
 pnpm --filter @levelup/database db:migrate
 
-# Insertion du profil joueur Huriel et des 120 compétences
+# Insertion du profil joueur Utilisateur et des 120 compétences
 pnpm --filter @levelup/database db:seed
 
 # Vérification dans Prisma Studio (Interface Web BDD sur http://localhost:5555)
@@ -1464,7 +1464,7 @@ Le développement est échelonné sur 8 sprints de 2 semaines chacun (durée tot
 * **Livrables Validés :**
   * Monorepo pnpm configuré avec TurboRepo (`apps/web`, `apps/bot`, `packages/*`).
   * Conteneurs Docker PostgreSQL 16 et Redis 7 opérationnels avec extensions `uuid-ossp` et `pg_trgm`.
-  * Schéma Prisma compilé et base hydratée via `seed.ts` (120 compétences et joueur Huriel).
+  * Schéma Prisma compilé et base hydratée via `seed.ts` (120 compétences et joueur Utilisateur).
 * **Critères d'Acceptation (DoD) :** Porte de validation `Gate 0` validée à 100%.
 
 ---

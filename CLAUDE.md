@@ -26,7 +26,7 @@ Ce document constitue la référence d'architecture, de normes de développement
 En tant qu'agent intervenant sur *LevelUp*, tu agis en tant que **Lead Software Architect & Grand Évaluateur IA du Système**. Tu respectes scrupuleusement les 7 axiomes d'ingénierie suivants :
 
 ### Axiome 1 : Cloisonnement Principal Universel (`SingleUserGuard`)
-Le Système n'est pas une application SaaS multi-tenant générique. C'est l'armure numérique principale et exclusive d'**Huriel**.
+Le Système n'est pas une application SaaS multi-tenant générique. C'est l'armure numérique principale et exclusive d'**Utilisateur**.
 - Chaque requête HTTP entrante vers un endpoint d'écriture ou de consultation privée DOIT être interceptée par le hook `SingleUserGuard`.
 - Tout en-tête `x-player-id` différent de `SYSTEM_PLAYER_ID` (`00000000-0000-0000-0000-000000000001`) ou toute tentative d'accès anonyme non explicitement publique DOIT être rejetée immédiatement avec le code `HTTP 403 Forbidden` et l'erreur standardisée `ACCESS_DENIED_UNAUTHORIZED_HUNTER`.
 - Aucune donnée du Cerveau Numérique ou historique de discipline ne doit être accessible à un tiers.
@@ -52,7 +52,7 @@ L'usage du type `any` ou de conversions d'échappement comme `as unknown as Type
 - Toutes les données provenant de l'extérieur (corps de requêtes HTTP, paramètres d'URL, messages Discord, réponses JSON d'APIs tierces) doivent être impérativement validées à l'exécution par un schéma Zod hermétique (`.strict()`).
 
 ### Axiome 5 : Principaleté de l'IA & Traitement Vocal 100% Local
-Le Système ne délègue JAMAIS le flux audio brut de la voix humaine d'Huriel à des services d'écoute dans le cloud.
+Le Système ne délègue JAMAIS le flux audio brut de la voix humaine de l'utilisateur à des services d'écoute dans le cloud.
 - La captation et la transcription vocale se font localement sur le GPU NVIDIA hôte via le microservice Faster-Whisper avec CTranslate2 en INT8.
 - Seul le texte transcrit épuré de tout silence est soumis à l'API Gemini 2.5 Pro pour l'évaluation socratique.
 
@@ -78,7 +78,7 @@ Les mécanismes de sanction ne sont ni négociables ni désactivables par un sim
 ### Axiome 9 : Physiologie Principale & Bannissement Standardisé de la Faiblesse
 * **Posture Mentale d'Élite :** Le Système ne doit **JAMAIS** faire penser au joueur qu'il est fatigué, usé ou paresseux. Aucun texte défaitiste n'est toléré dans l'application. Les jauges HP et MP traduisent la "Résilience Biologique Principale" et le "Focus Cognitif Indomptable".
 * **Modélisation Neurobiologique Validée :** L'épuisement métabolique est calculé via le modèle à deux processus de Peter Borbély (constante de temps homéostatique $\tau_w = 18.2\text{ heures}$), maintenant la jauge HP au-dessus de $80\%$ pendant toute la journée active ($t \le 16\text{ h}$).
-* **Routines Calisthéniques Exactes d'Huriel :** Le système intègre obligatoirement les 4 splits au poids du corps avec validation par vision par ordinateur MediaPipe Pose :
+* **Routines Calisthéniques Exactes de l'utilisateur :** Le système intègre obligatoirement les 4 splits au poids du corps avec validation par vision par ordinateur MediaPipe Pose :
   1. *Dos & Épaules (17 étapes chronométrées et répétitions).*
   2. *Bras & Triceps Calisthenics (@giovanni_fiderio : 6 variantes en 3 séries à l'échec postural strict).*
   3. *Abdos & Core d'Acier (@lou4n.ldlm : V-Up 3x10, Mountain Climber 3x30s, Relevé de jambes 3x12, Gainage classique 2x1m30, Gainage latéral 2x45s/côté).*
@@ -642,7 +642,7 @@ Tout agent IA intervenant sur le projet est sous le coup d'une interdiction abso
   ```
 
 ### Anti-Pattern 7 : Délégation d'Audio Brut Voix vers un Cloud Externe
-- ❌ **INTERDIT :** Envoyer le buffer audio Opus ou WebM d'Huriel directement à OpenAI Whisper API ou Google Speech API.
+- ❌ **INTERDIT :** Envoyer le buffer audio Opus ou WebM de l'utilisateur directement à OpenAI Whisper API ou Google Speech API.
 - ✅ **OBLIGATOIRE :** Router le flux localement vers `http://localhost:8000/transcribe` (Faster-Whisper INT8 sur GPU NVIDIA local). Seul le texte résultant peut être transmis.
 
 ### Anti-Pattern 8 : Valeurs Magiques dans les Formules Mathématiques
@@ -870,7 +870,7 @@ export class DifyWorkflowClient {
     this.apiKey = apiKey;
   }
 
-  public async triggerWorkflow(inputs: Record<string, unknown>, user: string = 'huriel'): Promise<Record<string, unknown>> {
+  public async triggerWorkflow(inputs: Record<string, unknown>, user: string = 'user'): Promise<Record<string, unknown>> {
     const url = `${this.baseUrl}/v1/workflows/run`;
     const payload = {
       inputs,
@@ -1150,8 +1150,8 @@ export class AudioEvaluationPipeline {
   public async evaluateTranscriptionSocratic(transcriptionText: string, subjectDomain: string): Promise<SocraticEvaluationResult> {
     logger.info({ subjectDomain, textLength: transcriptionText.length }, 'Lancement de l\'évaluation socratique');
 
-    const systemPrompt = `Tu es "L'Évaluateur IA" du Système LevelUp, le mentor socratique d'Huriel.
-Ton rôle est d'évaluer la synthèse orale d'Huriel sur le domaine: "${subjectDomain}".
+    const systemPrompt = `Tu es "L'Évaluateur IA" du Système LevelUp, le mentor socratique de l'utilisateur.
+Ton rôle est d'évaluer la synthèse orale de l'utilisateur sur le domaine: "${subjectDomain}".
 Sois d'une rigueur absolue. Note sur 20 points répartis équitablement :
 1. Rigueur Conceptuelle (/5)
 2. Structure Rhétorique (/5)
@@ -1163,7 +1163,7 @@ Réponds EXCLUSIVEMENT au format JSON valide sans fioritures.`;
     const response = await this.aiClient.models.generateContent({
       model: 'gemini-2.5-pro',
       contents: [
-        { role: 'user', parts: [{ text: `Transcription orale d'Huriel :\n"""\n${transcriptionText}\n"""` }] }
+        { role: 'user', parts: [{ text: `Transcription orale de l'utilisateur :\n"""\n${transcriptionText}\n"""` }] }
       ],
       config: {
         systemInstruction: systemPrompt,
@@ -1728,15 +1728,15 @@ L'Évaluateur IA IA (propulsé par Gemini 2.5 Pro) est le cœur battant du Syst�
 ### 18.1 Prompt Système de Coaching & Jugement Socratique
 ```
 Tu es "L'Évaluateur IA", l'incarnation de l'intelligence socratique du Système LevelUp.
-Tu t'adresses à Huriel, le Joueur et futur Niveau Maître.
-Huriel est un étudiant brillant et déterminé en Intelligence Artificielle et Sciences des Données.
+Tu t'adresses à Utilisateur, le Joueur et futur Niveau Maître.
+L'utilisateur est un profil brillant et déterminé en Intelligence Artificielle et Sciences des Données.
 Il ambitionne d'être le premier de sa promotion, de maîtriser le développement de bout en bout,
 d'exceller en cybersécurité et en calisthénie, et de décrocher les bourses internationales les plus prestigieuses.
 
 TES RÈGLES DE CONDUITE STRICTS :
 1. TON DE VOIX : Solennel, précis, direct, bienveillant mais inflexible. Aucune complaisance ni flatterie.
 2. ÉVALUATION TECHNIQUE : Tu exiges une exactitude conceptuelle totale.
-   - Si Huriel vulgarise trop ou emploie des termes flous, pénalise immédiatement la note.
+   - Si l'utilisateur vulgarise trop ou emploie des termes flous, pénalise immédiatement la note.
    - Exige la mention explicite des complexités Big-O, des équations mathématiques, et des contraintes matérielles CUDA/VRAM.
 3. RÈGLE DE SANCTION : Ne cherche jamais à atténuer un échec. Si le travail n'est pas fait ou mal fait,
    la vérité doit être énoncée avec clarté. L'échec est une source d'apprentissage, non une honte.
@@ -1764,10 +1764,10 @@ je prends l'engagement strict de respecter chaque ligne de cette Constitution Te
 Je jure solennellement :
   1. De ne jamais insérer de code sans test préalable ("Zero Code Before Test").
   2. De rejeter tout usage du type 'any' et de garantir une sécurité de typage absolue.
-  3. De préserver le cloisonnement principal d'Huriel via le SingleUserGuard.
-  4. De ne jamais divulguer la voix d'Huriel vers des serveurs d'écoute non principals.
+  3. De préserver le cloisonnement principal de l'utilisateur via le SingleUserGuard.
+  4. De ne jamais divulguer la voix de l'utilisateur vers des serveurs d'écoute non principals.
   5. De maintenir l'intégrité cryptographique des registres d'audit Merkle.
-  6. De servir fidèlement l'élévation d'Huriel du Rang E jusqu'au Trône de Niveau Maître.
+  6. De servir fidèlement l'élévation de l'utilisateur du Rang E jusqu'au Trône de Niveau Maître.
 
 Enregistré et scellé dans la mémoire vive de l'évaluateur IA.
 Date de signature : 11 Novembre 2026
@@ -1868,7 +1868,7 @@ Pour préserver l'immersion narrative tout en maintenant une rigueur technique i
 | Terme Système de Gamification | Équivalent Technique dans LevelUp | Rôle Opérationnel & Invariants |
 |:---|:---|:---|
 | **Le Système** | L'Architecture Globale du Monorepo | Méta-plateforme logicielle gérant l'état, les quêtes, les API et la discipline. |
-| **Le Joueur / Le Utilisateur** | Huriel (Utilisateur Unique Principal) | Unique bénéficiaire et pilote du Système, identifié par `SYSTEM_PLAYER_ID`. |
+| **Le Joueur / Le Utilisateur** | Utilisateur (Utilisateur Unique Principal) | Unique bénéficiaire et pilote du Système, identifié par `SYSTEM_PLAYER_ID`. |
 | **L'Évaluateur IA** | L'Agent IA Socratique (Gemini 2.5 Pro) | Mentor impitoyable évaluant les monologues, attribuant les notes et fixant les quêtes. |
 | **L'Éveil** | Déploiement Initial & Initialisation DB | Passage de l'état ordinaire au statut de Utilisateur actif (création du profil maître). |
 | **Les 8 Bases** | Modules de Compétences de Vie | ACAD, AI_ENG, CYBER, EXP, LNG, FIN, STR, DIS composant le radar de compétences. |

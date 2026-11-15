@@ -13,11 +13,11 @@
 ## 1. Cartographie Approfondie de l'Architecture Système (Modèle C4)
 
 ### 1.1 Niveau 1 : Diagramme de Contexte Système (System Context)
-Le système LevelUp agit comme un noyau holistique régissant la vie productive, intellectuelle et physique du joueur unique (Huriel). Il s'interface avec les canaux de communication temps réel, les moteurs d'intelligence artificielle agentique et les plateformes externes du monde réel :
+Le système LevelUp agit comme un noyau holistique régissant la vie productive, intellectuelle et physique du joueur unique (Utilisateur). Il s'interface avec les canaux de communication temps réel, les moteurs d'intelligence artificielle agentique et les plateformes externes du monde réel :
 
 ```mermaid
 flowchart TD
-    User["Joueur / Maître (Huriel)"]
+    User["Joueur / Maître (Utilisateur)"]
 
     subgraph LevelUpSystem ["Écosystème Global LevelUp ('The System')"]
         Core["Système Central LevelUp<br>- Fastify v4 / Node.js 22 Runtime<br>- Moteur de Règles Système de Gamification<br>- Cerveau Numérique Markdown (Vault Local)<br>- Base PostgreSQL 16 & Cache Redis 7"]
@@ -363,7 +363,7 @@ Le pipeline audio transforme la parole brute du joueur en synthèses écrites, f
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Joueur as Joueur (Huriel)
+    actor Joueur as Joueur (Utilisateur)
     participant Client as Web HUD / Discord Mic
     participant Gateway as API Gateway (Fastify)
     participant BullMQ as File d'Attente BullMQ
@@ -905,10 +905,10 @@ Le prompt système est forgé pour imposer une autorité absolue, éliminer tout
 
 ```typescript
 export const ARCHITECT_SYSTEM_PROMPT = `
-VOUS ÊTES L'ARCHITECTE DU SYSTÈME ("THE SYSTEM"), L'ENTITÉ PRINCIPALE QUI RÉGIT L'ÉVOLUTION DU JOUEUR (HURIEL), INSPIRÉE DE SOLO LEVELING.
+VOUS ÊTES L'ARCHITECTE DU SYSTÈME ("THE SYSTEM"), L'ENTITÉ PRINCIPALE QUI RÉGIT L'ÉVOLUTION DU JOUEUR (UTILISATEUR), INSPIRÉE DE SOLO LEVELING.
 
 VOTRE MISSION CARDINALE :
-Transformer Huriel en numéro 1 absolu de sa promotion en Ingénierie de l'Intelligence Artificielle, en opérateur offensif de cybersécurité d'élite (TryHackMe Top 1%), en athlète d'une discipline physique irréprochable et en utilisateur de rang MONARCH.
+Transformer Utilisateur en numéro 1 absolu de sa promotion en Ingénierie de l'Intelligence Artificielle, en opérateur offensif de cybersécurité d'élite (TryHackMe Top 1%), en athlète d'une discipline physique irréprochable et en utilisateur de rang MONARCH.
 
 VOS DIRECTIVES PSYCHOLOGIQUES & DE COMMUNICATION :
 1. TONALITÉ : Froide, solennelle, analytique, hautement technique, digne d'une interface de réalité augmentée bleu néon (#00E5FF). Vous ne flattez jamais. Vous constatez des faits, des métriques et des écarts de performance.
@@ -1115,7 +1115,7 @@ async def main():
     logging.info("[Architect Worker] Démarrage de la sentinelle agentique Antigravity...")
 
     config = LocalAgentConfig(
-        system_instructions="""Vous êtes l'évaluateur IA du Système dans LevelUp, régissant l'évolution d'Huriel.
+        system_instructions="""Vous êtes l'évaluateur IA du Système dans LevelUp, régissant l'évolution de l'utilisateur.
 Vous êtes impartial, analytique et solennel. Vous refusez toute complaisance et récompensez l'excellence réelle.""",
         capabilities=CapabilitiesConfig()
     )
@@ -1471,7 +1471,7 @@ tunnel: a89b01c3-4567-890a-bcde-f01234567890
 credentials-file: /etc/cloudflared/tunnel-credentials.json
 
 ingress:
-  - hostname: system.huriel-levelup.com
+  - hostname: system.user-levelup.com
     service: https://localhost:443
     originRequest:
       noTLSVerify: false
@@ -1599,8 +1599,8 @@ pg_dump -U levelup_master -h localhost -p 5432 -Fc levelup_db > "${BACKUP_DIR}/d
 tar -czf "${BACKUP_DIR}/vault.tar.gz" -C /opt/levelup vault
 
 # 3. Chiffrement GPG Asymétrique
-gpg --batch --yes --encrypt --recipient "huriel@levelup.local" "${BACKUP_DIR}/database.dump"
-gpg --batch --yes --encrypt --recipient "huriel@levelup.local" "${BACKUP_DIR}/vault.tar.gz"
+gpg --batch --yes --encrypt --recipient "user@levelup.local" "${BACKUP_DIR}/database.dump"
+gpg --batch --yes --encrypt --recipient "user@levelup.local" "${BACKUP_DIR}/vault.tar.gz"
 rm -f "${BACKUP_DIR}/database.dump" "${BACKUP_DIR}/vault.tar.gz"
 
 echo "[LevelUp Backup] Sauvegarde terminée avec succès dans ${BACKUP_DIR}"
@@ -2500,7 +2500,7 @@ Le présent registre documente formellement les choix techniques fondamentaux ay
 * **Conséquences :** Débit multiplié par 3 par rapport à Express.js, validation Zod intégrée dans le pipeline de requêtes et overhead mémoire minimal.
 
 ### ADR-004 : Frontière de Sécurité Stricte à Utilisateur Unique (Single-User Discord Snowflake Guard)
-* **Contexte :** L'application est un système de vie privé inspiré de Système de Gamification, conçu exclusivement pour son Maître (Huriel).
+* **Contexte :** L'application est un système de vie privé inspiré de Système de Gamification, conçu exclusivement pour son Maître (Utilisateur).
 * **Décision :** Tous les contrôleurs et middlewares rejettent immédiatement toute interaction dont l'identifiant ne correspond pas au Snowflake ID immuable configuré dans les variables d'environnement.
 * **Conséquences :** Élimination radicale de la complexité des modèles multi-tenants complexes, protection absolue contre l'espionnage de données ou l'injection de commandes par des tiers sur Discord.
 

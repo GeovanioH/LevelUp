@@ -884,12 +884,12 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('⚡ [LEVELUP SEED] Amorçage de la base de données de The System...');
 
-  // 1. Initialisation du Joueur Maître (Huriel)
+  // 1. Initialisation du Joueur Maître (Utilisateur)
   const masterPlayer = await prisma.player.upsert({
-    where: { username: 'Huriel' },
+    where: { username: 'Utilisateur' },
     update: {},
     create: {
-      username: 'Huriel',
+      username: 'Utilisateur',
       passwordHash: '$argon2id$v=19$m=65536,t=3,p=4$dummy_seed_salt$hash_placeholder',
       currentLevel: 1,
       totalXp: 0n,
@@ -1265,7 +1265,7 @@ Ce dictionnaire analyse chaque colonne des 9 tables physiques avec son type de s
 
 ---
 
-### 6.11 Table `workout_routines` & `workout_steps` (Programmes de Calisthénie d'Huriel)
+### 6.11 Table `workout_routines` & `workout_steps` (Programmes de Calisthénie)
 * `workout_routines` stocke les métadonnées des routines (Dos & Épaules en 17 étapes, Bras à l'échec en 6 variantes, Abdos en 5 exercices, Jambes).
 * `workout_steps` définit chaque étape avec son mode de comptage (`REPETITIONS` vs `DURATION_SECONDS`), ses seuils d'angle MediaPipe (`target_angle_min` ex: 75°, `target_angle_max` ex: 160°) et les articulations cibles (`key_joint_points` [11, 13, 15] pour les pompes).
 
@@ -2059,7 +2059,7 @@ docker compose ps
 # 2. Test d'exécution de la fonction stockée d'attribution d'XP
 docker compose exec -T postgres psql -U levelup -d levelup_db -c "
   SELECT award_experience(
-    (SELECT id FROM players WHERE username = 'Huriel'),
+    (SELECT id FROM players WHERE username = 'Utilisateur'),
     'AI_ENG',
     100
   );
@@ -2067,7 +2067,7 @@ docker compose exec -T postgres psql -U levelup -d levelup_db -c "
 
 # 3. Vérification du déblocage du palier
 docker compose exec -T postgres psql -U levelup -d levelup_db -c "
-  SELECT username, current_level, total_xp, rank_code, shadow_crystals FROM players WHERE username = 'Huriel';
+  SELECT username, current_level, total_xp, rank_code, shadow_crystals FROM players WHERE username = 'Utilisateur';
 "
 ```
 
@@ -2163,7 +2163,7 @@ Ce schéma relationnel haute performance garantit une scalabilité totale, une c
 |                  CERTIFICAT D'HOMOLOGATION TECHNIQUE DE LA BASE DE DONNÉES              |
 +-----------------------------------------------------------------------------------------+
 | PROJET : LevelUp ("The System")                       CODE BASE : TITAN-SCHEMA-2026     |
-| AUTEUR : Lead Software Architect AI                   DESTINATAIRE : Huriel             |
+| AUTEUR : Lead Software Architect AI                   DESTINATAIRE : Utilisateur             |
 | SGBD OFFICIEL : PostgreSQL 16 Alpine (UUID-OSSP, PG_TRGM)                               |
 | NOMBRE TOTAL DE MODÈLES PRISMA : 10 MODÈLES            TYPES ÉNUMÉRÉS : 7 ENUMS         |
 | NŒUDS DE COMPÉTENCES SEEDÉS : 120 NŒUDS EXHAUSTIFS     TESTS DE CONCURRENCE : VALIDÉS   |

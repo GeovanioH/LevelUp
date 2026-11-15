@@ -167,7 +167,7 @@ Centre névralgique du joueur, cet écran récapitule l'identité, le rang, les 
 |  [LEVELUP // THE SYSTEM]  [STATUT: UTILISATEUR ACTIF]               [CRISTAUX: 820 OC]  [STREAK: 18 J]  [THÈME: D/L] |
 +-------------------------------------------------------------------------------------------------------------------+
 | +-- [CARTE D'IDENTITÉ JOUEUR] ------------------------------+ +-- [JAUGES VITALES EN TEMPS RÉEL] ----------------+ |
-| | NOM    : Huriel                          RANG  : D        | | HP [██████████████████░░] 88%  (Repos: 7h45 - OPTIMAL) | |
+| | NOM    : Utilisateur                          RANG  : D        | | HP [██████████████████░░] 88%  (Repos: 7h45 - OPTIMAL) | |
 | | TITRE  : Utilisateur Confirmé               NIVEAU: 14       | | MP [█████████████░░░░░░░] 65%  (Focus: Soutenu)        | |
 | | EXP    : [████████████████░░░░] 18,450 / 22,500 XP (82%)  | | ALERTE: Aucune pénalité active. Système stable.    | |
 | +-----------------------------------------------------------+ +----------------------------------------------------+ |
@@ -408,7 +408,7 @@ Affiche le flux d'opportunités financières et académiques glanées par le scr
 | [BOURSE] Bourse Eiffel Master IA  | [HACKATHON] Devpost Global Agentic| [CERTIF] Cambridge Linguaskill C1/C2      |
 | - Valeur   : 14,000 €             | - Prix     : 25,000 $ en cloud    | - Statut : Examen passé le 02/11          |
 | - Échéance : 10 Janvier 2027      | - Échéance : 30 Novembre 2026     | - Résultat: Attestation C1 confirmée      |
-| - Pertinence : 96.5%              | - Équipe   : Huriel (Solo)        | - Action  : [IMPORTER DIPLÔME VALIDÉ]     |
+| - Pertinence : 96.5%              | - Équipe   : Utilisateur (Solo)        | - Action  : [IMPORTER DIPLÔME VALIDÉ]     |
 | - Action   : [CRÉER QUÊTE DOSSIER]| - Action   : [VOIR BLOCS TIME-BOX]|                                           |
 |-----------------------------------|-----------------------------------|-------------------------------------------|
 | [BOURSE] Bourse Mobilité Région   |                                   |                                           |
@@ -488,7 +488,7 @@ Cet écran plein écran haute priorité bloque totalement l'accès aux autres pa
 
 ### 3.10 Écran 10 : Salle d'Entraînement & Vision par Ordinateur (`/workout/camera`)
 
-L'écran `/workout/camera` est l'arène physique du Utilisateur. Il utilise le flux vidéo webcam/smartphone en direct avec superposition du squelette cinématique MediaPipe Pose en WebAssembly (WebGL/Canvas 2D) pour compter et valider sans triche chaque répétition des routines de callisthénie d'Huriel :
+L'écran `/workout/camera` est l'arène physique du Utilisateur. Il utilise le flux vidéo webcam/smartphone en direct avec superposition du squelette cinématique MediaPipe Pose en WebAssembly (WebGL/Canvas 2D) pour compter et valider sans triche chaque répétition des routines de callisthénie de l'utilisateur :
 
 #### 3.10.1 Wireframe ASCII Détaillé (Vue Entraînement en Direct 1440x900)
 
@@ -545,7 +545,7 @@ Pour offrir une expérience fluide sur smartphone via Discord, chaque événemen
 * **Couleur :** `0x00E5FF` (Cyan Néon)
 * **Titre :** `[SYSTÈME // RAPPORT D'ÉTAT DU JOUEUR]`
 * **Champs :**
-  * `Utilisateur` : `Huriel | Rang D | Niveau 14`
+  * `Utilisateur` : `Utilisateur | Rang D | Niveau 14`
   * `Points d'Expérience` : `18,450 / 22,500 XP (82.0% vers Rang C)`
   * `Jauges Vitales` :
     * `HP` : `[████████████████░░] 88 / 100 (Repos Optimal)`
@@ -791,7 +791,7 @@ L'utilisation sur smartphone (iPhone & Android) est au cœur des habitudes de vi
 +---------------------------------------+
 | [LEVELUP]     [820 ❖]  [HP 88%] [D/L] |
 +---------------------------------------+
-| Huriel • Rang D (Lvl 14)              |
+| Utilisateur • Rang D (Lvl 14)              |
 | XP: [████████████████░░░░] 82%        |
 |---------------------------------------|
 | JAUGES VITALES :                      |
@@ -1251,7 +1251,7 @@ Lors du tout premier lancement de LevelUp, le joueur ne découvre pas un formula
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Joueur as Huriel (Joueur)
+    actor Joueur as Utilisateur (Joueur)
     participant UI as Écran du Système (Web HUD)
     participant Audio as Moteur Sonore Web Audio
     participant AI as L'Évaluateur IA (Gemini 2.5 Pro)
@@ -1634,7 +1634,7 @@ Les Boss Raids sont les jalons de validation suprêmes qui jalonnent la montée 
 * **Déroulement Visuel :**
   1. *Carte Tactique :* Vue satellite stylisée de la région avec points chauds d'opportunités professionnelles (offres de laboratoires de pointe, bourses doctorales, levées de fonds pour MVP).
   2. *Combat d'Agents :* Orchestration simultanée d'un essaim d'agents Antigravity collaborant avec le joueur pour livrer un projet d'ingénierie d'envergure industrielle.
-  3. *Apothéose :* L'ombre du Roi des Fourmis s'incline devant Huriel : *"Maître, commandez à vos Ombres."*
+  3. *Apothéose :* L'ombre du Roi des Fourmis s'incline devant Utilisateur : *"Maître, commandez à vos Ombres."*
 
 ---
 
@@ -1645,7 +1645,7 @@ Pour préserver l'authenticité thématique, l'ensemble des libellés du Web HUD
 | Terme Officiel Système | Équivalent Productivité Réelle | Définition & Rôle dans LevelUp |
 | :--- | :--- | :--- |
 | **Le Système ("The System")** | Plateforme LevelUp | L'entité informatique principale qui guide, évalue et sanctionne le joueur. |
-| **Le Utilisateur ("Hunter")** | Huriel (Le Joueur) | L'utilisateur unique engagé dans le processus d'ascension continue. |
+| **Le Utilisateur ("Hunter")** | Utilisateur (Le Joueur) | L'utilisateur unique engagé dans le processus d'ascension continue. |
 | **L'Éveil ("Awakening")** | Initialisation du Profil | Le passage de la passivité à la conscience active de sa discipline. |
 | **La Fenêtre Système** | Web HUD Holographique | L'interface visuelle bleue néon affichant les statistiques et notifications. |
 | **L'Évaluateur IA** | Agent IA Antigravity / Gemini | L'intelligence socratique intransigeante qui attribue les notes et quêtes. |

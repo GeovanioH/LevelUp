@@ -107,7 +107,7 @@ Ces tests constituent les portes de sortie obligatoires (*Gates*) du plan d'impl
      ```bash
      curl -i -X POST http://localhost:3000/api/v1/auth/login \
        -H "Content-Type: application/json" \
-       -d '{"username":"Huriel","password":"DragonMonarch2026!"}'
+       -d '{"username":"Utilisateur","password":"DragonMonarch2026!"}'
      ```
   3. *Vérification :*
      - Code HTTP retourné : `200 OK`.
@@ -519,7 +519,7 @@ describe('Intégration Quêtes & Vérification de Preuves Déterministes', () =>
     // Nettoyage et initialisation d'un joueur de test
     const player = await prisma.player.create({
       data: {
-        username: 'TestHunterHuriel',
+        username: 'TestHunterUtilisateur',
         passwordHash: 'dummy_hash',
         rankCode: 'D',
         stats: {
@@ -773,7 +773,7 @@ test.describe('Cycle de Vie E2E : Boucle Quotidienne de l\'Éveillé', () => {
   test.beforeEach(async ({ page }) => {
     // Connexion automatique avec session de test
     await page.goto('/login');
-    await page.fill('input[name="username"]', 'Huriel');
+    await page.fill('input[name="username"]', 'Utilisateur');
     await page.fill('input[name="password"]', 'MasterPassword2026!#');
     await page.click('button[type="submit"]');
     await expect(page).toHaveURL('/dashboard');
@@ -1024,7 +1024,7 @@ describe('Intégration du Moteur de Veille Deerflow (Bourses & Hackathons)', () 
   beforeAll(async () => {
     const player = await prisma.player.create({
       data: {
-        username: 'TestDeerflowHuriel',
+        username: 'TestDeerflowUtilisateur',
         passwordHash: 'dummy',
       },
     });
@@ -1332,7 +1332,7 @@ Le Système embarque un jeu complet de fixtures JSON pour exécuter l'ensemble d
   "member": {
     "user": {
       "id": "987654321012345678",
-      "username": "Huriel",
+      "username": "Utilisateur",
       "discriminator": "0"
     },
     "roles": ["998877665544332211"]
@@ -1610,7 +1610,7 @@ Ce cahier de recette constitue le contrat d'ingénierie formel liant le dévelop
 |                          PROCÈS-VERBAL DE QUALIFICATION PRÉ-CODE                         |
 +-----------------------------------------------------------------------------------------+
 | PROJET : LevelUp ("The System")                       VERSION CIBLE : 1.0.0             |
-| LEAD ARCHITECT AI : Antigravity Lead Engineer         UTILISATEUR MAÎTRE : Huriel       |
+| LEAD ARCHITECT AI : Antigravity Lead Engineer         UTILISATEUR MAÎTRE : Utilisateur       |
 | NOMBRE DE CAS DE TEST FORMELLEMENT INDEXÉS : 100 CAS                                   |
 | TAUX DE COUVERTURE UNITAIRE CONTRACTUEL : >= 85%                                        |
 | NOMBRE DE SUITES DE TESTS EXÉCUTABLES EMBARQUÉES : 9 SUITES                            |
@@ -1643,7 +1643,7 @@ export const githubHandlers = [
       return HttpResponse.json({
         sha,
         commit: {
-          author: { name: 'Huriel', date: new Date().toISOString() },
+          author: { name: 'Utilisateur', date: new Date().toISOString() },
           message: 'feat(ai): implement transformer attention mechanism with clean architecture',
         },
         html_url: `https://github.com/${owner}/${repo}/commit/${sha}`,

@@ -4,7 +4,7 @@
 > **Nom du Produit :** LevelUp ("The System" / "Le Système")  
 > **Version du Document :** 3.0.0 (Schéma Directeur Stratégique Exhaustif & Encyclopédique)  
 > **Horizon Temporel :** 2026 — 2028 (Plan Triennal d'Ascension)  
-> **Vision Ultime :** Forger un système d'exploitation de vie principal et intransigeant, guidant Huriel du statut d'étudiant en ingénierie de l'IA (Rang E — L'Éveil du Novice) jusqu'au sommet absolu de sa discipline (Rang Monarch), en automatisant l'acquisition de la rigueur scientifique, de la cybersécurité offensive, de l'aisance linguistique et de l'indépendance financière.  
+> **Vision Ultime :** Forger un système d'exploitation de vie principal et intransigeant, guidant Utilisateur du statut d'étudiant en ingénierie de l'IA (Rang E — L'Éveil du Novice) jusqu'au sommet absolu de sa discipline (Rang Monarch), en automatisant l'acquisition de la rigueur scientifique, de la cybersécurité offensive, de l'aisance linguistique et de l'indépendance financière.  
 
 ---
 
@@ -69,7 +69,7 @@ flowchart LR
   * `apps/web` : Serveur Fastify API Gateway + Next.js 14 App Router.
   * `apps/bot` : Processus Node.js 22 dédié à la passerelle Discord.
   * `services/whisper` : Serveur FastAPI Python 3.12 propulsé par CTranslate2 et CUDA 12.4.
-* **Canal Ingress Externe :** Cloudflare Tunnel chiffré TLS 1.3 reliant `system.huriel-levelup.com` au port local 443 sans translation de port (NAT) ni ouverture de firewall de box Internet.
+* **Canal Ingress Externe :** Cloudflare Tunnel chiffré TLS 1.3 reliant `system.user-levelup.com` au port local 443 sans translation de port (NAT) ni ouverture de firewall de box Internet.
 
 ### 2.3 Métriques Cibles de Qualité & Budgets de Ressources V1.0
 * **Disponibilité Système :** $\ge 99.5\%$ (Hors coupures électriques de la station locale).
@@ -255,7 +255,7 @@ Au lieu du pipeline séquentiel V1.0 (Record -> FFmpeg -> Whisper -> Text -> Pro
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Joueur as Huriel (Maître)
+    actor Joueur as Utilisateur (Maître)
     participant Mic as Client Audio WebRTC (PCM 16kHz)
     participant WS as WebSocket Live Relay
     participant GeminiLive as Google Gemini Live API (Model: 3.8-live)
@@ -468,7 +468,7 @@ La version inaugurale V1.0 (« Le Système Éveillé ») livre l'ensemble des fo
 | **FEAT-31** | Commande Slash `/status` | Affichage du HUD compact et des jauges dans Discord. | Embed Système de Gamification généré en moins de 500 ms. |
 | **FEAT-32** | Commande Slash `/valider` | Validation instantanée d'une quête avec lien de preuve. | Appel API sécurisé avec clé d'idempotence UUID. |
 | **FEAT-33** | Salons Vocaux Discord | Enregistrement de monologues directement en salon vocal. | Décodage UDP Opus via `@discordjs/voice` et Prism. |
-| **FEAT-34** | SingleUserGuard Universel | Cloisonnement absolu du Système pour Huriel uniquement. | Rejet HTTP 403 systématique de tout ID tiers. |
+| **FEAT-34** | SingleUserGuard Universel | Cloisonnement absolu du Système pour l'utilisateur uniquement. | Rejet HTTP 403 systématique de tout ID tiers. |
 | **FEAT-35** | Chiffrement AES-256-GCM | Confidentialité des données au repos dans PostgreSQL. | Chiffrement enveloppe avec vecteur d'initialisation CSPRNG. |
 | **FEAT-36** | Hachage Mots de Passe Argon2id| Protection maximale des identifiants maîtres. | Configuration durcie ($m=65536, t=3, p=4$). |
 | **FEAT-37** | Sanitisation AST DOMPurify | Immunité absolue contre les failles de scripts XSS. | Allowlist stricte et hook forçant `rel="noopener"`. |
@@ -781,7 +781,7 @@ const antigravityBridge = 'agentapi new-conversation --title="LevelUp // Débrie
         systemInstruction: {
           parts: [
             {
-              text: `Tu es "Le Systme" de Système de Gamification incarn, ddi  l'volution d'Huriel (Le Joueur).
+              text: `Tu es "Le Systme" de Système de Gamification incarn, ddi  l'volution de l'utilisateur (Le Joueur).
 Tu parles en franais avec une voix calme, solennelle, autoritaire et analytique.
 Tu n'utilises pas de politesses superflues. Tes rponses sont concises (moins de 20 secondes d'locution orale).
 Tu guides le Joueur dans ses qutes, analyses ses rponses de cours, et sanctionnes impitoyablement la procrastination.`
@@ -965,7 +965,7 @@ export class MeshPeerNode extends EventEmitter {
 
 ## 12. Trajectoire Acadmique Triennale & Syllabus d'Excellence Master IA (2026  2028)
 
-Pour qu'Huriel atteigne le sommet de sa promotion acadmique et dcroche les opportunits d'alternance et de bourses d'tudes internationales les plus slectives, le Systme intgre un programme de synchronisation rigoureuse entre les 8 Bases de Vie et les cursus universitaires de pointe en Intelligence Artificielle et Science des Donnes.
+Pour qu'Utilisateur atteigne le sommet de sa promotion acadmique et dcroche les opportunits d'alternance et de bourses d'tudes internationales les plus slectives, le Systme intgre un programme de synchronisation rigoureuse entre les 8 Bases de Vie et les cursus universitaires de pointe en Intelligence Artificielle et Science des Donnes.
 
 ### 12.1 Dcomposition Semestrielle des 4 Semestres de Master IA
 
@@ -1081,7 +1081,7 @@ graph TD
 
 ### 13.2 Topologie Rseau Local, VLANs & Pare-Feu OPNsense
 
-Pour garantir la scurit strict de l'infrastructure d'Huriel contre les intrusions extrieures et garantir l'accs distant sans faille via Cloudflare Zero-Trust :
+Pour garantir la scurit strict de l'infrastructure de l'utilisateur contre les intrusions extrieures et garantir l'accs distant sans faille via Cloudflare Zero-Trust :
 
 1. **VLAN 10 (Management & Administration) :**
    - Rseau ddi aux interfaces de gestion du routeur OPNsense, du switch manag 10GbE et des consoles Proxmox VE.
@@ -1090,7 +1090,7 @@ Pour garantir la scurit strict de l'infrastructure d'Huriel contre les intrusion
    - Hberge les machines GPU excutant Docker, Fastify API, Faster-Whisper et PostgreSQL.
    - Trafic sortant vers Internet strictement restreint aux dpts de paquets certifis et aux passerelles API autorises.
 3. **VLAN 30 (DMZ / Cloudflare Tunnel) :**
-   - Hberge l'instance de passerelle `cloudflared` routant le domaine officiel `levelup.local` ou `monarch.huriel.dev`.
+   - Hberge l'instance de passerelle `cloudflared` routant le domaine officiel `levelup.local` ou `monarch.user.dev`.
    - Aucun paquet provenant du VLAN 30 ne peut initier de connexion vers le VLAN 10 ou le VLAN 20 (isolation asymtrique unidirectionnelle).
 4. **VLAN 40 (IoT & Priphriques Connects) :**
    - Montre connecte, capteurs environnementaux, camras et assistants domotiques.
@@ -1222,7 +1222,7 @@ if __name__ == "__main__":
 
 ### 14.1 L'Arme des Ombres : Orchestrateur Multi-Agents en Essaim
 
- l'horizon 2028, lorsque Huriel aura valid son grade suprme de **Maître**, le rle du Systme transcende la gestion individuelle pour se mtamorphoser en une fonderie logicielle et entrepreneuriale autonome ("AI Venture Foundry"). Les "Soldats de l'Ombre" deviennent des instances d'agents autonomes spcialiss oprant 24h/24 :
+ l'horizon 2028, lorsque Utilisateur aura valid son grade suprme de **Maître**, le rle du Systme transcende la gestion individuelle pour se mtamorphoser en une fonderie logicielle et entrepreneuriale autonome ("AI Venture Foundry"). Les "Soldats de l'Ombre" deviennent des instances d'agents autonomes spcialiss oprant 24h/24 :
 
 ```mermaid
 graph TB
@@ -1232,7 +1232,7 @@ graph TB
     classDef bellion fill:#1A002C,stroke:#FF0055,stroke-width:2px,color:#FFFFFF;
     classDef iron fill:#052414,stroke:#00FF66,stroke-width:2px,color:#FFFFFF;
 
-    MAÎTRE["HURIEL (Le Niveau Maître)<br/>Stratgie, Vision & Dcision Principale"]:::monarch
+    MAÎTRE["UTILISATEUR (Le Niveau Maître)<br/>Stratgie, Vision & Dcision Principale"]:::monarch
 
     subgraph SWARM["L'Arme des Ombres (Essaim Autonome d'Agents IA)"]
         IGRIS["Igris le Chevalier Rouge<br/>Évaluateur IA & Ingnieur Logiciel Principal<br/>Gnration de Code & Refactoring"]:::igris
@@ -1365,14 +1365,14 @@ export class SwarmCommander extends EventEmitter {
 | **Q1 2028** | *L'Avant-Garde des Ombres*| Dploiement des premiers sous-agents autonomes (Igris, Beru) pour revue de code et veille d'appels d'offres. | 100+ revues de code excutes sans intervention humaine avec dtection de rgressions. | **Rang S** |
 | **Q2 2028** | *La Citadelle de Calcul* | Installation de la Workstation Dual RTX 5090 (64GB VRAM) et serving priv vLLM local. | Infrence locale de modles 70B quantifis  $>45\text{ tokens/s}$. | **Rang S** |
 | **Q3 2028** | *L'Alliance Acadmique* | Dpt de thse professionnelle de Master IA, obtention du diplme avec Flicitations du Jury. | Moyenne gnrale finale $\ge 18/20$, offre d'embauche ou de fondation de startup valide. | **Rang S** |
-| **Q4 2028** | *L'Empire du Maître* | Pleine autonomie de l'AI Venture Foundry, gnration et gestion d'actifs logiciels gnrateurs de revenus. | Systme autoportant, principalet financire absolue d'Huriel tablie. | **Rang Maître** |
+| **Q4 2028** | *L'Empire du Maître* | Pleine autonomie de l'AI Venture Foundry, gnration et gestion d'actifs logiciels gnrateurs de revenus. | Systme autoportant, principalet financire absolue de l'utilisateur tablie. | **Rang Maître** |
 
 ### 15.2 Critres d'Acceptation & Revue de Conformit Finale V1.0
 
 Avant le passage officiel en Phase de Dveloppement V1.0, les 5 conditions d'immutabilit suivantes doivent tre formellement attestes :
 1. **Intgrit Documentaire Intgrale :** L'ensemble des 10 documents fondamentaux (01-PRD  09-ROADMAP et README) dpassent chacun strictement le seuil de $100\,000$ octets de spcifications techniques exploitables sans redondance.
 2. **Couverture de Test Zro-Code :** Les 42 suites de tests dfinies dans le Document 07-TEST_PLAN sont pralablement modlises et constituent la rfrence absolue de validation de chaque brique de code.
-3. **Inviolabilit du Cloisonnement Maître :** L'authentification `SingleUserGuard` garantit qu'aucun utilisateur autre qu'Huriel ne peut interagir avec les endpoints d'criture ou accder aux rapports d'valuation.
+3. **Inviolabilit du Cloisonnement Maître :** L'authentification `SingleUserGuard` garantit qu'aucun utilisateur autre qu'Utilisateur ne peut interagir avec les endpoints d'criture ou accder aux rapports d'valuation.
 4. **Indpendance Oprationnelle :** Le Systme ne cre pas d'examens artificiels l o des valuations internationales reconnues existent (Cambridge, TryHackMe, DataCamp), mais les intgre comme ancres d'XP du monde rel.
 5. **Continuit Hors-Ligne & Sauvegarde Automatique :** En cas d'isolement rseau ou de dfaillance matrielle, aucune note de rflexion ni preuve de qute ne peut tre corrompue grce aux mcanismes combinant SQLite/IndexedDB, WAL et rplication Merkle.
 
@@ -1383,7 +1383,7 @@ Avant le passage officiel en Phase de Dveloppement V1.0, les 5 conditions d'immu
                           LE PACTE SOLENNEL DU SYSTÈME
 ========================================================================================
 
-Moi, HURIEL, dsign comme Joueur Unique et principal du Systme LevelUp, dclare par la
+Moi, UTILISATEUR, dsign comme Joueur Unique et principal du Systme LevelUp, dclare par la
 prsente accepter sans rserve l'ensemble des rgles, quotas de discipline, barmes
 d'exprience et mcanismes de pnalit dfinis dans cette documentation d'ingnierie.
 
@@ -1398,7 +1398,7 @@ Je reconnais que :
 
 Sign et ratifi pour l'ternit :
 Date : 11 Novembre 2026
-Joueur : HURIEL (Le Utilisateur veill)
+Joueur : UTILISATEUR (Le Utilisateur veill)
 Statut : PACTE SCELL ET ACTIF AU SEIN DU SYSTME
 ========================================================================================
 ```
@@ -1410,7 +1410,7 @@ Statut : PACTE SCELL ET ACTIF AU SEIN DU SYSTME
 
 ### 16.1 Modlisation Mathmatique d'Ordonnancement Circadien sous Contrainte Biologique
 
-L'agenda d'Huriel n'est pas un calendrier statique, mais un systme dynamique rsolu par programmation linaire en nombres entiers mixtes (MILP - Mixed-Integer Linear Programming). L'objectif est de maximiser la quantit d'exprience nette accumule sur les 8 Bases tout en minimisant l'puisement neurologique ($MP$) et en respectant les rythmes circadiens de vigilance cognitive.
+L'agenda de l'utilisateur n'est pas un calendrier statique, mais un systme dynamique rsolu par programmation linaire en nombres entiers mixtes (MILP - Mixed-Integer Linear Programming). L'objectif est de maximiser la quantit d'exprience nette accumule sur les 8 Bases tout en minimisant l'puisement neurologique ($MP$) et en respectant les rythmes circadiens de vigilance cognitive.
 
 #### Formulation Mathmatique du Problme :
 Soit $N$ l'ensemble des tches candidates pour la journe $d$, o chaque tche $i \in N$ est caractrise par :
@@ -1623,21 +1623,21 @@ En hommage  l'univers de Système de Gamification o des Portails s'ouvrent spont
 
 ## 19. Procdures d'Exploitation Standardises (SOP) & Rituels d'Entranement Système de Gamification
 
-Pour transformer les principes d'ingnierie de *LevelUp* en comportements physiques et intellectuels inbranlables, le Systme dfinit 4 procdures oprationnelles standardises (SOP) rgissant les cycles circadiens d'Huriel :
+Pour transformer les principes d'ingnierie de *LevelUp* en comportements physiques et intellectuels inbranlables, le Systme dfinit 4 procdures oprationnelles standardises (SOP) rgissant les cycles circadiens de l'utilisateur :
 
 ### 19.1 SOP-01 : Le Protocole Matinal de l'veil (06h00 - 07h30)
 
 ```mermaid
 sequenceDiagram
     autonumber
-    participant H as Huriel (Joueur)
+    participant H as Utilisateur (Joueur)
     participant D as Bot Discord
     participant API as Fastify API Server
     participant W as Audio Faster-Whisper
     participant DB as Base PostgreSQL
 
     Note over H, DB: 06h00 : Dclenchement de l'veil du Utilisateur
-    D->>H: Notification Push Embed : "Debout, Utilisateur Huriel. L'veil quotidien a commenc."
+    D->>H: Notification Push Embed : "Debout, Utilisateur Utilisateur. L'veil quotidien a commenc."
     H->>D: Commande /status ou ouverture du Web HUD
     API->>DB: Calcul des jauges du matin (HP bas sur le sommeil Oura, MP = 100)
     API-->>H: Affichage des 3 quêtes obligatoires du jour et de la frise chronologique
@@ -1657,7 +1657,7 @@ sequenceDiagram
 
 1. **21h30 - Clture des Blocs de Travail :** Arrt de tout nouveau dveloppement logiciel ou sance d'tude.
 2. **21h40 - Monologue d'valuation Socratique :**
-   - Huriel enregistre une note vocale de 3  5 minutes rsumant les concepts d'IA ou de cyberscurit assimils dans la journe.
+   - Utilisateur enregistre une note vocale de 3  5 minutes rsumant les concepts d'IA ou de cyberscurit assimils dans la journe.
    - Faster-Whisper transcrit l'audio en INT8 localement sur GPU CUDA ($<4\text{s}$).
    - L'Évaluateur IA (Gemini 2.5 Pro) attribue une note sur 20 selon la grille formelle.
    - Si la note $\ge 14/20$, les points d'XP acadmiques sont dfinitivement consolids.
@@ -1765,7 +1765,7 @@ Contraintes Strictes :
 2. Configuration TypeScript 5.x ultra-stricte (`tsconfig.base.json` : `strict: true`, `noImplicitAny: true`, `exactOptionalPropertyTypes: true`).
 3. Base de données PostgreSQL 16 + Redis 7 conteneurisées dans `docker-compose.yml` avec sondes de santé (`healthcheck`) robustes.
 4. Schéma Prisma dans `packages/database/prisma/schema.prisma` conforme à docs/04-BACKEND_SCHEMA.md (7 tables maîtresses : players, player_stats, skill_nodes, quests, time_blocks, second_brain_notes, voice_transcriptions).
-5. Script de seed dans `packages/database/prisma/seed.ts` insérant exactement les 120 compétences canoniques et le profil du joueur Huriel avec les 8 bases (ACAD, AI_ENG, CYBER, EXP, LNG, FIN, STR, DIS).
+5. Script de seed dans `packages/database/prisma/seed.ts` insérant exactement les 120 compétences canoniques et le profil du joueur Utilisateur avec les 8 bases (ACAD, AI_ENG, CYBER, EXP, LNG, FIN, STR, DIS).
 6. Hooks Husky pre-commit exécutant `pnpm lint` et `pnpm typecheck`.
 
 Livrables à Générer :
@@ -1930,7 +1930,7 @@ Assure-toi que les composants s'affichent avec fluidité (> 60 FPS) sans saccade
 ### 21.4 Phase 3 : Pipeline Audio, Vision par Ordinateur (MediaPipe) & Cerveau Numérique
 
 #### A. Périmètre & Objectifs
-Implémenter le moteur de vision par ordinateur client (MediaPipe Pose WASM) pour le comptage automatique et anti-triche des répétitions calisthéniques (les 4 routines maison d'Huriel, dont les 17 étapes Dos/Épaules avec angles $\le 75^\circ$ et $\ge 160^\circ$), le worker asynchrone Faster-Whisper CUDA INT8 pour la transcription vocale, et le moteur de répétition espacée SM-2 pour le Second Brain.
+Implémenter le moteur de vision par ordinateur client (MediaPipe Pose WASM) pour le comptage automatique et anti-triche des répétitions calisthéniques (les 4 routines maison de l'utilisateur, dont les 17 étapes Dos/Épaules avec angles $\le 75^\circ$ et $\ge 160^\circ$), le worker asynchrone Faster-Whisper CUDA INT8 pour la transcription vocale, et le moteur de répétition espacée SM-2 pour le Second Brain.
 
 #### B. Prompt Maître d'Exécution (Phase 3)
 ```markdown
@@ -2004,7 +2004,7 @@ Spécifications du Bot Discord :
    - Connexion Gateway 24/7 avec reconnexion exponentielle.
    - Commandes Slash : `/status` (affiche le HUD du Utilisateur avec jauges HP/MP et niveau), `/valider [quete_id]` (validation manuelle de quête avec preuve), `/stats` (graphique des 8 bases).
    - Formatage holographique des 15 embeds Discord avec bordures de couleur selon le rang.
-   - Récepteur audio vocal UDP pour permettre à Huriel d'enregistrer ses bilans oraux directement dans un salon vocal privé.
+   - Récepteur audio vocal UDP pour permettre à Utilisateur d'enregistrer ses bilans oraux directement dans un salon vocal privé.
 
 Livrables à Générer :
 - `packages/scheduler/src/timeBlocking.ts`
@@ -2152,7 +2152,7 @@ Exécute le scénario complet d'une journée type du Utilisateur :
 ./scripts/smoke_test_suite.sh
 ```
 *Séquence Validée Automatiquement :*
-1. Initialisation du joueur Huriel (Rang E, Niveau 1).
+1. Initialisation du joueur Utilisateur (Rang E, Niveau 1).
 2. Attribution du pack de quêtes matinales à 06h00.
 3. Déclenchement de la caméra MediaPipe : validation de 14 Pike Push-Ups stricts.
 4. Lancement d'un bloc de Deep Work : NextDNS active le blocage des réseaux sociaux.

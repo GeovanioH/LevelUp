@@ -10,7 +10,7 @@
 ## 1. Contexte, Objectifs & Principes de Conception
 
 ### 1.1 Objectifs de la Plateforme
-Un profil ambitieux en Intelligence Artificielle et Ingénierie logicielle poursuit simultanément plusieurs axes exigeants :
+La maîtrise conjointe de multiples domaines d'ingénierie, de compétences techniques et de discipline personnelle nécessite une organisation rigoureuse articulée autour de 6 axes :
 1. **Excellence académique :** Assimilation de cours denses (mathématiques appliquées, recherche opérationnelle, théorie de l'information), réussite des examens et alternance.
 2. **Ingénierie logicielle & IA :** Conception d'architectures, développement de MVPs, expérimentation des modèles de fondation, agents autonomes et bases vectorielles.
 3. **Cybersécurité :** Entraînement sur TryHackMe et HackTheBox, participation à des CTFs, audit de code et compréhension des vulnérabilités (OWASP Top 10, exploitation mémoire).
@@ -234,7 +234,7 @@ mindmap
 
 ### BASE 7 : `STR` — Puissance Physique & Condition Athlétique (15 Nœuds)
 
-La base `STR` refuse les programmes génériques déconnectés des contraintes réelles. Elle intègre au cœur de son moteur d'entraînement les programmes complets au poids du corps et de calisthénie développés pour Huriel, avec un suivi rigoureux par répétitions, séries et chronomètre :
+La base `STR` refuse les programmes génériques déconnectés des contraintes réelles. Elle intègre au cœur de son moteur d'entraînement les programmes complets au poids du corps et de calisthénie développés pour l'utilisateur, avec un suivi rigoureux par répétitions, séries et chronomètre :
 
 ```mermaid
 flowchart TD
@@ -360,7 +360,7 @@ Circuit complet de renforcement de la sangle abdominale combinant travail dynami
 
 ## 3. Le Grand Catalogue des Quêtes du Système (105 Quêtes Exhaustives)
 
-Le Système n'improvise rien : il dispose d'une bibliothèque exhaustive de quêtes prédéfinies, indexées et rattachées aux objectifs réels de la vie d'Huriel.
+Le Système n'improvise rien : il dispose d'une bibliothèque exhaustive de quêtes prédéfinies, indexées et rattachées aux objectifs réels de la vie de l'utilisateur.
 
 ### 3.1 Catalogue des Quêtes Quotidiennes (`DAILY_QUESTS` — 50 Quêtes Types)
 
