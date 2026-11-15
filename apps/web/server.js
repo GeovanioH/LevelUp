@@ -43,7 +43,7 @@ for (const envPath of envCandidates) {
 }
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
-const INTRO_VIDEO_URL = process.env.INTRO_VIDEO_URL || process.env.SUPABASE_INTRO_VIDEO_URL || process.env.FIREBASE_STORAGE_INTRO_URL || "https://hamqkltryiytqdxjpiyl.supabase.co/storage/v1/object/public/LevelUpimgandvid/test_upscale_5x.mp4";
+const INTRO_VIDEO_URL = process.env.INTRO_VIDEO_URL || process.env.SUPABASE_INTRO_VIDEO_URL || process.env.FIREBASE_STORAGE_INTRO_URL || "";
 const INTRO_IMAGE_URL = process.env.INTRO_IMAGE_URL || process.env.SUPABASE_INTRO_IMAGE_URL || "https://hamqkltryiytqdxjpiyl.supabase.co/storage/v1/object/public/LevelUpimgandvid/test_alert_5x.webp";
 
 // Solo Leveling Sovereign Monarch Logo SVG
@@ -3737,8 +3737,8 @@ function renderFullApplication(initialTab = "dashboard") {
   <div id="system-intro-overlay" class="system-intro-overlay" onclick="handleIntroOverlayClick()" title="Cliquer pour passer">
     <video id="system-intro-video" class="system-intro-video" playsinline muted autoplay preload="auto">
       ${INTRO_VIDEO_URL ? '<source src="' + INTRO_VIDEO_URL + '" type="video/mp4">' : ''}
-      <source src="/intro.webm?v=8s_v1_webm" type="video/webm">
-      <source src="/intro.mp4?v=8s_v1_landscape" type="video/mp4">
+      <source src="/intro.webm?v=8s_ouf_v2" type="video/webm">
+      <source src="/intro.mp4?v=8s_ouf_v2" type="video/mp4">
     </video>
     <div id="system-intro-alert-wrapper" class="system-intro-alert-wrapper">
       <img id="system-intro-alert-img" class="system-intro-alert-img" src="${INTRO_IMAGE_URL || '/intro-alert.webp?v=8s_v1_upscale'}" alt="[WELCOME, PLAYER.] System Alert" />
@@ -9222,9 +9222,7 @@ const server = http.createServer(async (req, res) => {
         "Accept-Ranges": "bytes",
         "Content-Length": chunksize,
         "Content-Type": "video/webm",
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        "Pragma": "no-cache",
-        "Expires": "0",
+        "Cache-Control": "public, max-age=86400, stale-while-revalidate=3600",
       };
       res.writeHead(206, head);
       file.pipe(res);
@@ -9233,9 +9231,7 @@ const server = http.createServer(async (req, res) => {
         "Content-Length": fileSize,
         "Content-Type": "video/webm",
         "Accept-Ranges": "bytes",
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        "Pragma": "no-cache",
-        "Expires": "0",
+        "Cache-Control": "public, max-age=86400, stale-while-revalidate=3600",
       };
       res.writeHead(200, head);
       fs.createReadStream(videoFile).pipe(res);
@@ -9281,9 +9277,7 @@ const server = http.createServer(async (req, res) => {
         "Accept-Ranges": "bytes",
         "Content-Length": chunksize,
         "Content-Type": "video/mp4",
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        "Pragma": "no-cache",
-        "Expires": "0",
+        "Cache-Control": "public, max-age=86400, stale-while-revalidate=3600",
       };
       res.writeHead(206, head);
       file.pipe(res);
@@ -9292,9 +9286,7 @@ const server = http.createServer(async (req, res) => {
         "Content-Length": fileSize,
         "Content-Type": "video/mp4",
         "Accept-Ranges": "bytes",
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        "Pragma": "no-cache",
-        "Expires": "0",
+        "Cache-Control": "public, max-age=86400, stale-while-revalidate=3600",
       };
       res.writeHead(200, head);
       fs.createReadStream(videoFile).pipe(res);
