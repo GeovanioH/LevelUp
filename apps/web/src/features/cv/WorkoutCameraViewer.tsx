@@ -80,6 +80,59 @@ export const WorkoutCameraViewer: React.FC<WorkoutCameraViewerProps> = ({
     }
   }, [reps, engine, onRepetitionValidated, onRoutineCompleted, resetCounter]);
 
+  const streamRef = useRef<MediaStream | null>(null);
+
+  const stopCamera = useCallback(() => {
+    // 1. Couper tous les tracks du MediaStream mémorisé
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => {
+        try {
+          track.stop();
+        } catch {
+          // ignore
+        }
+      });
+      streamRef.current = null;
+    }
+
+    // 2. Détacher et couper tout flux sur l'élément vidéo
+    if (videoRef.current) {
+      if (videoRef.current.srcObject) {
+        try {
+          const s = videoRef.current.srcObject as MediaStream;
+          if (s && typeof s.getTracks === "function") {
+            s.getTracks().forEach((t) => {
+              try {
+                t.stop();
+              } catch {
+                // ignore
+              }
+            });
+          }
+        } catch {
+          // ignore
+        }
+        videoRef.current.srcObject = null;
+      }
+      try {
+        videoRef.current.pause();
+      } catch {
+        // ignore
+      }
+    }
+
+    // 3. Réinitialiser le canvas overlay
+    if (canvasRef.current) {
+      const ctx = canvasRef.current.getContext("2d");
+      if (ctx) {
+        ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+      }
+    }
+
+    // 4. Inconditionnellement désactiver l'état caméra
+    setCameraActive(false);
+  }, []);
+
   // Start Camera
   const startCamera = useCallback(async () => {
     try {
@@ -95,9 +148,22 @@ export const WorkoutCameraViewer: React.FC<WorkoutCameraViewerProps> = ({
             facingMode: "user",
           },
         });
+        streamRef.current = stream;
+
+        // Écouter l'arrêt externe du flux vidéo (déconnexion / révocation permissions)
+        stream.getTracks().forEach((track) => {
+          track.onended = () => {
+            stopCamera();
+          };
+        });
+
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
-          videoRef.current.play();
+          try {
+            await videoRef.current.play();
+          } catch {
+            // Autoplay policies / headless fallback
+          }
         }
       }
       setCameraActive(true);
@@ -105,16 +171,7 @@ export const WorkoutCameraViewer: React.FC<WorkoutCameraViewerProps> = ({
       // Mock / fallback if camera not accessible in headless/test environments
       setCameraActive(true);
     }
-  }, []);
-
-  const stopCamera = useCallback(() => {
-    if (videoRef.current && videoRef.current.srcObject) {
-      const stream = videoRef.current.srcObject as MediaStream;
-      stream.getTracks().forEach((track) => track.stop());
-      videoRef.current.srcObject = null;
-      setCameraActive(false);
-    }
-  }, []);
+  }, [stopCamera]);
 
   useEffect(() => {
     return () => {

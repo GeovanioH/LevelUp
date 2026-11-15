@@ -7615,28 +7615,114 @@ function renderFullApplication(initialTab = "dashboard") {
       );
     }
 
+    let workoutCameraStream = null;
+
+    function stopWorkoutCamera() {
+      const video = document.getElementById('webcam-video');
+      const placeholder = document.getElementById('cam-placeholder');
+      const btn = document.getElementById('cam-toggle-btn');
+
+      if (workoutCameraStream) {
+        workoutCameraStream.getTracks().forEach((track) => {
+          try {
+            track.stop();
+          } catch (e) {}
+        });
+        workoutCameraStream = null;
+      }
+
+      if (video) {
+        if (video.srcObject) {
+          try {
+            const s = video.srcObject;
+            if (s && typeof s.getTracks === 'function') {
+              s.getTracks().forEach((t) => {
+                try {
+                  t.stop();
+                } catch (e) {}
+              });
+            }
+          } catch (e) {}
+          video.srcObject = null;
+        }
+        try {
+          video.pause();
+        } catch (e) {}
+        video.style.display = 'none';
+      }
+
+      if (placeholder) {
+        placeholder.style.display = 'block';
+      }
+
+      if (btn) {
+        btn.textContent = '📷 ACTIVER CAMÉRA';
+        btn.classList.remove('btn-danger');
+      }
+    }
+
     function toggleCamera() {
       playChime(523);
       const video = document.getElementById('webcam-video');
       const placeholder = document.getElementById('cam-placeholder');
       const btn = document.getElementById('cam-toggle-btn');
 
+      // Si la caméra est active (flux mémorisé ou vidéo visible), on la désactive
+      if (workoutCameraStream || (video && video.srcObject && video.style.display !== 'none')) {
+        stopWorkoutCamera();
+        showSysNotification(
+          "📷 [CAMÉRA DÉSACTIVÉE]",
+          "Le flux vidéo et le capteur postural ont été coupés avec succès."
+        );
+        return;
+      }
+
+      // Sinon, on active la caméra
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true })
+        navigator.mediaDevices.getUserMedia({
+          video: {
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            facingMode: 'user'
+          }
+        })
           .then((stream) => {
+            workoutCameraStream = stream;
+
+            // Détection automatique si l'utilisateur coupe la caméra depuis les paramètres système
+            stream.getTracks().forEach((track) => {
+              track.onended = () => {
+                stopWorkoutCamera();
+              };
+            });
+
             if (video) {
               video.srcObject = stream;
               video.style.display = 'block';
-              if (placeholder) placeholder.style.display = 'none';
-              if (btn) btn.textContent = '⏹ DÉSACTIVER CAMÉRA';
+              video.play().catch(() => {});
             }
+            if (placeholder) placeholder.style.display = 'none';
+            if (btn) {
+              btn.textContent = '⏹ DÉSACTIVER CAMÉRA';
+              btn.classList.add('btn-danger');
+            }
+            showSysNotification(
+              "📹 [CAMÉRA ACTIVE]",
+              "Flux cinématique MediaPipe connecté. Posture calibrée."
+            );
           })
-          .catch(() => {
+          .catch((err) => {
+            stopWorkoutCamera();
             showSysNotification(
               "[CAMÉRA NON ACCESSIBLE]",
-              "Impossible de connecter la caméra physique. Utilisez le bouton manuel '+ 1 RÉPÉTITION' pour journaliser vos répétitions."
+              "Impossible de connecter la caméra physique (" + (err.message || 'accès refusé') + "). Utilisez le bouton manuel '+ 1 RÉPÉTITION' pour journaliser vos répétitions."
             );
           });
+      } else {
+        showSysNotification(
+          "[API NON SUPPORTÉE]",
+          "Votre navigateur ne supporte pas l'accès webcam WebRTC standard."
+        );
       }
     }
 

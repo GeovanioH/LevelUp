@@ -30,4 +30,21 @@ describe("WorkoutCameraViewer Component", () => {
       await screen.findByRole("button", { name: /Désactiver Caméra/i }),
     ).toBeDefined();
   });
+
+  it("toggles camera button state from active back to disabled", async () => {
+    render(<WorkoutCameraViewer />);
+
+    const activateBtn = screen.getByRole("button", { name: /Activer Caméra/i });
+    await fireEvent.click(activateBtn);
+
+    const deactivateBtn = await screen.findByRole("button", {
+      name: /Désactiver Caméra/i,
+    });
+    expect(deactivateBtn).toBeDefined();
+
+    await fireEvent.click(deactivateBtn);
+    expect(
+      await screen.findByRole("button", { name: /Activer Caméra/i }),
+    ).toBeDefined();
+  });
 });
