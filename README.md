@@ -131,8 +131,9 @@ Pilotez l'intégralité du Système depuis votre smartphone ou PC en toute mobil
   * Interdiction mathématique du déséquilibre : si une base est ignorée, le score global s'effondre.
 * **Arbre des 120 Compétences (DAG)** :
   * Arbre orienté acyclique couvrant l'IA, la cybersécurité, les mathématiques, la calisthénie, l'anglais et la finance.
-* **Shadow Shop (Boutique de l'Ombre)** :
-  * Dépensez vos Cristaux d'Ombre gagnés pour débloquer des récompenses physiques, des buffs ou des pauses autorisées.
+* **Inventaire du Chasseur & Répit du Monarque (Pass Jour de Repos)** :
+  * Gérez vos reliques et consommables possédés (potions de vitalité HP, potions de mana MP, parchemins).
+  * **Pass Jour de Repos Hebdomadaire (600 💎)** : Calibré pour n'être accessible qu'une seule fois par semaine au prix d'une assiduité sans faille (100 💎/jour × 6 jours de quêtes journalières réussies). Vous octroie 24h d'immunité totale : couvre-feu NextDNS désactivé, quêtes exemptées sans pénalité, streak congelé et vitalité régénérée à 100%.
 
 ### 🔌 4.9 Contrôle par Agents IA (Serveur MCP LevelUp Natif)
 Grâce au serveur Model Context Protocol (MCP) intégré, tout agent IA externe (Antigravity, Claude, Cursor) peut interagir avec votre système :

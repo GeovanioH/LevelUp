@@ -30,6 +30,12 @@ export async function handleBoutiqueCommand(
 
   const catalog = [
     {
+      id: "item-rest-day-pass",
+      name: "Pass Jour de Repos Hebdomadaire (Répit du Monarque)",
+      cost: 600,
+      rank: "S",
+    },
+    {
       id: "item-claude-pro",
       name: "Abonnement 1 Mois Claude Pro (Agents IA)",
       cost: 450,

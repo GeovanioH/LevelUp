@@ -71,7 +71,7 @@ La progression en rang dépend conjointement du niveau global et de preuves tang
   6. `/skills` : Arbre orienté acyclique (DAG) des 120 compétences réparties sur les 8 piliers.
   7. `/notes` : Second Brain style Obsidian avec rendu KaTeX, tags, arborescence et backlinks.
   8. `/opportunities` : Centre de veille et scraping Deerflow (bourses, hackathons, financements).
-  9. `/shop` : Shadow Shop pour échanger les Cristaux d'Ombre contre récompenses et buffs.
+  9. `/shop` : Inventaire du Chasseur (gestion des reliques, potions et Pass Jour de Repos hebdomadaire à 600 💎).
   10. `/penalty` : Cockpit de restriction réseau NextDNS et soumission de quêtes de purge.
 * Mode hors-ligne résilient avec synchronisation automatique IndexedDB (Dexie.js).
 

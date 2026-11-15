@@ -716,47 +716,63 @@ Structures rhétoriques formelles indispensables pour l'évaluation orale à 20 
   ],
   shopItems: [
     {
+      id: "item-rest-day-pass",
+      category: "RÉPIS SOUVERAIN",
+      name: "Pass Jour de Repos Hebdomadaire (Répit du Monarque)",
+      cost: 600,
+      rank: "S",
+      type: "REST_DAY",
+      desc: "Immunité totale 24h : aucune sanction, couvre-feu NextDNS désactivé, streak congelé et régénération 100% HP/MP. Calibré sur 6 jours de quêtes quotidiennes parfaites (100 💎/jour). Limité à 1 activation par semaine.",
+    },
+    {
+      id: "item-mana-potion",
+      category: "CONSOMMABLE",
+      name: "Potion de Mana de l'Ombre (Focus Deep Work)",
+      cost: 100,
+      rank: "E",
+      type: "POTION_MP",
+      desc: "Recharge immédiate de 50 MP pour éliminer la fatigue cognitive et prolonger le Deep Work.",
+    },
+    {
+      id: "item-vitality-elixir",
+      category: "CONSOMMABLE",
+      name: "Élixir de Vitalité Solaire (Boost Sommeil)",
+      cost: 150,
+      rank: "D",
+      type: "POTION_HP",
+      desc: "Régénère instantanément 50 HP (vitalité) pour compenser une nuit écourtée et revitaliser l'organisme.",
+    },
+    {
       id: "item-claude-pro",
       category: "IA",
       name: "Abonnement 1 Mois Claude Pro (Agents IA)",
-      cost: 450,
-      rank: "E",
-      desc: "Quota prioritaire et puissance de raisonnement pour l'Ingénierie IA.",
-    },
-    {
-      id: "item-kindle",
-      category: "ETUDE",
-      name: "Liseuse Kindle Paperwhite (Lecture Tech)",
-      cost: 2500,
-      rank: "C",
-      desc: "Immersion sans distraction dans les manuels d'IA et de mathématiques.",
+      cost: 2400,
+      rank: "B",
+      type: "VOUCHER",
+      desc: "Code de retrait pour un abonnement 1 mois Claude Pro (effort sur un mois complet de quêtes).",
     },
     {
       id: "item-cambridge",
       category: "PRESTIGE",
       name: "Frais d'Examen Cambridge C1/C2 Officiel",
-      cost: 1200,
-      rank: "D",
+      cost: 3600,
+      rank: "A",
+      type: "VOUCHER",
       desc: "Validation formelle du bilinguisme absolu de l'orateur souverain.",
     },
     {
-      id: "item-keyboard",
-      category: "HARDWARE",
-      name: "Clavier Mécanique Ortholinéaire Custom",
-      cost: 1800,
+      id: "item-kindle",
+      category: "ETUDE",
+      name: "Liseuse Kindle Paperwhite (Lecture Tech)",
+      cost: 4500,
       rank: "C",
-      desc: "Frappe ergonomique pour les sprints de code intensifs.",
-    },
-    {
-      id: "item-dell-4k",
-      category: "PRESTIGE",
-      name: 'Écran 4K Dell UltraSharp 32" (Station de Chasseur)',
-      cost: 9000,
-      rank: "A",
-      desc: "Cockpit d'ingénierie suprême pour les sessions nocturnes du Monarque.",
+      type: "VOUCHER",
+      desc: "Immersion sans distraction dans les manuels d'IA et de mathématiques.",
     },
   ],
   inventory: [],
+  restDayActive: false,
+  restDayCooldownUntil: null,
   penalty: {
     active: false,
     reason:
@@ -883,6 +899,11 @@ function applyLocalHostsFilter(active) {
 }
 
 async function checkCurfewAndTriggerPenalty() {
+  // If Rest Day is active today, do NOT trigger curfew or penalties!
+  if (SYSTEM_STATE.restDayActive || (SYSTEM_STATE.player && SYSTEM_STATE.player.restDayActive)) {
+    console.log("[CURFEW WATCHDOG] 🛡️ Jour de Repos actif aujourd'hui. Couvre-feu NextDNS et sanctions suspendus.");
+    return;
+  }
   const now = new Date();
   const parisTimeStr = now.toLocaleTimeString("fr-FR", { hour: "2-digit", hour12: false, timeZone: "Europe/Paris" });
   const hour = parseInt(parisTimeStr, 10);
@@ -4749,57 +4770,162 @@ function renderFullApplication(initialTab = "dashboard") {
       <div class="glass-card spotlight-card" style="padding: 26px; margin-bottom: 24px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
           <div>
+            <div style="font-size: 11px; font-weight: 800; color: var(--primary); font-family: var(--font-mono); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;">
+              GESTION DU REPOS & RELIQUES DU SOUVERAIN
+            </div>
             <h2 class="shiny-text" style="font-size: 26px; font-weight: 900; font-family: var(--font-display);">
-              LA BOUTIQUE DES OMBRES (SHADOW SHOP)
+              INVENTAIRE DU CHASSEUR (SAC & FORGE DES OMBRES)
             </h2>
-            <p style="font-size: 13px; color: var(--text-secondary);">Convertissez vos Cristaux d'Ombre en matériel et abonnements certifiés.</p>
+            <p style="font-size: 13px; color: var(--text-secondary);">Gérez vos objets possédés, activez votre Jour de Repos hebdomadaire mérité et forgez de nouvelles reliques avec vos Cristaux d'Ombre.</p>
           </div>
-          <div class="radar-ping-badge" style="border-color: rgba(255, 215, 0, 0.5); color: var(--imperial-gold); font-size: 14px; padding: 8px 16px;">
-            💎 SOLDE ACTUEL : <strong id="shop-balance-display">${player.shadowCrystals}</strong> CRISTAUX
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <div class="radar-ping-badge" style="border-color: rgba(255, 215, 0, 0.5); color: var(--imperial-gold); font-size: 14px; padding: 8px 16px;">
+              💎 SOLDE : <strong id="shop-balance-display">${player.shadowCrystals}</strong> CRISTAUX
+            </div>
+            <div id="rest-day-status-pill" class="radar-ping-badge" style="border-color: ${SYSTEM_STATE.restDayActive ? 'var(--tertiary)' : 'var(--glass-inner-border)'}; color: ${SYSTEM_STATE.restDayActive ? 'var(--tertiary)' : 'var(--text-secondary)'}; font-size: 13px; padding: 8px 14px;">
+              ${SYSTEM_STATE.restDayActive ? '🛡️ JOUR DE REPOS ACTIF (24H)' : '⚡ CYCLE QUOTIDIEN EN COURS'}
+            </div>
           </div>
         </div>
 
-        <div class="grid-3col">
-          ${SYSTEM_STATE.shopItems
-            .map(
-              (item) => `
-            <div class="glass-card spotlight-card" style="padding: 22px; display: flex; flex-direction: column; justify-content: space-between;">
+        <!-- Banner when Rest Day is active -->
+        <div id="rest-day-active-banner" style="display: ${SYSTEM_STATE.restDayActive ? 'block' : 'none'}; margin-bottom: 24px; padding: 18px 22px; border-radius: 12px; background: linear-gradient(135deg, rgba(69, 223, 164, 0.18) 0%, rgba(13, 8, 36, 0.95) 100%); border: 1.5px solid var(--tertiary); box-shadow: 0 0 30px rgba(69, 223, 164, 0.28);">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <span class="material-symbols-outlined" style="font-size: 36px; color: var(--tertiary);">hotel</span>
               <div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                  <span class="radar-ping-badge">${item.category}</span>
-                  <span class="shiny-gold" style="font-size: 14px; font-weight: bold; font-family: var(--font-mono);">RANG ${item.rank}</span>
+                <div style="font-size: 15px; font-weight: 800; color: var(--tertiary); font-family: var(--font-mono); letter-spacing: 0.5px;">
+                  🛡️ RÉPIT DU MONARQUE ENCLENCHÉ — IMMUNITÉ TOTALE ACTIVE
                 </div>
-                <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 8px; color: var(--text-white);">${item.name}</h3>
-                <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.4; margin-bottom: 16px;">${item.desc}</p>
-              </div>
-              <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-inner-border); padding-top: 14px;">
-                <span style="font-size: 15px; font-weight: 900; color: var(--imperial-gold); font-family: var(--font-mono);">${item.cost} 💎</span>
-                <button class="btn-cyber btn-gold" onclick="buyShopItem('${item.id}', '${item.name.replace(/'/g, "\\'")}', ${item.cost})">ACHETER</button>
+                <div style="font-size: 12.5px; color: var(--text-white); margin-top: 3px; line-height: 1.4;">
+                  Couvre-feu NextDNS <strong>désactivé</strong> • Quêtes journalières <strong>exemptées sans pénalité</strong> • Série journalière <strong>protégée</strong> • Jauges vitales HP & MP à <strong>100%</strong>.
+                </div>
               </div>
             </div>
-          `,
-            )
-            .join("")}
+            <span class="shiny-green" style="font-family: var(--font-mono); font-weight: 800; font-size: 12px; padding: 6px 14px; border: 1px solid var(--tertiary); border-radius: 20px;">
+              RÉCUPÉRATION SOUVERAINE
+            </span>
+          </div>
         </div>
 
-        <!-- Inventory of Redeemed Vouchers -->
-        <div style="margin-top: 30px; border-top: 1px solid var(--glass-inner-border); padding-top: 20px;">
-          <h3 class="shiny-text" style="font-size: 18px; font-weight: bold; margin-bottom: 14px;">📦 MES ARTICLES DÉBLOQUÉS & CODES DE RETRAIT</h3>
+        <!-- SECTION 1 : SAC & OBJETS POSSÉDÉS (INVENTAIRE ACTIF) -->
+        <div style="margin-bottom: 34px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid var(--glass-inner-border); padding-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="material-symbols-outlined" style="color: var(--primary); font-size: 22px;">backpack</span>
+              <h3 class="shiny-text" style="font-size: 18px; font-weight: bold;">🎒 OBJETS & CONSOMMABLES POSSÉDÉS (INVENTAIRE ACTIF)</h3>
+            </div>
+            <span style="font-size: 11px; color: var(--text-secondary); font-family: var(--font-mono);">
+              <span id="inv-count-badge">${SYSTEM_STATE.inventory.length}</span> OBJET(S) EN RÉSERVE
+            </span>
+          </div>
+
           <div id="shop-inventory-container" class="grid-2col">
             ${SYSTEM_STATE.inventory.length === 0 ? `
-              <div class="empty-inventory-msg" style="grid-column: 1 / -1; padding: 24px; text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 13px; border: 1px dashed var(--glass-inner-border); border-radius: 8px;">
-                [INVENTAIRE VIERGE : AUCUN ARTICLE DÉBLOQUÉ POUR LE MOMENT]
+              <div class="empty-inventory-msg" style="grid-column: 1 / -1; padding: 30px; text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 13px; border: 1px dashed var(--glass-inner-border); border-radius: 10px; background: rgba(15, 9, 38, 0.4);">
+                <div style="font-size: 28px; margin-bottom: 8px;">🎒</div>
+                <div style="font-weight: bold; color: var(--text-secondary); margin-bottom: 4px;">VOTRE SAC D'INVENTAIRE EST ACTUELLEMENT VIDE</div>
+                <div>Accomplissez vos quêtes quotidiennes (100 💎/jour) pour forger votre <strong>Pass Jour de Repos</strong> (600 💎) ou vos potions ci-dessous.</div>
               </div>
             ` : SYSTEM_STATE.inventory
               .map(
                 (inv) => `
-              <div class="glass-card" style="padding: 14px; display: flex; justify-content: space-between; align-items: center;">
+              <div class="glass-card" style="padding: 16px; display: flex; flex-direction: column; justify-content: space-between; border-color: ${inv.type === 'REST_DAY' ? 'rgba(251, 191, 36, 0.45)' : 'var(--glass-inner-border)'};">
                 <div>
-                  <div style="font-size: 14px; font-weight: bold; color: var(--text-white);">${inv.name}</div>
-                  <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">Acheté le ${inv.date} pour ${inv.cost} 💎</div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span class="radar-ping-badge" style="font-size: 10px; padding: 2px 8px; color: ${inv.type === 'REST_DAY' ? 'var(--imperial-gold)' : 'var(--primary)'};">${inv.category || 'RELIQUE'}</span>
+                    <span style="font-size: 10.5px; color: var(--text-muted); font-family: var(--font-mono);">${inv.date}</span>
+                  </div>
+                  <div style="font-size: 15px; font-weight: bold; color: var(--text-white); margin-bottom: 6px;">${inv.name}</div>
+                  <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.4;">
+                    ${inv.type === 'REST_DAY' ? 'Octroie 24h d\'immunité totale contre le couvre-feu NextDNS et gèle les quêtes sans briser votre streak.' : (inv.type === 'POTION_MP' ? 'Recharge immédiate de +50 MP de concentration.' : (inv.type === 'POTION_HP' ? 'Restauration immédiate de +50 HP de vitalité.' : 'Article certifié du Système.'))}
+                  </div>
                 </div>
-                <div style="background: rgba(0, 240, 255, 0.1); border: 1px solid var(--neon-cyan); padding: 6px 10px; border-radius: 4px; font-family: var(--font-mono); font-size: 11px; color: var(--neon-cyan);">
-                  ${inv.code}
+
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-inner-border-subtle); padding-top: 10px; margin-top: 6px;">
+                  <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">
+                    ID: <code style="color: var(--neon-cyan);">${inv.code}</code>
+                  </div>
+                  ${inv.type === 'REST_DAY' ? (
+                    inv.used ? `<span class="radar-ping-badge" style="color: var(--tertiary); border-color: var(--tertiary);">✓ UTILISÉ AUJOURD'HUI</span>` : `<button class="btn-cyber btn-gold" style="font-size: 11px; padding: 6px 14px;" onclick="activateRestDay('${inv.id}')">⚡ ACTIVER LE REPOS (24H)</button>`
+                  ) : (inv.type === 'POTION_MP' ? (
+                    inv.used ? `<span class="radar-ping-badge" style="color: var(--text-muted);">CONSOMMÉ</span>` : `<button class="btn-cyber" style="font-size: 11px; padding: 6px 14px;" onclick="usePotion('${inv.id}', 'MP')">BOIRE (+50 MP)</button>`
+                  ) : (inv.type === 'POTION_HP' ? (
+                    inv.used ? `<span class="radar-ping-badge" style="color: var(--text-muted);">CONSOMMÉ</span>` : `<button class="btn-cyber btn-green" style="font-size: 11px; padding: 6px 14px;" onclick="usePotion('${inv.id}', 'HP')">BOIRE (+50 HP)</button>`
+                  ) : `<span class="radar-ping-badge" style="color: var(--neon-cyan);">ACTIF</span>`))}
+                </div>
+              </div>
+            `,
+              )
+              .join("")}
+          </div>
+        </div>
+
+        <!-- SECTION 2 : FORGE DES OMBRES (ACQUISITION AVEC CRISTAUX) -->
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid var(--glass-inner-border); padding-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="material-symbols-outlined" style="color: var(--imperial-gold); font-size: 22px;">token</span>
+              <h3 class="shiny-text" style="font-size: 18px; font-weight: bold;">⚡ FORGE DES OMBRES — ACQUISITION D'ARTÉFACTS</h3>
+            </div>
+            <span style="font-size: 11.5px; color: var(--imperial-gold); font-family: var(--font-mono); font-weight: bold;">
+              ÉCHANGE DE CRISTAUX D'OMBRE (💎)
+            </span>
+          </div>
+
+          <!-- Highlight Flagship Card: Pass Jour de Repos -->
+          <div class="glass-card" style="padding: 22px; margin-bottom: 22px; border: 1.5px solid rgba(251, 191, 36, 0.5); background: linear-gradient(135deg, rgba(251, 191, 36, 0.08) 0%, rgba(21, 15, 44, 0.9) 100%); box-shadow: 0 0 25px rgba(251, 191, 36, 0.15); border-radius: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px;">
+              <div style="flex: 1; min-width: 280px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                  <span class="radar-ping-badge" style="border-color: var(--imperial-gold); color: var(--imperial-gold);">RELIQUE MYTHIQUE • RANG S</span>
+                  <span class="shiny-gold" style="font-size: 12px; font-weight: bold; font-family: var(--font-mono);">CALIBRATION HEBDOMADAIRE</span>
+                </div>
+                <h3 style="font-size: 20px; font-weight: 900; color: var(--text-white); font-family: var(--font-display); margin-bottom: 8px;">
+                  Pass Jour de Repos Hebdomadaire (Répit du Monarque)
+                </h3>
+                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;">
+                  <strong style="color: var(--text-white);">Règle d'or du Système :</strong> Ce pass est calculé et calibré pour être débloqué <span style="color: var(--imperial-gold); font-weight: bold;">une seule fois par semaine</span>. En accomplissant vos quêtes journalières sans exception (100 💎 par jour sur 6 jours), vous récoltez exactement les <strong>600 💎</strong> nécessaires pour vous offrir 24h de repos complet. Le couvre-feu NextDNS est désactivé et aucune pénalité ne peut vous atteindre.
+                </p>
+                <div style="display: flex; gap: 16px; font-size: 12px; font-family: var(--font-mono); color: var(--primary); flex-wrap: wrap;">
+                  <span>✓ 100 💎/jour × 6 jours = 600 💎</span>
+                  <span>✓ 0 Sanction NextDNS</span>
+                  <span>✓ Streak Préservé</span>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; align-items: flex-end; justify-content: center; min-width: 180px;">
+                <div style="font-size: 26px; font-weight: 900; color: var(--imperial-gold); font-family: var(--font-mono); margin-bottom: 10px;">
+                  600 💎
+                </div>
+                <button class="btn-cyber btn-gold" style="font-size: 13px; padding: 10px 22px;" onclick="buyShopItem('item-rest-day-pass', 'Pass Jour de Repos Hebdomadaire (Répit du Monarque)', 600, 'REST_DAY', 'RÉPIS SOUVERAIN')">
+                  ACQUÉRIR CE PASS (600 💎)
+                </button>
+                <div style="font-size: 10.5px; color: var(--text-muted); font-family: var(--font-mono); margin-top: 6px;">
+                  Limite : 1 achat par tranche de 7 jours
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Other items in Grid -->
+          <div class="grid-3col">
+            ${SYSTEM_STATE.shopItems
+              .filter(item => item.id !== 'item-rest-day-pass')
+              .map(
+                (item) => `
+              <div class="glass-card spotlight-card" style="padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span class="radar-ping-badge">${item.category}</span>
+                    <span class="shiny-gold" style="font-size: 13px; font-weight: bold; font-family: var(--font-mono);">RANG ${item.rank}</span>
+                  </div>
+                  <h3 style="font-size: 15px; font-weight: bold; margin-bottom: 8px; color: var(--text-white);">${item.name}</h3>
+                  <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.4; margin-bottom: 16px;">${item.desc}</p>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-inner-border); padding-top: 14px;">
+                  <span style="font-size: 15px; font-weight: 900; color: var(--imperial-gold); font-family: var(--font-mono);">${item.cost} 💎</span>
+                  <button class="btn-cyber btn-gold" style="font-size: 11px; padding: 6px 12px;" onclick="buyShopItem('${item.id}', '${item.name.replace(/'/g, "\\'")}', ${item.cost}, '${item.type || 'GENERIC'}', '${item.category || 'OBJET'}')">ACHETER</button>
                 </div>
               </div>
             `,
@@ -4810,14 +4936,10 @@ function renderFullApplication(initialTab = "dashboard") {
       </div>
     </div>
 
-
     <!-- =====================================================================
          SCREEN 9 : ZONE DE PÉNALITÉ & VERROUILLAGE RÉSEAU INVIOLABLE
          ===================================================================== -->
-    <div id="view-penalty" class="view-panel ${initialTab === "penalty" ? "active" : ""}">
-      
-      <!-- Purgatory Ambient Dimensional Background Header -->
-      <div class="relative w-full rounded-xl overflow-hidden p-space-lg mb-space-lg" style="background: var(--surface-container-lowest); border: 1px solid rgba(244,63,94,0.4); box-shadow: 0 0 40px rgba(147,0,10,0.35); padding: 24px; margin-bottom: 22px; position: relative;">
+    space-lg" style="background: var(--surface-container-lowest); border: 1px solid rgba(244,63,94,0.4); box-shadow: 0 0 40px rgba(147,0,10,0.35); padding: 24px; margin-bottom: 22px; position: relative;">
         <div class="cyber-corner-tl" style="border-color: var(--alert-crimson);"></div>
         <div class="cyber-corner-tr" style="border-color: var(--alert-crimson);"></div>
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
@@ -5092,9 +5214,9 @@ function renderFullApplication(initialTab = "dashboard") {
         <span class="nav-tab-label">VEILLE BOURSES</span>
         <span class="nav-active-dot"></span>
       </button>
-      <button class="nav-tab ${initialTab === "shop" ? "active" : ""}" onclick="switchView('shop')" title="Boutique d'Ombre" aria-label="Boutique d'Ombre">
+      <button class="nav-tab ${initialTab === "shop" ? "active" : ""}" onclick="switchView('shop')" title="Inventaire du Chasseur" aria-label="Inventaire du Chasseur">
         <span class="nav-tab-icon">${NAV_ICONS.shop}</span>
-        <span class="nav-tab-label">BOUTIQUE D'OMBRE</span>
+        <span class="nav-tab-label">INVENTAIRE</span>
         <span class="nav-active-dot"></span>
       </button>
       <button class="nav-tab ${initialTab === "penalty" ? "active" : ""}" onclick="switchView('penalty')" title="Zone Pénalité" aria-label="Zone Pénalité">
@@ -7664,63 +7786,191 @@ function renderFullApplication(initialTab = "dashboard") {
     // =========================================================================
     // SCREEN 8 : SHADOW SHOP WITH REAL INVENTORY
     // =========================================================================
-    function buyShopItem(id, name, cost) {
+    // =========================================================================
+    // SCREEN 8 : INVENTAIRE DU CHASSEUR & GESTION DU REPOS SOUVERAIN
+    // =========================================================================
+    function buyShopItem(id, name, cost, type, category) {
+      if (!state.player) state.player = {};
+      if (!state.inventory) state.inventory = [];
+      if (!state.restDay) state.restDay = { active: false, weeklyCooldownUntil: null };
+
+      // Cooldown hebdomadaire strict pour le Pass Jour de Repos
+      if (type === 'REST_DAY' && state.restDay.weeklyCooldownUntil && Date.now() < state.restDay.weeklyCooldownUntil) {
+        const remainingHours = Math.ceil((state.restDay.weeklyCooldownUntil - Date.now()) / (3600 * 1000));
+        const remainingDays = Math.ceil(remainingHours / 24);
+        showSysNotification(
+          "⏳ [COOLDOWN HEBDOMADAIRE EN COURS]",
+          "Le Système n'autorise qu'<strong>un seul Jour de Repos par semaine</strong> pour préserver votre discipline d'acier.<br><br>Prochain déblocage possible dans <strong>" + remainingDays + " jour(s)</strong> (" + remainingHours + "h)."
+        );
+        return;
+      }
+
       if (state.player.shadowCrystals < cost) {
         showSysNotification(
           "[CRISTAUX INSUFFISANTS]",
-          "Solde insuffisant : vous avez <strong>" + state.player.shadowCrystals + " 💎</strong> mais cet article requiert <strong>" + cost + " 💎</strong>.<br>Accomplissez vos quêtes du jour pour en récolter."
+          "Solde insuffisant : vous disposez de <strong>" + state.player.shadowCrystals + " 💎</strong> mais cet article requiert <strong>" + cost + " 💎</strong>.<br><br>" +
+          (type === 'REST_DAY' 
+            ? "💡 <em>Rappel de calibration :</em> 600 💎 correspondent exactement à <strong>6 jours de quêtes quotidiennes parfaites</strong> (100 💎/jour). Accomplissez toutes vos quêtes de la semaine pour débloquer votre repos souverain mérité !" 
+            : "Accomplissez vos quêtes du jour pour récolter les cristaux manquants.")
         );
         return;
       }
 
       state.player.shadowCrystals -= cost;
-      const voucherCode = "LVL-SHADOW-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+      const voucherCode = "LVL-RELIC-" + Math.random().toString(36).substring(2, 8).toUpperCase();
       const newInv = {
         id: 'inv-' + Date.now(),
+        itemId: id,
         name: name,
         cost: cost,
+        type: type || 'GENERIC',
+        category: category || 'OBJET',
+        used: false,
         code: voucherCode,
-        date: new Date().toLocaleDateString('fr-FR')
+        date: new Date().toLocaleDateString('fr-FR'),
+        timestamp: Date.now()
       };
+
+      if (type === 'REST_DAY') {
+        state.restDay.weeklyCooldownUntil = Date.now() + 7 * 86400 * 1000;
+      }
+
       state.inventory.unshift(newInv);
       saveState();
 
-      // Update counters
-      const bal = document.getElementById('shop-balance-display');
-      const headBal = document.getElementById('header-crystals-val');
-      if (bal) bal.textContent = state.player.shadowCrystals;
-      if (headBal) headBal.textContent = state.player.shadowCrystals;
-
-      // Add to inventory UI
-      const invContainer = document.getElementById('shop-inventory-container');
-      if (invContainer) {
-        const emptyMsg = invContainer.querySelector('.empty-inventory-msg');
-        if (emptyMsg) emptyMsg.remove();
-        const div = document.createElement('div');
-        div.className = 'glass-card';
-        div.style.padding = '14px';
-        div.style.display = 'flex';
-        div.style.justifyContent = 'space-between';
-        div.style.alignItems = 'center';
-        div.innerHTML = \`
-          <div>
-            <div style="font-size: 14px; font-weight: bold; color: var(--text-white);">\${newInv.name}</div>
-            <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">Acheté à l'instant pour \${newInv.cost} 💎</div>
-          </div>
-          <div style="background: rgba(0, 240, 255, 0.1); border: 1px solid var(--neon-cyan); padding: 6px 10px; border-radius: 4px; font-family: var(--font-mono); font-size: 11px; color: var(--neon-cyan);">
-            \${newInv.code}
-          </div>
-        \`;
-        invContainer.insertBefore(div, invContainer.firstChild);
-      }
+      renderInventoryUI();
 
       showSysNotification(
-        "💎 [ACHAT VALIDÉ DANS LA BOUTIQUE DES OMBRES]",
-        "Article : <strong>" + name + "</strong>.<br>Montant débité : <strong>-" + cost + " 💎</strong>.<br>Code de retrait généré : <code style='color: var(--neon-cyan); font-weight: bold;'>" + voucherCode + "</code>.<br>L'article a été ajouté à votre inventaire permanent."
+        "💎 [OBJET FORGÉ & AJOUTÉ À L'INVENTAIRE]",
+        "Vous avez acquis : <strong>" + name + "</strong>.<br>Montant débité : <strong>-" + cost + " 💎</strong>.<br>L'article est maintenant disponible dans votre <strong>Sac d'Inventaire</strong> ci-dessus !"
       );
     }
 
-    // =========================================================================
+    function activateRestDay(invId) {
+      if (!state.inventory) return;
+      const item = state.inventory.find(i => i.id === invId);
+      if (!item || item.used) return;
+
+      item.used = true;
+      if (!state.restDay) state.restDay = {};
+      state.restDay.active = true;
+      state.restDay.activatedAt = new Date().toISOString();
+      state.restDay.expiresAt = new Date(Date.now() + 24 * 3600 * 1000).toISOString();
+
+      // Regenerate player vitality and mana to 100%
+      if (state.player) {
+        state.player.hp = state.player.maxHp || 100;
+        state.player.mp = state.player.maxMp || 100;
+      }
+      saveState();
+
+      // Notify backend server to lift curfew
+      fetch('/api/v1/rest-day/activate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ invId })
+      }).catch(e => console.warn('Rest day API sync error:', e));
+
+      renderInventoryUI();
+
+      showSysNotification(
+        "🛡️ [JOUR DE REPOS DU MONARQUE ACTIVÉ]",
+        "Félicitations Chasseur ! Votre discipline exemplaire tout au long de la semaine vous a valu ce repos souverain bien mérité :<br><br>" +
+        "• <strong>Couvre-feu NextDNS :</strong> DÉSACTIVÉ pour les prochaines 24h.<br>" +
+        "• <strong>Quêtes journalières :</strong> SUSPENDUES (0 sanction).<br>" +
+        "• <strong>Série de Discipline :</strong> PROTÉGÉE.<br>" +
+        "• <strong>Jauges HP & MP :</strong> Restaurées à 100%.<br><br>" +
+        "<em>Profitez de votre récupération. L'ascension reprendra demain avec une énergie maximale !</em>"
+      );
+    }
+
+    function usePotion(invId, potionType) {
+      if (!state.inventory) return;
+      const item = state.inventory.find(i => i.id === invId);
+      if (!item || item.used) return;
+
+      item.used = true;
+      if (potionType === 'MP') {
+        state.player.mp = Math.min(state.player.maxMp || 100, (state.player.mp || 0) + 50);
+        showSysNotification(
+          "🧪 [POTION DE MANA CONSOMMÉE]",
+          "Énergie cognitive restaurée : <strong>+50 MP</strong> ! Vous êtes prêt pour votre prochaine session de Deep Work."
+        );
+      } else if (potionType === 'HP') {
+        state.player.hp = Math.min(state.player.maxHp || 100, (state.player.hp || 0) + 50);
+        showSysNotification(
+          "🧪 [ÉLIXIR DE VITALITÉ CONSOMMÉ]",
+          "Vitalité restaurée : <strong>+50 HP</strong> ! Fatigue physique dissipée."
+        );
+      }
+      saveState();
+      renderInventoryUI();
+    }
+
+    function renderInventoryUI() {
+      // Update balances
+      const bal = document.getElementById('shop-balance-display');
+      const headBal = document.getElementById('header-crystals-val');
+      if (bal && state.player) bal.textContent = state.player.shadowCrystals;
+      if (headBal && state.player) headBal.textContent = state.player.shadowCrystals;
+
+      // Update badge & banner
+      const statusPill = document.getElementById('rest-day-status-pill');
+      const banner = document.getElementById('rest-day-active-banner');
+      const isRestActive = state.restDay && state.restDay.active;
+      if (statusPill) {
+        statusPill.style.borderColor = isRestActive ? 'var(--tertiary)' : 'var(--glass-inner-border)';
+        statusPill.style.color = isRestActive ? 'var(--tertiary)' : 'var(--text-secondary)';
+        statusPill.textContent = isRestActive ? '🛡️ JOUR DE REPOS ACTIF (24H)' : '⚡ CYCLE QUOTIDIEN EN COURS';
+      }
+      if (banner) {
+        banner.style.display = isRestActive ? 'block' : 'none';
+      }
+
+      // Update inventory container
+      const container = document.getElementById('shop-inventory-container');
+      const countBadge = document.getElementById('inv-count-badge');
+      if (countBadge && state.inventory) countBadge.textContent = state.inventory.length;
+
+      if (container) {
+        if (!state.inventory || state.inventory.length === 0) {
+          container.innerHTML = '<div class="empty-inventory-msg" style="grid-column: 1 / -1; padding: 30px; text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 13px; border: 1px dashed var(--glass-inner-border); border-radius: 10px; background: rgba(15, 9, 38, 0.4);"><div style="font-size: 28px; margin-bottom: 8px;">🎒</div><div style="font-weight: bold; color: var(--text-secondary); margin-bottom: 4px;">VOTRE SAC D\'INVENTAIRE EST ACTUELLEMENT VIDE</div><div>Accomplissez vos quêtes quotidiennes (100 💎/jour) pour forger votre <strong>Pass Jour de Repos</strong> (600 💎) ou vos potions ci-dessous.</div></div>';
+        } else {
+          container.innerHTML = state.inventory.map(function(inv) {
+            var badgeColor = inv.type === 'REST_DAY' ? 'var(--imperial-gold)' : 'var(--primary)';
+            var borderStyle = inv.type === 'REST_DAY' ? 'border-color: rgba(251, 191, 36, 0.45);' : 'border-color: var(--glass-inner-border);';
+            var desc = inv.type === 'REST_DAY' ? 'Octroie 24h d\'immunité totale contre le couvre-feu NextDNS et gèle les quêtes sans briser votre streak.' : (inv.type === 'POTION_MP' ? 'Recharge immédiate de +50 MP de concentration.' : (inv.type === 'POTION_HP' ? 'Restauration immédiate de +50 HP de vitalité.' : 'Article certifié du Système.'));
+            var actionBtn = '';
+            if (inv.type === 'REST_DAY') {
+              actionBtn = inv.used ? '<span class="radar-ping-badge" style="color: var(--tertiary); border-color: var(--tertiary);">✓ UTILISÉ AUJOURD\'HUI</span>' : '<button class="btn-cyber btn-gold" style="font-size: 11px; padding: 6px 14px;" onclick="activateRestDay(\'' + inv.id + '\')">⚡ ACTIVER LE REPOS (24H)</button>';
+            } else if (inv.type === 'POTION_MP') {
+              actionBtn = inv.used ? '<span class="radar-ping-badge" style="color: var(--text-muted);">CONSOMMÉ</span>' : '<button class="btn-cyber" style="font-size: 11px; padding: 6px 14px;" onclick="usePotion(\'' + inv.id + '\', \'MP\')">BOIRE (+50 MP)</button>';
+            } else if (inv.type === 'POTION_HP') {
+              actionBtn = inv.used ? '<span class="radar-ping-badge" style="color: var(--text-muted);">CONSOMMÉ</span>' : '<button class="btn-cyber btn-green" style="font-size: 11px; padding: 6px 14px;" onclick="usePotion(\'' + inv.id + '\', \'HP\')">BOIRE (+50 HP)</button>';
+            } else {
+              actionBtn = '<span class="radar-ping-badge" style="color: var(--neon-cyan);">ACTIF</span>';
+            }
+
+            return '<div class="glass-card" style="padding: 16px; display: flex; flex-direction: column; justify-content: space-between; ' + borderStyle + '">' +
+              '<div>' +
+                '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">' +
+                  '<span class="radar-ping-badge" style="font-size: 10px; padding: 2px 8px; color: ' + badgeColor + ';">' + (inv.category || 'RELIQUE') + '</span>' +
+                  '<span style="font-size: 10.5px; color: var(--text-muted); font-family: var(--font-mono);">' + inv.date + '</span>' +
+                '</div>' +
+                '<div style="font-size: 15px; font-weight: bold; color: var(--text-white); margin-bottom: 6px;">' + inv.name + '</div>' +
+                '<div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.4;">' + desc + '</div>' +
+              '</div>' +
+              '<div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-inner-border-subtle); padding-top: 10px; margin-top: 6px;">' +
+                '<div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">ID: <code style="color: var(--neon-cyan);">' + inv.code + '</code></div>' +
+                actionBtn +
+              '</div>' +
+            '</div>';
+          }).join('');
+        }
+      }
+    }
+
+        // =========================================================================
     // SCREEN 9 : REAL NEXTDNS PENALTY TOGGLE, REDEMPTION & CAMERA PURGE
     // =========================================================================
     async function toggleRealPenalty() {
@@ -8609,6 +8859,41 @@ const server = http.createServer((req, res) => {
     SYSTEM_STATE = JSON.parse(JSON.stringify(DEFAULT_STATE));
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ status: "PRISTINE_RESET_SUCCESS", state: SYSTEM_STATE }));
+    return;
+  }
+
+  // Rest Day Status & Activation Endpoints
+  if (pathname === "/api/v1/rest-day/status") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({
+      active: !!SYSTEM_STATE.restDayActive,
+      activatedAt: SYSTEM_STATE.restDayActivatedAt || null,
+      cooldownUntil: SYSTEM_STATE.restDayCooldownUntil || null,
+      curfewDisabled: !!SYSTEM_STATE.restDayActive
+    }));
+    return;
+  }
+
+  if (pathname === "/api/v1/rest-day/activate" && req.method === "POST") {
+    SYSTEM_STATE.restDayActive = true;
+    SYSTEM_STATE.restDayActivatedAt = new Date().toISOString();
+    SYSTEM_STATE.penalty.active = false;
+    SYSTEM_STATE.penalty.reason = "Jour de Repos actif (Répit du Monarque accordé par assiduité hebdomadaire).";
+    
+    // Lift NextDNS restrictions if any
+    const profileId = process.env.NEXTDNS_PROFILE_ID;
+    const apiKey = process.env.NEXTDNS_API_KEY;
+    if (profileId && apiKey) {
+      deactivateNextDnsRestriction(profileId, apiKey).catch(() => {});
+    }
+    applyLocalHostsFilter(false);
+
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({
+      success: true,
+      restDayActive: true,
+      message: "Jour de Repos activé avec succès. Couvre-feu NextDNS désactivé et pénalités suspendues."
+    }));
     return;
   }
 

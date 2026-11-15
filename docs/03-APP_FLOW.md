@@ -35,7 +35,7 @@ flowchart TD
 | `/skills` | **Arbre des Compétences** | Graphe interactif (DAG) des 120 compétences réparties sur les 8 bases avec prérequis. |
 | `/notes` | **Second Brain (Obsidian Vault)** | Édition Markdown avec formules $\LaTeX$ (KaTeX), backlinks et répétition espacée SM-2. |
 | `/opportunities` | **Veille Stratégique Deerflow** | Scraper d'opportunités à fort impact (bourses $\\ge 5\\,000$ €, grands hackathons, subventions). |
-| `/shop` | **Boutique de l'Ombre** | Échange des Cristaux d'Ombre contre récompenses réelles, buffs et autorisations de pause. |
+| `/shop` | **Inventaire du Chasseur** | Gestion des reliques, potions de vitalité/mana et activation du Pass Jour de Repos hebdomadaire. |
 | `/penalty` | **Mode Restriction** | Écran d'alerte rouge affiché lors d'un verrouillage NextDNS avec sélection de quête de purge. |
 
 ---
