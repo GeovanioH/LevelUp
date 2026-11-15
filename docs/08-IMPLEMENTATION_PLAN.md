@@ -107,7 +107,7 @@ flowchart TD
     subgraph P5 ["Phase 5 : IA Évaluateur IA Socratique & Scraping Deerflow"]
         T5_1["5.1 : Runtime Antigravity & Évaluation Socratique Gemini 2.5 Pro"]
         T5_2["5.2 : Générateur Dynamique de Quêtes Journalières selon Vitalité"]
-        T5_3["5.3 : Worker Playwright Deerflow (Campus France, Devpost, MIT)"]
+        T5_3["5.3 : Worker Playwright Deerflow (Portail Bourses & Mobilité, Devpost, MIT)"]
         T5_4["5.4 : Boutique de Récompenses & Économie des Cristaux"]
         Gate5{"Gate 5 : Validation IA & Deerflow"}
     end
@@ -444,7 +444,7 @@ Pour chacune des 25 tâches, les blueprints de fichiers, commandes shell d'exéc
 
 ---
 
-#### Tâche 5.3 : Worker Playwright Deerflow (Campus France & Devpost)
+#### Tâche 5.3 : Worker Playwright Deerflow (Portail Bourses & Mobilité & Devpost)
 * **Composants & Fichiers Créés :**
   * `services/deerflow/scraper.py`
   * `apps/web/server/routes/deerflowWebhook.ts`
@@ -889,7 +889,7 @@ export class ArchitectService {
     academicContext?: string;
   }) {
     const prompt = `
-ÉVALUATION D'UN MONOLOGUE ORAL ÉTUDIANT DU JOUEUR (UTILISATEUR) :
+ÉVALUATION D'UN MONOLOGUE ORAL DU JOUEUR :
 - Matière Ciblée : ${params.targetStat}
 - Sujet Précis  : ${params.topic}
 - Contexte      : ${params.academicContext || 'Révision continue'}
@@ -1221,7 +1221,7 @@ Chaque phase d'ingénierie est verrouillée par 10 critères de conformité mesu
 2. [✓] L'évaluation d'un monologue retourne obligatoirement un JSON conforme au Zod schema.
 3. [✓] La notation sur 20 points respecte la pondération des 4 critères (Exactitude, Structure, Jargon, Pratique).
 4. [✓] Le générateur de quêtes adapte le niveau de défi si la jauge HP du joueur est inférieure à 60%.
-5. [✓] Le worker Playwright Deerflow scrape Campus France et Devpost sans être bloqué par les captchas.
+5. [✓] Le worker Playwright Deerflow scrape Portail Bourses & Mobilité et Devpost sans être bloqué par les captchas.
 6. [✓] Les opportunités découvertes sont signées via HMAC-SHA256 et transmises à l'API.
 7. [✓] Une alerte Discord prioritaire est émise pour toute bourse supérieure à 5 000 €.
 8. [✓] L'achat d'un article dans la Boutique de Récompenses déduit les Cristaux de façon atomique.
@@ -1447,7 +1447,7 @@ Le tableau ci-dessous répertorie l'ensemble des commandes de build, test, lint 
 | `pnpm security:check-keys`| Sécurité Root | Vérifie l'entropie et la validité des clés cryptographiques dans `.env`. |
 | `pnpm bot:start` | apps/bot | Démarre le bot Discord en mode production autonome. |
 | `pnpm whisper:worker` | services/whisper | Lance le serveur d'inférence Faster-Whisper avec monitoring GPU. |
-| `pnpm deerflow:scrape` | services/deerflow | Déclenche un cycle de scraping manuel des bourses d'études Campus France. |
+| `pnpm deerflow:scrape` | services/deerflow | Déclenche un cycle de scraping manuel des bourses d'études Portail Bourses & Mobilité. |
 | `pnpm penalty:arm` | daemon | Arme manuellement le pare-feu de pénalité pour vérification opérationnelle. |
 | `pnpm penalty:disarm` | daemon | Restaure immédiatement la configuration DNS saine du fichier hosts. |
 
@@ -1528,7 +1528,7 @@ Le développement est échelonné sur 8 sprints de 2 semaines chacun (durée tot
 * **Livrables Validés :**
   * Agent Antigravity sous Gemini 2.5 Pro évaluant les monologues sur 20 points objectif.
   * Générateur dynamique de quêtes adaptant la difficulté selon la jauge biologique HP.
-  * Worker Playwright Deerflow collectant les bourses d'excellence Campus France et hackathons Devpost.
+  * Worker Playwright Deerflow collectant les bourses d'excellence Portail Bourses & Mobilité et hackathons Devpost.
   * Boutique de Récompenses avec débit atomique de Points de Récompense (Cristaux) (`ShopService.ts`).
 * **Critères d'Acceptation (DoD) :** Porte de validation `Gate 5` validée à 100%.
 

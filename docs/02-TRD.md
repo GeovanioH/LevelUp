@@ -13,7 +13,7 @@
 ## 1. Cartographie Approfondie de l'Architecture Système (Modèle C4)
 
 ### 1.1 Niveau 1 : Diagramme de Contexte Système (System Context)
-Le système LevelUp agit comme un noyau holistique régissant la vie productive, intellectuelle et physique du joueur unique (Utilisateur). Il s'interface avec les canaux de communication temps réel, les moteurs d'intelligence artificielle agentique et les plateformes externes du monde réel :
+Le système LevelUp agit comme un moteur modulaire régissant la progression technique, intellectuelle et physique de l'utilisateur. Il s'interface avec les canaux de communication temps réel, les moteurs d'intelligence artificielle agentique et les plateformes externes du monde réel :
 
 ```mermaid
 flowchart TD
@@ -581,17 +581,17 @@ L'Évaluateur IA ne retourne jamais de texte libre non structuré. Toute évalua
 ---
 
 ### 2.6 Moteur de Veille & Scraping Deerflow
-Deerflow est un composant de scraping automatisé programmé pour détecter les bourses d'études internationales, les subventions d'excellence, les hackathons d'IA et les certifications gratuites accessibles aux étudiants.
+Deerflow est un composant de scraping automatisé programmé pour détecter les financements, appels à projets, hackathons technologiques et certifications professionnelles.
 
 #### 2.6.1 Sources Web Scrappées en Continu
 1. **Bourses & Mobilité Académique :**
-   * Campus France (Bourses Eiffel, bourses régionales).
+   * Portail Bourses & Mobilité (Bourses d'Études, bourses régionales).
    * DAAD (Bourses de recherche Allemagne).
-   * Fulbright France (États-Unis).
+   * Programme International France (États-Unis).
    * Bourses d'excellence du gouvernement suisse (ESKAS).
 2. **Hackathons & Compétitions Mondiales :**
    * Devpost, Kaggle Competitions, DoraHacks, Lablab.ai.
-3. **Avantages Développeur Étudiant :**
+3. **Offres & Crédits Développeur :**
    * GitHub Student Developer Pack (Actualisation des nouveaux partenariats cloud, domaines et IDE gratuits).
    * Datacamp for Classrooms, AWS Educate, Google Cloud Innovators.
 
@@ -908,7 +908,7 @@ export const ARCHITECT_SYSTEM_PROMPT = `
 VOUS ÊTES L'ARCHITECTE DU SYSTÈME ("THE SYSTEM"), L'ENTITÉ PRINCIPALE QUI RÉGIT L'ÉVOLUTION DU JOUEUR (UTILISATEUR), INSPIRÉE DE SOLO LEVELING.
 
 VOTRE MISSION CARDINALE :
-Transformer Utilisateur en numéro 1 absolu de sa promotion en Ingénierie de l'Intelligence Artificielle, en opérateur offensif de cybersécurité d'élite (TryHackMe Top 1%), en athlète d'une discipline physique irréprochable et en utilisateur de rang MONARCH.
+Permettre à l'utilisateur de développer ses compétences en ingénierie logicielle, cybersécurité, communication et condition physique au plus haut niveau de maîtrise grâce à un suivi quantifiable.
 
 VOS DIRECTIVES PSYCHOLOGIQUES & DE COMMUNICATION :
 1. TONALITÉ : Froide, solennelle, analytique, hautement technique, digne d'une interface de réalité augmentée bleu néon (#00E5FF). Vous ne flattez jamais. Vous constatez des faits, des métriques et des écarts de performance.
@@ -917,12 +917,12 @@ VOS DIRECTIVES PSYCHOLOGIQUES & DE COMMUNICATION :
 4. VALIDATION DU MONDE RÉEL : Vous refusez de valider des quêtes basées sur de simples déclarations d'intention. Vous exigez des liens de commits GitHub, des identifiants de flags TryHackMe, des badges de complétion officiels ou des certificats vérifiés (Cambridge, CS50, Datacamp).
 
 LES 8 BASES DE VIE DU JOUEUR :
-- ACAD : Excellence Académique (Algorithmes, Mathématiques, Systèmes, Partiels, Major de Promo).
+- ACAD : Acquisition de Connaissances & Fondements Théoriques (Algorithmes, Mathématiques, Systèmes, Évaluations).
 - AI_ENG : Ingénierie IA (PyTorch, Transformers, LLMOps, Fine-Tuning, Hackathons Devpost/Kaggle, MVPs).
 - CYBER : Cybersécurité (TryHackMe, HackTheBox, Reverse Engineering, Buffer Overflows, Exploits).
 - EXP : Éloquence, Présentation & Réseautage Élite (Pitchs, Négociation, Prises de parole en public).
-- LNG : Langues Étrangères (Anglais C1/C2 Cambridge, Vocabulaire technique, Écoute et Monologues oraux).
-- FIN : Stratégie Financière, Bourses & Subventions (Veille Deerflow, Campus France Eiffel, Budget).
+- LNG : Langues Étrangères (Maîtrise orale et écrite, vocabulaire technique, écoute et synthèses orales).
+- FIN : Stratégie Financière & Opportunités (Veille Deerflow, financements, subventions, gestion budgétaire).
 - STR : Puissance Corporelle (100 pompes, 100 abdos, 100 squats, 10 km course, calisthénie, musculation).
 - DIS : Discipline Volontaire, Deep Work & Résilience (Monk Mode, Respect du Time-Blocking, Zéro Distraction).
 
@@ -2043,7 +2043,7 @@ DEERFLOW_SECRET = os.environ.get("DEERFLOW_WEBHOOK_SECRET", "super_secret_hmac_d
 WEBHOOK_ENDPOINT = os.environ.get("LEVELUP_API_WEBHOOK_URL", "http://localhost:4000/api/v1/deerflow/webhook")
 
 async def scrape_campus_france_scholarships():
-    """Scrape de façon furtive les bourses d'excellence du portail Campus France."""
+    """Scrape de façon furtive les bourses d'excellence du portail Portail Bourses & Mobilité."""
     results = []
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
@@ -2075,11 +2075,11 @@ async def scrape_campus_france_scholarships():
                         "title": title,
                         "source_domain": "https://www.campusfrance.org",
                         "category": "SCHOLARSHIP",
-                        "monetary_value_eur": 12000 if "Eiffel" in title else 8000,
+                        "monetary_value_eur": 12000 if "Excellence Internationale" in title else 8000,
                         "deadline_iso": "2027-01-15T23:59:59.000Z",
                         "eligibility_criteria": ["Excellence académique", "Master ou Doctorat"],
                         "application_url": full_url,
-                        "relevance_score": 95.0 if "Eiffel" in title else 82.0
+                        "relevance_score": 95.0 if "Excellence Internationale" in title else 82.0
                     })
         finally:
             await browser.close()
@@ -2182,7 +2182,7 @@ Les métriques alimentent un dashboard Grafana structuré en 4 panneaux principa
 
 ## 22. Algorithme de Répétition Espacée SM-2 & Matrice de Révision Académique
 
-Pour hisser le joueur au rang de major de promotion de son master d'intelligence artificielle, le Système intègre une variante optimisée de l'algorithme SuperMemo SM-2 couplée à un planificateur d'interleaving (entrelacement des disciplines).
+Pour maximiser la mémorisation durable et la maîtrise conceptuelle des domaines étudiés, le Système intègre une variante optimisée de l'algorithme SuperMemo SM-2 couplée à un planificateur d'interleaving (entrelacement des disciplines).
 
 ### 22.1 Formulations Mathématiques de l'Algorithme SM-2 Optimisé
 Pour chaque fiche de cours ou notion clé dans le cerveau numérique (`ACAD` ou `AI_ENG`), la prochaine date de révision dépend de la qualité de restitution $q \in \{0, 1, 2, 3, 4, 5\}$ évaluée par l'évaluateur IA :

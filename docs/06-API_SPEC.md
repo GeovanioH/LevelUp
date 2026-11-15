@@ -782,7 +782,7 @@ Retourne la photographie temps réel complète du joueur, ses jauges, son rang e
           "xp_for_current_level": 1200,
           "xp_for_next_level": 1800,
           "progress_percentage": 41.67,
-          "mastery_title": "Major de Promotion Prétendant"
+          "mastery_title": "Opérateur d'Excellence"
         },
         {
           "code": "AI_ENG",
@@ -1521,8 +1521,8 @@ Endpoint sécurisé par signature HMAC-SHA256 recevant les opportunités découv
   {
     "event": "OPPORTUNITY_SCRAPED",
     "opportunity": {
-      "external_id": "bourses-excellence-eiffel-2027",
-      "title": "Bourses d'Excellence Eiffel 2027 pour Étudiants en Master IA",
+      "external_id": "bourses-excellence-excellence-internationale-2027",
+      "title": "Appel à Projets & Financement de Recherche 2027",
       "source_domain": "https://www.campusfrance.org",
       "category": "SCHOLARSHIP",
       "monetary_value_eur": 14000,
@@ -1532,7 +1532,7 @@ Endpoint sécurisé par signature HMAC-SHA256 recevant les opportunités découv
         "Âge inférieur à 25 ans",
         "Excellence académique avérée (Top 10%)"
       ],
-      "application_url": "https://www.campusfrance.org/fr/le-programme-de-bourses-eiffel",
+      "application_url": "https://www.campusfrance.org/fr/le-programme-de-bourses-excellence-internationale",
       "relevance_score": 96.5
     },
     "signature": "8f9b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b"
@@ -1543,7 +1543,7 @@ Endpoint sécurisé par signature HMAC-SHA256 recevant les opportunités découv
   {
     "success": true,
     "data": {
-      "opportunity_id": "op-7890-eiffel",
+      "opportunity_id": "op-7890-excellence-internationale",
       "status": "STORED_AND_ALERT_DISPATCHED",
       "discord_notification_sent": true
     },
@@ -1569,13 +1569,13 @@ Consulte les bourses, subventions et hackathons indexés.
       "total_count": 3,
       "opportunities": [
         {
-          "id": "op-7890-eiffel",
-          "title": "Bourses d'Excellence Eiffel 2027 pour Étudiants en Master IA",
-          "source": "Campus France",
+          "id": "op-7890-excellence-internationale",
+          "title": "Appel à Projets & Financement de Recherche 2027",
+          "source": "Portail Bourses & Mobilité",
           "category": "SCHOLARSHIP",
           "estimated_value_eur": 14000,
           "deadline": "2027-01-10T23:59:59.000Z",
-          "external_url": "https://www.campusfrance.org/fr/le-programme-de-bourses-eiffel",
+          "external_url": "https://www.campusfrance.org/fr/le-programme-de-bourses-excellence-internationale",
           "status": "BOOKMARKED",
           "discovered_at": "2026-11-11T04:15:00.000Z"
         }
@@ -1881,14 +1881,14 @@ Récupère le catalogue complet des routines d'entraînement maison de l'utilisa
     },
     {
       "code": "ARMS_6_FAILURE",
-      "title": "Routine Bras & Triceps Calisthenics (@giovanni_fiderio)",
+      "title": "Routine Bras & Triceps Calisthenics (Protocole Calisthénie)",
       "targetGroup": "ARMS_TRICEPS",
       "totalSteps": 6,
       "description": "3 séries à l'échec postural pour chaque exercice : Push-Ups, Decline, Diamond, Pike, Wide, Tricep Cross Extensions"
     },
     {
       "code": "ABS_CORE_5",
-      "title": "Routine Abdos & Core d'Acier (@lou4n.ldlm)",
+      "title": "Routine Abdos & Core d'Acier (Protocole Core)",
       "targetGroup": "CORE_ABS",
       "totalSteps": 5,
       "description": "V-Up (3x10), Mountain Climber (3x30s), Relevé de jambes (3x12), Gainage classique (2x1m30), Gainage latéral (2x45s/côté)"
@@ -1971,7 +1971,7 @@ Active ou désactive instantanément le profil de restriction DNS récréatif vi
     "requirementsMet": {
       "levelRequirement": { "required": 46, "actual": 48, "passed": true },
       "hackathonWinRequirement": { "required": 1, "actual": 1, "passed": true, "proof": "Devpost AI Global Hackathon 2026 - 1st Prize" },
-      "cambridgeLevelRequirement": { "required": "C1", "actual": "C1", "passed": true, "proof": "Cambridge English C1 Advanced Certificate #CAM-88910" },
+      "cambridgeLevelRequirement": { "required": "C1", "actual": "C1", "passed": true, "proof": "Certification Linguistique C1 Certificate #CAM-88910" },
       "calisthenicsRequirement": { "required": true, "actual": true, "passed": true, "proof": "17-ex Back & 6-ex Arm splits verified by CV" },
       "classRankRequirement": { "required": "Top 10%", "actual": "Top 4%", "passed": true }
     },
@@ -2135,11 +2135,11 @@ Notifie la découverte immédiate d'une opportunité à forte valeur financière
   "event": "DEERFLOW_OPPORTUNITY_ALERT",
   "topic": "deerflow:alerts",
   "payload": {
-    "opportunity_id": "op-7890-eiffel",
-    "title": "Bourses d'Excellence Eiffel 2027 (14 000 €)",
+    "opportunity_id": "op-7890-excellence-internationale",
+    "title": "Bourses d'Excellence Excellence Internationale 2027 (14 000 €)",
     "deadline_iso": "2027-01-10T23:59:59.000Z",
     "relevance_score": 96.5,
-    "quick_action_url": "https://api.levelup.local/api/v1/deerflow/opportunities/op-7890-eiffel/apply"
+    "quick_action_url": "https://api.levelup.local/api/v1/deerflow/opportunities/op-7890-excellence-internationale/apply"
   },
   "emitted_at": "2026-11-11T04:15:01.000Z"
 }
@@ -2781,7 +2781,7 @@ curl -s -X POST "https://api.levelup.local/api/v1/planner/blocks" \
 
 ### 7.6 Test du Webhook Opportunités Deerflow avec Signature HMAC
 ```bash
-PAYLOAD='{"event":"OPPORTUNITY_SCRAPED","opportunity":{"external_id":"mit-fellowship-2027","title":"Bourse Doctorale MIT AI Lab 2027","source_domain":"https://mit.edu","category":"SCHOLARSHIP","monetary_value_eur":45000,"deadline_iso":"2027-02-15T00:00:00.000Z","eligibility_criteria":["Master IA terminé"],"application_url":"https://mit.edu/apply","relevance_score":99.0},"signature":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}'
+PAYLOAD='{"event":"OPPORTUNITY_SCRAPED","opportunity":{"external_id":"mit-fellowship-2027","title":"Bourse de Recherche Avancée AI Lab 2027","source_domain":"https://mit.edu","category":"SCHOLARSHIP","monetary_value_eur":45000,"deadline_iso":"2027-02-15T00:00:00.000Z","eligibility_criteria":["Cursus Spécialisé terminé"],"application_url":"https://mit.edu/apply","relevance_score":99.0},"signature":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}'
 
 curl -s -X POST "https://api.levelup.local/api/v1/deerflow/webhook" \
   -H "Content-Type: application/json" \

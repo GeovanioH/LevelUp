@@ -5,7 +5,10 @@
 [![AI Engine](https://img.shields.io/badge/AI%20CORE-GEMINI%202.5%20PRO%20%26%20FASTER--WHISPER-FF6B00?style=for-the-badge&logo=google)](https://github.com/GeovanioH/LevelUp)
 [![Security](https://img.shields.io/badge/SECURITY-OWASP%20ASVS%20LEVEL%203-00FF66?style=for-the-badge)](https://github.com/GeovanioH/LevelUp)
 
-**LevelUp** est une plateforme intégrée d'ingénierie d'excellence personnelle, de discipline et de développement de compétences pour un profil d'ingénieur en Intelligence Artificielle et Sciences des Données. Elle structure l'apprentissage académique, le code, la cybersécurité, les langues, les opportunités professionnelles et la condition physique au sein d'un moteur de suivi déterministe et quantifiable.
+**LevelUp** est une plateforme modulaire d'auto-quantification, d'orchestration de discipline et de développement de compétences. Conçu comme un moteur de productivité universel et extensible, il permet à tout utilisateur de modéliser, quantifier et valider sa progression dans ses domaines d'apprentissage, ses projets techniques, sa condition physique et sa discipline quotidienne au sein d'un environnement gamifié déterministe et mesurable.
+
+> [!NOTE]
+> **Profil & Personnalisation Individuelle** : Les objectifs individuels, programmes d'entraînement spécifiques et paramètres de carrière d'un utilisateur sont configurés dans le fichier dédié [config/personal_profile.md](config/personal_profile.md). Le présent manuel décrit l'architecture universelle, les composants logiciels et le fonctionnement du moteur LevelUp.
 
 ---
 ## Sommaire Général du Manuel
@@ -60,7 +63,7 @@ L'ascension du joueur repose sur un radar de compétence équilibré structuré 
 ```mermaid
 radar
     title Radar Octogonal des 8 Bases de Vie du Utilisateur
-    "ACAD (Académique IA)" : 85
+    "ACAD (Apprentissage & Théorie)" : 85
     "AI_ENG (Projets & Code)" : 90
     "CYBER (Cybersécurité)" : 75
     "EXP (Éloquence & Réseau)" : 70
@@ -71,12 +74,12 @@ radar
 ```
 
 ### 2.1 Définition Opérationnelle des 8 Piliers
-1. **ACAD (Excellence Académique & Diplômes) :** Assimilation des cours du Master en Intelligence Artificielle, devoirs surveillés, examens, fiches de synthèse KaTeX. Objectif : Être le major absolu de sa promotion ($\text{Moyenne} \ge 17.5/20$).
+1. **ACAD (Apprentissage & Connaissances Théoriques) :** Assimilation structurée de théories, mathématiques, modèles conceptuels, fiches de révision KaTeX et validation continue de connaissances.
 2. **AI_ENG (Ingénierie IA, Projets & Code) :** Dév de briques logicielles, MVPs complets, participation aux hackathons internationaux (Devpost, Kaggle), architectures PyTorch/Transformers, conteneurs Docker.
 3. **CYBER (Cybersécurité Offensive & Défensive) :** Pratique continue sur TryHackMe (parcours Junior Pentester, Offensive Pentesting), HackTheBox, veille vulnérabilités CVE, audit de code, CTF.
 4. **EXP (Éloquence, Pitch & Réseautage) :** Clarté d'expression orale, monologues socratiques devant le micro, prises de parole en public, networking professionnel ciblé sur LinkedIn et conférences tech.
-5. **LNG (Langues Étrangères & Maîtrise Cambridge) :** Immersion en anglais technique, compréhension écrite/orale de papers de recherche arXiv, certification visée Cambridge English C1 Advanced / C2 Proficiency.
-6. **FIN (Finances Personnelles & Bourses d'Études) :** Gestion budgétaire rigoureuse, veille automatisée Deerflow pour la détection et la candidature aux bourses d'excellence internationales (Eiffel, Campus France).
+5. **LNG (Langues Étrangères & Communication) :** Pratique active des langues étrangères, compréhension orale/écrite de ressources internationales et développement de l'aisance oratoire.
+6. **FIN (Gestion Financière & Opportunités) :** Suivi budgétaire, veille et détection d'opportunités (appels à projets, bourses, hackathons, financements).
 7. **STR (Force Physique & Athlétisme) :** Calisthénie (pompes, tractions, dips, abdos), musculation, endurance cardiovasculaire (course à pied 5 km et 10 km).
 8. **DIS (Discipline, Volonté & Monk Mode) :** Respect strict des blocs de temps, assiduité aux rituels matinaux et du soir, zéro procrastination, absence totale de passage en mode restriction / pénalité.
 
@@ -104,10 +107,10 @@ $$L_{\text{global}} = \min \left( 100, \left\lfloor \sqrt{\frac{S_{\text{global}
 
 #### 3. Élimination de la Notion de "Bloqué par Quête de Rang" & Invariants Réels :
 Le niveau et le rang sont strictement couplés aux réalisations réelles indispensables :
-* **Rang B (Expert Compétiteur — Niveaux 46 à 65) :** Exige **au moins un Hackathon majeur remporté**, une certification **Cambridge English C1 Advanced** officielle, et la maîtrise complète des routines de calisthénie. *Un Utilisateur de Rang B sans victoire en hackathon n'existe pas.*
-* **Rang A (Maître / Leader Industriel — Niveaux 66 à 85) :** Multi-vainqueur de hackathons, Top 3 ou Major de promotion, niveau Cambridge C2, MVP déployé en production avec utilisateurs réels, corps athlétique d'élite.
-* **Rang S (National Sovereign — Niveaux 86 à 95) :** Figure nationale de l'ingénierie IA, grand champion de compétitions d'algorithmes, major de promotion incontesté, indépendance financière.
-* **Niveau Maître (Légende Vivante Mondiale — Niveaux 96 à 100) :** Renommée mondiale en IA, multimillionnaire, physique de statue grecque, conférencier d'élite, principaleté absolue.
+* **Rang B (Expert Confirmé — Niveaux 46 à 65) :** Exige la réussite d'un défi technique ou compétition d'envergure (ex. hackathon majeur, audit complexe), une certification linguistique ou technique officielle, et la maîtrise des routines physiques avancées.
+* **Rang A (Maître / Référent Technique — Niveaux 66 à 85) :** Projets d'envergure en production avec utilisateurs actifs, leadership technique démontré, haut niveau d'expression et condition physique d'élite.
+* **Rang S (Sommité du Domaine — Niveaux 86 à 95) :** Accomplissements exceptionnels reconnus dans ses domaines d'expertise, publications ou livrables de référence, autonomie complète.
+* **Niveau Maître (Plafond d'Excellence — Niveaux 96 à 100) :** Équilibre parfait et maîtrise souveraine de l'ensemble des 8 bases de vie du système.
 
 ---
 
@@ -117,9 +120,9 @@ Le Système intègre au cœur de sa base `STR` les programmes complets au poids 
 
 1. **Programme Dos & Épaules (17 Étapes Chronométrées & Répétitions) :**
    Jumping Jacks (00:30) $\rightarrow$ Hyperextension x14 $\rightarrow$ Pike Push Ups x14 $\rightarrow$ Reverse Push-Ups x12 $\rightarrow$ Inchworms x16 $\rightarrow$ Side-Lying Floor Stretch G (00:30) $\rightarrow$ Side-Lying Floor Stretch D (00:30) $\rightarrow$ Hyperextension x12 $\rightarrow$ Pike Push Ups x12 $\rightarrow$ Reverse Push-Ups x10 $\rightarrow$ Inchworms x14 $\rightarrow$ Cat Cow Pose (00:35) $\rightarrow$ Supine Push Up x14 $\rightarrow$ Floor Y Raises x14 $\rightarrow$ Supine Push Up x13 $\rightarrow$ Reverse Snow Angels x12 $\rightarrow$ Child's Pose (00:30).
-2. **Programme Bras & Triceps Calisthenics (@giovanni_fiderio) :**
+2. **Programme Bras & Triceps Calisthenics (Protocole Calisthénie) :**
    3 séries poussées à l'échec postural strict pour chaque variante : Push-Ups classiques, Decline Push-Ups (pieds surélevés), Diamond Push-Ups (mains en losange), Pike Push-Ups, Wide Push-Ups (prise large), Tricep Cross Extensions au sol.
-3. **Programme Abdos & Core d'Acier (@lou4n.ldlm) :**
+3. **Programme Abdos & Core d'Acier (Protocole Core) :**
    V-Up (3 x 10) $\rightarrow$ Mountain Climber (3 x 30s) $\rightarrow$ Relevé de jambes au sol (3 x 12) $\rightarrow$ Gainage classique (2 x 1m30) $\rightarrow$ Gainage latéral (2 x 45s de chaque côté).
 4. **Programme Jambes & Mobilité :**
    Squats au poids du corps (4x25), Fentes sautées explosives (3x12/jambe), Chaise isométrique contre mur (3x60s), Calf raises unilatérales (4x20).
@@ -624,9 +627,9 @@ Dès que la preuve est transmise via `/valider id="QUEST-PENALTY-PURGE"`, le dé
 Pour propulser Utilisateur vers les meilleures opportunités académiques et financières internationales, le Système intègre un orchestrateur de scraping headless basé sur **Playwright**.
 
 ### 11.1 Portails Surveillés en Continu
-1. **Campus France & Bourses Eiffel d'Excellence :** Surveillance des appels à candidatures pour étudiants internationaux de Master et Doctorat en IA.
+1. **Veille Financements & Opportunités Internationales :** Surveillance des appels à candidatures et opportunités internationaux de Master et Doctorat en IA.
 2. **Devpost & Taikai :** Détection hebdomadaire des hackathons mondiaux d'IA avec cash prizes et visibilité internationale.
-3. **Fulbright France & Bourses Chevening :** Opportunités de mobilités internationales d'études vers les universités anglophones (USA, UK).
+3. **Portails de Bourses & Mobilités Internationales :** Opportunités de mobilités internationales de formation et recherche vers les universités anglophones (USA, UK).
 4. **GitHub Education & Student Pack :** Surveillance des nouveaux partenariats offrant des certifications gratuites (DataCamp, Frontend Masters, AWS Credits).
 
 ### 11.2 Sécurisation HMAC des Webhooks Dérivés
@@ -978,13 +981,13 @@ Pour que le Système s'adapte précisément à la réalité académique et profe
 
 | Identifiant | Intitulé du Profil de Journée | Répartition du Temps & Activités Dominantes | Quêtes Obligatoires du Jour | Gain XP Global |
 |:---|:---|:---|:---|:---|
-| **SCEN-01** | *L'Alternance en R&D IA* | 08h30-17h30 Entreprise (Code IA) + 18h00 Sport + 20h30 Veille | 1 commit GitHub d'entreprise, 100 pompes, 1 fiche de cours. | $+1\,200\text{ XP}$ |
+| **SCEN-01** | *Journée Professionnelle en R&D* | 08h30-17h30 Entreprise (Code IA) + 18h00 Sport + 20h30 Veille | 1 commit GitHub d'entreprise, 100 pompes, 1 fiche de cours. | $+1\,200\text{ XP}$ |
 | **SCEN-02** | *Le Samedi d'Assaut Hackathon*| 12h de sprint de code ininterrompu + tests d'intégration | Dépôt MVP fonctionnel, démo vidéo 2 min, 0 distraction. | $+2\,500\text{ XP}$ |
 | **SCEN-03** | *La Veille d'Examen de Mathématiques*| 8h de révision théorique KaTeX (SVD, Optimisation, Algèbre) | 4 séries d'exercices résolues, 1 synthèse orale $\ge 16/20$. | $+1\,800\text{ XP}$ |
-| **SCEN-04** | *L'Immersion Anglaise Cambridge*| 100% de la journée en anglais (podcasts arXiv, synthèse vocale)| 1 test pratique Cambridge C1, 1 monologue en anglais de 5 min. | $+1\,400\text{ XP}$ |
+| **SCEN-04** | *L'Immersion Linguistique Intensive*| 100% de la journée en langue cible (documentation, écoute)| 1 test pratique d'évaluation, 1 restitution orale de 5 min. | $+1\,400\text{ XP}$ |
 | **SCEN-05** | *Le Raid Cybersécurité TryHackMe*| 4h de pénétration de réseaux et résolution de machines CTF | Exploitation de 2 box Linux/Windows, note de synthèse vulnérabilités. | $+1\,350\text{ XP}$ |
 | **SCEN-06** | *L'Ascension Physique (Force Pure)*| 2h de calisthénie lourde (tractions lestées, dips, squats)| 150 pompes, 50 tractions, 200 squats, 6 km course à pied. | $+1\,500\text{ XP}$ |
-| **SCEN-07** | *La Chasse aux Bourses Internationales*| 4h de prospection Deerflow et constitution de dossiers | Soumission formelle d'une candidature de bourse d'excellence. | $+1\,600\text{ XP}$ |
+| **SCEN-07** | *La Chasse aux Opportunités & Financements*| 4h de prospection et constitution de dossiers | Soumission formelle d'une candidature ou dossier d'opportunité. | $+1\,600\text{ XP}$ |
 | **SCEN-08** | *Le Monk Mode Ultra-Focus (7 Jours)*| Semaine d'isolement total sans aucun réseau social | Respect à 100% du time-blocking, extinction écrans à 21h30. | $+10\,000\text{ XP}$ |
 | **SCEN-09** | *Le Dimanche de Restauration du Mana*| Récupération active, marche en forêt, révision légère SM-2 | Bilan hebdomadaire complété, plan de semaine suivante généré. | $+800\text{ XP}$ |
 | **SCEN-10** | *Le Défi de l'Éloquence Socratique*| Prise de parole en public, enregistrements oraux répétés | 3 synthèses orales avec note moyenne $\ge 17/20$ par l'évaluateur IA. | $+1\,450\text{ XP}$ |
@@ -1705,16 +1708,15 @@ Le bot Discord utilise 15 embeds standardisés reproduisant fidèlement le style
 
 ## 28. Tableau Récapitulatif des 7 Rangs de Utilisateur Réels & Droits d'Accès Système
 
-| Rang | Niveaux Globaux | Titre Système de Gamification | Invariants Réels Indiscutables (DoD) | Droits d'Accès Débloqués dans le Système |
+| Rang | Niveaux Globaux | Titre Système | Invariants Réels Indiscutables (DoD) | Droits d'Accès Débloqués dans le Système |
 | :--- | :--- | :--- | :--- | :--- |
-| **E** | **1 — 10** | *L'Éveil du Novice* | Configuration de l'environnement, 7 jours de quêtes parfaites, mise en place du Second Brain. | Accès au Web HUD de base, journalisation vocale, génération des quêtes quotidiennes. |
-| **D** | **11 — 25** | *L'Apprenti Discipliné* | $S_{\text{ACAD}} \ge 250$, 1ère room TryHackMe résolue, 30 pompes strictes, évaluation Cambridge initiale. | Déverrouillage des quêtes d'urgence, accès aux canaux Discord d'études, boutique palier 1. |
-| **C** | **26 — 45** | *L'Opérateur Confirmé* | Top 20% promo universitaire, MVP Fullstack déployé, 10 tractions strictes, streak Duolingo 30j. | Déverrouillage des Donjons Instantanés (Raids d'examen), automatisation des alarmes BullMQ. |
-| **B** | **46 — 65** | *L'Expert Compétiteur* | **Au moins 1 Hackathon majeur remporté**, certification **Cambridge English C1**, routines calisthénie complètes, Top 10% promo. | Accès aux Sprints Monk Mode, contrôle dynamique du pare-feu NextDNS, déverrouillage boutique palier 2. |
-| **A** | **66 — 85** | *Le Maître & Leader Industriel* | **Multiples victoires en hackathons**, Major ou Top 3 promo, **Cambridge C2**, SaaS déployé avec vrais utilisateurs, physique d'athlète. | Mode Commando sans restriction, création de quêtes personnalisées de haut rang, accès prioritaire Évaluateur IA. |
-| **S** | **86 — 95** | *Le Principal National* | Sommité nationale de l'ingénierie IA, champion international, major indiscuté, indépendance financière. | Déverrouillage du Raid de l'Île de Jeju, gestion des investissements matériels lourds (clusters GPU). |
-| **MAÎTRE**| **96 — 100** | *Le Niveau Maître* | **Légende mondiale de l'IA**, multimillionnaire, physique de statue grecque, conférencier d'élite, autorité absolue. | Contrôle principal absolu du Système, shader WebGL des Flammes d'Ombre permanentes, titre de Maître. |
-
+| **E** | **1 à 10** | *L'Éveil du Novice* | Configuration de l'environnement, 7 jours de quêtes parfaites, mise en place du Second Brain. | Accès au Web HUD de base, journalisation vocale, génération des quêtes quotidiennes. |
+| **D** | **11 à 25** | *L'Apprenti Discipliné* | $S_{\text{ACAD}} \ge 250$, 1ère réalisation technique validée, 30 pompes strictes, évaluation linguistique initiale. | Déverrouillage des quêtes d'urgence, accès aux canaux Discord d'études, boutique palier 1. |
+| **C** | **26 à 45** | *L'Opérateur Confirmé* | Régularité d'apprentissage validée, MVP Fullstack déployé, 10 tractions strictes, assiduité quotidienne sur 30j. | Déverrouillage des sessions de sprint intensif, automatisation des alertes BullMQ. |
+| **B** | **46 à 65** | *L'Expert Confirmé* | Victoire/podium en défi technique majeur, certification officielle validée, routines physiques avancées validées. | Accès aux Sprints Monk Mode, contrôle dynamique du pare-feu NextDNS, déverrouillage boutique palier 2. |
+| **A** | **66 à 85** | *Le Maître / Référent Technique* | Multiples accomplissements majeurs, compétences certifiées de haut rang, solution déployée avec utilisateurs réels, condition physique d'élite. | Mode Avancé sans restriction, création de quêtes personnalisées, accès prioritaire Évaluateur IA. |
+| **S** | **86 à 95** | *La Sommité du Domaine* | Accomplissements majeurs dans les 8 domaines, reconnaissance professionnelle, autonomie opérationnelle totale. | Gestion des projets et investissements majeurs, accès complet aux fonctionnalités avancées. |
+| **MAÎTRE**| **96 à 100** | *Le Niveau Maître* | Plafond d'excellence du système : harmonie parfaite et niveau maximal atteint sur l'ensemble des 8 bases de vie. | Contrôle complet du Système, déverrouillage des thèmes visuels avancés, statut de Maître du Système. |
 ## 29. Annexe Technique : Répertoire des Ports Réseau & Topologie des Services
 
 Le tableau suivant spécifie la répartition exhaustive des ports réseau locaux et des protocoles de transport exploités par les différentes composantes de l'architecture *LevelUp* :

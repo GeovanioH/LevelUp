@@ -152,9 +152,9 @@ async function main() {
     {
       baseCode: BaseStatCode.ACAD,
       nodeCode: "ACAD-12",
-      name: "Rapport d'Alternance d'Excellence",
+      name: "Rapport Technique Professionnel",
       level: 35,
-      desc: "Rédaction scientifique de niveau publication sur les missions en entreprise.",
+      desc: "Rédaction technique de haute qualité sur les missions ou projets réalisés.",
     },
     {
       baseCode: BaseStatCode.ACAD,
@@ -173,9 +173,9 @@ async function main() {
     {
       baseCode: BaseStatCode.ACAD,
       nodeCode: "ACAD-15",
-      name: "Major de Promotion Officiel",
+      name: "Validation d'Excellence Académique",
       level: 70,
-      desc: "Obtention de la première place absolue de promotion sur l'année.",
+      desc: "Validation avec distinction suprême du cursus ou programme d'études.",
     },
 
     // --- AI_ENG : INGÉNIERIE IA & HACKATHONS (15 Nœuds) ---
@@ -454,7 +454,7 @@ async function main() {
       nodeCode: "EXP-09",
       name: "Animation d'un Atelier Technique",
       level: 40,
-      desc: "Animer une session pratique hands-on pour d'autres étudiants.",
+      desc: "Animer une session pratique hands-on pour un groupe de pairs.",
     },
     {
       baseCode: BaseStatCode.EXP,
@@ -496,7 +496,7 @@ async function main() {
       nodeCode: "EXP-15",
       name: "Animation d'un Mastermind d'Élite",
       level: 100,
-      desc: "Diriger un groupe de travail d'étudiants ultra-disciplinés.",
+      desc: "Diriger un groupe de travail de pairs ultra-disciplinés.",
     },
 
     // --- LNG : LANGUES & ANGLAIS INTERNATIONAL (15 Nœuds) ---
@@ -624,7 +624,7 @@ async function main() {
     {
       baseCode: BaseStatCode.FIN,
       nodeCode: "FIN-03",
-      name: "Crédits Cloud Étudiants (Azure/AWS)",
+      name: "Crédits Cloud & Sandbox Développeur",
       level: 8,
       desc: "Déploiement d'infrastructures de test sur crédits gratuits.",
     },
@@ -680,9 +680,9 @@ async function main() {
     {
       baseCode: BaseStatCode.FIN,
       nodeCode: "FIN-11",
-      name: "Optimisation Fiscale & Aides Étudiantes",
+      name: "Optimisation Budgétaire & Aides Légales",
       level: 60,
-      desc: "Droits administratifs et budget optimisés sans gaspillage.",
+      desc: "Gestion financière et budget optimisés sans gaspillage.",
     },
     {
       baseCode: BaseStatCode.FIN,
@@ -703,7 +703,7 @@ async function main() {
       nodeCode: "FIN-14",
       name: "Diversification des Revenus (3 Flux)",
       level: 90,
-      desc: "Salaire alternance + Bourse d'excellence + Primes de concours.",
+      desc: "Revenus d'activité + Financements/Bourses + Primes de concours.",
     },
     {
       baseCode: BaseStatCode.FIN,

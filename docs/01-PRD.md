@@ -9,14 +9,13 @@
 ---
 ## 1. Contexte, Objectifs & Principes de Conception
 
-### 1.1 Objectifs de la Plateforme
-La maîtrise conjointe de multiples domaines d'ingénierie, de compétences techniques et de discipline personnelle nécessite une organisation rigoureuse articulée autour de 6 axes :
-1. **Excellence académique :** Assimilation de cours denses (mathématiques appliquées, recherche opérationnelle, théorie de l'information), réussite des examens et alternance.
-2. **Ingénierie logicielle & IA :** Conception d'architectures, développement de MVPs, expérimentation des modèles de fondation, agents autonomes et bases vectorielles.
-3. **Cybersécurité :** Entraînement sur TryHackMe et HackTheBox, participation à des CTFs, audit de code et compréhension des vulnérabilités (OWASP Top 10, exploitation mémoire).
-4. **Communication & International :** Maîtrise de l'anglais professionnel (C1/C2 Cambridge), aisance oratoire, participation à des hackathons mondiaux (Devpost, MLH).
-5. **Financement & Bourses :** Veille et candidature aux bourses d'excellence et de mobilité, financement des études et du matériel de calcul.
-6. **Condition physique :** Maintien de la santé posturale, force et endurance musculaire (calisthénie) couplé à une récupération optimisée (sommeil).
+### 1.1 Objet & Problématique Fonctionnelle
+L'acquisition et le maintien de compétences techniques complexes, de rigueur d'ingénierie et de discipline personnelle souffrent traditionnellement d'un manque de rétroaction déterministe et d'outils de mesure objectifs. Les applications classiques de productivité ne fournissent ni boucle de récompense proportionnée à l'effort réel, ni vérification automatisée de l'exécution par des oracles logiciels.
+
+**LevelUp** répond à ce besoin en fournissant un moteur d'orchestration, d'auto-quantification et de gamification universel. Le système est conçu comme un framework modulaire que chaque utilisateur peut adapter à ses propres domaines d'apprentissage, projets techniques, compétences professionnelles ou programmes sportifs.
+
+> [!NOTE]
+> **Profil & Objectifs Utilisateur Spécifiques** : Les objectifs individuels, programmes d'entraînement spécifiques et paramètres de carrière sont isolés dans le fichier de configuration dédié : [config/personal_profile.md](config/personal_profile.md). Le présent document définit les spécifications fonctionnelles universelles du moteur LevelUp.
 
 ### 1.2 Approche Fonctionnelle
 Contrairement aux to-do lists conventionnelles qui manquent de rétroaction et traitent indifféremment tâches critiques et secondaires, **LevelUp** introduit un cadre de gamification rigoureux, quantifiable et déterministe où chaque effort réel est récompensé de manière proportionnée.
@@ -64,8 +63,8 @@ mindmap
     ACAD["1. ACAD - Excellence Académique"]
       ACAD_Maths["Mathématiques & Algorithmique"]
       ACAD_Notes["Méthodologie & Prise de Notes"]
-      ACAD_Major["Stratégie Premier de Promotion"]
-      ACAD_Alternance["Impact Professionnel Alternance"]
+      ACAD_Major["Stratégie excellence académique"]
+      ACAD_ProjetPro["Impact Professionnel & Projets"]
     AI_ENG["2. AI_ENG - Ingénierie IA & Hackathons"]
       AI_LLM["LLMs & Architectures Transformers"]
       AI_Agents["Systèmes d'Agents & RAG"]
@@ -115,10 +114,10 @@ mindmap
 | **ACAD-09** | *Préparation Anticipée des Partiels* | Traitement de l'ensemble des annales d'examens des 5 dernières années 3 semaines avant les partiels. | Annales universitaires & archives de promotion | Traitement complet de 5 sujets d'examens en temps réel | `+300 XP` |
 | **ACAD-10** | *Maîtrise des Mathématiques Discrètes* | Logique formelle, combinatoire, relations d'équivalence, théorie des nombres appliquée à la crypto. | MIT Mathematics for Computer Science (6.042J) | Rédaction d'un aide-mémoire formel de 15 pages | `+180 XP` |
 | **ACAD-11** | *Leadership de Projet Scolaire* | Rôle de chef de projet technique sur les projets de groupe : répartition des tâches, CI/CD, revues de code. | Méthode Agile Scrum / GitHub Projects | Dépôt GitHub d'équipe avec 100% des jalons livrés à l'heure | `+220 XP` |
-| **ACAD-12** | *Rapport d'Alternance d'Excellence* | Rédaction d'un rapport industriel avec rigueur scientifique : contextualisation, métriques d'impact. | Normes de rédaction IEEE / ACM | Validation préliminaire par le maître de stage avec note $\ge 18/20$ | `+350 XP` |
+| **ACAD-12** | *Rapport Technique d'Excellence* | Rédaction d'un rapport industriel avec rigueur scientifique : contextualisation, métriques d'impact. | Normes de rédaction IEEE / ACM | Validation préliminaire par le maître de stage avec note $\ge 18/20$ | `+350 XP` |
 | **ACAD-13** | *Défense Orale de Projet (Soutenance)* | Soutenance devant jury blanc avec support visuel percutant, gestion du temps et des questions pièges. | Guide de soutenance d'ingénieur | Enregistrement vidéo de la soutenance blanche de 20 min | `+200 XP` |
 | **ACAD-14** | *Top 3 de la Promotion* | Validation d'un semestre académique dans le trio de tête de la promotion. | Relevé de notes officiel de l'université | Téléversement du relevé officiel certifié | `+500 XP` |
-| **ACAD-15** | *Major de Promotion Officiel* | Obtention de la première place absolue de la promotion sur l'année universitaire. | Relevé officiel de classement universitaire | Relevé officiel attestant du rang 1/N | `+1000 XP` |
+| **ACAD-15** | *Validation d'Excellence Académique* | Validation avec distinction suprême du cursus ou programme d'apprentissage cible. | Relevé ou certificat officiel | Attestation officielle d'excellence | `+1000 XP` |
 
 ---
 
@@ -178,13 +177,13 @@ mindmap
 | **EXP-06** | *Échange Visio avec un Mentor ou Ingénieur Senior* | Entretien de 30 minutes avec un professionnel du secteur pour recueillir des retours d'expérience et conseils de carrière. | Plateformes de mentorat gratuites (ex: ADPList) | Note de synthèse rédigée dans le Second Brain avec les 5 enseignements clés | `+250 XP` |
 | **EXP-07** | *Présence Active à un Meetup Tech Local* | Participation physique à un événement local d'ingénieurs (Meetup IA, conférence de cybersécurité). | Plateforme Meetup.com / Salons tech | Photo de présence et échange documenté avec au moins 3 nouveaux contacts | `+200 XP` |
 | **EXP-08** | *Prise de Parole Publique en Amphithéâtre* | Poser une question pertinente et structurée au micro lors d'une grande conférence ou assemblée. | Événements universitaires ou salons | Question posée au conférencier et trace dans le journal de bord | `+180 XP` |
-| **EXP-09** | *Animation d'un Atelier Technique pour ses Pairs* | Présentation d'un atelier pratique d'une heure (hands-on) sur l'IA ou TryHackMe devant d'autres étudiants. | Salles d'études universitaires / Discord | Fiche de l'atelier partagée et retours écrits de 5 participants | `+300 XP` |
+| **EXP-09** | *Animation d'un Atelier Technique Pratique* | Présentation d'un atelier pratique d'une heure (hands-on) sur une technologie clé devant un groupe de pairs. | Plateforme de visioconférence / Discord | Support partagé et retours validés de participants | `+300 XP` |
 | **EXP-10** | *Développement de la Confiance d'Acier* | Pratique délibérée d'une action sociale intimidante (ex: démarcher un conférencier d'élite après son intervention). | Philosophie stoïcienne et thérapie d'exposition | Journalisation de l'événement et analyse des sensations surmontées | `+150 XP` |
-| **EXP-11** | *Négociation Professionnelle Assertive* | Négociation argumentée des conditions de son contrat d'alternance ou des responsabilités d'une mission. | Principes de négociation "Never Split the Difference" (Chris Voss) | Accord formalisé respectant les termes négociés | `+250 XP` |
+| **EXP-11** | *Négociation Professionnelle Assertive* | Négociation argumentée des conditions de son activité professionnelle ou des responsabilités d'une mission. | Principes de négociation "Never Split the Difference" (Chris Voss) | Accord formalisé respectant les termes négociés | `+250 XP` |
 | **EXP-12** | *Création de Contenu Régulière sur LinkedIn* | Publication d'un post technique à forte valeur ajoutée chaque semaine pendant 4 semaines consécutives. | LinkedIn Creator Mode | 4 posts publiés cumulant plus de 2 000 impressions organiques | `+250 XP` |
 | **EXP-13** | *Réseautage lors d'un Hackathon* | Formation d'une alliance stratégique avec des développeurs inconnus rencontrés sur place pour concourir ensemble. | Salons Discord / Canaux de hackathons | Équipe pluridisciplinaire constituée et collaboration menée à terme | `+180 XP` |
 | **EXP-14** | *Posture & Langage Corporel Dominant* | Maintien d'un contact visuel solide, épaules ouvertes, gestuelle posée lors de chaque interaction formelle. | Études sur la communication non-verbale | Auto-évaluation hebdomadaire validée sans écarts | `+100 XP` |
-| **EXP-15** | *Constitution d'un Cercle d'Élite (Mastermind)* | Création et animation d'un groupe privé de 4 étudiants ultra-disciplinés se réunissant chaque dimanche pour faire le bilan. | Groupe Discord privé / Réunion hebdomadaire | Tenue de 4 réunions de bilan dominicales consécutives | `+350 XP` |
+| **EXP-15** | *Constitution d'un Cercle Professionnel (Mastermind)* | Création et animation d'un groupe de pairs se réunissant régulièrement pour faire le bilan de productivité. | Salon privé / Réunion périodique | Tenue de 4 réunions de bilan consécutives | `+350 XP` |
 
 ---
 
@@ -215,19 +214,19 @@ mindmap
 | ID Nœud | Intitulé de la Compétence | Description & Programme Réel | Ressources Gratuites Associées | Preuve de Validation (DoD) | XP Gain |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **FIN-01** | *Tenue Budgétaire Rigoureuse à Zéro-Euro* | Enregistrement systématique de chaque dépense et recette dans le registre financier personnel. | Registre financier Markdown LevelUp | 30 jours de traçabilité financière sans omission d'aucune transaction | `+100 XP` |
-| **FIN-02** | *Activation du GitHub Student Developer Pack* | Validation de son statut étudiant auprès de GitHub pour débloquer des milliers d'euros d'outils gratuits. | Programme officiel GitHub Education | Statut GitHub Pro vérifié avec badge Student débloqué | `+200 XP` |
-| **FIN-03** | *Exploitation des Crédits Cloud Gratuits* | Activation des offres gratuites de serveurs pour étudiants (Azure for Students 100$, AWS Educate, DigitalOcean). | GitHub Pack / Portails étudiants Cloud | Déploiement d'une infrastructure de test sur crédits étudiants gratuits | `+150 XP` |
+| **FIN-02** | *Exploitation des Outils Développeur Gratuits* | Activation des offres gratuites et avantages pour développeurs (GitHub Education, crédits cloud). | Portails développeurs officiels | Statut ou accès débloqué | `+200 XP` |
+| **FIN-03** | *Exploitation des Crédits Cloud & Sandbox* | Déploiement d'infrastructures de test sur des crédits cloud ou quotas gratuits de niveau professionnel. | Portails Cloud (Azure, AWS, GCP) | Déploiement d'une infrastructure de test vérifiée | `+150 XP` |
 | **FIN-04** | *Domaines & Certificats SSL Gratuits* | Enregistrement de son nom de domaine professionnel gratuit via Namecheap ou Name.com (inclus dans le GitHub Pack). | GitHub Education / Namecheap | Nom de domaine personnel actif pointant vers son portfolio | `+120 XP` |
 | **FIN-05** | *Souscription aux Outils de Développement Offerts* | Déblocage des licences professionnelles gratuites : JetBrains All Products Pack, Datacamp, Frontend Masters. | GitHub Student Pack partners | Capture de l'accès actif aux cours DataCamp et IDE JetBrains | `+150 XP` |
 | **FIN-06** | *Constitution du Fonds de Sécurité d'Urgence* | Mise de côté méthodique d'une réserve de précaution strict représentant au moins 2 mois de dépenses. | Compte d'épargne dédié | Relevé de compte prouvant la constitution de la réserve de sécurité | `+250 XP` |
-| **FIN-07** | *Configuration du Radar Deerflow pour Bourses* | Paramétrage des filtres de veille automatique pour détecter les bourses d'études et subventions européennes en IA. | Moteur Deerflow intégré LevelUp | Premier lot de 3 opportunités pertinentes capturées et enregistrées en base | `+180 XP` |
-| **FIN-08** | *Constitution du Dossier Type de Candidature aux Bourses* | Rédaction d'une lettre de motivation d'excellence, CV académique normé, lettres de recommandation d'enseignants. | Modèles de bourses internationales | Dossier de candidature complet prêt à l'envoi archivé en PDF | `+250 XP` |
-| **FIN-09** | *Dépôt d'une Candidature Officielle à une Bourse* | Soumission formelle d'un dossier de bourse universitaire ou de mobilité internationale avant l'échéance. | Plateformes de bourses publiques/privées | Récépissé officiel de dépôt de dossier | `+300 XP` |
-| **FIN-10** | *Obtention d'une Bourse d'Études / Mobilité* | Décision positive de la commission d'attribution d'une bourse d'excellence ou de soutien financier. | Notification officielle de la commission | Document officiel d'attribution avec versement des fonds | `+800 XP` |
-| **FIN-11** | *Optimisation Fiscale & Droits Étudiants* | Déclaration conforme de ses revenus d'alternance, activation des aides au logement et des transports étudiants. | Portails administratifs nationaux (CAF, etc.) | Attestation de droits à jour et budget optimisé | `+150 XP` |
+| **FIN-07** | *Configuration du Radar Deerflow pour Opportunités* | Paramétrage des filtres de veille automatique pour détecter financements, concours et subventions. | Moteur Deerflow intégré LevelUp | Premier lot de 3 opportunités pertinentes capturées et enregistrées en base | `+180 XP` |
+| **FIN-08** | *Constitution du Dossier Type de Candidature aux Financements* | Rédaction d'un dossier de candidature normé (CV d'ingénieur, projet, références). | Modèles de dossiers d'opportunités | Dossier de candidature complet prêt à l'envoi archivé en PDF | `+250 XP` |
+| **FIN-09** | *Dépôt Formel de Candidature à un Financement* | Soumission formelle d'un dossier de candidature (bourse, subvention, appel à projets) avant échéance. | Plateformes de candidatures | Récépissé officiel de dépôt de dossier | `+300 XP` |
+| **FIN-10** | *Obtention d'un Financement ou Financement d'Excellence* | Décision positive d'attribution d'une subvention, bourse ou financement de projet. | Notification officielle d'attribution | Document officiel d'attribution | `+800 XP` |
+| **FIN-11** | *Optimisation Budgétaire & Gestion des Aides* | Optimisation de la structure de dépenses, activation des aides et allègements applicables. | Portails administratifs et bancaires | Budget optimisé et suivi dans le système | `+150 XP` |
 | **FIN-12** | *Facturation d'une Première Prestation Tech* | Réalisation d'une mission de développement, d'audit de sécurité ou de conseil technique rémunérée. | Contrat de prestation / Plateforme freelance | Facture émise et paiement reçu sur le compte professionnel | `+400 XP` |
 | **FIN-13** | *Investissement Stratégique dans son Matériel* | Acquisition de matériel de haute productivité rentabilisé par l'effort (deuxième écran, clavier ergonomique, RAM). | Comparatifs hardware d'ingénieur | Intégration du matériel dans son setup de travail | `+200 XP` |
-| **FIN-14** | *Diversification des Sources de Financement* | Cumul vertueux : Salaire alternance + Bourse d'excellence + Primes de hackathons remportées. | Tableaux de flux financiers | 3 sources de revenus distinctes actives sur le même mois | `+500 XP` |
+| **FIN-14** | *Diversification des Sources de Financement* | Cumul de sources de revenus distinctes (prestations, primes de hackathons/concours, financements). | Registre financier LevelUp | 3 sources de revenus distinctes actives sur le même mois | `+500 XP` |
 | **FIN-15** | *Autonomie Financière Totale* | Couverture de 100 % de ses besoins vitaux et professionnels sans dépendance extérieure. | Bilan financier annuel | Bilan certifiant l'autonomie et un taux d'épargne $\ge 25\%$ | `+1000 XP` |
 
 ---
@@ -257,7 +256,7 @@ flowchart TD
         D16 --> D17["Child's Pose (00:30)"]
     end
 
-    subgraph Routine_Bras["Routine 2 : Bras & Triceps Calisthenics (@giovanni_fiderio)"]
+    subgraph Routine_Bras["Routine 2 : Bras & Triceps Calisthenics (Protocole Calisthénie)"]
         B1["Push-Ups Classiques (3 séries à l'échec)"]
         B2["Decline Push-Ups pieds surélevés (3 séries à l'échec)"]
         B3["Diamond Push-Ups mains losange (3 séries à l'échec)"]
@@ -266,7 +265,7 @@ flowchart TD
         B6["Tricep Cross Extensions au sol (3 séries à l'échec)"]
     end
 
-    subgraph Routine_Abdos["Routine 3 : Abdos & Core d'Acier (@lou4n.ldlm)"]
+    subgraph Routine_Abdos["Routine 3 : Abdos & Core d'Acier (Protocole Core)"]
         A1["V-Up : 3 x 10 répétitions"]
         A2["Mountain Climber : 3 x 30 secondes"]
         A3["Relevé de jambes au sol : 3 x 12 répétitions"]
@@ -294,7 +293,7 @@ flowchart TD
 16. **Reverse Snow Angels :** x12 répétitions — Endurance de force scapulaire et ouverture pectorale.
 17. **Child's Pose :** 00:30 — Retour au calme, élongation vertébrale et relaxation parasympathique.
 
-#### Programme Détaillé 2 : Bras & Triceps Calisthenics à la Maison (TikTok @giovanni_fiderio)
+#### Programme Détaillé 2 : Bras & Triceps Calisthenics à la Maison (Protocole Bras & Triceps)
 Protocole à haute intensité axé sur l'hypertrophie des bras et l'endurance de force au poids du corps, exécuté en 3 séries poussées à l'échec postural strict pour chaque mouvement :
 1. **Push-Ups Classiques :** 3 séries à l'échec — Fondement de la poussée horizontale, activation pectoraux-triceps.
 2. **Decline Push-Ups (Pieds Surélevés) :** 3 séries à l'échec — Déplacement du centre de gravité vers le haut du corps, accentuation sur le chef latéral du triceps et le faisceau claviculaire.
@@ -303,7 +302,7 @@ Protocole à haute intensité axé sur l'hypertrophie des bras et l'endurance de
 5. **Wide Push-Ups (Prise Large) :** 3 séries à l'échec — Étirement accentué du grand pectoral et stabilisation des coudes.
 6. **Tricep Cross Extensions au Sol :** 3 séries à l'échec — Mouvement d'isolation calisthénique extrême plaçant les avant-bras en appui pour une extension de coude en chaîne fermée.
 
-#### Programme Détaillé 3 : Abdos & Core d'Acier à la Maison (TikTok @lou4n.ldlm)
+#### Programme Détaillé 3 : Abdos & Core d'Acier à la Maison (Protocole Abdos & Core)
 Circuit complet de renforcement de la sangle abdominale combinant travail dynamique sous-ombilical, antéro-postérieur et maintien isométrique :
 1. **V-Up :** 3 séries de 10 répétitions — Fermeture simultanée buste-jambes pour le recrutement combiné du grand droit et des fléchisseurs de hanche.
 2. **Mountain Climber :** 3 séries de 30 secondes — Gainage dynamique à haute fréquence cardiaque, stabilisation pelvienne et endurance du tronc.
@@ -320,8 +319,8 @@ Circuit complet de renforcement de la sangle abdominale combinant travail dynami
 | ID Nœud | Intitulé de la Compétence | Description & Programme Réel | Ressources Gratuites Associées | Preuve de Validation (DoD) | XP Gain |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **STR-01** | *Routine Dos & Épaules Complète (17 Ex)* | Exécution stricte de la routine complète des 17 exercices sans interruption non programmée. | Protocole interne LevelUp / CV Camera | Enregistrement caméra analysé ou validation temps réel | `+250 XP` |
-| **STR-02** | *Routine Bras Calisthenics à l'Échec* | Réalisation des 6 variantes de pompes (3 séries à l'échec postural strict) selon le split @giovanni_fiderio. | Protocole vidéo Giovanni Fiderio | Log des répétitions à l'échec par série et par exercice | `+250 XP` |
-| **STR-03** | *Routine Abdos & Core d'Acier* | Accomplissement du circuit @lou4n.ldlm : V-Up (3x10), Mountain Climber (3x30s), Relevé jambes (3x12), Gainage (2x1m30), Latéral (2x45s/côté). | Protocole vidéo Louan LDLM | Validation chronométrique et répétitions sans rupture | `+200 XP` |
+| **STR-02** | *Routine Bras Calisthenics à l'Échec* | Réalisation des 6 variantes de pompes (3 séries à l'échec postural strict) selon le split Protocole Calisthénie. | Protocole vidéo Calisthénie Fiderio | Log des répétitions à l'échec par série et par exercice | `+250 XP` |
+| **STR-03** | *Routine Abdos & Core d'Acier* | Accomplissement du circuit Protocole Core : V-Up (3x10), Mountain Climber (3x30s), Relevé jambes (3x12), Gainage (2x1m30), Latéral (2x45s/côté). | Protocole vidéo Louan LDLM | Validation chronométrique et répétitions sans rupture | `+200 XP` |
 | **STR-04** | *Validation Automatisée par Vision par Ordinateur* | Session complète d'entraînement filmée et comptée automatiquement via MediaPipe Pose (WebAssembly). | Moteur CV interne LevelUp | Rapport cinématique d'angles articulaires avec $\ge 90\%$ de conformité | `+300 XP` |
 | **STR-05** | *Maîtrise Technique des Pompes (Push-Ups)* | Exécution de 30 répétitions strictes au poids du corps : torse à 5 cm du sol, extension complète. | Biomécanique de calisthénie | Analyse vidéo MediaPipe validant l'amplitude (angle coude $\le 75^\circ \to \ge 160^\circ$) | `+100 XP` |
 | **STR-06** | *Puissance de Tirage : Tractions Strictes (Pull-Ups)* | Réalisation de 10 tractions en pronation sans balancement des jambes (dead-hang complet). | Méthodes d'entraînement dos | Vidéo d'une série de 10 tractions strictes validée | `+180 XP` |
@@ -385,7 +384,7 @@ Chaque jour, l'évaluateur IA sélectionne 4 à 6 quêtes parmi cette bibliothè
 * **QD-ACD-04 :** *Algorithmique des Graphes* — Implémenter en Python pur sans bibliothèque externe l'algorithme de Dijkstra et tester sur un graphe orienté pondéré. Récompense : `+130 XP ACAD / +50 XP AI_ENG`. Preuve : Script exécutable testé.
 * **QD-ACD-05 :** *Revue de Cours Magistral à Chaud* — Relire, synthétiser et reformuler le cours magistral de la journée dans l'éditeur Markdown avant 21h00. Récompense : `+100 XP ACAD`. Preuve : Nouvelle note indexée dans `/cours/`.
 * **QD-ACD-06 :** *Entraînement Annales d'Examens* — Traiter une question d'examen d'une session précédente en conditions réelles (sans consultation de documents). Récompense : `+150 XP ACAD`. Preuve : Corrigé confronté à la grille officielle.
-* **QD-ACD-07 :** *Fiche Technique d'Alternance* — Rédiger une page de documentation technique sur la mission d'entreprise de la semaine pour enrichir le futur rapport d'alternance. Récompense : `+120 XP ACAD`. Preuve : Note classée dans `/alternance/`.
+* **QD-ACD-07 :** *Documentation Technique de Projet* — Rédiger une page de documentation technique sur le projet de la semaine pour consolider le retour d'expérience. Récompense : `+120 XP ACAD`. Preuve : Note technique archivée dans le vault Markdown.
 * **QD-ACD-08 :** *Interrogation Flash par Anki* — Répondre sans erreur à 40 cartes mémoire de révision espacée sur les définitions et théorèmes du semestre. Récompense : `+90 XP ACAD`. Preuve : Log de session de révision.
 * **QD-ACD-09 :** *Vérification du Statut Premier de Promo* — Calculer la moyenne pondérée actuelle des matières validées et identifier la matière la plus faible pour y allouer 2h de travail ciblé. Récompense : `+100 XP ACAD`. Preuve : Tableau de bord de notes actualisé.
 * **QD-ACD-10 :** *Simulation d'Exposé Technique* — Enregistrer un mémo vocal de 5 minutes présentant le fonctionnement d'un algorithme du programme sans bafouiller. Récompense : `+110 XP ACAD / +40 XP EXP`. Preuve : Enregistrement transcrit par l'IA.
@@ -437,7 +436,7 @@ Ces quêtes surgissent de manière inopinée avec un compte à rebours strict et
 * **QE-03 :** *Détection de Bourse d'Urgence (Deerflow Alert)* — Une bourse de mobilité internationale prestigieuse clôture ses candidatures dans moins de 72 heures. Vous avez 90 minutes pour vérifier votre éligibilité, rassembler les pièces requises et initier le dossier. Récompense : `+300 XP FIN`. Échéance : 90 minutes.
 * **QE-04 :** *Le Sprint de Déboguage Imprévu* — Résoudre un bug complexe bloquant sur un projet en cours en moins de 40 minutes sans aide extérieure. Récompense : `+180 XP AI_ENG / +50 XP DIS`. Échéance : 40 minutes.
 * **QE-05 :** *L'Entraînement Éclair des Ombres* — Quête physique surprise envoyée au milieu de l'après-midi : exécuter immédiatement 50 pompes strictes et 2 minutes de gainage pour oxygéner le cerveau. Récompense : `+120 XP STR`. Échéance : 15 minutes.
-* **QE-06 :** *Réponse Express à une Offre de Stage/Alternance* — Une offre d'élite vient d'apparaître. Vous avez 60 minutes pour adapter votre CV, rédiger une lettre de motivation sur-mesure et soumettre votre candidature. Récompense : `+250 XP EXP / +100 XP ACAD`. Échéance : 60 minutes.
+* **QE-06 :** *Réponse Express à une Offre de Stage / Emploi* — Une offre d'élite vient d'apparaître. Vous avez 60 minutes pour adapter votre CV, rédiger une lettre de motivation sur-mesure et soumettre votre candidature. Récompense : `+250 XP EXP / +100 XP ACAD`. Échéance : 60 minutes.
 * **QE-07 :** *Room Temporaire TryHackMe CTF* — Une salle de challenge temporaire est ouverte pour 24h. Vous avez 2 heures pour capturer le premier flag utilisateur. Récompense : `+300 XP CYBER`. Échéance : 120 minutes.
 * **QE-08 :** *Traduction Technique d'Urgence* — Traduire intégralement en anglais impeccable une documentation technique de 500 mots en moins de 30 minutes sans traducteur automatique. Récompense : `+180 XP LNG`. Échéance : 30 minutes.
 * **QE-09 :** *Session de Sauvegarde & Audit de Sécurité* — L'Évaluateur IA ordonne une vérification immédiate : vérifier la validité du backup PostgreSQL local, tester la commande de restauration et vérifier l'espace disque. Récompense : `+150 XP AI_ENG`. Échéance : 30 minutes.
@@ -461,19 +460,19 @@ Les Boss représentent les grands projets et jalons décisifs de la vie réelle.
 
 * **QB-01 :** *Le Gardien des Partiels de Semestre (Boss HP : 1 000)* — Semaine d'examens universitaires. Chaque matière révisée et testée avec succès lui inflige 150 points de dégâts. Victoire : Semestre validé avec moyenne $\ge 16/20$. Récompense : `+1000 XP ACAD / +500 XP DIS`, Titre débloqué : *"Le Dominateur d'Examens"*.
 * **QB-02 :** *Le Titan du Hackathon 48h (Boss HP : 2 000)* — Compétition de code mondiale Devpost. Les dégâts sont infligés par jalons : Idéation (200 HP), Architecture & BDD (400 HP), Backend & IA (600 HP), Frontend & UI (400 HP), Démo & Pitch (400 HP). Victoire : Projet soumis dans les temps. Récompense : `+1500 XP AI_ENG / +500 XP EXP`.
-* **QB-03 :** *Le Léviathan de l'Alternance (Boss HP : 1 200)* — Livraison d'un projet industriel stratégique en entreprise. Les dégâts correspondent aux revues de code validées par les pairs et aux déploiements en staging. Victoire : Félicitations officielles de la direction. Récompense : `+1200 XP ACAD / +400 XP AI_ENG`.
+* **QB-03 :** *Le Défi Industriel Majeur (Boss HP : 1 200)* — Livraison d'un projet industriel stratégique en entreprise. Les dégâts correspondent aux revues de code validées par les pairs et aux déploiements en staging. Victoire : Félicitations officielles de la direction. Récompense : `+1200 XP ACAD / +400 XP AI_ENG`.
 * **QB-04 :** *L'Épreuve du Monolithe TryHackMe (Boss HP : 800)* — Chaîne de 5 salles difficiles consécutives sans consulter de soluce (*walkthrough*). Chaque machine rootée inflige 160 dégâts. Victoire : 5 drapeaux root capturés. Récompense : `+1000 XP CYBER`.
 * **QB-05 :** *Le Sphinx de Cambridge C1 (Boss HP : 1 000)* — Session d'évaluation officielle pour décrocher la certification C1 Advanced. Chaque épreuve blanche réussie (Reading, Writing, Listening, Speaking) lui enlève 250 HP. Victoire : Score officiel C1 validé. Récompense : `+1200 XP LNG`, Titre : *"L'Orateur International"*.
-* **QB-06 :** *La Forteresse de la Bourse d'Excellence (Boss HP : 1 500)* — Dossier complet de bourse internationale soumis via Deerflow. Éléments de dégâts : Relevés académiques (300 HP), Lettre de motivation d'élite (400 HP), Recommandations (300 HP), Entretien oral préparé (500 HP). Victoire : Bourse accordée. Récompense : `+1500 XP FIN / +500 XP ACAD`.
+* **QB-06 :** *La Forteresse du Financement d'Excellence (Boss HP : 1 500)* — Dossier complet d'opportunité ou bourse soumis via Deerflow. Éléments de dégâts : Dossier technique (300 HP), Lettre de projet (400 HP), Références (300 HP), Préparation d'entretien (500 HP). Victoire : Financement ou bourse accordé. Récompense : `+1500 XP FIN / +500 XP ACAD`.
 * **QB-07 :** *L'Épreuve Physique du Berserk (Boss HP : 600)* — Validation conjointe de 15 tractions strictes, 50 pompes militaires et 5 km en moins de 23 minutes. Chaque épreuve validée inflige 200 HP. Victoire : Défi relevé. Récompense : `+800 XP STR`, Titre : *"L'Athlète d'Ombre"*.
 * **QB-08 :** *La Genèse du MVP Commercial (Boss HP : 1 800)* — Conception, développement et lancement public d'un SaaS IA avec passerelle de paiement active. Victoire : Première vente enregistrée. Récompense : `+2000 XP AI_ENG / +1000 XP FIN`.
 * **QB-09 :** *Le Espace de travail des 30 Jours de Fer (Boss HP : 900)* — Tenir 30 jours consécutifs de discipline absolue sans manquer une seule quête quotidienne. Chaque jour parfait inflige 30 HP au Boss. Victoire : 30 jours sans faute. Récompense : `+1200 XP DIS`.
 * **QB-10 :** *Le Colosse du CTF National (Boss HP : 1 400)* — Participation à une compétition Capture The Flag de 24 heures. Chaque challenge résolu dans les catégories Web, Pwn, Crypto, Forensics lui inflige des dégâts. Victoire : Top 10% du classement final. Récompense : `+1400 XP CYBER`.
-* **QB-11 :** *La Chaire Universitaire (Soutenance de Fin d'Année) (Boss HP : 1 000)* — Grand oral de soutenance de projet devant le jury académique. Dégâts : Support visuel irréprochable (300 HP), Élocution et prestance (400 HP), Réponses maîtrisées aux questions pièges (300 HP). Victoire : Note de soutenance $\ge 18/20$. Récompense : `+1000 XP ACAD / +500 XP EXP`.
+* **QB-11 :** *Le Grand Oral de Soutenance Technique (Boss HP : 1 000)* — Soutenance majeure devant un jury ou panel technique. Dégâts : Support visuel irréprochable (300 HP), Élocution et argumentation (400 HP), Réponses maîtrisées (300 HP). Victoire : Évaluation $\ge 18/20$. Récompense : `+1000 XP ACAD / +500 XP EXP`.
 * **QB-12 :** *Le Réseau des 500 Alliances (Boss HP : 800)* — Atteindre 500 relations professionnelles stratégiques qualifiées sur LinkedIn avec un profil optimisé et des interactions régulières. Victoire : 500 connexions et 5 échanges de mentorat. Récompense : `+800 XP EXP`.
 * **QB-13 :** *L'Explorateur des Terres Inconnues (Recherche IA) (Boss HP : 1 200)* — Reproduction complète et amélioration des résultats d'un papier de recherche IA récent. Victoire : Code reproductible et article de synthèse publié. Récompense : `+1500 XP AI_ENG`.
 * **QB-14 :** *L'Éradicateur de Dette Technique (Boss HP : 700)* — Audit complet d'une base de code de 10 000 lignes : passage de la couverture de tests de 30% à 85% et élimination de tous les bugs connus. Victoire : Couverture $\ge 85\%$. Récompense : `+800 XP AI_ENG`.
-* **QB-15 :** *L'Avènement du Maître (Boss Ultime) (Boss HP : 10 000)* — L'épreuve finale pour débloquer le Niveau 100 : Major de promotion officiel + Niveau C2 certifié + Bourse décrochée + Top 1% TryHackMe + Condition physique athlétique accomplie. Victoire : Sacre du Maître de l'Ombre. Récompense : `+10000 XP All Stats`, Titre Suprême : *"Le Maître de l'Ombre"*.
+* **QB-15 :** *L'Accomplissement Suprême (Boss Ultime) (Boss HP : 10 000)* — L'épreuve finale pour débloquer le Niveau 100 : validation des 8 bases de vie au plus haut niveau (excellence conceptuelle, aisance linguistique fluide, réalisations techniques majeures, condition physique accomplie). Victoire : Validation du Niveau Maître. Récompense : `+10000 XP All Stats`, Titre : *"Le Maître du Système"*.
 
 ---
 
@@ -494,45 +493,41 @@ flowchart LR
 #### Critères Réels Indiscutables par Palier de Rang :
 
 1. **Rang E : L'Éveil du Novice ($L_{\text{global}} \in [1, 10]$)**
-   * *Statut Réel :* Étudiant en IA débutant son parcours, structurant ses journées et découvrant la rigueur de la programmation et du sport.
-   * *Exigences Clés :* Mise en place du Second Brain Markdown, respect des 4 premières quêtes quotidiennes sur 7 jours consécutifs, complétion de la routine d'échauffement physique.
+   * *Statut :* Prise en main du système, initialisation des environnements de travail et régularité sur les premières routines.
+   * *Exigences Clés :* Initialisation du Second Brain Markdown, respect des 4 quêtes quotidiennes sur 7 jours consécutifs, complétion de la routine d'échauffement physique.
 
 2. **Rang D : L'Apprenti Discipliné ($L_{\text{global}} \in [11, 25]$)**
-   * *Statut Réel :* Étudiant rigoureux obtenant des notes solides en mathématiques et algorithmique, capable de prototyper des scripts Python fonctionnels.
-   * *Exigences Clés :* Score de base $S_{\text{ACAD}} \ge 250$, première room TryHackMe Medium résolue sans aide, validation de 30 pompes strictes d'affilée, score Cambridge C1 initial évalué.
+   * *Statut :* Acquisition solide des bases théoriques et techniques, développement de scripts fonctionnels, assiduité physique.
+   * *Exigences Clés :* Score de base $S_{\text{ACAD}} \ge 250$, premiers livrables techniques autonomes, assiduité physique continue, niveau linguistique évalué.
 
 3. **Rang C : L'Opérateur Confirmé ($L_{\text{global}} \in [26, 45]$)**
-   * *Statut Réel :* Développeur autonome capable de concevoir une architecture logicielle complète, premier quart de sa promotion universitaire, endurance physique démontrée.
-   * *Exigences Clés :* Déploiement d'un MVP fullstack fonctionnel (React + FastAPI/Node), top 20% de promo validé, 10 tractions strictes, 5 km de course en $< 25\text{ min}$, maintien d'un streak Duolingo/Anki de 30 jours.
+   * *Statut :* Praticien autonome capable de concevoir et déployer une architecture logicielle complète, régularité sur 30 jours.
+   * *Exigences Clés :* Déploiement d'un MVP ou projet fullstack fonctionnel, maintien des révisions espacées sur 30 jours, routine physique consolidée.
 
-4. **Rang B : L'Expert Compétiteur ($L_{\text{global}} \in [46, 65]$)**
-   * *Statut Réel :* **Vainqueur de Hackathon reconnu.** Un Utilisateur de Rang B sans victoire en compétition de code n'existe pas dans le Système.
+4. **Rang B : L'Expert Confirmé ($L_{\text{global}} \in [46, 65]$)**
+   * *Statut :* Réussite avérée de défis techniques d'envergure, certifications reconnues et régularité physique exemplaire.
    * *Exigences Clés Obligatoires (Invariants) :*
-     * **Victoire ou Podium Officiel en Hackathon :** Au moins un hackathon majeur remporté ou podium (Devpost, MLH, Hackathon inter-écoles national ou corporate).
-     * **Certification Linguistique Reconnue :** Certification Cambridge English C1 Advanced (ou équivalent officiel C1) validée.
-     * **Condition Physique de Calisthénie :** Exécution sans faute de la Routine Dos & Épaules (17 exercices) et de la Routine Bras à l'échec (6 exercices x 3 séries) validées par Computer Vision.
-     * **Rang Académique :** Maintien ferme dans le Top 10% de sa promotion en ingénierie de l'IA.
+     * **Compétition ou Réalisation Majeure :** Podium ou victoire en compétition technique (hackathon, CTF, concours algorithmique).
+     * **Certification Linguistique ou Technique :** Certification officielle validée (ex: C1 en langue cible ou certification technique équivalente).
+     * **Condition Physique Complète :** Validation des programmes d'entraînement par vision cinématique.
 
-5. **Rang A : Le Maître & Leader Industriel ($L_{\text{global}} \in [66, 85]$)**
-   * *Statut Réel :* Major de promotion ou Top 3 incontesté, vainqueur de multiples hackathons internationaux, créateur d'outils d'IA utilisés par de véritables tiers.
+5. **Rang A : Le Maître & Référent Technique ($L_{\text{global}} \in [66, 85]$)**
+   * *Statut :* Réalisations majeures reconnues, solutions logicielles actives en production avec utilisateurs réels, niveau d'expression avancé.
    * *Exigences Clés Obligatoires :*
-     * Multiples podiums de hackathons (au moins 2 premières places).
-     * MVP ou SaaS en production avec utilisateurs actifs réguliers et métriques réelles.
-     * Niveau Cambridge C2 Proficiency attesté.
-     * Physique athlétique d'élite : 15 tractions strictes, routine d'abdos complète enchaînée, 10 km en $< 50\text{ min}$.
-     * Bourse d'excellence ou alternance d'élite décrochée via la veille Deerflow.
+     * Multiples réalisations ou compétitions techniques remportées.
+     * Produit ou service en production avec retours et métriques d'utilisateurs réels.
+     * Maîtrise linguistique de haut niveau validée.
+     * Condition physique et endurance d'élite.
 
-6. **Rang S : Le Principal National ($L_{\text{global}} \in [86, 95]$)**
-   * *Statut Réel :* Figure montante reconnue à l'échelle nationale dans l'écosystème de l'Intelligence Artificielle et de la recherche appliquée.
+6. **Rang S : La Sommité du Domaine ($L_{\text{global}} \in [86, 95]$)**
+   * *Statut :* Accomplissements exceptionnels reconnus dans ses domaines d'expertise, impact technique ou académique tangible.
    * *Exigences Clés Obligatoires :*
-     * Major de promotion indiscuté de son école d'ingénieurs.
-     * Grand vainqueur de compétitions d'IA internationales (ex: Kaggle Gold/Silver, Devpost Global Champion).
-     * Indépendance financière relative (revenus de conseil, SaaS, ou bourse de recherche doctorale prestigieuse).
-     * Maîtrise physique suprême (force relative calisthénique de haut niveau, masse grasse athlétique $< 12\%$).
+     * Réalisations majeures de premier plan dans ses disciplines de référence.
+     * Autonomie opérationnelle et financière démontrée.
 
-7. **Niveau Maître : La Légende Vivante Mondiale ($L_{\text{global}} \in [96, 100]$)**
-   * *Statut Réel :* Génie mondial de l'IA, riche, célèbre, physique de statue grecque, orateur influent invité aux conférences mondiales.
-   * *Exigences Clés :* Fondateur ou CTO d'une entreprise tech valorisée à plusieurs millions, liberté financière absolue, contributions open-source majeures à l'infrastructure mondiale de l'IA, maîtrise oratoire bilingue sans accent, condition physique olympique.
+7. **Niveau Maître : Plafond d'Excellence ($L_{\text{global}} \in [96, 100]$)**
+   * *Statut :* Maîtrise souveraine et équilibre parfait sur l'intégralité des 8 bases de vie du système.
+   * *Exigences Clés :* Accomplissements de niveau international dans ses domaines cibles, intégrité physique et rigueur quotidienne irréprochables.
 
 #### Les 10 Protocoles Commando d'Élévation (`MONK_MODE_SPRINTS`) :
 
@@ -705,7 +700,7 @@ Ce mécanisme crée un pont psychologique indestructible : **le plaisir n'est pl
 
 ---
 
-## 8. Le Référentiel Officiel des Certifications Gratuites & Avantages Étudiants (25 Certifications d'Élite)
+## 8. Le Référentiel Officiel des Certifications Gratuites & Avantages Développeur (25 Certifications & Ressources)
 
 Le Système LevelUp ne crée pas de certifications fictives : il s'appuie sur les organismes les plus prestigieux de la tech et exploite à 100 % le **GitHub Student Developer Pack** et les plateformes ouvertes :
 
@@ -755,7 +750,7 @@ flowchart TD
     Annales["Scores aux Annales d'Examens Blancs"] --> Predicteur
     Ponderations["Coefficients ECTS par Matière"] --> Predicteur
     
-    Predicteur --> Proba["Probabilité Major de Promo : P(Major)"]
+    Predicteur --> Proba["Probabilité de Succès : P(Succès)"]
     Predicteur --> Diagnostic["Identification des Matières à Risque"]
     Diagnostic --> Recommandation["Recommandation Immédiate d'Allocation de Temps"]
 ```
@@ -805,7 +800,7 @@ Cette matrice garantit qu'aucune exigence du produit ne reste orpheline : chaque
 | **REQ-17** | Mode Journée Commando Monk Mode (agenda verrouillé) | `services/scheduleService.ts` | `POST /api/v1/monkmode/activate` | `TC-27, TC-50, Test 4.2` |
 | **REQ-18** | Procédure de sanction réseau locale en mode restriction / pénalité | `scripts/penalty_firewall.ps1` | `Système Local Hosts / DNS` | `TC-32, Test 1.5-Gate` |
 | **REQ-19** | Boutique de Récompenses (échange de cristaux contre récompenses) | `services/shopService.ts` | `POST /api/v1/shop/purchase` | `TC-08, TC-15, Test 1.1` |
-| **REQ-20** | Alternance instantanée de thème Thème Sombre néon / Thème Clair orange | `components/theme/ThemeProvider.tsx` | `Attribut data-theme HTML` | `TC-2.2, Test 2.2` |
+| **REQ-20** | Bascule instantanée de thème Thème Sombre néon / Thème Clair orange | `components/theme/ThemeProvider.tsx` | `Attribut data-theme HTML` | `TC-2.2, Test 2.2` |
 | **REQ-21** | Chiffrement au repos des secrets d'API via AES-256-GCM | `lib/crypto/encryption.ts` | `PostgreSQL Cryptographic Layer` | `TC-05, TC-92, Test 1.2` |
 | **REQ-22** | Hachage des identifiants avec Argon2id (64 Mo de mémoire) | `lib/auth/hasher.ts` | `POST /api/v1/auth/login` | `TC-95, Test 1.2` |
 | **REQ-23** | Protection contre le vol de session via cookies HttpOnly Secure | `lib/auth/session.ts` | `HTTP Set-Cookie Header` | `TC-12, TC-93, Test 1.2` |
@@ -845,7 +840,7 @@ Cette matrice garantit qu'aucune exigence du produit ne reste orpheline : chaque
 Pour assurer une harmonie sémantique parfaite entre les interfaces, les prompts de l'évaluateur IA et le code source, les définitions suivantes sont contractuelles :
 
 * **L'Éveil (The Awakening) :** Le moment où l'utilisateur décide de renoncer à la médiocrité, à la passivité et à la distraction numérique pour intégrer le Système et mesurer chaque action de sa vie.
-* **Le Maître de l'Ombre (The Shadow Monarch) :** Le statut ultime (Niveau 100) représentant la maîtrise conjointe des 8 bases fondamentales : premier de promotion incontesté, ingénieur IA et hacker émérite, orateur bilingue, athlète accompli et principal de sa discipline.
+* **Le Maître de l'Ombre (The Shadow Monarch) :** Le statut ultime (Niveau 100) représentant la maîtrise conjointe des 8 bases fondamentales : excellence académique incontesté, ingénieur IA et hacker émérite, orateur bilingue, athlète accompli et principal de sa discipline.
 * **L'Évaluateur IA (The Architect) :** L'agent d'intelligence artificielle résidant dans Antigravity, chargé d'auditer les progrès du joueur, de calibrer l'effort journalier et de sanctionner la paresse intellectuelle avec une sévérité constructive.
 * **La Mode Restriction / Pénalité (The Restriction Mode) :** L'état de restriction imposé par le Système lorsqu'une quête quotidienne obligatoire n'a pas été clôturée avant minuit. Elle exige un rachat physique et intellectuel immédiat au lever du jour.
 * **La Boutique de Récompenses (The Reward Shop) :** Le registre d'échange où les Points de Récompense (Cristaux) gagnés par la sueur et la concentration sont convertis en droits de loisirs et récompenses sans aucune perte d'efficacité.

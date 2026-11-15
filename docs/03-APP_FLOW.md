@@ -405,10 +405,10 @@ Affiche le flux d'opportunités financières et académiques glanées par le scr
 +-----------------------------------+-----------------------------------+-------------------------------------------+
 | [NOUVELLES OPPORTUNITÉS DÉTECTÉES]| [DOSSIERS EN COURS DE RÉDACTION]  | [CANDIDATURES SOUMISES & EN ATTENTE]      |
 |-----------------------------------|-----------------------------------|-------------------------------------------|
-| [BOURSE] Bourse Eiffel Master IA  | [HACKATHON] Devpost Global Agentic| [CERTIF] Cambridge Linguaskill C1/C2      |
+| [FINANCEMENT] Bourse ou Financement de Recherche  | [HACKATHON] Devpost Global Agentic| [CERTIF] Cambridge Linguaskill C1/C2      |
 | - Valeur   : 14,000 €             | - Prix     : 25,000 $ en cloud    | - Statut : Examen passé le 02/11          |
 | - Échéance : 10 Janvier 2027      | - Échéance : 30 Novembre 2026     | - Résultat: Attestation C1 confirmée      |
-| - Pertinence : 96.5%              | - Équipe   : Utilisateur (Solo)        | - Action  : [IMPORTER DIPLÔME VALIDÉ]     |
+| - Pertinence : 96.5%              | - Équipe   : Joueur (Solo)             | - Action  : [IMPORTER DIPLÔME VALIDÉ]     |
 | - Action   : [CRÉER QUÊTE DOSSIER]| - Action   : [VOIR BLOCS TIME-BOX]|                                           |
 |-----------------------------------|-----------------------------------|-------------------------------------------|
 | [BOURSE] Bourse Mobilité Région   |                                   |                                           |
@@ -528,10 +528,10 @@ L'écran `/workout/camera` est l'arène physique du Utilisateur. Il utilise le f
 
 #### 3.10.2 Routines Pré-configurées dans le Moteur de Vision :
 1. **Routine Dos & Épaules (17 Étapes) :**
-   Suivi séquentiel avec alternance automatique de chronomètres pour les étirements et poses (Jumping Jacks 30s, Side-Lying L/R 30s, Cat Cow 35s, Child's Pose 30s) et de compteurs de répétitions cinématiques pour les exercices de force (Hyperextensions, Pike Push-Ups, Reverse Push-Ups, Inchworms, Supine Push-Ups, Floor Y Raises, Reverse Snow Angels).
-2. **Routine Bras & Triceps Calisthenics (@giovanni_fiderio) :**
+   Suivi séquentiel avec succession automatique de chronomètres pour les étirements et poses (Jumping Jacks 30s, Side-Lying L/R 30s, Cat Cow 35s, Child's Pose 30s) et de compteurs de répétitions cinématiques pour les exercices de force (Hyperextensions, Pike Push-Ups, Reverse Push-Ups, Inchworms, Supine Push-Ups, Floor Y Raises, Reverse Snow Angels).
+2. **Routine Bras & Triceps Calisthenics (Protocole Calisthénie) :**
    Mode "Échec Postural Strict" : le compteur incrémente chaque répétition jusqu'à dégradation de l'amplitude minimale ($	heta_{\text{coude}} > 85^\circ$ en descente ou arrêt prolongé $> 4\text{ s}$). Les 6 variantes sont enchaînées en 3 séries chacune : Push-Ups classiques, Decline (pieds surélevés), Diamond (mains en losange), Pike, Wide (prise large), Tricep Cross Extensions au sol.
-3. **Routine Abdos & Core d'Acier (@lou4n.ldlm) :**
+3. **Routine Abdos & Core d'Acier (Protocole Core) :**
    Contrôle de l'angle d'élévation du bassin et des jambes (V-Up 3x10, Relevé de jambes 3x12) et chronomètre isométrique avec détection de tremblement/effondrement du bassin pour le Gainage classique (2x1m30) et le Gainage latéral (2x45s chaque côté).
 
 
@@ -629,8 +629,8 @@ Pour offrir une expérience fluide sur smartphone via Discord, chaque événemen
 * **Couleur :** `0x10B981` (Vert Émeraude Bourse)
 * **Titre :** `💎 [OPPORTUNITÉ ÉLITE DÉTECTÉE PAR DEERFLOW]`
 * **Champs :**
-  * `Programme` : `Bourses d'Excellence Eiffel 2027 (Master IA)`
-  * `Organisme` : `Campus France`
+  * `Programme` : `Bourses d'Excellence Excellence Internationale 2027 (Cursus Spécialisé)`
+  * `Organisme` : `Portail Bourses & Mobilité`
   * `Montant Estimé` : `14 000 € (Allocation mensuelle + Voyage pris en charge)`
   * `Date Limite` : `10 Janvier 2027 (Dans 60 jours)`
   * `Score de Pertinence` : `96.5% (Adéquation totale avec votre profil académique)`
@@ -958,9 +958,9 @@ L'utilisation sur smartphone (iPhone & Android) est au cœur des habitudes de vi
 +---------------------------------------+
 | OPPORTUNITÉS DEERFLOW      [TOTAL: 14]|
 +---------------------------------------+
-| [!] Bourse Eiffel Master IA           |
+| [!] Financement & Bourse de Mobilité           |
 | Valeur : 14,000 € | Échéance : 10 Jan |
-| Pertinence : 96.5% (Campus France)    |
+| Pertinence : 96.5% (Portail Bourses & Mobilité)    |
 | [ CRÉER TÂCHE DE CANDIDATURE DANS HUD]|
 |---------------------------------------|
 | [!] Devpost Global Hackathon IA       |
@@ -1210,39 +1210,38 @@ flowchart TD
 
 ### 10.1 Rang E : L'Éveil du Novice (Niveaux 1 à 10)
 * **Couleur Héraldique :** Gris Ardoise `#64748B` et Lueur Cyan Faible `#0EA5E9`.
-* **Réalité Concrète :** Étudiant débutant découvrant la rigueur du code, installant son environnement et calant son rythme de sommeil.
-* **Cérémonie :** Effet sonore d'éveil d'outre-tombe, déverrouillage de la carte de Utilisateur initiale.
+* **Profil Fonctionnel :** Prise en main du système, structuration du temps et établissement des premières habitudes de travail.
+* **Cérémonie :** Notification sonore d'activation, initialisation du profil utilisateur.
 
 ### 10.2 Rang D : L'Apprenti Discipliné (Niveaux 11 à 25)
 * **Couleur Héraldique :** Vert Émeraude `#10B981` et Teinte Cuivrée.
-* **Réalité Concrète :** Maîtrise des devoirs académiques, premiers scripts Python autonomes, premières tractions strictes validées.
-* **Cérémonie :** Aura bleutée naissante autour de l'avatar, félicitations sobres de l'évaluateur IA.
+* **Profil Fonctionnel :** Validation des bases conceptuelles, premiers scripts autonomes, régularité sur les exercices physiques.
+* **Cérémonie :** Halo vert émeraude sur l'avatar, rapport de validation des compétences fondamentales.
 
 ### 10.3 Rang C : L'Opérateur Confirmé (Niveaux 26 à 45)
 * **Couleur Héraldique :** Bleu Électrique `#2563EB` et Halo Cobalt `#1D4ED8`.
-* **Réalité Concrète :** Étudiant dans le premier tiers de sa promo, capable de livrer une application complète en 48h, routine calisthénique solide.
-* **Cérémonie :** Animation d'éclairs bleus traversant le Web HUD, son de cloche cathédrale basse.
+* **Profil Fonctionnel :** Autonomie technique avérée, capacité à déployer des applications complètes, assiduité physique consolidée.
+* **Cérémonie :** Animation holographique sur le Web HUD, validation du statut de praticien autonome.
 
-### 10.4 Rang B : L'Expert Compétiteur (Niveaux 46 à 65)
+### 10.4 Rang B : L'Expert Confirmé (Niveaux 46 à 65)
 * **Couleur Héraldique :** Violet Royal `#7C3AED` et Lueur Néon `#A855F7`.
-* **Réalité Concrète Strict :** **Vainqueur officiel d'au moins un Hackathon majeur** (Devpost / MLH / Corporate), certifié Cambridge C1, top 10% promo, maîtrise intégrale des routines Dos/Épaules, Bras et Abdos à la maison.
-* **Règle Fondamentale :** Un Utilisateur qui n'a remporté aucun hackathon ne peut en aucun cas franchir ce rang.
-* **Cérémonie :** Déploiement d'ombres numériques sur l'écran, bannière dorée "HACKATHON CHAMPION RECOGNIZED".
+* **Profil Fonctionnel :** Victoire ou podium en compétition technique majeure (hackathon, CTF), certification linguistique ou technique officielle, maîtrise physique avancée.
+* **Cérémonie :** Bannière d'accomplissement technique majeur sur le Web HUD.
 
-### 10.5 Rang A : Le Maître & Leader Industriel (Niveaux 66 à 85)
+### 10.5 Rang A : Le Maître & Référent Technique (Niveaux 66 à 85)
 * **Couleur Héraldique :** Pourpre Profond `#9333EA` et Or Impérial `#F59E0B`.
-* **Réalité Concrète Strict :** Vainqueur de multiples hackathons, major de promotion ou Top 3, bilingue Cambridge C2, MVP déployé avec des dizaines d'utilisateurs réels, force athlétique de haut niveau.
-* **Cérémonie :** Secousse de l'écran (`camera-shake`), thème musical orchestré Système de Gamification, titre honorifique de "Maître de Guilde".
+* **Profil Fonctionnel :** Multiples projets d'envergure menés à terme, livrables en production avec utilisateurs réels, niveau d'élocution et condition physique d'élite.
+* **Cérémonie :** Animation d'accomplissement de rang supérieur, déblocage des privilèges d'architecture avancée.
 
-### 10.6 Rang S : Le Principal National (Niveaux 86 à 95)
+### 10.6 Rang S : La Sommité du Domaine (Niveaux 86 à 95)
 * **Couleur Héraldique :** Écarlate Solaire `#DC2626` et Noir Néant `#020617`.
-* **Réalité Concrète Strict :** Figure publique reconnue dans l'écosystème IA national, major indiscuté, grand champion de concours d'algorithmes, autonomie financière complète.
-* **Cérémonie :** Verrouillage complet du HUD pendant 10 secondes avec message en lettres de sang : *"UN ÉVEILLÉ DE RANG S EST NÉ SUR CETTE TERRE"*.
+* **Profil Fonctionnel :** Accomplissements exceptionnels reconnus dans ses domaines, impact mesurable et autonomie complète.
+* **Cérémonie :** Notification solennelle d'accomplissement exceptionnel.
 
-### 10.7 Niveau Maître : La Légende Vivante Mondiale (Niveaux 96 à 100)
-* **Couleur Héraldique :** Flammes d'Ombre Noir Absolu `#000000` et Halo Bleu Maître `#38BDF8`.
-* **Réalité Concrète Strict :** Statut de légende mondiale de l'IA, riche, célèbre, physique de statue grecque sculptée par la calisthénie, conférencier d'élite, principaleté totale.
-* **Cérémonie :** Déverrouillage du shader WebGL ultime des Flammes du Maître, résonance vocale de l'utilisateur : *"ARISE"*.
+### 10.7 Niveau Maître : Plafond d'Excellence (Niveaux 96 à 100)
+* **Couleur Héraldique :** Noir Absolu `#000000` et Halo Cyan `#38BDF8`.
+* **Profil Fonctionnel :** Maîtrise souveraine et équilibre parfait sur l'intégralité des 8 bases de vie du système.
+* **Cérémonie :** Déverrouillage visuel complet du thème Maître sur le Web HUD.
 
 ## 11. Cinématique d'Intégration Initiale (First-Time User Experience - FTUE)
 
@@ -1621,7 +1620,7 @@ Les Boss Raids sont les jalons de validation suprêmes qui jalonnent la montée 
 * **Inspiration Canonique :** L'ascension des 100 étages pour collecter les ingrédients de l'Élixir de Vie afin de guérir la mère de Jin-Woo.
 * **Déclencheur d'Accès :** Atteinte du Rang B (Niveau 35).
 * **Déroulement Visuel :**
-  1. *Représentation Verticale :* Frise ascendante de 100 paliers d'apprentissage couvrant l'ensemble du cursus de Master en Intelligence Artificielle.
+  1. *Représentation Verticale :* Frise ascendante de 100 paliers d'apprentissage couvrant l'ensemble du cursus de diplôme ou certification cible.
   2. *Progression :* Chaque notion maîtrisée (validée par l'évaluateur IA avec note $\ge 16/20$) fait gravir 1 étage.
   3. *Palier 100 (Le Roi Démon Baran) :* Soutenance du projet de fin d'études ou publication d'un article de recherche IA international.
   4. *Récompense Ultime :* Déblocage de la recette légendaire et transition vers le Rang A.

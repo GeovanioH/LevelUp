@@ -1682,13 +1682,13 @@ export const deerflowHandlers = [
       results: [
         {
           id: 'df_opp_2026_01',
-          title: "Bourse d'Excellence Master IA 2026",
+          title: "Financement de Recherche & Développement 2026",
           source: 'DEERFLOW_SCRAPER',
           category: 'SCHOLARSHIP',
           url: 'https://scholarships.example.org/ai-2026',
           deadline: new Date(Date.now() + 60 * 86400 * 1000).toISOString(),
           estimated_value_eur: 7500,
-          description: 'Financement pour étudiants à haut potentiel en intelligence artificielle.',
+          description: 'Financement pour projets à fort impact en intelligence artificielle.',
         },
         {
           id: 'df_opp_2026_02',

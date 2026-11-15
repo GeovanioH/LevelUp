@@ -1,6 +1,6 @@
 # Directives du Projet LevelUp — Workspace Antigravity
 
-Ce projet implémente une plateforme de suivi de performance, de discipline et de développement de compétences pour un profil d'ingénieur en Intelligence Artificielle.
+Ce projet implémente une plateforme modulaire de suivi de performance, de discipline et de développement de compétences (auto-quantification et gamification de vie). Conçu comme un moteur universel, il permet à tout utilisateur de structurer et mesurer sa progression. Les objectifs individuels et programmes personnalisés sont configurés dans config/personal_profile.md.
 
 ---
 

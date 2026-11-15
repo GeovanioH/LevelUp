@@ -85,7 +85,7 @@ graph TB
 ```
 
 ### 3.1 AGENT-ACAD : L'Archiviste Académique
-- **Mission :** Maximiser la note académique moyenne de l'utilisateur pour garantir son rang de major de promotion en Master d'Intelligence Artificielle ($\text{Moyenne} \ge 17.5/20$).
+- **Mission :** Superviser l'assimilation continue des connaissances conceptuelles et théoriques de l'utilisateur et maximiser ses résultats aux évaluations cibles.
 - **Domaines de Compétence :** Algèbre linéaire numérique, décomposition SVD, optimisation convexe KKT, théorie des probabilités appliquées, tenseurs et démonstrations formelles KaTeX.
 - **Actions Déclenchées :**
   - Extraction automatique des concepts clés de chaque cours magistral sous forme de fiches Markdown Obsidian.
@@ -118,7 +118,7 @@ graph TB
   - Attribution des points d'expérience d'éloquence et injection de conseils d'amélioration immédiats.
 
 ### 3.5 AGENT-LNG : Le Linguiste de Cambridge
-- **Mission :** Amener Utilisateur à la maîtrise bilingue absolue de l'anglais technique et académique, attestée par l'obtention du Cambridge English C1 Advanced (CAE) ou C2 Proficiency (CPE).
+- **Mission :** Conduire l'utilisateur à une aisance linguistique fluide et professionnelle dans ses langues cibles, attestée par des évaluations objectives et certifiées.
 - **Domaines de Compétence :** Grammaire anglaise avancée, lexique des publications scientifiques arXiv, fluidité de conversation en conditions réelles, rédaction de documents techniques en anglais soutenu.
 - **Actions Déclenchées :**
   - Vérification que l'intégralité du code et de la documentation d'ingénierie est rédigée en anglais technique impeccable.
@@ -126,8 +126,8 @@ graph TB
   - Suivi des progrès sur la plateforme officielle de Cambridge English.
 
 ### 3.6 AGENT-FIN : L'Éclaireur de Bourses
-- **Mission :** Assurer la principaleté financière de l'utilisateur en traquant les financements académiques, les bourses de mobilité internationale d'excellence et les subventions d'entrepreneuriat.
-- **Domaines de Compétence :** Programmes Eiffel d'Excellence, Campus France, bourses Fulbright, Chevening, partenariats GitHub Student Pack et gestion budgétaire personnelle.
+- **Mission :** Détecter et organiser les opportunités de financement, appels à projets, hackathons rémunérés et bourses de mobilité selon la configuration de l'utilisateur.
+- **Domaines de Compétence :** Veille d'opportunités, appels à projets, financements de recherche, bourses de mobilité et gestion budgétaire personnelle.
 - **Actions Déclenchées :**
   - Pilotage du scraper Playwright headless sur les portails universitaires.
   - Notification en temps réel par webhook signé HMAC dès qu'une bourse correspondant au profil de l'utilisateur est publiée.
@@ -139,9 +139,9 @@ graph TB
 * **Routines Calisthéniques Fondatrices Encodées :**
   1. **Routine Dos & Épaules (17 Étapes Chronométrées & Répétitions) :**
      Jumping Jacks (00:30) $\rightarrow$ Hyperextension x14 $\rightarrow$ Pike Push Ups x14 $\rightarrow$ Reverse Push-Ups x12 $\rightarrow$ Inchworms x16 $\rightarrow$ Side-Lying Floor Stretch G (00:30) $\rightarrow$ Side-Lying Floor Stretch D (00:30) $\rightarrow$ Hyperextension x12 $\rightarrow$ Pike Push Ups x12 $\rightarrow$ Reverse Push-Ups x10 $\rightarrow$ Inchworms x14 $\rightarrow$ Cat Cow Pose (00:35) $\rightarrow$ Supine Push Up x14 $\rightarrow$ Floor Y Raises x14 $\rightarrow$ Supine Push Up x13 $\rightarrow$ Reverse Snow Angels x12 $\rightarrow$ Child's Pose (00:30).
-  2. **Routine Bras & Triceps Calisthenics (@giovanni_fiderio) :**
+  2. **Routine Bras & Triceps Calisthenics (Protocole Calisthénie) :**
      6 variantes poussées à l'échec postural strict en 3 séries chacune : Push-Ups classiques, Decline Push-Ups (pieds surélevés), Diamond Push-Ups (mains en losange), Pike Push-Ups, Wide Push-Ups (prise large), Tricep Cross Extensions au sol.
-  3. **Routine Abdos & Core d'Acier (@lou4n.ldlm) :**
+  3. **Routine Abdos & Core d'Acier (Protocole Core) :**
      V-Up (3 x 10) $\rightarrow$ Mountain Climber (3 x 30s) $\rightarrow$ Relevé de jambes au sol (3 x 12) $\rightarrow$ Gainage classique (2 x 1m30) $\rightarrow$ Gainage latéral (2 x 45s de chaque côté).
   4. **Routine Jambes & Mobilité :**
      Squats (4x25), Fentes sautées (3x12/jambe), Chaise isométrique murale (3x60s), Calf raises (4x20).
@@ -209,8 +209,8 @@ Tous les échanges entre les sous-agents transitent par Redis Streams sous forme
   "taskReferenceId": "TASK-BOURSES-2026-004",
   "payload": {
     "action": "OPPORTUNITY_DISCOVERED",
-    "portal": "Campus France",
-    "scholarshipName": "Bourse Eiffel d'Excellence Master IA 2026",
+    "portal": "Portail Bourses & Mobilité",
+    "scholarshipName": "Bourse d'Études / Mobilité d'Excellence Cursus Spécialisé 2026",
     "deadline": "2027-01-10T23:59:59Z",
     "fundingAmountEuros": 14000,
     "eligibilityMatchScore": 0.96
@@ -352,7 +352,7 @@ export class DeerflowScraperWorker {
   }
 
   public async scrapeCampusFrancePortal(): Promise<ScholarshipOpportunity[]> {
-    logger.info('Lancement de la mission d\'éclaireur furtif de Beru sur Campus France...');
+    logger.info('Lancement de la mission d\'éclaireur furtif de Beru sur Portail Bourses & Mobilité...');
     
     // Lancement de Chromium avec configuration furtive évitant les détections de bots
     const browser: Browser = await chromium.launch({
@@ -382,12 +382,12 @@ export class DeerflowScraperWorker {
       logger.info({ count: cards.length }, 'Cartes de financements identifiées');
 
       for (const card of cards.slice(0, 10)) {
-        const title = (await card.$eval('.title, h3', el => el.textContent?.trim())) || 'Bourse Internationale IA';
+        const title = (await card.$eval('.title, h3', el => el.textContent?.trim())) || 'Financement & Opportunité Technologique';
         const deadline = (await card.$eval('.deadline, .field--name-date', el => el.textContent?.trim())) || 'Date limite à confirmer';
         const link = (await card.$eval('a', el => el.getAttribute('href'))) || 'https://campusfrance.org';
 
         opportunities.push({
-          sourcePortal: 'Campus France',
+          sourcePortal: 'Portail Bourses & Mobilité',
           title,
           grantAmount: 'Allocation mensuelle de 1 400 € + Prise en charge frais',
           deadlineDate: deadline,
@@ -646,7 +646,7 @@ Tu es "Bellion", le Grand Commandant de l'Système Multi-Agents sous les ordres 
 Tu orchestres les tâches de l'essaim et garantis l'alignement parfait entre l'emploi du temps circadien et les objectifs académiques.
 
 Tes Responsabilités Clés :
-1. Décomposer les grands projets de l'utilisateur (Master IA, Hackathons, Bourses) en quêtes quotidiennes déterministes.
+1. Décomposer les grands projets de l'utilisateur (Cursus Spécialisé, Hackathons, Bourses) en quêtes quotidiennes déterministes.
 2. Détecter et interdire tout chevauchement horaire dans le planificateur time-blocking.
 3. Calculer les quorums de décision Raft-Lite au sein de l'Système Multi-Agents.
 4. Maintenir l'équilibre du radar des 8 Bases de Vie. Si une base faiblit, oriente immédiatement des quêtes de redressement.
@@ -748,7 +748,7 @@ Pour que le Système s'ancre fermement dans la réalité sans réinventer la rou
 ### 11.1 Connecteur Cybersécurité : TryHackMe & HackTheBox (`services/CyberSentinelConnector.ts`)
 - **Objectif :** Récupérer de façon non intrusive les progrès de l'utilisateur sur les plateformes de hacking éthique sans exposer ses identifiants.
 - **Fonctionnement :**
-  - Parsing automatisé du profil public TryHackMe (`https://tryhackme.com/p/Utilisateur`) toutes les 6 heures.
+  - Parsing automatisé du profil public TryHackMe (`https://tryhackme.com/p/${USERNAME}`) toutes les 6 heures.
   - Détection des badges de complétion de parcours (Pre-Security, Jr Penetration Tester, Offensive Pentesting).
   - Chaque machine rootée validée attribue automatiquement $+150\text{ XP CYBER}$ et $+20\text{ SC}$.
 
@@ -785,7 +785,7 @@ Pour protéger le Deep Work et appliquer les pénalités sans concession :
 
 Pour garantir l'ancrage réel absolu des rangs :
 * Vérifie formellement la présence d'au moins **1 victoire en hackathon majeur** (Devpost, MLH, Hackathon universitaire officiel) avant d'autoriser le passage au **Rang B**.
-* Valide le certificat officiel **Cambridge English C1/C2**, le rang dans le premier décile de la promotion académique, et la conformité cinématique des routines de calisthénie.
+* Valide les certifications officielles requises, les résultats d'évaluations cibles, et la conformité cinématique des routines d'entraînement physique.
 * Calcule le **Score Global** par la moyenne harmonique pondérée des 8 bases pour interdire toute progression déséquilibrée.
 
 
@@ -979,7 +979,7 @@ Pour certifier la résilience, la synchronisation et la robustesse de l'Système
 | **SIM-13** | *Dpassement Rigoureux de Quota de Calcul* | Sous-agent générant un volume infini de tokens. | Le SwarmCommander coupe le worker dès que `tokensConsumed > tokenBudget`. | Tâche marquée FAILED sans coût financier excessif. |
 | **SIM-14** | *Trace GPS Strava Frauduleuse* | Soumission d'une trace de course réalisée en voiture à 60 km/h. | L'analyste athlétique détecte la vitesse anormale et rejette la validation physique. | Rejet avec notification solennelle de tricherie. |
 | **SIM-15** | *Saturation Mmoire Cache Redis LRU* | Injection de 100 000 clés de session éphémères. | La politique `allkeys-lru` évince les plus anciennes clés sans impacter les files BullMQ actives. | Stabilité continue du serveur sans plantage OOM. |
-| **SIM-16** | *Alternance Rapide de Langue (Franais/Anglais)*| Monologue oral mêlant termes français et jargon anglais technique. | Faster-Whisper identifie le code-switching et transcrit fidèlement les deux langues. | Précision lexicale $\ge 98\%$ sur les concepts IA. |
+| **SIM-16** | *Basculement Rapide de Langue (Franais/Anglais)*| Monologue oral mêlant termes français et jargon anglais technique. | Faster-Whisper identifie le code-switching et transcrit fidèlement les deux langues. | Précision lexicale $\ge 98\%$ sur les concepts IA. |
 | **SIM-17** | *Bourse Critique Dtecte  H-6* | Publication d'un appel d'offres de bourse expirant le jour même. | Beru extrait le dossier, génère les pièces requises et envoie une alerte Discord écarlate. | Alerte prioritaire diffusée en moins de 30 secondes. |
 | **SIM-18** | *Sommeil Rparateur Catastrophique ($HP < 30$)* | Télémétrie Oura indiquant 3h20 de sommeil agité. | Le planificateur allège automatiquement les quêtes physiques de 50% pour protéger la santé. | Mode de préservation biologique activé. |
 | **SIM-19** | *Crash Rigoureux du Serveur Fastify* | Simulation d'un kill processus `SIGKILL` inopiné. | Le superviseur PM2 ou NSSM redémarre le conteneur en moins de 1.5 seconde. | Restauration complète des sessions et de l'état. |
@@ -1574,7 +1574,7 @@ Le tableau suivant répertorie le découpage complet des travaux d'ingénierie (
 | **WBS-17** | Démon de filtrage réseau Windows WFP | AGENT-DIS | `daemons` | Blocage bas niveau des paquets sortants vers les distractions. |
 | **WBS-18** | Modification sécurisée du fichier hosts | AGENT-DIS | `daemons` | Redirection 127.0.0.1 avec permissions NTFS renforcées. |
 | **WBS-19** | Quête de purge physique de pénalité | AGENT-STR | `daemons` | Rétablissement automatique du réseau dès validation Strava. |
-| **WBS-20** | Scraper furtif Playwright de bourses d'études | Beru | `daemons` | Émulation de profil humain et extraction Campus France. |
+| **WBS-20** | Scraper furtif Playwright de bourses d'études | Beru | `daemons` | Émulation de profil humain et extraction Portail Bourses & Mobilité. |
 | **WBS-21** | Signature cryptographique HMAC des webhooks | Iron | `api` | En-tête `X-Deerflow-Signature` validé par timing-safe equal. |
 | **WBS-22** | Moteur de planificateur circadien MILP | Bellion | `math-engine` | Répétition sans chevauchement sur les 96 tranches de 15 min. |
 | **WBS-23** | Coffre-fort de connaissances Markdown Obsidian | AGENT-ACAD | `second-brain`| Fiches sur disque avec frontmatter YAML et wikilinks. |

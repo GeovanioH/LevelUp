@@ -4,7 +4,7 @@
 > **Nom du Produit :** LevelUp ("The System" / "Le Système")  
 > **Version du Document :** 3.0.0 (Schéma Directeur Stratégique Exhaustif & Encyclopédique)  
 > **Horizon Temporel :** 2026 — 2028 (Plan Triennal d'Ascension)  
-> **Vision Ultime :** Forger un système d'exploitation de vie principal et intransigeant, guidant Utilisateur du statut d'étudiant en ingénierie de l'IA (Rang E — L'Éveil du Novice) jusqu'au sommet absolu de sa discipline (Rang Monarch), en automatisant l'acquisition de la rigueur scientifique, de la cybersécurité offensive, de l'aisance linguistique et de l'indépendance financière.  
+> **Vision Ultime :** Forger un système d\'auto-quantification et de gamification universel, guidant l\'utilisateur du statut de novice jusqu\'au niveau d\'excellence ultime (Niveau Maître), en automatisant la validation de l\'effort, des compétences techniques, de la maîtrise linguistique et de la discipline opérationnelle.
 
 ---
 
@@ -47,9 +47,9 @@ flowchart LR
 ---
 
 ### 1.4 Intégration Stratégique V1.0 des Modules Clés (Calisthénie & Services Tiers)
-1. **Module de Vision par Ordinateur (MediaPipe Pose WASM) :** Déploiement du compteur de répétitions temps réel pour les 17 exercices de la routine Dos & Épaules, les 6 variantes à l'échec de la routine Bras (@giovanni_fiderio) et les 5 étapes du circuit Abdos (@lou4n.ldlm).
+1. **Module de Vision par Ordinateur (MediaPipe Pose WASM) :** Déploiement du compteur de répétitions temps réel pour les 17 exercices de la routine Dos & Épaules, les 6 variantes à l'échec de la routine Bras (Protocole Calisthénie) et les 5 étapes du circuit Abdos (Protocole Core).
 2. **Pare-Feu Anti-Distraction Hybride :** Pilotage automatisé de l'API NextDNS Cloud et des règles de filtrage local Windows Filtering Platform pour sanctuariser les sessions Deep Work.
-3. **Moteur d'Évaluation Linguistique & Assiduité :** Intégration des examens blancs officiels gratuits Cambridge English C1/C2 et synchronisation du streak Duolingo pour consolider la base `LNG`.
+3. **Moteur d'Évaluation Linguistique & Assiduité :** Intégration des examens blancs officiels gratuits évaluations linguistiques certifiées C1/C2 et synchronisation du streak Duolingo pour consolider la base `LNG`.
 4. **Radar de Financements & Compétitions :** Automatisation du scraping des bourses d'excellence (Deerflow) et veille continue des hackathons d'IA sur Devpost pour garantir les conditions réelles d'ascension au Rang B et au Rang A.
 
 
@@ -423,9 +423,9 @@ Le tableau ci-dessous formalise l'évolution des choix technologiques de LevelUp
 ## 7. Synthèse Stratégique & Signature du Schéma Directeur
 
 La feuille de route LevelUp ("The System") trace un chemin sans compromis vers l'excellence absolue :
-1. **2026 : La Fondation de l'Éveil** — Dompter la discipline quotidienne, s'emparer de la première place de promotion académique et valider les premières certifications mondiales.
-2. **2027 : L'Accélération du Vétéran** — Conquérir les compétitions internationales, décrocher les financements d'excellence d'IA et transformer la rigueur en instinct.
-3. **2028 : L'Avènement du Maître** — Déployer des systèmes autonomes principals, maîtriser les technologies de rupture et s'élever au rang de leader scientifique et technologique incontesté.
+1. **Phase 1 : La Fondation du Système** — Établir la discipline quotidienne, structurer les bases de compétences et déployer les oracles de vérification automatisée.
+2. **Phase 2 : L'Accélération & Montée en Puissance** — Relever des défis techniques d'envergure, valider des certifications officielles et consolider l'autonomie d'ingénierie.
+3. **Phase 3 : La Maîtrise Avancée** — Déployer des projets d'envergure en production, maîtriser les architectures complexes et atteindre l'excellence sur l'ensemble des 8 bases de vie.
 
 ---
 
@@ -435,7 +435,7 @@ La version inaugurale V1.0 (« Le Système Éveillé ») livre l'ensemble des fo
 
 | Code Fonctionnel | Nom de la Fonctionnalité | Rôle au Sein du Système | Critère de Succès Mesurable |
 | :--- | :--- | :--- | :--- |
-| **FEAT-01** | Profil & Éveil du Utilisateur | Initialisation de l'identité, du niveau et du rang initial (Rang E — L'Éveil du Novice). | Création en BDD avec mot de passe Argon2id et 0 XP. |
+| **FEAT-01** | Initialisation du Profil Joueur | Initialisation de l'identité, du niveau et du rang initial (Rang E — L'Éveil du Novice). | Création en BDD avec mot de passe Argon2id et 0 XP. |
 | **FEAT-02** | Moteur de Formules d'XP | Calcul logarithmique du niveau et des pourcentages de progression. | Niveau 14 = 18,450 XP exact calculé en moins de 1 ms. |
 | **FEAT-03** | Jauge de Vitalité Biologique (HP)| Mesure de la régénération physique selon le sommeil réel. | Calcul dynamique borné dans $[0, 100]$ avec label visuel. |
 | **FEAT-04** | Jauge d'Énergie Mentale (MP) | Mesure de l'endurance cognitive consommée par le Deep Work. | Consommation proportionnelle aux minutes de concentration. |
@@ -462,7 +462,7 @@ La version inaugurale V1.0 (« Le Système Éveillé ») livre l'ensemble des fo
 | **FEAT-25** | Algorithme SM-2 Répétitions | Calcul des dates optimales de révision des cours IA. | Facteur $EF \ge 1.3$ et calcul des intervalles $I_n$. |
 | **FEAT-26** | Agent IA L'Évaluateur IA | Intelligence socratique évaluant les monologues sur 20 points. | Inférence Gemini 2.5 Pro contrainte par schéma Zod. |
 | **FEAT-27** | Grille d'Évaluation /20 | Notation rigoureuse (Exactitude, Structure, Jargon, Pratique). | Rapport structuré avec forces, lacunes et XP attribuée. |
-| **FEAT-28** | Scraper Deerflow Bourses | Scraping furtif des portails de financements universitaires. | Worker Playwright headless extrayant Campus France et Devpost. |
+| **FEAT-28** | Scraper Deerflow Bourses | Scraping furtif des portails de financements universitaires. | Worker Playwright headless extrayant Portail Bourses & Mobilité et Devpost. |
 | **FEAT-29** | Signature Webhooks HMAC | Sécurisation cryptographique des transmissions de bourses. | Validation de l'en-tête `X-Deerflow-Signature` en SHA-256. |
 | **FEAT-30** | Bot Discord.js v14 | Interface mobile permanente dans la poche du joueur. | Passerelle Gateway autonome avec reprise automatique. |
 | **FEAT-31** | Commande Slash `/status` | Affichage du HUD compact et des jauges dans Discord. | Embed Système de Gamification généré en moins de 500 ms. |
@@ -963,19 +963,20 @@ export class MeshPeerNode extends EventEmitter {
 
 ---
 
-## 12. Trajectoire Acadmique Triennale & Syllabus d'Excellence Master IA (2026  2028)
+## 12. Trajectoire Acadmique Triennale & Syllabus d'Excellence Cursus Spécialisé (2026  2028)
 
-Pour qu'Utilisateur atteigne le sommet de sa promotion acadmique et dcroche les opportunits d'alternance et de bourses d'tudes internationales les plus slectives, le Systme intgre un programme de synchronisation rigoureuse entre les 8 Bases de Vie et les cursus universitaires de pointe en Intelligence Artificielle et Science des Donnes.
+> [!NOTE]
+> **Personnalisation du Cursus & Objectifs Académiques** : Le détail du cursus académique semestriel spécifique à l'utilisateur actuel est consigné dans [config/personal_profile.md](config/personal_profile.md) (Section 8). Le cadre ci-dessous définit le fonctionnement universel de synchronisation des compétences au sein du moteur LevelUp.
 
-### 12.1 Dcomposition Semestrielle des 4 Semestres de Master IA
+### 12.1 Modèle Générique de Synchronisation des Compétences & Livrables
 
 ```mermaid
 timeline
-    title Trajectoire Acadmique Triennale Master IA & Quorums d'Excellence
-    section Semestre 1 (S1 - 2026) : Fondations Mathmatiques & Algorithmes : Tenseurs, Optimisation Convexe, Algbre Linaire Numrique : Deep Learning Fondamental (PyTorch, CNN, RNN, LSTM) : Premier de Promotion S1 (Moyenne >= 17.5/20)
-    section Semestre 2 (S2 - 2026) : Architectures Transformers & NLP Avanc : Modles d'Attention (Multi-Head, RoPE, FlashAttention-2) : Vision par Ordinateur & Modles Diffusifs (Diffusion Models) : Validation Stage / Alternance R&D IA d'lite
-    section Semestre 3 (S3 - 2027) : MLOps Industriel, LLMOps & Scurit IA : Dploiement Haute Performance (vLLM, TensorRT-LLM, Triton) : Alignement RLHF, DPO & Dfense contre Prompt Injections : Hackathon International Top 3 & Brevet / Publication
-    section Semestre 4 (S4 - 2028) : Thse Professionnelle & Systmes Autonomes : Mmoire de Master IA : Systmes Multi-Agents & Raisonnement Avanc : Diplme d'Ingnieur / Master Mention Trs Bien avec Flicitations
+    title Cadre Modulaire de Progression Technique & Quorums de Validation
+    section Étape 1 : Fondations Théoriques & Algorithmiques : Tenseurs, Algèbre Linéaire Numérique : Réseaux de Neurones Fondamentaux : Validation des Évaluations de Base
+    section Étape 2 : Architectures Avancées & Systèmes : Mécanismes d'Attention & LLMs : Vision par Ordinateur & Modèles Génératifs : Validation de Projets Pratiques en Production
+    section Étape 3 : MLOps Industriel & Résilience : Déploiement Haute Performance (vLLM, Triton) : Sécurité Applicative & Durcissement : Compétition Internationale & Livrables Majeurs
+    section Étape 4 : Systèmes Autonomes & Clôture : Systèmes Multi-Agents Distribués : Mémoire Technique de Référence : Soutenance d'Excellence
 ```
 
 #### Semestre 1 (S1) : Les Fondations Impriales de l'IA
@@ -1014,7 +1015,7 @@ timeline
   - Protocole Model Context Protocol (MCP) et intgration d'outils externes (Sandbox Docker, excuteurs Python scuris).
 - **UE-303 : Gouvernance, thique & Bourses Internationales :**
   - Rflexion thique selon l'AI Act europen (classification des risques, transparence, auditabilit).
-  - Candidature aux bourses internationales prestigieuses (Eiffel, Chevening, Fulbright) prpares via Deerflow.
+  - Candidature aux financements et bourses de recherche d'excellence préparées via le moteur de veille Deerflow.
 
 #### Semestre 4 (S4) : Mmoire de Fin d'tudes & Projets Capstone
 - Dveloppement d'un projet de recherche appliqu en IA gnrative ou systmes multi-agents distribus.
@@ -1041,8 +1042,8 @@ timeline
 ### 12.3 Trajectoire de Certification Internationale Haute Valeur (GitHub Student Pack & Cambridge)
 
 1. **Anglais & loquence Professionnelle (`LNG` & `EXP`) :**
-   - **Cambridge English C1 Advanced (CAE) :** Score cibl $\ge 200/210$ (Grade A, quivalent C2 Master). Prparation intensive par simulation de rponses vocales orales quotidiennes avec *L'Évaluateur IA*.
-   - **Cambridge English C2 Proficiency (CPE) :** Validation finale de l'loquence en fin de Master. Immersion complte en anglais technique (100% de la documentation, rdaction de code et rflexions orales en anglais).
+   - **Certification Linguistique Avancée (Niveau C1) :** Score ciblé attestant de l\'aisance professionnelle. Préparation continue par simulation de réponses vocales orales quotidiennes avec *L\'Évaluateur IA*.
+   - **Maîtrise Bilingue Supérieure (Niveau C2) :** Validation finale de l\'éloquence et de la fluidité technique en conditions réelles.
 2. **Sciences des Donnes & Ingnierie IA (`AI_ENG`) :**
    - **DataCamp Data Scientist with Python Career Track :** Exploitation intgrale du pack tudiant GitHub (42 cours, 15 projets guids).
    - **DeepLearning.AI Deep Learning Specialization :** Enseignement d'Andrew Ng couvrant CNN, RNN, Transformers.
@@ -1364,7 +1365,7 @@ export class SwarmCommander extends EventEmitter {
 | **Q4 2027** | *L'Orbe de Concentration* | Tlmtrie crbrale EEG 8 canaux (OpenBCI), dtection automatique du flux d'attention $\Phi_{\text{focus}}$. | Bascule automatique en Mode Maître valide par densit spectrale d'ondes bta. | **Rang S** |
 | **Q1 2028** | *L'Avant-Garde des Ombres*| Dploiement des premiers sous-agents autonomes (Igris, Beru) pour revue de code et veille d'appels d'offres. | 100+ revues de code excutes sans intervention humaine avec dtection de rgressions. | **Rang S** |
 | **Q2 2028** | *La Citadelle de Calcul* | Installation de la Workstation Dual RTX 5090 (64GB VRAM) et serving priv vLLM local. | Infrence locale de modles 70B quantifis  $>45\text{ tokens/s}$. | **Rang S** |
-| **Q3 2028** | *L'Alliance Acadmique* | Dpt de thse professionnelle de Master IA, obtention du diplme avec Flicitations du Jury. | Moyenne gnrale finale $\ge 18/20$, offre d'embauche ou de fondation de startup valide. | **Rang S** |
+| **Q3 2028** | *L'Alliance Acadmique* | Dpt de thse professionnelle de Cursus Spécialisé, obtention du diplme avec Flicitations du Jury. | Moyenne gnrale finale $\ge 18/20$, offre d'embauche ou de fondation de startup valide. | **Rang S** |
 | **Q4 2028** | *L'Empire du Maître* | Pleine autonomie de l'AI Venture Foundry, gnration et gestion d'actifs logiciels gnrateurs de revenus. | Systme autoportant, principalet financire absolue de l'utilisateur tablie. | **Rang Maître** |
 
 ### 15.2 Critres d'Acceptation & Revue de Conformit Finale V1.0
@@ -1586,7 +1587,7 @@ En hommage  l'univers de Système de Gamification o des Portails s'ouvrent spont
 
 | Code vnement | Nom du Donjon Alatoire | Condition de Dclenchement Rel | Directives Immdiates du Systme | Bonus Système de Gamification |
 |:---|:---|:---|:---|:---|
-| **BRK-01** | *Le Portail Rouge du Bug Critique* | Panne dtecte sur un projet MVP ou serveur d'alternance. | Suspension des qutes de lecture. Diagnostic post-mortem en moins de 60 min. | $\times 2.0\text{ XP AI\_ENG}$ si corrig en $<45\text{m}$. |
+| **BRK-01** | *Le Portail Rouge du Bug Critique* | Panne dtecte sur un projet MVP ou serveur de production. | Suspension des qutes de lecture. Diagnostic post-mortem en moins de 60 min. | $\times 2.0\text{ XP AI\_ENG}$ si corrig en $<45\text{m}$. |
 | **BRK-02** | *L'Embroussaillement de l'Examen* | Interrogation ou examen acadmique imprvu notifi pour le lendemain. | Rorganisation de la journe en 4 sprints Pomodoro SM-2 de rvision de fiches. | $+500\text{ XP ACAD}$  l'issue du contrle. |
 | **BRK-03** | *La Faille du Zro-Day* | Dcouverte d'une faille critique (CVE) sur une techno utilise. | Analyse du bulletin CERT-FR, rdaction d'un patch et d'une rflexion vocale. | $+400\text{ XP CYBER}$ et $+30\text{ SC}$. |
 | **BRK-04** | *Le Dfi du Recruteur d'lite* | Proposition d'entretien technique ou de pitch investisseur dans les 24h. | Simulation d'entretien oral enregistre et value  $\ge 16/20$ par l'évaluateur IA. | $+600\text{ XP EXP}$ et Titre "Orateur d'Acier". |
@@ -1675,21 +1676,21 @@ sequenceDiagram
 Chaque dimanche  20h00, le Systme bascule en mode de synthse hebdomadaire :
 - **Audit des 8 Bases :** Analyse de l'quilibrage du radar octogonal. Si une base (par exemple `EXP` ou `FIN`) accuse un retard de plus de 30% par rapport aux autres, les quêtes de la semaine suivante sont automatiquement pondres pour rtablir l'harmonie.
 - **Rvision Spaced Repetition SM-2 :** Calcul de la file d'attente des cartes conceptuelles et fiches Obsidian ncessitant une rexposition mnmonique.
-- **Gnration du Programme d'Entranement Intensif :** Le planificateur circadien propose l'agenda dtaill du lundi au dimanche suivant, incluant les plages de cours universitaires, les crneaux d'alternance, les blocs de Deep Work et les sessions de sport.
+- **Gnration du Programme d'Entranement Intensif :** Le planificateur circadien propose l'agenda dtaill du lundi au dimanche suivant, incluant les plages de cours universitaires, les crneaux d'rotation, les blocs de Deep Work et les sessions de sport.
 
 ### 19.4 Table d'Ascension des 7 Rangs de Utilisateur Réels & Privilèges Système
 
 LevelUp élimine définitivement les pseudo-blocages artificiels de type "Bloqué par quête de rang". Le niveau global $L_{\text{global}}$ découle directement du score global calculé par moyenne harmonique pondérée des 8 bases ($S_b \in [0, 1000]$). Chaque rang sanctionne l'accomplissement d'invariants réels indiscutables dans le monde physique :
 
-| Rang Système de Gamification | Niveaux Globaux | Titre Système de Gamification | Invariants Réels Indiscutables (DoD Physique & Réel) | Privilèges Conférés par le Système |
+| Rang | Niveaux Globaux | Titre Système | Invariants Réels Indiscutables (DoD Physique & Réel) | Privilèges Conférés par le Système |
 |:---|:---|:---|:---|:---|
-| **Rang E** | **1 — 10** | *L'Éveil du Novice* | Initialisation de l'environnement, 7 jours de quêtes quotidiennes parfaits, mise en place du Second Brain Markdown. | Accès au Web HUD de base, journalisation vocale Whisper, génération des quêtes quotidiennes. |
-| **Rang D** | **11 — 25** | *L'Apprenti Discipliné* | $S_{\text{ACAD}} \ge 250$, 1ère room TryHackMe résolue sans aide, 30 pompes strictes, évaluation Cambridge C1 initiale. | Déverrouillage des quêtes d'urgence, accès aux salons d'études Discord, Boutique de Récompenses palier 1. |
-| **Rang C** | **26 — 45** | *L'Opérateur Confirmé* | Top 20% de promo universitaire, MVP Fullstack fonctionnel déployé en 48h, 10 tractions strictes, streak Duolingo 30j. | Déverrouillage des Donjons Instantanés d'examens, automatisation des alarmes BullMQ. |
-| **Rang B** | **46 — 65** | *L'Expert Compétiteur* | **Au moins 1 Hackathon majeur remporté (Devpost / MLH / Corporate)**, certification **Cambridge C1 Advanced**, maîtrise des routines Dos/Épaules, Bras et Abdos par caméra, Top 10% promo. *Un Utilisateur Rang B sans victoire en hackathon n'existe pas.* | Accès aux Sprints Commando Monk Mode, contrôle dynamique du pare-feu NextDNS, boutique palier 2. |
-| **Rang A** | **66 — 85** | *Le Maître & Leader Industriel* | **Multiples victoires en hackathons (>= 2)**, Major de promo ou Top 3, niveau **Cambridge C2**, SaaS déployé avec vrais utilisateurs actifs, condition physique d'athlète. | Mode Commando sans restriction, création de quêtes personnalisées de haut rang, accès prioritaire Évaluateur IA IA. |
-| **Rang S** | **86 — 95** | *Le Principal National* | Sommité nationale de l'ingénierie IA, grand champion international d'algorithmes, major de promo indiscuté, indépendance financière / bourses d'élite. | Déverrouillage du Raid de l'Île de Jeju, gestion des investissements matériels lourds (serveurs GPU dédiés). |
-| **MAÎTRE**| **96 — 100**| **LE RANG MAÎTRE** | **Légende mondiale de l'IA**, multimillionnaire, physique de statue grecque forgé par la calisthénie, conférencier d'élite bilingue, autorité absolue. | Maîtrise principale du Système, shader WebGL des Flammes d'Ombre permanentes, omnipotence opérationnelle. |
+| **Rang E** | **1 à 10** | *L'Éveil du Novice* | Initialisation de l'environnement, 7 jours de quêtes quotidiennes parfaits, mise en place du Second Brain Markdown. | Accès au Web HUD de base, journalisation vocale, génération des quêtes quotidiennes. |
+| **Rang D** | **11 à 25** | *L'Apprenti Discipliné* | $S_{\text{ACAD}} \ge 250$, 1ère réalisation technique validée, 30 pompes strictes, évaluation linguistique initiale. | Déverrouillage des quêtes d'urgence, accès aux canaux Discord d'études, Boutique de Récompenses palier 1. |
+| **Rang C** | **26 à 45** | *L'Opérateur Confirmé* | Régularité d'apprentissage validée, MVP Fullstack fonctionnel déployé, 10 tractions strictes, assiduité quotidienne sur 30j. | Déverrouillage des sessions de sprint intensif, automatisation des alertes BullMQ. |
+| **Rang B** | **46 à 65** | *L'Expert Confirmé* | Victoire/podium en défi technique majeur (hackathon, CTF), certification officielle validée, routines physiques avancées validées. | Accès aux Sprints Monk Mode, contrôle dynamique du pare-feu NextDNS, boutique palier 2. |
+| **Rang A** | **66 à 85** | *Le Maître / Référent Technique* | Multiples accomplissements majeurs, compétences certifiées de haut rang, solution déployée avec utilisateurs réels, condition physique d'élite. | Mode Avancé sans restriction, création de quêtes personnalisées de haut rang, accès prioritaire Évaluateur IA. |
+| **Rang S** | **86 à 95** | *La Sommité du Domaine* | Accomplissements majeurs dans les 8 domaines, reconnaissance professionnelle, autonomie opérationnelle totale. | Gestion des projets et investissements majeurs, accès complet aux fonctionnalités avancées. |
+| **Niveau Maître** | **96 à 100**| *Le Maître Suprême* | Plafond d'excellence du système : harmonie parfaite et niveau maximal atteint sur l'ensemble des 8 bases de vie. | Contrôle complet du Système, déverrouillage des thèmes visuels avancés, statut de Maître du Système. |
 
 ---
 
@@ -2152,7 +2153,7 @@ Exécute le scénario complet d'une journée type du Utilisateur :
 ./scripts/smoke_test_suite.sh
 ```
 *Séquence Validée Automatiquement :*
-1. Initialisation du joueur Utilisateur (Rang E, Niveau 1).
+1. Initialisation du profil joueur (Rang E, Niveau 1).
 2. Attribution du pack de quêtes matinales à 06h00.
 3. Déclenchement de la caméra MediaPipe : validation de 14 Pike Push-Ups stricts.
 4. Lancement d'un bloc de Deep Work : NextDNS active le blocage des réseaux sociaux.

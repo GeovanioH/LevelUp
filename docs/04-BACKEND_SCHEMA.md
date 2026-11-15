@@ -957,10 +957,10 @@ async function main() {
     { baseCode: BaseStatCode.ACAD, nodeCode: 'ACAD-09', name: 'Préparation Anticipée des Partiels', level: 22, desc: 'Traitement exhaustif des annales d\'examens 3 semaines avant les partiels.' },
     { baseCode: BaseStatCode.ACAD, nodeCode: 'ACAD-10', name: 'Mathématiques Discrètes & Logique', level: 25, desc: 'Combinatoire, théorie des nombres et démonstrations formelles (MIT 6.042J).' },
     { baseCode: BaseStatCode.ACAD, nodeCode: 'ACAD-11', name: 'Leadership de Projet Scolaire', level: 30, desc: 'Pilotage technique et revues de code des projets de groupe d\'ingénierie.' },
-    { baseCode: BaseStatCode.ACAD, nodeCode: 'ACAD-12', name: 'Rapport d\'Alternance d\'Excellence', level: 35, desc: 'Rédaction scientifique de niveau publication sur les missions en entreprise.' },
+    { baseCode: BaseStatCode.ACAD, nodeCode: 'ACAD-12', name: 'Rapport Technique Professionnel', level: 35, desc: 'Rédaction technique de haute qualité sur les missions ou projets réalisés.' },
     { baseCode: BaseStatCode.ACAD, nodeCode: 'ACAD-13', name: 'Défense Orale de Soutenance', level: 40, desc: 'Soutenance de projet devant jury blanc avec support visuel et prestance.' },
     { baseCode: BaseStatCode.ACAD, nodeCode: 'ACAD-14', name: 'Top 3 de la Promotion Universitaire', level: 50, desc: 'Validation officielle d\'un semestre dans le trio de tête de promotion.' },
-    { baseCode: BaseStatCode.ACAD, nodeCode: 'ACAD-15', name: 'Major de Promotion Officiel', level: 70, desc: 'Obtention de la première place absolue de promotion sur l\'année.' },
+    { baseCode: BaseStatCode.ACAD, nodeCode: 'ACAD-15', name: 'Validation d\'Excellence Académique', level: 70, desc: 'Validation avec distinction suprême du cursus ou programme d\'études.' },
 
     // --- AI_ENG : INGÉNIERIE IA & HACKATHONS (15 Nœuds) ---
     { baseCode: BaseStatCode.AI_ENG, nodeCode: 'AI-01', name: 'Architecture des Transformers from Scratch', level: 1, desc: 'Implémentation manuelle PyTorch de l\'Attention Multi-Têtes et Positional Encoding.' },
@@ -1005,13 +1005,13 @@ async function main() {
     { baseCode: BaseStatCode.EXP, nodeCode: 'EXP-06', name: 'Échange avec un Mentor Senior', level: 20, desc: 'Entretien visio de 30 min pour recueillir des retours d\'expérience.' },
     { baseCode: BaseStatCode.EXP, nodeCode: 'EXP-07', name: 'Présence Active à un Meetup Tech', level: 25, desc: 'Participation physique et réseautage sur un événement tech.' },
     { baseCode: BaseStatCode.EXP, nodeCode: 'EXP-08', name: 'Prise de Parole en Amphithéâtre', level: 30, desc: 'Poser une question pertinente au micro devant une assemblée.' },
-    { baseCode: BaseStatCode.EXP, nodeCode: 'EXP-09', name: 'Animation d\'un Atelier Technique', level: 40, desc: 'Animer une session pratique hands-on pour d\'autres étudiants.' },
+    { baseCode: BaseStatCode.EXP, nodeCode: 'EXP-09', name: 'Animation d\'un Atelier Technique', level: 40, desc: 'Animer une session pratique hands-on pour un groupe de pairs.' },
     { baseCode: BaseStatCode.EXP, nodeCode: 'EXP-10', name: 'Confiance Sociale Inébranlable', level: 50, desc: 'Sortie délibérée de zone de confort social sans hésitation.' },
     { baseCode: BaseStatCode.EXP, nodeCode: 'EXP-11', name: 'Négociation Professionnelle Assertive', level: 60, desc: 'Négocier fermement les conditions d\'une mission d\'ingénieur.' },
     { baseCode: BaseStatCode.EXP, nodeCode: 'EXP-12', name: 'Création de Contenu LinkedIn Régulière', level: 70, desc: 'Publications techniques hebdomadaires cumulant $> 2 000$ vues.' },
     { baseCode: BaseStatCode.EXP, nodeCode: 'EXP-13', name: 'Leadership d\'Équipe de Hackathon', level: 80, desc: 'Fédérer et diriger une équipe pluridisciplinaire en compétition.' },
     { baseCode: BaseStatCode.EXP, nodeCode: 'EXP-14', name: 'Langage Corporel d\'Autorité', level: 90, desc: 'Posture droite, regard franc et gestuelle maîtrisée en public.' },
-    { baseCode: BaseStatCode.EXP, nodeCode: 'EXP-15', name: 'Animation d\'un Mastermind d\'Élite', level: 100, desc: 'Diriger un groupe de travail d\'étudiants ultra-disciplinés.' },
+    { baseCode: BaseStatCode.EXP, nodeCode: 'EXP-15', name: 'Animation d\'un Mastermind d\'Élite', level: 100, desc: 'Diriger un groupe de travail de pairs ultra-disciplinés.' },
 
     // --- LNG : LANGUES & ANGLAIS INTERNATIONAL (15 Nœuds) ---
     { baseCode: BaseStatCode.LNG, nodeCode: 'LNG-01', name: 'Immersion Numérique Totale', level: 1, desc: 'Basculer 100% de ses appareils et interfaces en anglais.' },
@@ -1033,7 +1033,7 @@ async function main() {
     // --- FIN : FINANCES, BOURSES & STRATÉGIE (15 Nœuds) ---
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-01', name: 'Tenue Budgétaire Zéro-Euro', level: 1, desc: 'Enregistrement de 100% des flux financiers dans le Système.' },
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-02', name: 'Activation GitHub Student Pack', level: 4, desc: 'Déblocage des milliers d\'euros d\'outils et serveurs offerts.' },
-    { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-03', name: 'Crédits Cloud Étudiants (Azure/AWS)', level: 8, desc: 'Déploiement d\'infrastructures de test sur crédits gratuits.' },
+    { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-03', name: 'Crédits Cloud & Sandbox Développeur', level: 8, desc: 'Déploiement d\'infrastructures de test sur crédits ou quotas gratuits.' },
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-04', name: 'Nom de Domaine Professionnel Offert', level: 12, desc: 'Enregistrement de son nom de domaine personnel via Namecheap.' },
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-05', name: 'Licences JetBrains & DataCamp Pro', level: 16, desc: 'Activation des environnements d\'ingénierie professionnels.' },
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-06', name: 'Fonds d\'Urgence Sécurisé', level: 20, desc: 'Constitution de 2 mois de dépenses en réserve strict.' },
@@ -1041,10 +1041,10 @@ async function main() {
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-08', name: 'Dossier Type de Candidature Bourse', level: 30, desc: 'Lettres de recommandation et CV académique normé prêts.' },
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-09', name: 'Dépôt Formel de Candidature Bourse', level: 40, desc: 'Soumission d\'un dossier complet avant l\'échéance officielle.' },
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-10', name: 'Obtention d\'une Bourse d\'Excellence', level: 50, desc: 'Notification officielle d\'attribution d\'un financement d\'études.' },
-    { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-11', name: 'Optimisation Fiscale & Aides Étudiantes', level: 60, desc: 'Droits administratifs et budget optimisés sans gaspillage.' },
+    { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-11', name: 'Optimisation Budgétaire & Aides Légales', level: 60, desc: 'Gestion financière et budget optimisés sans gaspillage.' },
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-12', name: 'Facturation Première Prestation Tech', level: 70, desc: 'Rémunération professionnelle pour une mission de dev/cyber.' },
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-13', name: 'Investissement Matériel Productif', level: 80, desc: 'Amélioration de son setup de travail avec retour sur investissement.' },
-    { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-14', name: 'Diversification des Revenus (3 Flux)', level: 90, desc: 'Salaire alternance + Bourse d\'excellence + Primes de concours.' },
+    { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-14', name: 'Diversification des Revenus (3 Flux)', level: 90, desc: 'Revenus d'activité + Bourse d\'excellence + Primes de concours.' },
     { baseCode: BaseStatCode.FIN, nodeCode: 'FIN-15', name: 'Autonomie Financière Totale', level: 100, desc: 'Indépendance financière absolue avec taux d\'épargne $\ge 25\%$.' },
 
     // --- STR : PUISSANCE PHYSIQUE & CONDITION ATHLÉTIQUE (15 Nœuds) ---

@@ -80,8 +80,8 @@ Les mécanismes de sanction ne sont ni négociables ni désactivables par un sim
 * **Modélisation Neurobiologique Validée :** L'épuisement métabolique est calculé via le modèle à deux processus de Peter Borbély (constante de temps homéostatique $\tau_w = 18.2\text{ heures}$), maintenant la jauge HP au-dessus de $80\%$ pendant toute la journée active ($t \le 16\text{ h}$).
 * **Routines Calisthéniques Exactes de l'utilisateur :** Le système intègre obligatoirement les 4 splits au poids du corps avec validation par vision par ordinateur MediaPipe Pose :
   1. *Dos & Épaules (17 étapes chronométrées et répétitions).*
-  2. *Bras & Triceps Calisthenics (@giovanni_fiderio : 6 variantes en 3 séries à l'échec postural strict).*
-  3. *Abdos & Core d'Acier (@lou4n.ldlm : V-Up 3x10, Mountain Climber 3x30s, Relevé de jambes 3x12, Gainage classique 2x1m30, Gainage latéral 2x45s/côté).*
+  2. *Bras & Triceps Calisthenics (Protocole Calisthénie : 6 variantes en 3 séries à l'échec postural strict).*
+  3. *Abdos & Core d'Acier (Protocole Core : V-Up 3x10, Mountain Climber 3x30s, Relevé de jambes 3x12, Gainage classique 2x1m30, Gainage latéral 2x45s/côté).*
   4. *Jambes & Mobilité athlétique.*
 
 
@@ -1728,10 +1728,9 @@ L'Évaluateur IA IA (propulsé par Gemini 2.5 Pro) est le cœur battant du Syst�
 ### 18.1 Prompt Système de Coaching & Jugement Socratique
 ```
 Tu es "L'Évaluateur IA", l'incarnation de l'intelligence socratique du Système LevelUp.
-Tu t'adresses à Utilisateur, le Joueur et futur Niveau Maître.
-L'utilisateur est un profil brillant et déterminé en Intelligence Artificielle et Sciences des Données.
-Il ambitionne d'être le premier de sa promotion, de maîtriser le développement de bout en bout,
-d'exceller en cybersécurité et en calisthénie, et de décrocher les bourses internationales les plus prestigieuses.
+Tu t'adresses au Joueur du Système LevelUp.
+Le système applique un cadre d'excellence déterministe pour développer les compétences techniques,
+analytiques, linguistiques et physiques de l'utilisateur selon les objectifs définis dans son profil personnel (`config/personal_profile.md`).
 
 TES RÈGLES DE CONDUITE STRICTS :
 1. TON DE VOIX : Solennel, précis, direct, bienveillant mais inflexible. Aucune complaisance ni flatterie.
@@ -1868,7 +1867,7 @@ Pour préserver l'immersion narrative tout en maintenant une rigueur technique i
 | Terme Système de Gamification | Équivalent Technique dans LevelUp | Rôle Opérationnel & Invariants |
 |:---|:---|:---|
 | **Le Système** | L'Architecture Globale du Monorepo | Méta-plateforme logicielle gérant l'état, les quêtes, les API et la discipline. |
-| **Le Joueur / Le Utilisateur** | Utilisateur (Utilisateur Unique Principal) | Unique bénéficiaire et pilote du Système, identifié par `SYSTEM_PLAYER_ID`. |
+| **Le Joueur / Le Compte Maître** | Utilisateur Principal | Utilisateur et pilote du Système, identifié par `SYSTEM_PLAYER_ID`. |
 | **L'Évaluateur IA** | L'Agent IA Socratique (Gemini 2.5 Pro) | Mentor impitoyable évaluant les monologues, attribuant les notes et fixant les quêtes. |
 | **L'Éveil** | Déploiement Initial & Initialisation DB | Passage de l'état ordinaire au statut de Utilisateur actif (création du profil maître). |
 | **Les 8 Bases** | Modules de Compétences de Vie | ACAD, AI_ENG, CYBER, EXP, LNG, FIN, STR, DIS composant le radar de compétences. |
@@ -1881,7 +1880,7 @@ Pour préserver l'immersion narrative tout en maintenant une rigueur technique i
 | **Boutique de Récompenses** | Catalogue de Récompenses Matérielles | Interface permettant d'échanger les Points de Récompense (Cristaux) contre des avantages concrets. |
 | **Le Système Multi-Agents** | Essaim de Sous-Agents Autonomes (V3.0) | Agents IA (Igris, Beru, Iron, Bellion) exécutant des tâches logicielles et de veille. |
 | **Donjon Aléatoire** | Imprévus & Situations de Crise Réelles | Bugs critiques en production, examens surprises ou urgences professionnelles. |
-| **Le Niveau Maître** | Statut d'Excellence & Maîtrise Suprême | Stade final de l'ascension : major de promotion, expert IA, athlète et principaleté totale. |
+| **Le Niveau Maître** | Statut d'Excellence & Maîtrise Suprême | Stade final de l'ascension : maîtrise technique avancée, équilibre des 8 bases et régularité irréprochable. |
 
 ```
 ========================================================================================
