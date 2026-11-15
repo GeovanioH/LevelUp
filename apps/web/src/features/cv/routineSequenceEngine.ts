@@ -202,6 +202,20 @@ export const ROUTINE_DAILY_COMPLETE: readonly RoutineStep[] = [
   ...ROUTINE_ABDOS_ACIER,
 ] as const;
 
+/**
+ * Quête de Purge & Rachat Physique (Zone de Pénalité)
+ * 200 Pompes Calisthéniques Militaires Strictes (Contrôle MediaPipe Flexion Coude <= 75° / Extension >= 160°)
+ */
+export const ROUTINE_PURGE_200_PUSHUPS: readonly RoutineStep[] = [
+  {
+    id: "purge-01",
+    name: "Pompes de Purge & Rachat (200 Pompes)",
+    targetReps: 200,
+    description:
+      "Épreuve de rachat absolue : 200 pompes calisthéniques strictes sous supervision MediaPipe pour lever le verrouillage NextDNS.",
+  },
+] as const;
+
 export const ROUTINE_CATALOG = {
   DOS_EPAULES: {
     id: "dos-epaules-17",
@@ -226,6 +240,12 @@ export const ROUTINE_CATALOG = {
     title: "Trinité Calisthénique Complète (28 Étapes)",
     category: "DAILY_QUEST",
     steps: ROUTINE_DAILY_COMPLETE,
+  },
+  PURGE_200: {
+    id: "purge-200",
+    title: "Quête de Purge & Rachat (200 Pompes)",
+    category: "PURGE",
+    steps: ROUTINE_PURGE_200_PUSHUPS,
   },
 } as const;
 

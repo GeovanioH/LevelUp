@@ -11,7 +11,7 @@
 La fiabilité du moteur LevelUp repose sur une suite de tests automatisée exécutée avec **Vitest** :
 
 ```
-         / \
+         /   \
         / E2E \       -> Scénarios journées complètes, Playwright (tests/e2e)
        /-------\
       / Intégr. \     -> Concurrence Redlock, Transactions Prisma, Routes HTTP

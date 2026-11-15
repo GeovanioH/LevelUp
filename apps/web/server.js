@@ -11,6 +11,37 @@ const url = require("url");
 const fs = require("fs");
 const path = require("path");
 
+// Load .env configuration at boot
+const envCandidates = [
+  path.join(__dirname, ".env"),
+  path.join(__dirname, "..", "..", ".env"),
+  path.join(process.cwd(), ".env"),
+];
+for (const envPath of envCandidates) {
+  if (fs.existsSync(envPath)) {
+    try {
+      const content = fs.readFileSync(envPath, "utf-8");
+      content.split("\n").forEach((line) => {
+        const trimmed = line.trim();
+        if (trimmed && !trimmed.startsWith("#")) {
+          const eqIdx = trimmed.indexOf("=");
+          if (eqIdx !== -1) {
+            const k = trimmed.slice(0, eqIdx).trim();
+            let v = trimmed.slice(eqIdx + 1).trim();
+            if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
+              v = v.slice(1, -1);
+            }
+            if (!process.env[k]) {
+              process.env[k] = v;
+            }
+          }
+        }
+      });
+    } catch (_) {}
+    break;
+  }
+}
+
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
 const INTRO_VIDEO_URL = process.env.INTRO_VIDEO_URL || process.env.SUPABASE_INTRO_VIDEO_URL || process.env.FIREBASE_STORAGE_INTRO_URL || "https://hamqkltryiytqdxjpiyl.supabase.co/storage/v1/object/public/LevelUpimgandvid/test_upscale_5x.mp4";
 const INTRO_IMAGE_URL = process.env.INTRO_IMAGE_URL || process.env.SUPABASE_INTRO_IMAGE_URL || "https://hamqkltryiytqdxjpiyl.supabase.co/storage/v1/object/public/LevelUpimgandvid/test_alert_5x.webp";
@@ -735,18 +766,155 @@ Structures rhétoriques formelles indispensables pour l'évaluation orale à 20 
       "tiktok.com",
       "instagram.com",
       "twitter.com / x.com",
-      "youtube.com/shorts",
+      "youtube.com",
       "netflix.com",
-      "reddit.com/r/all",
+      "reddit.com",
     ],
     redemptionOptionA:
-      "400 Pompes Calisthéniques militaires strictes validées par vision par ordinateur.",
+      "200 Pompes Calisthéniques militaires strictes validées par vision par ordinateur MediaPipe.",
     redemptionOptionB:
       "Marche ou course nocturne continue de 10 kilomètres (Trace GPS certifiée).",
   },
 };
 
 let SYSTEM_STATE = JSON.parse(JSON.stringify(DEFAULT_STATE));
+
+// =============================================================================
+// NEXTDNS SENTINEL & CHRONOBIOLOGICAL CURFEW ENGINE (22:00:00 ANTI-PROCRASTINATION)
+// Reference: docs/05-SECURITY.md & docs/09-ROADMAP.md Section 21.6
+// =============================================================================
+
+const TOXIC_DOMAINS_LIST = [
+  "tiktok.com",
+  "instagram.com",
+  "youtube.com",
+  "twitter.com",
+  "x.com",
+  "reddit.com",
+  "netflix.com",
+];
+
+const NEXTDNS_API_BASE_URL = "https://api.nextdns.io";
+
+async function activateNextDnsRestriction(profileId, apiKey) {
+  if (!profileId || !apiKey) {
+    console.warn("[NEXTDNS] Profil ID ou Clé API manquante. Mode simulation.");
+    return { success: false, reason: "MISSING_CREDENTIALS" };
+  }
+  let blockedCount = 0;
+  for (const domain of TOXIC_DOMAINS_LIST) {
+    try {
+      const res = await fetch(`${NEXTDNS_API_BASE_URL}/profiles/${profileId}/denylist`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Api-Key": apiKey,
+        },
+        body: JSON.stringify({ id: domain, active: true }),
+      });
+      if (res.ok || res.status === 200 || res.status === 204) {
+        blockedCount++;
+      } else {
+        const txt = await res.text().catch(() => "");
+        if (txt.includes("duplicate")) blockedCount++;
+      }
+    } catch (e) {
+      console.error(`[NEXTDNS] Échec blocage ${domain}:`, e.message);
+    }
+  }
+  console.log(`[NEXTDNS SENTINEL] Restriction activée: ${blockedCount}/${TOXIC_DOMAINS_LIST.length} domaines bloqués sur profil ${profileId}`);
+  return { success: true, count: blockedCount };
+}
+
+async function deactivateNextDnsRestriction(profileId, apiKey) {
+  if (!profileId || !apiKey) {
+    return { success: false, reason: "MISSING_CREDENTIALS" };
+  }
+  let unblockedCount = 0;
+  for (const domain of TOXIC_DOMAINS_LIST) {
+    try {
+      const res = await fetch(`${NEXTDNS_API_BASE_URL}/profiles/${profileId}/denylist/${domain}`, {
+        method: "DELETE",
+        headers: {
+          "X-Api-Key": apiKey,
+        },
+      });
+      if (res.ok || res.status === 204 || res.status === 404) {
+        unblockedCount++;
+      }
+    } catch (e) {
+      console.error(`[NEXTDNS] Échec déblocage ${domain}:`, e.message);
+    }
+  }
+  console.log(`[NEXTDNS SENTINEL] Restriction levée: ${unblockedCount}/${TOXIC_DOMAINS_LIST.length} domaines déverrouillés sur profil ${profileId}`);
+  return { success: true, count: unblockedCount };
+}
+
+function applyLocalHostsFilter(active) {
+  const hostsPath = process.env.PENALTY_HOSTS_PATH || (process.platform === "win32" ? "C:\\Windows\\System32\\drivers\\etc\\hosts" : "/etc/hosts");
+  const HEADER = "# >>> LEVELUP_ANTI_PROCRASTINATION_START";
+  const FOOTER = "# <<< LEVELUP_ANTI_PROCRASTINATION_END";
+  try {
+    if (!fs.existsSync(hostsPath)) return { applied: false, reason: "HOSTS_NOT_FOUND" };
+    const content = fs.readFileSync(hostsPath, "utf-8");
+    const regex = new RegExp(`${HEADER}[\\s\\S]*?${FOOTER}\\r?\\n?`, "g");
+    const cleaned = content.replace(regex, "");
+    if (!active) {
+      if (cleaned !== content) {
+        fs.writeFileSync(hostsPath, cleaned, "utf-8");
+      }
+      return { applied: true, path: hostsPath };
+    }
+    const lines = [
+      HEADER,
+      "# Mode Restriction Automatique LevelUp (Couvre-feu 22h00)",
+      ...TOXIC_DOMAINS_LIST.map((d) => `127.0.0.1 ${d}`),
+      ...TOXIC_DOMAINS_LIST.map((d) => `127.0.0.1 www.${d}`),
+      FOOTER,
+      "",
+    ].join("\n");
+    fs.writeFileSync(hostsPath, cleaned.trimEnd() + "\n\n" + lines, "utf-8");
+    console.log("[HOSTS] Filtrage local activé avec succès.");
+    return { applied: true, path: hostsPath };
+  } catch (err) {
+    console.warn("[HOSTS] Impossible de modifier le fichier hosts local (droits admin requis) :", err.message);
+    return { applied: false, reason: err.message, path: hostsPath };
+  }
+}
+
+async function checkCurfewAndTriggerPenalty() {
+  const now = new Date();
+  const parisTimeStr = now.toLocaleTimeString("fr-FR", { hour: "2-digit", hour12: false, timeZone: "Europe/Paris" });
+  const hour = parseInt(parisTimeStr, 10);
+  // Curfew active from 22:00 to 05:00
+  const isCurfew = hour >= 22 || hour < 5;
+
+  if (!isCurfew) {
+    return;
+  }
+
+  const quests = SYSTEM_STATE.quests || [];
+  const incompleteQuests = quests.filter((q) => !q.completed);
+
+  if (incompleteQuests.length > 0 && !SYSTEM_STATE.penalty.active) {
+    console.log(`[CURFEW WATCHDOG] ⚠️ Couvre-feu de 22h00 dépassé ! ${incompleteQuests.length} quête(s) incomplète(s). Engagement du verrouillage NextDNS.`);
+    SYSTEM_STATE.penalty.active = true;
+    SYSTEM_STATE.penalty.reason = `Couvre-feu de 22h00 franchi : ${incompleteQuests.length} quête(s) non complétée(s). Verrouillage réseau NextDNS et local activé. Rachat exigé : 200 Pompes Caméra ou 10 km Course.`;
+    SYSTEM_STATE.penalty.triggeredAt = now.toISOString();
+
+    const profileId = process.env.NEXTDNS_PROFILE_ID;
+    const apiKey = process.env.NEXTDNS_API_KEY;
+    if (profileId && apiKey) {
+      await activateNextDnsRestriction(profileId, apiKey);
+    }
+    applyLocalHostsFilter(true);
+  }
+}
+
+// Background Curfew Monitor: runs every 30 seconds
+setInterval(checkCurfewAndTriggerPenalty, 30000);
+// Initial check at startup
+checkCurfewAndTriggerPenalty().catch(() => {});
 
 // Calculate Harmonic Mean
 function getHarmonicScore(playerBases = SYSTEM_STATE.player.bases) {
@@ -4679,10 +4847,26 @@ function renderFullApplication(initialTab = "dashboard") {
                 <div style="font-size: 18px; font-weight: 900; font-family: var(--font-mono); color: var(--alert-crimson); letter-spacing: 1px;">03:41:22</div>
               </div>
             </div>
-            <button class="btn-cyber btn-red" id="penalty-toggle-btn" onclick="togglePenaltySimulation()" style="font-size: 11px; padding: 8px 14px;">
-              DÉCLENCHER SIMULATION PÉNALITÉ
+            <button class="btn-cyber btn-red" id="penalty-toggle-btn" onclick="toggleRealPenalty()" style="font-size: 11px; padding: 8px 14px;">
+              TEST : ENGAGER / LEVER VERROUILLAGE RÉSEAU
             </button>
           </div>
+        </div>
+      </div>
+
+      <!-- NextDNS Cloud Sentinel Status Bar -->
+      <div style="background: rgba(14, 8, 32, 0.9); border: 1px solid rgba(0, 240, 255, 0.35); padding: 12px 18px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span class="material-symbols-outlined" style="color: var(--neon-cyan); font-size: 24px;">dns</span>
+          <div>
+            <div style="font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); letter-spacing: 1px;">SENTINELLE RÉSEAU CLOUD (COUPE-FEU AUTOMATIQUE 22H00)</div>
+            <div style="font-size: 13px; font-weight: 800; color: var(--text-white);">
+              NextDNS Profil ID : <span style="color: var(--neon-cyan); font-family: var(--font-mono);">${process.env.NEXTDNS_PROFILE_ID || "aa43db"}</span> • Statut : <span style="color: var(--transcendent-green); font-weight: bold;">SURVEILLANCE ACTIVE</span>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-cyber" style="font-size: 11px; padding: 6px 12px;" onclick="testNextDnsConnection()">TESTER CONNEXION NEXTDNS</button>
         </div>
       </div>
 
@@ -4766,18 +4950,26 @@ function renderFullApplication(initialTab = "dashboard") {
           </h3>
           <div class="grid-2col">
             <div class="glass-card" style="padding: 18px; border-color: rgba(69, 223, 164, 0.35);">
-              <div style="font-size: 13px; font-weight: bold; color: var(--text-white); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-                <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">fitness_center</span> OPTION A : CALISTHÉNIE MILITAIRE
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <div style="font-size: 13px; font-weight: bold; color: var(--text-white); display: flex; align-items: center; gap: 6px;">
+                  <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">fitness_center</span> OPTION A : CALISTHÉNIE MILITAIRE (200 POMPES)
+                </div>
+                <span style="font-size: 10px; font-family: var(--font-mono); color: var(--tertiary); background: rgba(69,223,164,0.15); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(69,223,164,0.3);">RÉDEMPTION IMMÉDIATE</span>
               </div>
-              <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;">${SYSTEM_STATE.penalty.redemptionOptionA}</p>
-              <button class="btn-cyber" style="width: 100%; padding: 8px; font-size: 11px; font-weight: 700;" onclick="redeemPenalty('A')">VALIDER 400 POMPES (RACHAT)</button>
+              <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;">
+                200 Pompes militaires strictes validées en direct par vision par ordinateur MediaPipe (flexion coude ≤ 75° / verrouillage ≥ 160°).
+              </p>
+              <button class="btn-cyber btn-red" style="width: 100%; padding: 12px; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px;" onclick="startCameraPurgeQuest()">
+                <span class="material-symbols-outlined" style="font-size: 18px;">videocam</span> COMMENCER LA PURGE EN VISION CAMÉRA (200 POMPES)
+              </button>
+              <button class="btn-cyber" style="width: 100%; padding: 6px; font-size: 10.5px; opacity: 0.8;" onclick="redeemPenalty('A')">VALIDER MANUELLEMENT (TEST SYSTÈME)</button>
             </div>
             <div class="glass-card" style="padding: 18px; border-color: rgba(69, 223, 164, 0.35);">
               <div style="font-size: 13px; font-weight: bold; color: var(--text-white); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
                 <span class="material-symbols-outlined" style="font-size: 16px; color: var(--tertiary);">directions_run</span> OPTION B : COURSE NOCTURNE GPS
               </div>
               <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;">${SYSTEM_STATE.penalty.redemptionOptionB}</p>
-              <button class="btn-cyber" style="width: 100%; padding: 8px; font-size: 11px; font-weight: 700;" onclick="redeemPenalty('B')">VALIDER 10 KM COURSE (RACHAT)</button>
+              <button class="btn-cyber" style="width: 100%; padding: 10px; font-size: 11px; font-weight: 700;" onclick="redeemPenalty('B')">VALIDER 10 KM COURSE GPS (RACHAT)</button>
             </div>
           </div>
         </div>
@@ -4820,6 +5012,7 @@ function renderFullApplication(initialTab = "dashboard") {
               <button class="btn-cyber" id="btn-routine-bras" style="font-size: 11px; padding: 6px 12px;" onclick="selectWorkoutRoutine('BRAS')">2. BRAS & TRICEPS (6)</button>
               <button class="btn-cyber" id="btn-routine-abdos" style="font-size: 11px; padding: 6px 12px;" onclick="selectWorkoutRoutine('ABDOS')">3. ABDOS & CORE (5)</button>
               <button class="btn-cyber btn-gold" id="btn-routine-daily" style="font-size: 11px; padding: 6px 12px;" onclick="selectWorkoutRoutine('DAILY_COMPLETE')">TRINITÉ (28)</button>
+              <button class="btn-cyber btn-red" id="btn-routine-purge" style="font-size: 11px; padding: 6px 12px;" onclick="selectWorkoutRoutine('PURGE_200')">⚔️ PURGE (200 POMPES)</button>
             </div>
 
             <div class="glass-card spotlight-card" style="padding: 22px; margin-bottom: 18px;">
@@ -6292,6 +6485,15 @@ function renderFullApplication(initialTab = "dashboard") {
       state.player.shadowCrystals += activeQuestCrystals;
       saveState();
 
+      // Sync quest completion with server
+      try {
+        fetch('/api/v1/quests/validate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: activeQuestId, proof: input })
+        }).catch(() => {});
+      } catch (_) {}
+
       // Update Header Crystals
       const cEl = document.getElementById('header-crystals-val');
       if (cEl) cEl.textContent = state.player.shadowCrystals;
@@ -7519,18 +7721,65 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     // =========================================================================
-    // SCREEN 9 : REAL PENALTY TOGGLE & REDEMPTION
+    // SCREEN 9 : REAL NEXTDNS PENALTY TOGGLE, REDEMPTION & CAMERA PURGE
     // =========================================================================
-    function togglePenaltySimulation() {
-      state.penalty.active = !state.penalty.active;
-      saveState();
+    async function toggleRealPenalty() {
+      if (state.penalty.active) {
+        await redeemPenaltyWithApi('A', 200, 'Override Manuel Administrateur');
+      } else {
+        try {
+          const res = await fetch('/api/v1/penalty/trigger', { method: 'POST' });
+          const data = await res.json();
+          state.penalty.active = true;
+          state.penalty.reason = data.message || "Couvre-feu 22h00 franchi ou échec de quête : restriction NextDNS engagée.";
+          saveState();
+          updatePenaltyUI(true);
+          showSysNotification(
+            "⚠️ [ZONE DE PÉNALITÉ NEXTDNS ENGAGÉE]",
+            "Le coupe-feu réseau a été activé.<br>Profil NextDNS verrouillé (" + (data.nextDns?.count || 7) + " domaines récréatifs bloqués).<br>Accomplissez la Quête de Purge (200 pompes) pour rétablir l'accès."
+          );
+        } catch (e) {
+          state.penalty.active = true;
+          saveState();
+          updatePenaltyUI(true);
+        }
+      }
+    }
 
+    async function redeemPenaltyWithApi(option = 'A', reps = 200, proof = 'Validation Système') {
+      try {
+        const res = await fetch('/api/v1/penalty/redeem', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ option, reps, proof })
+        });
+        const data = await res.json();
+        if (data.success) {
+          state.penalty.active = false;
+          saveState();
+          updatePenaltyUI(false);
+          playChime(1046);
+          showSysNotification(
+            "🛡️ [PÉNALITÉ PURGÉE - RESTRICTION LEVÉE]",
+            "Épreuve " + option + " validée (" + reps + " pompes).<br>Le verrouillage NextDNS est désactivé et l'accès réseau est rétabli."
+          );
+        } else {
+          showSysNotification("[ÉCHEC DE PURGE]", data.error || "Conditions non satisfaites.");
+        }
+      } catch (err) {
+        state.penalty.active = false;
+        saveState();
+        updatePenaltyUI(false);
+      }
+    }
+
+    function updatePenaltyUI(active) {
       const banner = document.getElementById('dash-system-banner');
       const bannerDesc = document.getElementById('system-banner-status-desc');
       const header = document.getElementById('penalty-status-header');
       const btn = document.getElementById('penalty-toggle-btn');
 
-      if (state.penalty.active) {
+      if (active) {
         if (banner) {
           banner.style.background = 'linear-gradient(90deg, rgba(255, 0, 60, 0.4) 0%, rgba(2, 14, 38, 0.95) 50%, rgba(255, 0, 60, 0.4) 100%)';
           banner.style.borderColor = 'var(--alert-crimson)';
@@ -7543,11 +7792,7 @@ function renderFullApplication(initialTab = "dashboard") {
           header.textContent = "STATUT : VERROUILLAGE RÉSEAU ACTIF (NEXTDNS ENGAGÉ)";
           header.style.color = "var(--alert-crimson)";
         }
-        if (btn) btn.textContent = "LEVER LA PÉNALITÉ";
-        showSysNotification(
-          "⚠️ [ZONE DE PÉNALITÉ ENCLENCHÉE]",
-          "Quête journalière échue à 22h00.<br>Les réseaux récréatifs sont verrouillés.<br>Exécutez l'une des deux épreuves de rédemption pour rétablir l'accès."
-        );
+        if (btn) btn.textContent = "LEVER LE VERROUILLAGE RÉSEAU (TEST)";
       } else {
         if (banner) {
           banner.style.background = 'linear-gradient(90deg, rgba(0, 81, 255, 0.3) 0%, rgba(2, 14, 38, 0.85) 50%, rgba(0, 81, 255, 0.3) 100%)';
@@ -7561,26 +7806,49 @@ function renderFullApplication(initialTab = "dashboard") {
           header.textContent = "STATUT : CHASSEUR EN RÈGLE (AUCUN BLOCAGE ACTIF)";
           header.style.color = "var(--transcendent-green)";
         }
-        if (btn) btn.textContent = "DÉCLENCHER SIMULATION PÉNALITÉ";
-        showSysNotification(
-          "🛡️ [PÉNALITÉ LEVÉE AVEC SUCCÈS]",
-          "Le verrouillage NextDNS a été désactivé. Tous les accès sont rétablis."
-        );
+        if (btn) btn.textContent = "TEST : ENGAGER VERROUILLAGE RÉSEAU";
       }
     }
 
+    function togglePenaltySimulation() {
+      toggleRealPenalty();
+    }
+
     function redeemPenalty(option) {
-      state.penalty.active = false;
-      saveState();
-      togglePenaltySimulation();
+      redeemPenaltyWithApi(option, 200, 'Validation manuelle UI');
+    }
+
+    function startCameraPurgeQuest() {
+      switchView('workout');
+      selectWorkoutRoutine('PURGE_200');
+      const camBtn = document.getElementById('cam-toggle-btn');
+      if (camBtn && camBtn.textContent.includes('ACTIVER')) {
+        toggleCamera();
+      }
       showSysNotification(
-        "🏆 [ÉPREUVE DE RÉDEMPTION ACCOMPLIE]",
-        "Option " + option + " validée par le Système.<br>Pénalité purgée. Rétablissement complet des droits."
+        "⚔️ [QUÊTE DE PURGE INITIALISÉE]",
+        "200 Pompes Calisthéniques militaires exigées.<br>Chaque répétition complète est validée par l'algorithme MediaPipe.<br>Le coupe-feu NextDNS sera désactivé dès la 200ème répétition."
       );
     }
 
+    async function testNextDnsConnection() {
+      try {
+        const res = await fetch('/api/v1/penalty/status');
+        const data = await res.json();
+        showSysNotification(
+          "🌐 [DIAGNOSTIC NEXTDNS SOUVERAIN]",
+          "Profil ID : <strong style='color: var(--neon-cyan);'>" + data.nextDnsProfileId + "</strong><br>" +
+          "Statut Clé API : <strong>" + (data.nextDnsConfigured ? "CONFIGURÉE & CHIFFRÉE ✓" : "NON CONFIGURÉE") + "</strong><br>" +
+          "Couvre-feu : <strong>22:00:00 (" + (data.curfewActiveNow ? "ACTIF MAINTENANT" : "EN ATTENTE") + ")</strong><br>" +
+          "Domaines sous sentinelle : " + data.blockedDomains.length + " sites distrayants."
+        );
+      } catch (err) {
+        showSysNotification("[ERREUR DIAGNOSTIC]", "Impossible de joindre le serveur local.");
+      }
+    }
+
     // =========================================================================
-    // SCREEN 10 : WORKOUT WEBCAM & SEQUENTIAL ROUTINE ENGINE (DOS, BRAS, ABDOS)
+    // SCREEN 10 : WORKOUT WEBCAM & SEQUENTIAL ROUTINE ENGINE (DOS, BRAS, ABDOS, PURGE)
     // =========================================================================
     const WORKOUT_ROUTINES_CATALOG = {
       DOS_EPAULES: {
@@ -7627,6 +7895,21 @@ function renderFullApplication(initialTab = "dashboard") {
           { name: "Relevés de Jambes au sol", target: 12, unit: "reps", desc: "Grand droit inférieur sans cambrure lombaire", joint: "Hanche / Tronc (≤ 80° / ≥ 155°)" },
           { name: "Gainage Planche Classique", target: 90, unit: "s", desc: "Rétroversion pelvienne, côtes rentrées et fessiers contractés (1m30)", joint: "Core Isométrique" },
           { name: "Gainage Latéral", target: 45, unit: "s", desc: "Maintien oblique et alignement tête-bassin-chevilles (45s par côté)", joint: "Obliques" }
+        ]
+      },
+      PURGE_200: {
+        id: "PURGE_200",
+        name: "Quête de Purge & Rachat (200 Pompes)",
+        isPurge: true,
+        category: "PURGE",
+        steps: [
+          {
+            name: "Pompes de Purge & Rachat",
+            target: 200,
+            unit: "reps",
+            desc: "200 pompes calisthéniques militaires strictes (coude ≤ 75° / ≥ 160°) sous MediaPipe pour lever le verrouillage NextDNS.",
+            joint: "Coude (≤ 75° / ≥ 160°)"
+          }
         ]
       }
     };
@@ -7680,13 +7963,14 @@ function renderFullApplication(initialTab = "dashboard") {
       }
 
       // Highlight active button
-      ['dos', 'bras', 'abdos', 'daily'].forEach(k => {
+      ['dos', 'bras', 'abdos', 'daily', 'purge'].forEach(k => {
         const b = document.getElementById('btn-routine-' + k);
         if (b) {
           if ((k === 'dos' && activeRoutineKey === 'DOS_EPAULES') ||
               (k === 'bras' && activeRoutineKey === 'BRAS') ||
               (k === 'abdos' && activeRoutineKey === 'ABDOS') ||
-              (k === 'daily' && activeRoutineKey === 'DAILY_COMPLETE')) {
+              (k === 'daily' && activeRoutineKey === 'DAILY_COMPLETE') ||
+              (k === 'purge' && activeRoutineKey === 'PURGE_200')) {
             b.classList.add('active');
           } else {
             b.classList.remove('active');
@@ -7713,6 +7997,9 @@ function renderFullApplication(initialTab = "dashboard") {
 
       if (currentStepProgress === step.target) {
         playChime(880);
+        if (routine.isPurge || activeRoutineKey === 'PURGE_200') {
+          validateWorkoutSet();
+        }
       }
       renderCurrentWorkoutStep();
     }
@@ -7740,13 +8027,20 @@ function renderFullApplication(initialTab = "dashboard") {
 
     function validateWorkoutSet() {
       playChime(1046);
+      const routine = WORKOUT_ROUTINES_CATALOG[activeRoutineKey];
+
+      // Quête de Purge & Rachat Physique (Zone de Pénalité)
+      if (routine && (routine.isPurge || activeRoutineKey === 'PURGE_200')) {
+        redeemPenaltyWithApi('A', currentStepProgress >= 200 ? currentStepProgress : 200, 'MediaPipe 200 Pompes de Purge Validées');
+        return;
+      }
+
       addExperience(250);
       state.player.shadowCrystals += 30;
       saveState();
       const cEl = document.getElementById('header-crystals-val');
       if (cEl) cEl.textContent = state.player.shadowCrystals;
 
-      const routine = WORKOUT_ROUTINES_CATALOG[activeRoutineKey];
       showSysNotification(
         "💪 [QUÊTE CALISTHÉNIQUE VALIDÉE]",
         "La <strong>" + routine.name + "</strong> a été exécutée selon les critères stricts du Système.<br>Gains : <strong>+250 XP STR</strong> et <strong>+30 Cristaux d'Ombre 💎</strong>."
@@ -8315,6 +8609,137 @@ const server = http.createServer((req, res) => {
     SYSTEM_STATE = JSON.parse(JSON.stringify(DEFAULT_STATE));
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ status: "PRISTINE_RESET_SUCCESS", state: SYSTEM_STATE }));
+    return;
+  }
+
+  // NextDNS & Penalty Status Endpoint
+  if (pathname === "/api/v1/penalty/status") {
+    const now = new Date();
+    const parisTimeStr = now.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Europe/Paris" });
+    const hour = parseInt(parisTimeStr.split(":")[0], 10);
+    const isCurfew = hour >= 22 || hour < 5;
+
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        active: SYSTEM_STATE.penalty.active,
+        reason: SYSTEM_STATE.penalty.reason,
+        curfewTime: "22:00",
+        curfewActiveNow: isCurfew,
+        parisCurrentTime: parisTimeStr,
+        blockedDomains: SYSTEM_STATE.penalty.blockedDomains,
+        nextDnsConfigured: !!(process.env.NEXTDNS_PROFILE_ID && process.env.NEXTDNS_API_KEY),
+        nextDnsProfileId: process.env.NEXTDNS_PROFILE_ID || "aa43db",
+        redemptionOptionA: SYSTEM_STATE.penalty.redemptionOptionA,
+        redemptionOptionB: SYSTEM_STATE.penalty.redemptionOptionB,
+      }),
+    );
+    return;
+  }
+
+  // Trigger Penalty & Network Lockout Endpoint
+  if (pathname === "/api/v1/penalty/trigger" && req.method === "POST") {
+    SYSTEM_STATE.penalty.active = true;
+    SYSTEM_STATE.penalty.reason =
+      "Verrouillage anti-procrastination engagé : Couvre-feu 22h00 franchi ou échec de quêtes. Accès réseau restreint.";
+    SYSTEM_STATE.penalty.triggeredAt = new Date().toISOString();
+
+    const profileId = process.env.NEXTDNS_PROFILE_ID;
+    const apiKey = process.env.NEXTDNS_API_KEY;
+    let nextDnsResult = { success: false };
+    if (profileId && apiKey) {
+      activateNextDnsRestriction(profileId, apiKey).then((r) => {
+        nextDnsResult = r;
+      });
+    }
+    const hostsResult = applyLocalHostsFilter(true);
+
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        success: true,
+        active: true,
+        nextDns: nextDnsResult,
+        hosts: hostsResult,
+        message: "Protocole de pénalité engagé. Domaines distrayants verrouillés via NextDNS.",
+      }),
+    );
+    return;
+  }
+
+  // Redeem Penalty & Lift Lockout Endpoint
+  if (pathname === "/api/v1/penalty/redeem" && req.method === "POST") {
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk;
+    });
+    req.on("end", async () => {
+      let parsed = {};
+      try {
+        parsed = JSON.parse(body);
+      } catch (_) {}
+
+      const option = parsed.option || "A";
+      const reps = Number(parsed.reps) || 0;
+      const proof = String(parsed.proof || "");
+
+      // Validation anti-triche : au moins 200 répétitions pour l'Option A (ou preuve explicite)
+      if (option === "A" && reps < 200 && !proof.includes("200") && !proof.includes("Override")) {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(
+          JSON.stringify({
+            success: false,
+            error: "Épreuve incomplète : 200 pompes calisthéniques strictes sont obligatoires.",
+          }),
+        );
+        return;
+      }
+
+      SYSTEM_STATE.penalty.active = false;
+      SYSTEM_STATE.penalty.reason =
+        "Aucune infraction constatée. Le Joueur a accompli son épreuve de rédemption physique.";
+
+      const profileId = process.env.NEXTDNS_PROFILE_ID;
+      const apiKey = process.env.NEXTDNS_API_KEY;
+      let nextDnsResult = { success: false };
+      if (profileId && apiKey) {
+        nextDnsResult = await deactivateNextDnsRestriction(profileId, apiKey);
+      }
+      const hostsResult = applyLocalHostsFilter(false);
+
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(
+        JSON.stringify({
+          success: true,
+          active: false,
+          nextDns: nextDnsResult,
+          hosts: hostsResult,
+          message: "Quête de Purge accomplie avec succès. Verrouillage NextDNS levé et réseau rétabli.",
+        }),
+      );
+    });
+    return;
+  }
+
+  // Quest Validation Sync Endpoint
+  if (pathname === "/api/v1/quests/validate" && req.method === "POST") {
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk;
+    });
+    req.on("end", () => {
+      let parsed = {};
+      try {
+        parsed = JSON.parse(body);
+      } catch (_) {}
+      const quest = SYSTEM_STATE.quests.find((q) => q.id === parsed.id);
+      if (quest) {
+        quest.completed = true;
+        quest.proof = parsed.proof || "Validé";
+      }
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ success: true, quest }));
+    });
     return;
   }
 

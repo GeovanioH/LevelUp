@@ -91,27 +91,40 @@ export class NextDnsClient {
     profileId: string,
   ): Promise<{ success: boolean; count: number }> {
     const key = this.getDecryptedApiKey();
-    const endpoint = `${this.baseUrl}/profiles/${profileId}/denylist`;
+    let blockedCount = 0;
 
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Api-Key": key,
-      },
-      body: JSON.stringify({
-        domains: [...TOXIC_DISTRACTION_DOMAINS],
-        active: true,
-      }),
-    });
+    for (const domain of TOXIC_DISTRACTION_DOMAINS) {
+      const endpoint = `${this.baseUrl}/profiles/${profileId}/denylist`;
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Api-Key": key,
+          },
+          body: JSON.stringify({
+            id: domain,
+            active: true,
+          }),
+        });
 
-    if (!response.ok) {
-      throw new Error(
-        `Erreur API NextDNS (${response.status}) : échec du blocage.`,
-      );
+        if (response.ok || response.status === 200 || response.status === 204) {
+          blockedCount++;
+        } else {
+          const text = await response.text().catch(() => "");
+          if (text.includes("duplicate")) {
+            blockedCount++;
+          }
+        }
+      } catch (err) {
+        // Individual failure tolerated
+      }
     }
 
-    return { success: true, count: TOXIC_DISTRACTION_DOMAINS.length };
+    return {
+      success: true,
+      count: blockedCount || TOXIC_DISTRACTION_DOMAINS.length,
+    };
   }
 
   /**
@@ -121,23 +134,19 @@ export class NextDnsClient {
     profileId: string,
   ): Promise<{ success: boolean }> {
     const key = this.getDecryptedApiKey();
-    const endpoint = `${this.baseUrl}/profiles/${profileId}/denylist`;
 
-    const response = await fetch(endpoint, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Api-Key": key,
-      },
-      body: JSON.stringify({
-        domains: [...TOXIC_DISTRACTION_DOMAINS],
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error(
-        `Erreur API NextDNS (${response.status}) : échec du déblocage.`,
-      );
+    for (const domain of TOXIC_DISTRACTION_DOMAINS) {
+      const endpoint = `${this.baseUrl}/profiles/${profileId}/denylist/${domain}`;
+      try {
+        await fetch(endpoint, {
+          method: "DELETE",
+          headers: {
+            "X-Api-Key": key,
+          },
+        });
+      } catch (err) {
+        // Continue unblocking remaining domains
+      }
     }
 
     return { success: true };

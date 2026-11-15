@@ -5,6 +5,7 @@ import {
   ROUTINE_BRAS_TRICEPS,
   ROUTINE_ABDOS_ACIER,
   ROUTINE_DAILY_COMPLETE,
+  ROUTINE_PURGE_200_PUSHUPS,
   ROUTINE_CATALOG,
   type RoutineStep,
 } from "../../../apps/web/src/features/cv/routineSequenceEngine";
@@ -140,5 +141,32 @@ describe("Trinité Calisthénique Quotidienne Complète (28 Étapes)", () => {
     }
 
     expect(fullEngine.isRoutineCompleted()).toBe(true);
+  });
+});
+
+describe("Quête de Purge & Rachat Physique (200 Pompes Strictes)", () => {
+  it("defines the canonical 200 push-up redemption quest", () => {
+    expect(ROUTINE_PURGE_200_PUSHUPS).toHaveLength(1);
+    expect(ROUTINE_PURGE_200_PUSHUPS[0].name).toContain("200 Pompes");
+    expect(ROUTINE_PURGE_200_PUSHUPS[0].targetReps).toBe(200);
+    expect(ROUTINE_CATALOG.PURGE_200).toBeDefined();
+    expect(ROUTINE_CATALOG.PURGE_200.steps[0].targetReps).toBe(200);
+  });
+
+  it("requires full 200 repetitions before allowing completion", () => {
+    const purgeEngine = new RoutineSequenceEngine(ROUTINE_PURGE_200_PUSHUPS);
+    expect(purgeEngine.getTargetQuota()).toBe(200);
+
+    // 199 reps is not enough (anti-cheat)
+    purgeEngine.addProgress(199);
+    expect(purgeEngine.canAdvance()).toBe(false);
+    expect(purgeEngine.nextStep()).toBe(false);
+    expect(purgeEngine.isRoutineCompleted()).toBe(false);
+
+    // 200th rep unlocks redemption
+    purgeEngine.addProgress(1);
+    expect(purgeEngine.canAdvance()).toBe(true);
+    expect(purgeEngine.nextStep()).toBe(true);
+    expect(purgeEngine.isRoutineCompleted()).toBe(true);
   });
 });

@@ -23,24 +23,27 @@ export const QuestsCircularCarousel: React.FC<QuestsCircularCarouselProps> = ({
   onSelectQuest,
   className = "",
 }) => {
-  const items: CarouselItem[] = quests.map((q) => ({
-    id: q.id,
-    title: q.title,
-    subtitle: `${q.base || "SYSTEM"} // +${q.xp || 100} XP`,
-    description: q.description,
-    base: q.base,
-    xpReward: q.xp,
-    completed: q.completed,
-    src:
-      q.image ||
-      (q.base === "SEC"
-        ? "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900&q=80&auto=format&fit=crop"
-        : q.base === "AI_ENG"
-          ? "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&q=80&auto=format&fit=crop"
-          : q.base === "STR"
-            ? "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=900&q=80&auto=format&fit=crop"
-            : "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=80&auto=format&fit=crop"),
-  }));
+  const items: CarouselItem[] = quests.map((q) => {
+    const item: CarouselItem = {
+      id: q.id,
+      title: q.title,
+      subtitle: `${q.base || "SYSTEM"} // +${q.xp || 100} XP`,
+      src:
+        q.image ||
+        (q.base === "SEC"
+          ? "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900&q=80&auto=format&fit=crop"
+          : q.base === "AI_ENG"
+            ? "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&q=80&auto=format&fit=crop"
+            : q.base === "STR"
+              ? "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=900&q=80&auto=format&fit=crop"
+              : "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=80&auto=format&fit=crop"),
+    };
+    if (q.description !== undefined) item.description = q.description;
+    if (q.base !== undefined) item.base = q.base;
+    if (q.xp !== undefined) item.xpReward = q.xp;
+    if (q.completed !== undefined) item.completed = q.completed;
+    return item;
+  });
 
   return (
     <div
