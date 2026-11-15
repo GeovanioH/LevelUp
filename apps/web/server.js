@@ -1382,10 +1382,10 @@ function renderFullApplication(initialTab = "dashboard") {
       max-width: 1780px;
       margin: 14px auto;
       position: relative;
-      background: #d8dce6;
-      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: linear-gradient(180deg, #281f47 0%, #1f1838 100%);
+      border: 1px solid rgba(168, 85, 247, 0.22);
       border-radius: 18px;
-      box-shadow: 0 16px 48px -10px rgba(7, 3, 20, 0.8), 0 0 35px -5px rgba(168, 85, 247, 0.28);
+      box-shadow: 0 16px 48px -10px rgba(7, 3, 20, 0.8), 0 0 35px -5px rgba(168, 85, 247, 0.20);
       overflow: visible;
       z-index: 10;
     }
