@@ -1,9 +1,12 @@
 # ⚡ LevelUp — Moteur d'Auto-Quantification & Gamification
 
+[![Live App](https://img.shields.io/badge/LIVE%20DEMO-LEVELUP--SYSTEM.ONRENDER.COM-7C3AED?style=for-the-badge&logo=render)](https://levelup-system.onrender.com)
 [![Status](https://img.shields.io/badge/STATUS-OPERATIONAL%20V1.0-00E5FF?style=for-the-badge&logo=shield)](https://github.com/GeovanioH/LevelUp)
 [![Architecture](https://img.shields.io/badge/ARCHITECTURE-FASTIFY%20%7C%20NEXT.JS%20%7C%20POSTGRES-0051FF?style=for-the-badge)](https://github.com/GeovanioH/LevelUp)
 [![AI Engine](https://img.shields.io/badge/AI%20CORE-GEMINI%202.5%20PRO%20%26%20FASTER--WHISPER-FF6B00?style=for-the-badge&logo=google)](https://github.com/GeovanioH/LevelUp)
-[![Tests](https://img.shields.io/badge/TESTS-188%2F188%20PASSING-00FF66?style=for-the-badge)](https://github.com/GeovanioH/LevelUp)
+[![Tests](https://img.shields.io/badge/TESTS-204%2F204%20PASSING-00FF66?style=for-the-badge)](https://github.com/GeovanioH/LevelUp)
+
+> 🌐 **Application en Ligne (Production & Mobile)** : [https://levelup-system.onrender.com](https://levelup-system.onrender.com)
 
 **LevelUp** est un système modulaire d'auto-quantification, de productivité et de montée en compétences. Conçu comme un moteur de productivité universel et extensible, il permet à tout utilisateur de structurer ses objectifs, ses projets techniques, ses entraînements physiques et sa discipline quotidienne au sein d'un environnement gamifié déterministe et mesurable.
 
@@ -15,7 +18,7 @@
 ## 1. Architecture Globale & Stack Technique
 
 Le système s'articule autour d'un monorepo Turborepo / pnpm :
-* **Web HUD (`apps/web`)** : Interface futuriste PWA construite avec Next.js 14 (App Router), Tailwind CSS, Framer Motion, shaders WebGL et support audio synthétique.
+* **Web HUD (`apps/web`)** : Interface futuriste PWA / Mobile optimisée VisionOS déployée en production sur [levelup-system.onrender.com](https://levelup-system.onrender.com), construite avec Next.js 14 (App Router), Tailwind CSS, Framer Motion, shaders WebGL et support audio synthétique.
 * **Serveur API (`apps/api`)** : Backend haute performance Fastify en TypeScript strict, communication temps réel via WebSockets et validation de schémas Zod.
 * **Bot Discord (`apps/bot`)** : Agent d'interaction vocale et textuelle Discord.js v14 avec streaming audio temps réel via UDP/Opus.
 * **Base de Données & Cache (`packages/database`)** : PostgreSQL piloté par Prisma ORM avec SQLite en fallback local et Redis/Redlock pour le verrouillage distribué.
@@ -147,7 +150,11 @@ Grâce au serveur Model Context Protocol (MCP) intégré, tout agent IA externe 
 
 ## 5. Guide d'Installation & Démarrage Rapide
 
-### Prérequis
+### 🌐 Accès Direct en Production
+L'application Web complète (HUD Souverain, Quêtes, Vision Sport MediaPipe, Arbre des 120 compétences, Coffre Obsidian, etc.) est déployée et accessible immédiatement sur smartphone et desktop sans installation locale :
+👉 **[https://levelup-system.onrender.com](https://levelup-system.onrender.com)**
+
+### Prérequis (pour le développement local)
 * Node.js $\ge 20.0.0$, pnpm $\ge 9.0.0$, Docker Desktop, Python 3.11+.
 
 ### 1. Clonage & Installation
