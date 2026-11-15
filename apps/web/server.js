@@ -1064,7 +1064,7 @@ function renderFullApplication(initialTab = "dashboard") {
 <html lang="fr" data-theme="dark-monarch">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>LevelUp — The System (HUD Solo Leveling)</title>
   <link rel="icon" type="image/svg+xml" href="/logo-monarch.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2283,7 +2283,6 @@ function renderFullApplication(initialTab = "dashboard") {
       opacity: 1;
       margin-left: 2px;
     }
-    .nav-tab:hover 
 
     /* ONGLET ACTIF : GÉLULE DE VERRE LUMINESCENTE */
     .nav-tab.active {
@@ -2301,7 +2300,11 @@ function renderFullApplication(initialTab = "dashboard") {
       filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.95));
       transform: scale(1.08);
     }
-    .nav-tab.active 
+    .nav-tab.active .nav-tab-label {
+      max-width: 160px;
+      opacity: 1;
+      margin-left: 4px;
+    }
     .nav-tab.active:hover {
       background: linear-gradient(135deg, rgba(168, 85, 247, 0.82), rgba(124, 58, 237, 0.98));
       box-shadow: 
@@ -3736,6 +3739,481 @@ function renderFullApplication(initialTab = "dashboard") {
     [data-theme="light-awakening"] .header-replay-intro-btn:hover {
       background: rgba(255, 255, 255, 0.95);
       border-color: rgba(124, 58, 237, 0.45);
+    }
+
+    /* ==========================================================================
+       MOBILE & TABLET RESPONSIVE ENGINE (SOLO LEVELING VISIONOS HUD)
+       Target breakpoints: 
+         - Tablets & Foldables (<= 1024px)
+         - Small Tablets & Large Phones (<= 768px)
+         - Compact Smartphones (<= 480px / 360px)
+       ========================================================================== */
+
+    @media (max-width: 768px) {
+      /* 1. Global Viewport & Mobile Reset */
+      html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        -webkit-text-size-adjust: 100%;
+        touch-action: manipulation;
+      }
+
+      .app-layout {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        border-top: none !important;
+        min-height: 100vh !important;
+        box-shadow: none !important;
+      }
+
+      .main-container {
+        padding: 10px 10px calc(92px + env(safe-area-inset-bottom, 16px)) 10px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+
+      .app-main-area {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        margin-left: 0 !important;
+      }
+
+      /* 2. Master Header Mobile Ergonomics */
+      .master-header {
+        margin: 6px 8px 8px 8px !important;
+        padding: 6px 10px !important;
+        height: auto !important;
+        min-height: 48px !important;
+        border-radius: 16px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 6px !important;
+      }
+
+      .header-left-cluster {
+        gap: 6px !important;
+        flex-shrink: 0 !important;
+      }
+
+      .brand-logo-wrap {
+        gap: 6px !important;
+      }
+
+      .brand-logo-wrap svg {
+        width: 26px !important;
+        height: 26px !important;
+      }
+
+      .button.brand-title {
+        --fs-size: 0.95rem !important;
+        letter-spacing: 1px !important;
+      }
+
+      .header-right-cluster {
+        gap: 6px !important;
+        flex-shrink: 0 !important;
+      }
+
+      .header-stat-item,
+      .header-breadcrumb {
+        display: none !important;
+      }
+
+      .header-player-pill {
+        padding: 3px 8px 3px 5px !important;
+        gap: 5px !important;
+        font-size: 11px !important;
+      }
+
+      .header-player-avatar {
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 10px !important;
+      }
+
+      .header-player-name {
+        font-size: 11px !important;
+        max-width: 60px !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+      }
+
+      .header-player-rank,
+      .header-player-sh {
+        font-size: 9px !important;
+      }
+
+      .glass-theme-switch {
+        width: 52px !important;
+        height: 28px !important;
+        min-width: 52px !important;
+      }
+
+      .glass-switch-label {
+        display: none !important;
+      }
+
+      .glass-switch-thumb {
+        width: 22px !important;
+        height: 22px !important;
+      }
+
+      .glass-theme-switch.is-dark .glass-switch-thumb {
+        left: calc(100% - 24px) !important;
+      }
+
+      /* 3. Floating Bottom Nav Bar Dock (VisionOS Mobile Touch Bar) */
+      .bottom-nav-bar.nav-bar,
+      .top-tab-bar.nav-bar {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        padding: 6px 8px max(10px, env(safe-area-inset-bottom, 10px)) 8px !important;
+        background: linear-gradient(to top, rgba(10, 6, 26, 0.96) 0%, rgba(10, 6, 26, 0.82) 75%, transparent 100%) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        z-index: 99999 !important;
+        pointer-events: none !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        display: flex !important;
+        justify-content: center !important;
+      }
+
+      [data-theme="light-awakening"] .bottom-nav-bar.nav-bar {
+        background: linear-gradient(to top, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.8) 75%, transparent 100%) !important;
+      }
+
+      .bottom-nav-dock,
+      .tab-bar-track {
+        pointer-events: auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 4px !important;
+        padding: 4px 6px !important;
+        width: auto !important;
+        max-width: calc(100vw - 16px) !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-snap-type: x proximity !important;
+        scrollbar-width: none !important;
+        border-radius: 9999px !important;
+      }
+
+      .bottom-nav-dock::-webkit-scrollbar,
+      .tab-bar-track::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      .nav-tab {
+        flex-shrink: 0 !important;
+        scroll-snap-align: center !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        padding: 0 9px !important;
+        font-size: 10.5px !important;
+        border-radius: 9999px !important;
+      }
+
+      .nav-tab.active {
+        padding: 0 13px !important;
+      }
+
+      .nav-tab.active .nav-tab-label {
+        max-width: 140px !important;
+        opacity: 1 !important;
+        margin-left: 5px !important;
+        display: inline-block !important;
+        font-size: 10.5px !important;
+        font-weight: 800 !important;
+      }
+
+      .nav-tab:not(.active) .nav-tab-label {
+        max-width: 0 !important;
+        opacity: 0 !important;
+        margin-left: 0 !important;
+      }
+
+      /* 4. Glass Cards & Mobile Typography */
+      .glass-card,
+      .spotlight-card,
+      .border-beam-content {
+        padding: 16px 12px !important;
+        margin-bottom: 14px !important;
+        border-radius: 12px !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+
+      h1, .view-panel h1 {
+        font-size: 21px !important;
+        line-height: 1.2 !important;
+      }
+
+      h2, .view-panel h2 {
+        font-size: 18px !important;
+        line-height: 1.25 !important;
+      }
+
+      h3, .view-panel h3 {
+        font-size: 16px !important;
+        line-height: 1.3 !important;
+      }
+
+      /* Prevent iOS Safari auto-zoom on input focus */
+      input, select, textarea, .form-input {
+        font-size: 16px !important;
+        min-height: 42px !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+
+      .btn-cyber {
+        padding: 8px 12px !important;
+        font-size: 11px !important;
+        min-height: 38px !important;
+      }
+
+      /* 5. Grids Auto-Collapse to Single Column */
+      .grid-2col,
+      .grid-3col {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+      }
+
+      div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* 6. Screen 1: Dashboard HUD Refinements */
+      #dash-system-banner {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+        padding: 10px 12px !important;
+      }
+
+      #dash-player-name {
+        font-size: 22px !important;
+      }
+
+      #dash-level-label {
+        font-size: 16px !important;
+      }
+
+      .stat-row {
+        padding: 6px 0 !important;
+      }
+
+      /* 7. Screen 2: Skills Tree (DAG) Category Swipe Bar */
+      #view-skills div[style*="display: flex; gap: 8px;"] {
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding-bottom: 6px !important;
+        scrollbar-width: none !important;
+      }
+
+      #view-skills div[style*="display: flex; gap: 8px;"] button {
+        flex-shrink: 0 !important;
+      }
+
+      /* 8. Screen 3: Quests & Emergency Alert */
+      #emergency-quest-box .border-beam-content {
+        padding: 14px 12px !important;
+      }
+
+      #emergency-timer-text {
+        font-size: 18px !important;
+      }
+
+      .danger-callout-box {
+        flex-direction: column !important;
+        gap: 8px !important;
+      }
+
+      #emergency-action-wrap {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        width: 100% !important;
+      }
+
+      #emergency-action-wrap button {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+
+      /* 9. Screen 4: Time-Blocking & Circadian Planner */
+      #planner-blocks-container .glass-card {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+      }
+
+      /* 10. Screen 5: Obsidian Knowledge Base */
+      .obsidian-layout {
+        grid-template-columns: 1fr !important;
+        min-height: auto !important;
+      }
+
+      .obsidian-explorer {
+        max-height: 260px !important;
+        padding: 10px !important;
+      }
+
+      .obsidian-main-stage {
+        min-height: 380px !important;
+      }
+
+      .obsidian-split-grid {
+        grid-template-columns: 1fr !important;
+        min-height: auto !important;
+      }
+
+      .obsidian-split-left {
+        border-right: none !important;
+        border-bottom: 1px solid var(--glass-inner-border) !important;
+        padding: 12px !important;
+        max-height: 260px !important;
+      }
+
+      .obsidian-split-right {
+        min-height: 340px !important;
+      }
+
+      .obsidian-graph-canvas-wrap {
+        min-height: 340px !important;
+      }
+
+      .obsidian-view-mode-tabs {
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        max-width: 100% !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+
+      /* 11. Screen 6: Station Vocale & Oral */
+      #audio-canvas {
+        height: 100px !important;
+        width: 100% !important;
+      }
+
+      #rubric-total-score {
+        font-size: 38px !important;
+      }
+
+      /* 12. Screen 7: Opportunities 3D Carousel */
+      .opportunities-carousel-container {
+        height: 420px !important;
+      }
+
+      .opp-3d-card,
+      .quest-3d-card {
+        transform: scale(0.82) !important;
+      }
+
+      /* 13. Screen 9: Penalty Zone & NextDNS Sentinel */
+      #view-penalty .space-lg > div[style*="display: flex; justify-content: space-between"] {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+      }
+
+      #view-penalty button,
+      #penalty-toggle-btn {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+
+      /* 14. Screen 10: MediaPipe Workout Webcam */
+      #view-workout .grid-2col > div:first-child {
+        min-height: 220px !important;
+        max-height: 340px !important;
+        padding: 8px !important;
+      }
+
+      #webcam-video {
+        width: 100% !important;
+        max-height: 320px !important;
+        object-fit: cover !important;
+      }
+
+      #cam-toggle-btn {
+        width: 100% !important;
+      }
+
+      /* 15. Modals & Overlays */
+      .modal-card {
+        width: 94% !important;
+        max-width: 94% !important;
+        padding: 16px 12px !important;
+        max-height: 88vh !important;
+        overflow-y: auto !important;
+        margin: auto !important;
+      }
+
+      .modal-card div[style*="display: flex; justify-content: flex-end"] {
+        flex-direction: column !important;
+        gap: 8px !important;
+      }
+
+      .modal-card button {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+
+      .system-intro-alert-hint {
+        max-width: 90vw !important;
+        white-space: normal !important;
+        text-align: center !important;
+        font-size: 11px !important;
+        padding: 6px 14px !important;
+        bottom: 24px !important;
+      }
+    }
+
+    /* Extra adjustments for ultra-compact screens (iPhone SE, Galaxy A, <= 390px) */
+    @media (max-width: 390px) {
+      .header-player-name {
+        display: none !important;
+      }
+
+      .header-player-pill {
+        padding: 3px 6px !important;
+      }
+
+      .button.brand-title {
+        --fs-size: 0.85rem !important;
+        letter-spacing: 0.5px !important;
+      }
+
+      .nav-tab {
+        min-width: 36px !important;
+        height: 36px !important;
+        padding: 0 7px !important;
+      }
+
+      .nav-tab.active {
+        padding: 0 10px !important;
+      }
+
+      .nav-tab.active .nav-tab-label {
+        font-size: 9.5px !important;
+        max-width: 110px !important;
+      }
     }
 
   </style>
@@ -5636,11 +6114,15 @@ function renderFullApplication(initialTab = "dashboard") {
 
       const mainArea = document.querySelector('.app-main-area');
       if (mainArea) mainArea.scrollTop = 0;
+      try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
 
       const tabs = document.querySelectorAll('.nav-tab');
       tabs.forEach(t => {
         if (t.getAttribute('onclick') && t.getAttribute('onclick').includes(viewId)) {
           t.classList.add('active');
+          try {
+            t.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          } catch (e) {}
         }
       });
 
@@ -8927,6 +9409,10 @@ function renderFullApplication(initialTab = "dashboard") {
       if (typeof initOppCircularCarousel === 'function') initOppCircularCarousel();
       if (typeof initQuestCircularCarousel === 'function') initQuestCircularCarousel();
       sanitizeLegacyComments();
+      try {
+        const activeTab = document.querySelector('.nav-tab.active');
+        if (activeTab) activeTab.scrollIntoView({ inline: 'center', block: 'nearest' });
+      } catch (e) {}
     }, 100);
   </script>
 </body>
