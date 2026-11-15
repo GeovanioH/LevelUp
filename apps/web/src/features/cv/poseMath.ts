@@ -29,6 +29,8 @@ export const MEDIAPIPE_INDICES = {
 
 export const DEFAULT_CONFIDENCE_THRESHOLD = 0.7;
 
+export type ExerciseJointType = "ELBOW" | "HIP" | "KNEE";
+
 /**
  * Calculates joint angle theta between 3 anatomical points A, B, C (B is the hinge).
  * Uses 3D Euclidean vectors if z is provided, otherwise 2D planar projection.
@@ -150,4 +152,81 @@ export function calculateKneeAngle(
   }
 
   return 0;
+}
+
+/**
+ * Calculates hip / torso flexion angle (Shoulder - Hip - Knee)
+ * Left: 11, 23, 25 | Right: 12, 24, 26
+ * Essential for abdominal exercises (crunches, sit-ups, v-ups, leg raises) and hyperextensions.
+ */
+export function calculateHipAngle(
+  landmarks: PoseLandmark[],
+  side: "left" | "right" | "both" = "left",
+  minConfidence: number = DEFAULT_CONFIDENCE_THRESHOLD,
+): number {
+  if (side === "left" || side === "both") {
+    const shoulder = landmarks[MEDIAPIPE_INDICES.LEFT_SHOULDER];
+    const hip = landmarks[MEDIAPIPE_INDICES.LEFT_HIP];
+    const knee = landmarks[MEDIAPIPE_INDICES.LEFT_KNEE];
+
+    if (shoulder && hip && knee) {
+      const leftAngle = calculateJointAngle(shoulder, hip, knee, minConfidence);
+      if (side === "left") return leftAngle;
+      if (side === "both") {
+        const rShoulder = landmarks[MEDIAPIPE_INDICES.RIGHT_SHOULDER];
+        const rHip = landmarks[MEDIAPIPE_INDICES.RIGHT_HIP];
+        const rKnee = landmarks[MEDIAPIPE_INDICES.RIGHT_KNEE];
+        if (rShoulder && rHip && rKnee) {
+          const rightAngle = calculateJointAngle(
+            rShoulder,
+            rHip,
+            rKnee,
+            minConfidence,
+          );
+          if (leftAngle > 0 && rightAngle > 0) {
+            return (leftAngle + rightAngle) / 2.0;
+          }
+          return leftAngle > 0 ? leftAngle : rightAngle;
+        }
+        return leftAngle;
+      }
+    }
+  }
+
+  if (side === "right") {
+    const shoulder = landmarks[MEDIAPIPE_INDICES.RIGHT_SHOULDER];
+    const hip = landmarks[MEDIAPIPE_INDICES.RIGHT_HIP];
+    const knee = landmarks[MEDIAPIPE_INDICES.RIGHT_KNEE];
+
+    if (shoulder && hip && knee) {
+      return calculateJointAngle(shoulder, hip, knee, minConfidence);
+    }
+  }
+
+  return 0;
+}
+
+/**
+ * Dispatches kinematic angle calculation to the appropriate anatomical joint
+ */
+export function calculateExerciseAngle(
+  jointType: ExerciseJointType,
+  landmarks: PoseLandmark[],
+  side: "left" | "right" | "both" = "left",
+  minConfidence: number = DEFAULT_CONFIDENCE_THRESHOLD,
+): number {
+  switch (jointType) {
+    case "ELBOW":
+      return calculateElbowAngle(landmarks, side, minConfidence);
+    case "HIP":
+      return calculateHipAngle(landmarks, side, minConfidence);
+    case "KNEE":
+      return calculateKneeAngle(
+        landmarks,
+        side === "both" ? "left" : side,
+        minConfidence,
+      );
+    default:
+      return calculateElbowAngle(landmarks, side, minConfidence);
+  }
 }

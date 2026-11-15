@@ -31,14 +31,27 @@ export const WorkoutCameraViewer: React.FC<WorkoutCameraViewerProps> = ({
   const [stepProgress, setStepProgress] = useState<number>(0);
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
 
+  const currentStep = engine.getCurrentStep();
+
   const {
     reps,
     currentAngle,
     state,
+    jointName,
+    config,
+    setExercise,
     processFrame,
     reset: resetCounter,
-  } = useExerciseCounter(75, 160);
+  } = useExerciseCounter(currentStep?.name || "Pompes");
   const prevRepsRef = useRef<number>(reps);
+
+  // Synchronise le profil cinématique à chaque changement d'étape de routine
+  useEffect(() => {
+    const step = engine.getCurrentStep();
+    if (step) {
+      setExercise(step.name);
+    }
+  }, [stepIndex, engine, setExercise]);
 
   // Sync repetition count with routine engine
   useEffect(() => {
@@ -109,7 +122,6 @@ export const WorkoutCameraViewer: React.FC<WorkoutCameraViewerProps> = ({
     };
   }, [stopCamera]);
 
-  const currentStep = engine.getCurrentStep();
   const targetQuota = engine.getTargetQuota();
   const progressPercent = Math.min(
     100,
@@ -205,14 +217,14 @@ export const WorkoutCameraViewer: React.FC<WorkoutCameraViewerProps> = ({
         {/* Live HUD Overlays */}
         <div className="absolute top-4 left-4 bg-black/70 backdrop-blur border border-slate-800 rounded p-3 text-left">
           <div className="text-[10px] font-mono text-slate-400 uppercase">
-            Angle Coude Actuel
+            Angle {jointName || "Coude"} Actuel
           </div>
           <div
             data-testid="elbow-angle-display"
             className={`text-2xl font-mono font-bold ${
-              currentAngle <= 75
+              currentAngle <= (config?.minAngleThreshold ?? 75)
                 ? "text-[#00F0FF]"
-                : currentAngle >= 160
+                : currentAngle >= (config?.maxAngleThreshold ?? 160)
                   ? "text-[#10B981]"
                   : "text-white"
             }`}
@@ -220,7 +232,7 @@ export const WorkoutCameraViewer: React.FC<WorkoutCameraViewerProps> = ({
             {Math.round(currentAngle)}°
           </div>
           <div className="text-[9px] font-mono text-slate-500 mt-0.5">
-            Cible : Flexion &le; 75° | Extension &ge; 160°
+            {config?.description || "Cible : Flexion <= 75° | Extension >= 160°"}
           </div>
         </div>
 

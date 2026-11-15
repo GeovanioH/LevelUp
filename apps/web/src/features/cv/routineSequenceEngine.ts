@@ -1,6 +1,6 @@
 /**
  * LevelUp Calisthenics Routine Sequence Engine
- * 17-Step Strict Sequential State Machine for Huriel's Dos & Épaules Routine
+ * 17-Step Strict Sequential State Machine for Dos & Épaules Routine
  * Reference: docs/09-ROADMAP.md Section 21.4 & levelup-architect/SKILL.md
  */
 

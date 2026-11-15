@@ -3,11 +3,15 @@ import {
   calculateJointAngle,
   calculateElbowAngle,
   calculateKneeAngle,
+  calculateHipAngle,
+  calculateExerciseAngle,
   type PoseLandmark,
 } from "../../../apps/web/src/features/cv/poseMath";
 import {
   MediaPipeRepCounter,
   ExerciseState,
+  resolveExerciseConfig,
+  EXERCISE_PROFILES,
 } from "../../../apps/web/src/features/cv/useExerciseCounter";
 
 describe("MediaPipe Kinematic Angle Calculation (poseMath)", () => {
@@ -191,5 +195,155 @@ describe("MediaPipeRepCounter Anti-Cheat & Finite State Machine", () => {
     counter.reset();
     expect(counter.getReps()).toBe(0);
     expect(counter.getState()).toBe(ExerciseState.IDLE);
+  });
+});
+
+describe("MediaPipe Hip Angle & Exercise Resolver (poseMath & useExerciseCounter)", () => {
+  it("extracts hip angle using MediaPipe indices 11 (shoulder), 23 (hip), 25 (knee) for left side", () => {
+    const landmarks: PoseLandmark[] = Array.from({ length: 33 }, () => ({
+      x: 0,
+      y: 0,
+      z: 0,
+      visibility: 0.9,
+    }));
+    // Shoulder (11) = (0, 1, 0), Hip (23) = (0, 0, 0), Knee (25) = (1, 0, 0) -> 90 deg
+    landmarks[11] = { x: 0, y: 1, z: 0, visibility: 0.95 };
+    landmarks[23] = { x: 0, y: 0, z: 0, visibility: 0.95 };
+    landmarks[25] = { x: 1, y: 0, z: 0, visibility: 0.95 };
+
+    const angle = calculateHipAngle(landmarks, "left");
+    expect(angle).toBeCloseTo(90.0, 1);
+  });
+
+  it("calculates hip angle for right side and averages both when side='both'", () => {
+    const landmarks: PoseLandmark[] = Array.from({ length: 33 }, () => ({
+      x: 0,
+      y: 0,
+      z: 0,
+      visibility: 0.9,
+    }));
+    // Left hip = 90 deg
+    landmarks[11] = { x: 0, y: 1, z: 0, visibility: 0.95 };
+    landmarks[23] = { x: 0, y: 0, z: 0, visibility: 0.95 };
+    landmarks[25] = { x: 1, y: 0, z: 0, visibility: 0.95 };
+    // Right hip = 90 deg
+    landmarks[12] = { x: 0, y: 1, z: 0, visibility: 0.95 };
+    landmarks[24] = { x: 0, y: 0, z: 0, visibility: 0.95 };
+    landmarks[26] = { x: 1, y: 0, z: 0, visibility: 0.95 };
+
+    const rightAngle = calculateHipAngle(landmarks, "right");
+    expect(rightAngle).toBeCloseTo(90.0, 1);
+
+    const bothAngle = calculateHipAngle(landmarks, "both");
+    expect(bothAngle).toBeCloseTo(90.0, 1);
+  });
+
+  it("resolves correct kinematic profiles for pushups, abdos, and squats", () => {
+    const pushupConfig = resolveExerciseConfig("Pike Push-Ups");
+    expect(pushupConfig.type).toBe("PUSH_UP");
+    expect(pushupConfig.jointType).toBe("ELBOW");
+    expect(pushupConfig.minAngleThreshold).toBe(75);
+
+    const abdoConfig = resolveExerciseConfig("V-Ups Synchronisés");
+    expect(abdoConfig.type).toBe("ABDOMINAL");
+    expect(abdoConfig.jointType).toBe("HIP");
+    expect(abdoConfig.minAngleThreshold).toBe(80);
+
+    const crunchConfig = resolveExerciseConfig("Crunchs Bicyclette");
+    expect(crunchConfig.type).toBe("ABDOMINAL");
+    expect(crunchConfig.jointType).toBe("HIP");
+
+    const squatConfig = resolveExerciseConfig("Squats");
+    expect(squatConfig.type).toBe("SQUAT");
+    expect(squatConfig.jointType).toBe("KNEE");
+  });
+});
+
+describe("MediaPipeRepCounter - Abdominal Exercise Anti-Cheat & Rep Counting", () => {
+  let abCounter: MediaPipeRepCounter;
+
+  function createFrameWithHipAngle(
+    degrees: number,
+    confidence: number = 0.95,
+  ): PoseLandmark[] {
+    const landmarks: PoseLandmark[] = Array.from({ length: 33 }, () => ({
+      x: 0,
+      y: 0,
+      z: 0,
+      visibility: confidence,
+    }));
+    // Shoulder (11) at (0, 1, 0)
+    landmarks[11] = { x: 0, y: 1, z: 0, visibility: confidence };
+    // Hip (23) at (0, 0, 0)
+    landmarks[23] = { x: 0, y: 0, z: 0, visibility: confidence };
+    // Knee (25) rotated by degrees relative to shoulder vector
+    const rad = (degrees * Math.PI) / 180;
+    landmarks[25] = {
+      x: Math.sin(rad),
+      y: Math.cos(rad),
+      z: 0,
+      visibility: confidence,
+    };
+    return landmarks;
+  }
+
+  beforeEach(() => {
+    abCounter = new MediaPipeRepCounter("V-Ups Synchronisés");
+  });
+
+  it("initializes with ABDOMINAL profile and HIP joint tracking", () => {
+    expect(abCounter.getReps()).toBe(0);
+    expect(abCounter.getState()).toBe(ExerciseState.IDLE);
+    const config = abCounter.getConfig();
+    expect(config.type).toBe("ABDOMINAL");
+    expect(config.jointType).toBe("HIP");
+    expect(config.jointName).toContain("Hanche");
+  });
+
+  it("validates a strict abdominal rep: flat (170°) -> crunch below 80° (70°) -> return flat (165°)", () => {
+    // 1. Lying flat / extended
+    abCounter.processFrame(createFrameWithHipAngle(170));
+    expect(abCounter.getReps()).toBe(0);
+
+    // 2. Rising / flexing torso
+    abCounter.processFrame(createFrameWithHipAngle(120));
+    expect(abCounter.getState()).toBe(ExerciseState.REP_DOWN);
+    expect(abCounter.getReps()).toBe(0);
+
+    // 3. Peak contraction (<= 80 deg)
+    abCounter.processFrame(createFrameWithHipAngle(70));
+    expect(abCounter.getState()).toBe(ExerciseState.PEAK_CONTRACTION);
+    expect(abCounter.getReps()).toBe(0);
+
+    // 4. Lowering back down
+    abCounter.processFrame(createFrameWithHipAngle(110));
+    expect(abCounter.getState()).toBe(ExerciseState.REP_UP);
+    expect(abCounter.getReps()).toBe(0);
+
+    // 5. Full extension back to ground (>= 155 deg) -> Rep validated!
+    abCounter.processFrame(createFrameWithHipAngle(165));
+    expect(abCounter.getReps()).toBe(1);
+    expect(abCounter.getState()).toBe(ExerciseState.REP_COUNTED);
+  });
+
+  it("rejects incomplete abdo crunch: fails to hit <= 80 deg", () => {
+    abCounter.processFrame(createFrameWithHipAngle(170));
+
+    // Only reaches 95 deg (lazy crunch)
+    abCounter.processFrame(createFrameWithHipAngle(95));
+    expect(abCounter.getState()).toBe(ExerciseState.REP_DOWN);
+
+    // Returns flat
+    abCounter.processFrame(createFrameWithHipAngle(165));
+    expect(abCounter.getReps()).toBe(0); // Must NOT count
+  });
+
+  it("allows dynamic exercise switching between Pompes and Abdos", () => {
+    const counter = new MediaPipeRepCounter("Pompes");
+    expect(counter.getConfig().jointType).toBe("ELBOW");
+
+    counter.setExercise("Crunchs Bicyclette");
+    expect(counter.getConfig().jointType).toBe("HIP");
+    expect(counter.getConfig().type).toBe("ABDOMINAL");
   });
 });
