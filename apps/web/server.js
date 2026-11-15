@@ -43,9 +43,19 @@ for (const envPath of envCandidates) {
 }
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
-const SUPABASE_CDN_VIDEO_WEBM = process.env.SUPABASE_INTRO_VIDEO_WEBM || "https://hamqkltryiytqdxjpiyl.supabase.co/storage/v1/object/public/LevelUpimgandvid/new_vids/levelup_intro_1080p_webm_vp9.webm";
-const SUPABASE_CDN_VIDEO_MP4 = process.env.SUPABASE_INTRO_VIDEO_MP4 || process.env.INTRO_VIDEO_URL || "https://hamqkltryiytqdxjpiyl.supabase.co/storage/v1/object/public/LevelUpimgandvid/new_vids/levelup_intro_1080p_ultra_smooth.mp4";
-const INTRO_IMAGE_URL = process.env.INTRO_IMAGE_URL || process.env.SUPABASE_INTRO_IMAGE_URL || "https://hamqkltryiytqdxjpiyl.supabase.co/storage/v1/object/public/LevelUpimgandvid/new_vids/levelup_system_alert_image.webp";
+const DEFAULT_CDN_WEBM = "https://hamqkltryiytqdxjpiyl.supabase.co/storage/v1/object/public/LevelUpimgandvid/new_vids/levelup_intro_1080p_webm_vp9.webm";
+const DEFAULT_CDN_MP4 = "https://hamqkltryiytqdxjpiyl.supabase.co/storage/v1/object/public/LevelUpimgandvid/new_vids/levelup_intro_1080p_ultra_smooth.mp4";
+const DEFAULT_CDN_IMG = "https://hamqkltryiytqdxjpiyl.supabase.co/storage/v1/object/public/LevelUpimgandvid/new_vids/levelup_system_alert_image.webp";
+
+// Prioritize clean new 1080p Supabase URLs and explicitly filter out legacy bloated files from env
+const envMp4 = process.env.SUPABASE_INTRO_VIDEO_MP4 || process.env.INTRO_VIDEO_URL;
+const SUPABASE_CDN_VIDEO_MP4 = (envMp4 && !envMp4.includes("test_upscale_5x.mp4")) ? envMp4 : DEFAULT_CDN_MP4;
+
+const envWebm = process.env.SUPABASE_INTRO_VIDEO_WEBM;
+const SUPABASE_CDN_VIDEO_WEBM = envWebm || DEFAULT_CDN_WEBM;
+
+const envImg = process.env.INTRO_IMAGE_URL || process.env.SUPABASE_INTRO_IMAGE_URL;
+const INTRO_IMAGE_URL = (envImg && !envImg.includes("test_alert_5x.webp")) ? envImg : DEFAULT_CDN_IMG;
 
 // Solo Leveling Sovereign Monarch Logo SVG
 const MONARCH_LOGO_SVG = `<svg class="monarch-crest-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
