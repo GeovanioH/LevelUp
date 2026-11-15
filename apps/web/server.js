@@ -5015,7 +5015,8 @@ function renderFullApplication(initialTab = "dashboard") {
     <!-- =====================================================================
          SCREEN 9 : ZONE DE PÉNALITÉ & VERROUILLAGE RÉSEAU INVIOLABLE
          ===================================================================== -->
-    space-lg" style="background: var(--surface-container-lowest); border: 1px solid rgba(244,63,94,0.4); box-shadow: 0 0 40px rgba(147,0,10,0.35); padding: 24px; margin-bottom: 22px; position: relative;">
+    <div id="view-penalty" class="view-panel ${initialTab === "penalty" ? "active" : ""}">
+      <div class="glass-card spotlight-card space-lg" style="background: var(--surface-container-lowest); border: 1px solid rgba(244,63,94,0.4); box-shadow: 0 0 40px rgba(147,0,10,0.35); padding: 24px; margin-bottom: 22px; position: relative;">
         <div class="cyber-corner-tl" style="border-color: var(--alert-crimson);"></div>
         <div class="cyber-corner-tr" style="border-color: var(--alert-crimson);"></div>
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
