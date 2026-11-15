@@ -15,6 +15,44 @@
 
 ---
 
+## 0/ Contexte : La Genèse & la Philosophie du Système
+
+> *"Seuls ceux qui acceptent de mourir à leur ancienne faiblesse méritent d'être éveillés par Le Système."*
+
+### 🌌 0.1 La Genèse : Le Mythe de *Solo Leveling* Appliqué au Réel (IRL)
+Dans le chef-d'œuvre *Solo Leveling*, Sung Jin-woo, le « plus faible des chasseurs de rang E », frôle la mort dans le double donjon avant d'être sélectionné par une entité omnisciente : **Le Système**. Dès cet instant, son quotidien mute en jeu vidéo déterministe où chaque effort est récompensé au point près, où chaque manquement déclenche une téléportation immédiate en *Zone de Pénalité*, et où son ascension méthodique le propulse au rang suprême de **Monarque des Ombres**.
+
+**LevelUp est l'incarnation logicielle de ce Système dans la vie réelle.** 
+Conçu pour transformer l'existence d'un individu ambitieux en un RPG d'action rigoureux, LevelUp supprime les doutes, la paralysie décisionnelle et la procrastination en matérialisant devant vous une interface de contrôle holographique (VisionOS Glassmorphism) connectée à l'ensemble de vos flux numériques et physiques.
+
+```
+       [ MONDE RÉEL ]                                 [ LE SYSTÈME LEVELUP ]
+  ┌──────────────────────┐                         ┌─────────────────────────────┐
+  │  Entraînement Corps  │ ── Vision MediaPipe ──> │ Incrémentation Répétitions  │
+  │  Audits & Code IA    │ ── Commits GitHub ────> │ Gain XP & Déblocage DAG     │
+  │  Restitution Orale   │ ── Faster-Whisper ────> │ Grille Socratique sur 20    │
+  │  Sommeil & Énergie   │ ── Modèle Borbély ────> │ Jauges Dynamiques HP / MP   │
+  │  Dérive / Réseaux    │ ── NextDNS Sentinel ──> │ Purgatoire & Blackout 22h00 │
+  └──────────────────────┘                         └─────────────────────────────┘
+```
+
+### ⚔️ 0.2 Le Problème Fondamental : L'Échec des Outils Traditionnels
+Les applications classiques de gestion du temps (Notion, Todoist, Habitica) souffrent d'une faille critique : **la complaisance humaine**.
+1. **L'illusion du progrès** : Cocher manuellement une case sans validation objective crée une dopamine artificielle sans livrable réel.
+2. **L'absence de conséquences** : Reporter une tâche au lendemain ne coûte rien, encourageant une dette de discipline exponentielle.
+3. **Le déséquilibre destructeur** : La culture du *grind* pousse souvent à travailler 14 heures d'affilée en sacrifiant le sommeil, la santé cardiovasculaire, la musculature ou les relations humaines.
+
+### 🛡️ 0.3 La Réponse LevelUp : Zéro Complaisance & Harmonie Mathématique
+LevelUp brise ce paradigme grâce à trois piliers intransigeants :
+* **Définition de Terminé Stricte (Definition of Done - DoD)** : Aucune quête ne peut être validée par une simple coche. Le Système exige une preuve irréfutable : hachage de commit Git, certificat de score, analyse cinématique par vision par ordinateur (MediaPipe) ou notation vocale socratique par IA.
+* **Zone de Pénalité Inviolable (Sanction Matérielle)** : Si les quêtes impératives ne sont pas scellées avant **22h00**, le coupe-feu cloud **NextDNS** verrouille instantanément l'accès aux plateformes de distraction (TikTok, Instagram, YouTube, etc.) sur tous les terminaux de l'utilisateur. Seul un rachat par l'effort physique intense (séries d'extinction) peut lever le verrou.
+* **Loi de l'Harmonie Globale ($S_{\text{global}}$)** : Grâce à un modèle mathématique de **moyenne harmonique** pondérée sur les 8 bases vitales, le système punit sévèrement le délaissement d'un domaine. Si votre physique (`STR`) ou votre repos (`DIS`) tombent à zéro, votre score global s'effondre, quel que soit votre génie en programmation (`AI_ENG`).
+
+> [!IMPORTANT]
+> **LevelUp n'est pas une simple application, c'est un serment de transformation.** Que vous soyez étudiant-ingénieur, chercheur, développeur ou athlète, il fournit le cadre déterministe absolu pour forger votre propre légende.
+
+---
+
 ## 1. Architecture Globale & Stack Technique
 
 Le système s'articule autour d'un monorepo Turborepo / pnpm :
