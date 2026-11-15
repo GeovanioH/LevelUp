@@ -778,6 +778,7 @@ Structures rhétoriques formelles indispensables pour l'évaluation orale à 20 
     reason:
       "Aucune infraction constatée. Le Joueur est en conformité absolue avec les directives du Système.",
     remainingSeconds: 0,
+    expiresAt: null,
     blockedDomains: [
       "tiktok.com",
       "instagram.com",
@@ -810,6 +811,15 @@ const TOXIC_DOMAINS_LIST = [
   "netflix.com",
 ];
 
+const TOXIC_SERVICES_LIST = [
+  "tiktok",
+  "youtube",
+  "instagram",
+  "twitter",
+  "reddit",
+  "netflix",
+];
+
 const NEXTDNS_API_BASE_URL = "https://api.nextdns.io";
 
 async function activateNextDnsRestriction(profileId, apiKey) {
@@ -817,7 +827,33 @@ async function activateNextDnsRestriction(profileId, apiKey) {
     console.warn("[NEXTDNS] Profil ID ou Clé API manquante. Mode simulation.");
     return { success: false, reason: "MISSING_CREDENTIALS" };
   }
+  // 1. Link current public IP to profile for IPv4 resolution
+  try {
+    const updateToken = process.env.NEXTDNS_UPDATE_TOKEN || "51f470f87d189167";
+    await fetch(`https://link-ip.nextdns.io/${profileId}/${updateToken}`).catch(() => {});
+  } catch (_) {}
+
   let blockedCount = 0;
+  // 2. Block Parental Control Services (covers apps, mobile clients, CDNs, APIs)
+  for (const service of TOXIC_SERVICES_LIST) {
+    try {
+      const res = await fetch(`${NEXTDNS_API_BASE_URL}/profiles/${profileId}/parentalControl/services`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Api-Key": apiKey,
+        },
+        body: JSON.stringify({ id: service, active: true }),
+      });
+      if (res.ok || res.status === 200 || res.status === 204) {
+        blockedCount++;
+      }
+    } catch (e) {
+      console.error(`[NEXTDNS] Échec blocage service ${service}:`, e.message);
+    }
+  }
+
+  // 3. Block individual domains in Denylist
   for (const domain of TOXIC_DOMAINS_LIST) {
     try {
       const res = await fetch(`${NEXTDNS_API_BASE_URL}/profiles/${profileId}/denylist`, {
@@ -835,10 +871,10 @@ async function activateNextDnsRestriction(profileId, apiKey) {
         if (txt.includes("duplicate")) blockedCount++;
       }
     } catch (e) {
-      console.error(`[NEXTDNS] Échec blocage ${domain}:`, e.message);
+      console.error(`[NEXTDNS] Échec blocage denylist ${domain}:`, e.message);
     }
   }
-  console.log(`[NEXTDNS SENTINEL] Restriction activée: ${blockedCount}/${TOXIC_DOMAINS_LIST.length} domaines bloqués sur profil ${profileId}`);
+  console.log(`[NEXTDNS SENTINEL] Restriction activée: ${blockedCount} règles appliquées sur profil ${profileId}`);
   return { success: true, count: blockedCount };
 }
 
@@ -847,6 +883,24 @@ async function deactivateNextDnsRestriction(profileId, apiKey) {
     return { success: false, reason: "MISSING_CREDENTIALS" };
   }
   let unblockedCount = 0;
+  // 1. Unblock Parental Control Services
+  for (const service of TOXIC_SERVICES_LIST) {
+    try {
+      const res = await fetch(`${NEXTDNS_API_BASE_URL}/profiles/${profileId}/parentalControl/services/${service}`, {
+        method: "DELETE",
+        headers: {
+          "X-Api-Key": apiKey,
+        },
+      });
+      if (res.ok || res.status === 204 || res.status === 404) {
+        unblockedCount++;
+      }
+    } catch (e) {
+      console.error(`[NEXTDNS] Échec déblocage service ${service}:`, e.message);
+    }
+  }
+
+  // 2. Unblock individual domains in Denylist
   for (const domain of TOXIC_DOMAINS_LIST) {
     try {
       const res = await fetch(`${NEXTDNS_API_BASE_URL}/profiles/${profileId}/denylist/${domain}`, {
@@ -859,10 +913,10 @@ async function deactivateNextDnsRestriction(profileId, apiKey) {
         unblockedCount++;
       }
     } catch (e) {
-      console.error(`[NEXTDNS] Échec déblocage ${domain}:`, e.message);
+      console.error(`[NEXTDNS] Échec déblocage denylist ${domain}:`, e.message);
     }
   }
-  console.log(`[NEXTDNS SENTINEL] Restriction levée: ${unblockedCount}/${TOXIC_DOMAINS_LIST.length} domaines déverrouillés sur profil ${profileId}`);
+  console.log(`[NEXTDNS SENTINEL] Restriction levée: ${unblockedCount} règles retirées sur profil ${profileId}`);
   return { success: true, count: unblockedCount };
 }
 
@@ -878,6 +932,12 @@ function applyLocalHostsFilter(active) {
     if (!active) {
       if (cleaned !== content) {
         fs.writeFileSync(hostsPath, cleaned, "utf-8");
+        if (process.platform === "win32") {
+          try {
+            const { execSync } = require("child_process");
+            execSync("ipconfig /flushdns", { stdio: "ignore" });
+          } catch (_) {}
+        }
       }
       return { applied: true, path: hostsPath };
     }
@@ -890,7 +950,13 @@ function applyLocalHostsFilter(active) {
       "",
     ].join("\n");
     fs.writeFileSync(hostsPath, cleaned.trimEnd() + "\n\n" + lines, "utf-8");
-    console.log("[HOSTS] Filtrage local activé avec succès.");
+    if (process.platform === "win32") {
+      try {
+        const { execSync } = require("child_process");
+        execSync("ipconfig /flushdns", { stdio: "ignore" });
+      } catch (_) {}
+    }
+    console.log("[HOSTS] Filtrage local activé avec succès et cache DNS purgé.");
     return { applied: true, path: hostsPath };
   } catch (err) {
     console.warn("[HOSTS] Impossible de modifier le fichier hosts local (droits admin requis) :", err.message);
@@ -4966,11 +5032,11 @@ function renderFullApplication(initialTab = "dashboard") {
               <span class="material-symbols-outlined" style="color: var(--alert-crimson); font-size: 20px; animation: pulse 2s infinite;">timer</span>
               <div style="text-align: right;">
                 <div style="font-size: 9px; color: var(--text-secondary); font-family: var(--font-mono); text-transform: uppercase;">Temps Avant Dégradation Rang</div>
-                <div style="font-size: 18px; font-weight: 900; font-family: var(--font-mono); color: var(--alert-crimson); letter-spacing: 1px;">03:41:22</div>
+                <div id="penalty-countdown-val" style="font-size: 18px; font-weight: 900; font-family: var(--font-mono); color: var(--alert-crimson); letter-spacing: 1px;">04:00:00</div>
               </div>
             </div>
             <button class="btn-cyber btn-red" id="penalty-toggle-btn" onclick="toggleRealPenalty()" style="font-size: 11px; padding: 8px 14px;">
-              TEST : ENGAGER / LEVER VERROUILLAGE RÉSEAU
+              TEST : SIMULER LA PÉNALITÉ
             </button>
           </div>
         </div>
@@ -7971,10 +8037,66 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
         // =========================================================================
-    // SCREEN 9 : REAL NEXTDNS PENALTY TOGGLE, REDEMPTION & CAMERA PURGE
+    // SCREEN 9 : REAL NEXTDNS & LOCAL HOSTS PENALTY TOGGLE, REDEMPTION & TIMER
     // =========================================================================
+    let penaltyCountdownTimer = null;
+
+    function formatPenaltyTime(totalSeconds) {
+      const sec = Math.max(0, Math.floor(totalSeconds));
+      const h = Math.floor(sec / 3600);
+      const m = Math.floor((sec % 3600) / 60);
+      const s = sec % 60;
+      return [h, m, s].map((v) => String(v).padStart(2, '0')).join(':');
+    }
+
+    function updatePenaltyCountdown() {
+      const el = document.getElementById('penalty-countdown-val');
+      if (!el) return;
+
+      if (!state.penalty || !state.penalty.active) {
+        el.textContent = '04:00:00';
+        return;
+      }
+
+      const now = Date.now();
+      if (!state.penalty.expiresAt) {
+        state.penalty.expiresAt = now + 4 * 3600 * 1000;
+        saveState();
+      }
+
+      const diffSec = Math.max(0, Math.floor((state.penalty.expiresAt - now) / 1000));
+      el.textContent = formatPenaltyTime(diffSec);
+
+      if (diffSec <= 0) {
+        if (penaltyCountdownTimer) {
+          clearInterval(penaltyCountdownTimer);
+          penaltyCountdownTimer = null;
+        }
+        el.textContent = '00:00:00';
+        showSysNotification(
+          "⚠️ [DÉGRADATION DE RANG EXÉCUTÉE]",
+          "Délai d'expiation expiré (4h). Le Système rétrograde votre Rang de Chasseur !"
+        );
+      }
+    }
+
+    function startPenaltyCountdown() {
+      if (penaltyCountdownTimer) clearInterval(penaltyCountdownTimer);
+      updatePenaltyCountdown();
+      penaltyCountdownTimer = setInterval(updatePenaltyCountdown, 1000);
+    }
+
+    function stopPenaltyCountdown() {
+      if (penaltyCountdownTimer) {
+        clearInterval(penaltyCountdownTimer);
+        penaltyCountdownTimer = null;
+      }
+      const el = document.getElementById('penalty-countdown-val');
+      if (el) el.textContent = '04:00:00';
+    }
+
     async function toggleRealPenalty() {
-      if (state.penalty.active) {
+      if (state.penalty && state.penalty.active) {
         await redeemPenaltyWithApi('A', 200, 'Override Manuel Administrateur');
       } else {
         try {
@@ -7982,14 +8104,16 @@ function renderFullApplication(initialTab = "dashboard") {
           const data = await res.json();
           state.penalty.active = true;
           state.penalty.reason = data.message || "Couvre-feu 22h00 franchi ou échec de quête : restriction NextDNS engagée.";
+          state.penalty.expiresAt = data.expiresAt || (Date.now() + 4 * 3600 * 1000);
           saveState();
           updatePenaltyUI(true);
           showSysNotification(
             "⚠️ [ZONE DE PÉNALITÉ NEXTDNS ENGAGÉE]",
-            "Le coupe-feu réseau a été activé.<br>Profil NextDNS verrouillé (" + (data.nextDns?.count || 7) + " domaines récréatifs bloqués).<br>Accomplissez la Quête de Purge (200 pompes) pour rétablir l'accès."
+            "Le coupe-feu réseau a été activé.<br>Profil NextDNS verrouillé (" + (data.nextDns?.count || 13) + " règles appliquées).<br>Compte à rebours de 4h enclenché avant dégradation de Rang.<br>Accomplissez la Quête de Purge (200 pompes) pour rétablir l'accès."
           );
         } catch (e) {
           state.penalty.active = true;
+          state.penalty.expiresAt = Date.now() + 4 * 3600 * 1000;
           saveState();
           updatePenaltyUI(true);
         }
@@ -8006,18 +8130,20 @@ function renderFullApplication(initialTab = "dashboard") {
         const data = await res.json();
         if (data.success) {
           state.penalty.active = false;
+          delete state.penalty.expiresAt;
           saveState();
           updatePenaltyUI(false);
           playChime(1046);
           showSysNotification(
             "🛡️ [PÉNALITÉ PURGÉE - RESTRICTION LEVÉE]",
-            "Épreuve " + option + " validée (" + reps + " pompes).<br>Le verrouillage NextDNS est désactivé et l'accès réseau est rétabli."
+            "Épreuve " + option + " validée (" + reps + " pompes).<br>Le verrouillage NextDNS et local est désactivé et l'accès réseau est rétabli."
           );
         } else {
           showSysNotification("[ÉCHEC DE PURGE]", data.error || "Conditions non satisfaites.");
         }
       } catch (err) {
         state.penalty.active = false;
+        delete state.penalty.expiresAt;
         saveState();
         updatePenaltyUI(false);
       }
@@ -8042,7 +8168,8 @@ function renderFullApplication(initialTab = "dashboard") {
           header.textContent = "STATUT : VERROUILLAGE RÉSEAU ACTIF (NEXTDNS ENGAGÉ)";
           header.style.color = "var(--alert-crimson)";
         }
-        if (btn) btn.textContent = "LEVER LE VERROUILLAGE RÉSEAU (TEST)";
+        if (btn) btn.textContent = "LEVER LA PÉNALITÉ (TEST)";
+        startPenaltyCountdown();
       } else {
         if (banner) {
           banner.style.background = 'linear-gradient(90deg, rgba(0, 81, 255, 0.3) 0%, rgba(2, 14, 38, 0.85) 50%, rgba(0, 81, 255, 0.3) 100%)';
@@ -8056,7 +8183,8 @@ function renderFullApplication(initialTab = "dashboard") {
           header.textContent = "STATUT : CHASSEUR EN RÈGLE (AUCUN BLOCAGE ACTIF)";
           header.style.color = "var(--transcendent-green)";
         }
-        if (btn) btn.textContent = "TEST : ENGAGER VERROUILLAGE RÉSEAU";
+        if (btn) btn.textContent = "TEST : SIMULER LA PÉNALITÉ";
+        stopPenaltyCountdown();
       }
     }
 
@@ -8751,6 +8879,11 @@ function renderFullApplication(initialTab = "dashboard") {
     // Initial State Render
     updateVitalsUI();
     updateXpUI();
+    if (state.penalty && state.penalty.active) {
+      updatePenaltyUI(true);
+    } else {
+      updatePenaltyUI(false);
+    }
     initSystemIntro();
     initScrollRevealCards();
     sanitizeLegacyComments();
@@ -8769,7 +8902,7 @@ function renderFullApplication(initialTab = "dashboard") {
 }
 
 // Master HTTP Server
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader(
@@ -8928,14 +9061,13 @@ const server = http.createServer((req, res) => {
     SYSTEM_STATE.penalty.reason =
       "Verrouillage anti-procrastination engagé : Couvre-feu 22h00 franchi ou échec de quêtes. Accès réseau restreint.";
     SYSTEM_STATE.penalty.triggeredAt = new Date().toISOString();
+    SYSTEM_STATE.penalty.expiresAt = Date.now() + 4 * 3600 * 1000;
 
     const profileId = process.env.NEXTDNS_PROFILE_ID;
     const apiKey = process.env.NEXTDNS_API_KEY;
     let nextDnsResult = { success: false };
     if (profileId && apiKey) {
-      activateNextDnsRestriction(profileId, apiKey).then((r) => {
-        nextDnsResult = r;
-      });
+      nextDnsResult = await activateNextDnsRestriction(profileId, apiKey);
     }
     const hostsResult = applyLocalHostsFilter(true);
 
@@ -8944,9 +9076,10 @@ const server = http.createServer((req, res) => {
       JSON.stringify({
         success: true,
         active: true,
+        expiresAt: SYSTEM_STATE.penalty.expiresAt,
         nextDns: nextDnsResult,
         hosts: hostsResult,
-        message: "Protocole de pénalité engagé. Domaines distrayants verrouillés via NextDNS.",
+        message: "Protocole de pénalité engagé. Domaines distrayants verrouillés via NextDNS et table hosts.",
       }),
     );
     return;
@@ -8981,6 +9114,7 @@ const server = http.createServer((req, res) => {
       }
 
       SYSTEM_STATE.penalty.active = false;
+      delete SYSTEM_STATE.penalty.expiresAt;
       SYSTEM_STATE.penalty.reason =
         "Aucune infraction constatée. Le Joueur a accompli son épreuve de rédemption physique.";
 
