@@ -1072,6 +1072,9 @@ function renderFullApplication(initialTab = "dashboard") {
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <!-- MediaPipe Pose WebAssembly Computer Vision Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
   <script>
     (function() {
       try {
@@ -5670,8 +5673,27 @@ function renderFullApplication(initialTab = "dashboard") {
         </div>
 
         <div class="grid-2col">
-          <div class="glass-card" style="padding: 12px; background: var(--input-bg); border: 1px solid var(--glass-inner-border); min-height: 380px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;">
-            <video id="webcam-video" style="display: none; width: 100%; border-radius: var(--radius-sm);" autoplay playsinline></video>
+          <div class="glass-card workout-video-card" style="padding: 12px; background: var(--input-bg); border: 1px solid var(--glass-inner-border); min-height: 380px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden; transition: box-shadow 0.3s ease;">
+            <video id="webcam-video" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm);" autoplay playsinline muted></video>
+            <canvas id="workout-canvas" style="display: none; position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; border-radius: var(--radius-sm); z-index: 5;"></canvas>
+            
+            <!-- Real-time Holographic HUD overlay on top of video -->
+            <div id="workout-live-hud" style="display: none; position: absolute; top: 12px; left: 12px; right: 12px; z-index: 10; pointer-events: none; justify-content: space-between; align-items: flex-start;">
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <span id="hud-angle-pill" style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 9999px; background: rgba(10, 6, 26, 0.88); border: 1px solid var(--neon-cyan); color: #fff; font-family: var(--font-mono); font-size: 11px; font-weight: 800; backdrop-filter: blur(8px); box-shadow: 0 0 12px rgba(0,240,255,0.4);">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--neon-cyan); display: inline-block; animation: pulse 1.5s infinite;"></span>
+                  <span id="hud-angle-text">COUDE : --°</span>
+                </span>
+                <span id="hud-state-pill" style="display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 6px; background: rgba(10, 6, 26, 0.85); border: 1px solid rgba(255,255,255,0.25); color: var(--neon-cyan); font-family: var(--font-mono); font-size: 10px; font-weight: bold; backdrop-filter: blur(6px);">
+                  STATUT : EN ATTENTE
+                </span>
+              </div>
+              <div style="background: rgba(10, 6, 26, 0.9); border: 1.5px solid var(--tertiary); border-radius: 10px; padding: 5px 12px; text-align: center; backdrop-filter: blur(8px); box-shadow: 0 0 15px rgba(69,223,164,0.3);">
+                <div style="font-size: 9px; font-family: var(--font-mono); color: var(--text-secondary); text-transform: uppercase;">REPS VALIDÉES</div>
+                <div id="hud-rep-counter" style="font-size: 26px; font-weight: 900; font-family: var(--font-display); color: var(--tertiary); line-height: 1;">0</div>
+              </div>
+            </div>
+
             <div id="cam-placeholder" style="text-align: center; color: var(--text-muted); padding: 40px 20px;">
               <div style="font-size: 48px; margin-bottom: 12px;">📷</div>
               <div style="font-size: 15px; color: var(--text-white); font-weight: bold; margin-bottom: 6px;">Tracking Cinématique MediaPipe Prêt</div>
@@ -8822,6 +8844,9 @@ function renderFullApplication(initialTab = "dashboard") {
       const mCount = document.getElementById('workout-rep-count');
       if (mCount) mCount.textContent = currentStepProgress + " / " + step.target + (step.unit === 's' ? 's' : '');
 
+      const hudRep = document.getElementById('hud-rep-counter');
+      if (hudRep) hudRep.textContent = currentStepProgress;
+
       const badge = document.getElementById('workout-posture-badge');
       if (badge) {
         if (currentStepProgress >= step.target) {
@@ -8918,12 +8943,374 @@ function renderFullApplication(initialTab = "dashboard") {
       );
     }
 
+    // =========================================================================
+    // MOTEUR CINÉMATIQUE MEDIAPIPE POSE & DUAL TRACKING SYSTEM
+    // =========================================================================
     let workoutCameraStream = null;
+    let mediapipePoseInstance = null;
+    let cvTrackingAnimFrame = null;
+    let isPoseInitialized = false;
+
+    // FSM State Variables for Push-Up Detection
+    let pushupFSMState = 'EXTENDED'; // 'EXTENDED', 'DESCENT', 'BOTTOM_PEAK', 'ASCENT'
+    let pushupArmed = false;
+    let lastRepTimestamp = 0;
+    let lastValidElbowAngle = 170;
+    let consecutiveFramesWithoutPose = 0;
+
+    // Optical Motion Fallback State (Offscreen downsampled canvas)
+    let opticalFallbackCanvas = null;
+    let opticalFallbackCtx = null;
+    let previousFrameData = null;
+    let opticalCentroidHistory = [];
+    let opticalDipArmed = false;
+
+    // Calcul de l'angle 3D/2D entre trois articulations : A (Épaule), B (Coude), C (Poignet)
+    function calculateJointAngleDeg(a, b, c) {
+      if (!a || !b || !c) return 180;
+      const v1x = a.x - b.x;
+      const v1y = a.y - b.y;
+      const v2x = c.x - b.x;
+      const v2y = c.y - b.y;
+
+      const dot = v1x * v2x + v1y * v2y;
+      const mag1 = Math.sqrt(v1x * v1x + v1y * v1y);
+      const mag2 = Math.sqrt(v2x * v2x + v2y * v2y);
+
+      if (mag1 * mag2 === 0) return 180;
+      let cosine = dot / (mag1 * mag2);
+      cosine = Math.max(-1, Math.min(1, cosine));
+      return Math.round((Math.acos(cosine) * 180) / Math.PI);
+    }
+
+    // Enregistrement d'une répétition validée (MediaPipe Pose ou Fallback Optique)
+    function registerSuccessfulRep(detectionSource = 'MediaPipe Pose') {
+      const now = Date.now();
+      if (now - lastRepTimestamp < 600) return; // Debounce anti double-comptage (600ms)
+      lastRepTimestamp = now;
+
+      // 1. Incrémenter la répétition via la logique unifiée du Workout
+      addManualRep();
+
+      // 2. Feedback Haptique & Audio (Chime 880Hz / La5)
+      playChime(880);
+
+      // 3. Feedback Visuel Card & HUD (Flash Néon Transcendant)
+      const card = document.querySelector('.workout-video-card');
+      if (card) {
+        card.style.boxShadow = '0 0 40px rgba(69, 223, 164, 0.9), inset 0 0 20px rgba(69, 223, 164, 0.4)';
+        setTimeout(() => {
+          if (card) card.style.boxShadow = '';
+        }, 400);
+      }
+
+      const hudRep = document.getElementById('hud-rep-counter');
+      if (hudRep) {
+        hudRep.style.transform = 'scale(1.35)';
+        hudRep.style.color = 'var(--neon-cyan)';
+        setTimeout(() => {
+          if (hudRep) {
+            hudRep.style.transform = 'scale(1)';
+            hudRep.style.color = 'var(--tertiary)';
+          }
+        }, 300);
+      }
+
+      const hudState = document.getElementById('hud-state-pill');
+      if (hudState) {
+        hudState.textContent = '✓ RÉPÉTITION VALIDÉE (' + detectionSource + ')';
+        hudState.style.borderColor = 'var(--tertiary)';
+        hudState.style.color = 'var(--tertiary)';
+      }
+    }
+
+    // Dessin du squelette holographique néon et des arcs articulaires
+    function drawHolographicSkeleton(ctx, landmarks, w, h, elbowAngle) {
+      if (!ctx || !landmarks) return;
+      ctx.clearRect(0, 0, w, h);
+
+      // Définition des connexions cinématiques clés (Torse + Bras + Tête)
+      const connections = [
+        [11, 12], // Épaule gauche - Épaule droite
+        [11, 23], // Épaule gauche - Hanche gauche
+        [12, 24], // Épaule droite - Hanche droite
+        [23, 24], // Hanche gauche - Hanche droite
+        [11, 13], // Épaule gauche - Coude gauche
+        [13, 15], // Coude gauche - Poignet gauche
+        [12, 14], // Épaule droite - Coude droite
+        [14, 16]  // Coude droit - Poignet droit
+      ];
+
+      // Couleur dynamique selon la profondeur de pompe
+      let strokeColor = '#00f0ff'; // Cyan par défaut
+      if (elbowAngle <= 85) {
+        strokeColor = '#45dfa4'; // Vert émeraude au point bas
+      } else if (elbowAngle < 135) {
+        strokeColor = '#ffb800'; // Or ambré en transition
+      }
+
+      // Tracé des lignes cinématiques luminescentes
+      ctx.save();
+      ctx.lineWidth = 3.5;
+      ctx.strokeStyle = strokeColor;
+      ctx.shadowColor = strokeColor;
+      ctx.shadowBlur = 10;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      connections.forEach(([i, j]) => {
+        const p1 = landmarks[i];
+        const p2 = landmarks[j];
+        if (p1 && p2 && (p1.visibility || 1) > 0.35 && (p2.visibility || 1) > 0.35) {
+          ctx.beginPath();
+          ctx.moveTo(p1.x * w, p1.y * h);
+          ctx.lineTo(p2.x * w, p2.y * h);
+          ctx.stroke();
+        }
+      });
+      ctx.restore();
+
+      // Dessin des articulations (sphères d'énergie néon)
+      const jointsToDraw = [11, 12, 13, 14, 15, 16, 23, 24];
+      jointsToDraw.forEach(idx => {
+        const pt = landmarks[idx];
+        if (pt && (pt.visibility || 1) > 0.35) {
+          const cx = pt.x * w;
+          const cy = pt.y * h;
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(cx, cy, (idx === 13 || idx === 14) ? 7 : 5, 0, 2 * Math.PI);
+          ctx.fillStyle = (idx === 13 || idx === 14) ? strokeColor : '#ffffff';
+          ctx.shadowColor = strokeColor;
+          ctx.shadowBlur = 12;
+          ctx.fill();
+          ctx.restore();
+        }
+      });
+
+      // Affichage de la jauge d'angle dynamique au coude actif
+      const leftElbow = landmarks[13];
+      const rightElbow = landmarks[14];
+      const activeElbow = (leftElbow && (leftElbow.visibility || 0) > ((rightElbow && rightElbow.visibility) || 0)) ? leftElbow : (rightElbow || leftElbow);
+      if (activeElbow && (activeElbow.visibility || 1) > 0.3) {
+        const ex = activeElbow.x * w;
+        const ey = activeElbow.y * h;
+        ctx.save();
+        ctx.font = 'bold 13px "JetBrains Mono", monospace';
+        ctx.fillStyle = strokeColor;
+        ctx.shadowColor = strokeColor;
+        ctx.shadowBlur = 8;
+        ctx.fillText(elbowAngle + '°', ex + 12, ey - 10);
+        ctx.restore();
+      }
+    }
+
+    // Machine d'état finie pour la validation des pompes
+    function processPosePushupFSM(landmarks, w, h) {
+      if (!landmarks || landmarks.length < 17) {
+        consecutiveFramesWithoutPose++;
+        return;
+      }
+      consecutiveFramesWithoutPose = 0;
+
+      // Détermination du bras le plus visible ou calcul moyen
+      const leftS = landmarks[11], leftE = landmarks[13], leftW = landmarks[15];
+      const rightS = landmarks[12], rightE = landmarks[14], rightW = landmarks[16];
+
+      const leftVis = ((leftS?.visibility || 0) + (leftE?.visibility || 0) + (leftW?.visibility || 0)) / 3;
+      const rightVis = ((rightS?.visibility || 0) + (rightE?.visibility || 0) + (rightW?.visibility || 0)) / 3;
+
+      let currentAngle = 180;
+      if (leftVis > 0.4 && rightVis > 0.4) {
+        const angleL = calculateJointAngleDeg(leftS, leftE, leftW);
+        const angleR = calculateJointAngleDeg(rightS, rightE, rightW);
+        currentAngle = Math.min(angleL, angleR); // Prendre le bras le plus fléchi
+      } else if (leftVis > 0.35) {
+        currentAngle = calculateJointAngleDeg(leftS, leftE, leftW);
+      } else if (rightVis > 0.35) {
+        currentAngle = calculateJointAngleDeg(rightS, rightE, rightW);
+      } else {
+        return; // Visibilité insuffisante
+      }
+
+      lastValidElbowAngle = currentAngle;
+
+      // Mise à jour de l'affichage HUD
+      const hudAngleText = document.getElementById('hud-angle-text');
+      const hudAnglePill = document.getElementById('hud-angle-pill');
+      const hudStatePill = document.getElementById('hud-state-pill');
+
+      if (hudAngleText) hudAngleText.textContent = 'COUDE : ' + currentAngle + '°';
+      if (hudAnglePill) {
+        if (currentAngle <= 85) {
+          hudAnglePill.style.borderColor = 'var(--tertiary)';
+          hudAnglePill.style.boxShadow = '0 0 16px rgba(69,223,164,0.6)';
+        } else if (currentAngle < 135) {
+          hudAnglePill.style.borderColor = 'var(--imperial-gold)';
+          hudAnglePill.style.boxShadow = '0 0 14px rgba(255,184,0,0.5)';
+        } else {
+          hudAnglePill.style.borderColor = 'var(--neon-cyan)';
+          hudAnglePill.style.boxShadow = '0 0 12px rgba(0,240,255,0.4)';
+        }
+      }
+
+      // Transition FSM Push-Up
+      // 1. EXTENDED (Lockout haut : >= 150°)
+      if (currentAngle >= 150) {
+        if (pushupArmed) {
+          // L'utilisateur est descendu sous 85° et remonte en extension complète !
+          registerSuccessfulRep('MediaPipe Pose');
+          pushupArmed = false;
+        }
+        pushupFSMState = 'EXTENDED';
+        if (hudStatePill) {
+          hudStatePill.textContent = 'STATUT : BRAS EN EXTENSION (PRÊT)';
+          hudStatePill.style.color = 'var(--neon-cyan)';
+        }
+      } 
+      // 2. DESCENT (Phase de descente : 86° à 149°)
+      else if (currentAngle < 150 && currentAngle > 85) {
+        if (pushupFSMState === 'EXTENDED' || pushupFSMState === 'DESCENT') {
+          pushupFSMState = 'DESCENT';
+          if (hudStatePill) {
+            hudStatePill.textContent = 'STATUT : DESCENTE EN COURS (' + currentAngle + '° → CIBLE ≤ 85°)';
+            hudStatePill.style.color = 'var(--imperial-gold)';
+          }
+        } else if (pushupArmed) {
+          pushupFSMState = 'ASCENT';
+          if (hudStatePill) {
+            hudStatePill.textContent = 'STATUT : REMONTÉE (VERROUILLEZ À ≥ 150°)';
+            hudStatePill.style.color = 'var(--neon-cyan)';
+          }
+        }
+      } 
+      // 3. BOTTOM_PEAK (Pic de contraction bas : <= 85°)
+      else if (currentAngle <= 85) {
+        pushupFSMState = 'BOTTOM_PEAK';
+        pushupArmed = true; // Répétition armée avec succès
+        if (hudStatePill) {
+          hudStatePill.textContent = 'STATUT : AMPLITUDE BASSE VALIDÉE (REMONTEZ !)';
+          hudStatePill.style.color = 'var(--transcendent-green)';
+        }
+      }
+    }
+
+    // Fallback Optique à Détection de Mouvement par Différenciation d'Images
+    function processOpticalFallback(video) {
+      if (!video || video.readyState < 2) return;
+      if (!opticalFallbackCanvas) {
+        opticalFallbackCanvas = document.createElement('canvas');
+        opticalFallbackCanvas.width = 160;
+        opticalFallbackCanvas.height = 120;
+        opticalFallbackCtx = opticalFallbackCanvas.getContext('2d', { willReadFrequently: true });
+      }
+
+      opticalFallbackCtx.drawImage(video, 0, 0, 160, 120);
+      const curFrame = opticalFallbackCtx.getImageData(0, 0, 160, 120);
+      const data = curFrame.data;
+
+      if (!previousFrameData) {
+        previousFrameData = data;
+        return;
+      }
+
+      let diffCount = 0;
+      let sumY = 0;
+      for (let i = 0; i < data.length; i += 4) {
+        const diff = Math.abs(data[i] - previousFrameData[i]) +
+                     Math.abs(data[i+1] - previousFrameData[i+1]) +
+                     Math.abs(data[i+2] - previousFrameData[i+2]);
+        if (diff > 75) {
+          const pixelIndex = i / 4;
+          const y = Math.floor(pixelIndex / 160);
+          sumY += y;
+          diffCount++;
+        }
+      }
+      previousFrameData = data;
+
+      // Si MediaPipe est absent ou ne détecte rien depuis > 10 frames
+      if (consecutiveFramesWithoutPose > 10 && diffCount > 400) {
+        const avgY = sumY / diffCount;
+        opticalCentroidHistory.push(avgY);
+        if (opticalCentroidHistory.length > 30) opticalCentroidHistory.shift();
+
+        const minY = Math.min(...opticalCentroidHistory);
+        const maxY = Math.max(...opticalCentroidHistory);
+        const delta = maxY - minY;
+
+        if (delta > 22 && avgY > maxY - 6) {
+          opticalDipArmed = true;
+          const hudState = document.getElementById('hud-state-pill');
+          if (hudState) hudState.textContent = 'STATUT : DESCENTE OPTIQUE DÉTECTÉE';
+        } else if (opticalDipArmed && avgY < minY + 6) {
+          registerSuccessfulRep('Capteur Optique');
+          opticalDipArmed = false;
+          opticalCentroidHistory = [];
+        }
+      }
+    }
+
+    // Boucle de rendu et de capture vidéo
+    function onPoseResults(results) {
+      const canvas = document.getElementById('workout-canvas');
+      const video = document.getElementById('webcam-video');
+      if (!canvas || !video) return;
+
+      const w = canvas.width = video.videoWidth || 640;
+      const h = canvas.height = video.videoHeight || 480;
+      const ctx = canvas.getContext('2d');
+
+      if (results && results.poseLandmarks) {
+        processPosePushupFSM(results.poseLandmarks, w, h);
+        drawHolographicSkeleton(ctx, results.poseLandmarks, w, h, lastValidElbowAngle);
+      } else {
+        consecutiveFramesWithoutPose++;
+        if (ctx) ctx.clearRect(0, 0, w, h);
+        processOpticalFallback(video);
+      }
+    }
+
+    async function initMediaPipePose() {
+      if (typeof window.Pose === 'undefined') {
+        console.warn('[CV] MediaPipe Pose non chargé depuis le CDN, fallback actif.');
+        return false;
+      }
+      try {
+        if (!mediapipePoseInstance) {
+          mediapipePoseInstance = new window.Pose({
+            locateFile: (file) => 'https://cdn.jsdelivr.net/npm/@mediapipe/pose/' + file
+          });
+
+          mediapipePoseInstance.setOptions({
+            modelComplexity: 1,
+            smoothLandmarks: true,
+            enableSegmentation: false,
+            minDetectionConfidence: 0.5,
+            minTrackingConfidence: 0.5
+          });
+
+          mediapipePoseInstance.onResults(onPoseResults);
+        }
+        isPoseInitialized = true;
+        return true;
+      } catch (err) {
+        console.error('[CV] Erreur initialisation MediaPipe:', err);
+        return false;
+      }
+    }
 
     function stopWorkoutCamera() {
       const video = document.getElementById('webcam-video');
+      const canvas = document.getElementById('workout-canvas');
+      const hud = document.getElementById('workout-live-hud');
       const placeholder = document.getElementById('cam-placeholder');
       const btn = document.getElementById('cam-toggle-btn');
+
+      if (cvTrackingAnimFrame) {
+        cancelAnimationFrame(cvTrackingAnimFrame);
+        cvTrackingAnimFrame = null;
+      }
 
       if (workoutCameraStream) {
         workoutCameraStream.getTracks().forEach((track) => {
@@ -8954,23 +9341,33 @@ function renderFullApplication(initialTab = "dashboard") {
         video.style.display = 'none';
       }
 
-      if (placeholder) {
-        placeholder.style.display = 'block';
+      if (canvas) {
+        canvas.style.display = 'none';
+        const ctx = canvas.getContext('2d');
+        if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
       }
+
+      if (hud) hud.style.display = 'none';
+      if (placeholder) placeholder.style.display = 'block';
 
       if (btn) {
         btn.textContent = '📷 ACTIVER CAMÉRA';
         btn.classList.remove('btn-danger');
       }
+
+      pushupArmed = false;
+      pushupFSMState = 'EXTENDED';
     }
 
-    function toggleCamera() {
+    async function toggleCamera() {
       playChime(523);
       const video = document.getElementById('webcam-video');
+      const canvas = document.getElementById('workout-canvas');
+      const hud = document.getElementById('workout-live-hud');
       const placeholder = document.getElementById('cam-placeholder');
       const btn = document.getElementById('cam-toggle-btn');
 
-      // Si la caméra est active (flux mémorisé ou vidéo visible), on la désactive
+      // Si la caméra est active, on l'éteint
       if (workoutCameraStream || (video && video.srcObject && video.style.display !== 'none')) {
         stopWorkoutCamera();
         showSysNotification(
@@ -8980,47 +9377,78 @@ function renderFullApplication(initialTab = "dashboard") {
         return;
       }
 
-      // Sinon, on active la caméra
+      // Activation de la caméra
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({
-          video: {
-            width: { ideal: 1280 },
-            height: { ideal: 720 },
-            facingMode: 'user'
-          }
-        })
-          .then((stream) => {
-            workoutCameraStream = stream;
-
-            // Détection automatique si l'utilisateur coupe la caméra depuis les paramètres système
-            stream.getTracks().forEach((track) => {
-              track.onended = () => {
-                stopWorkoutCamera();
-              };
-            });
-
-            if (video) {
-              video.srcObject = stream;
-              video.style.display = 'block';
-              video.play().catch(() => {});
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: {
+              width: { ideal: 1280 },
+              height: { ideal: 720 },
+              facingMode: 'user'
             }
-            if (placeholder) placeholder.style.display = 'none';
-            if (btn) {
-              btn.textContent = '⏹ DÉSACTIVER CAMÉRA';
-              btn.classList.add('btn-danger');
-            }
-            showSysNotification(
-              "📹 [CAMÉRA ACTIVE]",
-              "Flux cinématique MediaPipe connecté. Posture calibrée."
-            );
-          })
-          .catch((err) => {
-            stopWorkoutCamera();
-            showSysNotification(
-              "[CAMÉRA NON ACCESSIBLE]",
-              "Impossible de connecter la caméra physique (" + (err.message || 'accès refusé') + "). Utilisez le bouton manuel '+ 1 RÉPÉTITION' pour journaliser vos répétitions."
-            );
           });
+
+          workoutCameraStream = stream;
+
+          stream.getTracks().forEach((track) => {
+            track.onended = () => {
+              stopWorkoutCamera();
+            };
+          });
+
+          if (video) {
+            video.srcObject = stream;
+            video.style.display = 'block';
+            await video.play().catch(() => {});
+          }
+
+          if (canvas) canvas.style.display = 'block';
+          if (hud) hud.style.display = 'flex';
+          if (placeholder) placeholder.style.display = 'none';
+
+          if (btn) {
+            btn.textContent = '⏹ DÉSACTIVER CAMÉRA';
+            btn.classList.add('btn-danger');
+          }
+
+          // Initialisation MediaPipe Pose
+          await initMediaPipePose();
+
+          // Démarrage de la boucle cinématique continue
+          let isProcessing = false;
+          async function cvFrameLoop() {
+            if (!workoutCameraStream || !video || video.paused || video.ended) return;
+
+            if (mediapipePoseInstance && !isProcessing && video.readyState >= 2) {
+              isProcessing = true;
+              try {
+                await mediapipePoseInstance.send({ image: video });
+              } catch (err) {
+                // En cas d'erreur ponctuelle de trame, exécuter le fallback optique
+                processOpticalFallback(video);
+              } finally {
+                isProcessing = false;
+              }
+            } else if (!mediapipePoseInstance && video.readyState >= 2) {
+              processOpticalFallback(video);
+            }
+
+            cvTrackingAnimFrame = requestAnimationFrame(cvFrameLoop);
+          }
+
+          cvTrackingAnimFrame = requestAnimationFrame(cvFrameLoop);
+
+          showSysNotification(
+            "📹 [VISION ARTIFICIELLE ACTIVE]",
+            "MediaPipe Pose WebAssembly calibré. Angle coude en temps réel (Descente ≤ 85° → Extension ≥ 150°). Répétitions auto-validées."
+          );
+        } catch (err) {
+          stopWorkoutCamera();
+          showSysNotification(
+            "[CAMÉRA NON ACCESSIBLE]",
+            "Impossible de connecter la caméra physique (" + (err.message || 'accès refusé') + "). Vous pouvez utiliser le bouton manuel '+ 1 RÉPÉTITION'."
+          );
+        }
       } else {
         showSysNotification(
           "[API NON SUPPORTÉE]",
