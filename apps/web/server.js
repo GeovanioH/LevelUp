@@ -1066,6 +1066,753 @@ function getRadarPolygonPoints(bases) {
   return points.join(" ");
 }
 
+function renderLandingPage() {
+  return `<!DOCTYPE html>
+<html lang="fr" data-theme="dark-monarch">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEVELUP : THE SYSTEM — Portail d'Éveil & Connexion Souveraine</title>
+  <meta name="description" content="Le Système Solo Leveling appliqué au monde réel. Transformez votre discipline quotidienne, vos entraînements physiques par IA et vos apprentissages en progression de Monarque.">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    :root {
+      --bg-dark: #070312;
+      --bg-card: rgba(18, 10, 36, 0.78);
+      --neon-cyan: #00f0ff;
+      --primary: #00f0ff;
+      --secondary: #c084fc;
+      --gold: #ffd700;
+      --text-white: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --glass-border: rgba(0, 240, 255, 0.22);
+      --font-display: 'Orbitron', 'Cinzel Decorative', sans-serif;
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 50% 15%, rgba(147, 51, 234, 0.22) 0%, rgba(0, 240, 255, 0.1) 32%, transparent 70%),
+        linear-gradient(180deg, #090317 0%, #05020c 100%);
+      color: var(--text-white);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .landing-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 3, 18, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .nav-logo-box {
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.6));
+    }
+
+    .nav-logo-box svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .nav-brand-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #ffffff 0%, var(--neon-cyan) 60%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+
+    .nav-brand-sub {
+      font-size: 9.5px;
+      font-family: var(--font-mono);
+      color: var(--neon-cyan);
+      letter-spacing: 2px;
+      margin-top: 2px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-nav-guest {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      color: var(--neon-cyan);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 1px;
+      transition: all 0.25s ease;
+    }
+
+    .btn-nav-guest:hover {
+      background: rgba(0, 240, 255, 0.2);
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .landing-container {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      background: rgba(192, 132, 252, 0.12);
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      color: #e9d5ff;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      margin-bottom: 24px;
+      animation: pulseGlow 3s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 10px rgba(192, 132, 252, 0.2); }
+      100% { box-shadow: 0 0 25px rgba(0, 240, 255, 0.4); }
+    }
+
+    .hero-crest-wrapper {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 24px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-crest-ring {
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      border: 1px dashed rgba(0, 240, 255, 0.4);
+      animation: rotateRing 20s linear infinite;
+    }
+
+    @keyframes rotateRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .hero-crest-svg-box {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 22px rgba(0, 240, 255, 0.75));
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 5.5vw, 48px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
+      max-width: 900px;
+    }
+
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, #ffffff 10%, var(--neon-cyan) 50%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(14px, 2.2vw, 17px);
+      color: var(--text-secondary);
+      max-width: 740px;
+      line-height: 1.6;
+      margin-bottom: 36px;
+    }
+
+    .awakening-card {
+      width: 100%;
+      max-width: 540px;
+      background: var(--bg-card);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      border-radius: 16px;
+      padding: 32px 28px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.15);
+      position: relative;
+      margin-bottom: 60px;
+    }
+
+    .awakening-card::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 20%; right: 20%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--gold), transparent);
+    }
+
+    .card-header-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .card-heading {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-white);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .btn-awakening-google {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      padding: 15px 24px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #130b29 0%, #1e1240 100%);
+      border: 1.5px solid var(--neon-cyan);
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-size: 13.5px;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0, 240, 255, 0.25);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-bottom: 16px;
+    }
+
+    .btn-awakening-google:hover {
+      background: linear-gradient(135deg, #1e1240 0%, #2b1760 100%);
+      border-color: #ffffff;
+      box-shadow: 0 6px 30px rgba(0, 240, 255, 0.5), 0 0 15px rgba(255, 215, 0, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .btn-awakening-google svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+
+    .gis-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .divider-text {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-family: var(--font-mono);
+      letter-spacing: 1.5px;
+      margin: 18px 0;
+    }
+
+    .divider-text::before, .divider-text::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-awakening-guest {
+      display: block;
+      width: 100%;
+      padding: 12px 20px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #cbd5e1;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 1px;
+      transition: all 0.25s ease;
+    }
+
+    .btn-awakening-guest:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+    }
+
+    #landing-active-session {
+      display: none;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid var(--neon-cyan);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .pillars-heading {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      color: var(--text-white);
+    }
+
+    .pillars-sub {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 36px;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      width: 100%;
+      margin-bottom: 60px;
+      text-align: left;
+    }
+
+    .pillar-card {
+      background: rgba(14, 8, 30, 0.65);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(192, 132, 252, 0.18);
+      border-radius: 12px;
+      padding: 22px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pillar-card:hover {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 8px 30px rgba(0, 240, 255, 0.15);
+      transform: translateY(-3px);
+    }
+
+    .pillar-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 3px; height: 100%;
+      background: linear-gradient(180deg, var(--neon-cyan), var(--secondary));
+      opacity: 0.6;
+    }
+
+    .pillar-icon-box {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .pillar-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .pillar-desc {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .stat-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 32px;
+      padding: 20px 32px;
+      background: rgba(14, 8, 30, 0.8);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      margin-bottom: 50px;
+      width: 100%;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stat-val {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--neon-cyan);
+    }
+
+    .stat-lbl {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+
+    .landing-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 24px;
+      text-align: center;
+      font-size: 11.5px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      z-index: 1;
+      position: relative;
+    }
+
+    @media (max-width: 640px) {
+      .landing-nav { padding: 12px 16px; }
+      .awakening-card { padding: 24px 18px; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .stat-strip { gap: 20px; padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="landing-nav">
+    <a href="/landing" class="nav-brand">
+      <div class="nav-logo-box">
+        ${MONARCH_LOGO_SVG}
+      </div>
+      <div>
+        <div class="nav-brand-title">LEVELUP</div>
+        <div class="nav-brand-sub">THE SYSTEM SOUVERAIN</div>
+      </div>
+    </a>
+    <div class="nav-actions">
+      <a href="/dashboard" class="btn-nav-guest">
+        <span>ACCÉDER AU HUD (INVITÉ)</span>
+        <span>→</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="landing-container">
+    <div class="hero-badge">
+      <span>⚡</span>
+      <span>PROTOCOLE D'ÉVEIL DU MONARQUE • SYSTEM v3.3</span>
+    </div>
+
+    <div class="hero-crest-wrapper">
+      <div class="hero-crest-ring"></div>
+      <div class="hero-crest-svg-box">
+        ${MONARCH_LOGO_SVG}
+      </div>
+    </div>
+
+    <h1 class="hero-title">
+      TRANSFORMEZ VOTRE VIE RÉELLE EN <br>
+      <span class="gradient-text">RPG SOUVERAIN</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      <em>« Seul le Chasseur qui surmonte ses faiblesses s'élèvera au rang de Monarque. »</em><br>
+      Validez vos quêtes quotidiennes, entraînez-vous par Vision IA sans triche, verrouillez vos distractions à 22h et scellez votre identité au Système.
+    </p>
+
+    <div class="awakening-card">
+      <div class="card-header-tag">⚡ PORTAIL D'ÉVEIL & CONNEXION SÉCURISÉE</div>
+      <h2 class="card-heading">AUTORISATION & CONNEXION</h2>
+      <p class="card-desc">
+        Connectez votre compte Google officiel pour synchroniser instantanément votre progression, vos statistiques des 8 bases et vos Cristaux d'Ombres sur le Cloud.
+      </p>
+
+      <div id="landing-active-session">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <img id="session-avatar" src="/logo-monarch.svg" alt="Avatar" style="width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--neon-cyan); object-fit: cover;">
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-weight: 800; font-size: 14px; color: #fff;" id="session-name">Chasseur Éveillé</div>
+            <div style="font-size: 11.5px; color: var(--text-secondary); word-break: break-all;" id="session-email"></div>
+          </div>
+          <span style="font-size: 10px; font-family: var(--font-mono); padding: 2px 6px; border-radius: 4px; background: rgba(0, 240, 255, 0.2); color: var(--neon-cyan); border: 1px solid var(--neon-cyan);">SESSION ACTIVE</span>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <a href="/dashboard" class="btn-awakening-google" style="margin-bottom: 0; padding: 10px 16px; font-size: 12px; flex: 1;">
+            RETOURNER AU HUD SOUVERAIN →
+          </a>
+          <button onclick="logoutLandingSession()" style="background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #fca5a5; border-radius: 8px; padding: 0 14px; font-family: var(--font-mono); font-size: 11px; cursor: pointer;">
+            DÉCONNEXION
+          </button>
+        </div>
+      </div>
+
+      <div id="landing-unauth-actions">
+        <a href="/auth/google" class="btn-awakening-google" id="landing-google-btn">
+          <svg viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          S'ÉVEILLER AVEC GOOGLE (OAUTH 2.0)
+        </a>
+
+        <div class="gis-wrapper">
+          <div id="g_id_onload"
+               data-client_id="${GOOGLE_CLIENT_ID}"
+               data-context="signin"
+               data-ux_mode="popup"
+               data-callback="handleLandingGoogleResponse"
+               data-auto_prompt="false">
+          </div>
+          <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_black" data-text="signin_with" data-size="large" data-logo_alignment="left"></div>
+        </div>
+
+        <div class="divider-text">OU EXPLOREZ SANS COMPTE</div>
+
+        <a href="/dashboard" class="btn-awakening-guest">
+          EXPLORER LE SYSTÈME EN MODE INITIÉ (INVITÉ) →
+        </a>
+        <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; font-family: var(--font-mono);">
+          ⚡ Aucune inscription requise • Progression stockée localement
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat-item">
+        <div class="stat-val">48+</div>
+        <div class="stat-lbl">QUÊTES CALIBRÉES</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">8 / 8</div>
+        <div class="stat-lbl">BASES DE PROGRESSION</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">0.0 ms</div>
+        <div class="stat-lbl">LATENCE VISION IA LOCALE</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">AES-256</div>
+        <div class="stat-lbl">CHIFFREMENT SOUVERAIN</div>
+      </div>
+    </div>
+
+    <h2 class="pillars-heading">LES 6 PILIERS DU SYSTÈME SOUVERAIN</h2>
+    <p class="pillars-sub">Chaque module est conçu pour forger votre discipline et maximiser vos compétences réelles.</p>
+
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-icon-box">⚔️</div>
+        <div class="pillar-title">QUÊTES QUOTIDIENNES CALIBRÉES</div>
+        <div class="pillar-desc">
+          100 Pompes, 100 Abdos, 100 Squats, 10 km de course, sessions de Deep Work et restitutions orales en anglais C1 avec validation par preuve irréfutable.
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon-box">👁️</div>
+        <div class="pillar-title">COMPUTER VISION & POSE TRACKING</div>
+        <div class="pillar-desc">
+          L'IA MediaPipe analyse vos mouvements en temps réel par webcam, valide l'amplitude à 90° et affiche votre squelette holographique sans triche possible.
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon-box">🛡️</div>
+        <div class="pillar-title">VERROUILLAGE MONK MODE NEXTDNS</div>
+        <div class="pillar-desc">
+          Dès le couvre-feu de 22h00 dépassé avec des quêtes incomplètes, le Système engage le verrouillage strict de tous les réseaux et distracteurs au niveau DNS.
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon-box">🧠</div>
+        <div class="pillar-title">SECOND BRAIN & ALGORITHME SM-2</div>
+        <div class="pillar-desc">
+          Coffre de connaissances chiffré AES-256-GCM, répétition espacée active, fiches de révision et support complet des équations mathématiques LaTeX.
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon-box">⚖️</div>
+        <div class="pillar-title">SCORE HARMONIQUE SH & 8 BASES</div>
+        <div class="pillar-desc">
+          Votre progression globale est régie par la moyenne harmonique Sh de vos 8 piliers : négliger une seule base abaisse immédiatement l'ensemble de votre rang.
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon-box">💎</div>
+        <div class="pillar-title">BOUTIQUE DES OMBRES & RÉCOMPENSES</div>
+        <div class="pillar-desc">
+          Convertissez votre XP et vos Cristaux d'Ombres gagnés lors des quêtes en récompenses concrètes dans le catalogue de récompenses personnelles.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="landing-footer">
+    LEVELUP SYSTEM — THE MONARCH OPERATING SYSTEM v3.3.0 • INSPIRÉ DE SOLO LEVELING • TOUS DROITS RÉSERVÉS
+  </footer>
+
+  <script>
+    const STORAGE_KEY = 'LEVELUP_SYSTEM_STATE_V7_CLEAN_DYNAMIC_AUTH';
+
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const state = JSON.parse(saved);
+        if (state.player && state.player.authProvider === 'google' && state.player.email) {
+          const banner = document.getElementById('landing-active-session');
+          const nameEl = document.getElementById('session-name');
+          const emailEl = document.getElementById('session-email');
+          const avatarEl = document.getElementById('session-avatar');
+          if (banner) banner.style.display = 'block';
+          if (nameEl) nameEl.textContent = state.player.name || 'Chasseur Google';
+          if (emailEl) emailEl.textContent = state.player.email;
+          if (avatarEl && state.player.avatar) avatarEl.src = state.player.avatar;
+        }
+      }
+    } catch(e) {}
+
+    async function handleLandingGoogleResponse(response) {
+      if (!response || !response.credential) return;
+      try {
+        const res = await fetch('/api/v1/auth/google/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ credential: response.credential })
+        });
+        const data = await res.json();
+        if (data.success && data.user) {
+          let state = {};
+          try {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) state = JSON.parse(saved);
+          } catch(e) {}
+          if (!state.player) state.player = {};
+          state.player.id = data.user.id || ("usr-" + (data.user.sub ? data.user.sub.slice(-8) : "google"));
+          state.player.name = data.user.name;
+          state.player.email = data.user.email;
+          state.player.avatar = data.user.picture;
+          state.player.authProvider = 'google';
+          state.player.googleId = data.user.sub;
+          state.player.title = data.user.title || "Chasseur Éveillé (Rang E)";
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+          window.location.href = '/dashboard?auth=success&provider=google';
+        } else {
+          alert("Erreur de connexion Google : " + (data.error || "Échec de validation."));
+        }
+      } catch(err) {
+        console.error("Erreur Google Auth:", err);
+      }
+    }
+
+    async function logoutLandingSession() {
+      try {
+        await fetch('/api/v1/auth/logout', { method: 'POST' });
+      } catch(e) {}
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const state = JSON.parse(saved);
+          state.player.id = 'usr-guest-unawakened';
+          state.player.name = 'Chasseur Non Éveillé';
+          state.player.title = 'Initié Non Éveillé (Rang E)';
+          state.player.email = null;
+          state.player.avatar = null;
+          state.player.authProvider = null;
+          state.player.googleId = null;
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+      } catch(e) {}
+      const banner = document.getElementById('landing-active-session');
+      if (banner) banner.style.display = 'none';
+      window.location.reload();
+    }
+  </script>
+</body>
+</html>`;
+}
+
 function renderFullApplication(initialTab = "dashboard") {
   const player = SYSTEM_STATE.player;
   const harmonicScore = getHarmonicScore();
@@ -5956,13 +6703,7 @@ function renderFullApplication(initialTab = "dashboard") {
           </a>
         </div>
 
-        <div style="background: rgba(14, 8, 32, 0.7); border: 1px solid var(--glass-inner-border); border-radius: 8px; padding: 14px; font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">
-          <div style="display: flex; align-items: center; gap: 6px; color: var(--neon-cyan); font-family: var(--font-mono); font-weight: bold; margin-bottom: 4px;">
-            <span>ℹ️ GUIDE D'ACTIVATION CLÉ GOOGLE</span>
-          </div>
-          <div>Statut Clé : <strong id="modal-key-status">${GOOGLE_CLIENT_ID ? 'Configurée ✓' : 'En attente (Variables GOOGLE_CLIENT_ID / SECRET)'}</strong></div>
-          <div style="margin-top: 4px;">Renseignez <code>GOOGLE_CLIENT_ID</code> et <code>GOOGLE_CLIENT_SECRET</code> sur votre console Cloud & Render pour activer l'authentification officielle.</div>
-        </div>
+
       </div>
 
       <div id="auth-authenticated-view" style="display: none;">
@@ -10356,12 +11097,12 @@ const server = http.createServer(async (req, res) => {
                       SYSTEM_STATE.player.googleId = gSub;
                       SYSTEM_STATE.player.title = "Chasseur Éveillé (Rang E)";
 
-                      const destUrl = `/?auth=success&provider=google&name=${encodeURIComponent(gName)}&email=${encodeURIComponent(gEmail)}&picture=${encodeURIComponent(gPic)}&sub=${encodeURIComponent(gSub)}`;
+                      const destUrl = `/dashboard?auth=success&provider=google&name=${encodeURIComponent(gName)}&email=${encodeURIComponent(gEmail)}&picture=${encodeURIComponent(gPic)}&sub=${encodeURIComponent(gSub)}`;
                       res.writeHead(302, { Location: destUrl });
                       res.end();
                     } catch (_) {
                       res.writeHead(302, {
-                        Location: `/?auth=error&reason=USERINFO_PARSE_FAILED`,
+                        Location: `/login?auth=error&reason=USERINFO_PARSE_FAILED`,
                       });
                       res.end();
                     }
@@ -10370,13 +11111,13 @@ const server = http.createServer(async (req, res) => {
               )
               .on("error", () => {
                 res.writeHead(302, {
-                  Location: `/?auth=error&reason=USERINFO_NETWORK_ERROR`,
+                  Location: `/login?auth=error&reason=USERINFO_NETWORK_ERROR`,
                 });
                 res.end();
               });
           } catch (_) {
             res.writeHead(302, {
-              Location: `/?auth=error&reason=TOKEN_PARSE_FAILED`,
+              Location: `/login?auth=error&reason=TOKEN_PARSE_FAILED`,
             });
             res.end();
           }
@@ -10385,7 +11126,7 @@ const server = http.createServer(async (req, res) => {
     );
 
     tokenReq.on("error", () => {
-      res.writeHead(302, { Location: `/?auth=error&reason=TOKEN_REQUEST_ERROR` });
+      res.writeHead(302, { Location: `/login?auth=error&reason=TOKEN_REQUEST_ERROR` });
       res.end();
     });
 
@@ -10860,8 +11601,13 @@ const server = http.createServer(async (req, res) => {
   }
 
   // 3. Multi-Page HTML Routing
+  if (pathname === "/" || pathname === "/login" || pathname === "/welcome" || pathname === "/landing") {
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    res.end(renderLandingPage());
+    return;
+  }
+
   const routeTabMap = {
-    "/": "dashboard",
     "/dashboard": "dashboard",
     "/skills": "skills",
     "/quests": "quests",
@@ -10884,7 +11630,7 @@ const server = http.createServer(async (req, res) => {
   // Fallback 404
   res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
   res.end(
-    '<h1>404 - Protocole Système Non Trouvé</h1><p><a href="/">Retour au HUD Souverain</a></p>',
+    '<h1>404 - Protocole Système Non Trouvé</h1><p><a href="/dashboard">Retour au HUD Souverain</a> • <a href="/landing">Portail d\'Éveil</a></p>',
   );
 });
 
@@ -10900,5 +11646,6 @@ module.exports = {
   server,
   SYSTEM_STATE,
   getHarmonicScore,
+  renderLandingPage,
   renderFullApplication,
 };
