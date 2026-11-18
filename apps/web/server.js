@@ -124,6 +124,12 @@ const DEFAULT_STATE = {
     maxMp: 100,
     hoursAwake: 0.0,
     curfewTime: "22:00",
+    wakeTime: "06:00",
+    archetype: "HARMONIC_MONARCH",
+    targetGoal: "Excellence Globale (Score Sh >= 18)",
+    workoutLevel: "STANDARD_100",
+    deepWorkHours: 3,
+    onboardingCompleted: false,
     attributes: {
       str: 10,
       agi: 10,
@@ -1567,8 +1573,11 @@ function renderLandingPage() {
       </div>
     </a>
     <div class="nav-actions">
+      <a href="/onboarding" class="btn-nav-guest" style="border-color: rgba(255, 215, 0, 0.45); color: #ffd700;">
+        <span>⚙️ CALIBRER MON PROTOCOLE</span>
+      </a>
       <a href="/dashboard" class="btn-nav-guest">
-        <span>ACCÉDER AU HUD (INVITÉ)</span>
+        <span>ACCÉDER AU HUD</span>
         <span>→</span>
       </a>
     </div>
@@ -1621,6 +1630,11 @@ function renderLandingPage() {
             DÉCONNEXION
           </button>
         </div>
+        <div style="margin-top: 10px; text-align: center;">
+          <a href="/onboarding" style="font-size: 11.5px; color: #ffd700; text-decoration: underline; font-family: var(--font-mono); letter-spacing: 0.4px;">
+            ⚙️ Reconfigurer mon protocole & objectifs (Onboarding) →
+          </a>
+        </div>
       </div>
 
       <div id="landing-unauth-actions">
@@ -1649,6 +1663,9 @@ function renderLandingPage() {
 
         <a href="/dashboard" class="btn-awakening-guest">
           EXPLORER LE SYSTÈME EN MODE INITIÉ (INVITÉ) →
+        </a>
+        <a href="/onboarding" style="display: block; margin-top: 10px; font-size: 12px; color: var(--neon-cyan); text-decoration: underline; font-family: var(--font-mono); letter-spacing: 0.5px;">
+          ⚙️ Personnaliser mes objectifs & routine (Onboarding) →
         </a>
         <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; font-family: var(--font-mono);">
           ⚡ Aucune inscription requise • Progression stockée localement
@@ -1807,6 +1824,1064 @@ function renderLandingPage() {
       const banner = document.getElementById('landing-active-session');
       if (banner) banner.style.display = 'none';
       window.location.reload();
+    }
+  </script>
+</body>
+</html>`;
+}
+
+// Dynamic Circadian Planner Generator according to Hunter Onboarding
+function generateCustomPlannerBlocks(wakeTime, curfewTime, archetype, deepWorkHours) {
+  const [wH, wM] = (wakeTime || "06:00").split(":").map((v) => parseInt(v, 10) || 0);
+  const [cH, cM] = (curfewTime || "22:00").split(":").map((v) => parseInt(v, 10) || 0);
+  const dw = Math.min(Math.max(Number(deepWorkHours) || 3, 2), 6);
+
+  const pad = (n) => String(n).padStart(2, "0");
+  const addM = (h, m, mins) => {
+    let total = h * 60 + m + mins;
+    while (total < 0) total += 24 * 60;
+    total = total % (24 * 60);
+    return [Math.floor(total / 60), total % 60];
+  };
+  const fmt = (h, m) => `${pad(h)}:${pad(m)}`;
+  const range = (h1, m1, mins) => {
+    const [h2, m2] = addM(h1, m1, mins);
+    return `${fmt(h1, m1)} - ${fmt(h2, m2)}`;
+  };
+
+  const archTitles = {
+    AI_ENG: "🧠 Deep Work IA : LLMs, Kernels Triton & vLLM",
+    CYBER_SHADOW: "🛡️ Deep Work Cyber : Pentesting, Exploit & OSCP",
+    BERZERKER_STR: "🏋️ Deep Work Biomécanique & Volume Athlétique",
+    HARMONIC_MONARCH: "👑 Deep Work Monarque : Architecture IA & Cybersécurité",
+  };
+  const deepTitle = archTitles[archetype] || "🧠 Deep Work Focalisé";
+  const archBase = archetype === "CYBER_SHADOW" ? "CYBER" : (archetype === "BERZERKER_STR" ? "STR" : "AI_ENG");
+
+  const [sH, sM] = addM(wH, wM, 30);
+  const [pH, pM] = addM(sH, sM, 60);
+  const [dwH, dwM] = addM(pH, pM, 60);
+  const [lH, lM] = addM(dwH, dwM, dw * 60);
+  const [vH, vM] = addM(lH, lM, 60);
+  const [c2H, c2M] = addM(vH, vM, 45);
+  const [dH, dM] = addM(c2H, c2M, 90);
+  const [aH, aM] = addM(cH, cM, -60);
+
+  return [
+    {
+      id: "b1",
+      time: range(wH, wM, 30),
+      title: "🌅 Réveil, Hydratation & Protocole Éveil",
+      base: "DIS",
+      status: "ACTIVE",
+      type: "RITUEL",
+    },
+    {
+      id: "b2",
+      time: range(sH, sM, 60),
+      title: "💪 Séance Calisthénie Sung Jin-Woo (STR)",
+      base: "STR",
+      status: "UPCOMING",
+      type: "SPORT",
+    },
+    {
+      id: "b3",
+      time: range(pH, pM, 60),
+      title: "🚿 Nutrition & Restauration MP",
+      base: "DIS",
+      status: "UPCOMING",
+      type: "RITUEL",
+    },
+    {
+      id: "b4",
+      time: range(dwH, dwM, dw * 60),
+      title: deepTitle,
+      base: archBase,
+      status: "UPCOMING",
+      type: "DEEP_WORK",
+    },
+    {
+      id: "b5",
+      time: range(lH, lM, 60),
+      title: "🚶 Déjeuner & Marche Cognitive",
+      base: "EXP",
+      status: "UPCOMING",
+      type: "REST",
+    },
+    {
+      id: "b6",
+      time: range(vH, vM, 45),
+      title: "🎙️ Restitution Vocale & Clarté Conceptuelle",
+      base: "ACAD",
+      status: "UPCOMING",
+      type: "VOCAL",
+    },
+    {
+      id: "b7",
+      time: range(c2H, c2M, 90),
+      title: "🇬🇧 Listening & Active Recall Cambridge C1",
+      base: "LNG",
+      status: "UPCOMING",
+      type: "STUDY",
+    },
+    {
+      id: "b8",
+      time: range(dH, dM, 90),
+      title: "⚡ Développement Système & Projets Solos",
+      base: archBase,
+      status: "UPCOMING",
+      type: "DEV",
+    },
+    {
+      id: "b9",
+      time: range(aH, aM, 60),
+      title: "🌙 Bilan du Soir, Journaling & Revue Score Sh",
+      base: "DIS",
+      status: "UPCOMING",
+      type: "AUDIT",
+    },
+    {
+      id: "b10",
+      time: `${fmt(cH, cM)} - 05:00`,
+      title: "🔒 Couvre-Feu NextDNS & Sommeil Profond",
+      base: "DIS",
+      status: "UPCOMING",
+      type: "SLEEP",
+    },
+  ];
+}
+
+function renderOnboardingPage() {
+  return `<!DOCTYPE html>
+<html lang="fr" data-theme="dark-monarch">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEVELUP — Calibrage du Protocole d'Éveil (Onboarding)</title>
+  <meta name="description" content="Personnalisez vos objectifs de Chasseur, votre routine circadienne, votre intensité physique et vos plages de Deep Work dans The System.">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070312;
+      --bg-card: rgba(18, 10, 36, 0.85);
+      --neon-cyan: #00f0ff;
+      --primary: #00f0ff;
+      --secondary: #c084fc;
+      --gold: #ffd700;
+      --text-white: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --glass-border: rgba(0, 240, 255, 0.22);
+      --font-display: 'Orbitron', 'Cinzel Decorative', sans-serif;
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 50% 10%, rgba(147, 51, 234, 0.25) 0%, rgba(0, 240, 255, 0.1) 40%, transparent 75%),
+        linear-gradient(180deg, #090317 0%, #05020c 100%);
+      color: var(--text-white);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ob-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 3, 18, 0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .ob-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .ob-brand-title {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #ffffff 0%, var(--neon-cyan) 60%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .ob-progress-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto 0;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ob-progress-bar-bg {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 240, 255, 0.15);
+    }
+
+    .ob-progress-fill {
+      height: 100%;
+      width: 25%;
+      background: linear-gradient(90deg, var(--secondary), var(--neon-cyan), var(--gold));
+      box-shadow: 0 0 12px var(--neon-cyan);
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .ob-steps-tracker {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    .ob-step-chip.active {
+      color: var(--neon-cyan);
+      font-weight: 700;
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+    }
+
+    .ob-main {
+      flex: 1;
+      max-width: 840px;
+      width: 100%;
+      margin: 20px auto 60px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ob-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.1);
+      position: relative;
+    }
+
+    .step-section {
+      display: none;
+      animation: fadeIn 0.35s ease;
+    }
+
+    .step-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-header-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--neon-cyan);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .form-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 8px;
+      background: rgba(14, 8, 30, 0.85);
+      border: 1.5px solid rgba(0, 240, 255, 0.3);
+      color: #ffffff;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      transition: all 0.25s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+
+    .option-card {
+      background: rgba(14, 8, 30, 0.7);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 18px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .option-card:hover {
+      border-color: rgba(0, 240, 255, 0.5);
+      background: rgba(0, 240, 255, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .option-card.selected {
+      border-color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.12);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
+    }
+
+    .option-card.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      color: var(--neon-cyan);
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .option-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .option-title {
+      font-family: var(--font-display);
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .option-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .pills-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill-btn {
+      padding: 10px 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .pill-btn:hover {
+      background: rgba(0, 240, 255, 0.1);
+      border-color: var(--neon-cyan);
+    }
+
+    .pill-btn.selected {
+      background: rgba(0, 240, 255, 0.25);
+      border-color: var(--neon-cyan);
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+      font-weight: 700;
+    }
+
+    .ob-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-ob {
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s ease;
+    }
+
+    .btn-ob-prev {
+      background: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-ob-prev:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    .btn-ob-next {
+      background: linear-gradient(135deg, #00f0ff 0%, #9333ea 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 240, 255, 0.35);
+    }
+
+    .btn-ob-next:hover {
+      box-shadow: 0 6px 30px rgba(0, 240, 255, 0.55);
+      transform: translateY(-1px);
+    }
+
+    .btn-ob-seal {
+      background: linear-gradient(135deg, #ffd700 0%, #f59e0b 100%);
+      color: #070312;
+      font-weight: 900;
+      box-shadow: 0 4px 25px rgba(255, 215, 0, 0.45);
+    }
+
+    .btn-ob-seal:hover {
+      box-shadow: 0 6px 35px rgba(255, 215, 0, 0.7);
+      transform: translateY(-2px);
+    }
+
+    .summary-card {
+      background: rgba(0, 240, 255, 0.04);
+      border: 1px solid var(--neon-cyan);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 13px;
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+    }
+
+    .summary-label {
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .summary-value {
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    @media (max-width: 640px) {
+      .ob-card { padding: 24px 18px; }
+      .options-grid { grid-template-columns: 1fr; }
+      .pills-group { gap: 6px; }
+      .pill-btn { padding: 8px 12px; font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="ob-nav">
+    <a href="/landing" class="ob-brand">
+      <div style="width: 32px; height: 32px;">
+        ${MONARCH_LOGO_SVG}
+      </div>
+      <div class="ob-brand-title">LEVELUP</div>
+    </a>
+    <div style="font-family: var(--font-mono); font-size: 12px; color: var(--neon-cyan);">
+      ÉTAPE <span id="nav-step-num">1</span> / 4
+    </div>
+    <a href="/dashboard" style="color: var(--text-muted); font-size: 11px; text-decoration: none; font-family: var(--font-mono);">
+      PASSER LE CALIBRAGE →
+    </a>
+  </header>
+
+  <div class="ob-progress-container">
+    <div class="ob-progress-bar-bg">
+      <div class="ob-progress-fill" id="ob-progress"></div>
+    </div>
+    <div class="ob-steps-tracker">
+      <span class="ob-step-chip active" id="chip-1">1. IDENTITÉ</span>
+      <span class="ob-step-chip" id="chip-2">2. OBJECTIFS</span>
+      <span class="ob-step-chip" id="chip-3">3. ROUTINE</span>
+      <span class="ob-step-chip" id="chip-4">4. SCELLEMENT</span>
+    </div>
+  </div>
+
+  <main class="ob-main">
+    <div class="ob-card">
+      <!-- STEP 1 -->
+      <section class="step-section active" id="step-1">
+        <div class="step-header-tag">⚡ ÉTAPE 1 • ÉVEIL DU CHASSEUR</div>
+        <h1 class="step-title">IDENTITÉ & SPÉCIALISATION</h1>
+        <p class="step-desc">Définissez votre nom de code dans The System et choisissez l'archétype régissant vos stats prioritaires.</p>
+
+        <div class="form-group">
+          <label class="form-label" for="input-hunter-name">NOM DU CHASSEUR / PSEUDO</label>
+          <input type="text" id="input-hunter-name" class="form-input" placeholder="Ex: Sung Jin-Woo, Alex, Monarch_X..." maxlength="30">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">TITRE INITIAL DE L'ÉVEIL</label>
+          <div class="pills-group" id="title-pills">
+            <button type="button" class="pill-btn selected" data-value="L'Éveillé Novice (Rang E)">👑 L'Éveillé Novice (Rang E)</button>
+            <button type="button" class="pill-btn" data-value="L'Ombre Déterminée">⚔️ L'Ombre Déterminée</button>
+            <button type="button" class="pill-btn" data-value="L'Architecte de Code & IA">🧠 L'Architecte de Code & IA</button>
+            <button type="button" class="pill-btn" data-value="La Sentinelle Inflexible">🛡️ La Sentinelle Inflexible</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">ARCHÉTYPE MAJEUR DE PROGRESSION</label>
+          <div class="options-grid" id="archetype-options">
+            <div class="option-card selected" data-value="HARMONIC_MONARCH">
+              <div class="option-icon">👑</div>
+              <div class="option-title">MONARQUE HARMONIQUE</div>
+              <div class="option-desc">Équilibre absolu des 8 bases (Score Sh). Développement simultané du corps, du code et de l'esprit.</div>
+            </div>
+            <div class="option-card" data-value="AI_ENG">
+              <div class="option-icon">🤖</div>
+              <div class="option-title">NÉCROMANCIEN DE L'IA</div>
+              <div class="option-desc">Spécialiste Transformers, Deep Work intensif, Hackathons et mathématiques appliquées (AI_ENG/ACAD).</div>
+            </div>
+            <div class="option-card" data-value="CYBER_SHADOW">
+              <div class="option-icon">🛡️</div>
+              <div class="option-title">INFILTRATEUR CYBER</div>
+              <div class="option-desc">Offensive Security, TryHackMe, Buffer Overflows et discipline de fer en Monk Mode (CYBER/DIS).</div>
+            </div>
+            <div class="option-card" data-value="BERZERKER_STR">
+              <div class="option-icon">⚔️</div>
+              <div class="option-title">BERSERKER CALISTHÉNIQUE</div>
+              <div class="option-desc">Force pure, pompes explosives, tractions strictes et condition physique sans concession (STR/DIS).</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 2 -->
+      <section class="step-section" id="step-2">
+        <div class="step-header-tag">🎯 ÉTAPE 2 • OBJECTIFS DE GUERRE</div>
+        <h1 class="step-title">OBJECTIF PRIORITAIRE & INTENSITÉ</h1>
+        <p class="step-desc">Fixez votre cible principale actuelle et le niveau d'intensité de votre quête physique quotidienne.</p>
+
+        <div class="form-group">
+          <label class="form-label" for="input-target-goal">OBJECTIF MAJEUR ACTUEL</label>
+          <input type="text" id="input-target-goal" class="form-input" placeholder="Ex: Admis en Concours, Lancer mon SaaS IA, Passer OSCP...">
+          <div class="pills-group" style="margin-top: 10px;" id="goal-suggestions">
+            <button type="button" class="pill-btn" data-goal="Gagner un Hackathon IA & Lancer un Produit">🤖 Hackathon IA</button>
+            <button type="button" class="pill-btn" data-goal="Certification Cybersécurité Offensive (OSCP)">🛡️ Certif OSCP Cyber</button>
+            <button type="button" class="pill-btn" data-goal="100 Pompes strictes & Maîtrise Calisthénie">⚔️ 100 Pompes Strictes</button>
+            <button type="button" class="pill-btn" data-goal="Anglais C1/C2 Cambridge & Restitution Orale">🎙️ Anglais C1/C2</button>
+            <button type="button" class="pill-btn" data-goal="Admission Concours / Grande École">🎓 Concours d'Élite</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">CALIBRAGE DE LA QUÊTE PHYSIQUE QUOTIDIENNE</label>
+          <div class="options-grid" id="workout-options">
+            <div class="option-card" data-value="NOVICE_30">
+              <div class="option-icon">🟢</div>
+              <div class="option-title">INITIÉ (RANG E)</div>
+              <div class="option-desc">30 Pompes, 30 Abdos, 30 Squats, 3 km de course. Idéal pour construire une régularité indestructible.</div>
+            </div>
+            <div class="option-card selected" data-value="STANDARD_100">
+              <div class="option-icon">🔵</div>
+              <div class="option-title">SUNG JIN-WOO (CANON)</div>
+              <div class="option-desc">100 Pompes, 100 Abdos, 100 Squats, 10 km. L'entraînement légendaire du Monarque des Ombres.</div>
+            </div>
+            <div class="option-card" data-value="MONARCH_150">
+              <div class="option-icon">🟡</div>
+              <div class="option-title">MONARQUE ABSOLU (RANG S)</div>
+              <div class="option-desc">150 Pompes strictes, 150 Abdos, 150 Squats, 15 km. Réservé aux Chasseurs d'élite aguerris.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 3 -->
+      <section class="step-section" id="step-3">
+        <div class="step-header-tag">⏰ ÉTAPE 3 • CADENCE CIRCADIENNE</div>
+        <h1 class="step-title">ROUTINE & MONK MODE NEXTDNS</h1>
+        <p class="step-desc">Configurez vos heures de réveil et de couvre-feu. Le Time-Planner et le pare-feu NextDNS s'ajusteront automatiquement.</p>
+
+        <div class="form-group">
+          <label class="form-label">HEURE DE RÉVEIL MATINAL</label>
+          <div class="pills-group" id="wake-pills">
+            <button type="button" class="pill-btn" data-time="05:30">05:30 (Aube)</button>
+            <button type="button" class="pill-btn selected" data-time="06:00">06:00 (Standard)</button>
+            <button type="button" class="pill-btn" data-time="06:30">06:30</button>
+            <button type="button" class="pill-btn" data-time="07:00">07:00</button>
+            <button type="button" class="pill-btn" data-time="08:00">08:00</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">HEURE DU COUVRE-FEU / MONK MODE (NEXTDNS CURFEW)</label>
+          <div class="pills-group" id="curfew-pills">
+            <button type="button" class="pill-btn" data-time="21:30">21:30</button>
+            <button type="button" class="pill-btn selected" data-time="22:00">22:00 (Recommandé)</button>
+            <button type="button" class="pill-btn" data-time="22:30">22:30</button>
+            <button type="button" class="pill-btn" data-time="23:00">23:00</button>
+          </div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px; font-family: var(--font-mono);">
+            🛡️ À cette heure, les distracteurs et réseaux sont automatiquement coupés si vos quêtes ne sont pas achevées.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">VOLUME QUOTIDIEN DE DEEP WORK CONCENTRÉ</label>
+          <div class="pills-group" id="deepwork-pills">
+            <button type="button" class="pill-btn" data-hours="2">2 Heures</button>
+            <button type="button" class="pill-btn selected" data-hours="3">3 Heures (Équilibré)</button>
+            <button type="button" class="pill-btn" data-hours="4">4 Heures (Intensif)</button>
+            <button type="button" class="pill-btn" data-hours="6">6 Heures (Monk Mode)</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 4 -->
+      <section class="step-section" id="step-4">
+        <div class="step-header-tag">📜 ÉTAPE 4 • SERMENT DU SOUVERAIN</div>
+        <h1 class="step-title">SCELLEMENT DU PROTOCOLE</h1>
+        <p class="step-desc">Vérifiez vos paramètres de calibrage. Cliquez sur le bouton ci-dessous pour lier irrévocablement votre Système.</p>
+
+        <div class="summary-card">
+          <div class="summary-row">
+            <span class="summary-label">CHASSEUR & TITRE :</span>
+            <span class="summary-value" id="sum-name">Chasseur Éveillé</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">ARCHÉTYPE CHOISI :</span>
+            <span class="summary-value" id="sum-archetype">Monarque Harmonique</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">OBJECTIF PRIORITAIRE :</span>
+            <span class="summary-value" id="sum-goal">Excellence Globale</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">ENTRAÎNEMENT PHYSIQUE :</span>
+            <span class="summary-value" id="sum-workout">100 Pompes, Abdos, Squats (10km)</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">ROUTINE CIRCADIENNE :</span>
+            <span class="summary-value" id="sum-routine">06:00 → 22:00 (NextDNS Actif)</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">DEEP WORK QUOTIDIEN :</span>
+            <span class="summary-value" id="sum-deepwork">3 Heures Bloquées</span>
+          </div>
+        </div>
+
+        <div style="background: rgba(147, 51, 234, 0.1); border: 1px solid rgba(192, 132, 252, 0.3); border-radius: 10px; padding: 16px; margin-bottom: 24px; font-size: 12px; color: #e9d5ff; line-height: 1.5; text-align: left;">
+          ⚔️ <strong>Avertissement du Système :</strong><br>
+          <em>« En confirmant ce calibrage, vous acceptez que le Système évalue vos accomplissements quotidiens sans complaisance. Tout échec entraînera l'application des pénalités NextDNS jusqu'à régularisation. »</em>
+        </div>
+      </section>
+
+      <!-- Actions -->
+      <div class="ob-actions">
+        <button type="button" class="btn-ob btn-ob-prev" id="btn-prev" onclick="goToStep(currentStep - 1)" style="visibility: hidden;">
+          ← PRÉCÉDENT
+        </button>
+        <button type="button" class="btn-ob btn-ob-next" id="btn-next" onclick="goToStep(currentStep + 1)">
+          SUIVANT →
+        </button>
+        <button type="button" class="btn-ob btn-ob-seal" id="btn-seal" onclick="finishOnboarding()" style="display: none;">
+          SCELLER MON PROTOCOLE ⚔️
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const STORAGE_KEY = 'LEVELUP_SYSTEM_STATE_V7_CLEAN_DYNAMIC_AUTH';
+    let currentStep = 1;
+
+    const config = {
+      name: 'Chasseur Éveillé',
+      title: "L'Éveillé Novice (Rang E)",
+      archetype: 'HARMONIC_MONARCH',
+      targetGoal: 'Excellence Globale & Réussite aux Concours',
+      workoutLevel: 'STANDARD_100',
+      wakeTime: '06:00',
+      curfewTime: '22:00',
+      deepWorkHours: 3
+    };
+
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const state = JSON.parse(saved);
+        if (state.player) {
+          if (state.player.name && state.player.name !== 'Chasseur Non Éveillé') config.name = state.player.name;
+          if (state.player.title) config.title = state.player.title;
+          if (state.player.curfewTime) config.curfewTime = state.player.curfewTime;
+          if (state.player.wakeTime) config.wakeTime = state.player.wakeTime;
+          if (state.player.archetype) config.archetype = state.player.archetype;
+          if (state.player.targetGoal) config.targetGoal = state.player.targetGoal;
+          if (state.player.workoutLevel) config.workoutLevel = state.player.workoutLevel;
+        }
+      }
+    } catch(e) {}
+
+    const inputName = document.getElementById('input-hunter-name');
+    if (inputName) inputName.value = config.name;
+    const inputGoal = document.getElementById('input-target-goal');
+    if (inputGoal) inputGoal.value = config.targetGoal;
+
+    document.querySelectorAll('#archetype-options .option-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('#archetype-options .option-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        config.archetype = card.getAttribute('data-value');
+        playChime(659);
+      });
+    });
+
+    document.querySelectorAll('#workout-options .option-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('#workout-options .option-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        config.workoutLevel = card.getAttribute('data-value');
+        playChime(784);
+      });
+    });
+
+    document.querySelectorAll('#title-pills .pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#title-pills .pill-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        config.title = btn.getAttribute('data-value');
+        playChime(587);
+      });
+    });
+
+    document.querySelectorAll('#wake-pills .pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#wake-pills .pill-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        config.wakeTime = btn.getAttribute('data-time');
+        playChime(523);
+      });
+    });
+
+    document.querySelectorAll('#curfew-pills .pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#curfew-pills .pill-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        config.curfewTime = btn.getAttribute('data-time');
+        playChime(523);
+      });
+    });
+
+    document.querySelectorAll('#deepwork-pills .pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#deepwork-pills .pill-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        config.deepWorkHours = parseInt(btn.getAttribute('data-hours'), 10);
+        playChime(659);
+      });
+    });
+
+    document.querySelectorAll('#goal-suggestions .pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const g = btn.getAttribute('data-goal');
+        if (inputGoal) inputGoal.value = g;
+        config.targetGoal = g;
+        playChime(784);
+      });
+    });
+
+    function goToStep(step) {
+      if (step < 1 || step > 4) return;
+      playChime(523 + step * 80);
+
+      if (inputName && inputName.value.trim()) config.name = inputName.value.trim();
+      if (inputGoal && inputGoal.value.trim()) config.targetGoal = inputGoal.value.trim();
+
+      currentStep = step;
+
+      const progressPercent = (currentStep / 4) * 100;
+      document.getElementById('ob-progress').style.width = progressPercent + '%';
+      document.getElementById('nav-step-num').textContent = currentStep;
+
+      for (let i = 1; i <= 4; i++) {
+        const chip = document.getElementById('chip-' + i);
+        if (chip) {
+          if (i <= currentStep) chip.classList.add('active');
+          else chip.classList.remove('active');
+        }
+      }
+
+      document.querySelectorAll('.step-section').forEach((sec, idx) => {
+        if (idx + 1 === currentStep) sec.classList.add('active');
+        else sec.classList.remove('active');
+      });
+
+      const btnPrev = document.getElementById('btn-prev');
+      const btnNext = document.getElementById('btn-next');
+      const btnSeal = document.getElementById('btn-seal');
+
+      btnPrev.style.visibility = (currentStep === 1) ? 'hidden' : 'visible';
+
+      if (currentStep === 4) {
+        btnNext.style.display = 'none';
+        btnSeal.style.display = 'block';
+        updateSummaryView();
+      } else {
+        btnNext.style.display = 'block';
+        btnSeal.style.display = 'none';
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateSummaryView() {
+      const archLabels = {
+        'HARMONIC_MONARCH': 'Monarque Harmonique (8 Bases Sh)',
+        'AI_ENG': "Nécromancien de l'IA (AI_ENG / ACAD)",
+        'CYBER_SHADOW': 'Infiltrateur Cybersécurité (CYBER / DIS)',
+        'BERZERKER_STR': 'Berserker Calisthénique (STR / DIS)'
+      };
+
+      const workoutLabels = {
+        'NOVICE_30': 'Initié (30 Pompes / Abdos / Squats • 3 km)',
+        'STANDARD_100': 'Sung Jin-Woo (100 Pompes / Abdos / Squats • 10 km)',
+        'MONARCH_150': 'Monarque Absolu (150 Pompes / Abdos / Squats • 15 km)'
+      };
+
+      document.getElementById('sum-name').textContent = config.name + " (" + config.title + ")";
+      document.getElementById('sum-archetype').textContent = archLabels[config.archetype] || config.archetype;
+      document.getElementById('sum-goal').textContent = config.targetGoal;
+      document.getElementById('sum-workout').textContent = workoutLabels[config.workoutLevel] || config.workoutLevel;
+      document.getElementById('sum-routine').textContent = config.wakeTime + " → " + config.curfewTime + " (NextDNS Actif)";
+      document.getElementById('sum-deepwork').textContent = config.deepWorkHours + " Heures de Deep Work Bloquées";
+    }
+
+    async function finishOnboarding() {
+      playFanfare();
+      const btnSeal = document.getElementById('btn-seal');
+      btnSeal.disabled = true;
+      btnSeal.textContent = "SCELLEMENT EN COURS...";
+
+      try {
+        let state = {};
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) state = JSON.parse(saved);
+        if (!state.player) state.player = {};
+
+        state.player.name = config.name;
+        state.player.title = config.title;
+        state.player.curfewTime = config.curfewTime;
+        state.player.wakeTime = config.wakeTime;
+        state.player.archetype = config.archetype;
+        state.player.targetGoal = config.targetGoal;
+        state.player.workoutLevel = config.workoutLevel;
+        state.player.deepWorkHours = config.deepWorkHours;
+        state.onboardingCompleted = true;
+
+        if (Array.isArray(state.quests)) {
+          const fitQ = state.quests.find(q => q.id === 'q-fit-sungjinwoo');
+          if (fitQ) {
+            if (config.workoutLevel === 'NOVICE_30') {
+              fitQ.description = "30 Pompes militaires, 30 Abdos, 30 Squats et 3 km de course.";
+              fitQ.xp = 100;
+            } else if (config.workoutLevel === 'MONARCH_150') {
+              fitQ.description = "150 Pompes militaires strictes, 150 Abdos d'acier, 150 Squats explosifs et 15 km de course.";
+              fitQ.xp = 300;
+            } else {
+              fitQ.description = "100 Pompes militaires, 100 Abdos d'acier, 100 Squats explosifs et 10 km de course.";
+              fitQ.xp = 200;
+            }
+          }
+        }
+
+        // Dynamic Planner Blocks generation for client storage
+        try {
+          const pad = (n) => String(n).padStart(2, "0");
+          const addM = (h, m, mins) => {
+            let total = h * 60 + m + mins;
+            while (total < 0) total += 24 * 60;
+            total = total % (24 * 60);
+            return [Math.floor(total / 60), total % 60];
+          };
+          const fmt = (h, m) => pad(h) + ":" + pad(m);
+          const range = (h1, m1, mins) => {
+            const [h2, m2] = addM(h1, m1, mins);
+            return fmt(h1, m1) + " - " + fmt(h2, m2);
+          };
+          const [wH, wM] = (config.wakeTime || "06:00").split(":").map(Number);
+          const [cH, cM] = (config.curfewTime || "22:00").split(":").map(Number);
+          const dw = Math.min(Math.max(Number(config.deepWorkHours) || 3, 2), 6);
+          const archTitles = {
+            AI_ENG: "🧠 Deep Work IA : LLMs, Kernels Triton & vLLM",
+            CYBER_SHADOW: "🛡️ Deep Work Cyber : Pentesting, Exploit & OSCP",
+            BERZERKER_STR: "🏋️ Deep Work Biomécanique & Volume Athlétique",
+            HARMONIC_MONARCH: "👑 Deep Work Monarque : Architecture IA & Cybersécurité"
+          };
+          const deepTitle = archTitles[config.archetype] || "🧠 Deep Work Focalisé";
+          const archBase = config.archetype === "CYBER_SHADOW" ? "CYBER" : (config.archetype === "BERZERKER_STR" ? "STR" : "AI_ENG");
+          const [sH, sM] = addM(wH, wM, 30);
+          const [pH, pM] = addM(sH, sM, 60);
+          const [dwH, dwM] = addM(pH, pM, 60);
+          const [lH, lM] = addM(dwH, dwM, dw * 60);
+          const [vH, vM] = addM(lH, lM, 60);
+          const [c2H, c2M] = addM(vH, vM, 45);
+          const [dH, dM] = addM(c2H, c2M, 90);
+          const [aH, aM] = addM(cH, cM, -60);
+
+          state.plannerBlocks = [
+            { id: "b1", time: range(wH, wM, 30), title: "🌅 Réveil, Hydratation & Protocole Éveil", base: "DIS", status: "ACTIVE", type: "RITUEL" },
+            { id: "b2", time: range(sH, sM, 60), title: "💪 Séance Calisthénie Sung Jin-Woo (STR)", base: "STR", status: "UPCOMING", type: "SPORT" },
+            { id: "b3", time: range(pH, pM, 60), title: "🚿 Nutrition & Restauration MP", base: "DIS", status: "UPCOMING", type: "RITUEL" },
+            { id: "b4", time: range(dwH, dwM, dw * 60), title: deepTitle, base: archBase, status: "UPCOMING", type: "DEEP_WORK" },
+            { id: "b5", time: range(lH, lM, 60), title: "🚶 Déjeuner & Marche Cognitive", base: "EXP", status: "UPCOMING", type: "REST" },
+            { id: "b6", time: range(vH, vM, 45), title: "🎙️ Restitution Vocale & Clarté Conceptuelle", base: "ACAD", status: "UPCOMING", type: "VOCAL" },
+            { id: "b7", time: range(c2H, c2M, 90), title: "🇬🇧 Listening & Active Recall Cambridge C1", base: "LNG", status: "UPCOMING", type: "STUDY" },
+            { id: "b8", time: range(dH, dM, 90), title: "⚡ Développement Système & Projets Solos", base: archBase, status: "UPCOMING", type: "DEV" },
+            { id: "b9", time: range(aH, aM, 60), title: "🌙 Bilan du Soir, Journaling & Revue Score Sh", base: "DIS", status: "UPCOMING", type: "AUDIT" },
+            { id: "b10", time: fmt(cH, cM) + " - 05:00", title: "🔒 Couvre-Feu NextDNS & Sommeil Profond", base: "DIS", status: "UPCOMING", type: "SLEEP" }
+          ];
+        } catch(e) {
+          console.warn("Planner blocks dynamic build warning:", e);
+        }
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch(e) {
+        console.warn("Storage update warning:", e);
+      }
+
+      try {
+        await fetch('/api/v1/onboarding', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(config)
+        });
+      } catch(e) {
+        console.warn("Backend sync notice:", e);
+      }
+
+      setTimeout(() => {
+        window.location.href = '/dashboard?onboarding=complete';
+      }, 700);
+    }
+
+    function playChime(freq = 523.25) {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.5, ctx.currentTime + 0.12);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.28);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.28);
+      } catch(e) {}
+    }
+
+    function playFanfare() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          const startTime = ctx.currentTime + idx * 0.12;
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, startTime);
+          gain.gain.setValueAtTime(0.25, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.4);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(startTime);
+          osc.stop(startTime + 0.4);
+        });
+      } catch(e) {}
     }
   </script>
 </body>
@@ -5065,6 +6140,12 @@ function renderFullApplication(initialTab = "dashboard") {
           </svg>
           <span id="header-auth-label">${player.authProvider === 'google' && player.email ? player.name.split(' ')[0].toUpperCase() : 'CONNEXION GOOGLE'}</span>
         </button>
+
+        <!-- Onboarding Customization Button -->
+        <a href="/onboarding" class="btn-cyber btn-gold" style="padding: 4px 10px; font-size: 11px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; height: 28px;" title="Personnaliser les objectifs, la routine et l'archétype">
+          <span>⚙️</span>
+          <span>ONBOARDING</span>
+        </a>
 
         <div class="header-stat-item" title="Horloge Système">
           <span class="stat-icon">🕒</span>
@@ -10872,6 +11953,16 @@ function renderFullApplication(initialTab = "dashboard") {
             "La tentative de connexion a échoué : " + reason
           );
         }, 600);
+      } else if (urlP.get('onboarding') === 'complete') {
+        window.history.replaceState({}, document.title, window.location.pathname);
+        setTimeout(() => {
+          showSysNotification(
+            "👑 [CALIBRAGE PROTOCOLE SCELLÉ]",
+            "Félicitations, Chasseur <strong>" + (state.player.name || '') + "</strong> !<br>Vos objectifs, votre routine circadienne (Réveil <strong>" + (state.player.wakeTime || '06:00') + "</strong> ➔ Couvre-feu <strong>" + (state.player.curfewTime || '22:00') + "</strong>) et votre intensité sportive ont été gravés dans le Système."
+          );
+          if (typeof playFanfare === 'function') playFanfare();
+          else if (typeof playChime === 'function') playChime(1046);
+        }, 600);
       }
     } catch(e) {}
     refreshAuthModalUI();
@@ -11270,6 +12361,72 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Onboarding Calibration & Personalization Endpoint
+  if (pathname === "/api/v1/onboarding" && req.method === "POST") {
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk;
+    });
+    req.on("end", () => {
+      try {
+        const config = JSON.parse(body);
+        if (config.name) SYSTEM_STATE.player.name = String(config.name).trim();
+        if (config.title) SYSTEM_STATE.player.title = String(config.title).trim();
+        if (config.wakeTime) SYSTEM_STATE.player.wakeTime = String(config.wakeTime).trim();
+        if (config.curfewTime) SYSTEM_STATE.player.curfewTime = String(config.curfewTime).trim();
+        if (config.archetype) SYSTEM_STATE.player.archetype = String(config.archetype).trim();
+        if (config.targetGoal) SYSTEM_STATE.player.targetGoal = String(config.targetGoal).trim();
+        if (config.workoutLevel) SYSTEM_STATE.player.workoutLevel = String(config.workoutLevel).trim();
+        if (config.deepWorkHours) SYSTEM_STATE.player.deepWorkHours = Number(config.deepWorkHours) || 3;
+        SYSTEM_STATE.player.onboardingCompleted = true;
+        SYSTEM_STATE.onboardingCompleted = true;
+
+        // Adapt Sung Jin-Woo workout quest
+        const fitQ = SYSTEM_STATE.quests.find((q) => q.id === "q-fit-sungjinwoo");
+        if (fitQ) {
+          if (config.workoutLevel === "NOVICE_30") {
+            fitQ.description = "30 Pompes militaires, 30 Abdos, 30 Squats et 3 km de course.";
+            fitQ.xp = 100;
+          } else if (config.workoutLevel === "MONARCH_150") {
+            fitQ.description = "150 Pompes militaires strictes, 150 Abdos d'acier, 150 Squats explosifs et 15 km de course.";
+            fitQ.xp = 300;
+          } else {
+            fitQ.description = "100 Pompes militaires, 100 Abdos d'acier, 100 Squats explosifs et 10 km de course.";
+            fitQ.xp = 200;
+          }
+        }
+
+        // Regenerate planner blocks dynamically
+        SYSTEM_STATE.plannerBlocks = generateCustomPlannerBlocks(
+          SYSTEM_STATE.player.wakeTime,
+          SYSTEM_STATE.player.curfewTime,
+          SYSTEM_STATE.player.archetype,
+          SYSTEM_STATE.player.deepWorkHours
+        );
+
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(
+          JSON.stringify({
+            success: true,
+            message: "Protocole calibré et gravé avec succès dans le Système.",
+            player: SYSTEM_STATE.player,
+            plannerBlocks: SYSTEM_STATE.plannerBlocks,
+          })
+        );
+      } catch (err) {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(
+          JSON.stringify({
+            success: false,
+            error: "INVALID_ONBOARDING_DATA",
+            message: err.message,
+          })
+        );
+      }
+    });
+    return;
+  }
+
   // Rest Day Status & Activation Endpoints
   if (pathname === "/api/v1/rest-day/status") {
     res.writeHead(200, { "Content-Type": "application/json" });
@@ -11607,6 +12764,12 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (pathname === "/onboarding") {
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    res.end(renderOnboardingPage());
+    return;
+  }
+
   const routeTabMap = {
     "/dashboard": "dashboard",
     "/skills": "skills",
@@ -11647,5 +12810,7 @@ module.exports = {
   SYSTEM_STATE,
   getHarmonicScore,
   renderLandingPage,
+  renderOnboardingPage,
+  generateCustomPlannerBlocks,
   renderFullApplication,
 };
