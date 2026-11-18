@@ -1088,7 +1088,7 @@ function renderLandingPage() {
   <style>
     :root {
       --bg-dark: #070312;
-      --bg-card: rgba(18, 10, 36, 0.78);
+      --bg-card: rgba(18, 10, 36, 0.82);
       --neon-cyan: #00f0ff;
       --primary: #00f0ff;
       --secondary: #c084fc;
@@ -1107,7 +1107,7 @@ function renderLandingPage() {
     body {
       background-color: var(--bg-dark);
       background-image: 
-        radial-gradient(circle at 50% 15%, rgba(147, 51, 234, 0.22) 0%, rgba(0, 240, 255, 0.1) 32%, transparent 70%),
+        radial-gradient(circle at 50% 15%, rgba(147, 51, 234, 0.25) 0%, rgba(0, 240, 255, 0.12) 35%, transparent 70%),
         linear-gradient(180deg, #090317 0%, #05020c 100%);
       color: var(--text-white);
       font-family: var(--font-sans);
@@ -1118,23 +1118,21 @@ function renderLandingPage() {
       position: relative;
     }
 
-    body::before {
-      content: '';
+    #bg-canvas {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-image: linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       pointer-events: none;
       z-index: 0;
+      opacity: 0.65;
     }
 
     .landing-nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(7, 3, 18, 0.85);
-      backdrop-filter: blur(16px);
+      background: rgba(7, 3, 18, 0.88);
+      backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--glass-border);
       padding: 14px 24px;
       display: flex;
@@ -1192,26 +1190,28 @@ function renderLandingPage() {
       gap: 12px;
     }
 
-    .btn-nav-guest {
+    .btn-nav-login {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 6px;
-      background: rgba(0, 240, 255, 0.08);
-      border: 1px solid rgba(0, 240, 255, 0.35);
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid var(--neon-cyan);
       color: var(--neon-cyan);
       font-family: var(--font-mono);
       font-size: 11.5px;
-      font-weight: 700;
+      font-weight: 800;
       text-decoration: none;
       letter-spacing: 1px;
       transition: all 0.25s ease;
+      cursor: pointer;
     }
 
-    .btn-nav-guest:hover {
-      background: rgba(0, 240, 255, 0.2);
-      box-shadow: 0 0 16px rgba(0, 240, 255, 0.4);
+    .btn-nav-login:hover {
+      background: var(--neon-cyan);
+      color: #070312;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
       transform: translateY(-1px);
     }
 
@@ -1220,7 +1220,7 @@ function renderLandingPage() {
       z-index: 1;
       max-width: 1180px;
       margin: 0 auto;
-      padding: 40px 20px 80px;
+      padding: 30px 20px 80px;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -1228,14 +1228,56 @@ function renderLandingPage() {
       text-align: center;
     }
 
+    /* Access Blocked Banner */
+    .access-alert-banner {
+      width: 100%;
+      max-width: 820px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1.5px solid #ef4444;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-align: left;
+      box-shadow: 0 0 30px rgba(239, 68, 68, 0.35);
+      animation: alertPulse 2s infinite alternate;
+    }
+
+    @keyframes alertPulse {
+      0% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
+      100% { box-shadow: 0 0 35px rgba(239, 68, 68, 0.5); }
+    }
+
+    .alert-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .alert-title {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 900;
+      color: #fca5a5;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .alert-desc {
+      font-size: 12px;
+      color: #fee2e2;
+      line-height: 1.5;
+    }
+
     .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 16px;
+      padding: 6px 18px;
       border-radius: 20px;
-      background: rgba(192, 132, 252, 0.12);
-      border: 1px solid rgba(192, 132, 252, 0.35);
+      background: rgba(192, 132, 252, 0.14);
+      border: 1px solid rgba(192, 132, 252, 0.4);
       color: #e9d5ff;
       font-family: var(--font-mono);
       font-size: 11px;
@@ -1247,7 +1289,7 @@ function renderLandingPage() {
 
     @keyframes pulseGlow {
       0% { box-shadow: 0 0 10px rgba(192, 132, 252, 0.2); }
-      100% { box-shadow: 0 0 25px rgba(0, 240, 255, 0.4); }
+      100% { box-shadow: 0 0 30px rgba(0, 240, 255, 0.45); }
     }
 
     .hero-crest-wrapper {
@@ -1262,9 +1304,9 @@ function renderLandingPage() {
 
     .hero-crest-ring {
       position: absolute;
-      inset: -12px;
+      inset: -14px;
       border-radius: 50%;
-      border: 1px dashed rgba(0, 240, 255, 0.4);
+      border: 1px dashed rgba(0, 240, 255, 0.5);
       animation: rotateRing 20s linear infinite;
     }
 
@@ -1276,7 +1318,7 @@ function renderLandingPage() {
     .hero-crest-svg-box {
       width: 100%;
       height: 100%;
-      filter: drop-shadow(0 0 22px rgba(0, 240, 255, 0.75));
+      filter: drop-shadow(0 0 24px rgba(0, 240, 255, 0.8));
     }
 
     .hero-title {
@@ -1286,7 +1328,7 @@ function renderLandingPage() {
       line-height: 1.15;
       letter-spacing: 1.5px;
       margin-bottom: 16px;
-      max-width: 900px;
+      max-width: 920px;
     }
 
     .hero-title .gradient-text {
@@ -1298,28 +1340,100 @@ function renderLandingPage() {
     .hero-subtitle {
       font-size: clamp(14px, 2.2vw, 17px);
       color: var(--text-secondary);
-      max-width: 740px;
+      max-width: 760px;
       line-height: 1.6;
-      margin-bottom: 36px;
+      margin-bottom: 32px;
     }
 
+    /* 3-Step Awakening Pipeline */
+    .awakening-pipeline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto 40px;
+      flex-wrap: wrap;
+    }
+
+    .pipeline-step {
+      flex: 1;
+      min-width: 220px;
+      background: rgba(18, 10, 36, 0.7);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(192, 132, 252, 0.25);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-align: left;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pipeline-step.active {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+      background: rgba(18, 10, 36, 0.85);
+    }
+
+    .pipeline-step::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 3px; height: 100%;
+      background: linear-gradient(180deg, var(--neon-cyan), var(--secondary));
+    }
+
+    .pipeline-num {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--neon-cyan);
+      line-height: 1;
+    }
+
+    .pipeline-title {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+
+    .pipeline-desc {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 3px;
+    }
+
+    .pipeline-arrow {
+      font-size: 18px;
+      color: var(--neon-cyan);
+      opacity: 0.6;
+    }
+
+    /* Central Awakening Card */
     .awakening-card {
       width: 100%;
-      max-width: 540px;
+      max-width: 560px;
       background: var(--bg-card);
       backdrop-filter: blur(24px);
-      border: 1px solid rgba(0, 240, 255, 0.4);
-      border-radius: 16px;
-      padding: 32px 28px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.15);
+      border: 1.5px solid rgba(0, 240, 255, 0.45);
+      border-radius: 18px;
+      padding: 34px 30px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7), 0 0 40px rgba(111, 0, 190, 0.4);
       position: relative;
-      margin-bottom: 60px;
+      margin-bottom: 50px;
+      overflow: hidden;
     }
 
     .awakening-card::before {
       content: '';
       position: absolute;
-      top: -1px; left: 20%; right: 20%; height: 2px;
+      top: -1px; left: 15%; right: 15%; height: 2px;
       background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--gold), transparent);
     }
 
@@ -1334,8 +1448,8 @@ function renderLandingPage() {
 
     .card-heading {
       font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 800;
+      font-size: 22px;
+      font-weight: 900;
       color: var(--text-white);
       margin-bottom: 12px;
       letter-spacing: 1px;
@@ -1344,7 +1458,7 @@ function renderLandingPage() {
     .card-desc {
       font-size: 13px;
       color: var(--text-secondary);
-      line-height: 1.5;
+      line-height: 1.55;
       margin-bottom: 24px;
     }
 
@@ -1354,26 +1468,26 @@ function renderLandingPage() {
       justify-content: center;
       gap: 12px;
       width: 100%;
-      padding: 15px 24px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #130b29 0%, #1e1240 100%);
-      border: 1.5px solid var(--neon-cyan);
+      padding: 16px 24px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #150c2f 0%, #24144e 100%);
+      border: 2px solid var(--neon-cyan);
       color: #ffffff;
       font-family: var(--font-display);
-      font-size: 13.5px;
-      font-weight: 800;
+      font-size: 14px;
+      font-weight: 900;
       text-decoration: none;
       letter-spacing: 1.5px;
       cursor: pointer;
-      box-shadow: 0 4px 20px rgba(0, 240, 255, 0.25);
+      box-shadow: 0 6px 26px rgba(0, 240, 255, 0.35);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     .btn-awakening-google:hover {
-      background: linear-gradient(135deg, #1e1240 0%, #2b1760 100%);
+      background: linear-gradient(135deg, #24144e 0%, #361a75 100%);
       border-color: #ffffff;
-      box-shadow: 0 6px 30px rgba(0, 240, 255, 0.5), 0 0 15px rgba(255, 215, 0, 0.4);
+      box-shadow: 0 8px 36px rgba(0, 240, 255, 0.6), 0 0 20px rgba(255, 215, 0, 0.4);
       transform: translateY(-2px);
     }
 
@@ -1389,54 +1503,146 @@ function renderLandingPage() {
       margin-bottom: 18px;
     }
 
-    .divider-text {
+    .card-guarantees {
       display: flex;
-      align-items: center;
-      gap: 14px;
-      color: var(--text-muted);
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-family: var(--font-mono);
       font-size: 11px;
-      font-family: var(--font-mono);
-      letter-spacing: 1.5px;
-      margin: 18px 0;
+      color: var(--text-muted);
     }
 
-    .divider-text::before, .divider-text::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .btn-awakening-guest {
-      display: block;
-      width: 100%;
-      padding: 12px 20px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #cbd5e1;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 700;
-      text-decoration: none;
-      letter-spacing: 1px;
-      transition: all 0.25s ease;
-    }
-
-    .btn-awakening-guest:hover {
-      background: rgba(255, 255, 255, 0.09);
-      border-color: rgba(255, 255, 255, 0.35);
-      color: #ffffff;
+    .card-guarantees span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
     #landing-active-session {
       display: none;
       background: rgba(0, 240, 255, 0.08);
       border: 1px solid var(--neon-cyan);
-      border-radius: 10px;
-      padding: 14px;
+      border-radius: 12px;
+      padding: 16px;
       margin-bottom: 20px;
       text-align: left;
+    }
+
+    /* Live Interactive HUD Mockup Preview */
+    .hud-preview-wrapper {
+      width: 100%;
+      max-width: 860px;
+      background: rgba(14, 8, 30, 0.75);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 60px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hud-preview-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+    }
+
+    .hud-preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hud-preview-title {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--neon-cyan);
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hud-preview-clock {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gold);
+    }
+
+    .hud-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .hud-mock-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .hud-mock-label {
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .hud-mock-value {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .stat-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 32px;
+      padding: 20px 32px;
+      background: rgba(14, 8, 30, 0.85);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      margin-bottom: 60px;
+      width: 100%;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stat-val {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--neon-cyan);
+    }
+
+    .stat-lbl {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 1px;
+      color: var(--text-muted);
     }
 
     .pillars-heading {
@@ -1476,7 +1682,7 @@ function renderLandingPage() {
 
     .pillar-card:hover {
       border-color: var(--neon-cyan);
-      box-shadow: 0 8px 30px rgba(0, 240, 255, 0.15);
+      box-shadow: 0 8px 30px rgba(0, 240, 255, 0.18);
       transform: translateY(-3px);
     }
 
@@ -1508,40 +1714,6 @@ function renderLandingPage() {
       line-height: 1.55;
     }
 
-    .stat-strip {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 32px;
-      padding: 20px 32px;
-      background: rgba(14, 8, 30, 0.8);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      margin-bottom: 50px;
-      width: 100%;
-    }
-
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .stat-val {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 900;
-      color: var(--neon-cyan);
-    }
-
-    .stat-lbl {
-      font-family: var(--font-mono);
-      font-size: 10.5px;
-      letter-spacing: 1px;
-      color: var(--text-muted);
-    }
-
     .landing-footer {
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding: 24px;
@@ -1549,21 +1721,25 @@ function renderLandingPage() {
       font-size: 11.5px;
       font-family: var(--font-mono);
       color: var(--text-muted);
-      z-index: 1;
       position: relative;
+      z-index: 1;
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
       .landing-nav { padding: 12px 16px; }
+      .landing-container { padding: 20px 14px 60px; }
       .awakening-card { padding: 24px 18px; }
-      .pillars-grid { grid-template-columns: 1fr; }
-      .stat-strip { gap: 20px; padding: 16px; }
+      .pipeline-step { min-width: 100%; }
+      .pipeline-arrow { display: none; }
     }
   </style>
 </head>
 <body>
+  <!-- Dynamic Interactive Particle Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
   <header class="landing-nav">
-    <a href="/landing" class="nav-brand">
+    <a href="/" class="nav-brand">
       <div class="nav-logo-box">
         ${MONARCH_LOGO_SVG}
       </div>
@@ -1573,20 +1749,26 @@ function renderLandingPage() {
       </div>
     </a>
     <div class="nav-actions">
-      <a href="/onboarding" class="btn-nav-guest" style="border-color: rgba(255, 215, 0, 0.45); color: #ffd700;">
-        <span>⚙️ CALIBRER MON PROTOCOLE</span>
-      </a>
-      <a href="/dashboard" class="btn-nav-guest">
-        <span>ACCÉDER AU HUD</span>
-        <span>→</span>
+      <a href="/auth/google" class="btn-nav-login" id="nav-login-btn">
+        <span>S'ÉVEILLER (CONNEXION)</span>
+        <span>➔</span>
       </a>
     </div>
   </header>
 
   <main class="landing-container">
+    <!-- Access Blocked Warning Banner -->
+    <div id="access-blocked-alert" class="access-alert-banner" style="display: none;">
+      <div class="alert-icon">⛔</div>
+      <div>
+        <div class="alert-title">[ACCÈS RESTREINT PAR LE SYSTÈME]</div>
+        <div class="alert-desc">La création d'un compte de Chasseur via Google est obligatoire pour franchir le Portail et calibrer votre protocole. Veuillez vous connecter ci-dessous.</div>
+      </div>
+    </div>
+
     <div class="hero-badge">
       <span>⚡</span>
-      <span>PROTOCOLE D'ÉVEIL DU MONARQUE • SYSTEM v3.3</span>
+      <span>ACCÈS STRICT AUX CHASSEURS ÉVEILLÉS • SYSTEM v3.3</span>
     </div>
 
     <div class="hero-crest-wrapper">
@@ -1603,14 +1785,42 @@ function renderLandingPage() {
 
     <p class="hero-subtitle">
       <em>« Seul le Chasseur qui surmonte ses faiblesses s'élèvera au rang de Monarque. »</em><br>
-      Validez vos quêtes quotidiennes, entraînez-vous par Vision IA sans triche, verrouillez vos distractions à 22h et scellez votre identité au Système.
+      Fini la procrastination. Entraînements physiques validés par Vision IA, pare-feu anti-distractions NextDNS, coffre de connaissances chiffré et quêtes quotidiennes impériales.
     </p>
 
-    <div class="awakening-card">
-      <div class="card-header-tag">⚡ PORTAIL D'ÉVEIL & CONNEXION SÉCURISÉE</div>
-      <h2 class="card-heading">AUTORISATION & CONNEXION</h2>
+    <!-- 3-Step Awakening Pipeline -->
+    <div class="awakening-pipeline">
+      <div class="pipeline-step active">
+        <div class="pipeline-num">01</div>
+        <div>
+          <div class="pipeline-title">ÉVEIL GOOGLE</div>
+          <div class="pipeline-desc">Création sécurisée du compte en 1 clic</div>
+        </div>
+      </div>
+      <div class="pipeline-arrow">➔</div>
+      <div class="pipeline-step">
+        <div class="pipeline-num">02</div>
+        <div>
+          <div class="pipeline-title">ONBOARDING OBLIGATOIRE</div>
+          <div class="pipeline-desc">Archétype, routine circadienne & quotas</div>
+        </div>
+      </div>
+      <div class="pipeline-arrow">➔</div>
+      <div class="pipeline-step">
+        <div class="pipeline-num">03</div>
+        <div>
+          <div class="pipeline-title">HUD SOUVERAIN</div>
+          <div class="pipeline-desc">Quêtes, Vision IA & Monk Mode NextDNS</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Central Awakening Card -->
+    <div class="awakening-card" id="awakening-section">
+      <div class="card-header-tag">⚡ PORTAIL D'ÉVEIL & CRÉATION DE COMPTE</div>
+      <h2 class="card-heading">AUTORISATION REQUISE</h2>
       <p class="card-desc">
-        Connectez votre compte Google officiel pour synchroniser instantanément votre progression, vos statistiques des 8 bases et vos Cristaux d'Ombres sur le Cloud.
+        La connexion officielle par compte Google est obligatoire. Elle initialise votre profil de Chasseur, certifie votre identité et synchronise vos statistiques des 8 bases sur le Cloud.
       </p>
 
       <div id="landing-active-session">
@@ -1659,16 +1869,45 @@ function renderLandingPage() {
           <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_black" data-text="signin_with" data-size="large" data-logo_alignment="left"></div>
         </div>
 
-        <div class="divider-text">OU EXPLOREZ SANS COMPTE</div>
+        <div class="card-guarantees">
+          <span>🛡️ Chiffrement AES-256</span>
+          <span>•</span>
+          <span>⚡ Onboarding Automatique</span>
+          <span>•</span>
+          <span>🔒 Zéro Fuite de Données</span>
+        </div>
+      </div>
+    </div>
 
-        <a href="/dashboard" class="btn-awakening-guest">
-          EXPLORER LE SYSTÈME EN MODE INITIÉ (INVITÉ) →
-        </a>
-        <a href="/onboarding" style="display: block; margin-top: 10px; font-size: 12px; color: var(--neon-cyan); text-decoration: underline; font-family: var(--font-mono); letter-spacing: 0.5px;">
-          ⚙️ Personnaliser mes objectifs & routine (Onboarding) →
-        </a>
-        <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; font-family: var(--font-mono);">
-          ⚡ Aucune inscription requise • Progression stockée localement
+    <!-- Live Interactive Holographic HUD Simulator Preview -->
+    <div class="hud-preview-wrapper">
+      <div class="hud-preview-header">
+        <div class="hud-preview-title">
+          <span>👑</span>
+          <span>SIMULATEUR HUD SOUVERAIN (APERÇU EN DIRECT)</span>
+        </div>
+        <div class="hud-preview-clock" id="live-preview-clock">--:--:--</div>
+      </div>
+      <div class="hud-preview-grid">
+        <div class="hud-mock-card">
+          <div class="hud-mock-label">CHASSEUR D'ÉLITE</div>
+          <div class="hud-mock-value" style="color: var(--neon-cyan);">SUNG JIN-WOO</div>
+          <div style="font-size: 11px; color: var(--gold); font-family: var(--font-mono); margin-top: 4px;">RANG S • MONARQUE DES OMBRES</div>
+        </div>
+        <div class="hud-mock-card">
+          <div class="hud-mock-label">SCORE HARMONIQUE SH</div>
+          <div class="hud-mock-value" style="color: #34d399;">18.9 <span style="font-size: 12px; color: var(--text-muted);">/ 20</span></div>
+          <div style="font-size: 11px; color: var(--text-secondary); font-family: var(--font-mono); margin-top: 4px;">ÉQUILIBRE DES 8 BASES : EXCELLENT</div>
+        </div>
+        <div class="hud-mock-card">
+          <div class="hud-mock-label">QUÊTE DU JOUR CALIBRÉE</div>
+          <div style="font-size: 13px; font-weight: bold; color: #fff;">100 Pompes • 100 Abdos • 10 km</div>
+          <div style="font-size: 11px; color: var(--neon-cyan); font-family: var(--font-mono); margin-top: 4px;">VALIDATION SQUELETTE IA 90° ✓</div>
+        </div>
+        <div class="hud-mock-card">
+          <div class="hud-mock-label">SENTINELLE NEXTDNS</div>
+          <div class="hud-mock-value" style="color: var(--gold); font-size: 14px;">COUVRE-FEU 22H00</div>
+          <div style="font-size: 11px; color: #a78bfa; font-family: var(--font-mono); margin-top: 4px;">PARE-FEU ANTI-PROCRASTINATION ARMÉ</div>
         </div>
       </div>
     </div>
@@ -1700,7 +1939,7 @@ function renderLandingPage() {
         <div class="pillar-icon-box">⚔️</div>
         <div class="pillar-title">QUÊTES QUOTIDIENNES CALIBRÉES</div>
         <div class="pillar-desc">
-          100 Pompes, 100 Abdos, 100 Squats, 10 km de course, sessions de Deep Work et restitutions orales en anglais C1 avec validation par preuve irréfutable.
+          Pompes, abdos, squats, course, sessions de Deep Work et restitutions orales en anglais C1 avec validation par preuve irréfutable.
         </div>
       </div>
 
@@ -1716,7 +1955,7 @@ function renderLandingPage() {
         <div class="pillar-icon-box">🛡️</div>
         <div class="pillar-title">VERROUILLAGE MONK MODE NEXTDNS</div>
         <div class="pillar-desc">
-          Dès le couvre-feu de 22h00 dépassé avec des quêtes incomplètes, le Système engage le verrouillage strict de tous les réseaux et distracteurs au niveau DNS.
+          Dès le couvre-feu dépassé avec des quêtes incomplètes, le Système engage le verrouillage strict de tous les réseaux et distracteurs au niveau DNS.
         </div>
       </div>
 
@@ -1753,19 +1992,114 @@ function renderLandingPage() {
   <script>
     const STORAGE_KEY = 'LEVELUP_SYSTEM_STATE_V7_CLEAN_DYNAMIC_AUTH';
 
+    // 1. Dynamic Particle Aura Canvas Animation
+    (function initCanvas() {
+      const canvas = document.getElementById('bg-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      });
+
+      const particles = [];
+      const count = Math.min(Math.floor(window.innerWidth / 24), 60);
+
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          r: Math.random() * 2 + 1,
+          color: Math.random() > 0.5 ? 'rgba(0, 240, 255, ' : 'rgba(192, 132, 252, '
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0) p.x = w;
+          if (p.x > w) p.x = 0;
+          if (p.y < 0) p.y = h;
+          if (p.y > h) p.y = 0;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color + '0.7)';
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = '#00f0ff';
+          ctx.fill();
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+            if (dist < 110) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = 'rgba(0, 240, 255, ' + (1 - dist / 110) * 0.15 + ')';
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    // 2. Ticking Live Preview Clock
+    setInterval(() => {
+      const el = document.getElementById('live-preview-clock');
+      if (el) {
+        const now = new Date();
+        el.textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' [ACTIF]';
+      }
+    }, 1000);
+
+    // 3. Check for Access Blocked Alert
+    try {
+      const urlP = new URLSearchParams(window.location.search);
+      if (urlP.get('access') === 'blocked') {
+        const alertBox = document.getElementById('access-blocked-alert');
+        if (alertBox) {
+          alertBox.style.display = 'flex';
+          alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          playChime(330);
+        }
+      }
+    } catch(e) {}
+
+    // 4. Session Detection
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const state = JSON.parse(saved);
         if (state.player && state.player.authProvider === 'google' && state.player.email) {
           const banner = document.getElementById('landing-active-session');
+          const unauth = document.getElementById('landing-unauth-actions');
           const nameEl = document.getElementById('session-name');
           const emailEl = document.getElementById('session-email');
           const avatarEl = document.getElementById('session-avatar');
+          const navBtn = document.getElementById('nav-login-btn');
           if (banner) banner.style.display = 'block';
+          if (unauth) unauth.style.display = 'none';
           if (nameEl) nameEl.textContent = state.player.name || 'Chasseur Google';
           if (emailEl) emailEl.textContent = state.player.email;
           if (avatarEl && state.player.avatar) avatarEl.src = state.player.avatar;
+          if (navBtn) {
+            navBtn.href = '/dashboard';
+            navBtn.innerHTML = '<span>MON HUD ➔</span>';
+            navBtn.style.borderColor = 'var(--gold)';
+            navBtn.style.color = 'var(--gold)';
+          }
         }
       }
     } catch(e) {}
@@ -1793,8 +2127,15 @@ function renderLandingPage() {
           state.player.authProvider = 'google';
           state.player.googleId = data.user.sub;
           state.player.title = data.user.title || "Chasseur Éveillé (Rang E)";
+          
+          const isOnboarded = Boolean(data.user.onboardingCompleted || state.player.onboardingCompleted || state.onboardingCompleted);
           localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-          window.location.href = '/dashboard?auth=success&provider=google';
+
+          if (isOnboarded) {
+            window.location.href = '/dashboard?auth=success&provider=google';
+          } else {
+            window.location.href = '/onboarding?auth=success&provider=google';
+          }
         } else {
           alert("Erreur de connexion Google : " + (data.error || "Échec de validation."));
         }
@@ -1818,12 +2159,30 @@ function renderLandingPage() {
           state.player.avatar = null;
           state.player.authProvider = null;
           state.player.googleId = null;
+          state.player.onboardingCompleted = false;
+          state.onboardingCompleted = false;
           localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
         }
       } catch(e) {}
-      const banner = document.getElementById('landing-active-session');
-      if (banner) banner.style.display = 'none';
       window.location.reload();
+    }
+
+    function playChime(freq = 523.25) {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.25);
+      } catch(e) {}
     }
   </script>
 </body>
@@ -2585,21 +2944,50 @@ function renderOnboardingPage() {
       deepWorkHours: 3
     };
 
+    let isUserAuth = false;
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const state = JSON.parse(saved);
-        if (state.player) {
-          if (state.player.name && state.player.name !== 'Chasseur Non Éveillé') config.name = state.player.name;
-          if (state.player.title) config.title = state.player.title;
-          if (state.player.curfewTime) config.curfewTime = state.player.curfewTime;
-          if (state.player.wakeTime) config.wakeTime = state.player.wakeTime;
-          if (state.player.archetype) config.archetype = state.player.archetype;
-          if (state.player.targetGoal) config.targetGoal = state.player.targetGoal;
-          if (state.player.workoutLevel) config.workoutLevel = state.player.workoutLevel;
+      const urlP = new URLSearchParams(window.location.search);
+      if (urlP.get('auth') === 'success' && (urlP.get('email') || urlP.get('name'))) {
+        isUserAuth = true;
+        const pName = decodeURIComponent(urlP.get('name') || '');
+        const pEmail = decodeURIComponent(urlP.get('email') || '');
+        const pPic = decodeURIComponent(urlP.get('picture') || '');
+        const pSub = decodeURIComponent(urlP.get('sub') || '');
+        let savedState = {};
+        try {
+          const s = localStorage.getItem(STORAGE_KEY);
+          if (s) savedState = JSON.parse(s);
+        } catch(e) {}
+        if (!savedState.player) savedState.player = {};
+        if (pName) { savedState.player.name = pName; config.name = pName; }
+        if (pEmail) savedState.player.email = pEmail;
+        if (pPic) savedState.player.avatar = pPic;
+        if (pSub) { savedState.player.id = "usr-" + pSub.slice(-8); savedState.player.googleId = pSub; }
+        savedState.player.authProvider = 'google';
+        savedState.player.title = "Chasseur Éveillé (Rang E)";
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
+      } else {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const state = JSON.parse(saved);
+          if (state.player && state.player.authProvider === 'google' && state.player.email) {
+            isUserAuth = true;
+            if (state.player.name && state.player.name !== 'Chasseur Non Éveillé') config.name = state.player.name;
+            if (state.player.title) config.title = state.player.title;
+            if (state.player.curfewTime) config.curfewTime = state.player.curfewTime;
+            if (state.player.wakeTime) config.wakeTime = state.player.wakeTime;
+            if (state.player.archetype) config.archetype = state.player.archetype;
+            if (state.player.targetGoal) config.targetGoal = state.player.targetGoal;
+            if (state.player.workoutLevel) config.workoutLevel = state.player.workoutLevel;
+          }
         }
       }
     } catch(e) {}
+
+    if (!isUserAuth) {
+      window.location.replace('/?access=blocked&reason=LOGIN_REQUIRED');
+      return;
+    }
 
     const inputName = document.getElementById('input-hunter-name');
     if (inputName) inputName.value = config.name;
@@ -2755,6 +3143,7 @@ function renderOnboardingPage() {
         state.player.targetGoal = config.targetGoal;
         state.player.workoutLevel = config.workoutLevel;
         state.player.deepWorkHours = config.deepWorkHours;
+        state.player.onboardingCompleted = true;
         state.onboardingCompleted = true;
 
         if (Array.isArray(state.quests)) {
@@ -7863,7 +8252,6 @@ function renderFullApplication(initialTab = "dashboard") {
       if (saved) {
         const parsed = JSON.parse(saved);
         state = Object.assign(state, parsed);
-        // Ensure all daily & emergency quests from SYSTEM_STATE exist
         const defaultQuests = ${JSON.stringify(SYSTEM_STATE.quests)};
         const existingIds = new Set((state.quests || []).map(q => q.id));
         defaultQuests.forEach(dq => {
@@ -7874,6 +8262,42 @@ function renderFullApplication(initialTab = "dashboard") {
       }
     } catch(e) {
       console.warn("Storage sync fallback:", e);
+    }
+
+    // Immediate ingestion of redirect params if arriving from Google OAuth
+    try {
+      const urlP = new URLSearchParams(window.location.search);
+      if (urlP.get('auth') === 'success' && urlP.get('provider') === 'google') {
+        const pName = urlP.get('name');
+        const pEmail = urlP.get('email');
+        const pPic = urlP.get('picture');
+        const pSub = urlP.get('sub');
+        if (!state.player) state.player = {};
+        if (pName) state.player.name = decodeURIComponent(pName);
+        if (pEmail) state.player.email = decodeURIComponent(pEmail);
+        if (pPic) state.player.avatar = decodeURIComponent(pPic);
+        if (pSub) {
+          const decSub = decodeURIComponent(pSub);
+          state.player.id = "usr-" + decSub.slice(-8);
+          state.player.googleId = decSub;
+        }
+        state.player.authProvider = 'google';
+        saveState();
+      }
+    } catch(e) {}
+
+    // STRICT GATE 1: User MUST be authenticated with Google (No account = blocked)
+    const isGoogleAuth = Boolean(state.player && state.player.authProvider === 'google' && state.player.email);
+    if (!isGoogleAuth) {
+      window.location.replace('/?access=blocked&reason=ACCOUNT_REQUIRED');
+      return;
+    }
+
+    // STRICT GATE 2: All new accounts MUST complete onboarding before entering HUD
+    const isOnboarded = Boolean(state.player && (state.player.onboardingCompleted || state.onboardingCompleted));
+    if (!isOnboarded) {
+      window.location.replace('/onboarding?required=true');
+      return;
     }
 
     function saveState() {
@@ -12188,7 +12612,9 @@ const server = http.createServer(async (req, res) => {
                       SYSTEM_STATE.player.googleId = gSub;
                       SYSTEM_STATE.player.title = "Chasseur Éveillé (Rang E)";
 
-                      const destUrl = `/dashboard?auth=success&provider=google&name=${encodeURIComponent(gName)}&email=${encodeURIComponent(gEmail)}&picture=${encodeURIComponent(gPic)}&sub=${encodeURIComponent(gSub)}`;
+                      const isOnboarded = Boolean(SYSTEM_STATE.player.onboardingCompleted);
+                      const destPath = isOnboarded ? "/dashboard" : "/onboarding";
+                      const destUrl = `${destPath}?auth=success&provider=google&name=${encodeURIComponent(gName)}&email=${encodeURIComponent(gEmail)}&picture=${encodeURIComponent(gPic)}&sub=${encodeURIComponent(gSub)}&onboarding=${isOnboarded ? 'ready' : 'required'}`;
                       res.writeHead(302, { Location: destUrl });
                       res.end();
                     } catch (_) {
@@ -12280,6 +12706,7 @@ const server = http.createServer(async (req, res) => {
               picture: payload.picture,
               sub: payload.sub,
               title: "Chasseur Éveillé (Rang E)",
+              onboardingCompleted: Boolean(SYSTEM_STATE.player.onboardingCompleted),
             },
           }),
         );
