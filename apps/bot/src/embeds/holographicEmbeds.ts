@@ -92,7 +92,7 @@ export function createStatusHudEmbed(data: {
         inline: true,
       },
     ],
-    footer: { text: "Système Solo Leveling IRL — Huriel Sovereign OS" },
+    footer: { text: "Système Solo Leveling IRL — Sovereign OS" },
     timestamp: new Date().toISOString(),
   };
 }

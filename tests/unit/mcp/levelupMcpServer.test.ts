@@ -19,7 +19,7 @@ describe("LevelUp MCP Server", () => {
     const res = await handleMcpCall("get_player_status", {});
     expect(res.isError).toBeFalsy();
     const data = JSON.parse(res.content[0].text);
-    expect(data.username).toBe("Huriel");
+    expect(data.username).toBe(process.env.MASTER_USERNAME || "Chasseur");
     expect(data.harmonicScore).toBeDefined();
     expect(data.level).toBe(14);
   });

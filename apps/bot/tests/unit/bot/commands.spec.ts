@@ -42,7 +42,7 @@ describe("Discord Slash Commands (Complete V1.0 Suite)", () => {
 
     const embed = result.embeds[0];
     expect(embed.title).toContain("STATUT DU MONARQUE");
-    expect(embed.description).toContain("Huriel");
+    expect(embed.description).toContain(process.env.MASTER_USERNAME || "Chasseur");
     expect(embed.fields.some((f: any) => f.name.includes("HP"))).toBe(true);
     expect(embed.fields.some((f: any) => f.name.includes("MP"))).toBe(true);
     expect(embed.fields.some((f: any) => f.value.includes("█"))).toBe(true);

@@ -19,7 +19,7 @@ export async function handleStatusCommand(interaction: RepliableInteraction) {
 
   // Fast response within < 250ms with live or cached values
   const playerData = {
-    username: "Huriel",
+    username: process.env.MASTER_USERNAME || "Chasseur",
     level: 14,
     rank: "D",
     hp: 92,

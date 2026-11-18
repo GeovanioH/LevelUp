@@ -11,7 +11,7 @@ export class SingleUserForbiddenException extends Error {
 
 export class SingleUserGuard {
   /**
-   * Vérifie si l'ID utilisateur transmis correspond strictement au maître Huriel.
+   * Vérifie si l'ID utilisateur transmis correspond strictement au maître du Système.
    */
   public static validateUserId(userId: string): boolean {
     const masterId = process.env.MASTER_USER_ID;

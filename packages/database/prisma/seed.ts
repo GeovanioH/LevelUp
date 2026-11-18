@@ -7,12 +7,13 @@ async function main() {
     "⚡ [LEVELUP SEED] Amorçage de la base de données de The System...",
   );
 
-  // 1. Initialisation du Joueur Maître (Huriel)
+  // 1. Initialisation du Joueur Maître
+  const masterUsername = process.env.MASTER_USERNAME || "Chasseur";
   const masterPlayer = await prisma.player.upsert({
-    where: { username: "Huriel" },
+    where: { username: masterUsername },
     update: {},
     create: {
-      username: "Huriel",
+      username: masterUsername,
       passwordHash:
         "$argon2id$v=19$m=65536,t=3,p=4$dummy_seed_salt$hash_placeholder",
       currentLevel: 1,

@@ -1,5 +1,6 @@
-export const HURIEL_DISCORD_ID =
-  process.env.DISCORD_MASTER_USER_ID || "789123456789012345";
+export const MASTER_DISCORD_ID =
+  process.env.DISCORD_MASTER_USER_ID || "000000000000000000";
+export const HURIEL_DISCORD_ID = MASTER_DISCORD_ID;
 
 export interface RepliableInteraction {
   user: {
@@ -15,10 +16,10 @@ export interface RepliableInteraction {
 
 /**
  * Garde-fou souverain interdisant toute interaction Discord venant d'un tiers.
- * Seul Huriel (DISCORD_MASTER_USER_ID) a le droit d'éveiller ou d'interagir avec le Système.
+ * Seul le Monarque (DISCORD_MASTER_USER_ID) a le droit d'éveiller ou d'interagir avec le Système.
  */
 export function assertMasterUser(interaction: RepliableInteraction): boolean {
-  const masterId = process.env.DISCORD_MASTER_USER_ID || HURIEL_DISCORD_ID;
+  const masterId = process.env.DISCORD_MASTER_USER_ID || MASTER_DISCORD_ID;
 
   if (interaction.user.id === masterId) {
     return true;

@@ -159,7 +159,7 @@ async function runAllUseCases() {
     const playerRes = await request("GET", "/api/v1/player/status");
     assert(playerRes.status === 200, "GET /api/v1/player/status répond 200 OK");
     const playerData = JSON.parse(playerRes.body);
-    assert(playerData.name === "Huriel", "Nom du joueur est Huriel");
+    assert(typeof playerData.name === "string" && playerData.name.length > 0, "Nom du joueur valide");
     assert(playerData.level >= 1, "Niveau du joueur est >= 1");
     assert(
       Object.keys(playerData.bases).length === 8,

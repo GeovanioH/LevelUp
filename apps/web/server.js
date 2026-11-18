@@ -104,13 +104,13 @@ const MONARCH_LOGO_SVG = `<svg class="monarch-crest-svg" viewBox="0 0 100 100" f
 // Default System State Template
 const DEFAULT_STATE = {
   player: {
-    id: "a5d8b74f-9e32-4d2b-98f5-19e48f029a1b",
-    name: "Huriel",
+    id: "usr-guest-unawakened",
+    name: "Chasseur Non Éveillé",
     email: null,
     avatar: null,
     authProvider: null,
     googleId: null,
-    title: "Initié (Rang E)",
+    title: "Initié Non Éveillé (Rang E)",
     level: 1,
     rank: "E",
     currentXp: 0,
@@ -4419,7 +4419,7 @@ function renderFullApplication(initialTab = "dashboard") {
                     ${player.name}
                   </h1>
                   <p id="dash-player-title" style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">
-                    TITRE : <strong style="color: var(--primary);">${player.title}</strong>
+                    TITRE : <strong id="dash-player-title-val" style="color: var(--primary);">${player.title}</strong>
                   </p>
                   <div style="font-size: 10.5px; color: var(--text-muted); font-family: var(--font-mono); margin-top: 2px;">
                     GUID: 0x7E3-SHADOW-MNRCH-S9 • CLASSE: ${player.level > 10 ? "Shadow Ruler" : "Chasseur Novice (Rang E)"}
@@ -6024,8 +6024,9 @@ function renderFullApplication(initialTab = "dashboard") {
 
   <script>
     // System Local Storage Keys
-    const STORAGE_KEY = 'LEVELUP_SYSTEM_STATE_V6_PRISTINE_AWAKENING';
+    const STORAGE_KEY = 'LEVELUP_SYSTEM_STATE_V7_CLEAN_DYNAMIC_AUTH';
     try {
+      localStorage.removeItem('LEVELUP_SYSTEM_STATE_V6_PRISTINE_AWAKENING');
       localStorage.removeItem('LEVELUP_SYSTEM_STATE_V5_DAY0_PRISTINE');
       localStorage.removeItem('LEVELUP_SYSTEM_STATE_V4_PRISTINE');
       localStorage.removeItem('LEVELUP_SYSTEM_STATE_V3');
@@ -6097,6 +6098,7 @@ function renderFullApplication(initialTab = "dashboard") {
       const headerPlayerName = document.getElementById('header-player-name');
       const dashPlayerName = document.getElementById('dash-player-name');
       const dashAuthLabel = document.getElementById('dash-auth-label');
+      const dashTitleVal = document.getElementById('dash-player-title-val');
 
       const isAuthed = state.player && state.player.authProvider === 'google' && state.player.email;
 
@@ -6126,12 +6128,17 @@ function renderFullApplication(initialTab = "dashboard") {
         }
         if (headerPlayerName) headerPlayerName.textContent = displayName;
         if (dashPlayerName) dashPlayerName.textContent = displayName;
+        if (dashTitleVal) dashTitleVal.textContent = state.player.title || 'Chasseur Éveillé (Rang E)';
       } else {
         if (unauthView) unauthView.style.display = 'block';
         if (authView) authView.style.display = 'none';
         if (authBtnLabel) authBtnLabel.textContent = 'CONNEXION GOOGLE';
         if (dashAuthLabel) dashAuthLabel.textContent = 'LIER UN COMPTE GOOGLE';
         if (avatarSlot) avatarSlot.textContent = '👑';
+        const anonName = (state.player && state.player.name) || 'Chasseur Non Éveillé';
+        if (headerPlayerName) headerPlayerName.textContent = anonName;
+        if (dashPlayerName) dashPlayerName.textContent = anonName;
+        if (dashTitleVal) dashTitleVal.textContent = (state.player && state.player.title) || 'Initié Non Éveillé (Rang E)';
       }
     }
 
@@ -6146,10 +6153,13 @@ function renderFullApplication(initialTab = "dashboard") {
         });
         const data = await res.json();
         if (data.success && data.user) {
+          state.player.id = data.user.id || ("usr-" + (data.user.sub ? data.user.sub.slice(-8) : "google"));
           state.player.name = data.user.name;
           state.player.email = data.user.email;
           state.player.avatar = data.user.picture;
           state.player.authProvider = 'google';
+          state.player.googleId = data.user.sub;
+          state.player.title = data.user.title || "Chasseur Éveillé (Rang E)";
           saveState();
           refreshAuthModalUI();
           showSysNotification(
@@ -6172,7 +6182,9 @@ function renderFullApplication(initialTab = "dashboard") {
       try {
         await fetch('/api/v1/auth/logout', { method: 'POST' });
       } catch (e) {}
-      state.player.name = 'Huriel';
+      state.player.id = 'usr-guest-unawakened';
+      state.player.name = 'Chasseur Non Éveillé';
+      state.player.title = 'Initié Non Éveillé (Rang E)';
       state.player.email = null;
       state.player.avatar = null;
       state.player.authProvider = null;
@@ -6182,7 +6194,7 @@ function renderFullApplication(initialTab = "dashboard") {
       closeAuthModal();
       showSysNotification(
         "[DÉCONNEXION RÉUSSIE]",
-        "Session Google déconnectée. Vos paramètres reviennent au profil local par défaut."
+        "Session Google déconnectée. Vos paramètres reviennent au profil anonyme par défaut."
       );
       playChime(523);
     }
@@ -10090,10 +10102,17 @@ function renderFullApplication(initialTab = "dashboard") {
         const pName = urlP.get('name');
         const pEmail = urlP.get('email');
         const pPic = urlP.get('picture');
+        const pSub = urlP.get('sub');
         if (pName) state.player.name = decodeURIComponent(pName);
         if (pEmail) state.player.email = decodeURIComponent(pEmail);
         if (pPic) state.player.avatar = decodeURIComponent(pPic);
+        if (pSub) {
+          const decSub = decodeURIComponent(pSub);
+          state.player.id = "usr-" + decSub.slice(-8);
+          state.player.googleId = decSub;
+        }
         state.player.authProvider = 'google';
+        state.player.title = "Chasseur Éveillé (Rang E)";
         saveState();
         window.history.replaceState({}, document.title, window.location.pathname);
         setTimeout(() => {
@@ -10326,14 +10345,18 @@ const server = http.createServer(async (req, res) => {
                       const gName = userinfo.name || userinfo.given_name || "Chasseur Google";
                       const gEmail = userinfo.email || "";
                       const gPic = userinfo.picture || "";
+                      const gSub = userinfo.sub || "";
+                      const hunterId = gSub ? `usr-${gSub.slice(-8)}` : "usr-hunter";
 
+                      SYSTEM_STATE.player.id = hunterId;
                       SYSTEM_STATE.player.name = gName;
                       SYSTEM_STATE.player.email = gEmail;
                       SYSTEM_STATE.player.avatar = gPic;
                       SYSTEM_STATE.player.authProvider = "google";
-                      SYSTEM_STATE.player.googleId = userinfo.sub;
+                      SYSTEM_STATE.player.googleId = gSub;
+                      SYSTEM_STATE.player.title = "Chasseur Éveillé (Rang E)";
 
-                      const destUrl = `/?auth=success&provider=google&name=${encodeURIComponent(gName)}&email=${encodeURIComponent(gEmail)}&picture=${encodeURIComponent(gPic)}`;
+                      const destUrl = `/?auth=success&provider=google&name=${encodeURIComponent(gName)}&email=${encodeURIComponent(gEmail)}&picture=${encodeURIComponent(gPic)}&sub=${encodeURIComponent(gSub)}`;
                       res.writeHead(302, { Location: destUrl });
                       res.end();
                     } catch (_) {
@@ -10403,21 +10426,28 @@ const server = http.createServer(async (req, res) => {
           return;
         }
 
-        SYSTEM_STATE.player.name = payload.name || "Chasseur Google";
+        const hunterId = payload.sub ? `usr-${payload.sub.slice(-8)}` : "usr-hunter";
+        const hunterName = payload.name || "Chasseur Google";
+
+        SYSTEM_STATE.player.id = hunterId;
+        SYSTEM_STATE.player.name = hunterName;
         SYSTEM_STATE.player.email = payload.email || "";
         SYSTEM_STATE.player.avatar = payload.picture || null;
         SYSTEM_STATE.player.authProvider = "google";
         SYSTEM_STATE.player.googleId = payload.sub;
+        SYSTEM_STATE.player.title = "Chasseur Éveillé (Rang E)";
 
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end(
           JSON.stringify({
             success: true,
             user: {
-              name: payload.name,
+              id: hunterId,
+              name: hunterName,
               email: payload.email,
               picture: payload.picture,
               sub: payload.sub,
+              title: "Chasseur Éveillé (Rang E)",
             },
           }),
         );
@@ -10437,7 +10467,9 @@ const server = http.createServer(async (req, res) => {
 
   // Logout Endpoint
   if (pathname === "/api/v1/auth/logout" && req.method === "POST") {
-    SYSTEM_STATE.player.name = "Huriel";
+    SYSTEM_STATE.player.id = "usr-guest-unawakened";
+    SYSTEM_STATE.player.name = "Chasseur Non Éveillé";
+    SYSTEM_STATE.player.title = "Initié Non Éveillé (Rang E)";
     SYSTEM_STATE.player.email = null;
     SYSTEM_STATE.player.avatar = null;
     SYSTEM_STATE.player.authProvider = null;

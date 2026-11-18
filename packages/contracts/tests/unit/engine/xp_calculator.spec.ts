@@ -23,7 +23,7 @@ describe("Moteur Mathématique d'Expérience & Rangs (Solo Leveling Engine)", ()
 
   beforeEach(() => {
     mockPlayer = {
-      id: "a5d8b74f-9e32-4d2b-98f5-19e48f029a1b",
+      id: "00000000-0000-0000-0000-000000000001",
       level: 1,
       totalXp: 0n,
       rankCode: RankCode.E,

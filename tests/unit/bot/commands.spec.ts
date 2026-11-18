@@ -36,7 +36,7 @@ describe("Discord Slash Commands (/status, /valider, /stats)", () => {
 
     const embed = result.embeds[0];
     expect(embed.title).toContain("STATUT DU MONARQUE");
-    expect(embed.description).toContain("Huriel");
+    expect(embed.description).toContain(process.env.MASTER_USERNAME || "Chasseur");
     expect(embed.fields.some((f: any) => f.name.includes("HP"))).toBe(true);
     expect(embed.fields.some((f: any) => f.name.includes("MP"))).toBe(true);
     expect(embed.fields.some((f: any) => f.value.includes("█"))).toBe(true); // ASCII gauge

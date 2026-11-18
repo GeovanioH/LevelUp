@@ -6,7 +6,7 @@
 
 import {
   assertMasterUser,
-  HURIEL_DISCORD_ID,
+  MASTER_DISCORD_ID,
   type RepliableInteraction,
 } from "./guards/discordGuard";
 import {
@@ -53,7 +53,7 @@ export class LevelUpDiscordBot {
       masterUserId:
         config.masterUserId ??
         process.env.DISCORD_MASTER_USER_ID ??
-        HURIEL_DISCORD_ID,
+        MASTER_DISCORD_ID,
       maxReconnectAttempts: config.maxReconnectAttempts ?? 10,
       initialBackoffMs: config.initialBackoffMs ?? 1000,
     };

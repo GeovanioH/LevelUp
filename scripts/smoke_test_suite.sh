@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # LevelUp ("The System") - Sovereign End-to-End Smoke Test Suite
-# Validates the complete 24h cycle of the Monarch Huriel
+# Validates the complete 24h cycle of the Monarch Hunter
 # Reference: docs/09-ROADMAP.md Section 21.8
 # ==============================================================================
 

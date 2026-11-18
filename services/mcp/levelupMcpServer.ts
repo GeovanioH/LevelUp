@@ -114,7 +114,7 @@ export async function handleMcpCall(
             type: "text",
             text: JSON.stringify(
               {
-                username: "Huriel",
+                username: process.env.MASTER_USERNAME || "Chasseur",
                 rank: hunterRank,
                 harmonicScore: Math.round(globalScore),
                 level: 14,

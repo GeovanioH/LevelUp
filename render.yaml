@@ -31,11 +31,11 @@ services:
       - key: JWT_SECRET
         value: super_secret_jwt_key_levelup_2026_monarch_ultra_secure
       - key: MASTER_USERNAME
-        value: Huriel
+        value: Chasseur
       - key: MASTER_USER_ID
-        value: a5d8b74f-9e32-4d2b-98f5-19e48f029a1b
+        value: usr-system-master
       - key: SYSTEM_MASTER_USER_ID
-        value: a5d8b74f-9e32-4d2b-98f5-19e48f029a1b
+        value: usr-system-master
       - key: DISCORD_BOT_TOKEN
         sync: false
       - key: DISCORD_CLIENT_ID
