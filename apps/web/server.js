@@ -7,6 +7,7 @@
  */
 
 const http = require("http");
+const https = require("https");
 const url = require("url");
 const fs = require("fs");
 const path = require("path");
@@ -57,6 +58,11 @@ const SUPABASE_CDN_VIDEO_WEBM = envWebm || DEFAULT_CDN_WEBM;
 const envImg = process.env.INTRO_IMAGE_URL || process.env.SUPABASE_INTRO_IMAGE_URL;
 const INTRO_IMAGE_URL = (envImg && !envImg.includes("test_alert_5x.webp")) ? envImg : DEFAULT_CDN_IMG;
 
+// Google OAuth 2.0 Credentials & App Base URL Configuration
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
+const APP_URL = process.env.APP_URL || (process.env.NODE_ENV === "production" ? "https://levelup-system.onrender.com" : `http://localhost:${PORT}`);
+
 // Solo Leveling Sovereign Monarch Logo SVG
 const MONARCH_LOGO_SVG = `<svg class="monarch-crest-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -100,6 +106,10 @@ const DEFAULT_STATE = {
   player: {
     id: "a5d8b74f-9e32-4d2b-98f5-19e48f029a1b",
     name: "Huriel",
+    email: null,
+    avatar: null,
+    authProvider: null,
+    googleId: null,
     title: "Initié (Rang E)",
     level: 1,
     rank: "E",
@@ -1075,6 +1085,8 @@ function renderFullApplication(initialTab = "dashboard") {
   <!-- MediaPipe Pose WebAssembly Computer Vision Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+  <!-- Google Identity Services (GIS) Official Client SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
     (function() {
       try {
@@ -1849,6 +1861,38 @@ function renderFullApplication(initialTab = "dashboard") {
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+    }
+
+    .header-google-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 12px 5px 9px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: var(--radius-pill, 9999px);
+      color: var(--text-white, #ffffff);
+      font-size: 11px;
+      font-family: var(--font-mono, monospace);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .header-google-btn:hover {
+      border-color: #4285F4;
+      background: rgba(66, 133, 244, 0.15);
+      box-shadow: 0 0 16px rgba(66, 133, 244, 0.35);
+      transform: translateY(-1px);
+    }
+    [data-theme="light-awakening"] .header-google-btn {
+      background: rgba(255, 255, 255, 0.75) !important;
+      border: 1px solid rgba(124, 58, 237, 0.25) !important;
+      color: #1e1b4b !important;
     }
 
     .header-player-name {
@@ -4257,12 +4301,23 @@ function renderFullApplication(initialTab = "dashboard") {
 
       <div class="header-right-cluster">
         <!-- Player Status Profile -->
-        <div class="header-player-pill" title="Profil Chasseur Monarque">
-          <span class="header-player-avatar">👑</span>
-          <span class="header-player-name">${player.name}</span>
+        <div class="header-player-pill" title="Profil Chasseur Monarque (Cliquez pour gérer le compte)" onclick="openAuthModal()" style="cursor: pointer;">
+          <span class="header-player-avatar" id="header-avatar-slot">${player.avatar ? `<img src="${player.avatar}" alt="Avatar" style="width: 22px; height: 22px; border-radius: 50%; object-fit: cover;">` : '👑'}</span>
+          <span class="header-player-name" id="header-player-name">${player.name}</span>
           <span class="header-player-rank">RANG ${player.rank}·${player.level}</span>
           <span class="header-player-sh" title="Score Harmonique Sh">Sh ${harmonicScore}</span>
         </div>
+
+        <!-- Google Auth Sync Button -->
+        <button id="header-google-auth-btn" class="header-google-btn" onclick="openAuthModal()" title="Compte & Connexion Google">
+          <svg viewBox="0 0 24 24" width="14" height="14" style="flex-shrink: 0;">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span id="header-auth-label">${player.authProvider === 'google' && player.email ? player.name.split(' ')[0].toUpperCase() : 'CONNEXION GOOGLE'}</span>
+        </button>
 
         <div class="header-stat-item" title="Horloge Système">
           <span class="stat-icon">🕒</span>
@@ -4368,6 +4423,15 @@ function renderFullApplication(initialTab = "dashboard") {
                   </p>
                   <div style="font-size: 10.5px; color: var(--text-muted); font-family: var(--font-mono); margin-top: 2px;">
                     GUID: 0x7E3-SHADOW-MNRCH-S9 • CLASSE: ${player.level > 10 ? "Shadow Ruler" : "Chasseur Novice (Rang E)"}
+                  </div>
+                  <div id="dash-auth-status-pill" onclick="openAuthModal()" style="display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; padding: 2px 8px; border-radius: 4px; background: rgba(66, 133, 244, 0.12); border: 1px solid rgba(66, 133, 244, 0.3); font-size: 10px; font-family: var(--font-mono); color: #8ab4f8; cursor: pointer; transition: all 0.2s ease;">
+                    <svg viewBox="0 0 24 24" width="11" height="11">
+                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                    </svg>
+                    <span id="dash-auth-label">${player.authProvider === 'google' && player.email ? `COMPTE LIÉ : ${player.email}` : 'LIER UN COMPTE GOOGLE'}</span>
                   </div>
                 </div>
               </div>
@@ -5844,6 +5908,84 @@ function renderFullApplication(initialTab = "dashboard") {
     </div>
   </div>
 
+  <!-- GOOGLE AUTHENTICATION & PLAYER PROFILE MODAL -->
+  <div id="auth-modal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 520px; border: 1px solid rgba(192, 132, 252, 0.4); box-shadow: 0 0 50px rgba(111, 0, 190, 0.35);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-inner-border);">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+          </div>
+          <h3 class="shiny-text" style="font-size: 18px; font-weight: bold; margin: 0;">SYNCHRONISATION GOOGLE DU CHASSEUR</h3>
+        </div>
+        <button onclick="closeAuthModal()" style="background: none; border: none; color: #fff; font-size: 22px; cursor: pointer;">✕</button>
+      </div>
+
+      <div id="auth-unauthenticated-view">
+        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5;">
+          Liez votre compte Google officiel pour synchroniser votre progression de Chasseur, vos Cristaux d'Ombre, votre Rang et sauvegarder vos stats sur le Cloud.
+        </p>
+
+        <!-- Google One-Tap / GIS rendered button slot -->
+        <div id="g_id_onload"
+             data-client_id="${GOOGLE_CLIENT_ID}"
+             data-context="signin"
+             data-ux_mode="popup"
+             data-callback="handleGoogleCredentialResponse"
+             data-auto_prompt="false">
+        </div>
+        <div style="display: flex; justify-content: center; margin-bottom: 16px;">
+          <div id="google-gis-btn-container" class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="filled_black" data-text="signin_with" data-size="large" data-logo_alignment="left"></div>
+        </div>
+
+        <!-- Direct OAuth 2.0 Redirect Fallback Button -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <a href="/auth/google" class="btn-cyber btn-gold" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; text-decoration: none; padding: 12px 20px; font-size: 13px; font-weight: 800; border-radius: 8px;">
+            <svg viewBox="0 0 24 24" width="18" height="18">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            SE CONNECTER AVEC GOOGLE (OAUTH 2.0)
+          </a>
+        </div>
+
+        <div style="background: rgba(14, 8, 32, 0.7); border: 1px solid var(--glass-inner-border); border-radius: 8px; padding: 14px; font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">
+          <div style="display: flex; align-items: center; gap: 6px; color: var(--neon-cyan); font-family: var(--font-mono); font-weight: bold; margin-bottom: 4px;">
+            <span>ℹ️ GUIDE D'ACTIVATION CLÉ GOOGLE</span>
+          </div>
+          <div>Statut Clé : <strong id="modal-key-status">${GOOGLE_CLIENT_ID ? 'Configurée ✓' : 'En attente (Variables GOOGLE_CLIENT_ID / SECRET)'}</strong></div>
+          <div style="margin-top: 4px;">Renseignez <code>GOOGLE_CLIENT_ID</code> et <code>GOOGLE_CLIENT_SECRET</code> sur votre console Cloud & Render pour activer l'authentification officielle.</div>
+        </div>
+      </div>
+
+      <div id="auth-authenticated-view" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 16px; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 10px; padding: 16px; margin-bottom: 20px;">
+          <img id="auth-user-picture" src="/logo-monarch.svg" alt="Avatar" style="width: 54px; height: 54px; border-radius: 50%; border: 2px solid var(--neon-cyan); object-fit: cover;">
+          <div style="flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h4 id="auth-user-name" style="margin: 0; font-size: 16px; font-weight: bold; color: var(--text-white);"></h4>
+              <span style="font-size: 10px; font-family: var(--font-mono); padding: 2px 6px; border-radius: 4px; background: rgba(69, 223, 164, 0.2); color: var(--tertiary); border: 1px solid var(--tertiary);">VÉRIFIÉ ✓</span>
+            </div>
+            <div id="auth-user-email" style="font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; word-break: break-all;"></div>
+            <div id="auth-provider-badge" style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); margin-top: 4px;">Fournisseur : Google Identity (OAuth 2.0)</div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 12px;">
+          <button class="btn-cyber" onclick="closeAuthModal()">FERMER</button>
+          <button class="btn-cyber btn-danger" onclick="logoutGoogleUser()">SE DÉCONNECTER</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- NEW NOTE MODAL -->
   <div id="note-modal" class="modal-overlay">
     <div class="modal-card" style="max-width: 640px;">
@@ -5928,6 +6070,121 @@ function renderFullApplication(initialTab = "dashboard") {
     }
     function closeSysModal() {
       document.getElementById('sys-modal').classList.remove('open');
+    }
+
+    // =========================================================================
+    // GOOGLE OAUTH 2.0 & IDENTITY SERVICES INTEGRATION
+    // =========================================================================
+    function openAuthModal() {
+      playChime(659);
+      const modal = document.getElementById('auth-modal');
+      if (modal) {
+        modal.classList.add('open');
+        refreshAuthModalUI();
+      }
+    }
+
+    function closeAuthModal() {
+      const modal = document.getElementById('auth-modal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    function refreshAuthModalUI() {
+      const unauthView = document.getElementById('auth-unauthenticated-view');
+      const authView = document.getElementById('auth-authenticated-view');
+      const authBtnLabel = document.getElementById('header-auth-label');
+      const avatarSlot = document.getElementById('header-avatar-slot');
+      const headerPlayerName = document.getElementById('header-player-name');
+      const dashPlayerName = document.getElementById('dash-player-name');
+      const dashAuthLabel = document.getElementById('dash-auth-label');
+
+      const isAuthed = state.player && state.player.authProvider === 'google' && state.player.email;
+
+      if (isAuthed) {
+        if (unauthView) unauthView.style.display = 'none';
+        if (authView) authView.style.display = 'block';
+
+        const nameEl = document.getElementById('auth-user-name');
+        const emailEl = document.getElementById('auth-user-email');
+        const picEl = document.getElementById('auth-user-picture');
+
+        const displayName = state.player.name || 'Chasseur Google';
+        if (nameEl) nameEl.textContent = displayName;
+        if (emailEl) emailEl.textContent = state.player.email || '';
+        if (picEl && state.player.avatar) picEl.src = state.player.avatar;
+
+        const shortName = displayName.split(' ')[0].toUpperCase();
+        if (authBtnLabel) authBtnLabel.textContent = shortName;
+        if (dashAuthLabel) dashAuthLabel.textContent = "COMPTE LIÉ : " + state.player.email;
+
+        if (avatarSlot) {
+          if (state.player.avatar) {
+            avatarSlot.innerHTML = '<img src="' + state.player.avatar + '" alt="Avatar" style="width: 22px; height: 22px; border-radius: 50%; object-fit: cover;">';
+          } else {
+            avatarSlot.textContent = '👑';
+          }
+        }
+        if (headerPlayerName) headerPlayerName.textContent = displayName;
+        if (dashPlayerName) dashPlayerName.textContent = displayName;
+      } else {
+        if (unauthView) unauthView.style.display = 'block';
+        if (authView) authView.style.display = 'none';
+        if (authBtnLabel) authBtnLabel.textContent = 'CONNEXION GOOGLE';
+        if (dashAuthLabel) dashAuthLabel.textContent = 'LIER UN COMPTE GOOGLE';
+        if (avatarSlot) avatarSlot.textContent = '👑';
+      }
+    }
+
+    // Google Identity Services (GIS) Credential Callback
+    async function handleGoogleCredentialResponse(response) {
+      if (!response || !response.credential) return;
+      try {
+        const res = await fetch('/api/v1/auth/google/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ credential: response.credential })
+        });
+        const data = await res.json();
+        if (data.success && data.user) {
+          state.player.name = data.user.name;
+          state.player.email = data.user.email;
+          state.player.avatar = data.user.picture;
+          state.player.authProvider = 'google';
+          saveState();
+          refreshAuthModalUI();
+          showSysNotification(
+            "👑 [COMPTE GOOGLE SYNCHRONISÉ]",
+            "Bienvenue, Chasseur <strong>" + data.user.name + "</strong> !<br>Votre identité Google (<code>" + data.user.email + "</code>) est scellée au Système du Monarque."
+          );
+          playChime(1046);
+        } else {
+          showSysNotification(
+            "[ERREUR D'AUTHENTIFICATION]",
+            "Échec de validation du jeton Google : " + (data.error || "Réponse non conforme.")
+          );
+        }
+      } catch (err) {
+        console.error('[Google Auth] Erreur vérification:', err);
+      }
+    }
+
+    async function logoutGoogleUser() {
+      try {
+        await fetch('/api/v1/auth/logout', { method: 'POST' });
+      } catch (e) {}
+      state.player.name = 'Huriel';
+      state.player.email = null;
+      state.player.avatar = null;
+      state.player.authProvider = null;
+      state.player.googleId = null;
+      saveState();
+      refreshAuthModalUI();
+      closeAuthModal();
+      showSysNotification(
+        "[DÉCONNEXION RÉUSSIE]",
+        "Session Google déconnectée. Vos paramètres reviennent au profil local par défaut."
+      );
+      playChime(523);
     }
 
     // Real-Time System Clock
@@ -9826,6 +10083,39 @@ function renderFullApplication(initialTab = "dashboard") {
     } else {
       updatePenaltyUI(false);
     }
+    // Check for OAuth redirect params
+    try {
+      const urlP = new URLSearchParams(window.location.search);
+      if (urlP.get('auth') === 'success') {
+        const pName = urlP.get('name');
+        const pEmail = urlP.get('email');
+        const pPic = urlP.get('picture');
+        if (pName) state.player.name = decodeURIComponent(pName);
+        if (pEmail) state.player.email = decodeURIComponent(pEmail);
+        if (pPic) state.player.avatar = decodeURIComponent(pPic);
+        state.player.authProvider = 'google';
+        saveState();
+        window.history.replaceState({}, document.title, window.location.pathname);
+        setTimeout(() => {
+          showSysNotification(
+            "👑 [SYNCHRONISATION GOOGLE CONFIRMÉE]",
+            "Bienvenue, Chasseur <strong>" + (state.player.name || '') + "</strong> !<br>Votre identité officielle (<code>" + (state.player.email || '') + "</code>) a été certifiée par Google Identity."
+          );
+          playChime(1046);
+        }, 600);
+      } else if (urlP.get('auth') === 'error') {
+        const reason = urlP.get('reason') || 'Échec de négociation de session';
+        window.history.replaceState({}, document.title, window.location.pathname);
+        setTimeout(() => {
+          showSysNotification(
+            "[ERREUR D'AUTHENTIFICATION GOOGLE]",
+            "La tentative de connexion a échoué : " + reason
+          );
+        }, 600);
+      }
+    } catch(e) {}
+    refreshAuthModalUI();
+
     initSystemIntro();
     initScrollRevealCards();
     sanitizeLegacyComments();
@@ -9889,6 +10179,272 @@ const server = http.createServer(async (req, res) => {
       "Cache-Control": "public, max-age=86400",
     });
     res.end(MONARCH_LOGO_SVG);
+    return;
+  }
+
+  // =========================================================================
+  // GOOGLE OAUTH 2.0 & IDENTITY SERVICES ENDPOINTS
+  // =========================================================================
+
+  // Google OAuth Config Endpoint
+  if (pathname === "/api/v1/auth/config") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        configured: Boolean(GOOGLE_CLIENT_ID),
+        clientId: GOOGLE_CLIENT_ID,
+        appUrl: APP_URL,
+      }),
+    );
+    return;
+  }
+
+  // Google OAuth 2.0 Initiation Route
+  if (pathname === "/auth/google") {
+    if (!GOOGLE_CLIENT_ID) {
+      res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      res.end(`<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Configuration Google OAuth Requise — LevelUp</title>
+  <style>
+    body { background: #0f0926; color: #fff; font-family: monospace; padding: 40px; text-align: center; }
+    .card { background: #1d1734; border: 1px solid #c084fc; max-width: 620px; margin: 40px auto; padding: 32px; border-radius: 12px; box-shadow: 0 0 40px rgba(111,0,190,0.4); text-align: left; }
+    h2 { color: #00f0ff; text-align: center; margin-top: 0; }
+    code { background: #2c2644; color: #ffb800; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+    a { color: #00f0ff; text-decoration: none; font-weight: bold; }
+    a:hover { text-decoration: underline; }
+    ol { line-height: 1.8; color: #cfc2d7; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>⚡ CLÉ GOOGLE OAUTH NON DÉFINIE</h2>
+    <p>La variable d'environnement <code>GOOGLE_CLIENT_ID</code> n'est pas encore configurée sur ce serveur.</p>
+    <p>Pour activer l'authentification officielle :</p>
+    <ol>
+      <li>Créez un identifiant OAuth 2.0 sur la <strong>Google Cloud Console</strong>.</li>
+      <li>Ajoutez l'URI de redirection : <code>${APP_URL}/auth/google/callback</code>.</li>
+      <li>Définissez <code>GOOGLE_CLIENT_ID</code> et <code>GOOGLE_CLIENT_SECRET</code> dans vos variables d'environnement.</li>
+    </ol>
+    <div style="text-align: center; margin-top: 24px;">
+      <a href="/dashboard">← Retourner au HUD LevelUp</a>
+    </div>
+  </div>
+</body>
+</html>`);
+      return;
+    }
+
+    const host = req.headers.host || (PORT ? `localhost:${PORT}` : "levelup-system.onrender.com");
+    const protocol = (req.headers["x-forwarded-proto"] || "http").split(",")[0];
+    const redirectUri = `${protocol}://${host}/auth/google/callback`;
+
+    const googleAuthUrl =
+      `https://accounts.google.com/o/oauth2/v2/auth?` +
+      `client_id=${encodeURIComponent(GOOGLE_CLIENT_ID)}` +
+      `&redirect_uri=${encodeURIComponent(redirectUri)}` +
+      `&response_type=code` +
+      `&scope=${encodeURIComponent("openid profile email")}` +
+      `&access_type=offline` +
+      `&prompt=consent`;
+
+    res.writeHead(302, { Location: googleAuthUrl });
+    res.end();
+    return;
+  }
+
+  // Google OAuth 2.0 Callback Route
+  if (pathname === "/auth/google/callback") {
+    const code = parsedUrl.query.code;
+    const error = parsedUrl.query.error;
+
+    if (error || !code) {
+      res.writeHead(302, {
+        Location: `/?auth=error&reason=${encodeURIComponent(error || "NO_CODE")}`,
+      });
+      res.end();
+      return;
+    }
+
+    const host = req.headers.host || (PORT ? `localhost:${PORT}` : "levelup-system.onrender.com");
+    const protocol = (req.headers["x-forwarded-proto"] || "http").split(",")[0];
+    const redirectUri = `${protocol}://${host}/auth/google/callback`;
+
+    // Exchange auth code for tokens
+    const postData = [
+      `code=${encodeURIComponent(code)}`,
+      `client_id=${encodeURIComponent(GOOGLE_CLIENT_ID)}`,
+      `client_secret=${encodeURIComponent(GOOGLE_CLIENT_SECRET)}`,
+      `redirect_uri=${encodeURIComponent(redirectUri)}`,
+      `grant_type=authorization_code`,
+    ].join("&");
+
+    const tokenReq = https.request(
+      "https://oauth2.googleapis.com/token",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Length": Buffer.byteLength(postData),
+        },
+      },
+      (tokenRes) => {
+        let tokenBody = "";
+        tokenRes.on("data", (chunk) => {
+          tokenBody += chunk;
+        });
+        tokenRes.on("end", () => {
+          try {
+            const tokenJson = JSON.parse(tokenBody);
+            const accessToken = tokenJson.access_token;
+
+            if (!accessToken) {
+              res.writeHead(302, {
+                Location: `/?auth=error&reason=TOKEN_EXCHANGE_FAILED`,
+              });
+              res.end();
+              return;
+            }
+
+            // Fetch user profile from Google UserInfo
+            https
+              .get(
+                "https://www.googleapis.com/oauth2/v3/userinfo",
+                {
+                  headers: { Authorization: `Bearer ${accessToken}` },
+                },
+                (userRes) => {
+                  let userBody = "";
+                  userRes.on("data", (chunk) => {
+                    userBody += chunk;
+                  });
+                  userRes.on("end", () => {
+                    try {
+                      const userinfo = JSON.parse(userBody);
+                      const gName = userinfo.name || userinfo.given_name || "Chasseur Google";
+                      const gEmail = userinfo.email || "";
+                      const gPic = userinfo.picture || "";
+
+                      SYSTEM_STATE.player.name = gName;
+                      SYSTEM_STATE.player.email = gEmail;
+                      SYSTEM_STATE.player.avatar = gPic;
+                      SYSTEM_STATE.player.authProvider = "google";
+                      SYSTEM_STATE.player.googleId = userinfo.sub;
+
+                      const destUrl = `/?auth=success&provider=google&name=${encodeURIComponent(gName)}&email=${encodeURIComponent(gEmail)}&picture=${encodeURIComponent(gPic)}`;
+                      res.writeHead(302, { Location: destUrl });
+                      res.end();
+                    } catch (_) {
+                      res.writeHead(302, {
+                        Location: `/?auth=error&reason=USERINFO_PARSE_FAILED`,
+                      });
+                      res.end();
+                    }
+                  });
+                },
+              )
+              .on("error", () => {
+                res.writeHead(302, {
+                  Location: `/?auth=error&reason=USERINFO_NETWORK_ERROR`,
+                });
+                res.end();
+              });
+          } catch (_) {
+            res.writeHead(302, {
+              Location: `/?auth=error&reason=TOKEN_PARSE_FAILED`,
+            });
+            res.end();
+          }
+        });
+      },
+    );
+
+    tokenReq.on("error", () => {
+      res.writeHead(302, { Location: `/?auth=error&reason=TOKEN_REQUEST_ERROR` });
+      res.end();
+    });
+
+    tokenReq.write(postData);
+    tokenReq.end();
+    return;
+  }
+
+  // Google Identity Services (GIS) JWT ID Token Verification
+  if (pathname === "/api/v1/auth/google/verify" && req.method === "POST") {
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk;
+    });
+    req.on("end", () => {
+      try {
+        const parsed = JSON.parse(body);
+        const credential = parsed.credential;
+        if (!credential) {
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ success: false, error: "CREDENTIAL_MISSING" }));
+          return;
+        }
+
+        const parts = credential.split(".");
+        if (parts.length !== 3) {
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ success: false, error: "INVALID_JWT_FORMAT" }));
+          return;
+        }
+
+        const payloadStr = Buffer.from(parts[1], "base64").toString("utf8");
+        const payload = JSON.parse(payloadStr);
+
+        if (!payload.iss || !payload.iss.includes("accounts.google.com")) {
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ success: false, error: "INVALID_ISSUER" }));
+          return;
+        }
+
+        SYSTEM_STATE.player.name = payload.name || "Chasseur Google";
+        SYSTEM_STATE.player.email = payload.email || "";
+        SYSTEM_STATE.player.avatar = payload.picture || null;
+        SYSTEM_STATE.player.authProvider = "google";
+        SYSTEM_STATE.player.googleId = payload.sub;
+
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(
+          JSON.stringify({
+            success: true,
+            user: {
+              name: payload.name,
+              email: payload.email,
+              picture: payload.picture,
+              sub: payload.sub,
+            },
+          }),
+        );
+      } catch (err) {
+        res.writeHead(500, { "Content-Type": "application/json" });
+        res.end(
+          JSON.stringify({
+            success: false,
+            error: "VERIFICATION_ERROR",
+            message: err.message,
+          }),
+        );
+      }
+    });
+    return;
+  }
+
+  // Logout Endpoint
+  if (pathname === "/api/v1/auth/logout" && req.method === "POST") {
+    SYSTEM_STATE.player.name = "Huriel";
+    SYSTEM_STATE.player.email = null;
+    SYSTEM_STATE.player.avatar = null;
+    SYSTEM_STATE.player.authProvider = null;
+    SYSTEM_STATE.player.googleId = null;
+
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ success: true, message: "Déconnexion réussie." }));
     return;
   }
 
