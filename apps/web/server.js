@@ -3313,6 +3313,9 @@ function renderFullApplication(initialTab = "dashboard") {
         if (t === 'light-awakening' || t === 'dark-monarch') {
           document.documentElement.setAttribute('data-theme', t);
         }
+        if (sessionStorage.getItem('levelup_intro_seen')) {
+          document.documentElement.classList.add('no-intro');
+        }
       } catch (e) {}
     })();
   </script>
@@ -5873,135 +5876,82 @@ function renderFullApplication(initialTab = "dashboard") {
       transition: opacity 0.2s;
     }
   
-    /* SYSTEM INTRO HOLOGRAPHIC CONTAINER (SOLO LEVELING MONARCH WINDOW) */
+    /* Lock app-layout to screen viewport while intro is actively playing */
+    body.intro-active,
+    body:has(#system-intro-overlay:not(.dismissed)) {
+      overflow: hidden !important;
+    }
+
+    body.intro-active .app-layout,
+    .app-layout:has(#system-intro-overlay:not(.dismissed)) {
+      height: calc(100vh - 28px) !important;
+      max-height: calc(100vh - 28px) !important;
+      overflow: hidden !important;
+    }
+
+    /* Zero flash if intro was already seen in this session */
+    html.no-intro .system-intro-overlay {
+      display: none !important;
+    }
+    html.no-intro body.intro-active,
+    html.no-intro .app-layout {
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
+    }
+
+    /* SYSTEM INTRO OVERLAY (DIRECTLY EMBEDDED IN WEBSITE CONTAINER .APP-LAYOUT) */
     .system-intro-overlay {
-      position: fixed;
+      position: absolute;
       inset: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 999999;
-      background: radial-gradient(circle at center, rgba(14, 8, 32, 0.94) 0%, rgba(3, 1, 10, 0.98) 100%);
-      backdrop-filter: blur(22px) saturate(180%);
-      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      width: 100%;
+      height: 100%;
+      z-index: 99999;
+      background: #000000;
+      border-radius: 17px;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
-      overflow: hidden;
-      padding: 24px;
-      box-sizing: border-box;
+      transition: opacity 0.35s ease-out, visibility 0.35s ease-out;
     }
 
     .system-intro-overlay.dismissed {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    /* LE GRAND CONTENAIRE HOLOGRAPHIQUE AVEC BORDS À RADIUS ET ACCENTS SYSTÈME */
-    .system-intro-container {
-      position: relative;
-      width: 100%;
-      max-width: 960px;
-      background: rgba(10, 6, 24, 0.92);
-      backdrop-filter: blur(28px) saturate(190%);
-      -webkit-backdrop-filter: blur(28px) saturate(190%);
-      border: 1.5px solid rgba(0, 240, 255, 0.5);
-      border-radius: 20px;
-      box-shadow: 0 0 50px rgba(0, 240, 255, 0.28), 0 25px 70px rgba(0, 0, 0, 0.9), inset 0 0 30px rgba(147, 51, 234, 0.2);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      cursor: pointer;
-      animation: systemModalEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .system-intro-container::before {
-      content: '';
-      position: absolute;
-      top: -1px;
-      left: 12%;
-      right: 12%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--neon-cyan), #c084fc, transparent);
-      z-index: 5;
-    }
-
-    .system-intro-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 20px;
-      background: rgba(18, 10, 38, 0.75);
-      border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-      user-select: none;
-    }
-
-    .intro-header-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .intro-pulse-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--neon-cyan);
-      box-shadow: 0 0 10px var(--neon-cyan);
-      animation: pulseIntroDot 1.4s ease-in-out infinite;
-    }
-
-    @keyframes pulseIntroDot {
-      0%, 100% { transform: scale(1); opacity: 0.6; }
-      50% { transform: scale(1.3); opacity: 1; }
-    }
-
-    .intro-container-title {
-      font-family: var(--font-display);
-      font-size: 11.5px;
-      font-weight: 800;
-      color: #e0f2fe;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      display: none !important;
     }
 
     .btn-skip-intro {
-      position: static;
-      background: rgba(10, 6, 26, 0.88);
-      border: 1px solid var(--neon-cyan);
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 100000;
+      background: rgba(10, 6, 26, 0.92);
+      border: 1.5px solid var(--neon-cyan);
       color: var(--neon-cyan);
-      padding: 6px 14px;
+      padding: 8px 18px;
       border-radius: 8px;
       font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 800;
-      letter-spacing: 0.8px;
+      letter-spacing: 1px;
       cursor: pointer;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 0 14px rgba(0, 240, 255, 0.35);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.45);
       transition: all 0.2s ease;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      user-select: none;
     }
     .btn-skip-intro:hover {
       background: var(--neon-cyan);
-      color: #000;
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.85);
-      transform: scale(1.03);
-    }
-
-    .system-intro-viewport {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #000000;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      color: #000000;
+      box-shadow: 0 0 28px rgba(0, 240, 255, 0.9);
+      transform: scale(1.04);
     }
 
     .system-intro-video {
@@ -6010,6 +5960,7 @@ function renderFullApplication(initialTab = "dashboard") {
       object-fit: cover;
       display: block;
       background: #000000;
+      border-radius: inherit;
       transition: opacity 0.25s ease;
     }
 
@@ -6019,7 +5970,8 @@ function renderFullApplication(initialTab = "dashboard") {
       inset: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at center, rgba(12, 28, 60, 0.98) 0%, rgba(2, 6, 18, 0.99) 100%);
+      background: #000000;
+      border-radius: inherit;
       padding: 0;
       margin: 0;
       overflow: hidden;
@@ -6032,42 +5984,17 @@ function renderFullApplication(initialTab = "dashboard") {
     .system-intro-alert-img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       object-position: center;
       display: block;
       border: none;
+      border-radius: inherit;
       animation: alertModalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .system-intro-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 20px;
-      background: rgba(8, 4, 18, 0.85);
-      border-top: 1px solid rgba(0, 240, 255, 0.15);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-secondary);
-      user-select: none;
-    }
-
-    .intro-telemetry-tag {
-      color: var(--text-muted);
-      letter-spacing: 1px;
-    }
-
-    .intro-footer-hint {
-      color: var(--neon-cyan);
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      animation: pulseAlertHint 1.4s ease-in-out infinite;
     }
 
     .system-intro-alert-hint {
       position: absolute;
-      bottom: 20px;
+      bottom: 28px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
@@ -6089,18 +6016,13 @@ function renderFullApplication(initialTab = "dashboard") {
       white-space: nowrap;
     }
 
-    @keyframes systemModalEntrance {
-      0% { opacity: 0; transform: scale(0.93) translateY(12px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
     @keyframes alertOverlayFadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
 
     @keyframes alertModalPop {
-      0% { transform: scale(0.94); opacity: 0; }
+      0% { transform: scale(0.95); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
     }
 
@@ -6579,41 +6501,23 @@ function renderFullApplication(initialTab = "dashboard") {
         justify-content: center !important;
       }
 
-      /* 15. Mobile Intro Holographic Container */
+      /* 15. Mobile Intro Layout */
+      body.intro-active .app-layout,
+      .app-layout:has(#system-intro-overlay:not(.dismissed)) {
+        height: 100vh !important;
+        max-height: 100vh !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+      }
+
       .system-intro-overlay {
-        padding: 10px !important;
-      }
-
-      .system-intro-container {
-        border-radius: 14px !important;
-      }
-
-      .system-intro-header {
-        padding: 8px 12px !important;
-      }
-
-      .intro-container-title {
-        font-size: 10px !important;
-        letter-spacing: 0.8px !important;
+        border-radius: 0 !important;
       }
 
       .btn-skip-intro {
-        padding: 4px 10px !important;
-        font-size: 10px !important;
-      }
-
-      .system-intro-footer {
-        padding: 8px 12px !important;
-        flex-direction: column !important;
-        gap: 4px !important;
-        text-align: center !important;
-      }
-
-      .intro-telemetry-tag {
-        font-size: 9.5px !important;
-      }
-
-      .intro-footer-hint {
+        top: 12px !important;
+        right: 12px !important;
+        padding: 5px 12px !important;
         font-size: 10px !important;
       }
 
@@ -6660,44 +6564,29 @@ function renderFullApplication(initialTab = "dashboard") {
 
   </style>
 </head>
-<body>
-
-  <!-- SYSTEM INTRO INITIALIZATION (HOLOGRAPHIC CONTAINER AVEC BORDS À RADIUS) -->
-  <div id="system-intro-overlay" class="system-intro-overlay" onclick="handleIntroOverlayClick()" title="Cliquer pour passer">
-    <div class="system-intro-container" onclick="event.stopPropagation(); handleIntroOverlayClick();">
-      <div class="system-intro-header">
-        <div class="intro-header-left">
-          <span class="intro-pulse-dot"></span>
-          <span class="intro-container-title">⚡ SYSTÈME DU MONARQUE // PROTOCOLE D'ÉVEIL</span>
-        </div>
-        <button id="btn-skip-intro" class="btn-skip-intro" onclick="event.stopPropagation(); dismissIntroOverlay(event);" title="Passer l'introduction et entrer immédiatement dans le système">
-          PASSER L'INTRO ➔
-        </button>
-      </div>
-      <div class="system-intro-viewport">
-        <video id="system-intro-video" class="system-intro-video" playsinline muted autoplay preload="auto">
-          <source src="/intro.mp4?v=8s_ouf_v3" type="video/mp4">
-          <source src="/intro.webm?v=8s_ouf_v3" type="video/webm">
-          <source src="${SUPABASE_CDN_VIDEO_MP4}" type="video/mp4">
-          <source src="${SUPABASE_CDN_VIDEO_WEBM}" type="video/webm">
-        </video>
-        <div id="system-intro-alert-wrapper" class="system-intro-alert-wrapper">
-          <img id="system-intro-alert-img" class="system-intro-alert-img" src="${INTRO_IMAGE_URL || '/intro-alert.webp?v=8s_v1_upscale'}" alt="[WELCOME, PLAYER.] System Alert" />
-          <div class="system-intro-alert-hint">[ INITIALISATION DU SYSTÈME EN COURS... CLIQUEZ POUR ENTRER ]</div>
-        </div>
-      </div>
-      <div class="system-intro-footer">
-        <span class="intro-telemetry-tag">FLUX SOUVERAIN EN TEMPS RÉEL • SYSTEM v3.3</span>
-        <span class="intro-footer-hint">[ CLIQUEZ N'IMPORTE OÙ POUR AVANCER ]</span>
-      </div>
-    </div>
-  </div>
-
+<body class="intro-active">
 
   <canvas id="mana-particles-canvas"></canvas>
 
   <!-- APPLICATION WORKSPACE LAYOUT (TOP MASTER HEADER + TOP TAB BAR + MAIN WORKSPACE) -->
   <div class="app-layout">
+
+    <!-- SYSTEM INTRO OVERLAY (INTEGRATED DIRECTLY IN WEBSITE CONTAINER APP-LAYOUT) -->
+    <div id="system-intro-overlay" class="system-intro-overlay" onclick="handleIntroOverlayClick()" title="Cliquer pour passer">
+      <button id="btn-skip-intro" class="btn-skip-intro" onclick="event.stopPropagation(); dismissIntroOverlay(event);" title="Passer l'introduction et entrer immédiatement dans le système">
+        PASSER L'INTRO ➔
+      </button>
+      <video id="system-intro-video" class="system-intro-video" playsinline muted autoplay preload="auto">
+        <source src="/intro.mp4?v=8s_ouf_v3" type="video/mp4">
+        <source src="/intro.webm?v=8s_ouf_v3" type="video/webm">
+        <source src="${SUPABASE_CDN_VIDEO_MP4}" type="video/mp4">
+        <source src="${SUPABASE_CDN_VIDEO_WEBM}" type="video/webm">
+      </video>
+      <div id="system-intro-alert-wrapper" class="system-intro-alert-wrapper">
+        <img id="system-intro-alert-img" class="system-intro-alert-img" src="${INTRO_IMAGE_URL || '/intro-alert.webp?v=8s_v1_upscale'}" alt="[WELCOME, PLAYER.] System Alert" />
+        <div class="system-intro-alert-hint">[ INITIALISATION DU SYSTÈME EN COURS... CLIQUEZ POUR ENTRER ]</div>
+      </div>
+    </div>
 
     <!-- MASTER TOP HEADER (PRISMVEIL FLOATING CAPSULE STYLE) -->
     <header class="master-header">
@@ -8473,19 +8362,22 @@ function renderFullApplication(initialTab = "dashboard") {
       }
     } catch(e) {}
 
-    // STRICT GATE 1: User MUST be authenticated with Google (No account = blocked)
-    const isGoogleAuth = Boolean(state.player && state.player.authProvider === 'google' && state.player.email);
-    if (!isGoogleAuth) {
-      window.location.replace('/?access=blocked&reason=ACCOUNT_REQUIRED');
-      return;
-    }
+    // STRICT ACCESS GATES (Wrapped in IIFE to prevent illegal return statements)
+    (function checkAccessGates() {
+      // STRICT GATE 1: User MUST be authenticated with Google (No account = blocked)
+      const isGoogleAuth = Boolean(state.player && state.player.authProvider === 'google' && state.player.email);
+      if (!isGoogleAuth) {
+        window.location.replace('/?access=blocked&reason=ACCOUNT_REQUIRED');
+        return;
+      }
 
-    // STRICT GATE 2: All new accounts MUST complete onboarding before entering HUD
-    const isOnboarded = Boolean(state.player && (state.player.onboardingCompleted || state.onboardingCompleted));
-    if (!isOnboarded) {
-      window.location.replace('/onboarding?required=true');
-      return;
-    }
+      // STRICT GATE 2: All new accounts MUST complete onboarding before entering HUD
+      const isOnboarded = Boolean(state.player && (state.player.onboardingCompleted || state.onboardingCompleted));
+      if (!isOnboarded) {
+        window.location.replace('/onboarding?required=true');
+        return;
+      }
+    })();
 
     function saveState() {
       try {
@@ -12461,10 +12353,12 @@ function renderFullApplication(initialTab = "dashboard") {
       if (hasSeen) {
         overlay.classList.add('dismissed');
         overlay.style.display = 'none';
+        document.body.classList.remove('intro-active');
         startManaAnimation();
         return;
       }
 
+      document.body.classList.add('intro-active');
       // Stop heavy particles during intro video playback to free 100% CPU/GPU
       stopManaAnimation();
 
@@ -12550,7 +12444,7 @@ function renderFullApplication(initialTab = "dashboard") {
         console.warn('[Video Client] ⏳ Buffering en cours / attente de recall réseau...');
       });
       video.addEventListener('canplaythrough', () => {
-        console.log('[Video Client] ⚡ Débit suffisant : la vidéo peut être lue jusqu\'à la fin sans interruption');
+        console.log("[Video Client] ⚡ Débit suffisant : la vidéo peut être lue jusqu'à la fin sans interruption");
       });
       video.addEventListener('error', (err) => {
         console.warn('[Intro] Video error encountered:', err);
@@ -12562,7 +12456,7 @@ function renderFullApplication(initialTab = "dashboard") {
             console.warn('[Intro] Video stalled event confirmed, dismissing overlay');
             dismissIntroOverlay();
           }
-        }, 1500);
+        }, 1200);
       });
 
       // Start playback
@@ -12597,27 +12491,32 @@ function renderFullApplication(initialTab = "dashboard") {
       const overlay = document.getElementById('system-intro-overlay');
       const video = document.getElementById('system-intro-video');
       sessionStorage.setItem('levelup_intro_seen', 'true');
+      document.body.classList.remove('intro-active');
 
       if (overlay) {
         overlay.classList.add('dismissed');
-        setTimeout(() => {
-          overlay.style.display = 'none';
-          if (video) {
-            try { video.pause(); } catch(e) {}
-            video.currentTime = 0;
-          }
-          // Resume background mana particles when intro is dismissed
-          startManaAnimation();
-          const activeView = document.querySelector('.view-panel.active');
-          if (activeView) {
-            triggerActiveViewCardsReveal(activeView);
-          }
-        }, 350);
+        overlay.style.opacity = '0';
+        overlay.style.pointerEvents = 'none';
+        overlay.style.display = 'none';
+        if (video) {
+          try { video.pause(); } catch(e) {}
+          video.currentTime = 0;
+        }
+        // Resume background mana particles when intro is dismissed
+        startManaAnimation();
+        const activeView = document.querySelector('.view-panel.active');
+        if (activeView) {
+          triggerActiveViewCardsReveal(activeView);
+        }
       }
     }
 
+    window.dismissIntroOverlay = dismissIntroOverlay;
+    window.handleIntroOverlayClick = handleIntroOverlayClick;
+
     function replayIntroVideo() {
       sessionStorage.removeItem('levelup_intro_seen');
+      document.body.classList.add('intro-active');
       stopManaAnimation();
       const overlay = document.getElementById('system-intro-overlay');
       const video = document.getElementById('system-intro-video');
