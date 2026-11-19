@@ -5895,6 +5895,35 @@ function renderFullApplication(initialTab = "dashboard") {
       pointer-events: none;
     }
 
+    .btn-skip-intro {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 1000000;
+      background: rgba(10, 6, 26, 0.88);
+      border: 1px solid var(--neon-cyan);
+      color: var(--neon-cyan);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-skip-intro:hover {
+      background: var(--neon-cyan);
+      color: #000;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.8);
+      transform: scale(1.03);
+    }
+
     .system-intro-video {
       width: 100%;
       height: 100%;
@@ -6488,11 +6517,14 @@ function renderFullApplication(initialTab = "dashboard") {
 
   <!-- SYSTEM INTRO INITIALIZATION VIDEO (CLEAN FULLSCREEN) & ALERT TRANSITION -->
   <div id="system-intro-overlay" class="system-intro-overlay" onclick="handleIntroOverlayClick()" title="Cliquer pour passer">
+    <button id="btn-skip-intro" class="btn-skip-intro" onclick="event.stopPropagation(); dismissIntroOverlay(event);" title="Passer l'introduction et entrer immédiatement dans le système">
+      PASSER L'INTRO ➔
+    </button>
     <video id="system-intro-video" class="system-intro-video" playsinline muted autoplay preload="auto">
-      <source src="${SUPABASE_CDN_VIDEO_WEBM}" type="video/webm">
+      <source src="/intro.mp4?v=8s_ouf_v3" type="video/mp4">
+      <source src="/intro.webm?v=8s_ouf_v3" type="video/webm">
       <source src="${SUPABASE_CDN_VIDEO_MP4}" type="video/mp4">
-      <source src="/intro.webm?v=8s_ouf_v2" type="video/webm">
-      <source src="/intro.mp4?v=8s_ouf_v2" type="video/mp4">
+      <source src="${SUPABASE_CDN_VIDEO_WEBM}" type="video/webm">
     </video>
     <div id="system-intro-alert-wrapper" class="system-intro-alert-wrapper">
       <img id="system-intro-alert-img" class="system-intro-alert-img" src="${INTRO_IMAGE_URL || '/intro-alert.webp?v=8s_v1_upscale'}" alt="[WELCOME, PLAYER.] System Alert" />
@@ -12211,32 +12243,15 @@ function renderFullApplication(initialTab = "dashboard") {
     });
 
     
-    // CLEAN SYSTEM INTRO VIDEO & ALERT TRANSITION CONTROLLER (GUARANTEED 4.0s DISAPPEARANCE)
+    // CLEAN SYSTEM INTRO VIDEO & ALERT TRANSITION CONTROLLER (ACTIVE HEARTBEAT & ANTI-STALL)
     let introDismissed = false;
     let introAlertShown = false;
     let alertAutoDismissTimer = null;
     let introPlaybackPoller = null;
-    let introDeadConnectionTimer = null;
-
-    function resetIntroDeadConnectionWatchdog() {
-      if (introDeadConnectionTimer) clearTimeout(introDeadConnectionTimer);
-      // Extreme safety watchdog: only triggers if completely frozen with zero bytes/playback progress for 45s
-      introDeadConnectionTimer = setTimeout(() => {
-        const video = document.getElementById('system-intro-video');
-        if (video && !video.ended && video.currentTime === 0) {
-          console.warn('[Intro] Connection stalled with zero bytes/playback for 45s, advancing to alert');
-          showIntroAlertScreen();
-        }
-      }, 45000);
-    }
 
     function showIntroAlertScreen() {
       if (introAlertShown || introDismissed) return;
       introAlertShown = true;
-      if (introDeadConnectionTimer) {
-        clearTimeout(introDeadConnectionTimer);
-        introDeadConnectionTimer = null;
-      }
       if (introPlaybackPoller) {
         clearInterval(introPlaybackPoller);
         introPlaybackPoller = null;
@@ -12258,11 +12273,11 @@ function renderFullApplication(initialTab = "dashboard") {
         alertWrapper.style.opacity = '1';
       }
 
-      // Automatically transition to application after 2.5s (or on user click)
+      // Automatically transition to application after 2.0s (or on user click)
       if (alertAutoDismissTimer) clearTimeout(alertAutoDismissTimer);
       alertAutoDismissTimer = setTimeout(() => {
         dismissIntroOverlay();
-      }, 2500);
+      }, 2000);
     }
 
     function handleIntroOverlayClick() {
@@ -12311,58 +12326,89 @@ function renderFullApplication(initialTab = "dashboard") {
       video.setAttribute('muted', '');
       video.setAttribute('playsinline', '');
 
-      // Reset watchdog whenever data arrives or playback advances
-      resetIntroDeadConnectionWatchdog();
-      video.addEventListener('progress', resetIntroDeadConnectionWatchdog);
-      video.addEventListener('waiting', resetIntroDeadConnectionWatchdog);
+      // ACTIVE PLAYBACK HEARTBEAT & ANTI-STALL WATCHDOG
+      let lastObservedTime = -1;
+      let lastProgressTimestamp = Date.now();
+      let playbackHasStarted = false;
+      const initialMountTime = Date.now();
 
-      // 1. Natural frame-accurate completion (plays until full end)
-      video.addEventListener('ended', showIntroAlertScreen);
-      video.addEventListener('timeupdate', () => {
-        resetIntroDeadConnectionWatchdog();
-        if (video.ended || (video.duration > 0 && video.currentTime >= video.duration)) {
-          showIntroAlertScreen();
-        }
-      });
-
-      // 2. High-Frequency Poller (every 50ms) to detect completion without premature cut-off
       if (introPlaybackPoller) clearInterval(introPlaybackPoller);
       introPlaybackPoller = setInterval(() => {
-        if (!video) return;
-        if (video.ended || (video.duration > 0 && video.currentTime >= video.duration)) {
-          showIntroAlertScreen();
+        if (!video || introDismissed) {
+          if (introPlaybackPoller) clearInterval(introPlaybackPoller);
+          return;
         }
-      }, 50);
 
-      // 3. Fatal error fallback
+        const now = Date.now();
+
+        // 1. Natural frame-accurate completion (reaches 8.0s)
+        if (video.ended || (video.duration > 0 && video.currentTime >= video.duration - 0.05)) {
+          showIntroAlertScreen();
+          return;
+        }
+
+        // 2. Track real frame-by-frame progress
+        if (video.currentTime > 0) {
+          playbackHasStarted = true;
+          if (Math.abs(video.currentTime - lastObservedTime) > 0.03) {
+            lastObservedTime = video.currentTime;
+            lastProgressTimestamp = now; // Actively moving forward
+          }
+        }
+
+        // 3. Fail-safe: Video has not even started playing after 3.0s (buffering hang or blocked autoplay)
+        if (!playbackHasStarted && (now - initialMountTime > 3000)) {
+          console.warn('[Intro] Video failed to start within 3s, bypassing overlay directly to HUD');
+          dismissIntroOverlay();
+          return;
+        }
+
+        // 4. Fail-safe: Video was playing but STALLED / FROZEN mid-stream for >2.0s
+        if (playbackHasStarted && (now - lastProgressTimestamp > 2000)) {
+          console.warn('[Intro] Video playback stalled mid-stream (>2s), auto-revealing HUD');
+          dismissIntroOverlay();
+          return;
+        }
+      }, 100);
+
+      // Event listener backups
+      video.addEventListener('ended', showIntroAlertScreen);
       video.addEventListener('error', (err) => {
         console.warn('[Intro] Video error encountered:', err);
-        showIntroAlertScreen();
+        dismissIntroOverlay();
+      });
+      video.addEventListener('stalled', () => {
+        setTimeout(() => {
+          if (!introDismissed && video.paused && !video.ended) {
+            console.warn('[Intro] Video stalled event confirmed, dismissing overlay');
+            dismissIntroOverlay();
+          }
+        }, 1500);
       });
 
-      // 4. Start playback
+      // Start playback
       try {
         const playPromise = video.play();
         if (playPromise !== undefined) {
           playPromise.catch((err) => {
-            console.warn('[Intro] Autoplay prevented, waiting for user interaction or click:', err);
+            console.warn('[Intro] Autoplay prevented, auto-advancing to HUD:', err);
+            dismissIntroOverlay();
           });
         }
       } catch (e) {
-        console.warn('[Intro] Video play error:', e);
+        console.warn('[Intro] Video play error, bypassing:', e);
+        dismissIntroOverlay();
       }
     }
 
-    function dismissIntroOverlay() {
+    function dismissIntroOverlay(e) {
+      if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
       if (introDismissed) return;
       introDismissed = true;
+
       if (alertAutoDismissTimer) {
         clearTimeout(alertAutoDismissTimer);
         alertAutoDismissTimer = null;
-      }
-      if (introDeadConnectionTimer) {
-        clearTimeout(introDeadConnectionTimer);
-        introDeadConnectionTimer = null;
       }
       if (introPlaybackPoller) {
         clearInterval(introPlaybackPoller);
@@ -12387,7 +12433,7 @@ function renderFullApplication(initialTab = "dashboard") {
           if (activeView) {
             triggerActiveViewCardsReveal(activeView);
           }
-        }, 400);
+        }, 350);
       }
     }
 
@@ -12400,10 +12446,6 @@ function renderFullApplication(initialTab = "dashboard") {
       if (alertAutoDismissTimer) {
         clearTimeout(alertAutoDismissTimer);
         alertAutoDismissTimer = null;
-      }
-      if (introDeadConnectionTimer) {
-        clearTimeout(introDeadConnectionTimer);
-        introDeadConnectionTimer = null;
       }
       if (introPlaybackPoller) {
         clearInterval(introPlaybackPoller);
@@ -12421,15 +12463,38 @@ function renderFullApplication(initialTab = "dashboard") {
         introAlertShown = false;
         video.currentTime = 0;
 
-        resetIntroDeadConnectionWatchdog();
+        let lastObservedTime = -1;
+        let lastProgressTimestamp = Date.now();
+        let playbackHasStarted = false;
+        const initialMountTime = Date.now();
 
         if (introPlaybackPoller) clearInterval(introPlaybackPoller);
         introPlaybackPoller = setInterval(() => {
-          if (!video) return;
-          if (video.ended || (video.duration > 0 && video.currentTime >= video.duration)) {
-            showIntroAlertScreen();
+          if (!video || introDismissed) {
+            if (introPlaybackPoller) clearInterval(introPlaybackPoller);
+            return;
           }
-        }, 50);
+          const now = Date.now();
+          if (video.ended || (video.duration > 0 && video.currentTime >= video.duration - 0.05)) {
+            showIntroAlertScreen();
+            return;
+          }
+          if (video.currentTime > 0) {
+            playbackHasStarted = true;
+            if (Math.abs(video.currentTime - lastObservedTime) > 0.03) {
+              lastObservedTime = video.currentTime;
+              lastProgressTimestamp = now;
+            }
+          }
+          if (!playbackHasStarted && (now - initialMountTime > 3000)) {
+            dismissIntroOverlay();
+            return;
+          }
+          if (playbackHasStarted && (now - lastProgressTimestamp > 2000)) {
+            dismissIntroOverlay();
+            return;
+          }
+        }, 100);
 
         try {
           video.play();
