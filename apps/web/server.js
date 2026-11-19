@@ -12069,15 +12069,27 @@ function renderFullApplication(initialTab = "dashboard") {
     let introDismissed = false;
     let introAlertShown = false;
     let alertAutoDismissTimer = null;
-    let introForceTimer = null;
     let introPlaybackPoller = null;
+    let introDeadConnectionTimer = null;
+
+    function resetIntroDeadConnectionWatchdog() {
+      if (introDeadConnectionTimer) clearTimeout(introDeadConnectionTimer);
+      // Extreme safety watchdog: only triggers if completely frozen with zero bytes/playback progress for 45s
+      introDeadConnectionTimer = setTimeout(() => {
+        const video = document.getElementById('system-intro-video');
+        if (video && !video.ended && video.currentTime === 0) {
+          console.warn('[Intro] Connection stalled with zero bytes/playback for 45s, advancing to alert');
+          showIntroAlertScreen();
+        }
+      }, 45000);
+    }
 
     function showIntroAlertScreen() {
       if (introAlertShown || introDismissed) return;
       introAlertShown = true;
-      if (introForceTimer) {
-        clearTimeout(introForceTimer);
-        introForceTimer = null;
+      if (introDeadConnectionTimer) {
+        clearTimeout(introDeadConnectionTimer);
+        introDeadConnectionTimer = null;
       }
       if (introPlaybackPoller) {
         clearInterval(introPlaybackPoller);
@@ -12153,46 +12165,41 @@ function renderFullApplication(initialTab = "dashboard") {
       video.setAttribute('muted', '');
       video.setAttribute('playsinline', '');
 
-      // 1. Initial absolute fail-safe timer (12s) if network is slow or video stalls
-      if (introForceTimer) clearTimeout(introForceTimer);
-      introForceTimer = setTimeout(() => {
-        showIntroAlertScreen();
-      }, 12000);
+      // Reset watchdog whenever data arrives or playback advances
+      resetIntroDeadConnectionWatchdog();
+      video.addEventListener('progress', resetIntroDeadConnectionWatchdog);
+      video.addEventListener('waiting', resetIntroDeadConnectionWatchdog);
 
-      // 2. Dynamic timer once video starts actively playing
-      const onPlaying = () => {
-        const dur = (video.duration && !isNaN(video.duration) && video.duration > 0) ? video.duration : 8.0;
-        if (introForceTimer) clearTimeout(introForceTimer);
-        introForceTimer = setTimeout(() => {
+      // 1. Natural frame-accurate completion (plays until full end)
+      video.addEventListener('ended', showIntroAlertScreen);
+      video.addEventListener('timeupdate', () => {
+        resetIntroDeadConnectionWatchdog();
+        if (video.ended || (video.duration > 0 && video.currentTime >= video.duration)) {
           showIntroAlertScreen();
-        }, Math.ceil((dur + 1.2) * 1000));
-      };
-      video.addEventListener('playing', onPlaying, { once: true });
+        }
+      });
 
-      // 3. High-Frequency Poller (every 50ms) to detect when video finishes naturally
+      // 2. High-Frequency Poller (every 50ms) to detect completion without premature cut-off
       if (introPlaybackPoller) clearInterval(introPlaybackPoller);
       introPlaybackPoller = setInterval(() => {
         if (!video) return;
-        if (video.ended || (video.duration && video.currentTime >= video.duration - 0.2)) {
+        if (video.ended || (video.duration > 0 && video.currentTime >= video.duration)) {
           showIntroAlertScreen();
         }
       }, 50);
 
-      // 4. Native event listeners
-      video.addEventListener('ended', showIntroAlertScreen);
-      video.addEventListener('timeupdate', () => {
-        if (video.duration && video.currentTime >= video.duration - 0.2) {
-          showIntroAlertScreen();
-        }
+      // 3. Fatal error fallback
+      video.addEventListener('error', (err) => {
+        console.warn('[Intro] Video error encountered:', err);
+        showIntroAlertScreen();
       });
-      video.addEventListener('error', showIntroAlertScreen);
 
-      // 5. Start playback
+      // 4. Start playback
       try {
         const playPromise = video.play();
         if (playPromise !== undefined) {
           playPromise.catch((err) => {
-            console.warn('[Intro] Autoplay prevented, timer will still transition:', err);
+            console.warn('[Intro] Autoplay prevented, waiting for user interaction or click:', err);
           });
         }
       } catch (e) {
@@ -12207,9 +12214,9 @@ function renderFullApplication(initialTab = "dashboard") {
         clearTimeout(alertAutoDismissTimer);
         alertAutoDismissTimer = null;
       }
-      if (introForceTimer) {
-        clearTimeout(introForceTimer);
-        introForceTimer = null;
+      if (introDeadConnectionTimer) {
+        clearTimeout(introDeadConnectionTimer);
+        introDeadConnectionTimer = null;
       }
       if (introPlaybackPoller) {
         clearInterval(introPlaybackPoller);
@@ -12248,9 +12255,9 @@ function renderFullApplication(initialTab = "dashboard") {
         clearTimeout(alertAutoDismissTimer);
         alertAutoDismissTimer = null;
       }
-      if (introForceTimer) {
-        clearTimeout(introForceTimer);
-        introForceTimer = null;
+      if (introDeadConnectionTimer) {
+        clearTimeout(introDeadConnectionTimer);
+        introDeadConnectionTimer = null;
       }
       if (introPlaybackPoller) {
         clearInterval(introPlaybackPoller);
@@ -12268,24 +12275,12 @@ function renderFullApplication(initialTab = "dashboard") {
         introAlertShown = false;
         video.currentTime = 0;
 
-        if (introForceTimer) clearTimeout(introForceTimer);
-        introForceTimer = setTimeout(() => {
-          showIntroAlertScreen();
-        }, 12000);
-
-        const onReplayPlaying = () => {
-          const dur = (video.duration && !isNaN(video.duration) && video.duration > 0) ? video.duration : 8.0;
-          if (introForceTimer) clearTimeout(introForceTimer);
-          introForceTimer = setTimeout(() => {
-            showIntroAlertScreen();
-          }, Math.ceil((dur + 1.2) * 1000));
-        };
-        video.addEventListener('playing', onReplayPlaying, { once: true });
+        resetIntroDeadConnectionWatchdog();
 
         if (introPlaybackPoller) clearInterval(introPlaybackPoller);
         introPlaybackPoller = setInterval(() => {
           if (!video) return;
-          if (video.ended || (video.duration && video.currentTime >= video.duration - 0.2)) {
+          if (video.ended || (video.duration > 0 && video.currentTime >= video.duration)) {
             showIntroAlertScreen();
           }
         }, 50);
