@@ -12532,8 +12532,26 @@ function renderFullApplication(initialTab = "dashboard") {
         }
       }, 100);
 
-      // Event listener backups
+      // Event listener backups & Diagnostic Telemetry
       video.addEventListener('ended', showIntroAlertScreen);
+      video.addEventListener('loadeddata', () => {
+        console.log('[Video Client] Premières données vidéo chargées (ReadyState: ' + video.readyState + ')');
+      });
+      video.addEventListener('progress', () => {
+        if (video.buffered.length > 0 && video.duration > 0) {
+          const bufEnd = video.buffered.end(video.buffered.length - 1);
+          const pct = Math.min(100, (bufEnd / video.duration) * 100);
+          if (pct >= 99.5) {
+            console.log('[Video Client] 🎯 100% du flux vidéo téléchargé en mémoire (' + bufEnd.toFixed(2) + 's / ' + video.duration.toFixed(2) + 's)');
+          }
+        }
+      });
+      video.addEventListener('waiting', () => {
+        console.warn('[Video Client] ⏳ Buffering en cours / attente de recall réseau...');
+      });
+      video.addEventListener('canplaythrough', () => {
+        console.log('[Video Client] ⚡ Débit suffisant : la vidéo peut être lue jusqu\'à la fin sans interruption');
+      });
       video.addEventListener('error', (err) => {
         console.warn('[Intro] Video error encountered:', err);
         dismissIntroOverlay();
@@ -12768,6 +12786,156 @@ function renderFullApplication(initialTab = "dashboard") {
   </script>
 </body>
 </html>`;
+}
+
+// In-Memory Video Streaming Telemetry Ring Buffer (Last 100 entries)
+const videoStreamingTelemetry = [];
+function recordStreamingLog(entry) {
+  videoStreamingTelemetry.unshift({
+    timestamp: new Date().toISOString(),
+    ...entry,
+  });
+  if (videoStreamingTelemetry.length > 100) videoStreamingTelemetry.pop();
+}
+
+function serveVideoFileStream(req, res, videoPath, mimeType, requestPath) {
+  const stat = fs.statSync(videoPath);
+  const fileSize = stat.size;
+  const range = req.headers.range;
+  const clientIp = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "unknown").split(",")[0].trim();
+  const startTime = Date.now();
+
+  if (range) {
+    const parts = range.replace(/bytes=/, "").split("-");
+    const start = parseInt(parts[0], 10);
+    const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+    const chunksize = end - start + 1;
+    const isRecall = start > 0;
+
+    console.log(`[VIDEO STREAM] REQ ${requestPath} | IP: ${clientIp} | Range: bytes=${start}-${end}/${fileSize} (${(chunksize / 1024 / 1024).toFixed(2)} MB) | Mode: ${isRecall ? 'RECALL/SEGMENT' : 'INITIAL_CHUNK'}`);
+
+    const file = fs.createReadStream(videoPath, { start, end });
+    const head = {
+      "Content-Range": `bytes ${start}-${end}/${fileSize}`,
+      "Accept-Ranges": "bytes",
+      "Content-Length": chunksize,
+      "Content-Type": mimeType,
+      "Cache-Control": "public, max-age=86400, stale-while-revalidate=3600",
+    };
+    res.writeHead(206, head);
+
+    let bytesTransferred = 0;
+    file.on("data", (chunk) => {
+      bytesTransferred += chunk.length;
+    });
+
+    file.on("end", () => {
+      const durationMs = Date.now() - startTime;
+      const speedMBps = durationMs > 0 ? ((bytesTransferred / 1024 / 1024) / (durationMs / 1000)).toFixed(2) : "0";
+      console.log(`[VIDEO STREAM] COMPLETE: ${requestPath} | IP: ${clientIp} | Transferred ${bytesTransferred}/${chunksize} bytes (100%) in ${durationMs}ms @ ${speedMBps} MB/s | Recall: ${isRecall}`);
+      recordStreamingLog({
+        file: requestPath,
+        clientIp,
+        range: `bytes=${start}-${end}/${fileSize}`,
+        start,
+        end,
+        chunksize,
+        fileSize,
+        bytesTransferred,
+        completed: true,
+        durationMs,
+        speedMBps,
+        mode: isRecall ? "RECALL_CHUNK" : "INITIAL_CHUNK",
+      });
+    });
+
+    res.on("close", () => {
+      if (bytesTransferred < chunksize) {
+        const durationMs = Date.now() - startTime;
+        console.warn(`[VIDEO STREAM] CLIENT DISCONNECTED: ${requestPath} | IP: ${clientIp} | Sent ${bytesTransferred}/${chunksize} bytes (${((bytesTransferred / chunksize) * 100).toFixed(1)}%) in ${durationMs}ms`);
+        recordStreamingLog({
+          file: requestPath,
+          clientIp,
+          range: `bytes=${start}-${end}/${fileSize}`,
+          start,
+          end,
+          chunksize,
+          fileSize,
+          bytesTransferred,
+          completed: false,
+          durationMs,
+          speedMBps: "0",
+          mode: isRecall ? "RECALL_ABORTED" : "INITIAL_ABORTED",
+        });
+      }
+    });
+
+    file.on("error", (err) => {
+      console.error(`[VIDEO STREAM] STREAM ERROR: ${err.message}`);
+      try { res.end(); } catch (e) {}
+    });
+
+    file.pipe(res);
+  } else {
+    console.log(`[VIDEO STREAM] REQ ${requestPath} | IP: ${clientIp} | Mode: FULL_DOWNLOAD | Total: ${(fileSize / 1024 / 1024).toFixed(2)} MB`);
+    const head = {
+      "Content-Length": fileSize,
+      "Content-Type": mimeType,
+      "Accept-Ranges": "bytes",
+      "Cache-Control": "public, max-age=86400, stale-while-revalidate=3600",
+    };
+    res.writeHead(200, head);
+
+    const file = fs.createReadStream(videoPath);
+    let bytesTransferred = 0;
+
+    file.on("data", (chunk) => {
+      bytesTransferred += chunk.length;
+    });
+
+    file.on("end", () => {
+      const durationMs = Date.now() - startTime;
+      const speedMBps = durationMs > 0 ? ((bytesTransferred / 1024 / 1024) / (durationMs / 1000)).toFixed(2) : "0";
+      console.log(`[VIDEO STREAM] FULL COMPLETE: ${requestPath} | IP: ${clientIp} | Sent ${bytesTransferred}/${fileSize} bytes (100%) in ${durationMs}ms @ ${speedMBps} MB/s`);
+      recordStreamingLog({
+        file: requestPath,
+        clientIp,
+        range: "FULL",
+        start: 0,
+        end: fileSize - 1,
+        chunksize: fileSize,
+        fileSize,
+        bytesTransferred,
+        completed: true,
+        durationMs,
+        speedMBps,
+        mode: "FULL_DOWNLOAD",
+      });
+    });
+
+    res.on("close", () => {
+      if (bytesTransferred < fileSize) {
+        const durationMs = Date.now() - startTime;
+        console.warn(`[VIDEO STREAM] CLIENT ABORTED FULL: ${requestPath} | IP: ${clientIp} | Sent ${bytesTransferred}/${fileSize} bytes in ${durationMs}ms`);
+        recordStreamingLog({
+          file: requestPath,
+          clientIp,
+          range: "FULL",
+          start: 0,
+          end: fileSize - 1,
+          chunksize: fileSize,
+          fileSize,
+          bytesTransferred,
+          completed: false,
+          durationMs,
+          speedMBps: "0",
+          mode: "FULL_ABORTED",
+        });
+      }
+    });
+
+    file.pipe(res);
+  }
 }
 
 // Master HTTP Server
@@ -13366,7 +13534,35 @@ const server = http.createServer(async (req, res) => {
   }
 
   
-  // WebM Intro Video Streaming Endpoint (HTTP 206 Partial Content)
+  // Video Streaming Diagnostic & Logs API Endpoint
+  if (pathname === "/api/v1/system/video-stats") {
+    const totalRequests = videoStreamingTelemetry.length;
+    const completedStreams = videoStreamingTelemetry.filter(t => t.completed).length;
+    const abortedStreams = videoStreamingTelemetry.filter(t => !t.completed).length;
+    const recallsCount = videoStreamingTelemetry.filter(t => t.mode && t.mode.startsWith("RECALL")).length;
+    const fullDownloadsCount = videoStreamingTelemetry.filter(t => t.mode === "FULL_DOWNLOAD").length;
+
+    res.writeHead(200, {
+      "Content-Type": "application/json",
+      "Cache-Control": "no-cache, no-store, must-revalidate",
+    });
+    res.end(JSON.stringify({
+      status: "operational",
+      totalRequests,
+      completedStreams,
+      abortedStreams,
+      recallsCount,
+      fullDownloadsCount,
+      summary: {
+        note: recallsCount > 0 ? "Le navigateur utilise le streaming par tranches avec recalls successifs (HTTP 206 Partial Content)" : "Les requêtes sont servies en téléchargement intégral",
+        completedRate: totalRequests > 0 ? ((completedStreams / totalRequests) * 100).toFixed(1) + "%" : "100%",
+      },
+      recentLogs: videoStreamingTelemetry.slice(0, 40),
+    }, null, 2));
+    return;
+  }
+
+  // WebM Intro Video Streaming Endpoint (HTTP 206 Partial Content + Full Telemetry)
   if (pathname === "/intro.webm" || pathname === "/assets/intro.webm") {
     const candidatePaths = [
       path.join(__dirname, "public", "intro.webm"),
@@ -13389,39 +13585,11 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    const stat = fs.statSync(videoFile);
-    const fileSize = stat.size;
-    const range = req.headers.range;
-
-    if (range) {
-      const parts = range.replace(/bytes=/, "").split("-");
-      const start = parseInt(parts[0], 10);
-      const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
-      const chunksize = end - start + 1;
-      const file = fs.createReadStream(videoFile, { start, end });
-      const head = {
-        "Content-Range": `bytes ${start}-${end}/${fileSize}`,
-        "Accept-Ranges": "bytes",
-        "Content-Length": chunksize,
-        "Content-Type": "video/webm",
-        "Cache-Control": "public, max-age=86400, stale-while-revalidate=3600",
-      };
-      res.writeHead(206, head);
-      file.pipe(res);
-    } else {
-      const head = {
-        "Content-Length": fileSize,
-        "Content-Type": "video/webm",
-        "Accept-Ranges": "bytes",
-        "Cache-Control": "public, max-age=86400, stale-while-revalidate=3600",
-      };
-      res.writeHead(200, head);
-      fs.createReadStream(videoFile).pipe(res);
-    }
+    serveVideoFileStream(req, res, videoFile, "video/webm", pathname);
     return;
   }
 
-  // Intro Video Streaming Endpoint (HTTP 206 Partial Content)
+  // Intro Video Streaming Endpoint (HTTP 206 Partial Content + Full Telemetry)
   if (pathname === "/intro.mp4" || pathname === "/assets/intro.mp4") {
     const candidatePaths = [
       path.join(__dirname, "public", "intro.mp4"),
@@ -13444,35 +13612,7 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    const stat = fs.statSync(videoFile);
-    const fileSize = stat.size;
-    const range = req.headers.range;
-
-    if (range) {
-      const parts = range.replace(/bytes=/, "").split("-");
-      const start = parseInt(parts[0], 10);
-      const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
-      const chunksize = end - start + 1;
-      const file = fs.createReadStream(videoFile, { start, end });
-      const head = {
-        "Content-Range": `bytes ${start}-${end}/${fileSize}`,
-        "Accept-Ranges": "bytes",
-        "Content-Length": chunksize,
-        "Content-Type": "video/mp4",
-        "Cache-Control": "public, max-age=86400, stale-while-revalidate=3600",
-      };
-      res.writeHead(206, head);
-      file.pipe(res);
-    } else {
-      const head = {
-        "Content-Length": fileSize,
-        "Content-Type": "video/mp4",
-        "Accept-Ranges": "bytes",
-        "Cache-Control": "public, max-age=86400, stale-while-revalidate=3600",
-      };
-      res.writeHead(200, head);
-      fs.createReadStream(videoFile).pipe(res);
-    }
+    serveVideoFileStream(req, res, videoFile, "video/mp4", pathname);
     return;
   }
 
