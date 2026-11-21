@@ -4342,33 +4342,6 @@ function renderFullApplication(initialTab = "dashboard") {
       background: var(--glass-rim);
       pointer-events: none;
     }
-    .solo-window-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--neon-cyan);
-      user-select: none;
-    }
-    .solo-window-btn {
-      width: 18px;
-      height: 18px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--glass-inner-border);
-      border-radius: 3px;
-      background: var(--input-bg);
-      cursor: pointer;
-      font-size: 10px;
-      line-height: 1;
-      transition: all 0.15s ease;
-    }
-    .solo-window-btn:hover {
-      background: var(--neon-cyan);
-      color: var(--text-on-accent);
-    }
     .stat-row {
       display: flex;
       justify-content: space-between;
@@ -6272,10 +6245,6 @@ function renderFullApplication(initialTab = "dashboard") {
                 <span style="font-size: 11px; letter-spacing: 2px; color: var(--primary); font-family: var(--font-mono); font-weight: 800;">
                   [!] FENÊTRE DE STATUT DU MONARQUE — ARC 04
                 </span>
-              </div>
-              <div class="solo-window-controls">
-                <span class="solo-window-btn" title="Réduire">-</span>
-                <span class="solo-window-btn" title="Fermer" onclick="showSysNotification('[INFO SYSTÈME]', 'La fenêtre de statut principale ne peut être fermée.')">✕</span>
               </div>
             </div>
 
