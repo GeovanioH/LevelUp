@@ -5549,35 +5549,6 @@ function renderFullApplication(initialTab = "dashboard") {
       display: none !important;
     }
 
-    .btn-skip-intro {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      z-index: 100000;
-      background: rgba(10, 6, 26, 0.92);
-      border: 1.5px solid var(--neon-cyan);
-      color: var(--neon-cyan);
-      padding: 8px 18px;
-      border-radius: 8px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      cursor: pointer;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 18px rgba(0, 240, 255, 0.45);
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      user-select: none;
-    }
-    .btn-skip-intro:hover {
-      background: var(--neon-cyan);
-      color: #000000;
-      box-shadow: 0 0 28px rgba(0, 240, 255, 0.9);
-      transform: scale(1.04);
-    }
 
     .system-intro-video {
       width: 100%;
@@ -6139,12 +6110,6 @@ function renderFullApplication(initialTab = "dashboard") {
         border-radius: 0 !important;
       }
 
-      .btn-skip-intro {
-        top: 12px !important;
-        right: 12px !important;
-        padding: 5px 12px !important;
-        font-size: 10px !important;
-      }
 
       .system-intro-alert-hint {
         max-width: 90% !important;
@@ -6197,10 +6162,7 @@ function renderFullApplication(initialTab = "dashboard") {
   <div class="app-layout">
 
     <!-- SYSTEM INTRO OVERLAY (INTEGRATED DIRECTLY IN WEBSITE CONTAINER APP-LAYOUT) -->
-    <div id="system-intro-overlay" class="system-intro-overlay" onclick="handleIntroOverlayClick()" title="Cliquer pour passer">
-      <button id="btn-skip-intro" class="btn-skip-intro" onclick="event.stopPropagation(); dismissIntroOverlay(event);" title="Passer l'introduction et entrer immédiatement dans le système">
-        PASSER L'INTRO ➔
-      </button>
+    <div id="system-intro-overlay" class="system-intro-overlay" onclick="handleIntroOverlayClick()" title="Cliquer pour entrer immédiatement">
       <video id="system-intro-video" class="system-intro-video" playsinline muted autoplay preload="auto">
         <source src="/intro.mp4?v=8s_ouf_v3" type="video/mp4">
         <source src="/intro.webm?v=8s_ouf_v3" type="video/webm">
@@ -8051,7 +8013,6 @@ function renderFullApplication(initialTab = "dashboard") {
       const avatarSlot = document.getElementById('header-avatar-slot');
       const headerPlayerName = document.getElementById('header-player-name');
       const dashPlayerName = document.getElementById('dash-player-name');
-      const dashAuthLabel = document.getElementById('dash-auth-label');
       const dashTitleVal = document.getElementById('dash-player-title-val');
 
       const isAuthed = state.player && state.player.authProvider === 'google' && state.player.email;
@@ -8071,7 +8032,6 @@ function renderFullApplication(initialTab = "dashboard") {
 
         const shortName = displayName.split(' ')[0].toUpperCase();
         if (authBtnLabel) authBtnLabel.textContent = shortName;
-        if (dashAuthLabel) dashAuthLabel.textContent = "COMPTE LIÉ : " + state.player.email;
 
         if (avatarSlot) {
           if (state.player.avatar) {
@@ -8087,7 +8047,6 @@ function renderFullApplication(initialTab = "dashboard") {
         if (unauthView) unauthView.style.display = 'block';
         if (authView) authView.style.display = 'none';
         if (authBtnLabel) authBtnLabel.textContent = 'CONNEXION GOOGLE';
-        if (dashAuthLabel) dashAuthLabel.textContent = 'LIER UN COMPTE GOOGLE';
         if (avatarSlot) avatarSlot.textContent = '👑';
         const anonName = (state.player && state.player.name) || 'Chasseur Non Éveillé';
         if (headerPlayerName) headerPlayerName.textContent = anonName;
@@ -11963,13 +11922,8 @@ function renderFullApplication(initialTab = "dashboard") {
     }
 
     function handleIntroOverlayClick() {
-      // If alert screen is not yet shown, advance directly to the alert screen
-      if (!introAlertShown) {
-        showIntroAlertScreen();
-      } else {
-        // If alert screen is already showing, dismiss directly into the app
-        dismissIntroOverlay();
-      }
+      // Immediate direct dismissal on user click anywhere
+      dismissIntroOverlay();
     }
 
     function initSystemIntro() {
