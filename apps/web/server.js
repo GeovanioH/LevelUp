@@ -64,6 +64,44 @@ const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
 const APP_URL = process.env.APP_URL || (process.env.NODE_ENV === "production" ? "https://levelup-system.onrender.com" : `http://localhost:${PORT}`);
 
 // Solo Leveling Sovereign Monarch Logo SVG
+
+// ==========================================
+// SYSTEM HIGH-PRECISION VECTOR SVG ICONS (NO EMOJIS)
+// ==========================================
+const SVG_ICONS = {
+  crystal: '<svg class="inline-svg svg-crystal" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block; color: var(--primary);"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20"/><path d="m10 3 2 6-2 12"/><path d="m14 3-2 6 2 12"/></svg>',
+  crown: '<svg class="inline-svg svg-crown" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block; color: var(--imperial-gold);"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14v2H5z"/></svg>',
+  bolt: '<svg class="inline-svg svg-bolt" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block; color: var(--neon-cyan);"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+  clock: '<svg class="inline-svg svg-clock" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block; color: var(--neon-cyan);"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  shield: '<svg class="inline-svg svg-shield" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block; color: var(--tertiary);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  sword: '<svg class="inline-svg svg-sword" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block;"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/></svg>',
+  fitness: '<svg class="inline-svg svg-fitness" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block; color: var(--transcendent-green);"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1a2 2 0 0 0-2.83 0l-1.34 1.34a2 2 0 0 1-2.83 0l-8.49-8.49a2 2 0 0 1 0-2.83L5.85 9.68a2 2 0 0 0 0-2.83L4.85 5.85"/><path d="m3 3 1 1a2 2 0 0 0 2.83 0l1.34-1.34a2 2 0 0 1 2.83 0l8.49 8.49a2 2 0 0 1 0 2.83l-1.34 1.34a2 2 0 0 0 0 2.83l1 1"/></svg>',
+  scale: '<svg class="inline-svg svg-scale" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block; color: var(--primary);"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>',
+  backpack: '<svg class="inline-svg svg-backpack" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px; display: inline-block; color: var(--primary);"><path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10Z"/><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M8 21v-5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v5"/><path d="M8 10h8"/></svg>',
+  backpackLarge: '<svg class="inline-svg svg-backpack-lg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin: 0 auto; color: var(--primary);"><path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10Z"/><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M8 21v-5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v5"/><path d="M8 10h8"/></svg>',
+  camera: '<svg class="inline-svg svg-camera" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block;"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>',
+  cameraLarge: '<svg class="inline-svg svg-camera-lg" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin: 0 auto; color: var(--primary);"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>',
+  check: '<svg class="inline-svg svg-check" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block; color: var(--transcendent-green);"><polyline points="20 6 9 17 4 12"/></svg>',
+  arrow: '<svg class="inline-svg svg-arrow" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -1px; display: inline-block;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
+  brain: '<svg class="inline-svg svg-brain" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block; color: var(--primary);"><path d="M9.5 2A4.5 4.5 0 0 0 5 6.5C5 7.4 5.3 8.2 5.8 8.9A4.5 4.5 0 0 0 4 12.5a4.5 4.5 0 0 0 1.8 3.6C5.3 16.8 5 17.6 5 18.5A4.5 4.5 0 0 0 9.5 23c1.5 0 2.8-.7 3.5-1.8.7 1.1 2 1.8 3.5 1.8a4.5 4.5 0 0 0 4.5-4.5c0-.9-.3-1.7-.8-2.4A4.5 4.5 0 0 0 22 12.5a4.5 4.5 0 0 0-1.8-3.6c.5-.7.8-1.5.8-2.4A4.5 4.5 0 0 0 16.5 2c-1.5 0-2.8.7-3.5 1.8A4.48 4.48 0 0 0 9.5 2z"/><line x1="12" y1="4" x2="12" y2="20"/></svg>',
+  mic: '<svg class="inline-svg svg-mic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block; color: var(--neon-cyan);"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>',
+  target: '<svg class="inline-svg svg-target" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block; color: var(--primary);"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+  lock: '<svg class="inline-svg svg-lock" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block; color: var(--alert-crimson);"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+  folder: '<svg class="inline-svg svg-folder" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
+  file: '<svg class="inline-svg svg-file" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+  edit: '<svg class="inline-svg svg-edit" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
+  save: '<svg class="inline-svg svg-save" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>',
+  trash: '<svg class="inline-svg svg-trash" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block; color: var(--alert-crimson);"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+  search: '<svg class="inline-svg svg-search" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+  refresh: '<svg class="inline-svg svg-refresh" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block;"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>',
+  link: '<svg class="inline-svg svg-link" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -1px; display: inline-block;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+  tag: '<svg class="inline-svg svg-tag" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block;"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>',
+  alert: '<svg class="inline-svg svg-alert" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block; color: var(--alert-crimson);"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  potion: '<svg class="inline-svg svg-potion" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block; color: var(--neon-cyan);"><path d="M10 2h4"/><path d="M12 2v6"/><path d="M8.5 8h7l4 12H4.5L8.5 8z"/><circle cx="12" cy="15" r="2"/></svg>',
+  bot: '<svg class="inline-svg svg-bot" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block;"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8.01" y2="16"/><line x1="16" y1="16" x2="16.01" y2="16"/></svg>',
+  network: '<svg class="inline-svg svg-network" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; display: inline-block;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>'
+};
+
 const MONARCH_LOGO_SVG = `<svg class="monarch-crest-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="crestCyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -386,7 +424,7 @@ const DEFAULT_STATE = {
     {
       id: "b1",
       time: "06:00 - 06:30",
-      title: "🌅 Réveil & Hydratation",
+      title: "Réveil & Hydratation",
       base: "DIS",
       status: "ACTIVE",
       type: "RITUEL",
@@ -394,7 +432,7 @@ const DEFAULT_STATE = {
     {
       id: "b2",
       time: "06:30 - 07:30",
-      title: "💪 Séance Sport Sung Jin-Woo (STR)",
+      title: "Séance Sport Sung Jin-Woo (STR)",
       base: "STR",
       status: "UPCOMING",
       type: "SPORT",
@@ -402,7 +440,7 @@ const DEFAULT_STATE = {
     {
       id: "b3",
       time: "07:30 - 08:30",
-      title: "🚿 Petit-Déjeuner & Préparation",
+      title: "Nutrition & Préparation",
       base: "DIS",
       status: "UPCOMING",
       type: "RITUEL",
@@ -410,7 +448,7 @@ const DEFAULT_STATE = {
     {
       id: "b4",
       time: "08:30 - 11:30",
-      title: "🧠 Deep Work IA : Transformers & vLLM",
+      title: "Deep Work IA : Transformers & vLLM",
       base: "AI_ENG",
       status: "UPCOMING",
       type: "DEEP_WORK",
@@ -418,7 +456,7 @@ const DEFAULT_STATE = {
     {
       id: "b5",
       time: "11:30 - 12:30",
-      title: "🚶 Pause Déjeuner & Restauration MP",
+      title: "Pause Déjeuner & Restauration MP",
       base: "EXP",
       status: "UPCOMING",
       type: "REST",
@@ -426,7 +464,7 @@ const DEFAULT_STATE = {
     {
       id: "b6",
       time: "12:30 - 13:00",
-      title: "🎙️ Dictée Vocale & Synthèse Socratique",
+      title: "Dictée Vocale & Synthèse Socratique",
       base: "ACAD",
       status: "UPCOMING",
       type: "VOCAL",
@@ -434,7 +472,7 @@ const DEFAULT_STATE = {
     {
       id: "b7",
       time: "13:00 - 16:00",
-      title: "🛡️ Cybersécurité : Room TryHackMe",
+      title: "Cybersécurité : Room TryHackMe",
       base: "CYBER",
       status: "UPCOMING",
       type: "DEEP_WORK",
@@ -450,7 +488,7 @@ const DEFAULT_STATE = {
     {
       id: "b9",
       time: "18:00 - 20:00",
-      title: "⚡ Développement Fullstack LevelUp HUD",
+      title: "Développement Fullstack LevelUp HUD",
       base: "AI_ENG",
       status: "UPCOMING",
       type: "DEV",
@@ -458,7 +496,7 @@ const DEFAULT_STATE = {
     {
       id: "b10",
       time: "21:00 - 22:00",
-      title: "🌙 Bilan du Soir & Audit de Clôture",
+      title: "Bilan du Soir & Audit de Clôture",
       base: "DIS",
       status: "UPCOMING",
       type: "AUDIT",
@@ -749,7 +787,7 @@ Structures rhétoriques formelles indispensables pour l'évaluation orale à 20 
       cost: 600,
       rank: "S",
       type: "REST_DAY",
-      desc: "Immunité totale 24h : aucune sanction, couvre-feu NextDNS désactivé, streak congelé et régénération 100% HP/MP. Calibré sur 6 jours de quêtes quotidiennes parfaites (100 💎/jour). Limité à 1 activation par semaine.",
+      desc: "Immunité totale 24h : aucune sanction, couvre-feu NextDNS désactivé, streak congelé et régénération 100% HP/MP. Calibré sur 6 jours de quêtes quotidiennes parfaites (100 Cristaux/jour). Limité à 1 activation par semaine.",
     },
     {
       id: "item-mana-potion",
@@ -996,7 +1034,7 @@ function applyLocalHostsFilter(active) {
 async function checkCurfewAndTriggerPenalty() {
   // If Rest Day is active today, do NOT trigger curfew or penalties!
   if (SYSTEM_STATE.restDayActive || (SYSTEM_STATE.player && SYSTEM_STATE.player.restDayActive)) {
-    console.log("[CURFEW WATCHDOG] 🛡️ Jour de Repos actif aujourd'hui. Couvre-feu NextDNS et sanctions suspendus.");
+    console.log("[CURFEW WATCHDOG] Jour de Repos actif aujourd'hui. Couvre-feu NextDNS et sanctions suspendus.");
     return;
   }
   const now = new Date();
@@ -1013,7 +1051,7 @@ async function checkCurfewAndTriggerPenalty() {
   const incompleteQuests = quests.filter((q) => !q.completed);
 
   if (incompleteQuests.length > 0 && !SYSTEM_STATE.penalty.active) {
-    console.log(`[CURFEW WATCHDOG] ⚠️ Couvre-feu de 22h00 dépassé ! ${incompleteQuests.length} quête(s) incomplète(s). Engagement du verrouillage NextDNS.`);
+    console.log(`[CURFEW WATCHDOG] Couvre-feu de 22h00 dépassé ! ${incompleteQuests.length} quête(s) incomplète(s). Engagement du verrouillage NextDNS.`);
     SYSTEM_STATE.penalty.active = true;
     SYSTEM_STATE.penalty.reason = `Couvre-feu de 22h00 franchi : ${incompleteQuests.length} quête(s) non complétée(s). Verrouillage réseau NextDNS et local activé. Rachat exigé : 200 Pompes Caméra ou 10 km Course.`;
     SYSTEM_STATE.penalty.triggeredAt = now.toISOString();
@@ -1754,12 +1792,12 @@ function renderLandingPage() {
       </div>
     </a>
     <div>
-      <a href="/login" class="btn-nav-login" id="nav-action-btn">CONNEXION ➔</a>
+      <a href="/login" class="btn-nav-login" id="nav-action-btn">CONNEXION &rarr;</a>
     </div>
   </nav>
 
   <main class="landing-container">
-    <div class="hero-badge">⚡ SYSTÈME D'ÉVEIL SOUVERAIN // SOLO LEVELING IRL</div>
+    <div class="hero-badge">${SVG_ICONS.bolt} SYSTÈME D'ÉVEIL SOUVERAIN // SOLO LEVELING IRL</div>
     <h1 class="hero-title">
       ÉVEILLEZ VOTRE <span class="gradient-text">POTENTIEL.</span>
     </h1>
@@ -1768,9 +1806,9 @@ function renderLandingPage() {
     </p>
 
     <div class="features-trio">
-      <div class="feature-pill"><span class="icon">🏋️</span> Suivi Pompes IA 90°</div>
-      <div class="feature-pill"><span class="icon">⚖️</span> Score Harmonique Sh (0-20)</div>
-      <div class="feature-pill"><span class="icon">🛡️</span> Couvre-Feu NextDNS 22h</div>
+      <div class="feature-pill"><span class="icon">${SVG_ICONS.fitness}</span> Suivi Pompes IA 90°</div>
+      <div class="feature-pill"><span class="icon">${SVG_ICONS.scale}</span> Score Harmonique Sh (0-20)</div>
+      <div class="feature-pill"><span class="icon">${SVG_ICONS.shield}</span> Couvre-Feu NextDNS 22h</div>
     </div>
 
     <div class="main-showcase-grid">
@@ -1779,7 +1817,7 @@ function renderLandingPage() {
         <div class="art-img-wrap">
           <img src="/intro-alert.webp" alt="Solo Leveling System Alert" onerror="this.src='/intro-alert.jpg';">
           <div class="art-floating-badge">
-            <span>👑</span>
+            <span>${SVG_ICONS.crown}</span>
             <span>RANG S • SOUVERAIN DES OMBRES</span>
           </div>
         </div>
@@ -1802,10 +1840,10 @@ function renderLandingPage() {
       <div class="auth-box-card">
         <!-- Active Session Card (shown if already logged in) -->
         <div id="active-session-card">
-          <div class="session-avatar-wrap" id="session-avatar-slot">👑</div>
+          <div class="session-avatar-wrap" id="session-avatar-slot">${SVG_ICONS.crown}</div>
           <div class="session-name" id="session-user-name">Chasseur Éveillé</div>
           <div class="session-sub" id="session-user-email">Session active</div>
-          <a href="/dashboard" class="btn-enter-hud">ENTRER DANS MON HUD ➔</a>
+          <a href="/dashboard" class="btn-enter-hud">ENTRER DANS MON HUD &rarr;</a>
           <button type="button" class="btn-logout-link" onclick="logoutSession()">Changer de compte / Déconnexion</button>
         </div>
 
@@ -1848,7 +1886,7 @@ function renderLandingPage() {
               <input type="password" id="login-pwd" class="form-input-light" placeholder="••••••••" required>
             </div>
             <button type="submit" class="btn-submit-primary" id="btn-login-submit">
-              SE CONNECTER ➔
+              SE CONNECTER &rarr;
             </button>
           </form>
 
@@ -1867,13 +1905,13 @@ function renderLandingPage() {
               <input type="password" id="signup-pwd" class="form-input-light" placeholder="••••••••" required>
             </div>
             <button type="submit" class="btn-submit-primary" id="btn-signup-submit">
-              CRÉER MON COMPTE & M'ÉVEILLER ➔
+              CRÉER MON COMPTE & M'ÉVEILLER &rarr;
             </button>
           </form>
 
           <!-- 1-Click Quick Entry -->
           <button type="button" class="btn-quick-guest" onclick="handleQuickGuestEntry()">
-            ⚡ Entrée Rapide 1-Clic (Éveil Souverain)
+            ${SVG_ICONS.bolt} Entrée Rapide 1-Clic (Éveil Souverain)
           </button>
         </div>
       </div>
@@ -1883,7 +1921,7 @@ function renderLandingPage() {
     <div class="illustrations-grid">
       <div class="card-illus-item">
         <div class="illus-icon-row">
-          <div class="illus-icon-badge">🏋️</div>
+          <div class="illus-icon-badge">${SVG_ICONS.fitness}</div>
           <div class="illus-title">VISION IA POMPES 90°</div>
         </div>
         <div class="illus-desc">
@@ -1893,7 +1931,7 @@ function renderLandingPage() {
 
       <div class="card-illus-item">
         <div class="illus-icon-row">
-          <div class="illus-icon-badge">⚖️</div>
+          <div class="illus-icon-badge">${SVG_ICONS.scale}</div>
           <div class="illus-title">SCORE HARMONIQUE SH</div>
         </div>
         <div class="illus-desc">
@@ -1903,7 +1941,7 @@ function renderLandingPage() {
 
       <div class="card-illus-item">
         <div class="illus-icon-row">
-          <div class="illus-icon-badge">🛡️</div>
+          <div class="illus-icon-badge">${SVG_ICONS.shield}</div>
           <div class="illus-title">MONK MODE NEXTDNS</div>
         </div>
         <div class="illus-desc">
@@ -2023,7 +2061,7 @@ function renderLandingPage() {
             }
             if (navBtn) {
               navBtn.href = '/dashboard';
-              navBtn.textContent = 'MON HUD ➔';
+              navBtn.textContent = 'MON HUD &rarr;';
             }
           }
         }
@@ -2049,7 +2087,7 @@ function renderLandingPage() {
           saveAndProceed(data.user);
         } else {
           alert('Erreur de connexion : ' + (data.error || 'Identifiant invalide'));
-          if (submitBtn) { submitBtn.textContent = 'SE CONNECTER ➔'; submitBtn.disabled = false; }
+          if (submitBtn) { submitBtn.textContent = 'SE CONNECTER &rarr;'; submitBtn.disabled = false; }
         }
       } catch (err) {
         // Fallback local login
@@ -2083,7 +2121,7 @@ function renderLandingPage() {
           saveAndProceed(data.user);
         } else {
           alert("Erreur d'inscription : " + (data.error || "Échec de création"));
-          if (submitBtn) { submitBtn.textContent = "CRÉER MON COMPTE & M'ÉVEILLER ➔"; submitBtn.disabled = false; }
+          if (submitBtn) { submitBtn.textContent = "CRÉER MON COMPTE & M'ÉVEILLER &rarr;"; submitBtn.disabled = false; }
         }
       } catch (err) {
         saveAndProceed({
@@ -2209,12 +2247,12 @@ function generateCustomPlannerBlocks(wakeTime, curfewTime, archetype, deepWorkHo
   };
 
   const archTitles = {
-    AI_ENG: "🧠 Deep Work IA : LLMs, Kernels Triton & vLLM",
-    CYBER_SHADOW: "🛡️ Deep Work Cyber : Pentesting, Exploit & OSCP",
-    BERZERKER_STR: "🏋️ Deep Work Biomécanique & Volume Athlétique",
-    HARMONIC_MONARCH: "👑 Deep Work Monarque : Architecture IA & Cybersécurité",
+    AI_ENG: "Deep Work IA : LLMs, Kernels Triton & vLLM",
+    CYBER_SHADOW: "Deep Work Cyber : Pentesting, Exploit & OSCP",
+    BERZERKER_STR: "Deep Work Biomécanique & Volume Athlétique",
+    HARMONIC_MONARCH: "Deep Work Monarque : Architecture IA & Cybersécurité",
   };
-  const deepTitle = archTitles[archetype] || "🧠 Deep Work Focalisé";
+  const deepTitle = archTitles[archetype] || "Deep Work Focalisé";
   const archBase = archetype === "CYBER_SHADOW" ? "CYBER" : (archetype === "BERZERKER_STR" ? "STR" : "AI_ENG");
 
   const [sH, sM] = addM(wH, wM, 30);
@@ -2230,7 +2268,7 @@ function generateCustomPlannerBlocks(wakeTime, curfewTime, archetype, deepWorkHo
     {
       id: "b1",
       time: range(wH, wM, 30),
-      title: "🌅 Réveil, Hydratation & Protocole Éveil",
+      title: "Réveil, Hydratation & Protocole Éveil",
       base: "DIS",
       status: "ACTIVE",
       type: "RITUEL",
@@ -2238,7 +2276,7 @@ function generateCustomPlannerBlocks(wakeTime, curfewTime, archetype, deepWorkHo
     {
       id: "b2",
       time: range(sH, sM, 60),
-      title: "💪 Séance Calisthénie Sung Jin-Woo (STR)",
+      title: "Séance Calisthénie Sung Jin-Woo (STR)",
       base: "STR",
       status: "UPCOMING",
       type: "SPORT",
@@ -2246,7 +2284,7 @@ function generateCustomPlannerBlocks(wakeTime, curfewTime, archetype, deepWorkHo
     {
       id: "b3",
       time: range(pH, pM, 60),
-      title: "🚿 Nutrition & Restauration MP",
+      title: "Nutrition & Restauration MP",
       base: "DIS",
       status: "UPCOMING",
       type: "RITUEL",
@@ -2262,7 +2300,7 @@ function generateCustomPlannerBlocks(wakeTime, curfewTime, archetype, deepWorkHo
     {
       id: "b5",
       time: range(lH, lM, 60),
-      title: "🚶 Déjeuner & Marche Cognitive",
+      title: "Déjeuner & Marche Cognitive",
       base: "EXP",
       status: "UPCOMING",
       type: "REST",
@@ -2270,7 +2308,7 @@ function generateCustomPlannerBlocks(wakeTime, curfewTime, archetype, deepWorkHo
     {
       id: "b6",
       time: range(vH, vM, 45),
-      title: "🎙️ Restitution Vocale & Clarté Conceptuelle",
+      title: "Restitution Vocale & Clarté Conceptuelle",
       base: "ACAD",
       status: "UPCOMING",
       type: "VOCAL",
@@ -2286,7 +2324,7 @@ function generateCustomPlannerBlocks(wakeTime, curfewTime, archetype, deepWorkHo
     {
       id: "b8",
       time: range(dH, dM, 90),
-      title: "⚡ Développement Système & Projets Solos",
+      title: "Développement Système & Projets Solos",
       base: archBase,
       status: "UPCOMING",
       type: "DEV",
@@ -2294,7 +2332,7 @@ function generateCustomPlannerBlocks(wakeTime, curfewTime, archetype, deepWorkHo
     {
       id: "b9",
       time: range(aH, aM, 60),
-      title: "🌙 Bilan du Soir, Journaling & Revue Score Sh",
+      title: "Bilan du Soir, Journaling & Revue Score Sh",
       base: "DIS",
       status: "UPCOMING",
       type: "AUDIT",
@@ -2302,7 +2340,7 @@ function generateCustomPlannerBlocks(wakeTime, curfewTime, archetype, deepWorkHo
     {
       id: "b10",
       time: `${fmt(cH, cM)} - 05:00`,
-      title: "🔒 Couvre-Feu NextDNS & Sommeil Profond",
+      title: "Couvre-Feu NextDNS & Sommeil Profond",
       base: "DIS",
       status: "UPCOMING",
       type: "SLEEP",
@@ -2670,7 +2708,7 @@ function renderOnboardingPage() {
     <div class="ob-card">
       <!-- STEP 1: IDENTITÉ & ARCHÉTYPE -->
       <section class="step-section active" id="step-1">
-        <div class="step-header-tag">⚡ ÉTAPE 1 • PROFIL DU CHASSEUR</div>
+        <div class="step-header-tag">${SVG_ICONS.bolt} ÉTAPE 1 • PROFIL DU CHASSEUR</div>
         <h1 class="step-title">IDENTITÉ & SPÉCIALISATION</h1>
         <p class="step-desc">Choisissez votre nom d'éveil et l'archétype régissant vos statistiques prioritaires.</p>
 
@@ -2683,22 +2721,22 @@ function renderOnboardingPage() {
           <label class="form-label">ARCHÉTYPE MAJEUR DE PROGRESSION</label>
           <div class="options-grid" id="archetype-options">
             <div class="option-card selected" data-value="HARMONIC_MONARCH">
-              <div class="option-icon">👑</div>
+              <div class="option-icon">${SVG_ICONS.crown}</div>
               <div class="option-title">MONARQUE HARMONIQUE</div>
               <div class="option-desc">Équilibre absolu des 8 bases (Score Sh). Développement simultané du corps, du code et de l'esprit.</div>
             </div>
             <div class="option-card" data-value="BERZERKER_STR">
-              <div class="option-icon">⚔️</div>
+              <div class="option-icon">${SVG_ICONS.sword}</div>
               <div class="option-title">BERSERKER CALISTHÉNIQUE</div>
               <div class="option-desc">Force pure, pompes explosives, tractions strictes et condition physique sans compromis (STR/DIS).</div>
             </div>
             <div class="option-card" data-value="AI_ENG">
-              <div class="option-icon">🤖</div>
+              <div class="option-icon">${SVG_ICONS.bot}</div>
               <div class="option-title">NÉCROMANCIEN DE L'IA</div>
               <div class="option-desc">Spécialiste Transformers, Deep Work intensif, Hackathons et mathématiques appliquées (AI/ACAD).</div>
             </div>
             <div class="option-card" data-value="CYBER_SHADOW">
-              <div class="option-icon">🛡️</div>
+              <div class="option-icon">${SVG_ICONS.shield}</div>
               <div class="option-title">INFILTRATEUR CYBER</div>
               <div class="option-desc">Offensive Security, TryHackMe, Buffer Overflows et discipline de fer en Monk Mode (CYBER/DIS).</div>
             </div>
@@ -2708,7 +2746,7 @@ function renderOnboardingPage() {
 
       <!-- STEP 2: QUÊTE PHYSIQUE & ROUTINE CIRCADIENNE -->
       <section class="step-section" id="step-2">
-        <div class="step-header-tag">🎯 ÉTAPE 2 • OBJECTIFS & COUVRE-FEU</div>
+        <div class="step-header-tag">${SVG_ICONS.target} ÉTAPE 2 • OBJECTIFS & COUVRE-FEU</div>
         <h1 class="step-title">QUÊTE PHYSIQUE & DISCIPLINE</h1>
         <p class="step-desc">Fixez l'intensité de votre quête physique quotidienne et votre heure de couvre-feu Monk Mode.</p>
 
@@ -2716,17 +2754,17 @@ function renderOnboardingPage() {
           <label class="form-label">CALIBRAGE DE LA QUÊTE PHYSIQUE (VALIDATION CAMÉRA IA)</label>
           <div class="options-grid" id="workout-options">
             <div class="option-card" data-value="NOVICE_30">
-              <div class="option-icon">🟢</div>
+              <div class="option-icon"><span style="display:inline-block; width:12px; height:12px; border-radius:50%; background:#45dfa4; box-shadow:0 0 8px #45dfa4;"></span></div>
               <div class="option-title">INITIÉ (RANG E)</div>
               <div class="option-desc">30 Pompes, 30 Abdos, 30 Squats, 3 km. Idéal pour construire une régularité indestructible.</div>
             </div>
             <div class="option-card selected" data-value="STANDARD_100">
-              <div class="option-icon">🔵</div>
+              <div class="option-icon"><span style="display:inline-block; width:12px; height:12px; border-radius:50%; background:#00f0ff; box-shadow:0 0 8px #00f0ff;"></span></div>
               <div class="option-title">SUNG JIN-WOO (CANON)</div>
               <div class="option-desc">100 Pompes, 100 Abdos, 100 Squats, 10 km. L'entraînement légendaire du Monarque des Ombres.</div>
             </div>
             <div class="option-card" data-value="MONARCH_150">
-              <div class="option-icon">🟡</div>
+              <div class="option-icon"><span style="display:inline-block; width:12px; height:12px; border-radius:50%; background:#fbbf24; box-shadow:0 0 8px #fbbf24;"></span></div>
               <div class="option-title">MONARQUE ABSOLU (RANG S)</div>
               <div class="option-desc">150 Pompes strictes, 150 Abdos, 150 Squats, 15 km. Réservé aux Chasseurs d'élite aguerris.</div>
             </div>
@@ -2762,7 +2800,7 @@ function renderOnboardingPage() {
           SUIVANT →
         </button>
         <button type="button" class="btn-ob btn-ob-seal" id="btn-seal" onclick="finishOnboarding()" style="display: none;">
-          SCELLER & ENTRER DANS LE SYSTÈME ⚔️
+          SCELLER & ENTRER DANS LE SYSTÈME ${SVG_ICONS.sword}
         </button>
       </div>
     </div>
@@ -6163,24 +6201,24 @@ function renderFullApplication(initialTab = "dashboard") {
       <div class="header-right-cluster">
         <!-- Player Status Profile -->
         <div class="header-player-pill" title="Profil Chasseur Monarque (Cliquez pour gérer le compte)" onclick="openAuthModal()" style="cursor: pointer;">
-          <span class="header-player-avatar" id="header-avatar-slot">${player.avatar ? `<img src="${player.avatar}" alt="Avatar" style="width: 22px; height: 22px; border-radius: 50%; object-fit: cover;">` : '👑'}</span>
+          <span class="header-player-avatar" id="header-avatar-slot">${player.avatar ? `<img src="${player.avatar}" alt="Avatar" style="width: 22px; height: 22px; border-radius: 50%; object-fit: cover;">` : SVG_ICONS.crown}</span>
           <span class="header-player-name" id="header-player-name">${player.name}</span>
           <span class="header-player-rank">RANG ${player.rank}·${player.level}</span>
           <span class="header-player-sh" title="Score Harmonique Sh">Sh ${harmonicScore}</span>
         </div>
 
         <div class="header-stat-item" title="Horloge Système">
-          <span class="stat-icon">🕒</span>
+          <span class="stat-icon">${SVG_ICONS.clock}</span>
           <span id="system-clock">--:--:--</span>
         </div>
 
         <div class="header-stat-item" title="Cristaux d'Ombre">
-          <span class="stat-icon">💎</span>
+          <span class="stat-icon">Cristaux</span>
           <strong id="header-crystals-val">${player.shadowCrystals}</strong>
         </div>
 
         <div class="header-stat-item" title="Série Journalière">
-          <span class="stat-icon">⚡</span>
+          <span class="stat-icon">${SVG_ICONS.bolt}</span>
           <span><span id="header-streak-val">${player.streakDays}</span>J</span>
         </div>
 
@@ -6370,7 +6408,7 @@ function renderFullApplication(initialTab = "dashboard") {
             <div style="margin-bottom: 16px;">
               <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 6px;">
                 <span style="color: var(--primary-fixed); font-weight: bold; display: flex; align-items: center; gap: 6px;">
-                  <span class="material-symbols-outlined" style="font-size: 15px; color: var(--primary);">bolt</span> ⚡ MP — FOCUS COGNITIF INDOMPTABLE
+                  <span class="material-symbols-outlined" style="font-size: 15px; color: var(--primary);">bolt</span> ${SVG_ICONS.bolt} MP — FOCUS COGNITIF INDOMPTABLE
                 </span>
                 <span style="font-weight: bold; color: var(--primary-fixed);" id="mp-value-text">${player.mp} / 100 (${player.mp}%)</span>
               </div>
@@ -6451,13 +6489,13 @@ function renderFullApplication(initialTab = "dashboard") {
                     <div style="font-size: 14px; font-weight: bold; margin-bottom: 4px; color: var(--text-white);">${q.title}</div>
                     <div style="font-size: 12px; color: var(--text-secondary);">${q.description}</div>
                     <div style="font-size: 11px; color: var(--primary); margin-top: 6px; font-family: var(--font-mono);">
-                      RÉCOMPENSE : +<strong>${q.xp} XP</strong> | +<strong>${q.crystals} 💎</strong>
+                      RÉCOMPENSE : +<strong>${q.xp} XP</strong> | +<strong>${q.crystals}</strong> Cristaux
                     </div>
                   </div>
                   <div id="quest-action-${q.id}">
                     ${
                       q.completed
-                        ? `<span style="color: var(--transcendent-green); font-weight: bold; font-size: 12px; padding: 6px 14px; border: 1px solid var(--transcendent-green); border-radius: var(--radius-sm); background: rgba(52, 211, 153, 0.1);">ACCOMPLIE ✓</span>`
+                        ? `<span style="color: var(--transcendent-green); font-weight: bold; font-size: 12px; padding: 6px 14px; border: 1px solid var(--transcendent-green); border-radius: var(--radius-sm); background: rgba(52, 211, 153, 0.1);">ACCOMPLIE ${SVG_ICONS.check}</span>`
                         : `<button class="btn-cyber" onclick="openProofModal('${q.id}', '${q.title.replace(/'/g, "\\'")}', ${q.xp}, ${q.crystals})">VALIDER</button>`
                     }
                   </div>
@@ -6490,7 +6528,7 @@ function renderFullApplication(initialTab = "dashboard") {
                   ▶ DÉMARRER LE SPRINT
                 </button>
                 <button class="btn-cyber btn-gold" onclick="switchView('planner')">
-                  VOIR PLANNING ➔
+                  VOIR PLANNING &rarr;
                 </button>
               </div>
             </div>
@@ -6578,7 +6616,7 @@ function renderFullApplication(initialTab = "dashboard") {
               <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center;" id="skill-action-${sk.id}">
                 ${
                   sk.status === "MASTERED"
-                    ? `<span style="font-size: 11px; color: var(--transcendent-green); font-weight: bold;">DOD VALIDÉE ✓ (+${sk.xp} XP)</span>`
+                    ? `<span style="font-size: 11px; color: var(--transcendent-green); font-weight: bold;">DOD VALIDÉE ${SVG_ICONS.check} (+${sk.xp} XP)</span>`
                     : `<span style="font-size: 11px; color: var(--imperial-gold); font-family: var(--font-mono);">COÛT : ${sk.xp} XP</span>
                      <button class="btn-cyber" style="padding: 4px 10px; font-size: 11px;" onclick="unlockSkillNode('${sk.id}', '${sk.name.replace(/'/g, "\\'")}', ${sk.xp}, '${sk.base}')">DÉVERROUILLER</button>`
                 }
@@ -6628,7 +6666,7 @@ function renderFullApplication(initialTab = "dashboard") {
             <span class="material-symbols-outlined" style="font-size: 24px; color: var(--alert-crimson); animation: bounce 2s infinite; flex-shrink: 0; margin-top: 2px;">report</span>
             <div>
               <div style="font-size: 12px; font-weight: 800; color: var(--alert-crimson); font-family: var(--font-mono); letter-spacing: 1px; text-transform: uppercase;">
-                ⚠️ PÉNALITÉ FATIDIQUE EN CAS D'ÉCHEC
+                ${SVG_ICONS.alert} PÉNALITÉ FATIDIQUE EN CAS D'ÉCHEC
               </div>
               <p style="font-size: 12.5px; color: var(--text-white); margin-top: 2px; line-height: 1.5;">
                 Transfert immédiat et irrévocable en <strong style="text-decoration: underline; color: var(--alert-crimson);">Zone de Pénalité 4H</strong> (Survie Temporelle active, Verrouillage total des appareils via NextDNS Blackout & Répétition des séries musculaires d'extinction).
@@ -6641,7 +6679,7 @@ function renderFullApplication(initialTab = "dashboard") {
             <div style="background: var(--surface-container); border: 1px solid var(--glass-inner-border-subtle); border-radius: 8px; padding: 12px 16px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                 <span style="font-size: 11px; font-weight: 800; color: var(--tertiary); font-family: var(--font-mono); letter-spacing: 1px;">
-                  ✓ OBJECTIF ALPHA (CRITIQUE)
+                  ${SVG_ICONS.check} OBJECTIF ALPHA (CRITIQUE)
                 </span>
                 <span style="font-size: 10px; color: var(--text-secondary); font-family: var(--font-mono);">[0/1 COMPLÉTÉ]</span>
               </div>
@@ -6656,7 +6694,7 @@ function renderFullApplication(initialTab = "dashboard") {
             <div style="background: var(--surface-container); border: 1px solid var(--glass-inner-border-subtle); border-radius: 8px; padding: 12px 16px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                 <span style="font-size: 11px; font-weight: 800; color: var(--primary); font-family: var(--font-mono); letter-spacing: 1px;">
-                  ⚡ OBJECTIF BÊTA (VALIDATION)
+                  ${SVG_ICONS.bolt} OBJECTIF BÊTA (VALIDATION)
                 </span>
                 <span style="font-size: 10px; color: var(--text-secondary); font-family: var(--font-mono);">[EN ATTENTE HOTFIX]</span>
               </div>
@@ -6674,7 +6712,7 @@ function renderFullApplication(initialTab = "dashboard") {
             <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
               <span style="font-size: 10.5px; font-family: var(--font-mono); color: var(--text-secondary); text-transform: uppercase;">RÉCOMPENSES DE VICTOIRE :</span>
               <span class="telemetric-chip" style="color: var(--primary); border-color: rgba(221,184,255,0.3); font-weight: 700;">+500 XP</span>
-              <span class="telemetric-chip" style="color: var(--imperial-gold); border-color: rgba(251,191,36,0.3); font-weight: 700;">+100 CRISTAUX D'OMBRE 💎</span>
+              <span class="telemetric-chip" style="color: var(--imperial-gold); border-color: rgba(251,191,36,0.3); font-weight: 700;">+100 CRISTAUX D'OMBRE Cristaux</span>
               <span class="telemetric-chip" style="color: var(--tertiary-fixed); border-color: rgba(69,223,164,0.3); font-weight: 700;">+3 INT</span>
               <span class="telemetric-chip" style="color: var(--primary-fixed); border-color: rgba(147,51,234,0.4); font-weight: 700;">TITRE : [Sentinelle du Noyau]</span>
             </div>
@@ -6705,7 +6743,7 @@ function renderFullApplication(initialTab = "dashboard") {
           </div>
           <div style="display: flex; align-items: center; gap: 10px;">
             <button class="btn-cyber" style="font-size: 11px; padding: 6px 14px; background: rgba(0, 240, 255, 0.15); border-color: var(--neon-cyan); color: #fff;" onclick="switchView('workout')">
-              📹 OUVRIR CAMÉRA VISION SPORT ➔
+              ${SVG_ICONS.camera} OUVRIR CAMÉRA VISION SPORT &rarr;
             </button>
           </div>
         </div>
@@ -6757,7 +6795,7 @@ function renderFullApplication(initialTab = "dashboard") {
             <span>ATTENTION : Quête quotidienne obligatoire. Tout manquement avant minuit déclenche le protocole NextDNS & Restriction.</span>
           </div>
           <button class="btn-cyber btn-gold" style="font-size: 11px; padding: 7px 14px;" onclick="switchView('workout'); selectWorkoutRoutine('DAILY_COMPLETE');">
-            DÉBUTER LA TRINITÉ COMPLÈTE (28 ÉTAPES) ➔
+            DÉBUTER LA TRINITÉ COMPLÈTE (28 ÉTAPES) &rarr;
           </button>
         </div>
       </div>
@@ -6909,7 +6947,7 @@ function renderFullApplication(initialTab = "dashboard") {
                 </div>
               </div>
               <div id="block-action-${b.id}">
-                ${b.status === "COMPLETED" ? `<span style="color: var(--transcendent-green); font-size: 12px; font-weight: bold;">VALIDÉ ✓</span>` : ""}
+                ${b.status === "COMPLETED" ? `<span style="color: var(--transcendent-green); font-size: 12px; font-weight: bold;">VALIDÉ ${SVG_ICONS.check}</span>` : ""}
                 ${
                   b.status === "ACTIVE"
                     ? `
@@ -6957,16 +6995,16 @@ function renderFullApplication(initialTab = "dashboard") {
           <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
             <div class="obsidian-view-mode-tabs">
               <button class="obsidian-mode-btn active" id="btn-mode-graph" onclick="setObsidianMode('graph')">
-                <span>🕸️</span> GRAPHE OBSIDIAN
+                <span>${SVG_ICONS.network}</span> GRAPHE OBSIDIAN
               </button>
               <button class="obsidian-mode-btn" id="btn-mode-reader" onclick="setObsidianMode('reader')">
-                <span>📝</span> LECTEUR & ÉDITEUR
+                <span>${SVG_ICONS.file}</span> LECTEUR & ÉDITEUR
               </button>
               <button class="obsidian-mode-btn" id="btn-mode-split" onclick="setObsidianMode('split')">
-                <span>⚡</span> SPLIT VIEW
+                <span>${SVG_ICONS.bolt}</span> SPLIT VIEW
               </button>
               <button class="obsidian-mode-btn" id="btn-mode-cards" onclick="setObsidianMode('cards')">
-                <span>🗂️</span> CARTES
+                <span>${SVG_ICONS.folder}</span> CARTES
               </button>
             </div>
             <button class="btn-cyber" onclick="openCreateNoteModal()">+ NOUVELLE NOTE</button>
@@ -6976,17 +7014,17 @@ function renderFullApplication(initialTab = "dashboard") {
         <!-- Search Bar & Vault Stats -->
         <div style="display: flex; gap: 14px; margin-bottom: 18px; align-items: center; flex-wrap: wrap;">
           <div style="flex: 1; min-width: 260px;">
-            <input type="text" id="notes-search-input" oninput="filterObsidianNotes(this.value)" placeholder="🔍 Rechercher dans le coffre Obsidian (ex: FlashAttention, SVD, Triton, MediaPipe)..." class="form-input">
+            <input type="text" id="notes-search-input" oninput="filterObsidianNotes(this.value)" placeholder="Rechercher dans le coffre Obsidian (ex: FlashAttention, SVD, Triton, MediaPipe)..." class="form-input">
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <span class="radar-ping-badge" style="border-color: rgba(168, 85, 247, 0.4); color: var(--monarch-purple);">
-              📚 <span id="vault-notes-count">${SYSTEM_STATE.notes.length}</span> NOTES
+              ${SVG_ICONS.file} <span id="vault-notes-count">${SYSTEM_STATE.notes.length}</span> NOTES
             </span>
             <span class="radar-ping-badge">
-              🔗 <span id="vault-links-count">28</span> LIENS SÉMANTIQUES
+              ${SVG_ICONS.link} <span id="vault-links-count">28</span> LIENS SÉMANTIQUES
             </span>
             <span class="radar-ping-badge" style="border-color: rgba(0, 255, 102, 0.4); color: var(--transcendent-green);">
-              🏷️ 24 TAGS
+              ${SVG_ICONS.tag} 24 TAGS
             </span>
           </div>
         </div>
@@ -6998,7 +7036,7 @@ function renderFullApplication(initialTab = "dashboard") {
           <div class="obsidian-explorer">
             <div class="obsidian-explorer-title">
               <span>EXPLORATEUR OBSIDIAN</span>
-              <span style="font-size: 10px; color: var(--text-muted); cursor: pointer;" onclick="refreshObsidianGraph()" title="Recharger le graphe">🔄 REFRESH</span>
+              <span style="font-size: 10px; color: var(--text-muted); cursor: pointer;" onclick="refreshObsidianGraph()" title="Recharger le graphe">${SVG_ICONS.refresh} REFRESH</span>
             </div>
             <div id="obsidian-folder-tree">
               <!-- Dynamically populated folder tree -->
@@ -7016,8 +7054,8 @@ function renderFullApplication(initialTab = "dashboard") {
               <div class="obsidian-graph-controls">
                 <button class="graph-ctrl-btn" onclick="zoomObsidianGraph(1.2)" title="Zoom Avant">+</button>
                 <button class="graph-ctrl-btn" onclick="zoomObsidianGraph(0.8)" title="Zoom Arrière">-</button>
-                <button class="graph-ctrl-btn" onclick="recenterObsidianGraph()" title="Recentrer le Graphe">🎯</button>
-                <button class="graph-ctrl-btn" onclick="restartObsidianPhysics()" title="Relancer la Physique">🔄</button>
+                <button class="graph-ctrl-btn" onclick="recenterObsidianGraph()" title="Recentrer le Graphe">${SVG_ICONS.target}</button>
+                <button class="graph-ctrl-btn" onclick="restartObsidianPhysics()" title="Relancer la Physique">${SVG_ICONS.refresh}</button>
               </div>
 
               <!-- Domain Color Legend -->
@@ -7036,14 +7074,14 @@ function renderFullApplication(initialTab = "dashboard") {
               <div class="obsidian-note-header">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                   <div class="obsidian-breadcrumb" id="reader-breadcrumb">
-                    <span>📁 00_Synthese_Souveraine</span> / <span>README.md</span>
+                    <span>${SVG_ICONS.folder} 00_Synthese_Souveraine</span> / <span>README.md</span>
                   </div>
                   <div style="display: flex; gap: 8px;">
                     <button class="btn-cyber" id="btn-edit-note-toggle" style="padding: 4px 10px; font-size: 11px;" onclick="toggleNoteEditMode()">
-                      ✏️ MODIFIER
+                      ${SVG_ICONS.edit} MODIFIER
                     </button>
                     <button class="btn-cyber btn-gold" id="btn-save-note" style="padding: 4px 10px; font-size: 11px; display: none;" onclick="saveCurrentNoteEdit()">
-                      💾 ENREGISTRER
+                      ${SVG_ICONS.save} ENREGISTRER
                     </button>
                   </div>
                 </div>
@@ -7051,7 +7089,7 @@ function renderFullApplication(initialTab = "dashboard") {
                 <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
                   <span class="radar-ping-badge" id="reader-note-base">DIS</span>
                   <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);" id="reader-note-date">Modifié le 2026-11-12</span>
-                  <span class="radar-ping-badge" style="border-color: rgba(0, 240, 255, 0.4); color: var(--neon-cyan);" id="reader-backlinks-count">🔗 6 MENTIONS LIÉES</span>
+                  <span class="radar-ping-badge" style="border-color: rgba(0, 240, 255, 0.4); color: var(--neon-cyan);" id="reader-backlinks-count">${SVG_ICONS.link} 6 MENTIONS LIÉES</span>
                 </div>
               </div>
 
@@ -7068,7 +7106,7 @@ function renderFullApplication(initialTab = "dashboard") {
               <!-- Backlinks Panel ("Mentions liées") -->
               <div class="obsidian-backlinks-panel">
                 <div class="obsidian-backlinks-title">
-                  <span>🔗 MENTIONS LIÉES (BACKLINKS OBSIDIAN)</span>
+                  <span>${SVG_ICONS.link} MENTIONS LIÉES (BACKLINKS OBSIDIAN)</span>
                 </div>
                 <div id="reader-backlinks-list">
                   <!-- Dynamically populated backlinks cards -->
@@ -7099,7 +7137,7 @@ function renderFullApplication(initialTab = "dashboard") {
                       <span class="radar-ping-badge">${n.base}</span>
                       <div style="display: flex; gap: 8px; align-items: center;">
                         <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">${n.updatedAt.split("T")[0]}</span>
-                        <button onclick="deleteNote('${n.id}')" style="background: none; border: none; color: var(--alert-crimson); cursor: pointer; font-size: 14px;">🗑</button>
+                        <button onclick="deleteNote('${n.id}')" style="background: none; border: none; color: var(--alert-crimson); cursor: pointer;">${SVG_ICONS.trash}</button>
                       </div>
                     </div>
                     <h3 style="font-size: 17px; font-weight: bold; margin-bottom: 12px; color: var(--text-white); cursor: pointer;" onclick="openObsidianNote('${n.id}'); setObsidianMode('reader');">${n.title}</h3>
@@ -7133,7 +7171,7 @@ function renderFullApplication(initialTab = "dashboard") {
             </h2>
             <p style="font-size: 13px; color: var(--text-secondary);">Capture audio temps réel, analyse spectrale FFT et notation sur la grille 20 points de l'Architecte.</p>
           </div>
-          <button class="btn-cyber" id="record-toggle-btn" onclick="toggleAudioRecording()">🎙️ DÉMARRER ENREGISTREMENT</button>
+          <button class="btn-cyber" id="record-toggle-btn" onclick="toggleAudioRecording()">${SVG_ICONS.mic} DÉMARRER ENREGISTREMENT</button>
         </div>
 
         <!-- Real Web Audio Spectrum Canvas -->
@@ -7156,7 +7194,7 @@ function renderFullApplication(initialTab = "dashboard") {
           </label>
           <textarea id="speech-transcript-box" rows="4" class="form-input" style="line-height: 1.5;" placeholder="Parlez dans le micro ou collez votre restitution orale ici (ex: 'The scaled dot-product attention mechanism computes similarity scores between queries and keys divided by the square root of dimension dk, followed by a softmax function to obtain attention weights applied to values...')..."></textarea>
           <div style="display: flex; justify-content: flex-end; margin-top: 8px;">
-            <button class="btn-cyber btn-gold" onclick="evaluateSocraticSpeech()">⚡ ANALYSER & ÉVALUER CE DISCOURS</button>
+            <button class="btn-cyber btn-gold" onclick="evaluateSocraticSpeech()">${SVG_ICONS.bolt} ANALYSER & ÉVALUER CE DISCOURS</button>
           </div>
         </div>
 
@@ -7167,10 +7205,10 @@ function renderFullApplication(initialTab = "dashboard") {
           </h3>
           <div class="grid-2col">
             <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.8;">
-              <div>🔹 <strong>Précision Conceptuelle & Mathématique :</strong> <span id="crit-concept" style="color: var(--neon-cyan); font-weight: bold;">-- / 6 pts</span></div>
-              <div>🔹 <strong>Rigueur du Raisonnement & Falsifiabilité :</strong> <span id="crit-rigor" style="color: var(--neon-cyan); font-weight: bold;">-- / 5 pts</span></div>
-              <div>🔹 <strong>Clarté d'Élocution & Débit Cambridge C1 :</strong> <span id="crit-delivery" style="color: var(--neon-cyan); font-weight: bold;">-- / 5 pts</span></div>
-              <div>🔹 <strong>Pertinence des Exemples & Benchmarks :</strong> <span id="crit-examples" style="color: var(--neon-cyan); font-weight: bold;">-- / 4 pts</span></div>
+              <div><span style="color:var(--primary);margin-right:4px;">•</span> <strong>Précision Conceptuelle & Mathématique :</strong> <span id="crit-concept" style="color: var(--neon-cyan); font-weight: bold;">-- / 6 pts</span></div>
+              <div><span style="color:var(--primary);margin-right:4px;">•</span> <strong>Rigueur du Raisonnement & Falsifiabilité :</strong> <span id="crit-rigor" style="color: var(--neon-cyan); font-weight: bold;">-- / 5 pts</span></div>
+              <div><span style="color:var(--primary);margin-right:4px;">•</span> <strong>Clarté d'Élocution & Débit Cambridge C1 :</strong> <span id="crit-delivery" style="color: var(--neon-cyan); font-weight: bold;">-- / 5 pts</span></div>
+              <div><span style="color:var(--primary);margin-right:4px;">•</span> <strong>Pertinence des Exemples & Benchmarks :</strong> <span id="crit-examples" style="color: var(--neon-cyan); font-weight: bold;">-- / 4 pts</span></div>
             </div>
             <div style="text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;">
               <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">NOTE GLOBALE ATTRIBUÉE</div>
@@ -7201,7 +7239,7 @@ function renderFullApplication(initialTab = "dashboard") {
             </div>
           </div>
         </div>
-        <button class="btn-cyber" onclick="triggerDeerflowScraper()">🔄 SCRAPER NOUVELLES OPPORTUNITÉS</button>
+        <button class="btn-cyber" onclick="triggerDeerflowScraper()">${SVG_ICONS.refresh} SCRAPER NOUVELLES OPPORTUNITÉS</button>
       </div>
 
       <!-- 3D CIRCULAR CAROUSEL (SEAMLESSLY INTEGRATED INTO ENVIRONMENT) -->
@@ -7238,10 +7276,10 @@ function renderFullApplication(initialTab = "dashboard") {
           </div>
           <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
             <div class="radar-ping-badge" style="border-color: rgba(255, 215, 0, 0.5); color: var(--imperial-gold); font-size: 14px; padding: 8px 16px;">
-              💎 SOLDE : <strong id="shop-balance-display">${player.shadowCrystals}</strong> CRISTAUX
+              Cristaux SOLDE : <strong id="shop-balance-display">${player.shadowCrystals}</strong> CRISTAUX
             </div>
             <div id="rest-day-status-pill" class="radar-ping-badge" style="border-color: ${SYSTEM_STATE.restDayActive ? 'var(--tertiary)' : 'var(--glass-inner-border)'}; color: ${SYSTEM_STATE.restDayActive ? 'var(--tertiary)' : 'var(--text-secondary)'}; font-size: 13px; padding: 8px 14px;">
-              ${SYSTEM_STATE.restDayActive ? '🛡️ JOUR DE REPOS ACTIF (24H)' : '⚡ CYCLE QUOTIDIEN EN COURS'}
+              ${SYSTEM_STATE.restDayActive ? SVG_ICONS.shield + ' JOUR DE REPOS ACTIF (24H)' : SVG_ICONS.bolt + ' CYCLE QUOTIDIEN EN COURS'}
             </div>
           </div>
         </div>
@@ -7253,7 +7291,7 @@ function renderFullApplication(initialTab = "dashboard") {
               <span class="material-symbols-outlined" style="font-size: 36px; color: var(--tertiary);">hotel</span>
               <div>
                 <div style="font-size: 15px; font-weight: 800; color: var(--tertiary); font-family: var(--font-mono); letter-spacing: 0.5px;">
-                  🛡️ RÉPIT DU MONARQUE ENCLENCHÉ — IMMUNITÉ TOTALE ACTIVE
+                  ${SVG_ICONS.shield} RÉPIT DU MONARQUE ENCLENCHÉ — IMMUNITÉ TOTALE ACTIVE
                 </div>
                 <div style="font-size: 12.5px; color: var(--text-white); margin-top: 3px; line-height: 1.4;">
                   Couvre-feu NextDNS <strong>désactivé</strong> • Quêtes journalières <strong>exemptées sans pénalité</strong> • Série journalière <strong>protégée</strong> • Jauges vitales HP & MP à <strong>100%</strong>.
@@ -7271,7 +7309,7 @@ function renderFullApplication(initialTab = "dashboard") {
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid var(--glass-inner-border); padding-bottom: 10px;">
             <div style="display: flex; align-items: center; gap: 8px;">
               <span class="material-symbols-outlined" style="color: var(--primary); font-size: 22px;">backpack</span>
-              <h3 class="shiny-text" style="font-size: 18px; font-weight: bold;">🎒 OBJETS & CONSOMMABLES POSSÉDÉS (INVENTAIRE ACTIF)</h3>
+              <h3 class="shiny-text" style="font-size: 18px; font-weight: bold;">${SVG_ICONS.backpack} OBJETS & CONSOMMABLES POSSÉDÉS (INVENTAIRE ACTIF)</h3>
             </div>
             <span style="font-size: 11px; color: var(--text-secondary); font-family: var(--font-mono);">
               <span id="inv-count-badge">${SYSTEM_STATE.inventory.length}</span> OBJET(S) EN RÉSERVE
@@ -7281,9 +7319,9 @@ function renderFullApplication(initialTab = "dashboard") {
           <div id="shop-inventory-container" class="grid-2col">
             ${SYSTEM_STATE.inventory.length === 0 ? `
               <div class="empty-inventory-msg" style="grid-column: 1 / -1; padding: 30px; text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 13px; border: 1px dashed var(--glass-inner-border); border-radius: 10px; background: rgba(15, 9, 38, 0.4);">
-                <div style="font-size: 28px; margin-bottom: 8px;">🎒</div>
+                <div style="margin-bottom: 8px;">${SVG_ICONS.backpackLarge}</div>
                 <div style="font-weight: bold; color: var(--text-secondary); margin-bottom: 4px;">VOTRE SAC D'INVENTAIRE EST ACTUELLEMENT VIDE</div>
-                <div>Accomplissez vos quêtes quotidiennes (100 💎/jour) pour forger votre <strong>Pass Jour de Repos</strong> (600 💎) ou vos potions ci-dessous.</div>
+                <div>Accomplissez vos quêtes quotidiennes (100 Cristaux/jour) pour forger votre <strong>Pass Jour de Repos</strong> (600 Cristaux) ou vos potions ci-dessous.</div>
               </div>
             ` : SYSTEM_STATE.inventory
               .map(
@@ -7305,7 +7343,7 @@ function renderFullApplication(initialTab = "dashboard") {
                     ID: <code style="color: var(--neon-cyan);">${inv.code}</code>
                   </div>
                   ${inv.type === 'REST_DAY' ? (
-                    inv.used ? `<span class="radar-ping-badge" style="color: var(--tertiary); border-color: var(--tertiary);">✓ UTILISÉ AUJOURD'HUI</span>` : `<button class="btn-cyber btn-gold" style="font-size: 11px; padding: 6px 14px;" onclick="activateRestDay('${inv.id}')">⚡ ACTIVER LE REPOS (24H)</button>`
+                    inv.used ? `<span class="radar-ping-badge" style="color: var(--tertiary); border-color: var(--tertiary);">${SVG_ICONS.check} UTILISÉ AUJOURD'HUI</span>` : `<button class="btn-cyber btn-gold" style="font-size: 11px; padding: 6px 14px;" onclick="activateRestDay('${inv.id}')">${SVG_ICONS.bolt} ACTIVER LE REPOS (24H)</button>`
                   ) : (inv.type === 'POTION_MP' ? (
                     inv.used ? `<span class="radar-ping-badge" style="color: var(--text-muted);">CONSOMMÉ</span>` : `<button class="btn-cyber" style="font-size: 11px; padding: 6px 14px;" onclick="usePotion('${inv.id}', 'MP')">BOIRE (+50 MP)</button>`
                   ) : (inv.type === 'POTION_HP' ? (
@@ -7324,10 +7362,10 @@ function renderFullApplication(initialTab = "dashboard") {
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid var(--glass-inner-border); padding-bottom: 10px;">
             <div style="display: flex; align-items: center; gap: 8px;">
               <span class="material-symbols-outlined" style="color: var(--imperial-gold); font-size: 22px;">token</span>
-              <h3 class="shiny-text" style="font-size: 18px; font-weight: bold;">⚡ FORGE DES OMBRES — ACQUISITION D'ARTÉFACTS</h3>
+              <h3 class="shiny-text" style="font-size: 18px; font-weight: bold;">${SVG_ICONS.bolt} FORGE DES OMBRES — ACQUISITION D'ARTÉFACTS</h3>
             </div>
             <span style="font-size: 11.5px; color: var(--imperial-gold); font-family: var(--font-mono); font-weight: bold;">
-              ÉCHANGE DE CRISTAUX D'OMBRE (💎)
+              ÉCHANGE DE CRISTAUX D'OMBRE
             </span>
           </div>
 
@@ -7343,21 +7381,21 @@ function renderFullApplication(initialTab = "dashboard") {
                   Pass Jour de Repos Hebdomadaire (Répit du Monarque)
                 </h3>
                 <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;">
-                  <strong style="color: var(--text-white);">Règle d'or du Système :</strong> Ce pass est calculé et calibré pour être débloqué <span style="color: var(--imperial-gold); font-weight: bold;">une seule fois par semaine</span>. En accomplissant vos quêtes journalières sans exception (100 💎 par jour sur 6 jours), vous récoltez exactement les <strong>600 💎</strong> nécessaires pour vous offrir 24h de repos complet. Le couvre-feu NextDNS est désactivé et aucune pénalité ne peut vous atteindre.
+                  <strong style="color: var(--text-white);">Règle d'or du Système :</strong> Ce pass est calculé et calibré pour être débloqué <span style="color: var(--imperial-gold); font-weight: bold;">une seule fois par semaine</span>. En accomplissant vos quêtes journalières sans exception (100 Cristaux par jour sur 6 jours), vous récoltez exactement les <strong>600 Cristaux</strong> nécessaires pour vous offrir 24h de repos complet. Le couvre-feu NextDNS est désactivé et aucune pénalité ne peut vous atteindre.
                 </p>
                 <div style="display: flex; gap: 16px; font-size: 12px; font-family: var(--font-mono); color: var(--primary); flex-wrap: wrap;">
-                  <span>✓ 100 💎/jour × 6 jours = 600 💎</span>
-                  <span>✓ 0 Sanction NextDNS</span>
-                  <span>✓ Streak Préservé</span>
+                  <span>${SVG_ICONS.check} 100 Cristaux/jour × 6 jours = 600 Cristaux</span>
+                  <span>${SVG_ICONS.check} 0 Sanction NextDNS</span>
+                  <span>${SVG_ICONS.check} Streak Préservé</span>
                 </div>
               </div>
 
               <div style="display: flex; flex-direction: column; align-items: flex-end; justify-content: center; min-width: 180px;">
                 <div style="font-size: 26px; font-weight: 900; color: var(--imperial-gold); font-family: var(--font-mono); margin-bottom: 10px;">
-                  600 💎
+                  600 Cristaux
                 </div>
                 <button class="btn-cyber btn-gold" style="font-size: 13px; padding: 10px 22px;" onclick="buyShopItem('item-rest-day-pass', 'Pass Jour de Repos Hebdomadaire (Répit du Monarque)', 600, 'REST_DAY', 'RÉPIS SOUVERAIN')">
-                  ACQUÉRIR CE PASS (600 💎)
+                  ACQUÉRIR CE PASS (600 Cristaux)
                 </button>
                 <div style="font-size: 10.5px; color: var(--text-muted); font-family: var(--font-mono); margin-top: 6px;">
                   Limite : 1 achat par tranche de 7 jours
@@ -7382,7 +7420,7 @@ function renderFullApplication(initialTab = "dashboard") {
                   <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.4; margin-bottom: 16px;">${item.desc}</p>
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-inner-border); padding-top: 14px;">
-                  <span style="font-size: 15px; font-weight: 900; color: var(--imperial-gold); font-family: var(--font-mono);">${item.cost} 💎</span>
+                  <span style="font-size: 15px; font-weight: 900; color: var(--imperial-gold); font-family: var(--font-mono);">${item.cost} Cristaux</span>
                   <button class="btn-cyber btn-gold" style="font-size: 11px; padding: 6px 12px;" onclick="buyShopItem('${item.id}', '${item.name.replace(/'/g, "\\'")}', ${item.cost}, '${item.type || 'GENERIC'}', '${item.category || 'OBJET'}')">ACHETER</button>
                 </div>
               </div>
@@ -7518,7 +7556,7 @@ function renderFullApplication(initialTab = "dashboard") {
               .map(
                 (d) => `
               <span style="background: rgba(255, 0, 60, 0.12); border: 1px solid rgba(255, 0, 60, 0.4); color: var(--alert-crimson); font-size: 12px; font-family: var(--font-mono); padding: 6px 14px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 6px;">
-                <span>🔒</span> <span>${d}</span>
+                <span>${SVG_ICONS.lock}</span> <span>${d}</span>
               </span>
             `,
               )
@@ -7571,8 +7609,8 @@ function renderFullApplication(initialTab = "dashboard") {
             <p style="font-size: 13px; color: var(--text-secondary);">Analyse cinématique des repères squelettiques avec seuil de flexion strict.</p>
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button class="btn-cyber" id="cam-toggle-btn" onclick="toggleCamera()">📷 ACTIVER CAMÉRA</button>
-            <button class="btn-cyber btn-gold" id="btn-cv-test" onclick="runRealtimePushupSimulationTest()" title="Simuler un squelette IA en temps réel pour tester la reconnaissance et le compteur">🧪 TEST SIMULATION IA</button>
+            <button class="btn-cyber" id="cam-toggle-btn" onclick="toggleCamera()">${SVG_ICONS.camera} ACTIVER CAMÉRA</button>
+            <button class="btn-cyber btn-gold" id="btn-cv-test" onclick="runRealtimePushupSimulationTest()" title="Simuler un squelette IA en temps réel pour tester la reconnaissance et le compteur">${SVG_ICONS.potion} TEST SIMULATION IA</button>
           </div>
         </div>
 
@@ -7599,11 +7637,11 @@ function renderFullApplication(initialTab = "dashboard") {
             </div>
 
             <div id="cam-placeholder" style="text-align: center; color: var(--text-muted); padding: 40px 20px;">
-              <div style="font-size: 48px; margin-bottom: 12px;">📷</div>
+              <div style="margin-bottom: 12px;">${SVG_ICONS.cameraLarge}</div>
               <div style="font-size: 15px; color: var(--text-white); font-weight: bold; margin-bottom: 6px;">Tracking Cinématique MediaPipe Prêt</div>
               <div style="font-size: 12px; color: var(--text-secondary);">Cliquez sur "Activer Caméra" pour démarrer l'estimation de pose en temps réel.</div>
               <div style="font-size: 11px; margin-top: 10px; color: var(--neon-cyan); font-family: var(--font-mono);">
-                Seuil strict : Flexion coude ≤ 75° ➔ Extension ≥ 160°
+                Seuil strict : Flexion coude ≤ 75° &rarr; Extension ≥ 160°
               </div>
             </div>
           </div>
@@ -7615,7 +7653,7 @@ function renderFullApplication(initialTab = "dashboard") {
               <button class="btn-cyber" id="btn-routine-bras" style="font-size: 11px; padding: 6px 12px;" onclick="selectWorkoutRoutine('BRAS')">2. BRAS & TRICEPS (6)</button>
               <button class="btn-cyber" id="btn-routine-abdos" style="font-size: 11px; padding: 6px 12px;" onclick="selectWorkoutRoutine('ABDOS')">3. ABDOS & CORE (5)</button>
               <button class="btn-cyber btn-gold" id="btn-routine-daily" style="font-size: 11px; padding: 6px 12px;" onclick="selectWorkoutRoutine('DAILY_COMPLETE')">TRINITÉ (28)</button>
-              <button class="btn-cyber btn-red" id="btn-routine-purge" style="font-size: 11px; padding: 6px 12px;" onclick="selectWorkoutRoutine('PURGE_200')">⚔️ PURGE (200 POMPES)</button>
+              <button class="btn-cyber btn-red" id="btn-routine-purge" style="font-size: 11px; padding: 6px 12px;" onclick="selectWorkoutRoutine('PURGE_200')">${SVG_ICONS.sword} PURGE (200 POMPES)</button>
             </div>
 
             <div class="glass-card spotlight-card" style="padding: 22px; margin-bottom: 18px;">
@@ -7642,11 +7680,11 @@ function renderFullApplication(initialTab = "dashboard") {
 
             <div style="display: flex; gap: 10px; margin-bottom: 10px;">
               <button class="btn-cyber" style="flex: 1;" onclick="addManualRep()">+ 1 UNITÉ / REP</button>
-              <button class="btn-cyber btn-gold" style="flex: 1;" onclick="nextWorkoutStep()">ÉTAPE SUIVANTE ➔</button>
+              <button class="btn-cyber btn-gold" style="flex: 1;" onclick="nextWorkoutStep()">ÉTAPE SUIVANTE &rarr;</button>
             </div>
             <div style="display: flex; justify-content: space-between;">
               <button class="btn-cyber" style="font-size: 11px; padding: 4px 10px;" onclick="prevWorkoutStep()">⮜ ÉTAPE PRÉCÉDENTE</button>
-              <button class="btn-cyber" style="font-size: 11px; padding: 4px 10px; color: var(--transcendent-green);" onclick="validateWorkoutSet()">✓ VALIDER TOUTE LA SÉRIE</button>
+              <button class="btn-cyber" style="font-size: 11px; padding: 4px 10px; color: var(--transcendent-green);" onclick="validateWorkoutSet()">${SVG_ICONS.check} VALIDER TOUTE LA SÉRIE</button>
             </div>
           </div>
         </div>
@@ -7718,7 +7756,7 @@ function renderFullApplication(initialTab = "dashboard") {
     <div class="modal-card">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
         <h3 id="sys-modal-title" class="shiny-text" style="font-size: 18px; font-weight: bold;">[NOTIFICATION DU SYSTÈME]</h3>
-        <button onclick="closeSysModal()" style="background: none; border: none; color: #fff; font-size: 22px; cursor: pointer;">✕</button>
+        <button onclick="closeSysModal()" style="background: none; border: none; color: #fff; font-size: 22px; cursor: pointer;">&times;</button>
       </div>
       <p id="sys-modal-msg" style="font-size: 14px; color: var(--text-white); margin-bottom: 22px; line-height: 1.6;"></p>
       <div style="display: flex; justify-content: flex-end;">
@@ -7732,7 +7770,7 @@ function renderFullApplication(initialTab = "dashboard") {
     <div class="modal-card">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
         <h3 id="modal-quest-title" class="shiny-text" style="font-size: 18px; font-weight: bold;">SOUMISSION DE PREUVE DE QUÊTE</h3>
-        <button onclick="closeProofModal()" style="background: none; border: none; color: #fff; font-size: 22px; cursor: pointer;">✕</button>
+        <button onclick="closeProofModal()" style="background: none; border: none; color: #fff; font-size: 22px; cursor: pointer;">&times;</button>
       </div>
       <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 18px; line-height: 1.5;">
         Règle d'or : Toute attribution d'expérience exige une preuve réelle et indiscutable (Lien Commit GitHub, Trace Strava GPS, Relevé officiel).
@@ -7763,7 +7801,7 @@ function renderFullApplication(initialTab = "dashboard") {
           </div>
           <h3 class="shiny-text" style="font-size: 18px; font-weight: bold; margin: 0;">SYNCHRONISATION GOOGLE DU CHASSEUR</h3>
         </div>
-        <button onclick="closeAuthModal()" style="background: none; border: none; color: #fff; font-size: 22px; cursor: pointer;">✕</button>
+        <button onclick="closeAuthModal()" style="background: none; border: none; color: #fff; font-size: 22px; cursor: pointer;">&times;</button>
       </div>
 
       <div id="auth-unauthenticated-view">
@@ -7805,7 +7843,7 @@ function renderFullApplication(initialTab = "dashboard") {
           <div style="flex: 1; min-width: 0;">
             <div style="display: flex; align-items: center; gap: 8px;">
               <h4 id="auth-user-name" style="margin: 0; font-size: 16px; font-weight: bold; color: var(--text-white);"></h4>
-              <span style="font-size: 10px; font-family: var(--font-mono); padding: 2px 6px; border-radius: 4px; background: rgba(69, 223, 164, 0.2); color: var(--tertiary); border: 1px solid var(--tertiary);">VÉRIFIÉ ✓</span>
+              <span style="font-size: 10px; font-family: var(--font-mono); padding: 2px 6px; border-radius: 4px; background: rgba(69, 223, 164, 0.2); color: var(--tertiary); border: 1px solid var(--tertiary);">VÉRIFIÉ</span>
             </div>
             <div id="auth-user-email" style="font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; word-break: break-all;"></div>
             <div id="auth-provider-badge" style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); margin-top: 4px;">Fournisseur : Google Identity (OAuth 2.0)</div>
@@ -7825,7 +7863,7 @@ function renderFullApplication(initialTab = "dashboard") {
     <div class="modal-card" style="max-width: 640px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
         <h3 class="shiny-text" style="font-size: 18px; font-weight: bold;">CRÉATION D'UNE NOTE SECOND BRAIN</h3>
-        <button onclick="closeCreateNoteModal()" style="background: none; border: none; color: #fff; font-size: 22px; cursor: pointer;">✕</button>
+        <button onclick="closeCreateNoteModal()" style="background: none; border: none; color: #fff; font-size: 22px; cursor: pointer;">&times;</button>
       </div>
       <div style="margin-bottom: 14px;">
         <label style="font-size: 11px; color: var(--neon-cyan); font-family: var(--font-mono); display: block; margin-bottom: 4px;">TITRE DE LA NOTE :</label>
@@ -7857,6 +7895,10 @@ function renderFullApplication(initialTab = "dashboard") {
   </div>
 
   <script>
+    // Client-side Vector SVG Icons (zero unicode emojis)
+    window.SVG_ICONS = ${JSON.stringify(SVG_ICONS)};
+    const SVG_ICONS = window.SVG_ICONS;
+
     // System Local Storage Keys
     const STORAGE_KEY = 'LEVELUP_SYSTEM_STATE_V7_CLEAN_DYNAMIC_AUTH';
     try {
@@ -8006,7 +8048,7 @@ function renderFullApplication(initialTab = "dashboard") {
           if (state.player.avatar) {
             avatarSlot.innerHTML = '<img src="' + state.player.avatar + '" alt="Avatar" style="width: 22px; height: 22px; border-radius: 50%; object-fit: cover;">';
           } else {
-            avatarSlot.textContent = '👑';
+            avatarSlot.innerHTML = SVG_ICONS.crown;
           }
         }
         if (headerPlayerName) headerPlayerName.textContent = displayName;
@@ -8016,7 +8058,7 @@ function renderFullApplication(initialTab = "dashboard") {
         if (unauthView) unauthView.style.display = 'block';
         if (authView) authView.style.display = 'none';
         if (authBtnLabel) authBtnLabel.textContent = 'CONNEXION GOOGLE';
-        if (avatarSlot) avatarSlot.textContent = '👑';
+        if (avatarSlot) avatarSlot.innerHTML = SVG_ICONS.crown;
         const anonName = (state.player && state.player.name) || 'Chasseur Non Éveillé';
         if (headerPlayerName) headerPlayerName.textContent = anonName;
         if (dashPlayerName) dashPlayerName.textContent = anonName;
@@ -8045,7 +8087,7 @@ function renderFullApplication(initialTab = "dashboard") {
           saveState();
           refreshAuthModalUI();
           showSysNotification(
-            "👑 [COMPTE GOOGLE SYNCHRONISÉ]",
+            "[COMPTE SYNCHRONISÉ]",
             "Bienvenue, Chasseur <strong>" + data.user.name + "</strong> !<br>Votre identité Google (<code>" + data.user.email + "</code>) est scellée au Système du Monarque."
           );
           playChime(1046);
@@ -8515,7 +8557,7 @@ function renderFullApplication(initialTab = "dashboard") {
         state.player.attributes.remainingPoints = (state.player.attributes.remainingPoints || 0) + 5;
         playChime(1046);
         showSysNotification(
-          "🌟 [LEVEL UP! MONTÉE DE NIVEAU SOUVERAINE]",
+          "[LEVEL UP! MONTÉE DE NIVEAU SOUVERAINE]",
           "Félicitations, Chasseur ! Vous avez atteint le <strong>NIVEAU " + state.player.level + "</strong> !\\nToutes vos jauges HP et MP sont instantanément restaurées à 100%.\\n<strong>+5 Points de caractéristiques</strong> disponibles."
         );
         updateStatsUI();
@@ -8575,13 +8617,13 @@ function renderFullApplication(initialTab = "dashboard") {
       const action = document.getElementById('skill-action-' + skillId);
       if (card) card.style.borderColor = 'rgba(0, 255, 102, 0.5)';
       if (badge) badge.textContent = base + " — [MAÎTRISÉ 5/5]";
-      if (action) action.innerHTML = '<span style="font-size: 11px; color: var(--transcendent-green); font-weight: bold;">DOD VALIDÉE ✓ (+' + cost + ' XP)</span>';
+      if (action) action.innerHTML = '<span style="font-size: 11px; color: var(--transcendent-green); font-weight: bold;">DOD VALIDÉE (+' + cost + ' XP)</span>';
 
       updateXpUI();
       recalculateHarmonicRadar();
 
       showSysNotification(
-        "⚡ [COMPÉTENCE ACQUISE DANS LE DAG]",
+        "[COMPÉTENCE ACQUISE DANS LE DAG]",
         "La compétence <strong>" + name + "</strong> a été intégrée avec succès au graphe souverain.<br>Consommation : <strong>-" + cost + " XP</strong>. Base <strong>" + base + "</strong> renforcée."
       );
     }
@@ -8696,7 +8738,7 @@ function renderFullApplication(initialTab = "dashboard") {
                   <span>\${q.base}</span>
                 </span>
                 <span class="quest-type-chip \${isEmergency ? 'chip-emergency' : ''}">
-                  \${isEmergency ? '⚠️ URGENCE S-RANK' : (q.type || 'DAILY')}
+                  \${isEmergency ? 'URGENCE S-RANK' : (q.type || 'DAILY')}
                 </span>
               </div>
 
@@ -8704,7 +8746,7 @@ function renderFullApplication(initialTab = "dashboard") {
               <div class="quest-banner-bottom-bar">
                 <div class="quest-reward-pill">
                   <span class="quest-xp-val">+\${q.xp} XP</span>
-                  <span class="quest-crystal-val">+\${q.crystals || 20} 💎</span>
+                  <span class="quest-crystal-val">+\${q.crystals || 20} \Cristaux</span>
                 </div>
                 <div class="quest-status-indicator \${q.completed ? 'is-done' : ''}">
                   <span class="quest-status-dot"></span>
@@ -8762,7 +8804,7 @@ function renderFullApplication(initialTab = "dashboard") {
               <button class="quest-cta-btn \${isEmergency ? 'btn-emergency' : ''} \${q.completed ? 'btn-completed' : ''}"
                       onclick="event.stopPropagation(); openProofModal('\\\${q.id}', '\\\${q.title.replace(/'/g, "\\\\'")}', \\\${q.xp}, \\\${q.crystals});">
                 <span class="material-symbols-outlined" style="font-size: 15px;">\${q.completed ? 'task_alt' : (isEmergency ? 'bolt' : 'verified')}</span>
-                <span>\${q.completed ? 'ACCOMPLIE ✓' : (isEmergency ? 'COMMIT HOTFIX CRITIQUE' : 'SOUMETTRE PREUVE')}</span>
+                <span>\${q.completed ? 'ACCOMPLIE ${SVG_ICONS.check}' : (isEmergency ? 'COMMIT HOTFIX CRITIQUE' : 'SOUMETTRE PREUVE')}</span>
               </button>
             </div>
 
@@ -8850,7 +8892,7 @@ function renderFullApplication(initialTab = "dashboard") {
     function handleQuest3DCardClick(index, questId) {
       focusQuestCarouselCard(index);
       showSysNotification(
-        "⚡ [QUÊTE SÉLECTIONNÉE DANS LE CYLINDRE 3D]",
+        "[QUÊTE SÉLECTIONNÉE DANS LE CYLINDRE 3D]",
         "Focus établi sur la quête. Cliquez sur 'SOUMETTRE PREUVE' pour valider votre accomplissement."
       );
     }
@@ -9186,7 +9228,7 @@ function renderFullApplication(initialTab = "dashboard") {
       const o = (state.opportunities || []).find(item => item.id === oppId);
       if (o) {
         showSysNotification(
-          "🌐 [" + o.type + " : " + o.title + "]",
+          "[" + o.type + " : " + o.title + "]",
           "Portail : " + o.portal + " | Montant : " + o.amount + " | Date limite : " + o.deadline + " (Match : " + o.matchScore + "%)"
         );
       }
@@ -9354,16 +9396,16 @@ function renderFullApplication(initialTab = "dashboard") {
 
       // Update UI cards
       const actionDash = document.getElementById('quest-action-' + activeQuestId);
-      if (actionDash) actionDash.innerHTML = '<span style="color: var(--transcendent-green); font-weight: bold; font-size: 12px; padding: 6px 14px; border: 1px solid var(--transcendent-green); border-radius: var(--radius-sm); background: rgba(0, 255, 102, 0.1);">ACCOMPLIE ✓</span>';
+      if (actionDash) actionDash.innerHTML = '<span style="color: var(--transcendent-green); font-weight: bold; font-size: 12px; padding: 6px 14px; border: 1px solid var(--transcendent-green); border-radius: var(--radius-sm); background: rgba(0, 255, 102, 0.1);">ACCOMPLIE ${SVG_ICONS.check}</span>';
 
       const actionList = document.getElementById('qlist-action-' + activeQuestId);
-      if (actionList) actionList.innerHTML = '<div style="font-size: 12px; color: var(--transcendent-green); font-weight: bold;">ACCOMPLIE ✓ (PREUVE VÉRIFIÉE)</div>';
+      if (actionList) actionList.innerHTML = '<div style="font-size: 12px; color: var(--transcendent-green); font-weight: bold;">ACCOMPLIE ${SVG_ICONS.check} (PREUVE VÉRIFIÉE)</div>';
 
       // Check emergency quest
       if (activeQuestId === 'q-emergency-auth-bypass') {
         const timer = document.getElementById('emergency-timer-text');
         const label = document.getElementById('emergency-status-label');
-        if (timer) timer.textContent = "[ NEUTRALISÉ ✓ ]";
+        if (timer) timer.textContent = "[ NEUTRALISÉ ]";
         if (label) {
           label.textContent = "FAILLE CORRIGÉE PAR LE MONARQUE";
           label.style.color = "var(--transcendent-green)";
@@ -9372,8 +9414,8 @@ function renderFullApplication(initialTab = "dashboard") {
 
       closeProofModal();
       showSysNotification(
-        "🏆 [QUÊTE VALIDÉE AU NOM DU SYSTÈME]",
-        "Preuve authentifiée.<br>Gains : <strong>+" + activeQuestXp + " XP</strong> et <strong>+" + activeQuestCrystals + " Cristaux d'Ombre 💎</strong>."
+        "[QUÊTE VALIDÉE AU NOM DU SYSTÈME]",
+        "Preuve authentifiée.<br>Gains : <strong>+" + activeQuestXp + " XP</strong> et <strong>+" + activeQuestCrystals + " Cristaux d'Ombre</strong>."
       );
     }
 
@@ -9433,7 +9475,7 @@ function renderFullApplication(initialTab = "dashboard") {
 
     function completeBlock(id) {
       const card = document.getElementById('block-action-' + id);
-      if (card) card.innerHTML = '<span style="color: var(--transcendent-green); font-size: 12px; font-weight: bold;">VALIDÉ ✓</span>';
+      if (card) card.innerHTML = '<span style="color: var(--transcendent-green); font-size: 12px; font-weight: bold;">VALIDÉ ${SVG_ICONS.check}</span>';
       restoreVitals(5, 10);
       showSysNotification("[BLOC CIRCADIEN VALIDÉ]", "Le créneau horaire a été exécuté dans les règles du protocole.");
     }
@@ -9593,7 +9635,7 @@ function renderFullApplication(initialTab = "dashboard") {
         html += \`
           <div class="obsidian-folder" style="margin-bottom: 8px;">
             <div class="obsidian-folder-header" style="display: flex; align-items: center; gap: 6px; padding: 5px 8px; border-radius: 4px; color: var(--text-secondary); font-size: 11px; font-family: var(--font-mono); font-weight: bold; background: var(--input-bg); border: 1px solid var(--glass-inner-border-subtle); cursor: pointer;" onclick="this.nextElementSibling.classList.toggle('hidden')">
-              <span>📁</span>
+              <span>${SVG_ICONS.folder}</span>
               <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">\${fKey}</span>
               <span style="font-size: 10px; color: var(--text-muted); background: rgba(56, 189, 248, 0.1); padding: 1px 5px; border-radius: 3px;">\${folderNotes.length}</span>
             </div>
@@ -9607,7 +9649,7 @@ function renderFullApplication(initialTab = "dashboard") {
                        id="file-tree-item-\${n.id}"
                        onclick="openObsidianNote('\\\${n.id}'); if (currentObsidianMode === 'graph') setObsidianMode('reader');"
                        style="display: flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: \${isActive ? 'var(--neon-cyan)' : 'var(--text-secondary)'}; cursor: pointer; background: \${isActive ? 'rgba(0, 240, 255, 0.12)' : 'transparent'}; border-left: \${isActive ? '2px solid var(--neon-cyan)' : '2px solid transparent'};">
-                    <span style="font-size: 11px;">📄</span>
+                    <span style="font-size: 11px;">${SVG_ICONS.file}</span>
                     <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">\${n.title}</span>
                   </div>
                 \`;
@@ -9641,7 +9683,7 @@ function renderFullApplication(initialTab = "dashboard") {
       }
 
       const breadcrumb = document.getElementById('reader-breadcrumb');
-      if (breadcrumb) breadcrumb.innerHTML = \`<span>📁 \${note.folder || '00_Synthese_Souveraine'}</span> / <span>\${note.title}.md</span>\`;
+      if (breadcrumb) breadcrumb.innerHTML = \`<span>\${SVG_ICONS.folder} \${note.folder || '00_Synthese_Souveraine'}</span> / <span>\${note.title}.md</span>\`;
 
       const titleEl = document.getElementById('reader-note-title');
       if (titleEl) titleEl.textContent = note.title;
@@ -9694,7 +9736,7 @@ function renderFullApplication(initialTab = "dashboard") {
 
       if (target) {
         openObsidianNote(target.id, true);
-        showSysNotification("🔗 [LIEN SÉMANTIQUE SUIVI]", "Navigation vers la note <strong>" + target.title + "</strong>.");
+        showSysNotification("[LIEN SÉMANTIQUE SUIVI]", "Navigation vers la note <strong>" + target.title + "</strong>.");
       } else {
         showSysNotification("[NOTE NON TROUVÉE]", "La note liée <i>[[" + rawTitle + "]]</i> n'existe pas encore dans le coffre.");
       }
@@ -9734,7 +9776,7 @@ function renderFullApplication(initialTab = "dashboard") {
       html = html.replace(new RegExp('(^|[^*])[*]([^*]+)[*]([^*]|$)', 'g'), '$1<em style="color: var(--text-secondary);">$2</em>$3');
 
       html = html.replace(new RegExp('\\\\\\[\\\\\\[(.*?)\\\\\\]\\\\\\]', 'g'), function(m, linkText) {
-        return '<span class="wikilink-pill" data-title="' + encodeURIComponent(linkText) + '" onclick="openNoteByTitle(decodeURIComponent(this.dataset.title))" title="Ouvrir la note liée [[ ' + linkText + ' ]]">🔗 [[' + linkText + ']]</span>';
+        return '<span class="wikilink-pill" data-title="' + encodeURIComponent(linkText) + '" onclick="openNoteByTitle(decodeURIComponent(this.dataset.title))" title="Ouvrir la note liée [[ ' + linkText + ' ]]">' + SVG_ICONS.link + ' [[' + linkText + ']]</span>';
       });
 
       html = html.replace(new RegExp('(^|[ \\t])#([a-zA-Z0-9_-]+)', 'g'), '$1<span style="background: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); font-size: 11px; font-family: var(--font-mono); padding: 2px 7px; border-radius: 4px; margin-right: 4px;">#$2</span>');
@@ -9805,7 +9847,7 @@ function renderFullApplication(initialTab = "dashboard") {
         }
       });
 
-      if (countBadge) countBadge.textContent = '🔗 ' + backlinks.length + ' MENTIONS LIÉES';
+      if (countBadge) countBadge.innerHTML = SVG_ICONS.link + ' ' + backlinks.length + ' MENTIONS LIÉES';
 
       if (backlinks.length === 0) {
         listEl.innerHTML = '<div style="font-size: 12px; color: var(--text-muted); font-style: italic; padding: 10px;">Aucune mention entrante détectée dans le coffre pour cette note.</div>';
@@ -9815,7 +9857,7 @@ function renderFullApplication(initialTab = "dashboard") {
       listEl.innerHTML = backlinks.map(b => \`
         <div class="backlink-card" onclick="openObsidianNote('\\\${b.note.id}')" title="Cliquer pour ouvrir la note source">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <span style="font-weight: bold; color: var(--text-white); font-size: 13px;">📄 \${b.note.title}</span>
+            <span style="font-weight: bold; color: var(--text-white); font-size: 13px;">\${SVG_ICONS.file} \${b.note.title}</span>
             <span class="radar-ping-badge" style="font-size: 9px; padding: 2px 6px;">\${b.note.base}</span>
           </div>
           <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); line-height: 1.4;">\${b.excerpt}</div>
@@ -9836,12 +9878,12 @@ function renderFullApplication(initialTab = "dashboard") {
       if (isEditing) {
         editContainer.style.display = 'none';
         bodyEl.style.display = 'block';
-        if (btnEdit) btnEdit.textContent = '✏️ MODIFIER';
+        if (btnEdit) btnEdit.innerHTML = SVG_ICONS.edit + ' MODIFIER';
         if (btnSave) btnSave.style.display = 'none';
       } else {
         editContainer.style.display = 'block';
         bodyEl.style.display = 'none';
-        if (btnEdit) btnEdit.textContent = '❌ ANNULER';
+        if (btnEdit) btnEdit.innerHTML = 'ANNULER';
         if (btnSave) btnSave.style.display = 'inline-block';
       }
     }
@@ -9862,7 +9904,7 @@ function renderFullApplication(initialTab = "dashboard") {
       toggleNoteEditMode();
 
       showSysNotification(
-        "🧠 [NOTE SAUVEGARDÉE]",
+        "[NOTE SAUVEGARDÉE]",
         "La note <strong>" + note.title + "</strong> a été synchronisée dans le coffre Obsidian."
       );
     }
@@ -9969,7 +10011,7 @@ function renderFullApplication(initialTab = "dashboard") {
 
         if (dist < 6 && draggedNode) {
           openObsidianNote(draggedNode.id, false);
-          showSysNotification("📄 [NOTE OBSIDIAN SÉLECTIONNÉE]", "Focus engagé sur <strong>" + draggedNode.title + "</strong>.");
+          showSysNotification("[NOTE OBSIDIAN SÉLECTIONNÉE]", "Focus engagé sur <strong>" + draggedNode.title + "</strong>.");
         }
 
         isDraggingGraph = false;
@@ -10236,7 +10278,7 @@ function renderFullApplication(initialTab = "dashboard") {
         node.vx = (Math.random() - 0.5) * 8;
         node.vy = (Math.random() - 0.5) * 8;
       });
-      showSysNotification("🔄 [PHYSIQUE RELANCÉE]", "Forces de répulsion et de rappel réinitialisées.");
+      showSysNotification("[PHYSIQUE RELANCÉE]", "Forces de répulsion et de rappel réinitialisées.");
     }
 
     function refreshObsidianGraph() {
@@ -10307,7 +10349,7 @@ function renderFullApplication(initialTab = "dashboard") {
             <span class="radar-ping-badge">\${newNote.base}</span>
             <div style="display: flex; gap: 8px; align-items: center;">
               <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); font-weight: bold;">À L'INSTANT</span>
-              <button onclick="deleteNote('\\\${newNote.id}')" style="background: none; border: none; color: var(--alert-crimson); cursor: pointer; font-size: 14px;">🗑</button>
+              <button onclick="deleteNote('\\\${newNote.id}')" style="background: none; border: none; color: var(--alert-crimson); cursor: pointer;">\${SVG_ICONS.trash}</button>
             </div>
           </div>
           <h3 style="font-size: 17px; font-weight: bold; margin-bottom: 12px; color: var(--text-white); cursor: pointer;" onclick="openObsidianNote('\\\${newNote.id}'); setObsidianMode('reader');">\${newNote.title}</h3>
@@ -10322,7 +10364,7 @@ function renderFullApplication(initialTab = "dashboard") {
       closeCreateNoteModal();
       addExperience(40);
       showSysNotification(
-        "🧠 [NOTE ENREGISTRÉE DANS LE COFFRE]",
+        "[NOTE ENREGISTRÉE DANS LE COFFRE]",
         "La note <strong>" + title + "</strong> a été chiffrée et sauvegardée.<br>Gains : <strong>+40 XP</strong> d'archivage cognitif."
       );
     }
@@ -10455,7 +10497,7 @@ function renderFullApplication(initialTab = "dashboard") {
         if (speechRecognizer) {
           try { speechRecognizer.stop(); } catch(e) {}
         }
-        btn.textContent = '🎙️ DÉMARRER ENREGISTREMENT';
+        btn.innerHTML = SVG_ICONS.mic + ' DÉMARRER ENREGISTREMENT';
         btn.classList.remove('btn-red');
         if (micStatus) {
           micStatus.textContent = "MICRO : ENREGISTREMENT ACHEVÉ";
@@ -10499,7 +10541,7 @@ function renderFullApplication(initialTab = "dashboard") {
 
       addExperience(120);
       showSysNotification(
-        "🎙️ [ÉVALUATION SOCRATIQUE DE L'ARCHITECTE VALIDÉE]",
+        "[ÉVALUATION SOCRATIQUE VALIDÉE]",
         "Discours analysé (" + words + " mots, " + matchedCount + " termes techniques repérés).<br>Note obtenue : <strong style='color: var(--transcendent-green); font-size: 18px;'>" + totalScore.toFixed(1) + " / 20</strong>.<br><strong>+120 XP (LNG / AI_ENG)</strong> attribués."
       );
     }
@@ -10510,7 +10552,7 @@ function renderFullApplication(initialTab = "dashboard") {
     function triggerDeerflowScraper() {
       playChime(700);
       showSysNotification(
-        "🌐 [SCRAPING DEERFLOW EXÉCUTÉ]",
+        "[SCRAPING DEERFLOW EXÉCUTÉ]",
         "Le crawler d'opportunités a scanné Campus France, Devpost et Kaggle.<br><strong>4 nouvelles opportunités</strong> à fort match score (>95%) ont été indexées."
       );
     }
@@ -10540,9 +10582,9 @@ function renderFullApplication(initialTab = "dashboard") {
       if (state.player.shadowCrystals < cost) {
         showSysNotification(
           "[CRISTAUX INSUFFISANTS]",
-          "Solde insuffisant : vous disposez de <strong>" + state.player.shadowCrystals + " 💎</strong> mais cet article requiert <strong>" + cost + " 💎</strong>.<br><br>" +
+          "Solde insuffisant : vous disposez de <strong>" + state.player.shadowCrystals + "  Cristaux</strong> mais cet article requiert <strong>" + cost + "  Cristaux</strong>.<br><br>" +
           (type === 'REST_DAY' 
-            ? "💡 <em>Rappel de calibration :</em> 600 💎 correspondent exactement à <strong>6 jours de quêtes quotidiennes parfaites</strong> (100 💎/jour). Accomplissez toutes vos quêtes de la semaine pour débloquer votre repos souverain mérité !" 
+            ? "<em>Rappel de calibration :</em> 600 Cristaux correspondent exactement à <strong>6 jours de quêtes quotidiennes parfaites</strong> (100 Cristaux/jour). Accomplissez toutes vos quêtes de la semaine pour débloquer votre repos souverain mérité !" 
             : "Accomplissez vos quêtes du jour pour récolter les cristaux manquants.")
         );
         return;
@@ -10573,8 +10615,8 @@ function renderFullApplication(initialTab = "dashboard") {
       renderInventoryUI();
 
       showSysNotification(
-        "💎 [OBJET FORGÉ & AJOUTÉ À L'INVENTAIRE]",
-        "Vous avez acquis : <strong>" + name + "</strong>.<br>Montant débité : <strong>-" + cost + " 💎</strong>.<br>L'article est maintenant disponible dans votre <strong>Sac d'Inventaire</strong> ci-dessus !"
+        "[OBJET FORGÉ & AJOUTÉ À L'INVENTAIRE]",
+        "Vous avez acquis : <strong>" + name + "</strong>.<br>Montant débité : <strong>-" + cost + "  Cristaux</strong>.<br>L'article est maintenant disponible dans votre <strong>Sac d'Inventaire</strong> ci-dessus !"
       );
     }
 
@@ -10606,7 +10648,7 @@ function renderFullApplication(initialTab = "dashboard") {
       renderInventoryUI();
 
       showSysNotification(
-        "🛡️ [JOUR DE REPOS DU MONARQUE ACTIVÉ]",
+        "[JOUR DE REPOS ACTIVÉ]",
         "Félicitations Chasseur ! Votre discipline exemplaire tout au long de la semaine vous a valu ce repos souverain bien mérité :<br><br>" +
         "• <strong>Couvre-feu NextDNS :</strong> DÉSACTIVÉ pour les prochaines 24h.<br>" +
         "• <strong>Quêtes journalières :</strong> SUSPENDUES (0 sanction).<br>" +
@@ -10625,13 +10667,13 @@ function renderFullApplication(initialTab = "dashboard") {
       if (potionType === 'MP') {
         state.player.mp = Math.min(state.player.maxMp || 100, (state.player.mp || 0) + 50);
         showSysNotification(
-          "🧪 [POTION DE MANA CONSOMMÉE]",
+          "[POTION DE MANA CONSOMMÉE]",
           "Énergie cognitive restaurée : <strong>+50 MP</strong> ! Vous êtes prêt pour votre prochaine session de Deep Work."
         );
       } else if (potionType === 'HP') {
         state.player.hp = Math.min(state.player.maxHp || 100, (state.player.hp || 0) + 50);
         showSysNotification(
-          "🧪 [ÉLIXIR DE VITALITÉ CONSOMMÉ]",
+          "[ÉLIXIR DE VITALITÉ CONSOMMÉ]",
           "Vitalité restaurée : <strong>+50 HP</strong> ! Fatigue physique dissipée."
         );
       }
@@ -10653,7 +10695,7 @@ function renderFullApplication(initialTab = "dashboard") {
       if (statusPill) {
         statusPill.style.borderColor = isRestActive ? 'var(--tertiary)' : 'var(--glass-inner-border)';
         statusPill.style.color = isRestActive ? 'var(--tertiary)' : 'var(--text-secondary)';
-        statusPill.textContent = isRestActive ? '🛡️ JOUR DE REPOS ACTIF (24H)' : '⚡ CYCLE QUOTIDIEN EN COURS';
+        statusPill.innerHTML = isRestActive ? (SVG_ICONS.shield + ' JOUR DE REPOS ACTIF (24H)') : (SVG_ICONS.bolt + ' CYCLE QUOTIDIEN EN COURS');
       }
       if (banner) {
         banner.style.display = isRestActive ? 'block' : 'none';
@@ -10666,7 +10708,7 @@ function renderFullApplication(initialTab = "dashboard") {
 
       if (container) {
         if (!state.inventory || state.inventory.length === 0) {
-          container.innerHTML = '<div class="empty-inventory-msg" style="grid-column: 1 / -1; padding: 30px; text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 13px; border: 1px dashed var(--glass-inner-border); border-radius: 10px; background: rgba(15, 9, 38, 0.4);"><div style="font-size: 28px; margin-bottom: 8px;">🎒</div><div style="font-weight: bold; color: var(--text-secondary); margin-bottom: 4px;">VOTRE SAC D&#39;INVENTAIRE EST ACTUELLEMENT VIDE</div><div>Accomplissez vos quêtes quotidiennes (100 💎/jour) pour forger votre <strong>Pass Jour de Repos</strong> (600 💎) ou vos potions ci-dessous.</div></div>';
+          container.innerHTML = '<div class="empty-inventory-msg" style="grid-column: 1 / -1; padding: 30px; text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 13px; border: 1px dashed var(--glass-inner-border); border-radius: 10px; background: rgba(15, 9, 38, 0.4);"><div style="margin-bottom: 8px;">${SVG_ICONS.backpackLarge}</div><div style="font-weight: bold; color: var(--text-secondary); margin-bottom: 4px;">VOTRE SAC D&#39;INVENTAIRE EST ACTUELLEMENT VIDE</div><div>Accomplissez vos quêtes quotidiennes (100 Cristaux/jour) pour forger votre <strong>Pass Jour de Repos</strong> (600 Cristaux) ou vos potions ci-dessous.</div></div>';
         } else {
           container.innerHTML = state.inventory.map(function(inv) {
             var badgeColor = inv.type === 'REST_DAY' ? 'var(--imperial-gold)' : 'var(--primary)';
@@ -10674,7 +10716,7 @@ function renderFullApplication(initialTab = "dashboard") {
             var desc = inv.type === 'REST_DAY' ? 'Octroie 24h d&#39;immunité totale contre le couvre-feu NextDNS et gèle les quêtes sans briser votre streak.' : (inv.type === 'POTION_MP' ? 'Recharge immédiate de +50 MP de concentration.' : (inv.type === 'POTION_HP' ? 'Restauration immédiate de +50 HP de vitalité.' : 'Article certifié du Système.'));
             var actionBtn = '';
             if (inv.type === 'REST_DAY') {
-              actionBtn = inv.used ? '<span class="radar-ping-badge" style="color: var(--tertiary); border-color: var(--tertiary);">✓ UTILISÉ AUJOURD&#39;HUI</span>' : '<button class="btn-cyber btn-gold" style="font-size: 11px; padding: 6px 14px;" onclick="activateRestDay(\\"' + inv.id + '\\")">⚡ ACTIVER LE REPOS (24H)</button>';
+              actionBtn = inv.used ? '<span class="radar-ping-badge" style="color: var(--tertiary); border-color: var(--tertiary);">UTILISÉ AUJOURD&#39;HUI</span>' : '<button class="btn-cyber btn-gold" style="font-size: 11px; padding: 6px 14px;" onclick="activateRestDay(\\"' + inv.id + '\\")">ACTIVER LE REPOS (24H)</button>';
             } else if (inv.type === 'POTION_MP') {
               actionBtn = inv.used ? '<span class="radar-ping-badge" style="color: var(--text-muted);">CONSOMMÉ</span>' : '<button class="btn-cyber" style="font-size: 11px; padding: 6px 14px;" onclick="usePotion(\\"' + inv.id + '\\", \\"MP\\")">BOIRE (+50 MP)</button>';
             } else if (inv.type === 'POTION_HP') {
@@ -10740,7 +10782,7 @@ function renderFullApplication(initialTab = "dashboard") {
         }
         el.textContent = '00:00:00';
         showSysNotification(
-          "⚠️ [DÉGRADATION DE RANG EXÉCUTÉE]",
+          "[DÉGRADATION DE RANG EXÉCUTÉE]",
           "Délai d'expiation expiré (4h). Le Système rétrograde votre Rang de Chasseur !"
         );
       }
@@ -10774,7 +10816,7 @@ function renderFullApplication(initialTab = "dashboard") {
           saveState();
           updatePenaltyUI(true);
           showSysNotification(
-            "⚠️ [ZONE DE PÉNALITÉ NEXTDNS ENGAGÉE]",
+            "[ZONE DE PÉNALITÉ NEXTDNS ENGAGÉE]",
             "Le coupe-feu réseau a été activé.<br>Profil NextDNS verrouillé (" + (data.nextDns?.count || 13) + " règles appliquées).<br>Compte à rebours de 4h enclenché avant dégradation de Rang.<br>Accomplissez la Quête de Purge (200 pompes) pour rétablir l'accès."
           );
         } catch (e) {
@@ -10801,7 +10843,7 @@ function renderFullApplication(initialTab = "dashboard") {
           updatePenaltyUI(false);
           playChime(1046);
           showSysNotification(
-            "🛡️ [PÉNALITÉ PURGÉE - RESTRICTION LEVÉE]",
+            "[PÉNALITÉ PURGÉE - RESTRICTION LEVÉE]",
             "Épreuve " + option + " validée (" + reps + " pompes).<br>Le verrouillage NextDNS et local est désactivé et l'accès réseau est rétabli."
           );
         } else {
@@ -10870,7 +10912,7 @@ function renderFullApplication(initialTab = "dashboard") {
         toggleCamera();
       }
       showSysNotification(
-        "⚔️ [QUÊTE DE PURGE INITIALISÉE]",
+        "[QUÊTE DE PURGE INITIALISÉE]",
         "200 Pompes Calisthéniques militaires exigées.<br>Chaque répétition complète est validée par l'algorithme MediaPipe.<br>Le coupe-feu NextDNS sera désactivé dès la 200ème répétition."
       );
     }
@@ -10880,9 +10922,9 @@ function renderFullApplication(initialTab = "dashboard") {
         const res = await fetch('/api/v1/penalty/status');
         const data = await res.json();
         showSysNotification(
-          "🌐 [DIAGNOSTIC NEXTDNS SOUVERAIN]",
+          "[DIAGNOSTIC NEXTDNS SOUVERAIN]",
           "Profil ID : <strong style='color: var(--neon-cyan);'>" + data.nextDnsProfileId + "</strong><br>" +
-          "Statut Clé API : <strong>" + (data.nextDnsConfigured ? "CONFIGURÉE & CHIFFRÉE ✓" : "NON CONFIGURÉE") + "</strong><br>" +
+          "Statut Clé API : <strong>" + (data.nextDnsConfigured ? "CONFIGURÉE & CHIFFRÉE" : "NON CONFIGURÉE") + "</strong><br>" +
           "Couvre-feu : <strong>22:00:00 (" + (data.curfewActiveNow ? "ACTIF MAINTENANT" : "EN ATTENTE") + ")</strong><br>" +
           "Domaines sous sentinelle : " + data.blockedDomains.length + " sites distrayants."
         );
@@ -11001,7 +11043,7 @@ function renderFullApplication(initialTab = "dashboard") {
       const badge = document.getElementById('workout-posture-badge');
       if (badge) {
         if (currentStepProgress >= step.target) {
-          badge.textContent = "OBJECTIF ÉTAPE ATTEINT ✓ PRÊT POUR L'ÉTAPE SUIVANTE";
+          badge.textContent = "OBJECTIF ÉTAPE ATTEINT (PRÊT POUR L'ÉTAPE SUIVANTE)";
           badge.style.color = "var(--transcendent-green)";
         } else {
           badge.textContent = "SÉRIE EN COURS (" + currentStepProgress + " / " + step.target + ") • CONTRÔLE POSTURAL ACTIF";
@@ -11089,8 +11131,8 @@ function renderFullApplication(initialTab = "dashboard") {
       if (cEl) cEl.textContent = state.player.shadowCrystals;
 
       showSysNotification(
-        "💪 [QUÊTE CALISTHÉNIQUE VALIDÉE]",
-        "La <strong>" + routine.name + "</strong> a été exécutée selon les critères stricts du Système.<br>Gains : <strong>+250 XP STR</strong> et <strong>+30 Cristaux d'Ombre 💎</strong>."
+        "[QUÊTE CALISTHÉNIQUE VALIDÉE]",
+        "La <strong>" + routine.name + "</strong> a été exécutée selon les critères stricts du Système.<br>Gains : <strong>+250 XP STR</strong> et <strong>+30 Cristaux d'Ombre</strong>."
       );
     }
 
@@ -11169,7 +11211,7 @@ function renderFullApplication(initialTab = "dashboard") {
 
       const hudState = document.getElementById('hud-state-pill');
       if (hudState) {
-        hudState.textContent = '✓ RÉPÉTITION VALIDÉE (' + detectionSource + ')';
+        hudState.textContent = 'RÉPÉTITION VALIDÉE (' + detectionSource + ')';
         hudState.style.borderColor = 'var(--tertiary)';
         hudState.style.color = 'var(--tertiary)';
       }
@@ -11502,7 +11544,7 @@ function renderFullApplication(initialTab = "dashboard") {
       if (placeholder) placeholder.style.display = 'block';
 
       if (btn) {
-        btn.textContent = '📷 ACTIVER CAMÉRA';
+        btn.innerHTML = SVG_ICONS.camera + ' ACTIVER CAMÉRA';
         btn.classList.remove('btn-danger');
       }
 
@@ -11522,7 +11564,7 @@ function renderFullApplication(initialTab = "dashboard") {
       if (workoutCameraStream || (video && video.srcObject && video.style.display !== 'none')) {
         stopWorkoutCamera();
         showSysNotification(
-          "📷 [CAMÉRA DÉSACTIVÉE]",
+          "[CAMÉRA DÉSACTIVÉE]",
           "Le flux vidéo et le capteur postural ont été coupés avec succès."
         );
         return;
@@ -11590,7 +11632,7 @@ function renderFullApplication(initialTab = "dashboard") {
           cvTrackingAnimFrame = requestAnimationFrame(cvFrameLoop);
 
           showSysNotification(
-            "📹 [VISION ARTIFICIELLE ACTIVE]",
+            "[VISION ARTIFICIELLE ACTIVE]",
             "MediaPipe Pose WebAssembly calibré. Angle coude en temps réel (Descente ≤ 85° → Extension ≥ 150°). Répétitions auto-validées."
           );
         } catch (err) {
@@ -11622,7 +11664,7 @@ function renderFullApplication(initialTab = "dashboard") {
         const canvas = document.getElementById('workout-canvas');
         const hud = document.getElementById('workout-live-hud');
         const btn = document.getElementById('btn-cv-test');
-        if (btn) btn.textContent = '🧪 TEST SIMULATION IA';
+        if (btn) btn.innerHTML = SVG_ICONS.potion + ' TEST SIMULATION IA';
         if (placeholder) placeholder.style.display = 'block';
         if (canvas) canvas.style.display = 'none';
         if (hud) hud.style.display = 'none';
@@ -11649,7 +11691,7 @@ function renderFullApplication(initialTab = "dashboard") {
       if (hud) hud.style.display = 'flex';
 
       showSysNotification(
-        "🧪 [TEST TEMPS RÉEL EN COURS]",
+        "[TEST TEMPS RÉEL EN COURS]",
         "Simulation cinématique d'un Chasseur : test de flexion, calcul angulaire et validation anti-triche."
       );
 
@@ -11664,9 +11706,9 @@ function renderFullApplication(initialTab = "dashboard") {
 
         if (cycleIndex >= 3) {
           cvSimulationRunning = false;
-          if (btn) btn.textContent = '🧪 TEST SIMULATION IA (REJOUER)';
+          if (btn) btn.innerHTML = SVG_ICONS.potion + ' TEST SIMULATION IA (REJOUER)';
           showSysNotification(
-            "🎉 [DIAGNOSTIC TERMINÉ : 100% SUCCÈS]",
+            "[DIAGNOSTIC TERMINÉ : 100% SUCCÈS]",
             "Reconnaissance posturale validée : 2 pompes complètes comptées, 1 demi-pompe rejetée par l'anti-triche."
           );
           return;
@@ -11988,7 +12030,7 @@ function renderFullApplication(initialTab = "dashboard") {
           const bufEnd = video.buffered.end(video.buffered.length - 1);
           const pct = Math.min(100, (bufEnd / video.duration) * 100);
           if (pct >= 99.5) {
-            console.log('[Video Client] 🎯 100% du flux vidéo téléchargé en mémoire (' + bufEnd.toFixed(2) + 's / ' + video.duration.toFixed(2) + 's)');
+            console.log('[Video Client] 100% du flux vidéo téléchargé en mémoire (' + bufEnd.toFixed(2) + 's / ' + video.duration.toFixed(2) + 's)');
           }
         }
       });
@@ -11996,7 +12038,7 @@ function renderFullApplication(initialTab = "dashboard") {
         console.warn('[Video Client] ⏳ Buffering en cours / attente de recall réseau...');
       });
       video.addEventListener('canplaythrough', () => {
-        console.log("[Video Client] ⚡ Débit suffisant : la vidéo peut être lue jusqu'à la fin sans interruption");
+        console.log("[Video Client] Débit suffisant : la vidéo peut être lue jusqu'à la fin sans interruption");
       });
       video.addEventListener('error', (err) => {
         console.warn('[Intro] Video error encountered:', err);
@@ -12190,7 +12232,7 @@ function renderFullApplication(initialTab = "dashboard") {
         window.history.replaceState({}, document.title, window.location.pathname);
         setTimeout(() => {
           showSysNotification(
-            "👑 [SYNCHRONISATION GOOGLE CONFIRMÉE]",
+            "[SYNCHRONISATION CONFIRMÉE]",
             "Bienvenue, Chasseur <strong>" + (state.player.name || '') + "</strong> !<br>Votre identité officielle (<code>" + (state.player.email || '') + "</code>) a été certifiée par Google Identity."
           );
           playChime(1046);
@@ -12208,8 +12250,8 @@ function renderFullApplication(initialTab = "dashboard") {
         window.history.replaceState({}, document.title, window.location.pathname);
         setTimeout(() => {
           showSysNotification(
-            "👑 [CALIBRAGE PROTOCOLE SCELLÉ]",
-            "Félicitations, Chasseur <strong>" + (state.player.name || '') + "</strong> !<br>Vos objectifs, votre routine circadienne (Réveil <strong>" + (state.player.wakeTime || '06:00') + "</strong> ➔ Couvre-feu <strong>" + (state.player.curfewTime || '22:00') + "</strong>) et votre intensité sportive ont été gravés dans le Système."
+            "[CALIBRAGE PROTOCOLE SCELLÉ]",
+            "Félicitations, Chasseur <strong>" + (state.player.name || '') + "</strong> !<br>Vos objectifs, votre routine circadienne (Réveil <strong>" + (state.player.wakeTime || '06:00') + "</strong> &rarr; Couvre-feu <strong>" + (state.player.curfewTime || '22:00') + "</strong>) et votre intensité sportive ont été gravés dans le Système."
           );
           if (typeof playFanfare === 'function') playFanfare();
           else if (typeof playChime === 'function') playChime(1046);
@@ -12472,7 +12514,7 @@ const server = http.createServer(async (req, res) => {
 </head>
 <body>
   <div class="card">
-    <h2>⚡ CLÉ GOOGLE OAUTH NON DÉFINIE</h2>
+    <h2>CLÉ GOOGLE OAUTH NON DÉFINIE</h2>
     <p>La variable d'environnement <code>GOOGLE_CLIENT_ID</code> n'est pas encore configurée sur ce serveur.</p>
     <p>Pour activer l'authentification officielle :</p>
     <ol>
