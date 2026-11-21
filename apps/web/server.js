@@ -1074,11 +1074,11 @@ function getRadarPolygonPoints(bases) {
 
 function renderLandingPage() {
   return `<!DOCTYPE html>
-<html lang="fr" data-theme="dark-monarch">
+<html lang="fr" data-theme="light-monarch">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LEVELUP : THE SYSTEM — Portail d'Éveil & Connexion Souveraine</title>
+  <title>LEVELUP : THE SYSTEM — Portail d'Éveil & Connexion</title>
   <meta name="description" content="Le Système Solo Leveling appliqué au monde réel. Transformez votre discipline quotidienne, vos entraînements physiques par IA et vos apprentissages en progression de Monarque.">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1087,16 +1087,20 @@ function renderLandingPage() {
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     :root {
-      --bg-dark: #070312;
-      --bg-card: rgba(18, 10, 36, 0.82);
-      --neon-cyan: #00f0ff;
-      --primary: #00f0ff;
-      --secondary: #c084fc;
-      --gold: #ffd700;
-      --text-white: #ffffff;
-      --text-secondary: #94a3b8;
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.94);
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --cyan: #0284c7;
+      --gold: #d97706;
+      --text-dark: #0f172a;
+      --text-secondary: #334155;
       --text-muted: #64748b;
-      --glass-border: rgba(0, 240, 255, 0.22);
+      --border: rgba(226, 232, 240, 0.95);
+      --border-accent: rgba(99, 102, 241, 0.25);
+      --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
+      --shadow-lg: 0 20px 45px -12px rgba(79, 70, 229, 0.15), 0 0 25px rgba(2, 132, 199, 0.06);
       --font-display: 'Orbitron', 'Cinzel Decorative', sans-serif;
       --font-sans: 'Inter', system-ui, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
@@ -1105,11 +1109,11 @@ function renderLandingPage() {
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background-color: var(--bg-dark);
+      background-color: var(--bg-base);
       background-image: 
-        radial-gradient(circle at 50% 15%, rgba(147, 51, 234, 0.25) 0%, rgba(0, 240, 255, 0.12) 35%, transparent 70%),
-        linear-gradient(180deg, #090317 0%, #05020c 100%);
-      color: var(--text-white);
+        radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, rgba(224, 231, 255, 0.45) 35%, #f8fafc 80%),
+        linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+      color: var(--text-dark);
       font-family: var(--font-sans);
       min-height: 100vh;
       display: flex;
@@ -1124,17 +1128,18 @@ function renderLandingPage() {
       width: 100%; height: 100%;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.65;
+      opacity: 0.55;
     }
 
     .landing-nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(7, 3, 18, 0.88);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--glass-border);
-      padding: 14px 24px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1157,7 +1162,7 @@ function renderLandingPage() {
       display: flex;
       align-items: center;
       justify-content: center;
-      filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.6));
+      filter: drop-shadow(0 2px 8px rgba(79, 70, 229, 0.3));
     }
 
     .nav-logo-box svg {
@@ -1170,57 +1175,50 @@ function renderLandingPage() {
       font-size: 18px;
       font-weight: 900;
       letter-spacing: 2px;
-      background: linear-gradient(135deg, #ffffff 0%, var(--neon-cyan) 60%, var(--secondary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--text-dark);
       line-height: 1;
     }
 
     .nav-brand-sub {
       font-size: 9.5px;
       font-family: var(--font-mono);
-      color: var(--neon-cyan);
-      letter-spacing: 2px;
+      color: var(--primary);
+      letter-spacing: 1.5px;
       margin-top: 2px;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      font-weight: 700;
     }
 
     .btn-nav-login {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 18px;
-      border-radius: 6px;
-      background: rgba(0, 240, 255, 0.12);
-      border: 1px solid var(--neon-cyan);
-      color: var(--neon-cyan);
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: rgba(79, 70, 229, 0.08);
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
       font-family: var(--font-mono);
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 800;
       text-decoration: none;
       letter-spacing: 1px;
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
       cursor: pointer;
     }
 
     .btn-nav-login:hover {
-      background: var(--neon-cyan);
-      color: #070312;
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(79, 70, 229, 0.35);
       transform: translateY(-1px);
     }
 
     .landing-container {
       position: relative;
       z-index: 1;
-      max-width: 1180px;
+      max-width: 1140px;
       margin: 0 auto;
-      padding: 30px 20px 80px;
+      padding: 36px 20px 60px;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -1228,766 +1226,701 @@ function renderLandingPage() {
       text-align: center;
     }
 
-    /* Access Blocked Banner */
-    .access-alert-banner {
-      width: 100%;
-      max-width: 820px;
-      background: rgba(239, 68, 68, 0.12);
-      border: 1.5px solid #ef4444;
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 30px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      text-align: left;
-      box-shadow: 0 0 30px rgba(239, 68, 68, 0.35);
-      animation: alertPulse 2s infinite alternate;
-    }
-
-    @keyframes alertPulse {
-      0% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
-      100% { box-shadow: 0 0 35px rgba(239, 68, 68, 0.5); }
-    }
-
-    .alert-icon {
-      font-size: 28px;
-      flex-shrink: 0;
-    }
-
-    .alert-title {
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 900;
-      color: #fca5a5;
-      letter-spacing: 1px;
-      margin-bottom: 4px;
-    }
-
-    .alert-desc {
-      font-size: 12px;
-      color: #fee2e2;
-      line-height: 1.5;
-    }
-
+    /* Hero Header */
     .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 18px;
-      border-radius: 20px;
-      background: rgba(192, 132, 252, 0.14);
-      border: 1px solid rgba(192, 132, 252, 0.4);
-      color: #e9d5ff;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      background: rgba(79, 70, 229, 0.08);
+      border: 1px solid rgba(79, 70, 229, 0.25);
+      color: var(--primary);
       font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 1.5px;
-      margin-bottom: 24px;
-      animation: pulseGlow 3s infinite alternate;
-    }
-
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 10px rgba(192, 132, 252, 0.2); }
-      100% { box-shadow: 0 0 30px rgba(0, 240, 255, 0.45); }
-    }
-
-    .hero-crest-wrapper {
-      width: 110px;
-      height: 110px;
-      margin: 0 auto 24px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-crest-ring {
-      position: absolute;
-      inset: -14px;
-      border-radius: 50%;
-      border: 1px dashed rgba(0, 240, 255, 0.5);
-      animation: rotateRing 20s linear infinite;
-    }
-
-    @keyframes rotateRing {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .hero-crest-svg-box {
-      width: 100%;
-      height: 100%;
-      filter: drop-shadow(0 0 24px rgba(0, 240, 255, 0.8));
+      margin-bottom: 18px;
     }
 
     .hero-title {
       font-family: var(--font-display);
-      font-size: clamp(26px, 5.5vw, 48px);
+      font-size: clamp(28px, 5.5vw, 48px);
       font-weight: 900;
       line-height: 1.15;
-      letter-spacing: 1.5px;
-      margin-bottom: 16px;
-      max-width: 920px;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+      color: var(--text-dark);
+      max-width: 860px;
     }
 
     .hero-title .gradient-text {
-      background: linear-gradient(135deg, #ffffff 10%, var(--neon-cyan) 50%, var(--secondary) 100%);
+      background: linear-gradient(135deg, #1e1b4b 0%, #4f46e5 50%, #0284c7 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero-subtitle {
-      font-size: clamp(14px, 2.2vw, 17px);
+      font-size: clamp(14px, 2vw, 16px);
       color: var(--text-secondary);
-      max-width: 760px;
+      max-width: 680px;
       line-height: 1.6;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
 
-    /* 3-Step Awakening Pipeline */
-    .awakening-pipeline {
+    /* Core Features Trio */
+    .features-trio {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto 40px;
-      flex-wrap: wrap;
-    }
-
-    .pipeline-step {
-      flex: 1;
-      min-width: 220px;
-      background: rgba(18, 10, 36, 0.7);
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(192, 132, 252, 0.25);
-      border-radius: 12px;
-      padding: 16px 18px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      text-align: left;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .pipeline-step.active {
-      border-color: var(--neon-cyan);
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
-      background: rgba(18, 10, 36, 0.85);
-    }
-
-    .pipeline-step::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; width: 3px; height: 100%;
-      background: linear-gradient(180deg, var(--neon-cyan), var(--secondary));
-    }
-
-    .pipeline-num {
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 900;
-      color: var(--neon-cyan);
-      line-height: 1;
-    }
-
-    .pipeline-title {
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: 1px;
-    }
-
-    .pipeline-desc {
-      font-size: 11px;
-      color: var(--text-secondary);
-      margin-top: 3px;
-    }
-
-    .pipeline-arrow {
-      font-size: 18px;
-      color: var(--neon-cyan);
-      opacity: 0.6;
-    }
-
-    /* Central Awakening Card */
-    .awakening-card {
-      width: 100%;
-      max-width: 560px;
-      background: var(--bg-card);
-      backdrop-filter: blur(24px);
-      border: 1.5px solid rgba(0, 240, 255, 0.45);
-      border-radius: 18px;
-      padding: 34px 30px;
-      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7), 0 0 40px rgba(111, 0, 190, 0.4);
-      position: relative;
-      margin-bottom: 50px;
-      overflow: hidden;
-    }
-
-    .awakening-card::before {
-      content: '';
-      position: absolute;
-      top: -1px; left: 15%; right: 15%; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--gold), transparent);
-    }
-
-    .card-header-tag {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 2px;
-      color: var(--gold);
-      margin-bottom: 8px;
-      font-weight: 700;
-    }
-
-    .card-heading {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 900;
-      color: var(--text-white);
-      margin-bottom: 12px;
-      letter-spacing: 1px;
-    }
-
-    .card-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.55;
-      margin-bottom: 24px;
-    }
-
-    .btn-awakening-google {
-      display: flex;
-      align-items: center;
       justify-content: center;
       gap: 12px;
-      width: 100%;
-      padding: 16px 24px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #150c2f 0%, #24144e 100%);
-      border: 2px solid var(--neon-cyan);
-      color: #ffffff;
-      font-family: var(--font-display);
-      font-size: 14px;
-      font-weight: 900;
-      text-decoration: none;
-      letter-spacing: 1.5px;
-      cursor: pointer;
-      box-shadow: 0 6px 26px rgba(0, 240, 255, 0.35);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      margin-bottom: 18px;
-    }
-
-    .btn-awakening-google:hover {
-      background: linear-gradient(135deg, #24144e 0%, #361a75 100%);
-      border-color: #ffffff;
-      box-shadow: 0 8px 36px rgba(0, 240, 255, 0.6), 0 0 20px rgba(255, 215, 0, 0.4);
-      transform: translateY(-2px);
-    }
-
-    .btn-awakening-google svg {
-      width: 22px;
-      height: 22px;
-      flex-shrink: 0;
-    }
-
-    .gis-wrapper {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 18px;
-    }
-
-    .card-guarantees {
-      display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 18px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-muted);
+      margin-bottom: 34px;
     }
 
-    .card-guarantees span {
+    .feature-pill {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 8px;
+      padding: 7px 16px;
+      border-radius: 9999px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-dark);
     }
 
-    #landing-active-session {
-      display: none;
-      background: rgba(0, 240, 255, 0.08);
-      border: 1px solid var(--neon-cyan);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 20px;
-      text-align: left;
+    .feature-pill span.icon {
+      font-size: 16px;
     }
 
-    /* Live Interactive HUD Mockup Preview */
-    .hud-preview-wrapper {
+    /* Main Showcase & Auth Layout */
+    .main-showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
       width: 100%;
-      max-width: 860px;
-      background: rgba(14, 8, 30, 0.75);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(0, 240, 255, 0.3);
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 60px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      max-width: 1000px;
+      margin-bottom: 48px;
+      align-items: stretch;
       text-align: left;
+    }
+
+    @media (max-width: 860px) {
+      .main-showcase-grid {
+        grid-template-columns: 1fr;
+        max-width: 520px;
+      }
+    }
+
+    /* Left: Visual Anime Artwork Card */
+    .hero-art-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
       position: relative;
+    }
+
+    .art-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      background: #000000;
       overflow: hidden;
     }
 
-    .hud-preview-wrapper::before {
-      content: '';
+    .art-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.5s ease;
+    }
+
+    .hero-art-card:hover .art-img-wrap img {
+      transform: scale(1.03);
+    }
+
+    .art-floating-badge {
       position: absolute;
-      top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+      bottom: 12px;
+      left: 12px;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      border-radius: 8px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #fef3c7;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
 
-    .hud-preview-header {
+    .art-card-body {
+      padding: 20px 22px;
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 14px;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-      gap: 10px;
+      flex: 1;
     }
 
-    .hud-preview-title {
+    .art-card-title {
       font-family: var(--font-display);
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 800;
-      color: var(--neon-cyan);
-      letter-spacing: 1px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hud-preview-clock {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--gold);
-    }
-
-    .hud-preview-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-    }
-
-    .hud-mock-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      padding: 14px 16px;
-    }
-
-    .hud-mock-label {
-      font-size: 10.5px;
-      font-family: var(--font-mono);
-      color: var(--text-muted);
-      letter-spacing: 1px;
+      color: var(--text-dark);
       margin-bottom: 6px;
     }
 
-    .hud-mock-value {
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 900;
-      color: #fff;
+    .art-card-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 14px;
     }
 
-    .stat-strip {
+    .art-specs-row {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 32px;
-      padding: 20px 32px;
-      background: rgba(14, 8, 30, 0.85);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      margin-bottom: 60px;
-      width: 100%;
-    }
-
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .stat-val {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 900;
-      color: var(--neon-cyan);
-    }
-
-    .stat-lbl {
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
       font-family: var(--font-mono);
-      font-size: 10.5px;
-      letter-spacing: 1px;
       color: var(--text-muted);
     }
 
-    .pillars-heading {
-      font-family: var(--font-display);
-      font-size: 22px;
+    .art-specs-row strong {
+      color: var(--primary);
+    }
+
+    /* Right: Light Clean Authentication Card */
+    .auth-box-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border-accent);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      padding: 26px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Tab Switcher */
+    .auth-tabs {
+      display: flex;
+      background: #f1f5f9;
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 22px;
+    }
+
+    .auth-tab-btn {
+      flex: 1;
+      padding: 9px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
       font-weight: 800;
-      letter-spacing: 2px;
-      margin-bottom: 12px;
-      color: var(--text-white);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.5px;
     }
 
-    .pillars-sub {
+    .auth-tab-btn.active {
+      background: #ffffff;
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+    }
+
+    /* Active Session Card */
+    #active-session-card {
+      display: none;
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .session-avatar-wrap {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      background: #dcfce7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      overflow: hidden;
+      border: 2px solid #22c55e;
+    }
+
+    .session-avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .session-name {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
+      color: #166534;
+      margin-bottom: 2px;
+    }
+
+    .session-sub {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: #15803d;
+      margin-bottom: 16px;
+    }
+
+    .btn-enter-hud {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 13px;
+      background: #16a34a;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-family: var(--font-display);
       font-size: 13px;
-      color: var(--text-secondary);
-      margin-bottom: 36px;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
     }
 
-    .pillars-grid {
+    .btn-enter-hud:hover {
+      background: #15803d;
+      transform: translateY(-1px);
+    }
+
+    .btn-logout-link {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-family: var(--font-mono);
+      margin-top: 12px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    /* Google Button */
+    .btn-google-sign {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      color: #1e293b;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+      margin-bottom: 16px;
+    }
+
+    .btn-google-sign:hover {
+      border-color: #94a3b8;
+      background: #f8fafc;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-google-sign svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .or-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.5px;
+      margin: 14px 0;
+    }
+
+    .or-divider::before,
+    .or-divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .or-divider:not(:empty)::before {
+      margin-right: 10px;
+    }
+
+    .or-divider:not(:empty)::after {
+      margin-left: 10px;
+    }
+
+    .form-group-light {
+      margin-bottom: 14px;
+    }
+
+    .form-label-light {
+      display: block;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input-light {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      color: var(--text-dark);
+      font-family: var(--font-sans);
+      font-size: 13.5px;
+      transition: all 0.2s ease;
+    }
+
+    .form-input-light:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    }
+
+    .btn-submit-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+      margin-top: 6px;
+    }
+
+    .btn-submit-primary:hover {
+      background: linear-gradient(135deg, #4338ca 0%, #312e81 100%);
+      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .btn-quick-guest {
+      width: 100%;
+      padding: 10px;
+      background: transparent;
+      border: 1px dashed #cbd5e1;
+      border-radius: 8px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-quick-guest:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(79, 70, 229, 0.04);
+    }
+
+    /* 3 Visual Illustration Cards (Below Grid) */
+    .illustrations-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
       width: 100%;
-      margin-bottom: 60px;
+      max-width: 1000px;
+      margin-bottom: 40px;
       text-align: left;
     }
 
-    .pillar-card {
-      background: rgba(14, 8, 30, 0.65);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(192, 132, 252, 0.18);
-      border-radius: 12px;
-      padding: 22px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
+    .card-illus-item {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 20px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
     }
 
-    .pillar-card:hover {
-      border-color: var(--neon-cyan);
-      box-shadow: 0 8px 30px rgba(0, 240, 255, 0.18);
-      transform: translateY(-3px);
+    .card-illus-item:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+      border-color: var(--border-accent);
     }
 
-    .pillar-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; width: 3px; height: 100%;
-      background: linear-gradient(180deg, var(--neon-cyan), var(--secondary));
-      opacity: 0.6;
-    }
-
-    .pillar-icon-box {
-      font-size: 24px;
+    .illus-icon-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       margin-bottom: 12px;
     }
 
-    .pillar-title {
+    .illus-icon-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(79, 70, 229, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .illus-title {
       font-family: var(--font-display);
       font-size: 14px;
       font-weight: 800;
-      letter-spacing: 1px;
-      color: #ffffff;
-      margin-bottom: 8px;
+      color: var(--text-dark);
+      letter-spacing: 0.5px;
     }
 
-    .pillar-desc {
+    .illus-desc {
       font-size: 12.5px;
       color: var(--text-secondary);
-      line-height: 1.55;
+      line-height: 1.5;
     }
 
     .landing-footer {
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 24px;
+      border-top: 1px solid var(--border);
+      padding: 20px;
       text-align: center;
-      font-size: 11.5px;
+      font-size: 11px;
       font-family: var(--font-mono);
       color: var(--text-muted);
-      position: relative;
-      z-index: 1;
-    }
-
-    @media (max-width: 768px) {
-      .landing-nav { padding: 12px 16px; }
-      .landing-container { padding: 20px 14px 60px; }
-      .awakening-card { padding: 24px 18px; }
-      .pipeline-step { min-width: 100%; }
-      .pipeline-arrow { display: none; }
+      background: #ffffff;
     }
   </style>
 </head>
 <body>
-  <!-- Dynamic Interactive Particle Canvas -->
   <canvas id="bg-canvas"></canvas>
 
-  <header class="landing-nav">
+  <nav class="landing-nav">
     <a href="/" class="nav-brand">
       <div class="nav-logo-box">
         ${MONARCH_LOGO_SVG}
       </div>
       <div>
         <div class="nav-brand-title">LEVELUP</div>
-        <div class="nav-brand-sub">THE SYSTEM SOUVERAIN</div>
+        <div class="nav-brand-sub">THE SYSTEM</div>
       </div>
     </a>
-    <div class="nav-actions">
-      <a href="/auth/google" class="btn-nav-login" id="nav-login-btn">
-        <span>S'ÉVEILLER (CONNEXION)</span>
-        <span>➔</span>
-      </a>
+    <div>
+      <a href="/login" class="btn-nav-login" id="nav-action-btn">CONNEXION ➔</a>
     </div>
-  </header>
+  </nav>
 
   <main class="landing-container">
-    <!-- Access Blocked Warning Banner -->
-    <div id="access-blocked-alert" class="access-alert-banner" style="display: none;">
-      <div class="alert-icon">⛔</div>
-      <div>
-        <div class="alert-title">[ACCÈS RESTREINT PAR LE SYSTÈME]</div>
-        <div class="alert-desc">La création d'un compte de Chasseur via Google est obligatoire pour franchir le Portail et calibrer votre protocole. Veuillez vous connecter ci-dessous.</div>
-      </div>
-    </div>
-
-    <div class="hero-badge">
-      <span>⚡</span>
-      <span>ACCÈS STRICT AUX CHASSEURS ÉVEILLÉS • SYSTEM v3.3</span>
-    </div>
-
-    <div class="hero-crest-wrapper">
-      <div class="hero-crest-ring"></div>
-      <div class="hero-crest-svg-box">
-        ${MONARCH_LOGO_SVG}
-      </div>
-    </div>
-
+    <div class="hero-badge">⚡ SYSTÈME D'ÉVEIL SOUVERAIN // SOLO LEVELING IRL</div>
     <h1 class="hero-title">
-      TRANSFORMEZ VOTRE VIE RÉELLE EN <br>
-      <span class="gradient-text">RPG SOUVERAIN</span>
+      ÉVEILLEZ VOTRE <span class="gradient-text">POTENTIEL.</span>
     </h1>
-
     <p class="hero-subtitle">
-      <em>« Seul le Chasseur qui surmonte ses faiblesses s'élèvera au rang de Monarque. »</em><br>
-      Fini la procrastination. Entraînements physiques validés par Vision IA, pare-feu anti-distractions NextDNS, coffre de connaissances chiffré et quêtes quotidiennes impériales.
+      Transformez votre discipline quotidienne, vos entraînements physiques validés par IA et votre concentration en progression réelle de Monarque.
     </p>
 
-    <!-- 3-Step Awakening Pipeline -->
-    <div class="awakening-pipeline">
-      <div class="pipeline-step active">
-        <div class="pipeline-num">01</div>
-        <div>
-          <div class="pipeline-title">ÉVEIL GOOGLE</div>
-          <div class="pipeline-desc">Création sécurisée du compte en 1 clic</div>
-        </div>
-      </div>
-      <div class="pipeline-arrow">➔</div>
-      <div class="pipeline-step">
-        <div class="pipeline-num">02</div>
-        <div>
-          <div class="pipeline-title">ONBOARDING OBLIGATOIRE</div>
-          <div class="pipeline-desc">Archétype, routine circadienne & quotas</div>
-        </div>
-      </div>
-      <div class="pipeline-arrow">➔</div>
-      <div class="pipeline-step">
-        <div class="pipeline-num">03</div>
-        <div>
-          <div class="pipeline-title">HUD SOUVERAIN</div>
-          <div class="pipeline-desc">Quêtes, Vision IA & Monk Mode NextDNS</div>
-        </div>
-      </div>
+    <div class="features-trio">
+      <div class="feature-pill"><span class="icon">🏋️</span> Suivi Pompes IA 90°</div>
+      <div class="feature-pill"><span class="icon">⚖️</span> Score Harmonique Sh (0-20)</div>
+      <div class="feature-pill"><span class="icon">🛡️</span> Couvre-Feu NextDNS 22h</div>
     </div>
 
-    <!-- Central Awakening Card -->
-    <div class="awakening-card" id="awakening-section">
-      <div class="card-header-tag">⚡ PORTAIL D'ÉVEIL & CRÉATION DE COMPTE</div>
-      <h2 class="card-heading">AUTORISATION REQUISE</h2>
-      <p class="card-desc">
-        La connexion officielle par compte Google est obligatoire. Elle initialise votre profil de Chasseur, certifie votre identité et synchronise vos statistiques des 8 bases sur le Cloud.
-      </p>
-
-      <div id="landing-active-session">
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-          <img id="session-avatar" src="/logo-monarch.svg" alt="Avatar" style="width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--neon-cyan); object-fit: cover;">
-          <div style="flex: 1; min-width: 0;">
-            <div style="font-weight: 800; font-size: 14px; color: #fff;" id="session-name">Chasseur Éveillé</div>
-            <div style="font-size: 11.5px; color: var(--text-secondary); word-break: break-all;" id="session-email"></div>
+    <div class="main-showcase-grid">
+      <!-- Left: Visual Anime Artwork Card -->
+      <div class="hero-art-card">
+        <div class="art-img-wrap">
+          <img src="/intro-alert.webp" alt="Solo Leveling System Alert" onerror="this.src='/intro-alert.jpg';">
+          <div class="art-floating-badge">
+            <span>👑</span>
+            <span>RANG S • SOUVERAIN DES OMBRES</span>
           </div>
-          <span style="font-size: 10px; font-family: var(--font-mono); padding: 2px 6px; border-radius: 4px; background: rgba(0, 240, 255, 0.2); color: var(--neon-cyan); border: 1px solid var(--neon-cyan);">SESSION ACTIVE</span>
         </div>
-        <div style="display: flex; gap: 10px;">
-          <a href="/dashboard" class="btn-awakening-google" style="margin-bottom: 0; padding: 10px 16px; font-size: 12px; flex: 1;">
-            RETOURNER AU HUD SOUVERAIN →
-          </a>
-          <button onclick="logoutLandingSession()" style="background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #fca5a5; border-radius: 8px; padding: 0 14px; font-family: var(--font-mono); font-size: 11px; cursor: pointer;">
-            DÉCONNEXION
-          </button>
+        <div class="art-card-body">
+          <div>
+            <div class="art-card-title">PROTOCOLE D'ÉVEIL PERSONNEL</div>
+            <div class="art-card-desc">
+              Le Système s'adapte à vos objectifs : calibration de vos quêtes calisthéniques, blocage automatique des distracteurs et évaluation sans complaisance.
+            </div>
+          </div>
+          <div class="art-specs-row">
+            <span>VISION IA : <strong>ACTIVE</strong></span>
+            <span>MONK MODE : <strong>22H00</strong></span>
+            <span>LATENCE : <strong>&lt; 50MS</strong></span>
+          </div>
         </div>
       </div>
 
-      <div id="landing-unauth-actions">
-        <a href="/auth/google" class="btn-awakening-google" id="landing-google-btn">
-          <svg viewBox="0 0 24 24">
-            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-          </svg>
-          S'ÉVEILLER AVEC GOOGLE (OAUTH 2.0)
-        </a>
+      <!-- Right: Authentication Card -->
+      <div class="auth-box-card">
+        <!-- Active Session Card (shown if already logged in) -->
+        <div id="active-session-card">
+          <div class="session-avatar-wrap" id="session-avatar-slot">👑</div>
+          <div class="session-name" id="session-user-name">Chasseur Éveillé</div>
+          <div class="session-sub" id="session-user-email">Session active</div>
+          <a href="/dashboard" class="btn-enter-hud">ENTRER DANS MON HUD ➔</a>
+          <button type="button" class="btn-logout-link" onclick="logoutSession()">Changer de compte / Déconnexion</button>
+        </div>
 
-        <div class="gis-wrapper">
+        <!-- Unauthenticated Form Box -->
+        <div id="unauth-form-box">
+          <div class="auth-tabs">
+            <button type="button" class="auth-tab-btn active" id="tab-login-btn" onclick="switchAuthTab('login')">SE CONNECTER</button>
+            <button type="button" class="auth-tab-btn" id="tab-signup-btn" onclick="switchAuthTab('signup')">NOUVEAU COMPTE</button>
+          </div>
+
+          <!-- Official Google One-Tap & Button -->
+          <a href="/auth/google" class="btn-google-sign" id="google-direct-link">
+            <svg viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Continuer avec Google (1 clic)</span>
+          </a>
+
           <div id="g_id_onload"
                data-client_id="${GOOGLE_CLIENT_ID}"
                data-context="signin"
                data-ux_mode="popup"
-               data-callback="handleLandingGoogleResponse"
+               data-callback="handleGoogleCredentialResponse"
                data-auto_prompt="false">
           </div>
-          <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_black" data-text="signin_with" data-size="large" data-logo_alignment="left"></div>
-        </div>
 
-        <div class="card-guarantees">
-          <span>🛡️ Chiffrement AES-256</span>
-          <span>•</span>
-          <span>⚡ Onboarding Automatique</span>
-          <span>•</span>
-          <span>🔒 Zéro Fuite de Données</span>
+          <div class="or-divider">OU PAR IDENTIFIANTS</div>
+
+          <!-- Form Login -->
+          <form id="form-login" onsubmit="handleHunterLogin(event)">
+            <div class="form-group-light">
+              <label class="form-label-light">PSEUDO OU EMAIL</label>
+              <input type="text" id="login-ident" class="form-input-light" placeholder="Ex: Sung Jin-Woo ou chasseur@monarch.io" required>
+            </div>
+            <div class="form-group-light">
+              <label class="form-label-light">MOT DE PASSE</label>
+              <input type="password" id="login-pwd" class="form-input-light" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-submit-primary" id="btn-login-submit">
+              SE CONNECTER ➔
+            </button>
+          </form>
+
+          <!-- Form Signup -->
+          <form id="form-signup" onsubmit="handleHunterSignup(event)" style="display: none;">
+            <div class="form-group-light">
+              <label class="form-label-light">NOM DU CHASSEUR</label>
+              <input type="text" id="signup-name" class="form-input-light" placeholder="Ex: Alex, Sung, Monarch..." required>
+            </div>
+            <div class="form-group-light">
+              <label class="form-label-light">EMAIL</label>
+              <input type="email" id="signup-email" class="form-input-light" placeholder="votre-email@domaine.com" required>
+            </div>
+            <div class="form-group-light">
+              <label class="form-label-light">CRÉER UN MOT DE PASSE</label>
+              <input type="password" id="signup-pwd" class="form-input-light" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-submit-primary" id="btn-signup-submit">
+              CRÉER MON COMPTE & M'ÉVEILLER ➔
+            </button>
+          </form>
+
+          <!-- 1-Click Quick Entry -->
+          <button type="button" class="btn-quick-guest" onclick="handleQuickGuestEntry()">
+            ⚡ Entrée Rapide 1-Clic (Éveil Souverain)
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- Live Interactive Holographic HUD Simulator Preview -->
-    <div class="hud-preview-wrapper">
-      <div class="hud-preview-header">
-        <div class="hud-preview-title">
-          <span>👑</span>
-          <span>SIMULATEUR HUD SOUVERAIN (APERÇU EN DIRECT)</span>
+    <!-- 3 Illustrated Feature Highlights -->
+    <div class="illustrations-grid">
+      <div class="card-illus-item">
+        <div class="illus-icon-row">
+          <div class="illus-icon-badge">🏋️</div>
+          <div class="illus-title">VISION IA POMPES 90°</div>
         </div>
-        <div class="hud-preview-clock" id="live-preview-clock">--:--:--</div>
-      </div>
-      <div class="hud-preview-grid">
-        <div class="hud-mock-card">
-          <div class="hud-mock-label">CHASSEUR D'ÉLITE</div>
-          <div class="hud-mock-value" style="color: var(--neon-cyan);">SUNG JIN-WOO</div>
-          <div style="font-size: 11px; color: var(--gold); font-family: var(--font-mono); margin-top: 4px;">RANG S • MONARQUE DES OMBRES</div>
-        </div>
-        <div class="hud-mock-card">
-          <div class="hud-mock-label">SCORE HARMONIQUE SH</div>
-          <div class="hud-mock-value" style="color: #34d399;">18.9 <span style="font-size: 12px; color: var(--text-muted);">/ 20</span></div>
-          <div style="font-size: 11px; color: var(--text-secondary); font-family: var(--font-mono); margin-top: 4px;">ÉQUILIBRE DES 8 BASES : EXCELLENT</div>
-        </div>
-        <div class="hud-mock-card">
-          <div class="hud-mock-label">QUÊTE DU JOUR CALIBRÉE</div>
-          <div style="font-size: 13px; font-weight: bold; color: #fff;">100 Pompes • 100 Abdos • 10 km</div>
-          <div style="font-size: 11px; color: var(--neon-cyan); font-family: var(--font-mono); margin-top: 4px;">VALIDATION SQUELETTE IA 90° ✓</div>
-        </div>
-        <div class="hud-mock-card">
-          <div class="hud-mock-label">SENTINELLE NEXTDNS</div>
-          <div class="hud-mock-value" style="color: var(--gold); font-size: 14px;">COUVRE-FEU 22H00</div>
-          <div style="font-size: 11px; color: #a78bfa; font-family: var(--font-mono); margin-top: 4px;">PARE-FEU ANTI-PROCRASTINATION ARMÉ</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="stat-strip">
-      <div class="stat-item">
-        <div class="stat-val">48+</div>
-        <div class="stat-lbl">QUÊTES CALIBRÉES</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-val">8 / 8</div>
-        <div class="stat-lbl">BASES DE PROGRESSION</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-val">0.0 ms</div>
-        <div class="stat-lbl">LATENCE VISION IA LOCALE</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-val">AES-256</div>
-        <div class="stat-lbl">CHIFFREMENT SOUVERAIN</div>
-      </div>
-    </div>
-
-    <h2 class="pillars-heading">LES 6 PILIERS DU SYSTÈME SOUVERAIN</h2>
-    <p class="pillars-sub">Chaque module est conçu pour forger votre discipline et maximiser vos compétences réelles.</p>
-
-    <div class="pillars-grid">
-      <div class="pillar-card">
-        <div class="pillar-icon-box">⚔️</div>
-        <div class="pillar-title">QUÊTES QUOTIDIENNES CALIBRÉES</div>
-        <div class="pillar-desc">
-          Pompes, abdos, squats, course, sessions de Deep Work et restitutions orales en anglais C1 avec validation par preuve irréfutable.
+        <div class="illus-desc">
+          Validation cinématique en temps réel par caméra. Les demi-pompes sont impitoyablement rejetées par l'algorithme squelettique.
         </div>
       </div>
 
-      <div class="pillar-card">
-        <div class="pillar-icon-box">👁️</div>
-        <div class="pillar-title">COMPUTER VISION & POSE TRACKING</div>
-        <div class="pillar-desc">
-          L'IA MediaPipe analyse vos mouvements en temps réel par webcam, valide l'amplitude à 90° et affiche votre squelette holographique sans triche possible.
+      <div class="card-illus-item">
+        <div class="illus-icon-row">
+          <div class="illus-icon-badge">⚖️</div>
+          <div class="illus-title">SCORE HARMONIQUE SH</div>
+        </div>
+        <div class="illus-desc">
+          Évaluation stricte sur 8 bases vitales. La moyenne harmonique pénalise la moindre faille pour forger une discipline sans compromis.
         </div>
       </div>
 
-      <div class="pillar-card">
-        <div class="pillar-icon-box">🛡️</div>
-        <div class="pillar-title">VERROUILLAGE MONK MODE NEXTDNS</div>
-        <div class="pillar-desc">
-          Dès le couvre-feu dépassé avec des quêtes incomplètes, le Système engage le verrouillage strict de tous les réseaux et distracteurs au niveau DNS.
+      <div class="card-illus-item">
+        <div class="illus-icon-row">
+          <div class="illus-icon-badge">🛡️</div>
+          <div class="illus-title">MONK MODE NEXTDNS</div>
         </div>
-      </div>
-
-      <div class="pillar-card">
-        <div class="pillar-icon-box">🧠</div>
-        <div class="pillar-title">SECOND BRAIN & ALGORITHME SM-2</div>
-        <div class="pillar-desc">
-          Coffre de connaissances chiffré AES-256-GCM, répétition espacée active, fiches de révision et support complet des équations mathématiques LaTeX.
-        </div>
-      </div>
-
-      <div class="pillar-card">
-        <div class="pillar-icon-box">⚖️</div>
-        <div class="pillar-title">SCORE HARMONIQUE SH & 8 BASES</div>
-        <div class="pillar-desc">
-          Votre progression globale est régie par la moyenne harmonique Sh de vos 8 piliers : négliger une seule base abaisse immédiatement l'ensemble de votre rang.
-        </div>
-      </div>
-
-      <div class="pillar-card">
-        <div class="pillar-icon-box">💎</div>
-        <div class="pillar-title">BOUTIQUE DES OMBRES & RÉCOMPENSES</div>
-        <div class="pillar-desc">
-          Convertissez votre XP et vos Cristaux d'Ombres gagnés lors des quêtes en récompenses concrètes dans le catalogue de récompenses personnelles.
+        <div class="illus-desc">
+          Couvre-feu numérique automatisé dès 22h00 : blocage réseau direct des réseaux sociaux et distracteurs pour protéger votre sommeil.
         </div>
       </div>
     </div>
   </main>
 
   <footer class="landing-footer">
-    LEVELUP SYSTEM — THE MONARCH OPERATING SYSTEM v3.3.0 • INSPIRÉ DE SOLO LEVELING • TOUS DROITS RÉSERVÉS
+    LEVELUP SYSTEM — THE MONARCH OPERATING SYSTEM v3.3 • INSPIRÉ DE SOLO LEVELING • FOND CLAIR & PERFORMANCE HAUTE VITESSE
   </footer>
 
   <script>
     const STORAGE_KEY = 'LEVELUP_SYSTEM_STATE_V7_CLEAN_DYNAMIC_AUTH';
 
-    // 1. Dynamic Particle Aura Canvas Animation
+    // 1. Particle Canvas (Luminous aesthetic)
     (function initCanvas() {
       const canvas = document.getElementById('bg-canvas');
       if (!canvas) return;
@@ -2001,16 +1934,15 @@ function renderLandingPage() {
       });
 
       const particles = [];
-      const count = Math.min(Math.floor(window.innerWidth / 24), 60);
+      const count = Math.min(Math.floor(window.innerWidth / 30), 40);
 
       for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * w,
           y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          r: Math.random() * 2 + 1,
-          color: Math.random() > 0.5 ? 'rgba(0, 240, 255, ' : 'rgba(192, 132, 252, '
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          r: Math.random() * 2 + 1.2
         });
       }
 
@@ -2027,19 +1959,17 @@ function renderLandingPage() {
 
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = p.color + '0.7)';
-          ctx.shadowBlur = 8;
-          ctx.shadowColor = '#00f0ff';
+          ctx.fillStyle = 'rgba(79, 70, 229, 0.45)';
           ctx.fill();
 
           for (let j = i + 1; j < particles.length; j++) {
             const p2 = particles[j];
             const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-            if (dist < 110) {
+            if (dist < 100) {
               ctx.beginPath();
               ctx.moveTo(p.x, p.y);
               ctx.lineTo(p2.x, p2.y);
-              ctx.strokeStyle = 'rgba(0, 240, 255, ' + (1 - dist / 110) * 0.15 + ')';
+              ctx.strokeStyle = 'rgba(79, 70, 229, ' + (1 - dist / 100) * 0.12 + ')';
               ctx.lineWidth = 0.8;
               ctx.stroke();
             }
@@ -2050,56 +1980,155 @@ function renderLandingPage() {
       draw();
     })();
 
-    // 2. Ticking Live Preview Clock
-    setInterval(() => {
-      const el = document.getElementById('live-preview-clock');
-      if (el) {
-        const now = new Date();
-        el.textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' [ACTIF]';
-      }
-    }, 1000);
+    // 2. Auth Tab Switcher
+    function switchAuthTab(tab) {
+      const loginBtn = document.getElementById('tab-login-btn');
+      const signupBtn = document.getElementById('tab-signup-btn');
+      const formLogin = document.getElementById('form-login');
+      const formSignup = document.getElementById('form-signup');
 
-    // 3. Check for Access Blocked Alert
-    try {
-      const urlP = new URLSearchParams(window.location.search);
-      if (urlP.get('access') === 'blocked') {
-        const alertBox = document.getElementById('access-blocked-alert');
-        if (alertBox) {
-          alertBox.style.display = 'flex';
-          alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          playChime(330);
-        }
+      if (tab === 'signup') {
+        loginBtn.classList.remove('active');
+        signupBtn.classList.add('active');
+        formLogin.style.display = 'none';
+        formSignup.style.display = 'block';
+      } else {
+        signupBtn.classList.remove('active');
+        loginBtn.classList.add('active');
+        formSignup.style.display = 'none';
+        formLogin.style.display = 'block';
       }
-    } catch(e) {}
+    }
 
-    // 4. Session Detection
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const state = JSON.parse(saved);
-        if (state.player && state.player.authProvider === 'google' && state.player.email) {
-          const banner = document.getElementById('landing-active-session');
-          const unauth = document.getElementById('landing-unauth-actions');
-          const nameEl = document.getElementById('session-name');
-          const emailEl = document.getElementById('session-email');
-          const avatarEl = document.getElementById('session-avatar');
-          const navBtn = document.getElementById('nav-login-btn');
-          if (banner) banner.style.display = 'block';
-          if (unauth) unauth.style.display = 'none';
-          if (nameEl) nameEl.textContent = state.player.name || 'Chasseur Google';
-          if (emailEl) emailEl.textContent = state.player.email;
-          if (avatarEl && state.player.avatar) avatarEl.src = state.player.avatar;
-          if (navBtn) {
-            navBtn.href = '/dashboard';
-            navBtn.innerHTML = '<span>MON HUD ➔</span>';
-            navBtn.style.borderColor = 'var(--gold)';
-            navBtn.style.color = 'var(--gold)';
+    // 3. Check for Active Session
+    (function checkExistingSession() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const state = JSON.parse(saved);
+          if (state.player && (state.player.authProvider || state.player.email || (state.player.name && state.player.name !== 'Chasseur Non Éveillé'))) {
+            const activeCard = document.getElementById('active-session-card');
+            const unauthBox = document.getElementById('unauth-form-box');
+            const nameEl = document.getElementById('session-user-name');
+            const emailEl = document.getElementById('session-user-email');
+            const avatarSlot = document.getElementById('session-avatar-slot');
+            const navBtn = document.getElementById('nav-action-btn');
+
+            if (activeCard) activeCard.style.display = 'block';
+            if (unauthBox) unauthBox.style.display = 'none';
+            if (nameEl) nameEl.textContent = state.player.name;
+            if (emailEl) emailEl.textContent = state.player.email || 'Rang ' + (state.player.rank || 'E');
+            if (avatarSlot && state.player.avatar) {
+              avatarSlot.innerHTML = '<img src="' + state.player.avatar + '" alt="Avatar">';
+            }
+            if (navBtn) {
+              navBtn.href = '/dashboard';
+              navBtn.textContent = 'MON HUD ➔';
+            }
           }
         }
-      }
-    } catch(e) {}
+      } catch(e) {}
+    })();
 
-    async function handleLandingGoogleResponse(response) {
+    // 4. Handle Hunter Login
+    async function handleHunterLogin(e) {
+      e.preventDefault();
+      const ident = document.getElementById('login-ident').value;
+      const pwd = document.getElementById('login-pwd').value;
+      const submitBtn = document.getElementById('btn-login-submit');
+      if (submitBtn) { submitBtn.textContent = 'CONNEXION EN COURS...'; submitBtn.disabled = true; }
+
+      try {
+        const res = await fetch('/api/v1/auth/hunter/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ identifier: ident, password: pwd })
+        });
+        const data = await res.json();
+        if (data.success && data.user) {
+          saveAndProceed(data.user);
+        } else {
+          alert('Erreur de connexion : ' + (data.error || 'Identifiant invalide'));
+          if (submitBtn) { submitBtn.textContent = 'SE CONNECTER ➔'; submitBtn.disabled = false; }
+        }
+      } catch (err) {
+        // Fallback local login
+        saveAndProceed({
+          id: 'usr-' + Date.now().toString(36),
+          name: ident.split('@')[0],
+          email: ident.includes('@') ? ident : ident + '@monarch.levelup',
+          authProvider: 'hunter',
+          onboardingCompleted: true
+        });
+      }
+    }
+
+    // 5. Handle Hunter Signup
+    async function handleHunterSignup(e) {
+      e.preventDefault();
+      const name = document.getElementById('signup-name').value;
+      const email = document.getElementById('signup-email').value;
+      const pwd = document.getElementById('signup-pwd').value;
+      const submitBtn = document.getElementById('btn-signup-submit');
+      if (submitBtn) { submitBtn.textContent = 'ÉVEIL DU COMPTE...'; submitBtn.disabled = true; }
+
+      try {
+        const res = await fetch('/api/v1/auth/hunter/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: name, email: email, password: pwd })
+        });
+        const data = await res.json();
+        if (data.success && data.user) {
+          saveAndProceed(data.user);
+        } else {
+          alert("Erreur d'inscription : " + (data.error || "Échec de création"));
+          if (submitBtn) { submitBtn.textContent = "CRÉER MON COMPTE & M'ÉVEILLER ➔"; submitBtn.disabled = false; }
+        }
+      } catch (err) {
+        saveAndProceed({
+          id: 'usr-' + Date.now().toString(36),
+          name: name,
+          email: email,
+          authProvider: 'hunter',
+          onboardingCompleted: false
+        });
+      }
+    }
+
+    // 6. Handle Quick Guest Entry (1-clic direct)
+    async function handleQuickGuestEntry() {
+      try {
+        const res = await fetch('/api/v1/auth/hunter/quick', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: 'Chasseur Éveillé' })
+        });
+        const data = await res.json();
+        if (data.success && data.user) {
+          saveAndProceed(data.user);
+        } else {
+          saveAndProceed({
+            id: 'usr-' + Date.now().toString(36),
+            name: 'Chasseur Éveillé',
+            email: 'hunter@monarch.system',
+            authProvider: 'hunter',
+            onboardingCompleted: false
+          });
+        }
+      } catch (err) {
+        saveAndProceed({
+          id: 'usr-' + Date.now().toString(36),
+          name: 'Chasseur Éveillé',
+          email: 'hunter@monarch.system',
+          authProvider: 'hunter',
+          onboardingCompleted: false
+        });
+      }
+    }
+
+    // 7. Google GIS Callback
+    async function handleGoogleCredentialResponse(response) {
       if (!response || !response.credential) return;
       try {
         const res = await fetch('/api/v1/auth/google/verify', {
@@ -2109,75 +2138,51 @@ function renderLandingPage() {
         });
         const data = await res.json();
         if (data.success && data.user) {
-          let state = {};
-          try {
-            const saved = localStorage.getItem(STORAGE_KEY);
-            if (saved) state = JSON.parse(saved);
-          } catch(e) {}
-          if (!state.player) state.player = {};
-          state.player.id = data.user.id || ("usr-" + (data.user.sub ? data.user.sub.slice(-8) : "google"));
-          state.player.name = data.user.name;
-          state.player.email = data.user.email;
-          state.player.avatar = data.user.picture;
-          state.player.authProvider = 'google';
-          state.player.googleId = data.user.sub;
-          state.player.title = data.user.title || "Chasseur Éveillé (Rang E)";
-          
-          const isOnboarded = Boolean(data.user.onboardingCompleted || state.player.onboardingCompleted || state.onboardingCompleted);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-
-          if (isOnboarded) {
-            window.location.href = '/dashboard?auth=success&provider=google';
-          } else {
-            window.location.href = '/onboarding?auth=success&provider=google';
-          }
-        } else {
-          alert("Erreur de connexion Google : " + (data.error || "Échec de validation."));
+          saveAndProceed(data.user);
         }
       } catch(err) {
-        console.error("Erreur Google Auth:", err);
+        console.error('Erreur Google Auth:', err);
       }
     }
 
-    async function logoutLandingSession() {
+    // 8. Save State & Proceed
+    function saveAndProceed(user) {
+      let state = {};
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) state = JSON.parse(saved);
+      } catch(e) {}
+      if (!state.player) state.player = {};
+
+      state.player.id = user.id || ('usr-' + Date.now().toString(36));
+      state.player.name = user.name || 'Chasseur Éveillé';
+      state.player.email = user.email || (state.player.name.toLowerCase().replace(/[^a-z0-9]/g, '') + '@hunter.levelup');
+      state.player.avatar = user.picture || state.player.avatar || null;
+      state.player.authProvider = user.authProvider || 'hunter';
+      state.player.isAuthenticated = true;
+      if (user.onboardingCompleted !== undefined) {
+        state.player.onboardingCompleted = Boolean(user.onboardingCompleted);
+        state.onboardingCompleted = Boolean(user.onboardingCompleted);
+      }
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
+      if (state.player.onboardingCompleted) {
+        window.location.href = '/dashboard?auth=success';
+      } else {
+        window.location.href = '/onboarding?auth=success';
+      }
+    }
+
+    // 9. Logout
+    async function logoutSession() {
       try {
         await fetch('/api/v1/auth/logout', { method: 'POST' });
       } catch(e) {}
       try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-          const state = JSON.parse(saved);
-          state.player.id = 'usr-guest-unawakened';
-          state.player.name = 'Chasseur Non Éveillé';
-          state.player.title = 'Initié Non Éveillé (Rang E)';
-          state.player.email = null;
-          state.player.avatar = null;
-          state.player.authProvider = null;
-          state.player.googleId = null;
-          state.player.onboardingCompleted = false;
-          state.onboardingCompleted = false;
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        }
+        localStorage.removeItem(STORAGE_KEY);
       } catch(e) {}
       window.location.reload();
-    }
-
-    function playChime(freq = 523.25) {
-      try {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (!AudioCtx) return;
-        const ctx = new AudioCtx();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, ctx.currentTime);
-        gain.gain.setValueAtTime(0.15, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.25);
-      } catch(e) {}
     }
   </script>
 </body>
@@ -2311,8 +2316,8 @@ function renderOnboardingPage() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LEVELUP — Calibrage du Protocole d'Éveil (Onboarding)</title>
-  <meta name="description" content="Personnalisez vos objectifs de Chasseur, votre routine circadienne, votre intensité physique et vos plages de Deep Work dans The System.">
+  <title>LEVELUP — Calibrage du Protocole d'Éveil</title>
+  <meta name="description" content="Calibrez vos objectifs, votre entraînement physique et votre routine circadienne dans The System.">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2320,7 +2325,7 @@ function renderOnboardingPage() {
   <style>
     :root {
       --bg-dark: #070312;
-      --bg-card: rgba(18, 10, 36, 0.85);
+      --bg-card: rgba(18, 10, 36, 0.88);
       --neon-cyan: #00f0ff;
       --primary: #00f0ff;
       --secondary: #c084fc;
@@ -2328,7 +2333,6 @@ function renderOnboardingPage() {
       --text-white: #ffffff;
       --text-secondary: #94a3b8;
       --text-muted: #64748b;
-      --glass-border: rgba(0, 240, 255, 0.22);
       --font-display: 'Orbitron', 'Cinzel Decorative', sans-serif;
       --font-sans: 'Inter', system-ui, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
@@ -2339,85 +2343,62 @@ function renderOnboardingPage() {
     body {
       background-color: var(--bg-dark);
       background-image: 
-        radial-gradient(circle at 50% 10%, rgba(147, 51, 234, 0.25) 0%, rgba(0, 240, 255, 0.1) 40%, transparent 75%),
+        radial-gradient(circle at 50% 10%, rgba(147, 51, 234, 0.22) 0%, rgba(0, 240, 255, 0.1) 40%, transparent 75%),
         linear-gradient(180deg, #090317 0%, #05020c 100%);
       color: var(--text-white);
       font-family: var(--font-sans);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-image: linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
     }
 
     .ob-nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(7, 3, 18, 0.9);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--glass-border);
-      padding: 14px 24px;
+      padding: 16px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+      background: rgba(7, 3, 18, 0.85);
+      backdrop-filter: blur(14px);
     }
 
     .ob-brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       text-decoration: none;
       color: inherit;
     }
 
     .ob-brand-title {
       font-family: var(--font-display);
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 900;
       letter-spacing: 2px;
-      background: linear-gradient(135deg, #ffffff 0%, var(--neon-cyan) 60%, var(--secondary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #fff;
     }
 
     .ob-progress-container {
-      width: 100%;
-      max-width: 800px;
-      margin: 20px auto 0;
+      max-width: 680px;
+      margin: 24px auto 0;
       padding: 0 20px;
-      position: relative;
-      z-index: 1;
+      width: 100%;
     }
 
     .ob-progress-bar-bg {
       height: 6px;
       background: rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
+      border-radius: 9999px;
       overflow: hidden;
       border: 1px solid rgba(0, 240, 255, 0.15);
     }
 
     .ob-progress-fill {
       height: 100%;
-      width: 25%;
-      background: linear-gradient(90deg, var(--secondary), var(--neon-cyan), var(--gold));
+      width: 50%;
+      background: linear-gradient(90deg, var(--secondary), var(--neon-cyan));
       box-shadow: 0 0 12px var(--neon-cyan);
-      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: width 0.35s ease;
     }
 
     .ob-steps-tracker {
@@ -2437,27 +2418,24 @@ function renderOnboardingPage() {
 
     .ob-main {
       flex: 1;
-      max-width: 840px;
+      max-width: 720px;
       width: 100%;
-      margin: 20px auto 60px;
+      margin: 20px auto 40px;
       padding: 0 20px;
-      position: relative;
-      z-index: 1;
     }
 
     .ob-card {
       background: var(--bg-card);
-      backdrop-filter: blur(24px);
-      border: 1px solid rgba(0, 240, 255, 0.35);
-      border-radius: 16px;
-      padding: 36px 32px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.1);
-      position: relative;
+      backdrop-filter: blur(20px);
+      border: 1.5px solid rgba(0, 240, 255, 0.35);
+      border-radius: 18px;
+      padding: 32px 28px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
     }
 
     .step-section {
       display: none;
-      animation: fadeIn 0.35s ease;
+      animation: fadeIn 0.3s ease;
     }
 
     .step-section.active {
@@ -2465,7 +2443,7 @@ function renderOnboardingPage() {
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -2480,7 +2458,7 @@ function renderOnboardingPage() {
 
     .step-title {
       font-family: var(--font-display);
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 900;
       letter-spacing: 1px;
       color: #ffffff;
@@ -2488,30 +2466,30 @@ function renderOnboardingPage() {
     }
 
     .step-desc {
-      font-size: 13.5px;
+      font-size: 13px;
       color: var(--text-secondary);
       line-height: 1.5;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .form-group {
-      margin-bottom: 24px;
+      margin-bottom: 22px;
       text-align: left;
     }
 
     .form-label {
       display: block;
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       color: var(--neon-cyan);
       margin-bottom: 8px;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
     }
 
     .form-input {
       width: 100%;
-      padding: 14px 16px;
+      padding: 13px 16px;
       border-radius: 8px;
       background: rgba(14, 8, 30, 0.85);
       border: 1.5px solid rgba(0, 240, 255, 0.3);
@@ -2530,197 +2508,148 @@ function renderOnboardingPage() {
     .options-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 14px;
+      gap: 12px;
     }
 
     .option-card {
       background: rgba(14, 8, 30, 0.7);
       border: 1.5px solid rgba(255, 255, 255, 0.12);
-      border-radius: 10px;
-      padding: 18px;
+      border-radius: 12px;
+      padding: 16px;
       cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
+      transition: all 0.2s ease;
     }
 
     .option-card:hover {
       border-color: rgba(0, 240, 255, 0.5);
-      background: rgba(0, 240, 255, 0.05);
       transform: translateY(-2px);
     }
 
     .option-card.selected {
       border-color: var(--neon-cyan);
-      background: rgba(0, 240, 255, 0.12);
+      background: rgba(0, 240, 255, 0.1);
       box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
-    }
-
-    .option-card.selected::after {
-      content: '✓';
-      position: absolute;
-      top: 10px;
-      right: 12px;
-      color: var(--neon-cyan);
-      font-weight: 900;
-      font-size: 14px;
     }
 
     .option-icon {
       font-size: 24px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .option-title {
       font-family: var(--font-display);
-      font-size: 13.5px;
+      font-size: 12.5px;
       font-weight: 800;
       color: #ffffff;
       margin-bottom: 4px;
     }
 
     .option-desc {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-secondary);
-      line-height: 1.45;
+      line-height: 1.4;
     }
 
     .pills-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
     }
 
     .pill-btn {
-      padding: 10px 18px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.05);
+      padding: 9px 14px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #e2e8f0;
+      color: var(--text-secondary);
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .pill-btn:hover {
-      background: rgba(0, 240, 255, 0.1);
       border-color: var(--neon-cyan);
+      color: #fff;
     }
 
     .pill-btn.selected {
-      background: rgba(0, 240, 255, 0.25);
+      background: rgba(0, 240, 255, 0.15);
       border-color: var(--neon-cyan);
-      color: #ffffff;
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
-      font-weight: 700;
+      color: var(--neon-cyan);
+      font-weight: 800;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
     }
 
     .ob-actions {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-top: 36px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      gap: 12px;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .btn-ob {
-      padding: 12px 24px;
-      border-radius: 8px;
+      padding: 13px 24px;
+      border-radius: 10px;
       font-family: var(--font-display);
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 800;
       letter-spacing: 1px;
       cursor: pointer;
-      border: none;
       transition: all 0.25s ease;
     }
 
     .btn-ob-prev {
-      background: rgba(255, 255, 255, 0.08);
-      color: #94a3b8;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text-secondary);
     }
 
     .btn-ob-prev:hover {
-      background: rgba(255, 255, 255, 0.15);
-      color: #ffffff;
+      border-color: #fff;
+      color: #fff;
     }
 
     .btn-ob-next {
-      background: linear-gradient(135deg, #00f0ff 0%, #9333ea 100%);
-      color: #ffffff;
-      box-shadow: 0 4px 20px rgba(0, 240, 255, 0.35);
+      background: linear-gradient(135deg, #00f0ff 0%, #0284c7 100%);
+      border: none;
+      color: #070312;
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.4);
+      margin-left: auto;
     }
 
     .btn-ob-next:hover {
-      box-shadow: 0 6px 30px rgba(0, 240, 255, 0.55);
+      box-shadow: 0 0 26px rgba(0, 240, 255, 0.7);
       transform: translateY(-1px);
     }
 
     .btn-ob-seal {
-      background: linear-gradient(135deg, #ffd700 0%, #f59e0b 100%);
+      background: linear-gradient(135deg, #ffd700 0%, #d97706 100%);
+      border: none;
       color: #070312;
-      font-weight: 900;
-      box-shadow: 0 4px 25px rgba(255, 215, 0, 0.45);
+      box-shadow: 0 0 22px rgba(255, 215, 0, 0.5);
+      margin-left: auto;
     }
 
     .btn-ob-seal:hover {
-      box-shadow: 0 6px 35px rgba(255, 215, 0, 0.7);
-      transform: translateY(-2px);
-    }
-
-    .summary-card {
-      background: rgba(0, 240, 255, 0.04);
-      border: 1px solid var(--neon-cyan);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 24px;
-      text-align: left;
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      font-size: 13px;
-    }
-
-    .summary-row:last-child {
-      border-bottom: none;
-    }
-
-    .summary-label {
-      color: var(--text-secondary);
-      font-family: var(--font-mono);
-      font-size: 12px;
-    }
-
-    .summary-value {
-      font-weight: 700;
-      color: #ffffff;
-    }
-
-    @media (max-width: 640px) {
-      .ob-card { padding: 24px 18px; }
-      .options-grid { grid-template-columns: 1fr; }
-      .pills-group { gap: 6px; }
-      .pill-btn { padding: 8px 12px; font-size: 11px; }
+      box-shadow: 0 0 32px rgba(255, 215, 0, 0.85);
+      transform: translateY(-1px);
     }
   </style>
 </head>
 <body>
   <header class="ob-nav">
     <a href="/landing" class="ob-brand">
-      <div style="width: 32px; height: 32px;">
+      <div style="width: 30px; height: 30px;">
         ${MONARCH_LOGO_SVG}
       </div>
       <div class="ob-brand-title">LEVELUP</div>
     </a>
     <div style="font-family: var(--font-mono); font-size: 12px; color: var(--neon-cyan);">
-      ÉTAPE <span id="nav-step-num">1</span> / 4
+      ÉTAPE <span id="nav-step-num">1</span> / 2
     </div>
     <a href="/dashboard" style="color: var(--text-muted); font-size: 11px; text-decoration: none; font-family: var(--font-mono);">
       PASSER LE CALIBRAGE →
@@ -2732,34 +2661,22 @@ function renderOnboardingPage() {
       <div class="ob-progress-fill" id="ob-progress"></div>
     </div>
     <div class="ob-steps-tracker">
-      <span class="ob-step-chip active" id="chip-1">1. IDENTITÉ</span>
-      <span class="ob-step-chip" id="chip-2">2. OBJECTIFS</span>
-      <span class="ob-step-chip" id="chip-3">3. ROUTINE</span>
-      <span class="ob-step-chip" id="chip-4">4. SCELLEMENT</span>
+      <span class="ob-step-chip active" id="chip-1">1. IDENTITÉ & ARCHÉTYPE</span>
+      <span class="ob-step-chip" id="chip-2">2. QUÊTES & ROUTINE</span>
     </div>
   </div>
 
   <main class="ob-main">
     <div class="ob-card">
-      <!-- STEP 1 -->
+      <!-- STEP 1: IDENTITÉ & ARCHÉTYPE -->
       <section class="step-section active" id="step-1">
-        <div class="step-header-tag">⚡ ÉTAPE 1 • ÉVEIL DU CHASSEUR</div>
+        <div class="step-header-tag">⚡ ÉTAPE 1 • PROFIL DU CHASSEUR</div>
         <h1 class="step-title">IDENTITÉ & SPÉCIALISATION</h1>
-        <p class="step-desc">Définissez votre nom de code dans The System et choisissez l'archétype régissant vos stats prioritaires.</p>
+        <p class="step-desc">Choisissez votre nom d'éveil et l'archétype régissant vos statistiques prioritaires.</p>
 
         <div class="form-group">
-          <label class="form-label" for="input-hunter-name">NOM DU CHASSEUR / PSEUDO</label>
-          <input type="text" id="input-hunter-name" class="form-input" placeholder="Ex: Sung Jin-Woo, Alex, Monarch_X..." maxlength="30">
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">TITRE INITIAL DE L'ÉVEIL</label>
-          <div class="pills-group" id="title-pills">
-            <button type="button" class="pill-btn selected" data-value="L'Éveillé Novice (Rang E)">👑 L'Éveillé Novice (Rang E)</button>
-            <button type="button" class="pill-btn" data-value="L'Ombre Déterminée">⚔️ L'Ombre Déterminée</button>
-            <button type="button" class="pill-btn" data-value="L'Architecte de Code & IA">🧠 L'Architecte de Code & IA</button>
-            <button type="button" class="pill-btn" data-value="La Sentinelle Inflexible">🛡️ La Sentinelle Inflexible</button>
-          </div>
+          <label class="form-label" for="input-hunter-name">NOM DU CHASSEUR</label>
+          <input type="text" id="input-hunter-name" class="form-input" placeholder="Ex: Sung Jin-Woo, Alex, Monarch..." maxlength="30">
         </div>
 
         <div class="form-group">
@@ -2770,50 +2687,38 @@ function renderOnboardingPage() {
               <div class="option-title">MONARQUE HARMONIQUE</div>
               <div class="option-desc">Équilibre absolu des 8 bases (Score Sh). Développement simultané du corps, du code et de l'esprit.</div>
             </div>
+            <div class="option-card" data-value="BERZERKER_STR">
+              <div class="option-icon">⚔️</div>
+              <div class="option-title">BERSERKER CALISTHÉNIQUE</div>
+              <div class="option-desc">Force pure, pompes explosives, tractions strictes et condition physique sans compromis (STR/DIS).</div>
+            </div>
             <div class="option-card" data-value="AI_ENG">
               <div class="option-icon">🤖</div>
               <div class="option-title">NÉCROMANCIEN DE L'IA</div>
-              <div class="option-desc">Spécialiste Transformers, Deep Work intensif, Hackathons et mathématiques appliquées (AI_ENG/ACAD).</div>
+              <div class="option-desc">Spécialiste Transformers, Deep Work intensif, Hackathons et mathématiques appliquées (AI/ACAD).</div>
             </div>
             <div class="option-card" data-value="CYBER_SHADOW">
               <div class="option-icon">🛡️</div>
               <div class="option-title">INFILTRATEUR CYBER</div>
               <div class="option-desc">Offensive Security, TryHackMe, Buffer Overflows et discipline de fer en Monk Mode (CYBER/DIS).</div>
             </div>
-            <div class="option-card" data-value="BERZERKER_STR">
-              <div class="option-icon">⚔️</div>
-              <div class="option-title">BERSERKER CALISTHÉNIQUE</div>
-              <div class="option-desc">Force pure, pompes explosives, tractions strictes et condition physique sans concession (STR/DIS).</div>
-            </div>
           </div>
         </div>
       </section>
 
-      <!-- STEP 2 -->
+      <!-- STEP 2: QUÊTE PHYSIQUE & ROUTINE CIRCADIENNE -->
       <section class="step-section" id="step-2">
-        <div class="step-header-tag">🎯 ÉTAPE 2 • OBJECTIFS DE GUERRE</div>
-        <h1 class="step-title">OBJECTIF PRIORITAIRE & INTENSITÉ</h1>
-        <p class="step-desc">Fixez votre cible principale actuelle et le niveau d'intensité de votre quête physique quotidienne.</p>
+        <div class="step-header-tag">🎯 ÉTAPE 2 • OBJECTIFS & COUVRE-FEU</div>
+        <h1 class="step-title">QUÊTE PHYSIQUE & DISCIPLINE</h1>
+        <p class="step-desc">Fixez l'intensité de votre quête physique quotidienne et votre heure de couvre-feu Monk Mode.</p>
 
         <div class="form-group">
-          <label class="form-label" for="input-target-goal">OBJECTIF MAJEUR ACTUEL</label>
-          <input type="text" id="input-target-goal" class="form-input" placeholder="Ex: Admis en Concours, Lancer mon SaaS IA, Passer OSCP...">
-          <div class="pills-group" style="margin-top: 10px;" id="goal-suggestions">
-            <button type="button" class="pill-btn" data-goal="Gagner un Hackathon IA & Lancer un Produit">🤖 Hackathon IA</button>
-            <button type="button" class="pill-btn" data-goal="Certification Cybersécurité Offensive (OSCP)">🛡️ Certif OSCP Cyber</button>
-            <button type="button" class="pill-btn" data-goal="100 Pompes strictes & Maîtrise Calisthénie">⚔️ 100 Pompes Strictes</button>
-            <button type="button" class="pill-btn" data-goal="Anglais C1/C2 Cambridge & Restitution Orale">🎙️ Anglais C1/C2</button>
-            <button type="button" class="pill-btn" data-goal="Admission Concours / Grande École">🎓 Concours d'Élite</button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">CALIBRAGE DE LA QUÊTE PHYSIQUE QUOTIDIENNE</label>
+          <label class="form-label">CALIBRAGE DE LA QUÊTE PHYSIQUE (VALIDATION CAMÉRA IA)</label>
           <div class="options-grid" id="workout-options">
             <div class="option-card" data-value="NOVICE_30">
               <div class="option-icon">🟢</div>
               <div class="option-title">INITIÉ (RANG E)</div>
-              <div class="option-desc">30 Pompes, 30 Abdos, 30 Squats, 3 km de course. Idéal pour construire une régularité indestructible.</div>
+              <div class="option-desc">30 Pompes, 30 Abdos, 30 Squats, 3 km. Idéal pour construire une régularité indestructible.</div>
             </div>
             <div class="option-card selected" data-value="STANDARD_100">
               <div class="option-icon">🔵</div>
@@ -2827,98 +2732,37 @@ function renderOnboardingPage() {
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- STEP 3 -->
-      <section class="step-section" id="step-3">
-        <div class="step-header-tag">⏰ ÉTAPE 3 • CADENCE CIRCADIENNE</div>
-        <h1 class="step-title">ROUTINE & MONK MODE NEXTDNS</h1>
-        <p class="step-desc">Configurez vos heures de réveil et de couvre-feu. Le Time-Planner et le pare-feu NextDNS s'ajusteront automatiquement.</p>
 
         <div class="form-group">
-          <label class="form-label">HEURE DE RÉVEIL MATINAL</label>
-          <div class="pills-group" id="wake-pills">
-            <button type="button" class="pill-btn" data-time="05:30">05:30 (Aube)</button>
-            <button type="button" class="pill-btn selected" data-time="06:00">06:00 (Standard)</button>
-            <button type="button" class="pill-btn" data-time="06:30">06:30</button>
-            <button type="button" class="pill-btn" data-time="07:00">07:00</button>
-            <button type="button" class="pill-btn" data-time="08:00">08:00</button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">HEURE DU COUVRE-FEU / MONK MODE (NEXTDNS CURFEW)</label>
+          <label class="form-label">HEURE DU COUVRE-FEU / MONK MODE (NEXTDNS)</label>
           <div class="pills-group" id="curfew-pills">
             <button type="button" class="pill-btn" data-time="21:30">21:30</button>
             <button type="button" class="pill-btn selected" data-time="22:00">22:00 (Recommandé)</button>
             <button type="button" class="pill-btn" data-time="22:30">22:30</button>
             <button type="button" class="pill-btn" data-time="23:00">23:00</button>
           </div>
-          <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px; font-family: var(--font-mono);">
-            🛡️ À cette heure, les distracteurs et réseaux sont automatiquement coupés si vos quêtes ne sont pas achevées.
-          </div>
         </div>
 
         <div class="form-group">
-          <label class="form-label">VOLUME QUOTIDIEN DE DEEP WORK CONCENTRÉ</label>
+          <label class="form-label">VOLUME QUOTIDIEN DE DEEP WORK</label>
           <div class="pills-group" id="deepwork-pills">
             <button type="button" class="pill-btn" data-hours="2">2 Heures</button>
             <button type="button" class="pill-btn selected" data-hours="3">3 Heures (Équilibré)</button>
             <button type="button" class="pill-btn" data-hours="4">4 Heures (Intensif)</button>
-            <button type="button" class="pill-btn" data-hours="6">6 Heures (Monk Mode)</button>
           </div>
-        </div>
-      </section>
-
-      <!-- STEP 4 -->
-      <section class="step-section" id="step-4">
-        <div class="step-header-tag">📜 ÉTAPE 4 • SERMENT DU SOUVERAIN</div>
-        <h1 class="step-title">SCELLEMENT DU PROTOCOLE</h1>
-        <p class="step-desc">Vérifiez vos paramètres de calibrage. Cliquez sur le bouton ci-dessous pour lier irrévocablement votre Système.</p>
-
-        <div class="summary-card">
-          <div class="summary-row">
-            <span class="summary-label">CHASSEUR & TITRE :</span>
-            <span class="summary-value" id="sum-name">Chasseur Éveillé</span>
-          </div>
-          <div class="summary-row">
-            <span class="summary-label">ARCHÉTYPE CHOISI :</span>
-            <span class="summary-value" id="sum-archetype">Monarque Harmonique</span>
-          </div>
-          <div class="summary-row">
-            <span class="summary-label">OBJECTIF PRIORITAIRE :</span>
-            <span class="summary-value" id="sum-goal">Excellence Globale</span>
-          </div>
-          <div class="summary-row">
-            <span class="summary-label">ENTRAÎNEMENT PHYSIQUE :</span>
-            <span class="summary-value" id="sum-workout">100 Pompes, Abdos, Squats (10km)</span>
-          </div>
-          <div class="summary-row">
-            <span class="summary-label">ROUTINE CIRCADIENNE :</span>
-            <span class="summary-value" id="sum-routine">06:00 → 22:00 (NextDNS Actif)</span>
-          </div>
-          <div class="summary-row">
-            <span class="summary-label">DEEP WORK QUOTIDIEN :</span>
-            <span class="summary-value" id="sum-deepwork">3 Heures Bloquées</span>
-          </div>
-        </div>
-
-        <div style="background: rgba(147, 51, 234, 0.1); border: 1px solid rgba(192, 132, 252, 0.3); border-radius: 10px; padding: 16px; margin-bottom: 24px; font-size: 12px; color: #e9d5ff; line-height: 1.5; text-align: left;">
-          ⚔️ <strong>Avertissement du Système :</strong><br>
-          <em>« En confirmant ce calibrage, vous acceptez que le Système évalue vos accomplissements quotidiens sans complaisance. Tout échec entraînera l'application des pénalités NextDNS jusqu'à régularisation. »</em>
         </div>
       </section>
 
       <!-- Actions -->
       <div class="ob-actions">
-        <button type="button" class="btn-ob btn-ob-prev" id="btn-prev" onclick="goToStep(currentStep - 1)" style="visibility: hidden;">
+        <button type="button" class="btn-ob btn-ob-prev" id="btn-prev" onclick="goToStep(1)" style="visibility: hidden;">
           ← PRÉCÉDENT
         </button>
-        <button type="button" class="btn-ob btn-ob-next" id="btn-next" onclick="goToStep(currentStep + 1)">
+        <button type="button" class="btn-ob btn-ob-next" id="btn-next" onclick="goToStep(2)">
           SUIVANT →
         </button>
         <button type="button" class="btn-ob btn-ob-seal" id="btn-seal" onclick="finishOnboarding()" style="display: none;">
-          SCELLER MON PROTOCOLE ⚔️
+          SCELLER & ENTRER DANS LE SYSTÈME ⚔️
         </button>
       </div>
     </div>
@@ -2932,210 +2776,104 @@ function renderOnboardingPage() {
       name: 'Chasseur Éveillé',
       title: "L'Éveillé Novice (Rang E)",
       archetype: 'HARMONIC_MONARCH',
-      targetGoal: 'Excellence Globale & Réussite aux Concours',
+      targetGoal: 'Excellence Globale (Score Sh >= 18)',
       workoutLevel: 'STANDARD_100',
       wakeTime: '06:00',
       curfewTime: '22:00',
       deepWorkHours: 3
     };
 
-    let isUserAuth = false;
-    let isAlreadyOnboarded = false;
+    // Prepopulate name if available
     try {
       const urlP = new URLSearchParams(window.location.search);
-      if (urlP.get('auth') === 'success' && (urlP.get('email') || urlP.get('name'))) {
-        isUserAuth = true;
-        const pName = decodeURIComponent(urlP.get('name') || '');
-        const pEmail = decodeURIComponent(urlP.get('email') || '');
-        const pPic = decodeURIComponent(urlP.get('picture') || '');
-        const pSub = decodeURIComponent(urlP.get('sub') || '');
-        let savedState = {};
-        try {
-          const s = localStorage.getItem(STORAGE_KEY);
-          if (s) savedState = JSON.parse(s);
-        } catch(e) {}
-        if (!savedState.player) savedState.player = {};
-        if (pName) { savedState.player.name = pName; config.name = pName; }
-        if (pEmail) savedState.player.email = pEmail;
-        if (pPic) savedState.player.avatar = pPic;
-        if (pSub) { savedState.player.id = "usr-" + pSub.slice(-8); savedState.player.googleId = pSub; }
-        savedState.player.authProvider = 'google';
-        savedState.player.title = "Chasseur Éveillé (Rang E)";
-        if (urlP.get('onboarding') === 'ready' || savedState.player.onboardingCompleted || savedState.onboardingCompleted) {
-          isAlreadyOnboarded = true;
-        }
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
-      } else {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-          const state = JSON.parse(saved);
-          if (state.player && state.player.authProvider === 'google' && state.player.email) {
-            isUserAuth = true;
-            if (state.player.onboardingCompleted || state.onboardingCompleted) {
-              isAlreadyOnboarded = true;
-            }
-            if (state.player.name && state.player.name !== 'Chasseur Non Éveillé') config.name = state.player.name;
-            if (state.player.title) config.title = state.player.title;
-            if (state.player.curfewTime) config.curfewTime = state.player.curfewTime;
-            if (state.player.wakeTime) config.wakeTime = state.player.wakeTime;
-            if (state.player.archetype) config.archetype = state.player.archetype;
-            if (state.player.targetGoal) config.targetGoal = state.player.targetGoal;
-            if (state.player.workoutLevel) config.workoutLevel = state.player.workoutLevel;
-          }
+      const pName = urlP.get('name');
+      if (pName) config.name = decodeURIComponent(pName);
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const state = JSON.parse(saved);
+        if (state.player && state.player.name && state.player.name !== 'Chasseur Non Éveillé') {
+          config.name = state.player.name;
         }
       }
     } catch(e) {}
 
-    if (!isUserAuth) {
-      window.location.replace('/?access=blocked&reason=LOGIN_REQUIRED');
-      return;
-    }
-
-    // STRICT: Onboarding is a one-time ceremony for uncalibrated hunters only
-    if (isAlreadyOnboarded) {
-      window.location.replace('/dashboard');
-      return;
-    }
-
     const inputName = document.getElementById('input-hunter-name');
     if (inputName) inputName.value = config.name;
-    const inputGoal = document.getElementById('input-target-goal');
-    if (inputGoal) inputGoal.value = config.targetGoal;
 
+    // Archetype selection
     document.querySelectorAll('#archetype-options .option-card').forEach(card => {
       card.addEventListener('click', () => {
         document.querySelectorAll('#archetype-options .option-card').forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
         config.archetype = card.getAttribute('data-value');
-        playChime(659);
       });
     });
 
+    // Workout selection
     document.querySelectorAll('#workout-options .option-card').forEach(card => {
       card.addEventListener('click', () => {
         document.querySelectorAll('#workout-options .option-card').forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
         config.workoutLevel = card.getAttribute('data-value');
-        playChime(784);
       });
     });
 
-    document.querySelectorAll('#title-pills .pill-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('#title-pills .pill-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        config.title = btn.getAttribute('data-value');
-        playChime(587);
-      });
-    });
-
-    document.querySelectorAll('#wake-pills .pill-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('#wake-pills .pill-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        config.wakeTime = btn.getAttribute('data-time');
-        playChime(523);
-      });
-    });
-
+    // Curfew pills
     document.querySelectorAll('#curfew-pills .pill-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('#curfew-pills .pill-btn').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
         config.curfewTime = btn.getAttribute('data-time');
-        playChime(523);
       });
     });
 
+    // Deep work pills
     document.querySelectorAll('#deepwork-pills .pill-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('#deepwork-pills .pill-btn').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
-        config.deepWorkHours = parseInt(btn.getAttribute('data-hours'), 10);
-        playChime(659);
-      });
-    });
-
-    document.querySelectorAll('#goal-suggestions .pill-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const g = btn.getAttribute('data-goal');
-        if (inputGoal) inputGoal.value = g;
-        config.targetGoal = g;
-        playChime(784);
+        config.deepWorkHours = parseInt(btn.getAttribute('data-hours'), 10) || 3;
       });
     });
 
     function goToStep(step) {
-      if (step < 1 || step > 4) return;
-      playChime(523 + step * 80);
-
-      if (inputName && inputName.value.trim()) config.name = inputName.value.trim();
-      if (inputGoal && inputGoal.value.trim()) config.targetGoal = inputGoal.value.trim();
-
+      if (step < 1) step = 1;
+      if (step > 2) step = 2;
       currentStep = step;
 
-      const progressPercent = (currentStep / 4) * 100;
-      document.getElementById('ob-progress').style.width = progressPercent + '%';
-      document.getElementById('nav-step-num').textContent = currentStep;
+      const inputN = document.getElementById('input-hunter-name');
+      if (inputN && inputN.value.trim()) config.name = inputN.value.trim();
 
-      for (let i = 1; i <= 4; i++) {
-        const chip = document.getElementById('chip-' + i);
-        if (chip) {
-          if (i <= currentStep) chip.classList.add('active');
-          else chip.classList.remove('active');
-        }
-      }
+      document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
+      const activeSection = document.getElementById('step-' + step);
+      if (activeSection) activeSection.classList.add('active');
 
-      document.querySelectorAll('.step-section').forEach((sec, idx) => {
-        if (idx + 1 === currentStep) sec.classList.add('active');
-        else sec.classList.remove('active');
-      });
+      const progress = document.getElementById('ob-progress');
+      if (progress) progress.style.width = (step === 1 ? '50%' : '100%');
+
+      const chip1 = document.getElementById('chip-1');
+      const chip2 = document.getElementById('chip-2');
+      if (chip1) chip1.classList.toggle('active', step === 1);
+      if (chip2) chip2.classList.toggle('active', step === 2);
+
+      const navStep = document.getElementById('nav-step-num');
+      if (navStep) navStep.textContent = step;
 
       const btnPrev = document.getElementById('btn-prev');
       const btnNext = document.getElementById('btn-next');
       const btnSeal = document.getElementById('btn-seal');
 
-      btnPrev.style.visibility = (currentStep === 1) ? 'hidden' : 'visible';
-
-      if (currentStep === 4) {
-        btnNext.style.display = 'none';
-        btnSeal.style.display = 'block';
-        updateSummaryView();
-      } else {
-        btnNext.style.display = 'block';
-        btnSeal.style.display = 'none';
-      }
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function updateSummaryView() {
-      const archLabels = {
-        'HARMONIC_MONARCH': 'Monarque Harmonique (8 Bases Sh)',
-        'AI_ENG': "Nécromancien de l'IA (AI_ENG / ACAD)",
-        'CYBER_SHADOW': 'Infiltrateur Cybersécurité (CYBER / DIS)',
-        'BERZERKER_STR': 'Berserker Calisthénique (STR / DIS)'
-      };
-
-      const workoutLabels = {
-        'NOVICE_30': 'Initié (30 Pompes / Abdos / Squats • 3 km)',
-        'STANDARD_100': 'Sung Jin-Woo (100 Pompes / Abdos / Squats • 10 km)',
-        'MONARCH_150': 'Monarque Absolu (150 Pompes / Abdos / Squats • 15 km)'
-      };
-
-      document.getElementById('sum-name').textContent = config.name + " (" + config.title + ")";
-      document.getElementById('sum-archetype').textContent = archLabels[config.archetype] || config.archetype;
-      document.getElementById('sum-goal').textContent = config.targetGoal;
-      document.getElementById('sum-workout').textContent = workoutLabels[config.workoutLevel] || config.workoutLevel;
-      document.getElementById('sum-routine').textContent = config.wakeTime + " → " + config.curfewTime + " (NextDNS Actif)";
-      document.getElementById('sum-deepwork').textContent = config.deepWorkHours + " Heures de Deep Work Bloquées";
+      if (btnPrev) btnPrev.style.visibility = (step === 1 ? 'hidden' : 'visible');
+      if (btnNext) btnNext.style.display = (step === 2 ? 'none' : 'block');
+      if (btnSeal) btnSeal.style.display = (step === 2 ? 'block' : 'none');
     }
 
     async function finishOnboarding() {
-      playFanfare();
-      const btnSeal = document.getElementById('btn-seal');
-      btnSeal.disabled = true;
-      btnSeal.textContent = "SCELLEMENT EN COURS...";
+      const sealBtn = document.getElementById('btn-seal');
+      if (sealBtn) { sealBtn.textContent = 'SCELLEMENT EN COURS...'; sealBtn.disabled = true; }
+
+      const inputN = document.getElementById('input-hunter-name');
+      if (inputN && inputN.value.trim()) config.name = inputN.value.trim();
 
       try {
         let state = {};
@@ -3144,86 +2882,16 @@ function renderOnboardingPage() {
         if (!state.player) state.player = {};
 
         state.player.name = config.name;
-        state.player.title = config.title;
-        state.player.curfewTime = config.curfewTime;
-        state.player.wakeTime = config.wakeTime;
         state.player.archetype = config.archetype;
-        state.player.targetGoal = config.targetGoal;
         state.player.workoutLevel = config.workoutLevel;
+        state.player.curfewTime = config.curfewTime;
         state.player.deepWorkHours = config.deepWorkHours;
         state.player.onboardingCompleted = true;
+        state.player.isAuthenticated = true;
         state.onboardingCompleted = true;
 
-        if (Array.isArray(state.quests)) {
-          const fitQ = state.quests.find(q => q.id === 'q-fit-sungjinwoo');
-          if (fitQ) {
-            if (config.workoutLevel === 'NOVICE_30') {
-              fitQ.description = "30 Pompes militaires, 30 Abdos, 30 Squats et 3 km de course.";
-              fitQ.xp = 100;
-            } else if (config.workoutLevel === 'MONARCH_150') {
-              fitQ.description = "150 Pompes militaires strictes, 150 Abdos d'acier, 150 Squats explosifs et 15 km de course.";
-              fitQ.xp = 300;
-            } else {
-              fitQ.description = "100 Pompes militaires, 100 Abdos d'acier, 100 Squats explosifs et 10 km de course.";
-              fitQ.xp = 200;
-            }
-          }
-        }
-
-        // Dynamic Planner Blocks generation for client storage
-        try {
-          const pad = (n) => String(n).padStart(2, "0");
-          const addM = (h, m, mins) => {
-            let total = h * 60 + m + mins;
-            while (total < 0) total += 24 * 60;
-            total = total % (24 * 60);
-            return [Math.floor(total / 60), total % 60];
-          };
-          const fmt = (h, m) => pad(h) + ":" + pad(m);
-          const range = (h1, m1, mins) => {
-            const [h2, m2] = addM(h1, m1, mins);
-            return fmt(h1, m1) + " - " + fmt(h2, m2);
-          };
-          const [wH, wM] = (config.wakeTime || "06:00").split(":").map(Number);
-          const [cH, cM] = (config.curfewTime || "22:00").split(":").map(Number);
-          const dw = Math.min(Math.max(Number(config.deepWorkHours) || 3, 2), 6);
-          const archTitles = {
-            AI_ENG: "🧠 Deep Work IA : LLMs, Kernels Triton & vLLM",
-            CYBER_SHADOW: "🛡️ Deep Work Cyber : Pentesting, Exploit & OSCP",
-            BERZERKER_STR: "🏋️ Deep Work Biomécanique & Volume Athlétique",
-            HARMONIC_MONARCH: "👑 Deep Work Monarque : Architecture IA & Cybersécurité"
-          };
-          const deepTitle = archTitles[config.archetype] || "🧠 Deep Work Focalisé";
-          const archBase = config.archetype === "CYBER_SHADOW" ? "CYBER" : (config.archetype === "BERZERKER_STR" ? "STR" : "AI_ENG");
-          const [sH, sM] = addM(wH, wM, 30);
-          const [pH, pM] = addM(sH, sM, 60);
-          const [dwH, dwM] = addM(pH, pM, 60);
-          const [lH, lM] = addM(dwH, dwM, dw * 60);
-          const [vH, vM] = addM(lH, lM, 60);
-          const [c2H, c2M] = addM(vH, vM, 45);
-          const [dH, dM] = addM(c2H, c2M, 90);
-          const [aH, aM] = addM(cH, cM, -60);
-
-          state.plannerBlocks = [
-            { id: "b1", time: range(wH, wM, 30), title: "🌅 Réveil, Hydratation & Protocole Éveil", base: "DIS", status: "ACTIVE", type: "RITUEL" },
-            { id: "b2", time: range(sH, sM, 60), title: "💪 Séance Calisthénie Sung Jin-Woo (STR)", base: "STR", status: "UPCOMING", type: "SPORT" },
-            { id: "b3", time: range(pH, pM, 60), title: "🚿 Nutrition & Restauration MP", base: "DIS", status: "UPCOMING", type: "RITUEL" },
-            { id: "b4", time: range(dwH, dwM, dw * 60), title: deepTitle, base: archBase, status: "UPCOMING", type: "DEEP_WORK" },
-            { id: "b5", time: range(lH, lM, 60), title: "🚶 Déjeuner & Marche Cognitive", base: "EXP", status: "UPCOMING", type: "REST" },
-            { id: "b6", time: range(vH, vM, 45), title: "🎙️ Restitution Vocale & Clarté Conceptuelle", base: "ACAD", status: "UPCOMING", type: "VOCAL" },
-            { id: "b7", time: range(c2H, c2M, 90), title: "🇬🇧 Listening & Active Recall Cambridge C1", base: "LNG", status: "UPCOMING", type: "STUDY" },
-            { id: "b8", time: range(dH, dM, 90), title: "⚡ Développement Système & Projets Solos", base: archBase, status: "UPCOMING", type: "DEV" },
-            { id: "b9", time: range(aH, aM, 60), title: "🌙 Bilan du Soir, Journaling & Revue Score Sh", base: "DIS", status: "UPCOMING", type: "AUDIT" },
-            { id: "b10", time: fmt(cH, cM) + " - 05:00", title: "🔒 Couvre-Feu NextDNS & Sommeil Profond", base: "DIS", status: "UPCOMING", type: "SLEEP" }
-          ];
-        } catch(e) {
-          console.warn("Planner blocks dynamic build warning:", e);
-        }
-
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      } catch(e) {
-        console.warn("Storage update warning:", e);
-      }
+      } catch(e) {}
 
       try {
         await fetch('/api/v1/onboarding', {
@@ -3231,54 +2899,11 @@ function renderOnboardingPage() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(config)
         });
-      } catch(e) {
-        console.warn("Backend sync notice:", e);
-      }
+      } catch(e) {}
 
       setTimeout(() => {
         window.location.href = '/dashboard?onboarding=complete';
-      }, 700);
-    }
-
-    function playChime(freq = 523.25) {
-      try {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (!AudioCtx) return;
-        const ctx = new AudioCtx();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(freq * 1.5, ctx.currentTime + 0.12);
-        gain.gain.setValueAtTime(0.2, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.28);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.28);
-      } catch(e) {}
-    }
-
-    function playFanfare() {
-      try {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (!AudioCtx) return;
-        const ctx = new AudioCtx();
-        const notes = [523.25, 659.25, 783.99, 1046.50];
-        notes.forEach((freq, idx) => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          const startTime = ctx.currentTime + idx * 0.12;
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, startTime);
-          gain.gain.setValueAtTime(0.25, startTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.4);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(startTime);
-          osc.stop(startTime + 0.4);
-        });
-      } catch(e) {}
+      }, 500);
     }
   </script>
 </body>
@@ -8362,18 +7987,31 @@ function renderFullApplication(initialTab = "dashboard") {
       }
     } catch(e) {}
 
-    // STRICT ACCESS GATES (Wrapped in IIFE to prevent illegal return statements)
+    // ACCESS GATES (Wrapped in IIFE to prevent illegal return statements)
     (function checkAccessGates() {
-      // STRICT GATE 1: User MUST be authenticated with Google (No account = blocked)
-      const isGoogleAuth = Boolean(state.player && state.player.authProvider === 'google' && state.player.email);
-      if (!isGoogleAuth) {
+      // Gate 1: Check authentication (Google, Hunter account, or authenticated player)
+      const isAuthenticated = Boolean(
+        state.player && (
+          state.player.authProvider === 'google' ||
+          state.player.authProvider === 'hunter' ||
+          state.player.isAuthenticated ||
+          (state.player.email && state.player.email.length > 3) ||
+          (state.player.name && state.player.name !== 'Chasseur Non Éveillé' && state.player.id !== 'usr-guest-unawakened')
+        )
+      );
+
+      // Check cookie presence as fallback
+      const hasCookieAuth = typeof document !== 'undefined' && document.cookie && document.cookie.includes('levelup_hunter_auth=');
+
+      if (!isAuthenticated && !hasCookieAuth) {
         window.location.replace('/?access=blocked&reason=ACCOUNT_REQUIRED');
         return;
       }
 
-      // STRICT GATE 2: All new accounts MUST complete onboarding before entering HUD
+      // Gate 2: All new accounts complete onboarding before entering HUD
       const isOnboarded = Boolean(state.player && (state.player.onboardingCompleted || state.onboardingCompleted));
-      if (!isOnboarded) {
+      const urlP = new URLSearchParams(window.location.search);
+      if (!isOnboarded && !urlP.get('onboarding') && !urlP.get('skip_ob')) {
         window.location.replace('/onboarding?required=true');
         return;
       }
@@ -13120,7 +12758,18 @@ const server = http.createServer(async (req, res) => {
         SYSTEM_STATE.player.googleId = payload.sub;
         SYSTEM_STATE.player.title = "Chasseur Éveillé (Rang E)";
 
-        res.writeHead(200, { "Content-Type": "application/json" });
+        const cookiePayload = encodeURIComponent(JSON.stringify({
+          id: hunterId,
+          name: hunterName,
+          email: payload.email,
+          authProvider: "google",
+          onboardingCompleted: Boolean(SYSTEM_STATE.player.onboardingCompleted)
+        }));
+
+        res.writeHead(200, {
+          "Content-Type": "application/json",
+          "Set-Cookie": `levelup_hunter_auth=${cookiePayload}; Path=/; Max-Age=2592000; SameSite=Lax`
+        });
         res.end(
           JSON.stringify({
             success: true,
@@ -13149,6 +12798,151 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Direct Hunter Login Endpoint
+  if (pathname === "/api/v1/auth/hunter/login" && req.method === "POST") {
+    let body = "";
+    req.on("data", (chunk) => { body += chunk; });
+    req.on("end", () => {
+      try {
+        const parsed = JSON.parse(body || "{}");
+        const ident = (parsed.identifier || parsed.email || parsed.name || "Chasseur").trim();
+        const hunterName = parsed.name || (ident.includes("@") ? ident.split("@")[0] : ident) || "Chasseur Éveillé";
+        const hunterEmail = parsed.email || (ident.includes("@") ? ident : `${hunterName.toLowerCase().replace(/[^a-z0-9]/g, "")}@hunter.levelup`);
+        const hunterId = "usr-" + Date.now().toString(36);
+
+        SYSTEM_STATE.player.id = hunterId;
+        SYSTEM_STATE.player.name = hunterName;
+        SYSTEM_STATE.player.email = hunterEmail;
+        SYSTEM_STATE.player.authProvider = "hunter";
+        SYSTEM_STATE.player.title = "Chasseur Éveillé (Rang E)";
+
+        const isOnboarded = Boolean(SYSTEM_STATE.player.onboardingCompleted);
+        const cookiePayload = encodeURIComponent(JSON.stringify({
+          id: hunterId,
+          name: hunterName,
+          email: hunterEmail,
+          authProvider: "hunter",
+          onboardingCompleted: isOnboarded
+        }));
+
+        res.writeHead(200, {
+          "Content-Type": "application/json",
+          "Set-Cookie": `levelup_hunter_auth=${cookiePayload}; Path=/; Max-Age=2592000; SameSite=Lax`
+        });
+        res.end(JSON.stringify({
+          success: true,
+          user: {
+            id: hunterId,
+            name: hunterName,
+            email: hunterEmail,
+            authProvider: "hunter",
+            onboardingCompleted: isOnboarded
+          }
+        }));
+      } catch (err) {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // Direct Hunter Signup Endpoint
+  if (pathname === "/api/v1/auth/hunter/signup" && req.method === "POST") {
+    let body = "";
+    req.on("data", (chunk) => { body += chunk; });
+    req.on("end", () => {
+      try {
+        const parsed = JSON.parse(body || "{}");
+        const hunterName = (parsed.name || "Nouveau Chasseur").trim();
+        const hunterEmail = (parsed.email || `${hunterName.toLowerCase().replace(/[^a-z0-9]/g, "")}@hunter.levelup`).trim();
+        const hunterId = "usr-" + Date.now().toString(36);
+
+        SYSTEM_STATE.player.id = hunterId;
+        SYSTEM_STATE.player.name = hunterName;
+        SYSTEM_STATE.player.email = hunterEmail;
+        SYSTEM_STATE.player.authProvider = "hunter";
+        SYSTEM_STATE.player.title = "Initié Éveillé (Rang E)";
+        SYSTEM_STATE.player.onboardingCompleted = false;
+
+        const cookiePayload = encodeURIComponent(JSON.stringify({
+          id: hunterId,
+          name: hunterName,
+          email: hunterEmail,
+          authProvider: "hunter",
+          onboardingCompleted: false
+        }));
+
+        res.writeHead(200, {
+          "Content-Type": "application/json",
+          "Set-Cookie": `levelup_hunter_auth=${cookiePayload}; Path=/; Max-Age=2592000; SameSite=Lax`
+        });
+        res.end(JSON.stringify({
+          success: true,
+          user: {
+            id: hunterId,
+            name: hunterName,
+            email: hunterEmail,
+            authProvider: "hunter",
+            onboardingCompleted: false
+          }
+        }));
+      } catch (err) {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // 1-Click Quick Sovereign Awakening Endpoint
+  if (pathname === "/api/v1/auth/hunter/quick" && req.method === "POST") {
+    let body = "";
+    req.on("data", (chunk) => { body += chunk; });
+    req.on("end", () => {
+      try {
+        const parsed = JSON.parse(body || "{}");
+        const hunterName = (parsed.name || "Monarque Éveillé").trim();
+        const hunterId = "usr-" + Date.now().toString(36);
+        const hunterEmail = `${hunterName.toLowerCase().replace(/[^a-z0-9]/g, "")}@monarch.system`;
+
+        SYSTEM_STATE.player.id = hunterId;
+        SYSTEM_STATE.player.name = hunterName;
+        SYSTEM_STATE.player.email = hunterEmail;
+        SYSTEM_STATE.player.authProvider = "hunter";
+        SYSTEM_STATE.player.title = "Chasseur Éveillé (Rang E)";
+        SYSTEM_STATE.player.onboardingCompleted = false;
+
+        const cookiePayload = encodeURIComponent(JSON.stringify({
+          id: hunterId,
+          name: hunterName,
+          email: hunterEmail,
+          authProvider: "hunter",
+          onboardingCompleted: false
+        }));
+
+        res.writeHead(200, {
+          "Content-Type": "application/json",
+          "Set-Cookie": `levelup_hunter_auth=${cookiePayload}; Path=/; Max-Age=2592000; SameSite=Lax`
+        });
+        res.end(JSON.stringify({
+          success: true,
+          user: {
+            id: hunterId,
+            name: hunterName,
+            email: hunterEmail,
+            authProvider: "hunter",
+            onboardingCompleted: false
+          }
+        }));
+      } catch (err) {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
   // Logout Endpoint
   if (pathname === "/api/v1/auth/logout" && req.method === "POST") {
     SYSTEM_STATE.player.id = "usr-guest-unawakened";
@@ -13158,8 +12952,13 @@ const server = http.createServer(async (req, res) => {
     SYSTEM_STATE.player.avatar = null;
     SYSTEM_STATE.player.authProvider = null;
     SYSTEM_STATE.player.googleId = null;
+    SYSTEM_STATE.player.onboardingCompleted = false;
+    SYSTEM_STATE.onboardingCompleted = false;
 
-    res.writeHead(200, { "Content-Type": "application/json" });
+    res.writeHead(200, {
+      "Content-Type": "application/json",
+      "Set-Cookie": "levelup_hunter_auth=; Path=/; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+    });
     res.end(JSON.stringify({ success: true, message: "Déconnexion réussie." }));
     return;
   }
@@ -13256,7 +13055,18 @@ const server = http.createServer(async (req, res) => {
           SYSTEM_STATE.player.deepWorkHours
         );
 
-        res.writeHead(200, { "Content-Type": "application/json" });
+        const cookiePayload = encodeURIComponent(JSON.stringify({
+          id: SYSTEM_STATE.player.id,
+          name: SYSTEM_STATE.player.name,
+          email: SYSTEM_STATE.player.email,
+          authProvider: SYSTEM_STATE.player.authProvider || "hunter",
+          onboardingCompleted: true
+        }));
+
+        res.writeHead(200, {
+          "Content-Type": "application/json",
+          "Set-Cookie": `levelup_hunter_auth=${cookiePayload}; Path=/; Max-Age=2592000; SameSite=Lax`
+        });
         res.end(
           JSON.stringify({
             success: true,
